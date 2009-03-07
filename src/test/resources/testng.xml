@@ -1,0 +1,25 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="WickextComponents" verbose="1">
+	<test name="Regression">
+		<classes>
+			<class name="org.objetdirect.wickext.ui.dialog.WindowTestCase">
+				<methods>
+					<include name="testWickextPlugin" />
+				</methods>
+			</class>
+
+			<class name="org.objetdirect.wickext.ui.datepicker.DatePickerTestCase">
+				<methods>
+					<include name="testWickextPlugin" />
+				</methods>
+			</class>
+
+			<class name="org.objetdirect.wickext.ui.accordion.AccordionTestCase">
+				<methods>
+					<include name="testWickextPlugin" />
+				</methods>
+			</class>			
+		</classes>
+	</test>
+</suite>
