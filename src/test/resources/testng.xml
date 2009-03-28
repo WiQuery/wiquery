@@ -1,7 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="WickextComponents" verbose="1">
-	<test name="Regression">
+	<test name="Core">
+		<classes>
+			<class name="org.odlabs.wiquery.core.JSQueryTestCase">
+				<methods>
+					<include name="testJSQuerySyntax" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<!-- test name="Regression">
 		<classes>
 			<class name="org.objetdirect.wickext.ui.dialog.WindowTestCase">
 				<methods>
@@ -21,5 +30,5 @@
 				</methods>
 			</class>			
 		</classes>
-	</test>
+	</test-->
 </suite>
