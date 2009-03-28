@@ -96,5 +96,5 @@ public class WiQueryResourceManager implements Serializable
 	{
 		this.cssResources.add(new ResourceReference(scope, path));
 	}
-
+	
 }

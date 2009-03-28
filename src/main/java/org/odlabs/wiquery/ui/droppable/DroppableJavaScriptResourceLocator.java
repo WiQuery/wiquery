@@ -19,45 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.core.commons;
+package org.odlabs.wiquery.ui.droppable;
 
-import java.io.Serializable;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.application.IComponentInstantiationListener;
-import org.apache.wicket.behavior.HeaderContributor;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
  * <p>
- * Listens to WickeXt components instantiation and automatically imports needed
- * JavaScript libraries and themes.
+ * 	References the resource to apply draggable behavior on HTML components.
  * </p>
  * 
+ * TODO RENAME
  * @author Lionel Armanet
- * @since 0.6
+ * @since 0.5
  */
-public class WiQueryInstantiationListener implements IComponentInstantiationListener, Serializable 
-{
+public class DroppableJavaScriptResourceLocator extends JavascriptResourceReference {
 
-	private static final long serialVersionUID = -7398777039788778234L;
+	private static final long serialVersionUID = 3704373328245392715L;
 
 	/**
-	 * Defines the global header contributor user to append all generated JS
+	 * Builds a new instance of {@link DroppableJavaScriptResourceLocator}.
 	 */
-	private WiQueryCoreHeaderContributor wickeryCoreHeaderContributor = null;
-	
-	public void onInstantiation(final Component component) 
-	{
-		if (component instanceof IWiQueryPlugin)
-		{
-			if (wickeryCoreHeaderContributor == null) {
-				wickeryCoreHeaderContributor = new WiQueryCoreHeaderContributor();
-			}
-			// binding component as a plugin
-			wickeryCoreHeaderContributor.addPlugin((IWiQueryPlugin) component);
-			component.add(new HeaderContributor(wickeryCoreHeaderContributor));
-		}
+	public DroppableJavaScriptResourceLocator() {
+		super(DroppableJavaScriptResourceLocator.class, "ui.droppable.js");
 	}
 
 }
