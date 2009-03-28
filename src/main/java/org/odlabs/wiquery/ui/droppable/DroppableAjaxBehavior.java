@@ -4,7 +4,7 @@ import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 
-public abstract class DropableAjaxBehavior extends AbstractDefaultAjaxBehavior {
+public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 
 	private static final long serialVersionUID = 1L;
 
