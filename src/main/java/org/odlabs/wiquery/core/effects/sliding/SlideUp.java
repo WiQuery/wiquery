@@ -46,7 +46,7 @@ public class SlideUp extends Effect {
 	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#chainLabel()
 	 */
 	public String chainLabel() {
-		return "slideUp()";
+		return "slideUp";
 	}
 	
 }
