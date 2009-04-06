@@ -34,7 +34,7 @@ import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
  * @author Lionel Armanet
  * @since 0.5
  */
-public abstract class WickextWebApplication extends WebApplication {
+public abstract class WiQueryWebApplication extends WebApplication {
 
 	private WiQueryInstantiationListener wickextPluginInstantiationListener;
 	
