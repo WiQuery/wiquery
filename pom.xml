@@ -9,9 +9,12 @@
 
 	<name>WiQuery project</name>
 
-	<build>
-		<plugins>
+	<scm>
+		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-alpha/</developerConnection>
+	</scm>
 			
+	<build>
+		<plugins>		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -28,12 +31,12 @@
 				</configuration>
 			</plugin>
 			<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-				<source>1.5</source>
-				<target>1.5</target>
-			</configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
 			</plugin>
 			<plugin>
 			  	<groupId>org.apache.maven.plugins</groupId>
@@ -58,7 +61,31 @@
 			      	</goals>
 			    	</execution>
 			  </executions>
-			</plugin>		
+			</plugin>
+			<plugin>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <artifactId>buildnumber-maven-plugin</artifactId>
+			  <executions>
+			    <execution>
+			      <phase>validate</phase>
+			      <goals>
+			        <goal>create</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			  <configuration>
+				<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-alpha</scmConnection>
+			    <doCheck>false</doCheck>
+			    <doUpdate>false</doUpdate>
+			  </configuration>
+			</plugin>			
+			<plugin>
+			      <groupId>org.apache.maven.plugins</groupId>
+			      <artifactId>maven-jar-plugin</artifactId>
+			      <configuration>
+			        <finalName>${project.artifactId}-${project.version}-r${buildNumber}-d${timestamp}</finalName>
+			      </configuration>
+			</plugin>					
 		</plugins>
 	</build>
 	
