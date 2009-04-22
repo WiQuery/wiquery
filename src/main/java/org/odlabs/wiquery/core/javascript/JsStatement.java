@@ -195,9 +195,11 @@ public class JsStatement implements Serializable {
 	 * @return the renderable JavaScript statement as a {@link CharSequence}.
 	 */
 	public CharSequence render() {
-		char last = statement.charAt(statement.length()-1);
-		if (last != '}' && last != ';') {
-			statement.append(";");
+		if (statement.length() > 0) {
+			char last = statement.charAt(statement.length()-1);
+			if (last != '}' && last != ';') {
+				statement.append(";");
+			}
 		}
 		return this.statement.toString();
 	}
