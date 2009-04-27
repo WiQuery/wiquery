@@ -31,7 +31,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	}
 	
 	public void setOnDrop(JsScope onDrop) {
-		this.options.put("drop", onDrop.render().toString());
+		this.options.put("drop", onDrop);
 	}
 
 }

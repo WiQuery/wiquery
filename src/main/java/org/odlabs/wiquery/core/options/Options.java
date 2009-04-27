@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.wicket.Component;
+import org.odlabs.wiquery.core.javascript.JsScope;
 
 /**
  * $Id$
@@ -144,6 +145,18 @@ public class Options implements Serializable{
 	
 	/**
 	 * <p>
+	 * 	Puts a {@link JsScope} value for the given option name.
+	 * </p>
+	 * @param key the option name.
+	 * @param value the {@link JsScope} value.
+	 */
+	public Options put(String key, JsScope value) {
+		options.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * <p>
 	 * 	Puts a {@link String} value as a JavaScript literal for the given name.
 	 * 	<p>
 	 * 		Note that the JavaScript resulting from this options will be
@@ -205,9 +218,14 @@ public class Options implements Serializable{
 		int count = 0;
 		for (Entry<String, Object> entry : options.entrySet()) {
 			String key = entry.getKey();
+			Object value = entry.getValue();
 			sb.append(key);
 			sb.append(":");
-			sb.append(entry.getValue());
+			if (value instanceof JsScope) {
+				sb.append(((JsScope) value).render());
+			} else {
+				sb.append(value);
+			}
 			if (count < options.size() - 1) {
 				sb.append(",\n");
 			}
