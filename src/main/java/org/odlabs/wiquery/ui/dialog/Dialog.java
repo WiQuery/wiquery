@@ -88,40 +88,6 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		this.setPosition(WindowPosition.CENTER);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.objetdirect.wickext.core.commons
-	 *      .WickextPlugin#getHeaderContribution()
-	 */
-	public IHeaderContributor getHeaderContribution() {
-		// imports this component's needed resources
-		return new IHeaderContributor() {
-
-			private static final long serialVersionUID = -6585283714994481625L;
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
-			 */
-			public void renderHead(IHeaderResponse response) {
-				// importing CSS theme and JavaScript needed resource to make
-				// this component working properly
-				response
-						.renderJavascriptReference(new JavascriptResourceReference(
-								Dialog.class, "ui.dialog.js"));
-				// adding dependencies on draggble and resizable resources
-				// in order to make the window draggable and resizable
-				response
-						.renderJavascriptReference(new DraggableJavaScriptResourceLocator());
-				response
-						.renderJavascriptReference(new ResizableJavaScriptResourceReference());
-			}
-
-		};
-	}
-
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) 
 	{
 		wiQueryResourceManager.addJavaScriptResource(
