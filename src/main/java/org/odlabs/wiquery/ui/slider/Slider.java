@@ -7,7 +7,6 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
-import org.odlabs.wiquery.ui.dialog.Dialog;
 
 @WiQueryUIPlugin
 public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
@@ -25,7 +24,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 
 	public JsStatement statement() {
-		return new JsQuery(this).$().chain("dialog", options.getJavaScriptOptions());
+		return new JsQuery(this).$().chain("slider", options.getJavaScriptOptions());
 	}
 
 }

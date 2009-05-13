@@ -32,21 +32,23 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 /**
  * $Id$
  * <p>
- * 	Wraps a set of options possibly defined for a WickeXt {@link Component}.
+ * 	Wraps a set of options possibly defined for a WiQuery {@link Component}.
  * </p>
  * @author Lionel Armanet
  * @since 0.5
  */
-public class Options implements Serializable{
+public class Options implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-		
+	
 	/**
 	 * The internal structure is a map associating each option label with
 	 * each option value.
 	 */
-	private Map<String, Object> options = new HashMap<String, Object>();
+	protected Map<String, Object> options = new HashMap<String, Object>();
 
+	private IOptionsRenderer optionsRenderer;
+	
 	/**
 	 * <p>
 	 * 	Build a new empty {@link Options} instance.
@@ -54,6 +56,7 @@ public class Options implements Serializable{
 	 */
 	public Options() {
 		super();
+		this.optionsRenderer = DefaultOptionsRenderer.get();
 	}
 
 	/**
@@ -214,24 +217,22 @@ public class Options implements Serializable{
 	 * Returns the JavaScript statement corresponding to options.
 	 */
 	public CharSequence getJavaScriptOptions() {
-		StringBuilder sb = new StringBuilder("{");
+		StringBuilder sb = new StringBuilder();
+		this.optionsRenderer.renderBefore(sb);
 		int count = 0;
 		for (Entry<String, Object> entry : options.entrySet()) {
 			String key = entry.getKey();
 			Object value = entry.getValue();
-			sb.append(key);
-			sb.append(":");
+			boolean isLast = !(count < options.size() - 1);
 			if (value instanceof JsScope) {
-				sb.append(((JsScope) value).render());
+				sb.append(this.optionsRenderer.renderOption(key, ((JsScope) value).render(), isLast));
 			} else {
-				sb.append(value);
-			}
-			if (count < options.size() - 1) {
-				sb.append(",\n");
+				sb.append(this.optionsRenderer.renderOption(key, value, isLast));
 			}
 			count++;
 		}
-		return sb.append("}");
+		this.optionsRenderer.renderAfter(sb);
+		return sb;
 	}
 
 	/**
@@ -243,6 +244,9 @@ public class Options implements Serializable{
 	public boolean containsKey(Object key) {
 		return options.containsKey(key);
 	}
-
 	
+	public void setRenderer(IOptionsRenderer optionsRenderer) {
+		this.optionsRenderer = optionsRenderer;
+	}
+
 }
