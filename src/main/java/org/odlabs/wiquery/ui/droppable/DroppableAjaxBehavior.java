@@ -15,7 +15,7 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	@Override
 	protected void onBind() {
 		getComponent().add(droppableBehavior);
-		droppableBehavior.setOnDrop(new JsScope() {
+		droppableBehavior.setOnDrop(new JsScope("event", "ui") {
 		
 			@Override
 			protected void execute(JsScopeContext scopeContext) {

@@ -21,6 +21,7 @@
  */
 package org.odlabs.wiquery.utils;
 
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
 
@@ -50,6 +51,10 @@ public abstract class WiQueryWebApplication extends WebApplication {
 		wickextPluginInstantiationListener = new WiQueryInstantiationListener();
 		addComponentInstantiationListener(wickextPluginInstantiationListener);
 		super.init();
+	}
+	
+	public void setTheme(ResourceReference themeResourceReference) {
+		this.wickextPluginInstantiationListener.setTheme(themeResourceReference);
 	}
 	
 //	public void setThemeResource(ResourceReference themeResource) {

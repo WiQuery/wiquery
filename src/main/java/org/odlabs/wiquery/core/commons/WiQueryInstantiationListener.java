@@ -24,8 +24,10 @@ package org.odlabs.wiquery.core.commons;
 import java.io.Serializable;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.behavior.HeaderContributor;
+import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
 /**
  * $Id$
@@ -47,17 +49,24 @@ public class WiQueryInstantiationListener implements IComponentInstantiationList
 	 */
 	private WiQueryCoreHeaderContributor wickeryCoreHeaderContributor = null;
 	
+	private ResourceReference themeResourceReference = new WiQueryCoreThemeResourceReference("fusion");
+	
 	public void onInstantiation(final Component component) 
 	{
 		if (component instanceof IWiQueryPlugin)
 		{
 			if (wickeryCoreHeaderContributor == null) {
 				wickeryCoreHeaderContributor = new WiQueryCoreHeaderContributor();
+				wickeryCoreHeaderContributor.setTheme(this.themeResourceReference);
 			}
 			// binding component as a plugin
 			wickeryCoreHeaderContributor.addPlugin((IWiQueryPlugin) component);
 			component.add(new HeaderContributor(wickeryCoreHeaderContributor));
 		}
+	}
+	
+	public void setTheme(ResourceReference themeResourceReference) {
+		this.themeResourceReference = themeResourceReference;
 	}
 
 }
