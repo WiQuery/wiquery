@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,9 +26,10 @@ import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 
 /**
- * $Id$
+ * $Id: CoreJavaScriptHeaderContributor.java 81 2009-05-28 20:05:12Z
+ * lionel.armanet $
  * <p>
- * Imports the JQuery Core {@link ResourceReference} needed to use WickeXt
+ * Imports the JQuery Core {@link ResourceReference} needed to use WiQuery
  * components.
  * </p>
  * 
@@ -48,7 +49,8 @@ public class CoreJavaScriptHeaderContributor implements IHeaderContributor {
 	 */
 	public void renderHead(IHeaderResponse response) {
 		// just simply renders the reference
-		response.renderJavascriptReference(CoreJavaScriptResourceReference.get());
+		response.renderJavascriptReference(CoreJavaScriptResourceReference
+				.get());
 	}
 
 }

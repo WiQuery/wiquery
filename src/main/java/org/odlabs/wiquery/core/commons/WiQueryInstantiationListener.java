@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,12 @@ import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 /**
  * $Id$
  * <p>
- * Listens to WickeXt components instantiation and automatically imports needed
- * JavaScript libraries and themes.
+ * 	Listens to WiQuery components instantiation and automatically binds a
+ * 	{@link WiQueryCoreHeaderContributor} to these components.
+ * </p>
+ * <p>
+ * 	The added header contributor will generated the needed JavaScript code
+ *  and will import all needed resources (e.g. CSS/JavaScript files).
  * </p>
  * 
  * @author Lionel Armanet
@@ -49,8 +53,14 @@ public class WiQueryInstantiationListener implements IComponentInstantiationList
 	 */
 	private WiQueryCoreHeaderContributor wickeryCoreHeaderContributor = null;
 	
+	/**
+	 * The current theme.
+	 */
 	private ResourceReference themeResourceReference = new WiQueryCoreThemeResourceReference("fusion");
 	
+	/* (non-Javadoc)
+	 * @see org.apache.wicket.application.IComponentInstantiationListener#onInstantiation(org.apache.wicket.Component)
+	 */
 	public void onInstantiation(final Component component) 
 	{
 		if (component instanceof IWiQueryPlugin)
@@ -65,6 +75,11 @@ public class WiQueryInstantiationListener implements IComponentInstantiationList
 		}
 	}
 	
+	/**
+	 * Sets the theme to use.
+	 * @param themeResourceReference
+	 * 			The theme as a {@link ResourceReference}
+	 */
 	public void setTheme(ResourceReference themeResourceReference) {
 		this.themeResourceReference = themeResourceReference;
 	}

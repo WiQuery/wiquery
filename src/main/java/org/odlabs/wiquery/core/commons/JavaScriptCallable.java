@@ -24,17 +24,19 @@ package org.odlabs.wiquery.core.commons;
 /**
  * $Id$
  * <p>
- * 	Defines a JavaScript callable statement (e.g. a function statement).
+ * Defines a JavaScript callable statement (e.g. a statement chainable with
+ * others).
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */
 public interface JavaScriptCallable {
 
 	/**
-	 * @return a {@link CharSequence} containing the JavaScript statement 
-	 * to call
+	 * @return a {@link CharSequence} containing the JavaScript statement to
+	 *         call
 	 */
 	public CharSequence statement();
-	
+
 }

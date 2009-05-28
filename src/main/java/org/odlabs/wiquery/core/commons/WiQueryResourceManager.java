@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Benoit Bouchez, Nicolas Giard
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,75 +26,88 @@ import java.util.ArrayList;
 
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.PackageResource;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
- * TODO COMMENT
- * @author Benoit Bouchez, Lionel Armanet
+ * $Id$
+ * <p>
+ * Manages {@link ResourceReference} declared by components.
+ * </p>
+ * 
+ * @author Benoit Bouchez
+ * @author Lionel Armanet
  */
-public class WiQueryResourceManager implements Serializable
-{
-	
+public class WiQueryResourceManager implements Serializable {
+
 	private static final long serialVersionUID = 6492292431833226643L;
 
-	/** 
-	 * List of javascript resources to use 
+	/**
+	 * List of javascript resources to use
 	 */
 	private ArrayList<ResourceReference> javascriptResources;
-	
-	/** 
-	 * List of css resources to use 
+
+	/**
+	 * List of css resources to use
 	 */
 	private ArrayList<ResourceReference> cssResources;
-	
-	/** 
-	 * List of plugin dependencies 
+
+	/**
+	 * List of plugin dependencies
 	 */
 	// TODO DEPENDENCIES MANAGEMENT ?
-	private ArrayList<WiQueryResourceManager> dependencies;
-
-	public WiQueryResourceManager()
-	{
+	// private ArrayList<WiQueryResourceManager> dependencies;
+	/**
+	 * Constructor.
+	 */
+	public WiQueryResourceManager() {
 		super();
 		this.javascriptResources = new ArrayList<ResourceReference>();
 		this.cssResources = new ArrayList<ResourceReference>();
-		this.dependencies = new ArrayList<WiQueryResourceManager>();
+		// this.dependencies = new ArrayList<WiQueryResourceManager>();
 	}
 
-	public void initialize(IHeaderResponse response)
-	{
+	public void initialize(IHeaderResponse response) {
 		// Register dependencies first
 		// TODO DEPENDECY MANAGEMENT
-		//		for (int i = 0; i < this.dependencies.size(); i++)
-//		{
-//			dependencies.get(i).initialize(response);
-//		}
+		// for (int i = 0; i < this.dependencies.size(); i++)
+		// {
+		// dependencies.get(i).initialize(response);
+		// }
 		// Register all javascript
-		for (int i = 0; i < this.javascriptResources.size(); i++)
-		{
+		for (int i = 0; i < this.javascriptResources.size(); i++) {
 			response.renderJavascriptReference(this.javascriptResources.get(i));
 		}
 		// Register all css resources
-		for (int i = 0; i < this.cssResources.size(); i++)
-		{
+		for (int i = 0; i < this.cssResources.size(); i++) {
 			response.renderCSSReference(this.cssResources.get(i));
 		}
 	}
 
-	public void addJavaScriptResource(JavascriptResourceReference reference)
-	{
+	/**
+	 * Adds the given {@link JavascriptResourceReference} as a JavaScript file
+	 * to import for the underlying component.
+	 */
+	public void addJavaScriptResource(JavascriptResourceReference reference) {
 		this.javascriptResources.add(reference);
 	}
 
-	public void addJavaScriptResource(Class<?> scope, String path)
-	{
+	/**
+	 * Adds the given file as a JavaScript file to import for the underlying
+	 * component.
+	 * 
+	 * @see ResourceReference
+	 */
+	public void addJavaScriptResource(Class<?> scope, String path) {
 		this.javascriptResources.add(new ResourceReference(scope, path));
 	}
 
-	public void addCssResource(Class<?> scope, String path)
-	{
+	/**
+	 * Adds the given file as a CSS file to import for the underlying component.
+	 * 
+	 * @see ResourceReference
+	 */
+	public void addCssResource(Class<?> scope, String path) {
 		this.cssResources.add(new ResourceReference(scope, path));
 	}
-	
+
 }

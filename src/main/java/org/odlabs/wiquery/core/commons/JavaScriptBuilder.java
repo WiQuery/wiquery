@@ -31,33 +31,11 @@ import org.apache.wicket.markup.html.IHeaderResponse;
 /**
  * $Id$
  * <p>
- * 	Builds jQuery oriented JavaScript source code and renders it.
- * </p>
- * <p>
- * 	this.$(".class1").call(new ForEach() {
- * 
- * 		public void each() {
- * 			element().call(new WickextEventBehavior(Event.CLICK) {
- * 				
- * 				public CharSequence callbackStatement() {
- * 					
- * 					return element().call(toggle()).statement();
- * 
- * 				}
- * 
- * 			});
- *      }
- * 
- *  });
- *  
- *  $(".class1").each(function(i) {
- *  	i.click(function() {
- *  		i.toggle();
- *  	});
- *  });
+ * 	This class must not be used anymore.
  * </p>
  * @author Lionel Armanet
  * @since 0.5
+ * @deprecated
  */
 public class JavaScriptBuilder implements Serializable {
 	

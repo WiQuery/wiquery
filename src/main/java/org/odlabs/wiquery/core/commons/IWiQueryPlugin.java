@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,18 +26,13 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 /**
  * $Id$
  * <p>
- * WickeXt plugins are components generating JavaScript jQuery code. WickeXt
- * hosts the component, outputs the JavaScript needed to function and imports
- * all JavaScript resources needed by the component.
+ * 	The {@link IWiQueryPlugin} interface defines all WiQuery plugins, e.g.
+ *  all components outputing jQuery statements to function.
  * </p>
  * <p>
- * To create a WickeXt plugin, you must implements the two methods below:
- * <ul>
- * <li> {@link #getHeaderContribution()} is used to declare the resources needed
- * for the component. </li>
- * <li> {@link #statement()} returns the {@link JsStatement} used by the
- * component to function. </li>
- * </ul>
+ * WiQuery plugins are components generating JavaScript jQuery code. WiQuery
+ * manages the component, outputs the JavaScript needed to function and imports
+ * all JavaScript resources needed by the component.
  * </p>
  * <p>
  * A WickeXt plugin is automatically managed by the
@@ -51,11 +46,18 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  */
 public interface IWiQueryPlugin {
 
+	/**
+	 * Declares resources (JavaScript and CSS files) to import.
+	 * @param wiQueryResourceManager
+	 * 			The {@link WiQueryResourceManager} instance managing this 
+	 * 			component resources.
+	 */
 	void contribute(WiQueryResourceManager wiQueryResourceManager);
 	
 	/**
 	 * Returns the main {@link JsStatement} used to create the plugin.
-	 * @return
+	 * @return The {@link JsStatement} corresponding to this component.
 	 */
 	JsStatement statement();
+	
 }

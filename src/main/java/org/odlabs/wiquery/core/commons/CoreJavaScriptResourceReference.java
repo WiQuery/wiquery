@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,15 +21,15 @@
  */
 package org.odlabs.wiquery.core.commons;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
- * $Id$
+ * $Id: CoreJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
+ * lionel.armanet $
  * <p>
- * 	References the core jQuery library. Any WickeXt component should import
- *  this reference to be able to work.
+ * References the core jQuery library.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */
@@ -42,7 +42,7 @@ public class CoreJavaScriptResourceReference extends
 	 * Singleton instance.
 	 */
 	private static CoreJavaScriptResourceReference instance;
-	
+
 	/**
 	 * Returns the {@link CoreJavaScriptResourceReference} instance.
 	 */
@@ -52,7 +52,7 @@ public class CoreJavaScriptResourceReference extends
 		}
 		return instance;
 	}
-	
+
 	/**
 	 */
 	private static String resolveLibrary() {
