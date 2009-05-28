@@ -338,9 +338,6 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return a non null {@link String} containing the window's title.
 	 */
 	public String getTitle() {
-		if (this.getTitle() != null && !"".equals(this.getTitle())) {
-			return this.getTitle();
-		}
 		if (this.options.containsKey("title")) {
 			return this.options.get("title");
 		}
