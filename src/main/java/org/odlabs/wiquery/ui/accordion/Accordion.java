@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,10 +21,7 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
-import org.apache.wicket.markup.html.IHeaderContributor;
-import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -71,8 +68,8 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(
-				Accordion.class, "ui.accordion.js");
+		wiQueryResourceManager.addJavaScriptResource(Accordion.class,
+				"ui.accordion.js");
 	}
 
 	/*
@@ -81,7 +78,8 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.objetdirect.wickext.core.commons.JavaScriptCallable#statement()
 	 */
 	public JsStatement statement() {
-		return new JsQuery(this).$().chain("accordion", options.getJavaScriptOptions());
+		return new JsQuery(this).$().chain("accordion",
+				options.getJavaScriptOptions());
 	}
 
 	/**

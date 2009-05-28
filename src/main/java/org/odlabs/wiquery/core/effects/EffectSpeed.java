@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +24,18 @@ package org.odlabs.wiquery.core.effects;
 /**
  * $Id$
  * <p>
- * 	Defines how much an {@link Effect} speeds.
+ * Defines how much an {@link Effect} speeds.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  * @see Effect
  * @see EffectBehavior
  */
 public enum EffectSpeed {
-	
-	SLOW, 
-	MEDIUM, 
-	FAST;
-	
+
+	SLOW, MEDIUM, FAST;
+
 	/**
 	 * @return a non null String containing the effect speed value.
 	 */

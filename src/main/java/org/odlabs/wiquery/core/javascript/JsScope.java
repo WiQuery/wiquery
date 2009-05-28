@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,23 +26,25 @@ import java.io.Serializable;
 /**
  * $Id$
  * <p>
- * 	{@link JsScope} are used to define anonymous JavaScript functions. 
- *  For example, let's take the <code>each</code> statement:
+ * {@link JsScope} are used to define anonymous JavaScript functions. For
+ * example, let's take the <code>each</code> statement:
  * </p>
+ * 
  * <pre>
  * 	<code>
- * new JsQuery().$(".foo").each(new JsScope() {
+ * new JsQuery().$(&quot;.foo&quot;).each(new JsScope() {
  * 
  * 	public void execute(JsScopeContext scopeContext) {
- * 		scopeContext.self().chain("css", "border", "1px solid red");
- *  }
+ * 		scopeContext.self().chain(&quot;css&quot;, &quot;border&quot;, &quot;1px solid red&quot;);
+ * 	}
  * 
  * });
- *  </code>
+ * </code>
  * </pre>
+ * 
  * <p>
- * 	You can either pass arguments to the JsScope (like in JavaScript functions)
- *  (see constructor args).
+ * You can either pass arguments to the JsScope (like in JavaScript functions)
+ * (see constructor args).
  * </p>
  * 
  * @author Lionel Armanet
@@ -56,34 +58,37 @@ public abstract class JsScope implements Serializable {
 	 * The function statement.
 	 */
 	private StringBuilder statement;
-	
+
 	/**
 	 * The scope used by the anonymous function.
 	 */
 	private JsScopeContext scopeContext;
-	
+
 	/**
 	 * Creates a default {@link JsScope} to execute the given statement.
-	 * @param javascriptCode the JavaScript statement to execute with the scope.
+	 * 
+	 * @param javascriptCode
+	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScope}.
 	 */
 	public static JsScope quickScope(final CharSequence javascriptCode) {
 		return new JsScope() {
-		
+
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void execute(JsScopeContext scopeContext) {
 				scopeContext.append(javascriptCode);
 			}
-		
+
 		};
 	}
-	
+
 	/**
-	 * Constructs a new {@link JsScope} instance with the given args.
-	 * This is the equivalent of the JavaScript statement:
+	 * Constructs a new {@link JsScope} instance with the given args. This is
+	 * the equivalent of the JavaScript statement:
 	 * <code>function(arg1, arg2, arg3) {</code>
+	 * 
 	 * @param scopeParameters
 	 */
 	public JsScope(String... scopeParameters) {
@@ -94,13 +99,15 @@ public abstract class JsScope implements Serializable {
 		statement.append(scopeContext.scopeDeclaration());
 		statement.append(") {\n");
 	}
-	
+
 	/**
 	 * Executes the {@link JsScope}.
-	 * @param scopeContext the given scope.
+	 * 
+	 * @param scopeContext
+	 *            the given scope.
 	 */
 	protected abstract void execute(JsScopeContext scopeContext);
-	
+
 	/**
 	 * Ends the scope JavaScript declaration.
 	 */
@@ -108,7 +115,7 @@ public abstract class JsScope implements Serializable {
 		statement.append("}");
 		return this;
 	}
-	
+
 	/**
 	 * Renders the scope.
 	 */
@@ -118,5 +125,5 @@ public abstract class JsScope implements Serializable {
 		closeScope();
 		return statement.toString();
 	}
-		
+
 }

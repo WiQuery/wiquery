@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,13 +28,14 @@ import java.util.List;
 /**
  * $Id$
  * <p>
- * 	{@link JsScopeContext} defines the following {@link JsScope} contents:
- * 	<ul>
- * 		<li>all accessible variables from a {@link JsScope}</li>
- * 		<li>all JavaScript statements executed in the {@link JsScope}</li>
- *  </ul>
+ * {@link JsScopeContext} defines the following {@link JsScope} contents:
+ * <ul>
+ * <li>all accessible variables from a {@link JsScope}</li>
+ * <li>all JavaScript statements executed in the {@link JsScope}</li>
+ * </ul>
  * 
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.7
  * @see JsScope
@@ -48,12 +49,12 @@ public class JsScopeContext implements Serializable {
 	 * The defined scope variables.
 	 */
 	private String[] scopeVariables;
-	
+
 	/**
 	 * The list of statements executed in the {@link JsScope}.
 	 */
 	private List<JsStatement> statements;
-	
+
 	/**
 	 * Creates a new {@link JsScopeContext} with the given arguments.
 	 */
@@ -61,10 +62,11 @@ public class JsScopeContext implements Serializable {
 		this.scopeVariables = scopeVariables;
 		statements = new ArrayList<JsStatement>();
 	}
-	
+
 	/**
 	 * Creates a new {@link JsStatement} and append the "this" keyword in this
 	 * statement.
+	 * 
 	 * @return the created {@link JsStatement}.
 	 */
 	public JsStatement self() {
@@ -72,21 +74,23 @@ public class JsScopeContext implements Serializable {
 		statements.add(statement);
 		return statement.self();
 	}
-	
+
 	/**
-	 * Creates a new {@link JsStatement} and append the given variable name 
-	 * in this statement.
+	 * Creates a new {@link JsStatement} and append the given variable name in
+	 * this statement.
+	 * 
 	 * @return the created {@link JsStatement}.
 	 */
 	public JsStatement var(String variable) {
 		JsStatement statement = new JsStatement();
 		statements.add(statement);
-		return statement.append(variable);		
+		return statement.append(variable);
 	}
-	
+
 	/**
-	 * Creates a new {@link JsStatement} and append the given JavaScript code
-	 * in this statement.
+	 * Creates a new {@link JsStatement} and append the given JavaScript code in
+	 * this statement.
+	 * 
 	 * @return the created {@link JsStatement}.
 	 */
 	public JsStatement append(CharSequence javascriptCode) {
@@ -94,10 +98,10 @@ public class JsScopeContext implements Serializable {
 		statements.add(statement);
 		return statement.append(javascriptCode);
 	}
-	
+
 	/**
-	 * Returns the JavaScript statement to declare the scope declaration
-	 * (eg. the list of variables declared in the JavaScript function).
+	 * Returns the JavaScript statement to declare the scope declaration (eg.
+	 * the list of variables declared in the JavaScript function).
 	 */
 	CharSequence scopeDeclaration() {
 		if (scopeVariables.length == 0) {
@@ -111,7 +115,7 @@ public class JsScopeContext implements Serializable {
 		}
 		return scopeDeclaration;
 	}
-	
+
 	/**
 	 * Renders the list of statements of this {@link JsScopeContext}.
 	 */
@@ -124,5 +128,5 @@ public class JsScopeContext implements Serializable {
 		}
 		return stringBuilder;
 	}
-		
+
 }

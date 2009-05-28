@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,26 +34,29 @@ import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 /**
  * $Id$
  * <p>
- *  {@link JsQuery} is the main entry point of WickeXt's JavaScript integration.
- *  This class is used to link JavaScript to a component and to render it.
+ * {@link JsQuery} is the main entry point of WickeXt's JavaScript integration.
+ * This class is used to link JavaScript to a component and to render it.
  * </p>
  * <p>
- * 	This class implements the {@link IHeaderContributor} interface, so if you
- *  want to append the generated JavaScript, just do this:
- *  <pre>
+ * This class implements the {@link IHeaderContributor} interface, so if you
+ * want to append the generated JavaScript, just do this:
+ * 
+ * <pre>
  *  	<code>
- *  JsQuery jsq = new JsQuery(myComponent);
- *  jsq.$().chain("css", "border", "1px solid red");
- *  myComponent.add(new HeaderContributor(jsq));
- *  	</code>
+ * JsQuery jsq = new JsQuery(myComponent);
+ * jsq.$().chain(&quot;css&quot;, &quot;border&quot;, &quot;1px solid red&quot;);
+ * myComponent.add(new HeaderContributor(jsq));
+ * </code>
  *  </pre>
+ * 
  * </p>
  * <p>
- * 	If you want to generate a statement concerning a component, do it as below:
- * 	<p>
- * 		<code>new JsQuery(yourComponent).$().chain("css", "border", "1px solid red"));</code>
- *  </p>
+ * If you want to generate a statement concerning a component, do it as below:
+ * <p>
+ * <code>new JsQuery(yourComponent).$().chain("css", "border", "1px solid red"));</code>
  * </p>
+ * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.7
  */
@@ -65,14 +68,14 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 * The component attached to the statement.
 	 */
 	private Component component;
-	
+
 	/**
 	 * The built statement.
 	 */
 	private JsStatement statement;
 
 	/**
-	 * Creates a new {@link JsQuery} linked to a {@link Component}. 
+	 * Creates a new {@link JsQuery} linked to a {@link Component}.
 	 */
 	public JsQuery(Component component) {
 		super();
@@ -86,21 +89,23 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	public JsQuery() {
 
 	}
-	
+
 	/**
 	 * @return a new {@link JsStatement} initialized with the <code>$</code>
-	 * statement.
+	 *         statement.
 	 */
 	public JsStatement $() {
 		return statement = new JsStatement().$(component);
 	}
 
 	/**
-	 * Same as {@link #$()} but with a specified CSS selector. If this {@link JsQuery}
-	 * is linked to a component, the resulting JavaScript code will be
+	 * Same as {@link #$()} but with a specified CSS selector. If this
+	 * {@link JsQuery} is linked to a component, the resulting JavaScript code
+	 * will be
 	 * <p>
-	 * 	<code>$("#yourComponentId cssSelector")</code>
+	 * <code>$("#yourComponentId cssSelector")</code>
 	 * </p>
+	 * 
 	 * @param selector
 	 * @return
 	 */
@@ -109,18 +114,21 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	}
 
 	/**
-	 * @return a new {@link JsStatement} initialized with 
-	 * the <code>document</code> statement.
+	 * @return a new {@link JsStatement} initialized with the
+	 *         <code>document</code> statement.
 	 */
 	public JsStatement document() {
 		return statement = new JsStatement().document();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
 	 */
 	public void renderHead(IHeaderResponse response) {
-		response.renderJavascriptReference(CoreJavaScriptResourceReference.get());
+		response.renderJavascriptReference(CoreJavaScriptResourceReference
+				.get());
 		IRequestTarget requestTarget = component.getRequestCycle()
 				.getRequestTarget();
 		if (requestTarget == null
@@ -129,8 +137,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 			// on dom ready, the code is executed.
 			JsStatement onreadyStatement = new JsStatement();
 			onreadyStatement.document().ready(
-					JsScope.quickScope(JsQuery.this.statement.render())
-			);
+					JsScope.quickScope(JsQuery.this.statement.render()));
 			response.renderString("<script type=\"text/javascript\">"
 					+ onreadyStatement.render() + "</script>");
 		} else {
@@ -154,32 +161,30 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	public JsStatement getStatement() {
 		return statement;
 	}
-	
+
 	/**
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
 	public void setStatement(JsStatement jsStatement) {
 		this.statement = jsStatement;
 	}
-	
+
 	/**
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
-	public void renderHead(IHeaderResponse response, 
-			IRequestTarget requestTarget) 
-	{
-		response.renderJavascriptReference(
-				CoreJavaScriptResourceReference.get());
+	public void renderHead(IHeaderResponse response,
+			IRequestTarget requestTarget) {
+		response.renderJavascriptReference(CoreJavaScriptResourceReference
+				.get());
 		if (requestTarget == null
 				|| !(requestTarget instanceof AjaxRequestTarget)) {
 			// appending component statement
 			// on dom ready, the code is executed.
-			
+
 			JsStatement onreadyStatement = new JsStatement();
 			onreadyStatement.document().ready(
-					JsScope.quickScope(JsQuery.this.statement.render())
-			);
-			
+					JsScope.quickScope(JsQuery.this.statement.render()));
+
 			response.renderString("<script type=\"text/javascript\">"
 					+ onreadyStatement.render() + "</script>");
 		} else {

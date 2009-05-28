@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,9 @@ package org.odlabs.wiquery.core.events;
 /**
  * $Id$
  * <p>
- * 	Defines standard keyboard events.
+ * Defines standard keyboard events.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */
@@ -34,12 +35,12 @@ public enum KeyboardEvent implements EventLabel {
 	/**
 	 * Defines possible values for keyboard events.
 	 */
-	KEYDOWN,
-	KEYPRESS,
-	KEYUP;
+	KEYDOWN, KEYPRESS, KEYUP;
 
-	/* (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.events.Event#getEventString()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.odlabs.wiquery.core.events.EventLabel#getEventLabel()
 	 */
 	public String getEventLabel() {
 		return this.name().toLowerCase();

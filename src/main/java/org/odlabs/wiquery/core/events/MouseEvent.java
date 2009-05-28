@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,24 +24,20 @@ package org.odlabs.wiquery.core.events;
 /**
  * $Id$
  * <p>
- * 	Defines standard mouse events.
+ * Defines standard mouse events.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */
 public enum MouseEvent implements EventLabel {
 
-	CLICK, 
-	DBLCLICK, 
-	MOUSEDOWN,
-	MOUSEMOVE,
-	MOUSEOUT,
-	MOUSEOVER,
-	MOUSEUP,
-	SCROLL;
-	
-	/* (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.events.Event#getEventString()
+	CLICK, DBLCLICK, MOUSEDOWN, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP, SCROLL;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.odlabs.wiquery.core.events.EventLabel#getEventLabel()
 	 */
 	public String getEventLabel() {
 		return this.name().toLowerCase();

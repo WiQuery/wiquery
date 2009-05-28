@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,9 @@ package org.odlabs.wiquery.core.javascript;
 /**
  * $Id$
  * <p>
- * 	Default implementation of ChainableStatement.
+ * Default implementation of ChainableStatement.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.7
  */
@@ -35,12 +36,12 @@ public class DefaultChainableStatement implements ChainableStatement {
 	 * The statement label.
 	 */
 	private String label;
-	
+
 	/**
 	 * The statement args.
 	 */
 	private CharSequence[] args;
-	
+
 	/**
 	 * Creates a new instance of {@link DefaultChainableStatement}.
 	 */
@@ -50,14 +51,18 @@ public class DefaultChainableStatement implements ChainableStatement {
 		this.args = args;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#chainLabel()
 	 */
 	public String chainLabel() {
 		return label;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#statementArgs()
 	 */
 	public CharSequence[] statementArgs() {

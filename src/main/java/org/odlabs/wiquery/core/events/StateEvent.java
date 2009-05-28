@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +24,23 @@ package org.odlabs.wiquery.core.events;
 /**
  * $Id$
  * <p>
- * 	Defines standard state events.
+ * Defines standard state events.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */
 public enum StateEvent implements EventLabel {
 
-	BLUR, 
-	CHANGE,
-	FOCUS, 
-	LOAD;
-	
-	/* (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.events.Event#getEventString()
+	BLUR, CHANGE, FOCUS, LOAD;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.odlabs.wiquery.core.events.EventLabel#getEventLabel()
 	 */
 	public String getEventLabel() {
 		return this.name().toLowerCase();
 	}
-	
+
 }

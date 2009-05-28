@@ -26,8 +26,9 @@ import org.odlabs.wiquery.core.events.EventLabel;
 /**
  * $Id$
  * <p>
- * 	Helper class to ease JavaScript integration.
+ * Helper class to ease JavaScript integration.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.7
  */
@@ -39,15 +40,18 @@ public class JsUtils {
 	public static String quotes(CharSequence stringToQuote) {
 		return "'" + stringToQuote + "'";
 	}
-	
+
 	/**
 	 * Converts an int to a String. (common alias of valueOf).
 	 */
 	public static String string(int value) {
 		return String.valueOf(value);
 	}
-	
-	public static String implode(EventLabel...eventLabels) {
+
+	/**
+	 * Converts the given array of {@link EventLabel} to a {@link String}.
+	 */
+	public static String implode(EventLabel... eventLabels) {
 		if (eventLabels.length == 0) {
 			return "''";
 		}

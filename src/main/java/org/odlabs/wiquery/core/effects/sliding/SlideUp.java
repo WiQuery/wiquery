@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,13 +27,16 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
 /**
  * $Id$
  * <p>
- * 	Defines the slideup {@link Effect}. A slide down effect consists to slide
- *  a component in a bottom-top direction (the component disapears).
+ * Defines the slideup {@link Effect}. A slide down effect consists to slide a
+ * component in a bottom-top direction (the component disapears).
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */
 public class SlideUp extends Effect {
+
+	private static final long serialVersionUID = -5701176979981030721L;
 
 	/**
 	 * Creates this effect with the given {@link EffectSpeed}.
@@ -41,12 +44,14 @@ public class SlideUp extends Effect {
 	public SlideUp(EffectSpeed effectSpeed) {
 		super(effectSpeed);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#chainLabel()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
 	 */
 	public String chainLabel() {
 		return "slideUp";
 	}
-	
+
 }

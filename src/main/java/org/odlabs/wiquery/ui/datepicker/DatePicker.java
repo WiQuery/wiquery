@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -111,14 +111,16 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	}
 
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(
-				DatePicker.class, "ui.datepicker.js");
-		wiQueryResourceManager.addJavaScriptResource(
-				new DatePickerLanguageResourceReference(getLocale()));
+		wiQueryResourceManager.addJavaScriptResource(DatePicker.class,
+				"ui.datepicker.js");
+		wiQueryResourceManager
+				.addJavaScriptResource(new DatePickerLanguageResourceReference(
+						getLocale()));
 	}
-	
+
 	public JsStatement statement() {
-		return new JsQuery(this).$().chain("datepicker", options.getJavaScriptOptions());
+		return new JsQuery(this).$().chain("datepicker",
+				options.getJavaScriptOptions());
 	}
 
 	/* options */
@@ -139,14 +141,17 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	}
 
 	/**
-	 * Sets the selectable year range. This range can either be defined by
-	 * a start year and an end year (like 2001 to 2010), or it can be defined
+	 * Sets the selectable year range. This range can either be defined by a
+	 * start year and an end year (like 2001 to 2010), or it can be defined
 	 * relatively to the today's date (like current-10 to current+10).
 	 * <p>
 	 * Example to use a relatvie range:
 	 * <code>aDatPickerInstance.setYearRange(-10, 10);</code>
-	 * @param yearFrom the range's start
-	 * @param yearTo the range's end
+	 * 
+	 * @param yearFrom
+	 *            the range's start
+	 * @param yearTo
+	 *            the range's end
 	 */
 	public void setYearRange(short yearFrom, short yearTo) {
 		if (yearFrom > yearTo) {
@@ -154,14 +159,14 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		}
 		options.putLiteral("yearRange", yearFrom + ":" + yearTo);
 	}
-	
+
 	/**
 	 * Sets if the date's year is selectable in a drop down list or not.
 	 */
 	public void setChangeYear(boolean changeYear) {
 		options.put("changeYear", changeYear);
 	}
-	
+
 	/**
 	 * Returns true if the date's year is selectable in a drop down list,
 	 * returns false otherwise.
@@ -169,43 +174,44 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public boolean getChangeYear() {
 		return options.getBoolean("changeYear");
 	}
-	
+
 	/**
 	 * Sets the calendar's starting day. 0 is for sunday, 1 for monday ...
+	 * 
 	 * @param firstDay
 	 */
 	public void setFirstDay(short firstDay) {
 		options.put("firstDay", firstDay);
 	}
-	
+
 	/**
 	 * Returns the calendar's starting day.
 	 */
 	public short getFirstDay() {
 		return options.getShort("firstDay");
 	}
-	
+
 	/**
 	 * Sets if the calendar's first day can be changed by the user or not.
 	 */
 	public void setChangeFirstDay(boolean changeFirstDay) {
 		options.put("changeFirstDay", changeFirstDay);
 	}
-	
+
 	/**
 	 * Returns if the calendar's first day can be changed by the user or not.
 	 */
 	public boolean getChangeFirstDay() {
 		return options.getBoolean("changeFirstDay");
 	}
-	
+
 	/**
 	 * Sets if the week is highlighted when the user's mouse is over a day.
 	 */
 	public void setHighlightWeek(boolean highlightWeek) {
 		options.put("highlightWeek", highlightWeek);
 	}
-	
+
 	/**
 	 * Returns if the week is highlighted when the user's mouse is over a day.
 	 */
@@ -219,14 +225,14 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public void setShowOtherMonths(boolean showOtherMonths) {
 		options.put("showOtherMonths", showOtherMonths);
 	}
-	
+
 	/**
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
 	public boolean getShowOtherMonths() {
 		return options.getBoolean("showOtherMonths");
 	}
-	
+
 	/**
 	 * Sets if the week names are showed in the calendar.
 	 */
@@ -235,13 +241,13 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	}
 
 	/**
-	 * Returns true if the week names are showed in the calendar, 
-	 * false otherwise.
+	 * Returns true if the week names are showed in the calendar, false
+	 * otherwise.
 	 */
 	public boolean getShowWeeks() {
 		return options.getBoolean("showWeeks");
 	}
-	
+
 	/**
 	 * Sets the number of months displayed on the date picker.
 	 */
@@ -255,10 +261,9 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public short getNumberOfMonths() {
 		return options.getShort("numberOfMonths");
 	}
-	
+
 	/**
-	 * Sets the number of months stepped when the next/previous button are
-	 * hit.
+	 * Sets the number of months stepped when the next/previous button are hit.
 	 */
 	public void setStepMonths(short stepMonths) {
 		options.put("stepMonths", stepMonths);
@@ -271,7 +276,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public short getStepMonths() {
 		return options.getShort("stepMonths");
 	}
-	
+
 	/**
 	 * Sets if a date range can be selected.
 	 */
@@ -285,7 +290,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public boolean getRangeSelect() {
 		return options.getBoolean("rangeSelect");
 	}
-	
+
 	/**
 	 * Sets the date range separator.
 	 */
@@ -299,7 +304,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public String getRangeSeparator() {
 		return options.get("rangeSeparator");
 	}
-	
+
 	/**
 	 * Sets the ISO date format to use.
 	 */
@@ -313,9 +318,9 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public String getDateFormat() {
 		return options.getLiteral("dateFormat");
 	}
-	
+
 	/* Status bar options */
-	
+
 	/**
 	 * Sets the initial message put in the calendar's status bar.
 	 */
@@ -329,7 +334,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public String getInitStatus() {
 		return options.getLiteral("initStatus");
 	}
-	
+
 	/**
 	 * Sets if the status bar is shown or not.
 	 */

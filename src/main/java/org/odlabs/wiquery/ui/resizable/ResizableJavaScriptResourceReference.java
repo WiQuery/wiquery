@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,11 +24,13 @@ package org.odlabs.wiquery.ui.resizable;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ResizableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
+ * lionel.armanet $
  * <p>
- * 	References the JavaScript resource to apply resizable behavior to any
- *  HTML element.
+ * References the JavaScript resource to apply resizable behavior to any HTML
+ * element.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */

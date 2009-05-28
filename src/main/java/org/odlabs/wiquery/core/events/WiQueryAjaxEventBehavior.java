@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,41 +42,60 @@ public abstract class WiQueryAjaxEventBehavior extends
 	 */
 	private EventLabel[] events;
 
-	public WiQueryAjaxEventBehavior(EventLabel...events) {
+	public WiQueryAjaxEventBehavior(EventLabel... events) {
 		super();
 		this.events = events;
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getPreconditionScript()
+	 */
 	@Override
 	protected CharSequence getPreconditionScript() {
 		return "return true";
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
+	 */
 	@Override
 	protected void onBind() {
-		this.getComponent().add(new WiQueryEventBehavior(new Event(this.events) {
+		this.getComponent().add(
+				new WiQueryEventBehavior(new Event(this.events) {
 
-			private static final long serialVersionUID = 1L;
+					private static final long serialVersionUID = 1L;
 
-			@Override
-			public JsScope callback() {
-				return JsScope.quickScope(WiQueryAjaxEventBehavior.this.getCallbackScript());
-			}
-		
-		}));
+					@Override
+					public JsScope callback() {
+						return JsScope.quickScope(WiQueryAjaxEventBehavior.this
+								.getCallbackScript());
+					}
+
+				}));
 		super.onBind();
 	}
 
-
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
+	 */
 	@Override
 	protected void respond(AjaxRequestTarget target) {
 		// just a rename, not to depend on Wicket's refactoring
 		this.onEvent(target);
 	}
 
-
-
+	/**
+	 * onEvent is called back when the ajax request is made.
+	 * 
+	 * @param target
+	 *            The Ajax request target
+	 */
 	protected abstract void onEvent(AjaxRequestTarget target);
-	
+
 }

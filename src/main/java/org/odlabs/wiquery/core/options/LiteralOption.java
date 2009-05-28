@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,22 +26,23 @@ import java.io.Serializable;
 /**
  * $Id$
  * <p>
- * 	Wraps a {@link String} to be generated as a JavaScript string.
- * 	<p>
- *  	Example:
- *  	<p>
- *  		The {@link String} <code>foo</code> should be rendered 
- *  		as <code>'foo'</code>
- *  	</p>
- *  </p>
+ * Wraps a {@link String} to be generated as a JavaScript string.
+ * <p>
+ * Example:
+ * <p>
+ * The {@link String} <code>foo</code> should be rendered as
+ * <code>'foo'</code>
  * </p>
+ * </p>
+ * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */
 public class LiteralOption implements Serializable {
 
 	private static final long serialVersionUID = 6999431516689050752L;
-	
+
 	/**
 	 * The wrapped {@link String}
 	 */
@@ -49,21 +50,25 @@ public class LiteralOption implements Serializable {
 
 	/**
 	 * <p>
-	 * 	Builds a new instance of {@link LiteralOption}.
+	 * Builds a new instance of {@link LiteralOption}.
 	 * </p>
-	 * @param literal the wrapped {@link String}
+	 * 
+	 * @param literal
+	 *            the wrapped {@link String}
 	 */
 	public LiteralOption(String literal) {
 		super();
 		this.literal = literal;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "'" + literal +  "'";
+		return "'" + literal + "'";
 	}
 
 	/**
@@ -72,5 +77,5 @@ public class LiteralOption implements Serializable {
 	public String getLiteral() {
 		return literal;
 	}
-	
+
 }

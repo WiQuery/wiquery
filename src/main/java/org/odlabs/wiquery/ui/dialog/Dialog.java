@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,22 +35,20 @@ import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
 /**
  * $Id$
  * <p>
- * 	Displays a window wrapping this {@link WebMarkupContainer} markup.
+ * Displays a window wrapping this {@link WebMarkupContainer} markup.
  * </p>
  * <p>
- * 	This UI component is built from this {@link WebMarkupContainer}'s
- *  HTML markup.
- *  The correct markup should be a <code>div</code> HTML element
- *  wrapping the contents to display in this window.
+ * This UI component is built from this {@link WebMarkupContainer}'s HTML
+ * markup. The correct markup should be a <code>div</code> HTML element
+ * wrapping the contents to display in this window.
  * </p>
  * <p>
- * 	Example:
- * 	<code>
+ * Example: <code>
  *  <pre>
- *   &lt;div wicket:id="id" title="The window title"&gt;
+ *   &lt;div wicket:id=&quot;id&quot; title=&quot;The window title&quot;&gt;
  *     The wrapped content
  *   &lt;/div&gt;
- *  </pre>
+ * </pre>
  *  </code>
  * </p>
  * 
@@ -85,24 +83,24 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		this.setPosition(WindowPosition.CENTER);
 	}
 
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) 
-	{
-		wiQueryResourceManager.addJavaScriptResource(
-				Dialog.class, "ui.dialog.js");
+	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		wiQueryResourceManager.addJavaScriptResource(Dialog.class,
+				"ui.dialog.js");
 		// TODO USE DEPENDENCIES MANGEMENT
-		wiQueryResourceManager.addJavaScriptResource(
-				new DraggableJavaScriptResourceLocator());
-		wiQueryResourceManager.addJavaScriptResource(
-				new ResizableJavaScriptResourceReference());
+		wiQueryResourceManager
+				.addJavaScriptResource(new DraggableJavaScriptResourceLocator());
+		wiQueryResourceManager
+				.addJavaScriptResource(new ResizableJavaScriptResourceReference());
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.objetdirect.wickext.core.commons.JavaScriptCallable#statement()
 	 */
 	public JsStatement statement() {
-		return new JsQuery(this).$().chain("dialog", options.getJavaScriptOptions());
+		return new JsQuery(this).$().chain("dialog",
+				options.getJavaScriptOptions());
 	}
 
 	// TODO
@@ -114,7 +112,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public JsStatement close() {
 		return new JsQuery(this).$().chain("dialog", "'close'");
 	}
-	
+
 	public void open(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.open().render().toString());
 	}
@@ -122,7 +120,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public void close(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.close().render().toString());
 	}
-	
+
 	/**
 	 * Sets if this window opens autmatically after the page is loaded.
 	 * 
@@ -175,7 +173,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public void setWidth(int width) {
 		options.put("width", width);
 	}
-	
+
 	/**
 	 * Returns the dialog's width.
 	 */
@@ -189,7 +187,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public void setHeight(int height) {
 		options.put("height", height);
 	}
-	
+
 	/**
 	 * Returns the window's height.
 	 */
@@ -210,7 +208,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public void setPosition(WindowPosition windowPosition) {
 		options.putLiteral("position", windowPosition.name().toLowerCase());
 	}
-	
+
 	/**
 	 * Returns the {@link WindowPosition}.
 	 */
@@ -225,113 +223,118 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public void setCssClass(String cssClass) {
 		options.putLiteral("dialogClass", cssClass);
 	}
-	
+
 	/**
 	 * Returns the css class applied to customize this window.
 	 */
 	public String getCssClass() {
 		return options.get("dialogClass");
 	}
-	
+
 	/**
 	 * Sets the effect used when the window closes.
-	 * @param a {@link String} with the given effect's name.
+	 * 
+	 * @param a
+	 *            {@link String} with the given effect's name.
 	 */
 	public void setHideEffect(String hideEffect) {
 		options.putLiteral("hide", hideEffect);
 	}
-	
+
 	/**
 	 * Sets the effect used when the window shows itself.
-	 * @param a {@link String} with the given effect's name.
+	 * 
+	 * @param a
+	 *            {@link String} with the given effect's name.
 	 */
 	public void setShowEffect(String hideEffect) {
 		options.putLiteral("show", hideEffect);
 	}
-	
+
 	/**
 	 * Sets the window's max height.
 	 */
 	public void setMaxHeight(int maxHeight) {
 		options.put("maxHeight", maxHeight);
 	}
-	
+
 	/**
 	 * Returns the window's max height.
 	 */
 	public int getMaxHeight() {
 		return options.getInt("maxHeight");
 	}
-	
+
 	/**
 	 * Sets the window's max width.
 	 */
 	public void setMaxWidth(int maxWidth) {
 		options.put("maxWidth", maxWidth);
 	}
-	
+
 	/**
 	 * Returns the window's max width.
 	 */
 	public int getMaxWidth() {
 		return options.getInt("maxWidth");
 	}
-	
+
 	/**
 	 * Sets the window's min height.
 	 */
 	public void setMinHeight(int minHeight) {
 		options.put("minHeight", minHeight);
 	}
-	
+
 	/**
 	 * Returns the window's min height.
 	 */
 	public int getMinHeight() {
 		return options.getInt("minHeight");
 	}
-	
+
 	/**
 	 * Sets the window's min width.
 	 */
 	public void setMinWidth(int minWidth) {
 		options.put("minWidth", minWidth);
 	}
-	
+
 	/**
 	 * Returns the window's max width.
 	 */
 	public int getMinWidth() {
 		return options.getInt("minWidth");
-	}	
-	
+	}
+
 	/**
 	 * Sets if this window is resizable or not.
 	 */
 	public void setResizable(boolean resizable) {
 		options.put("resizable", resizable);
 	}
-	
+
 	/**
 	 * Returns <code>true</code> if this window is resizable.
 	 */
 	public boolean isResizable() {
 		return options.getBoolean("resizable");
 	}
-	
+
 	/**
 	 * Sets the window's title.
 	 * <p>
-	 * 	<strong>Note:</strong> the title can be automatically sets when the
-	 *  HTML <code>title</code> attribute is set.
+	 * <strong>Note:</strong> the title can be automatically sets when the HTML
+	 * <code>title</code> attribute is set.
 	 * </p>
 	 */
 	public void setTitle(String title) {
 		options.putLiteral("title", title);
 	}
-	
+
 	/**
 	 * Returns the window's title.
+	 * 
 	 * @return a non null {@link String} containing the window's title.
 	 */
 	public String getTitle() {

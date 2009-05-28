@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,15 +32,15 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 /**
  * $Id$
  * <p>
- * 	Defines an abstract effect. 
- *  Any jQuery effect has the same format: 
- *  <code>.effectName(speed, [callback])</code>
+ * Defines an abstract effect. Any jQuery effect has the same format:
+ * <code>.effectName(speed, [callback])</code>
  * </p>
  * <p>
- * 	An effect is a {@link ChainableStatement}, so all subclasses will have
- *  to implement {@link ChainableStatement#chainLabel()} to indicate the
- *  effect name.
+ * An effect is a {@link ChainableStatement}, so all subclasses will have to
+ * implement {@link ChainableStatement#chainLabel()} to indicate the effect
+ * name.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  * @see EffectSpeed
@@ -52,30 +52,37 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	 * The list of parameters to apply to the effect.
 	 */
 	private List<CharSequence> parameters;
-	
+
 	private JsScope callback;
-	
-	/**
-	 * Creates a new effect.
-	 * @param parameters the list of parameters to apply to the effect.
-	 */
-	public Effect(CharSequence...parameters) {
-		this.parameters = new ArrayList<CharSequence>(Arrays.asList(parameters));
-	}
-	
 
 	/**
 	 * Creates a new effect.
-	 * @param effectSpeed the speed to display the effect.
-	 * @param parameters the list of parameters to apply to the effect.
+	 * 
+	 * @param parameters
+	 *            the list of parameters to apply to the effect.
 	 */
-	public Effect(EffectSpeed effectSpeed, CharSequence...parameters) {
-		this(parameters);
-		this.parameters.add(0, "'" + effectSpeed.getJavaScriptStatement() + "'");
+	public Effect(CharSequence... parameters) {
+		this.parameters = new ArrayList<CharSequence>(Arrays.asList(parameters));
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#statementArgs()
+
+	/**
+	 * Creates a new effect.
+	 * 
+	 * @param effectSpeed
+	 *            the speed to display the effect.
+	 * @param parameters
+	 *            the list of parameters to apply to the effect.
+	 */
+	public Effect(EffectSpeed effectSpeed, CharSequence... parameters) {
+		this(parameters);
+		this.parameters
+				.add(0, "'" + effectSpeed.getJavaScriptStatement() + "'");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#statementArgs()
 	 */
 	public CharSequence[] statementArgs() {
 		if (this.effectCallback() != null) {
@@ -88,17 +95,24 @@ public abstract class Effect implements ChainableStatement, Serializable {
 		}
 		return args;
 	}
-	
+
 	/**
 	 * The JavaScript code to execute after the effect is over.
+	 * 
 	 * @return the {@link JsScope} to execute.
 	 */
 	public JsScope effectCallback() {
 		return this.callback;
 	}
-	
+
+	/**
+	 * Sets the callback of this effect.
+	 * 
+	 * @param callback
+	 *            A {@link JsScope} defining the callback
+	 */
 	void setCallback(JsScope callback) {
 		this.callback = callback;
 	}
-	
+
 }

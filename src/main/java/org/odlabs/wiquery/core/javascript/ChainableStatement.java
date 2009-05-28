@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,10 +24,11 @@ package org.odlabs.wiquery.core.javascript;
 /**
  * $Id$
  * <p>
- * 	Common interface to ease jQuery integration in WickeXt. Defines common
- *  information needed by a JavaScript statement to be append to a 
- *  {@link JsStatement}.
+ * Common interface to ease jQuery integration in WickeXt. Defines common
+ * information needed by a JavaScript statement to be append to a
+ * {@link JsStatement}.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.7
  */
@@ -37,10 +38,10 @@ public interface ChainableStatement {
 	 * @return the statement label (like <code>each</code>, <code>css</code>...)
 	 */
 	String chainLabel();
-	
+
 	/**
 	 * @return the list of arguments passed to the statement.
 	 */
 	CharSequence[] statementArgs();
-	
+
 }

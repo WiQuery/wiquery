@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +26,16 @@ import org.odlabs.wiquery.core.effects.Effect;
 /**
  * $Id$
  * <p>
- * 	Defines the toggle {@link Effect}. A toggle consists to show a component
- *  when it's hidden, and to hide it when it's displayed.
+ * Defines the toggle {@link Effect}. A toggle consists to show a component
+ * when it's hidden, and to hide it when it's displayed.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.7
  */
 public class Toggle extends Effect {
+
+	private static final long serialVersionUID = 235427840472391563L;
 
 	/**
 	 * Default constructor.
@@ -40,9 +43,11 @@ public class Toggle extends Effect {
 	public Toggle() {
 		super();
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#chainLabel()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
 	 */
 	public String chainLabel() {
 		return "toggle";

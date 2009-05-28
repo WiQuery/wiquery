@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,9 +30,10 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
 /**
  * $Id$
  * <p>
- * 	Executes the given {@link JsScope} statement when a given list of
- *  {@link EventLabel} happened.
+ * Executes the given {@link JsScope} statement when a given list of
+ * {@link EventLabel} happened.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.5
  */
@@ -42,37 +43,41 @@ public abstract class Event implements ChainableStatement, Serializable {
 	 * The list of events triggering the {@link JsScope}.
 	 */
 	protected EventLabel[] eventLabels;
-	
+
 	/**
-	 * Creates a new event binding a {@link JsScope} to 
-	 * the given {@link EventLabel}.
+	 * Creates a new event binding a {@link JsScope} to the given
+	 * {@link EventLabel}.
 	 */
-	public Event(EventLabel...eventLabels) {
+	public Event(EventLabel... eventLabels) {
 		super();
 		this.eventLabels = eventLabels;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#chainLabel()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
 	 */
 	public String chainLabel() {
 		// all effects are bound with the bind method
 		return "bind";
 	}
 
-	/* (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#statementArgs()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#statementArgs()
 	 */
 	public CharSequence[] statementArgs() {
 		String firstArg = JsUtils.implode(eventLabels);
 		String callback = this.callback().render().toString();
-		return new String[] {firstArg, callback};
+		return new String[] { firstArg, callback };
 	}
-	
+
 	/**
-	 * Returns an non null executable {@link JsScope}. This {@link JsScope} will
-	 * be called back when the event triggers.
+	 * Returns an non null executable {@link JsScope}. This {@link JsScope}
+	 * will be called back when the event triggers.
 	 */
 	public abstract JsScope callback();
-	
+
 }
