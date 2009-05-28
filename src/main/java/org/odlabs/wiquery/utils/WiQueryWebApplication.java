@@ -39,12 +39,5 @@ public abstract class WiQueryWebApplication extends WebApplication {
 		this.wickextPluginInstantiationListener.setTheme(themeResourceReference);
 	}
 	
-//	public void setThemeResource(ResourceReference themeResource) {
-//		this.wickextPluginInstantiationListener.setThemeResource(themeResource);
-//	}
-//	
-//	public ResourceReference getThemeResource() {
-//		return this.wickextPluginInstantiationListener.getThemeResource();
-//	}
 	
 }
