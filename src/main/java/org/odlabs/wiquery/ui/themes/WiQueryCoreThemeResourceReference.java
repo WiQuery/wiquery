@@ -24,7 +24,8 @@ package org.odlabs.wiquery.ui.themes;
 import org.apache.wicket.ResourceReference;
 
 /**
- * $Id$
+ * $Id: WiQueryCoreThemeResourceReference.java 85 2009-05-28 23:07:56Z
+ * lionel.armanet $
  * <p>
  * Defines the default WiQuery theme.
  * </p>

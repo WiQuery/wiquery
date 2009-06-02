@@ -28,12 +28,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.wicket.RequestCycle;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.util.ThemeHelper;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 
@@ -46,6 +46,11 @@ import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
  * If the request in a non ajax request, the generated JavaScript is wrapped by
  * a "dom ready" statement. Otherwise (in Ajax contexts, the generated
  * JavaScript is directly append to the given {@link AjaxRequestTarget}.
+ * </p>
+ * 
+ * <p>
+ * TODO THIS CLASS SHOULD BE REFACTORED, WE CAN'T MANAGE A SINGLE HEADER
+ * CONTRIBUTOR TO DO ALL WIQUERY MAGIC !.
  * </p>
  * 
  * @author Benoit Bouchez
@@ -82,11 +87,6 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private Map<IWiQueryPlugin, WiQueryResourceManager> resourceManagers = new HashMap<IWiQueryPlugin, WiQueryResourceManager>();
 
 	/**
-	 * The theme used to display UI components.
-	 */
-	private ResourceReference themeResource;
-
-	/**
 	 * Imports core jQuery resources (CSS / JavaScript).
 	 * 
 	 * @param headerResponse
@@ -105,20 +105,10 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	 *            The {@link IHeaderResponse} to contribute to
 	 */
 	void importCoreUiResource(IHeaderResponse headerResponse) {
-		headerResponse.renderCSSReference(this.themeResource);
+		headerResponse.renderCSSReference(ThemeHelper.getTheme());
 		headerResponse
 				.renderJavascriptReference(CoreUIJavaScriptResourceReference
 						.get());
-	}
-
-	/**
-	 * Sets the {@link ResourceReference} to theme the WiQuery application.
-	 * 
-	 * @param themeResourceReference
-	 *            A {@link ResourceReference} to define the theme to use
-	 */
-	public void setTheme(ResourceReference themeResourceReference) {
-		this.themeResource = themeResourceReference;
 	}
 
 	/**

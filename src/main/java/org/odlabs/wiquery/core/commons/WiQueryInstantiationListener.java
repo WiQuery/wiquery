@@ -32,56 +32,41 @@ import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 /**
  * $Id$
  * <p>
- * 	Listens to WiQuery components instantiation and automatically binds a
- * 	{@link WiQueryCoreHeaderContributor} to these components.
+ * Listens to WiQuery components instantiation and automatically binds a
+ * {@link WiQueryCoreHeaderContributor} to these components.
  * </p>
  * <p>
- * 	The added header contributor will generated the needed JavaScript code
- *  and will import all needed resources (e.g. CSS/JavaScript files).
+ * The added header contributor will generated the needed JavaScript code and
+ * will import all needed resources (e.g. CSS/JavaScript files).
  * </p>
  * 
  * @author Lionel Armanet
  * @since 0.6
  */
-public class WiQueryInstantiationListener implements IComponentInstantiationListener, Serializable 
-{
+public class WiQueryInstantiationListener implements
+		IComponentInstantiationListener, Serializable {
 
 	private static final long serialVersionUID = -7398777039788778234L;
 
 	/**
-	 * Defines the global header contributor user to append all generated JS
-	 */
-	private WiQueryCoreHeaderContributor wickeryCoreHeaderContributor = null;
-	
-	/**
 	 * The current theme.
 	 */
-	private ResourceReference themeResourceReference = new WiQueryCoreThemeResourceReference("fusion");
-	
-	/* (non-Javadoc)
+	public static final ResourceReference DEFAULT_THEME = new WiQueryCoreThemeResourceReference(
+			"fusion");
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.apache.wicket.application.IComponentInstantiationListener#onInstantiation(org.apache.wicket.Component)
 	 */
-	public void onInstantiation(final Component component) 
-	{
-		if (component instanceof IWiQueryPlugin)
-		{
-			if (wickeryCoreHeaderContributor == null) {
-				wickeryCoreHeaderContributor = new WiQueryCoreHeaderContributor();
-				wickeryCoreHeaderContributor.setTheme(this.themeResourceReference);
-			}
+	public void onInstantiation(final Component component) {
+		// theme management
+		if (component instanceof IWiQueryPlugin) {
+			WiQueryCoreHeaderContributor wickeryCoreHeaderContributor = new WiQueryCoreHeaderContributor();
 			// binding component as a plugin
 			wickeryCoreHeaderContributor.addPlugin((IWiQueryPlugin) component);
 			component.add(new HeaderContributor(wickeryCoreHeaderContributor));
 		}
-	}
-	
-	/**
-	 * Sets the theme to use.
-	 * @param themeResourceReference
-	 * 			The theme as a {@link ResourceReference}
-	 */
-	public void setTheme(ResourceReference themeResourceReference) {
-		this.themeResourceReference = themeResourceReference;
 	}
 
 }

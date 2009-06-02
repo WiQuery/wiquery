@@ -21,7 +21,6 @@
  */
 package org.odlabs.wiquery.utils;
 
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
 
@@ -41,7 +40,7 @@ public abstract class WiQueryWebApplication extends WebApplication {
 	 * The wiquery listener used to manage WiQuery components
 	 */
 	private WiQueryInstantiationListener wiqueryPluginInstantiationListener;
-	
+
 	/**
 	 * Adds WiQuery's instantiation listener to this application.
 	 */
@@ -53,14 +52,5 @@ public abstract class WiQueryWebApplication extends WebApplication {
 		addComponentInstantiationListener(wiqueryPluginInstantiationListener);
 		super.init();
 	}
-	
-	/**
-	 * Sets this application theming.
-	 * @param themeResourceReference
-	 * 			The {@link ResourceReference} to use as theme.
-	 */
-	public void setTheme(ResourceReference themeResourceReference) {
-		this.wiqueryPluginInstantiationListener.setTheme(themeResourceReference);
-	}
-	
+
 }
