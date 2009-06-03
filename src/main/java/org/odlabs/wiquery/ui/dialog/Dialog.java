@@ -27,6 +27,7 @@ import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceLocator;
@@ -344,4 +345,251 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		return "";
 	}
 
+	/**
+	 * Set's the close on escape keyboard shortcut
+	 * @param closeOnEscape
+	 */
+	public void setCloseOnEscape(boolean closeOnEscape) {
+		this.options.put("closeOnEscape", closeOnEscape);
+	}
+
+	/**
+	 * @returns <code>true</code> if the close on escape shortcut is enable
+	 */
+	public boolean isCloseOnEscape() {
+		if(this.options.containsKey("closeOnEscape")){
+			return this.options.getBoolean("closeOnEscape");
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Set's the bgiframe plugin.
+	 * When true, the bgiframe plugin will be used, to fix the issue in IE6 where
+	 * select boxes show on top of other elements, regardless of zIndex. Requires
+	 * including the bgiframe plugin. Future versions may not require a separate 
+	 * plugin.
+	 * @param bgiframe
+	 */
+	public void setBgiframe(boolean bgiframe) {
+		this.options.put("bgiframe", bgiframe);
+	}
+
+	/**
+	 * @returns <code>true</code> if the bgiframe plugin will be used
+	 */
+	public boolean isBgiframe() {
+		if(this.options.containsKey("bgiframe")){
+			return this.options.getBoolean("bgiframe");
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Enable or disable the draggable event
+	 * @param draggable
+	 */
+	public void setDraggable(boolean draggable) {
+		this.options.put("draggable", draggable);
+	}
+
+	/**
+	 * @returns <code>true</code> if the dialog is draggable
+	 */
+	public boolean isDraggrable() {
+		if(this.options.containsKey("draggable")){
+			return this.options.getBoolean("draggable");
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Specifies whether the dialog will stack on top of other dialogs. This 
+	 * will cause the dialog to move to the front of other dialogs when it gains
+	 * focus.
+	 * @param stack
+	 */
+	public void setStack(boolean stack) {
+		this.options.put("stack", stack);
+	}
+
+	/**
+	 * @returns <code>true</code> if the dialog will be stack
+	 */
+	public boolean isStack() {
+		if(this.options.containsKey("stack")){
+			return this.options.getBoolean("stack");
+		}
+		
+		return true;
+	}
+	
+	/**Set's the starting z-index
+	 * @param zIndex
+	 */
+	public void setZIndex(int zIndex) {
+		this.options.put("zIndex", zIndex);
+	}
+	
+	/**
+	 * @return the starting z-index (default : 1000)
+	 */
+	public int getZIndex() {
+		if(this.options.containsKey("zIndex")){
+			return this.options.getInt("zIndex");
+		}
+		
+		return 1000;
+	}
+	
+	/**Set's a list of dialog button
+	 * @param buttons
+	 */
+	public void setButtons(ListItemOptions<DialogButton> buttons) {
+		this.options.put("buttons", buttons);
+	}
+	
+	/**
+	 * @return the list of buttons
+	 */
+	@SuppressWarnings("unchecked")
+	public ListItemOptions<DialogButton> getButtons() {
+		if(this.options.containsKey("buttons")){
+			return (ListItemOptions<DialogButton>) this.options.getListItemOptions("buttons");
+		}
+		
+		return null;
+	}
+	
+	/**Set's the callback before the dialog is closing.
+	 * If the beforeclose event handler (callback function) returns false, the 
+	 * close will be prevented
+	 * @param beforeclose
+	 */
+	public void setBeforeCloseEvent(JsScopeDialogEvent beforeclose) {
+		this.options.put("beforeclose", beforeclose);
+	}
+	
+	/**Set's the callback before the dialog is closed.
+	 * @param close
+	 */
+	public void setCloseEvent(JsScopeDialogEvent close) {
+		this.options.put("close", close);
+	}
+	
+	/**Set's the callback when the dialog is dragged.
+	 * @param drag
+	 */
+	public void setDragEvent(JsScopeDialogEvent drag) {
+		this.options.put("drag", drag);
+	}
+	
+	/**Set's the callback when the dialog is being dragged.
+	 * @param dragStart
+	 */
+	public void setDragStartEvent(JsScopeDialogEvent dragStart) {
+		this.options.put("dragStart", dragStart);
+	}
+	
+	/**Set's the callback when the dialog has been dragged.
+	 * @param dragStop
+	 */
+	public void setDragStopEvent(JsScopeDialogEvent dragStop) {
+		this.options.put("dragStop", dragStop);
+	}
+	
+	/**Set's the callback when the dialog gains focus.
+	 * @param focus
+	 */
+	public void setFocusEvent(JsScopeDialogEvent focus) {
+		this.options.put("focus", focus);
+	}
+	
+	/**Set's the callback before the dialog is opening.
+	 * @param open
+	 */
+	public void setOpenEvent(JsScopeDialogEvent open) {
+		this.options.put("open", open);
+	}
+	
+	/**Set's the callback when the dialog is resized.
+	 * @param resize
+	 */
+	public void setResizeEvent(JsScopeDialogEvent resize) {
+		this.options.put("resize", resize);
+	}
+	
+	/**Set's the callback when the dialog is being resized.
+	 * @param resizeStart
+	 */
+	public void setResizeStartEvent(JsScopeDialogEvent resizeStart) {
+		this.options.put("resizeStart", resizeStart);
+	}
+	
+	/**Set's the callback when the dialog has been resized.
+	 * @param resizeStop
+	 */
+	public void setResizeStopEvent(JsScopeDialogEvent resizeStop) {
+		this.options.put("resizeStop", resizeStop);
+	}
+	
+	/**Method to destroy the dialog
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return new JsQuery(this).$().chain("dialog", "'destroy'");
+	}
+
+	/**Method to destroy the dialog within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+	}
+	
+	/**Method to disable the dialog
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return new JsQuery(this).$().chain("dialog", "'disable'");
+	}
+
+	/**Method to disable the dialog within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+	}
+	
+	/**Method to enable the dialog
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return new JsQuery(this).$().chain("dialog", "'enable'");
+	}
+
+	/**Method to enable the dialog within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to move to top the dialog
+	 * @return the associated JsStatement
+	 */
+	public JsStatement moveToTop() {
+		return new JsQuery(this).$().chain("dialog", "'moveToTop'");
+	}
+
+	/**Method to move to top the dialog within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void moveToTop(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.moveToTop().render().toString());
+	}
 }

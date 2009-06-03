@@ -160,6 +160,21 @@ public class Options implements Serializable {
 		assert (object instanceof LiteralOption);
 		return ((LiteralOption) object).getLiteral();
 	}
+	
+	/**
+	 * <p>
+	 * Puts a list of IListItemOption value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the IListItemOption list.
+	 */
+	public Options put(String key, ListItemOptions<?> value){
+		options.put(key, value);
+		return this;
+	}
 
 	/**
 	 * <p>
@@ -271,6 +286,9 @@ public class Options implements Serializable {
 			if (value instanceof JsScope) {
 				sb.append(this.optionsRenderer.renderOption(key,
 						((JsScope) value).render(), isLast));
+			} else if (value instanceof ListItemOptions<?>) {
+				sb.append(this.optionsRenderer.renderOption(key,
+						((ListItemOptions<?>)value).getJavascriptItemOptions(), isLast));
 			} else {
 				sb
 						.append(this.optionsRenderer.renderOption(key, value,
@@ -280,6 +298,23 @@ public class Options implements Serializable {
 		}
 		this.optionsRenderer.renderAfter(sb);
 		return sb;
+	}
+	
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key the option name.
+	 * @return the list
+	 */
+	public ListItemOptions<?> getListItemOptions(String key) {
+		Object object = this.options.get(key);
+		if (object == null) {
+			return null;
+		}
+		assert (object instanceof ListItemOptions);
+		return (ListItemOptions<?>) object;
 	}
 
 	/**
