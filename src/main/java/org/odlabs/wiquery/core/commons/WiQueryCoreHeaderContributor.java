@@ -160,9 +160,13 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 
 		jsq.setStatement(jsStatement);
 		jsq.renderHead(response, RequestCycle.get().getRequestTarget());
+		
+		/*---- If we clear the plugins and the resource managers, we will have some
+		 * problems with submit link or ajaxsubmitlink ---*/
 		// after rendering, this contributor is re initialized
-		plugins.clear();
-		resourceManagers.clear();
+		//plugins.clear();
+		//resourceManagers.clear();
+		/*---- ---*/
 	}
 
 }

@@ -53,7 +53,10 @@ import java.io.Serializable;
  * @see JsScopeContext
  */
 public abstract class JsScope implements Serializable {
-
+	//Constants
+	/**	Constant of serialization */
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * The function statement.
 	 */
@@ -98,6 +101,9 @@ public abstract class JsScope implements Serializable {
 		statement.append("function(");
 		statement.append(scopeContext.scopeDeclaration());
 		statement.append(") {\n");
+		execute(scopeContext);
+		statement.append(scopeContext.render());
+		closeScope();
 	}
 
 	/**
@@ -120,9 +126,6 @@ public abstract class JsScope implements Serializable {
 	 * Renders the scope.
 	 */
 	public CharSequence render() {
-		execute(scopeContext);
-		statement.append(scopeContext.render());
-		closeScope();
 		return statement.toString();
 	}
 
