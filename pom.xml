@@ -5,12 +5,12 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-Alpha</version>
+	<version>1.0-m1</version>
 
 	<name>WiQuery project</name>
 
 	<scm>
-		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-alpha/</developerConnection>
+		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-m1/</developerConnection>
 	</scm>
 			
 	<build>
