@@ -30,6 +30,7 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
+import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceLocator;
 import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
 
@@ -469,70 +470,70 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * close will be prevented
 	 * @param beforeclose
 	 */
-	public void setBeforeCloseEvent(JsScopeDialogEvent beforeclose) {
+	public void setBeforeCloseEvent(JsScopeUiEvent beforeclose) {
 		this.options.put("beforeclose", beforeclose);
 	}
 	
 	/**Set's the callback before the dialog is closed.
 	 * @param close
 	 */
-	public void setCloseEvent(JsScopeDialogEvent close) {
+	public void setCloseEvent(JsScopeUiEvent close) {
 		this.options.put("close", close);
 	}
 	
 	/**Set's the callback when the dialog is dragged.
 	 * @param drag
 	 */
-	public void setDragEvent(JsScopeDialogEvent drag) {
+	public void setDragEvent(JsScopeUiEvent drag) {
 		this.options.put("drag", drag);
 	}
 	
 	/**Set's the callback when the dialog is being dragged.
 	 * @param dragStart
 	 */
-	public void setDragStartEvent(JsScopeDialogEvent dragStart) {
+	public void setDragStartEvent(JsScopeUiEvent dragStart) {
 		this.options.put("dragStart", dragStart);
 	}
 	
 	/**Set's the callback when the dialog has been dragged.
 	 * @param dragStop
 	 */
-	public void setDragStopEvent(JsScopeDialogEvent dragStop) {
+	public void setDragStopEvent(JsScopeUiEvent dragStop) {
 		this.options.put("dragStop", dragStop);
 	}
 	
 	/**Set's the callback when the dialog gains focus.
 	 * @param focus
 	 */
-	public void setFocusEvent(JsScopeDialogEvent focus) {
+	public void setFocusEvent(JsScopeUiEvent focus) {
 		this.options.put("focus", focus);
 	}
 	
 	/**Set's the callback before the dialog is opening.
 	 * @param open
 	 */
-	public void setOpenEvent(JsScopeDialogEvent open) {
+	public void setOpenEvent(JsScopeUiEvent open) {
 		this.options.put("open", open);
 	}
 	
 	/**Set's the callback when the dialog is resized.
 	 * @param resize
 	 */
-	public void setResizeEvent(JsScopeDialogEvent resize) {
+	public void setResizeEvent(JsScopeUiEvent resize) {
 		this.options.put("resize", resize);
 	}
 	
 	/**Set's the callback when the dialog is being resized.
 	 * @param resizeStart
 	 */
-	public void setResizeStartEvent(JsScopeDialogEvent resizeStart) {
+	public void setResizeStartEvent(JsScopeUiEvent resizeStart) {
 		this.options.put("resizeStart", resizeStart);
 	}
 	
 	/**Set's the callback when the dialog has been resized.
 	 * @param resizeStop
 	 */
-	public void setResizeStopEvent(JsScopeDialogEvent resizeStop) {
+	public void setResizeStopEvent(JsScopeUiEvent resizeStop) {
 		this.options.put("resizeStop", resizeStop);
 	}
 	

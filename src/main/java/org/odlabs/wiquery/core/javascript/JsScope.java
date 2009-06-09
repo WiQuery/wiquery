@@ -96,14 +96,8 @@ public abstract class JsScope implements Serializable {
 	 */
 	public JsScope(String... scopeParameters) {
 		super();
-		statement = new StringBuilder();
 		scopeContext = new JsScopeContext(scopeParameters);
-		statement.append("function(");
-		statement.append(scopeContext.scopeDeclaration());
-		statement.append(") {\n");
-		execute(scopeContext);
-		statement.append(scopeContext.render());
-		closeScope();
+		statement = null;
 	}
 
 	/**
@@ -126,6 +120,15 @@ public abstract class JsScope implements Serializable {
 	 * Renders the scope.
 	 */
 	public CharSequence render() {
+		if(statement == null){
+			statement = new StringBuilder();
+			statement.append("function(");
+			statement.append(scopeContext.scopeDeclaration());
+			statement.append(") {\n");
+			execute(scopeContext);
+			statement.append(scopeContext.render());
+			closeScope();
+		}
 		return statement.toString();
 	}
 

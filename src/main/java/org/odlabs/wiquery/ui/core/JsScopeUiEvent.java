@@ -19,13 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.dialog;
+package org.odlabs.wiquery.ui.core;
 
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 
+
 /**
- * This class represent a JsScope event for the dialog
+ * This class represent a JsScope event for the JQuery UI components
  * The javascript representation will be like this:
  * <p>
  * 	function(event, ui) { ... }
@@ -33,7 +34,7 @@ import org.odlabs.wiquery.core.javascript.JsScopeContext;
  * @author Julien Roche
  *
  */
-public class JsScopeDialogEvent extends JsScope {
+public class JsScopeUiEvent extends JsScope {
 	//Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 1L;
@@ -44,7 +45,7 @@ public class JsScopeDialogEvent extends JsScope {
 	/**Default constructor
 	 * @param javascriptCode
 	 */
-	public JsScopeDialogEvent(CharSequence javascriptCode) {
+	public JsScopeUiEvent(CharSequence javascriptCode) {
 		super("event", "ui");
 		this.javascriptCode = javascriptCode;
 	}
