@@ -19,28 +19,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.core;
+package org.odlabs.wiquery.core.options;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
-
-
-/**
- * This class represent a JsScope event for the JQuery UI components
- * The javascript representation will be like this:
- * <p>
- * 	function(event, ui) { ... }
- * </p>
+/**Interface to specify how a collection of ItemOptions must be generated
  * @author Julien Roche
- * @since 1.0
+ *
  */
-public abstract class JsScopeUiEvent extends JsScope {
-	//Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = 1L;
-	
-	/**Default constructor
+public interface ICollectionItemOptions {
+	/**Method retrieving the javascript representation of this list
+	 * @return the javascript
 	 */
-	public JsScopeUiEvent() {
-		super("event", "ui");
-	}
+	public CharSequence getJavascriptItemOptions();
+	
+	/**Method retrieving the list of IListItemOption from this collection
+	 * @return the list
+	 */
+	public IListItemOption[] values();
 }

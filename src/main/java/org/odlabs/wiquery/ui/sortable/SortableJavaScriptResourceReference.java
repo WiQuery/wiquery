@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 WiQuery team
+ * Copyright (c) 2008 Objet Direct
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,28 +19,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.core;
+package org.odlabs.wiquery.ui.sortable;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
-
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
- * This class represent a JsScope event for the JQuery UI components
- * The javascript representation will be like this:
+ * $Id$
  * <p>
- * 	function(event, ui) { ... }
+ * 	References the JavaScript resource to apply sortable behavior to any
+ *  HTML element.
  * </p>
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class JsScopeUiEvent extends JsScope {
-	//Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = 1L;
-	
-	/**Default constructor
+public class SortableJavaScriptResourceReference extends
+		JavascriptResourceReference {
+	private static final long serialVersionUID = -4771815414204892357L;
+
+	/**
+	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.
 	 */
-	public JsScopeUiEvent() {
-		super("event", "ui");
+	public SortableJavaScriptResourceReference() {
+		super(SortableJavaScriptResourceReference.class, "ui.sortable.js");
 	}
+
 }

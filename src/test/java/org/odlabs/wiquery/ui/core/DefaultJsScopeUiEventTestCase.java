@@ -2,22 +2,20 @@ package org.odlabs.wiquery.ui.core;
 
 import junit.framework.TestCase;
 
-import org.odlabs.wiquery.core.javascript.JsScopeContext;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * Unit test on the {@link JsScopeUiEvent}
+ * Unit test on the {@link DefaultJsScopeUiEvent}
  * @author Julien Roche
  *
  */
-public class JsScopeUiEventTestCase extends TestCase {
+public class DefaultJsScopeUiEventTestCase extends TestCase {
 
 	protected static final Logger log = LoggerFactory.getLogger(
-			JsScopeUiEventTestCase.class);
+			DefaultJsScopeUiEventTestCase.class);
 
 	/**
 	 * Check the syntax
@@ -25,18 +23,7 @@ public class JsScopeUiEventTestCase extends TestCase {
 	@Test
 	public void testJsScopeSyntax() {
 		String expectedJavascript = "function(event, ui) {\n\talert('test');\n}";
-		JsScopeUiEvent scopeUiEvent = new JsScopeUiEvent(){
-			private static final long serialVersionUID = 1L;
-
-			/* (non-Javadoc)
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append("alert('test');");
-			}
-			
-		};
+		JsScopeUiEvent scopeUiEvent = new DefaultJsScopeUiEvent("alert('test');");
 		String generatedJavascript = scopeUiEvent.render().toString();
 		
 		log.info(expectedJavascript);

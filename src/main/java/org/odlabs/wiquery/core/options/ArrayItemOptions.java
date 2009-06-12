@@ -19,28 +19,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.core;
+package org.odlabs.wiquery.core.options;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
+import java.util.ArrayList;
 
-
-/**
- * This class represent a JsScope event for the JQuery UI components
- * The javascript representation will be like this:
- * <p>
- * 	function(event, ui) { ... }
- * </p>
+/** Array of IListItemOptions
  * @author Julien Roche
- * @since 1.0
+ *
  */
-public abstract class JsScopeUiEvent extends JsScope {
-	//Constants
+public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> implements ICollectionItemOptions {
+	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 1L;
-	
-	/**Default constructor
+	private static final long serialVersionUID = 1779802328333735627L;
+
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.ICollectionItemOptions#getJavascriptItemOptions()
 	 */
-	public JsScopeUiEvent() {
-		super("event", "ui");
+	public CharSequence getJavascriptItemOptions() {
+		StringBuffer javascript = new StringBuffer();
+		javascript.append("[");
+		
+		if(!isEmpty()){
+			for(IListItemOption itemOption : this){
+				javascript.append(itemOption.getJavascriptOption());
+				javascript.append(",");
+			}
+			javascript.replace(javascript.length() - 1, 
+					javascript.length(), ""); //Remove the last ','
+		}		
+		
+		javascript.append("]");
+		return javascript;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.ICollectionItemOptions#values()
+	 */
+	public IListItemOption[] values() {
+		return this.toArray(new IListItemOption[this.size()]);
 	}
 }

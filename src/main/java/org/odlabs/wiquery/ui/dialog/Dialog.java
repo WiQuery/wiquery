@@ -580,6 +580,13 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
 	}
 	
+	/**Method returning true if the dialog is currently open
+	 * @return the associated JsStatement
+	 */
+	public JsStatement isOpen() {
+		return new JsQuery(this).$().chain("dialog", "'isOpen'");
+	}
+	
 	/**Method to move to top the dialog
 	 * @return the associated JsStatement
 	 */

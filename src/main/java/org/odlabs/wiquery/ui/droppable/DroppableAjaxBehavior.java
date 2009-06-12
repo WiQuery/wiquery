@@ -26,8 +26,8 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
  * $Id$
@@ -57,7 +57,7 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	@Override
 	protected void onBind() {
 		getComponent().add(droppableBehavior);
-		droppableBehavior.setOnDrop(new JsScope("event", "ui") {
+		droppableBehavior.setOnDrop(new JsScopeUiEvent() {
 
 			private static final long serialVersionUID = 1L;
 

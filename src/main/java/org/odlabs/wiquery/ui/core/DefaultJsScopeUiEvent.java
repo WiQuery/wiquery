@@ -21,26 +21,32 @@
  */
 package org.odlabs.wiquery.ui.core;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
-
+import org.odlabs.wiquery.core.javascript.JsScopeContext;
 
 /**
- * This class represent a JsScope event for the JQuery UI components
- * The javascript representation will be like this:
- * <p>
- * 	function(event, ui) { ... }
- * </p>
+ * Default implementation of the JsScopeUiEvent
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class JsScopeUiEvent extends JsScope {
+public class DefaultJsScopeUiEvent extends JsScopeUiEvent {
 	//Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 1L;
 	
-	/**Default constructor
-	 */
-	public JsScopeUiEvent() {
-		super("event", "ui");
+	// Properties
+	private CharSequence javascriptCode;
+	
+	public DefaultJsScopeUiEvent(CharSequence javascriptCode) {
+		super();
+		this.javascriptCode = javascriptCode;
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
+	 */
+	@Override
+	protected final void execute(JsScopeContext scopeContext) {
+		scopeContext.append(javascriptCode);
+	}
+
 }
