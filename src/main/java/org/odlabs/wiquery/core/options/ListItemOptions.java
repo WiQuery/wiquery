@@ -35,7 +35,7 @@ public class ListItemOptions<E extends IListItemOption> extends ArrayList<E> imp
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.ICollectionItemOptions#getJavascriptItemOptions()
 	 */
-	public CharSequence getJavascriptItemOptions() {
+	public CharSequence getJavascriptOption() {
 		StringBuffer javascript = new StringBuffer();
 		javascript.append("{");
 		

@@ -45,6 +45,9 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 
 	private Options options = new Options();
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager
@@ -53,10 +56,20 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 				.addJavaScriptResource(new ResizableJavaScriptResourceReference());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
+	 */
 	@Override
 	public JsStatement statement() {
 		return new JsQuery(this.getComponent()).$().chain("resizable",
 				this.options.getJavaScriptOptions());
+	}
+	
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
 	}
 
 	public void setAlsoResize(String cssSelector) {

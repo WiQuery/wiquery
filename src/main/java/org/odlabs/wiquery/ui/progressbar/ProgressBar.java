@@ -55,6 +55,9 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 		this.options.setRenderer(new UiOptionsRenderer("progressbar", this));
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(ProgressBar.class,
 				"ui.progressbar.js");
@@ -72,6 +75,13 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 		wholeStatement.append(componentStatement.render());
 		wholeStatement.append(options.getJavaScriptOptions());
 		return wholeStatement;
+	}
+	
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
 	}
 
 	public JsStatement update() {

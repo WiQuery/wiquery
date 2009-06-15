@@ -110,6 +110,9 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		};
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(DatePicker.class,
 				"ui.datepicker.js");
@@ -118,9 +121,19 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 						getLocale()));
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 */
 	public JsStatement statement() {
 		return new JsQuery(this).$().chain("datepicker",
 				options.getJavaScriptOptions());
+	}
+	
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
 	}
 
 	/* options */

@@ -21,13 +21,17 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
+import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
+import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
  * $Id$
@@ -67,6 +71,9 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 		options = new Options();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(Accordion.class,
 				"ui.accordion.js");
@@ -81,6 +88,15 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 		return new JsQuery(this).$().chain("accordion",
 				options.getJavaScriptOptions());
 	}
+	
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
+	}
+	
+	/*---- Options section ---*/
 
 	/**
 	 * Sets if this accordion must always has one opened content.
@@ -172,4 +188,193 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 		this.options.putLiteral("header", headerSelector);
 	}
 
+	/**
+	 * If set, clears height and overflow styles after finishing animations. 
+	 * This enables accordions to work with dynamic content. <b>Won't work together
+	 * with autoHeight.</b>
+	 * @param clearStyle
+	 */
+	public void setClearStyle(boolean clearStyle) {
+		this.options.put("clearStyle", clearStyle);
+	}
+
+	/**
+	 * @see #setClearStyle(boolean)
+	 */
+	public boolean getClearStyle() {
+		return this.options.getBoolean("clearStyle");
+	}
+	
+	/**
+	 * Whether all the sections can be closed at once. Allows collapsing the 
+	 * active section by the triggering event (click is the default).
+	 * @param collapsible
+	 */
+	public void setCollapsible(boolean collapsible) {
+		this.options.put("collapsible", collapsible);
+	}
+
+	/**
+	 * @see #setCollapsible(boolean)
+	 */
+	public boolean getCollapsible() {
+		return this.options.getBoolean("collapsible");
+	}
+	
+	/**
+	 * If set, looks for the anchor that matches location.href and activates it.
+	 * Great for href-based state-saving. Use navigationFilter to implement 
+	 * your own matcher.
+	 * @param navigation
+	 */
+	public void setNavigation(boolean navigation) {
+		this.options.put("navigation", navigation);
+	}
+
+	/**
+	 * @see #setCollapsible(boolean)
+	 */
+	public boolean getNavigation() {
+		return this.options.getBoolean("navigation");
+	}
+	
+	/**
+	 * Overwrite the default location.href-matching with your own matcher.
+	 * @param navigationFilter
+	 */
+	public void setNavigationFilter(JsScope navigationFilter) {
+		this.options.put("navigationFilter", navigationFilter);
+	}
+	
+	/**
+	 * @see #setIcon(AccordionIcon)
+	 */
+	public AccordionIcon getIcons() {
+		IComplexOption icons = this.options.getComplexOption("icons");
+		if(icons != null && icons instanceof AccordionIcon){
+			return (AccordionIcon) icons;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Icons to use for headers. Icons may be specified for 'header' and 'headerSelected',
+	 * and we recommend using the icons native to the jQuery UI CSS Framework 
+	 * manipulated by jQuery UI ThemeRoller
+	 * Default: { 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }
+	 * @param icon
+	 */
+	public void setIcons(AccordionIcon icons) {	
+		this.options.put("icons", icons);
+	}
+	
+	/**
+	 * @see #setActive(AccordionActive)
+	 */
+	public AccordionActive getActive() {
+		IComplexOption active = this.options.getComplexOption("active");
+		if(active != null && active instanceof AccordionActive){
+			return (AccordionActive) active;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Selector for the active element. Set to false to display none at start. 
+	 * Needs collapsible: true.
+	 * 
+	 * Type of element : Selector, Element, jQuery, Boolean, Number
+	 * 
+	 * Default: first child
+	 * 
+	 * @param active
+	 */
+	public void setActive(AccordionActive active) {	
+		this.options.put("active", active);
+	}
+	
+	/*---- Events section ---*/
+	
+	/**Set's the callback when the accordion changes. If the accordion is animated,
+	 * the event will be triggered upon completion of the animation; otherwise,
+	 * it is triggered immediately. 
+	 * @param change
+	 */
+	public void setChangeEvent(JsScopeUiEvent change) {
+		this.options.put("change", change);
+	}
+	
+	/**Set's the callback when the accordion starts to change.  
+	 * @param changestart
+	 */
+	public void setChangeStartEvent(JsScopeUiEvent changestart) {
+		this.options.put("changestart", changestart);
+	}
+	
+	/*---- Methods section ---*/
+	
+	/**Method to activate a content part of the Accordion programmatically. 
+	 * The index can be a zero-indexed number to match the position of the header
+	 * to close or a Selector matching an element. Pass false to close all 
+	 * (only possible with collapsible:true).
+	 * This will return the element back to its pre-init state.
+	 * @param index
+	 * @return the associated JsStatement
+	 */
+	public JsStatement activate(int index) {
+		return new JsQuery(this).$().chain("accordion", "'activate'", Integer.toString(index));
+	}
+
+	/**Method to destroy the accordion within the ajax request
+	 * @param ajaxRequestTarget
+	 * @param index
+	 */
+	public void activate(AjaxRequestTarget ajaxRequestTarget, int index) {
+		ajaxRequestTarget.appendJavascript(this.activate(index).render().toString());
+	}
+	
+	/**Method to destroy the accordion
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return new JsQuery(this).$().chain("accordion", "'destroy'");
+	}
+
+	/**Method to destroy the accordion within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+	}
+	
+	/**Method to disable the accordion
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return new JsQuery(this).$().chain("accordion", "'disable'");
+	}
+
+	/**Method to disable the accordion within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+	}
+	
+	/**Method to enable the accordion
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return new JsQuery(this).$().chain("accordion", "'enable'");
+	}
+
+	/**Method to enable the accordion within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
 }

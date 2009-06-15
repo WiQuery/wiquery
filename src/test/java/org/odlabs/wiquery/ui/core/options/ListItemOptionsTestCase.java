@@ -29,7 +29,7 @@ public class ListItemOptionsTestCase extends TestCase {
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
 		
 		String expectedJavascript = "{}";
-		String generatedJavascript = options.getJavascriptItemOptions().toString();
+		String generatedJavascript = options.getJavascriptOption().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
@@ -38,7 +38,7 @@ public class ListItemOptionsTestCase extends TestCase {
 		options.add(o1);
 		options.add(o2);
 		expectedJavascript = "{5,43}";
-		generatedJavascript = options.getJavascriptItemOptions().toString();
+		generatedJavascript = options.getJavascriptOption().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		Assert.assertEquals(generatedJavascript, expectedJavascript);

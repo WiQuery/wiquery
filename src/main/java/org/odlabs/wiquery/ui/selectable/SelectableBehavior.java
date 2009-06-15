@@ -137,10 +137,10 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 		return this.options.getLiteral("filter");
 	}
 
-	/** Method retrieving the options of the behavior
+	/**Method retrieving the options of the component
 	 * @return the options
 	 */
-	public Options getOptions() {
+	protected Options getOptions() {
 		return options;
 	}
 
@@ -194,13 +194,6 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void setFilter(String filter) {
 		this.options.putLiteral("filter", filter);
-	}
-
-	/** Set's the options
-	 * @param options
-	 */
-	public void setOptions(Options options) {
-		this.options = options;
 	}
 
 	/** Set's the tolerance

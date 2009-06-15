@@ -104,6 +104,13 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		return new JsQuery(this).$().chain("dialog",
 				options.getJavaScriptOptions());
 	}
+	
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
+	}
 
 	// TODO
 	public JsStatement open() {

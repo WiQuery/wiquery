@@ -262,10 +262,10 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		return this.options.getFloat("opacity");
 	}
 	
-	/** Method retrieving the options of the behavior
+	/**Method retrieving the options of the component
 	 * @return the options
 	 */
-	public Options getOptions() {
+	protected Options getOptions() {
 		return options;
 	}
 	
@@ -451,13 +451,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void setOpacity(float opacity) {
 		this.options.put("opacity", opacity);
-	}
-	
-	/** Set's the options
-	 * @param options
-	 */
-	public void setOptions(Options options) {
-		this.options = options;
 	}
 	
 	/**Set's the class that gets applied to the otherwise white space.

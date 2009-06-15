@@ -3,6 +3,7 @@ package org.odlabs.wiquery.ui.core.options;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
+import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
@@ -29,6 +30,20 @@ public class OptionsTestCase extends TestCase{
 		
 		Assert.assertFalse(options.isEmpty());
 		Assert.assertTrue(options.getBoolean("keyBoolean"));
+	}
+	
+	@Test
+	public void testGetIComplexOption() {
+		DefaultComplexOptionImpl impl = new DefaultComplexOptionImpl();
+		
+		Options options = new Options();
+		options.put("keyComplexOption", impl);
+		
+		Assert.assertFalse(options.isEmpty());
+		
+		IComplexOption complexOption = options.getComplexOption("keyComplexOption");
+		Assert.assertNotNull(complexOption);
+		Assert.assertEquals(impl, complexOption);
 	}
 	
 	@Test
@@ -75,6 +90,8 @@ public class OptionsTestCase extends TestCase{
 		array.add(o1);
 		array.add(o2);
 		
+		DefaultComplexOptionImpl impl = new DefaultComplexOptionImpl();
+		
 		JsScope jsScope = JsScope.quickScope("alert('test');");
 		
 		Options options = new Options();
@@ -85,9 +102,11 @@ public class OptionsTestCase extends TestCase{
 		options.put("keyString", "string");
 		options.put("keyOptions", array);
 		options.put("keyScope", jsScope);
+		options.put("keyComplexOption", impl);
 		
 		String expectedJavascript = "{keyString: string, keyBoolean: true, " +
-				"keyInt: 1, keyFloat: 1.0, keyScope: function() {\n\talert('test');\n}," +
+				"keyInt: 1, keyComplexOption: alert('complex option');, keyFloat: 1.0, " +
+				"keyScope: function() {\n\talert('test');\n}," +
 				" keyOptions: [5,23], keyLiteral: 'literal'}";
 		String generatedJavascript = options.getJavaScriptOptions().toString();
 		log.info(expectedJavascript);
@@ -120,6 +139,15 @@ public class OptionsTestCase extends TestCase{
 		
 		Assert.assertFalse(options.isEmpty());
 		Assert.assertTrue(options.containsKey("keyBoolean"));
+	}
+	
+	@Test
+	public void testPutComplexOption() {
+		Options options = new Options();
+		options.put("keyComplexOption", new DefaultComplexOptionImpl());
+		
+		Assert.assertFalse(options.isEmpty());
+		Assert.assertTrue(options.containsKey("keyComplexOption"));
 	}
 	
 	@Test
@@ -165,5 +193,14 @@ public class OptionsTestCase extends TestCase{
 		
 		Assert.assertFalse(options.isEmpty());
 		Assert.assertTrue(options.containsKey("keyString"));
+	}
+	
+	private class DefaultComplexOptionImpl implements IComplexOption {
+		private static final long serialVersionUID = 1L;
+
+		public CharSequence getJavascriptOption() {
+			return "alert('complex option');";
+		}
+		
 	}
 }

@@ -52,10 +52,20 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 				.addJavaScriptResource(new DroppableJavaScriptResourceLocator());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
+	 */
 	@Override
 	public JsStatement statement() {
 		return new JsQuery(getComponent()).$().chain("droppable",
 				this.options.getJavaScriptOptions());
+	}
+	
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
 	}
 
 	public void setAccept(String accept) {

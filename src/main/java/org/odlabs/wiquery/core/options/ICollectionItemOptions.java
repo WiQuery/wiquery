@@ -21,16 +21,12 @@
  */
 package org.odlabs.wiquery.core.options;
 
-/**Interface to specify how a collection of ItemOptions must be generated
+/**
+ * Interface to specify how a collection of ItemOptions must be generated
  * @author Julien Roche
  *
  */
-public interface ICollectionItemOptions {
-	/**Method retrieving the javascript representation of this list
-	 * @return the javascript
-	 */
-	public CharSequence getJavascriptItemOptions();
-	
+public interface ICollectionItemOptions extends IComplexOption {	
 	/**Method retrieving the list of IListItemOption from this collection
 	 * @return the list
 	 */

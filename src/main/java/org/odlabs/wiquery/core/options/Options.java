@@ -152,6 +152,14 @@ public class Options implements Serializable {
 		return ((Boolean) this.options.get(key)).booleanValue();
 	}
 
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
 	public String getLiteral(String key) {
 		Object object = this.options.get(key);
 		if (object == null) {
@@ -159,6 +167,21 @@ public class Options implements Serializable {
 		}
 		assert (object instanceof LiteralOption);
 		return ((LiteralOption) object).getLiteral();
+	}
+	
+	/**
+	 * <p>
+	 * Puts a complex option value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the IComplexOption.
+	 */
+	public Options put(String key, IComplexOption value){
+		options.put(key, value);
+		return this;
 	}
 	
 	/**
@@ -284,20 +307,45 @@ public class Options implements Serializable {
 			Object value = entry.getValue();
 			boolean isLast = !(count < options.size() - 1);
 			if (value instanceof JsScope) {
+				// Case of a JsScope
 				sb.append(this.optionsRenderer.renderOption(key,
 						((JsScope) value).render(), isLast));
-			} else if (value instanceof ICollectionItemOptions) {
+			} 
+			else if (value instanceof ICollectionItemOptions) {
+				// Case of an ICollectionItemOptions
 				sb.append(this.optionsRenderer.renderOption(key,
-						((ICollectionItemOptions)value).getJavascriptItemOptions(), isLast));
-			} else {
-				sb
-						.append(this.optionsRenderer.renderOption(key, value,
-								isLast));
+						((ICollectionItemOptions)value).getJavascriptOption(), isLast));
+			} 
+			else if (value instanceof IComplexOption) {
+				// Case of an IComplexOption
+				sb.append(this.optionsRenderer.renderOption(key,
+						((IComplexOption)value).getJavascriptOption(), isLast));
+			} 
+			else {
+				// Other cases
+				sb.append(this.optionsRenderer.renderOption(key, value,	isLast));
 			}
 			count++;
 		}
 		this.optionsRenderer.renderAfter(sb);
 		return sb;
+	}
+	
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key the option name.
+	 * @return the complex option
+	 */
+	public IComplexOption getComplexOption(String key) {
+		Object object = this.options.get(key);
+		if (object == null) {
+			return null;
+		}
+		assert (object instanceof IComplexOption);
+		return (IComplexOption) object;
 	}
 	
 	/**

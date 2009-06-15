@@ -40,15 +40,31 @@ public abstract class AutocompleteBehavior<T, E> extends AbstractDefaultAjaxBeha
 		};
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 */
 	public JsStatement statement() {
 		return new JsQuery(this.getComponent()).$().chain("autocomplete", options.getJavaScriptOptions());
 	}
+	
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
+	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
+	 */
 	@Override
 	protected void onBind() {
 		options.putLiteral("url", this.getCallbackUrl().toString());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
+	 */
 	@Override
 	protected void respond(AjaxRequestTarget target) {
 		// response: outputing the list of results as a js map

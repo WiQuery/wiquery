@@ -21,41 +21,20 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-/** Array of IListItemOptions
+/**
+ * $Id: IComplexOption.java
+ * <p>
+ * Interface to get the representation of a complex option
+ * </p>
+ * 
  * @author Julien Roche
- *
+ * @since 1.0
  */
-public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> implements ICollectionItemOptions {
-	// Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = 1779802328333735627L;
-
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.ICollectionItemOptions#getJavascriptItemOptions()
+public interface IComplexOption extends Serializable {
+	/**Method retrieving the javascript representation of this complex option
+	 * @return the javascript
 	 */
-	public CharSequence getJavascriptOption() {
-		StringBuffer javascript = new StringBuffer();
-		javascript.append("[");
-		
-		if(!isEmpty()){
-			for(IListItemOption itemOption : this){
-				javascript.append(itemOption.getJavascriptOption());
-				javascript.append(",");
-			}
-			javascript.replace(javascript.length() - 1, 
-					javascript.length(), ""); //Remove the last ','
-		}		
-		
-		javascript.append("]");
-		return javascript;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.ICollectionItemOptions#values()
-	 */
-	public IListItemOption[] values() {
-		return this.toArray(new IListItemOption[this.size()]);
-	}
+	public CharSequence getJavascriptOption();
 }

@@ -57,6 +57,9 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 		options = new Options();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(Tabs.class, "ui.tabs.js");
 	}
@@ -69,6 +72,13 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	public JsStatement statement() {
 		return new JsQuery(this).$().chain("tabs",
 				options.getJavaScriptOptions());
+	}
+	
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
 	}
 
 	/**

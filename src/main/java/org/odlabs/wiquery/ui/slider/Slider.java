@@ -10,6 +10,9 @@ import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 
 @WiQueryUIPlugin
 public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
+	// Constants
+	/**	Constant of serialization */
+	private static final long serialVersionUID = 3738656024036987661L;
 
 	public static enum Orientation { VERTICAL, HORIZONTAL};
 	
@@ -19,12 +22,24 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 		super(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(Slider.class, "ui.slider.js");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 */
 	public JsStatement statement() {
 		return new JsQuery(this).$().chain("slider", options.getJavaScriptOptions());
 	}
 
+	/**Method retrieving the options of the component
+	 * @return the options
+	 */
+	protected Options getOptions() {
+		return options;
+	}
 }
