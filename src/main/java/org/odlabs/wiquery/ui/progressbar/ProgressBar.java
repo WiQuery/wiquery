@@ -21,6 +21,7 @@
  */
 package org.odlabs.wiquery.ui.progressbar;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
@@ -28,12 +29,14 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
+import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.options.UiOptionsRenderer;
 
 /**
  * $Id$
  * <p>
- * TODO insert comments here
+ * Creates a progressBar UI component from this {@link WebMarkupContainer}'s
+ * HTML markup.
  * </p>
  * 
  * @author Lionel Armanet
@@ -90,12 +93,89 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 		return wholeStatement;
 	}
 
+	/*---- Options section ---*/
+	
+	/**Sets the current value of the progressBar
+	 * @param value
+	 */
 	public void setValue(int value) {
 		this.options.put("value", value);
 	}
 
+	/**
+	 * @return the current value of the progressBar
+	 */
 	public int getValue() {
 		return this.options.getInt("value");
 	}
 
+	/*---- Events section ---*/
+	
+	/**Set's the callback when the value of the progressBar changes.
+	 * @param change
+	 */
+	public void setChangeEvent(JsScopeUiEvent change) {
+		this.options.put("change", change);
+	}
+	
+	/*---- Methods section ---*/
+	
+	/**Method to destroy the progressBar
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return new JsQuery(this).$().chain("progressbar", "'destroy'");
+	}
+
+	/**Method to destroy the progressBar within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+	}
+	
+	/**Method to disable the progressBar
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return new JsQuery(this).$().chain("progressbar", "'disable'");
+	}
+
+	/**Method to disable the progressBar within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+	}
+	
+	/**Method to enable the progressBar
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return new JsQuery(this).$().chain("progressbar", "'enable'");
+	}
+
+	/**Method to enable the progressBar within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to set the current value of the progressBar
+	 * @param value
+	 * @return the associated JsStatement
+	 */
+	public JsStatement value(int value) {
+		return new JsQuery(this).$().chain("progressbar", "'value'", Integer.toString(value));
+	}
+
+	/**Method to set the current value of the progressBar within the ajax request
+	 * @param ajaxRequestTarget
+	 * @param value
+	 */
+	public void value(AjaxRequestTarget ajaxRequestTarget, int value) {
+		ajaxRequestTarget.appendJavascript(this.value(value).render().toString());
+	}
 }
