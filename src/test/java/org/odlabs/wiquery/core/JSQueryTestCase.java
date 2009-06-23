@@ -27,7 +27,8 @@ public class JSQueryTestCase {
 		jsq = new JsQuery();
 		expected = "$('.sample').ready(function() {\n\talert('foo');\n\talert('bar');\n});";
 		jst = jsq.$(".sample").ready(new JsScope() {
-		
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void execute(JsScopeContext scopeContext) {
 				scopeContext.append("alert('foo')");
@@ -47,7 +48,8 @@ public class JSQueryTestCase {
 		
 		jsq = new JsQuery();
 		jst = jsq.$(".sample").each(new JsScope() {
-		
+			private static final long serialVersionUID = 1L;
+			
 			@Override
 			protected void execute(JsScopeContext scopeContext) {
 				scopeContext.self().chain("css", "'foo'");

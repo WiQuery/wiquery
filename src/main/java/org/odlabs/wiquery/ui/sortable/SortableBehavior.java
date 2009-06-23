@@ -119,6 +119,26 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 1L;
+	
+	/** Properties on the ui parameter (use it into callback functions) : The
+	 *  current helper element (most often a clone of the item) */
+	public static final String UI_HELPER = "ui.helper";
+	/** Properties on the ui parameter (use it into callback functions) : The 
+	 * current position of the helper */
+	public static final String UI_POSITION = "ui.position";
+	/** Properties on the ui parameter (use it into callback functions) : The 
+	 * current absolute position of the helper */
+	public static final String UI_OFFSET = "ui.offset";
+	/** Properties on the ui parameter (use it into callback functions) : The 
+	 * current dragged element */
+	public static final String UI_ITEM = "ui.item";
+	/** Properties on the ui parameter (use it into callback functions) : The 
+	 * placeholder (if you defined one) */
+	public static final String UI_PLACEHOLDER= "ui.placeholder";
+	/** Properties on the ui parameter (use it into callback functions) : The 
+	 * sortable where the item comes from 
+	 * (only exists if you move from one connected list to another) */
+	public static final String UI_SENDER = "ui.sender";
 
 	//Properties
 	private Options options;
@@ -141,6 +161,8 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(new SortableJavaScriptResourceReference());
 	}
+	
+	/*---- Options section ---*/
 	
 	/**
 	 * @return the appendTo option value
