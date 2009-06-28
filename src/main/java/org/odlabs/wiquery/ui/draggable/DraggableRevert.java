@@ -19,49 +19,70 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.resizable;
+package org.odlabs.wiquery.ui.draggable;
 
 import org.odlabs.wiquery.core.options.IComplexOption;
+import org.odlabs.wiquery.core.options.LiteralOption;
 
 /**
- * $Id: ResizableAspectRatio.java
+ * $Id: DraggableRevert.java
  * <p>
- * Bean for the aspectRatio option for the Resizable behavior
+ * Bean for the revert option for the Draggable behavior
  * </p>
  * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ResizableAspectRatio implements IComplexOption {	
+public class DraggableRevert implements IComplexOption {
+	public enum RevertEnum {
+		VALID		(new LiteralOption("valid")),
+		INVALID 	(new LiteralOption("invalid"));
+		
+		// Properties
+		private LiteralOption literalParam;
+		
+		RevertEnum(LiteralOption literalParam){
+			this.literalParam = literalParam;
+		}
+
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return literalParam.toString();
+		}
+	}
+	
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
 	
 	// Properties
 	private Boolean booleanParam;
-	private Float floatParam;
+	private RevertEnum revertEnumParameter;
 	
 	/**Constructor
 	 * @param booleanParam Boolean parameter
 	 */
-	public ResizableAspectRatio(Boolean booleanParam) {
+	public DraggableRevert(Boolean booleanParam) {
 		this(booleanParam, null);
 	}
 
 	/**Constructor
-	 * @param floatParam Float parameter
+	 * @param revertEnumParameter RevertEnum parameter
 	 */
-	public ResizableAspectRatio(Float floatParam) {
-		this(null, floatParam);
+	public DraggableRevert(RevertEnum revertEnumParameter) {
+		this(null, revertEnumParameter);
 	}
 	
 	/**Constructor
 	 * @param booleanParam Boolean parameter
-	 * @param floatParam Float parameter
+	 * @param revertEnumParameter RevertEnum parameter
 	 */
-	private ResizableAspectRatio(Boolean booleanParam, Float floatParam) {
+	private DraggableRevert(Boolean booleanParam, RevertEnum revertEnumParameter) {
 		super();
-		setParam(booleanParam, floatParam);
+		setParam(booleanParam, revertEnumParameter);
 	}
 	
 	/**
@@ -72,18 +93,18 @@ public class ResizableAspectRatio implements IComplexOption {
 	}
 
 	/**
-	 * @return the floatParam
+	 * @return the stringParam
 	 */
-	public Float getFloatParam() {
-		return floatParam;
+	public RevertEnum getRevertEnumParam() {
+		return revertEnumParameter;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
 	 */
 	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && floatParam == null){
-			throw new IllegalArgumentException("The ResizableAspectRatio must have one not null parameter");
+		if(booleanParam == null && revertEnumParameter == null){
+			throw new IllegalArgumentException("The DraggableRevert must have one not null parameter");
 		}
 		
 		CharSequence sequence = null;
@@ -91,11 +112,11 @@ public class ResizableAspectRatio implements IComplexOption {
 		if(booleanParam != null){
 			sequence = booleanParam.toString();
 		}
-		else if(floatParam != null){
-			sequence = floatParam.toString();
+		else if(revertEnumParameter != null){
+			sequence = revertEnumParameter.toString();
 		}
 		else{
-			throw new IllegalArgumentException("The ResizableAspectRatio must have one not null parameter");
+			throw new IllegalArgumentException("The DraggableRevert must have one not null parameter");
 		}
 		
 		return sequence;
@@ -108,19 +129,19 @@ public class ResizableAspectRatio implements IComplexOption {
 		setParam(booleanParam, null);
 	}
 	
-	/**Set's the float parameter
-	 * @param floatParam the float to set
+	/**Set's the RevertEnum parameter
+	 * @param revertEnumParameter the RevertEnum to set
 	 */
-	public void setFloatParam(Float floatParam) {
-		setParam(null, floatParam);
+	public void setRevertEnumParam(RevertEnum revertEnumParameter) {
+		setParam(null, revertEnumParameter);
 	}
 	
 	/**Method setting the right parameter
 	 * @param booleanParam Boolean parameter
-	 * @param floatParam Float parameter
+	 * @param revertEnumParameter RevertEnum parameter
 	 */
-	private void setParam(Boolean booleanParam, Float floatParam) {
+	private void setParam(Boolean booleanParam, RevertEnum revertEnumParameter) {
 		this.booleanParam = booleanParam;
-		this.floatParam = floatParam;
+		this.revertEnumParameter = revertEnumParameter;
 	}
 }

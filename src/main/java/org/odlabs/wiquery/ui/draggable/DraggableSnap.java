@@ -19,49 +19,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.resizable;
+package org.odlabs.wiquery.ui.draggable;
 
 import org.odlabs.wiquery.core.options.IComplexOption;
+import org.odlabs.wiquery.core.options.LiteralOption;
 
 /**
- * $Id: ResizableAspectRatio.java
+ * $Id: DraggableSnap.java
  * <p>
- * Bean for the aspectRatio option for the Resizable behavior
+ * Bean for the snap option for the Draggable behavior
  * </p>
  * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ResizableAspectRatio implements IComplexOption {	
+public class DraggableSnap implements IComplexOption {	
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
 	
 	// Properties
 	private Boolean booleanParam;
-	private Float floatParam;
+	private LiteralOption selectorParam;
 	
 	/**Constructor
 	 * @param booleanParam Boolean parameter
 	 */
-	public ResizableAspectRatio(Boolean booleanParam) {
+	public DraggableSnap(Boolean booleanParam) {
 		this(booleanParam, null);
 	}
 
 	/**Constructor
-	 * @param floatParam Float parameter
+	 * @param selectorParam Selector parameter
 	 */
-	public ResizableAspectRatio(Float floatParam) {
-		this(null, floatParam);
+	public DraggableSnap(LiteralOption selectorParam) {
+		this(null, selectorParam);
 	}
 	
 	/**Constructor
 	 * @param booleanParam Boolean parameter
-	 * @param floatParam Float parameter
+	 * @param selectorParam Selector parameter
 	 */
-	private ResizableAspectRatio(Boolean booleanParam, Float floatParam) {
+	private DraggableSnap(Boolean booleanParam, LiteralOption selectorParam) {
 		super();
-		setParam(booleanParam, floatParam);
+		setParam(booleanParam, selectorParam);
 	}
 	
 	/**
@@ -72,18 +73,18 @@ public class ResizableAspectRatio implements IComplexOption {
 	}
 
 	/**
-	 * @return the floatParam
+	 * @return the selectorParam
 	 */
-	public Float getFloatParam() {
-		return floatParam;
+	public LiteralOption getSelectorPAram() {
+		return selectorParam;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
 	 */
 	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && floatParam == null){
-			throw new IllegalArgumentException("The ResizableAspectRatio must have one not null parameter");
+		if(booleanParam == null && selectorParam == null){
+			throw new IllegalArgumentException("The DraggableSnap must have one not null parameter");
 		}
 		
 		CharSequence sequence = null;
@@ -91,11 +92,11 @@ public class ResizableAspectRatio implements IComplexOption {
 		if(booleanParam != null){
 			sequence = booleanParam.toString();
 		}
-		else if(floatParam != null){
-			sequence = floatParam.toString();
+		else if(selectorParam != null){
+			sequence = selectorParam.toString();
 		}
 		else{
-			throw new IllegalArgumentException("The ResizableAspectRatio must have one not null parameter");
+			throw new IllegalArgumentException("The DraggableSnap must have one not null parameter");
 		}
 		
 		return sequence;
@@ -108,19 +109,19 @@ public class ResizableAspectRatio implements IComplexOption {
 		setParam(booleanParam, null);
 	}
 	
-	/**Set's the float parameter
-	 * @param floatParam the float to set
+	/**Set's the selector parameter
+	 * @param selectorParam the selector to set
 	 */
-	public void setFloatParam(Float floatParam) {
-		setParam(null, floatParam);
+	public void setSelectorParam(LiteralOption selectorParam) {
+		setParam(null, selectorParam);
 	}
 	
 	/**Method setting the right parameter
 	 * @param booleanParam Boolean parameter
-	 * @param floatParam Float parameter
+	 * @param selectorParam Selector parameter
 	 */
-	private void setParam(Boolean booleanParam, Float floatParam) {
+	private void setParam(Boolean booleanParam, LiteralOption selectorParam) {
 		this.booleanParam = booleanParam;
-		this.floatParam = floatParam;
+		this.selectorParam = selectorParam;
 	}
 }

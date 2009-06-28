@@ -260,7 +260,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @return the handle option value
 	 */
 	public String getHandle() {
-		return this.options.getLiteral("handler");
+		return this.options.getLiteral("handle");
 	}
 	
 	/**
