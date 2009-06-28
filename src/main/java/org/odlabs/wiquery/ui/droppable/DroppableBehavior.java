@@ -21,13 +21,15 @@
  */
 package org.odlabs.wiquery.ui.droppable;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
-import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
  * $Id$
@@ -39,11 +41,41 @@ import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
  * @since 1.0
  */
 public class DroppableBehavior extends WiQueryAbstractBehavior {
-
+	/**
+	 * Enumeration for the tolerance option
+	 * @author Julien Roche
+	 *
+	 */
+	public enum ToleranceEnum {
+		FIT,
+		INTERSECT,
+		POINTER,
+		TOUCH;
+	}
+	
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
+	
+	/** Properties on the ui parameter (use it into callback functions) : 
+	 * current draggable element, a jQuery object. */
+	public static final String UI_DRAGGABLE = "ui.draggable";
+	/** Properties on the ui parameter (use it into callback functions) : 
+	 * current draggable helper, a jQuery object  */
+	public static final String UI_HELPER = "ui.helper";
+	/** Properties on the ui parameter (use it into callback functions) :
+	 * current position of the draggable helper { top: , left: } */
+	public static final String UI_POSITION = "ui.position";
+	/** Properties on the ui parameter (use it into callback functions) :
+	 * current absolute position of the draggable helper { top: , left: } */
+	public static final String UI_OFFSET = "ui.offset";
 
+	// Properties
 	private Options options = new Options();
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager
@@ -68,12 +100,221 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 		return options;
 	}
 
-	public void setAccept(String accept) {
-		this.options.putLiteral("accept", accept);
+	/*---- Options section ---*/
+	
+	/**All draggables that match the selector will be accepted. If a function is 
+	 * specified, the function will be called for each draggable on the page 
+	 * (passed as the first argument to the function), to provide a custom filter. 
+	 * The function should return true if the draggable should be accepted.
+	 * @param accept
+	 */
+	public void setAccept(DroppableAccept accept) {
+		this.options.put("accept", accept);
+	}
+	
+	/**
+	 * @return the accept option
+	 */
+	public DroppableAccept getAccept() {
+		IComplexOption accept = this.options.getComplexOption("accept");
+		if(accept == null && accept instanceof DroppableAccept){
+			return (DroppableAccept) accept;
+		}
+		
+		return null;
+	}
+	
+	/**If specified, the class will be added to the droppable while an acceptable 
+	 * draggable is being dragged.
+	 * @param activeClass
+	 */
+	public void setActiveClass(String activeClass) {
+		this.options.putLiteral("activeClass", activeClass);
+	}
+	
+	/**
+	 * @return the activeClass option
+	 */
+	public String getActiveClass() {
+		return this.options.getLiteral("activeClass");
+	}
+	
+	/**If true, will prevent event propagation on nested droppables.
+	 * @param addClasses
+	 */
+	public void setAddClasses(boolean addClasses) {
+		this.options.put("addClasses", addClasses);
+	}
+	
+	/**
+	 * @return the addClasses option
+	 */
+	public boolean isAddClasses() {
+		if(this.options.containsKey("addClasses")){
+			return this.options.getBoolean("addClasses");
+		}
+		else{
+			return true;
+		}
+	}
+	
+	/**If true, will prevent event propagation on nested droppables.
+	 * @param greedy
+	 */
+	public void setGreedy(boolean greedy) {
+		this.options.put("greedy", greedy);
+	}
+	
+	/**
+	 * @return the greedy option
+	 */
+	public boolean isGreedy() {
+		if(this.options.containsKey("greedy")){
+			return this.options.getBoolean("greedy");
+		}
+		else{
+			return false;
+		}
+	}
+	
+	/**If specified, the class will be added to the droppable while an acceptable 
+	 * draggable is being hovered.
+	 * @param hoverClass
+	 */
+	public void setHoverClass(String hoverClass) {
+		this.options.putLiteral("hoverClass", hoverClass);
+	}
+	
+	/**
+	 * @return the hoverClass option
+	 */
+	public String getHoverClass() {
+		return this.options.getLiteral("hoverClass");
+	}
+	
+	/**Used to group sets of draggable and droppable items, in addition to droppable's 
+	 * accept option. A draggable with the same scope value as a droppable will be accepted.
+	 * @param scope
+	 */
+	public void setScope(String scope) {
+		this.options.putLiteral("scope", scope);
+	}
+	
+	/**
+	 * @return the scope option
+	 */
+	public String getScope() {
+		String scope = this.options.getLiteral("scope");
+		
+		return scope == null ? "default" : scope;
+	}
+	
+	/** Set's the mode to use for testing whether a draggable is 'over' a droppable. 
+	 * Possible values: 'fit', 'intersect', 'pointer', 'touch'.
+	 * <ul>
+	 * 	<li><b>fit</b>: draggable overlaps the droppable entirely</li>
+	 * 	<li><b>intersect</b>: draggable overlaps the droppable at least 50%</li>
+	 * 	<li><b>pointer</b>: mouse pointer overlaps the droppable</li>
+	 * 	<li><b>touch</b>: draggable overlaps the droppable any amount</li>
+	 * </ul>
+	 * @param tolerance
+	 */
+	public void setTolerance(ToleranceEnum tolerance) {
+		this.options.putLiteral("tolerance", tolerance.toString().toLowerCase());
+	}
+	
+	/**
+	 * @return the tolerance option enum
+	 */
+	public ToleranceEnum getTolerance() {
+		return ToleranceEnum.valueOf(this.options.getLiteral("tolerance").toUpperCase());
+	}
+	
+	/*---- Events section ---*/
+	
+	/**Set's the callback when an accepted draggable starts dragging. 
+	 * This can be useful if you want to make the droppable 'light up' when it 
+	 * can be dropped on.
+	 * @param activate
+	 */
+	public void setActivateEvent(JsScopeUiEvent activate) {
+		this.options.put("activate", activate);
+	}
+	
+	/**Set's the callback when an accepted draggable stops dragging.
+	 * @param deactivate
+	 */
+	public void setDeactivateEvent(JsScopeUiEvent deactivate) {
+		this.options.put("deactivate", deactivate);
+	}
+	
+	/**Set's the callback when an accepted draggable is dropped 'over' (within 
+	 * the tolerance of) this droppable. In the callback, $(this) represents the 
+	 * droppable the draggable is dropped on. ui.draggable represents the draggable.
+	 * @param drop
+	 */
+	public void setDropEvent(JsScopeUiEvent drop) {
+		this.options.put("drop", drop);
+	}
+	
+	/**Set's the callback when an accepted draggable is dragged out (within the 
+	 * tolerance of) this droppable.
+	 * @param out
+	 */
+	public void setOutEvent(JsScopeUiEvent out) {
+		this.options.put("out", out);
+	}
+	
+	/**Set's the callback when an accepted draggable is dragged 'over' (within 
+	 * the tolerance of) this droppable.
+	 * @param over
+	 */
+	public void setOverEvent(JsScopeUiEvent over) {
+		this.options.put("over", over);
 	}
 
-	public void setOnDrop(JsScope onDrop) {
-		this.options.put("drop", onDrop);
+	/*---- Methods section ---*/
+	
+	/**Method to destroy the droppable
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return new JsQuery(getComponent()).$().chain("droppable", "'destroy'");
 	}
 
+	/**Method to destroy the droppable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+	}
+	
+	/**Method to disable the droppable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return new JsQuery(getComponent()).$().chain("droppable", "'disable'");
+	}
+
+	/**Method to disable the droppable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+	}
+	
+	/**Method to enable the droppable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return new JsQuery(getComponent()).$().chain("droppable", "'enable'");
+	}
+
+	/**Method to enable the droppable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
 }

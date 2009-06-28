@@ -85,6 +85,18 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
 	
+	/** Properties on the ui parameter (use it into callback functions) : 
+	 * the jQuery object representing the helper that's being dragged  */
+	public static final String UI_HELPER = "ui.helper";
+	/** Properties on the ui parameter (use it into callback functions) :
+	 * current position of the helper as { top, left } object, relative to the 
+	 * offset element  */
+	public static final String UI_POSITION = "ui.position";
+	/** Properties on the ui parameter (use it into callback functions) :
+	 * current absolute position of the helper as { top, left } object, relative 
+	 * to page */
+	public static final String UI_OFFSET = "ui.offset";
+	
 	// Properties
 	private Options options;
 	

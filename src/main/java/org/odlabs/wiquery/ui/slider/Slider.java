@@ -51,15 +51,31 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 3738656024036987661L;
 	
-	/** DOMElement - the current focused handle (use it into callback functions)  */
+	/** Properties on the ui parameter (use it into callback functions) :
+	 * DOMElement - the current focused handle */
 	public static final String UI_HANDLE = "ui.handle";
-	/** Integer - the current handle's value (use it into callback functions)  */
+	/** Properties on the ui parameter (use it into callback functions) :
+	 * Integer - the current handle's value */
 	public static final String UI_VALUE = "ui.value";
 
-	public static enum Orientation { VERTICAL, HORIZONTAL};
+	/**
+	 * Enumeration for the orientation option
+	 * @author Lionel Armanet
+	 *
+	 */
+	public static enum Orientation { 
+		VERTICAL, 
+		HORIZONTAL
+	};
 	
+	// Properties
 	private Options options;
 	
+	/** Constructor
+	 * @param id Markup identifiant
+	 * @param min Minimum value
+	 * @param max Maximum value
+	 */
 	public Slider(String id, Number min, Number max) {
 		super(id);
 	}

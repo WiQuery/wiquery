@@ -22,11 +22,11 @@
 package org.odlabs.wiquery.ui.droppable;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.options.Options;
+import org.odlabs.wiquery.core.util.MarkupIdVisitor;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
@@ -41,13 +41,29 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * @since 1.0
  */
 public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior {
-
+	//Constants
+	/**Constant of serialization */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Adding the standard droppable JavaScript behavior
 	 */
-	private DroppableBehavior droppableBehavior = new DroppableBehavior();
+	private InnerDroppableBehavior droppableBehavior;
+	
+	/**
+	 * Default constructor
+	 */
+	public DroppableAjaxBehavior() {
+		super();
+		droppableBehavior = new InnerDroppableBehavior();
+	}
+	
+	/**
+	 * @return the standard droppable JavaScript behavior 
+	 */
+	public DroppableBehavior getDroppableBehavior() {
+		return droppableBehavior;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -57,29 +73,22 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	@Override
 	protected void onBind() {
 		getComponent().add(droppableBehavior);
-		droppableBehavior.setOnDrop(new JsScopeUiEvent() {
-
+		droppableBehavior.setInnerDropEvent(new JsScopeUiEvent() {
 			private static final long serialVersionUID = 1L;
 
+			/* (non-Javadoc)
+			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
+			 */
 			@Override
 			protected void execute(JsScopeContext scopeContext) {
 				scopeContext
 						.append("wicketAjaxGet('"
 								+ getCallbackUrl(true)
-								+ "&droppedId='+ui.draggable[0].id, null,null, function() {return true;})");
+								+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE 
+								+ "[0].id, null,null, function() {return true;})");
 			}
 
 		});
-	}
-
-	/**
-	 * Sets the acceptance.
-	 * 
-	 * @param acceptance
-	 *            CSS rule, e.g. which components can be dropped in
-	 */
-	public void setAccept(String accept) {
-		droppableBehavior.setAccept(accept);
 	}
 
 	/*
@@ -96,7 +105,7 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * For framework internal use only.
 	 */
 	public final void onDrop(AjaxRequestTarget target) {
-		// getting dropped element id to retreive the wicket component
+		// getting dropped element id to retrieve the Wicket component
 		String input = this.getComponent().getRequest().getParameter(
 				"droppedId");
 		MarkupIdVisitor visitor = new MarkupIdVisitor(input);
@@ -114,29 +123,40 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 */
 	public abstract void onDrop(Component droppedComponent,
 			AjaxRequestTarget ajaxRequestTarget);
+	
+	/**
+	 * We override the behavior to deny the access of critical methods (example,
+	 * we don't want that the end user specify a drop event, because the {@link DroppableAjaxBehavior}
+	 * has got his own !!)
+	 * @author Julien Roche
+	 *
+	 */
+	private class InnerDroppableBehavior extends DroppableBehavior {
+		// Constants
+		/**Constant of serialization*/
+		private static final long serialVersionUID = 5587258236214715234L;
 
-	// TODO refactor -> create separated file
-	private static class MarkupIdVisitor implements IVisitor<Component> {
-		private final String id;
-		private Component found;
-
-		public MarkupIdVisitor(String id) {
-			this.id = id;
+		/* (non-Javadoc)
+		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#getOptions()
+		 */
+		@Override
+		protected Options getOptions() {
+			throw new UnsupportedOperationException("You can call this method into the DroppableAjaxBehavior");
 		}
 
-		public Object component(Component component) {
-			if (component.getMarkupId().equals(id)) {
-				this.found = component;
-				return IVisitor.STOP_TRAVERSAL;
-			}
-			if (component instanceof MarkupContainer) {
-				return ((MarkupContainer) component).visitChildren(this);
-			}
-			return IVisitor.CONTINUE_TRAVERSAL;
+		/* (non-Javadoc)
+		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#setDropEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
+		 */
+		@Override
+		public void setDropEvent(JsScopeUiEvent drop) {
+			throw new UnsupportedOperationException("You can call this method into the DroppableAjaxBehavior");
 		}
-
-		public Component getFoundComponent() {
-			return found;
+		
+		/**
+		 * For framework internal use only.
+		 */
+		private void setInnerDropEvent(JsScopeUiEvent drop) {
+			super.setDropEvent(drop);
 		}
 	}
 }
