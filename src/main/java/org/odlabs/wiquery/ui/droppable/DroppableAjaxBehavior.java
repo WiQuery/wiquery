@@ -41,15 +41,15 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * @since 1.0
  */
 public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior {
-	//Constants
-	/**Constant of serialization */
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Adding the standard droppable JavaScript behavior
 	 */
 	private InnerDroppableBehavior droppableBehavior;
-	
+
 	/**
 	 * Default constructor
 	 */
@@ -57,9 +57,9 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		super();
 		droppableBehavior = new InnerDroppableBehavior();
 	}
-	
+
 	/**
-	 * @return the standard droppable JavaScript behavior 
+	 * @return the standard droppable JavaScript behavior
 	 */
 	public DroppableBehavior getDroppableBehavior() {
 		return droppableBehavior;
@@ -76,16 +76,18 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		droppableBehavior.setInnerDropEvent(new JsScopeUiEvent() {
 			private static final long serialVersionUID = 1L;
 
-			/* (non-Javadoc)
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+			 * .wiquery.core.javascript.JsScopeContext)
 			 */
 			@Override
 			protected void execute(JsScopeContext scopeContext) {
-				scopeContext
-						.append("wicketAjaxGet('"
-								+ getCallbackUrl(true)
-								+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE 
-								+ "[0].id, null,null, function() {return true;})");
+				scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
+						+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
+						+ "[0].id, null,null, function() {return true;})");
 			}
 
 		});
@@ -94,7 +96,9 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
+	 * @see
+	 * org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache
+	 * .wicket.ajax.AjaxRequestTarget)
 	 */
 	@Override
 	protected void respond(AjaxRequestTarget target) {
@@ -123,35 +127,44 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 */
 	public abstract void onDrop(Component droppedComponent,
 			AjaxRequestTarget ajaxRequestTarget);
-	
+
 	/**
 	 * We override the behavior to deny the access of critical methods (example,
-	 * we don't want that the end user specify a drop event, because the {@link DroppableAjaxBehavior}
-	 * has got his own !!)
+	 * we don't want that the end user specify a drop event, because the
+	 * {@link DroppableAjaxBehavior} has got his own !!)
+	 * 
 	 * @author Julien Roche
-	 *
+	 * 
 	 */
 	private class InnerDroppableBehavior extends DroppableBehavior {
 		// Constants
-		/**Constant of serialization*/
+		/** Constant of serialization */
 		private static final long serialVersionUID = 5587258236214715234L;
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#getOptions()
 		 */
 		@Override
 		protected Options getOptions() {
-			throw new UnsupportedOperationException("You can call this method into the DroppableAjaxBehavior");
+			throw new UnsupportedOperationException(
+					"You can call this method into the DroppableAjaxBehavior");
 		}
 
-		/* (non-Javadoc)
-		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#setDropEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.odlabs.wiquery.ui.droppable.DroppableBehavior#setDropEvent(org
+		 * .odlabs.wiquery.ui.core.JsScopeUiEvent)
 		 */
 		@Override
 		public void setDropEvent(JsScopeUiEvent drop) {
-			throw new UnsupportedOperationException("You can call this method into the DroppableAjaxBehavior");
+			throw new UnsupportedOperationException(
+					"You can call this method into the DroppableAjaxBehavior");
 		}
-		
+
 		/**
 		 * For framework internal use only.
 		 */

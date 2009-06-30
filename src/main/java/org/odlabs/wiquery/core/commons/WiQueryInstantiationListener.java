@@ -24,13 +24,12 @@ package org.odlabs.wiquery.core.commons;
 import java.io.Serializable;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.behavior.HeaderContributor;
-import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
 /**
- * $Id$
+ * $Id: WiQueryInstantiationListener.java 89 2009-06-02 21:42:53Z lionel.armanet
+ * $
  * <p>
  * Listens to WiQuery components instantiation and automatically binds a
  * {@link WiQueryCoreHeaderContributor} to these components.
@@ -48,16 +47,12 @@ public class WiQueryInstantiationListener implements
 
 	private static final long serialVersionUID = -7398777039788778234L;
 
-	/**
-	 * The current theme.
-	 */
-	public static final ResourceReference DEFAULT_THEME = new WiQueryCoreThemeResourceReference(
-			"fusion");
-
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apache.wicket.application.IComponentInstantiationListener#onInstantiation(org.apache.wicket.Component)
+	 * @see
+	 * org.apache.wicket.application.IComponentInstantiationListener#onInstantiation
+	 * (org.apache.wicket.Component)
 	 */
 	public void onInstantiation(final Component component) {
 		// theme management

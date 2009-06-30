@@ -28,14 +28,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.wicket.RequestCycle;
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.util.ThemeHelper;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
 /**
  * $Id$
@@ -60,6 +61,12 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		IHeaderContributor {
 
 	private static final long serialVersionUID = -347081993448442637L;
+
+	/**
+	 * The default theme.
+	 */
+	private static ResourceReference theme = new WiQueryCoreThemeResourceReference(
+			"fusion");
 
 	/*
 	 * TODO Refactor constants below, use enum instead
@@ -87,6 +94,17 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private Map<IWiQueryPlugin, WiQueryResourceManager> resourceManagers = new HashMap<IWiQueryPlugin, WiQueryResourceManager>();
 
 	/**
+	 * Sets the application theme (this theme is not stored in session, it's a
+	 * theme for the whole application).
+	 * 
+	 * @param resourceReference
+	 *            the theme to use
+	 */
+	public static void setTheme(ResourceReference resourceReference) {
+		theme = resourceReference;
+	}
+
+	/**
 	 * Imports core jQuery resources (CSS / JavaScript).
 	 * 
 	 * @param headerResponse
@@ -105,7 +123,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	 *            The {@link IHeaderResponse} to contribute to
 	 */
 	void importCoreUiResource(IHeaderResponse headerResponse) {
-		headerResponse.renderCSSReference(ThemeHelper.getTheme());
+		headerResponse.renderCSSReference(theme);
 		headerResponse
 				.renderJavascriptReference(CoreUIJavaScriptResourceReference
 						.get());
@@ -160,12 +178,12 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 
 		jsq.setStatement(jsStatement);
 		jsq.renderHead(response, RequestCycle.get().getRequestTarget());
-		
+
 		/*---- If we clear the plugins and the resource managers, we will have some
 		 * problems with submit link or ajaxsubmitlink ---*/
 		// after rendering, this contributor is re initialized
-		//plugins.clear();
-		//resourceManagers.clear();
+		// plugins.clear();
+		// resourceManagers.clear();
 		/*---- ---*/
 	}
 
