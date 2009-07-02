@@ -1,0 +1,18 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd" >    
+    <head><script type="text/javascript" src="resources/org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference/jquery/jquery-1.3.2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference/fusion/jquery-ui-1.7.1.custom.css" />
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference/ui.core.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.dialog.Dialog/ui.dialog.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceLocator/ui.draggable.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference/ui.resizable.js"></script>
+<script type="text/javascript">$(document).ready(function() {
+			$('#dialogDiv1').dialog({position: 'center', autoOpen: false});
+});</script></head><body>
+    	<div wicket:id="testedWiquery" id="testedWiquery2">
+    		<wicket:child><wicket:extend>
+    	<div wicket:id="dialogDiv" id="dialogDiv1">
+    	</div>
+    </wicket:extend></wicket:child>
+    	</div>
+    </body>
+</html>
