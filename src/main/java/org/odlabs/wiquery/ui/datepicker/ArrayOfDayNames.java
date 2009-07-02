@@ -19,51 +19,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.core;
-
-import org.odlabs.wiquery.core.javascript.JsScope;
-import org.odlabs.wiquery.core.javascript.JsScopeContext;
-
+package org.odlabs.wiquery.ui.datepicker;
 
 /**
- * This class represent a JsScope event for the JQuery UI components
- * The javascript representation will be like this:
+ * $Id: ArrayOfDayNames.java
  * <p>
- * 	function(event, ui) { ... }
+ * List of day names for the daynames, daynamesMin, daynamesShort into the 
+ * DatePicker component
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class JsScopeUiEvent extends JsScope {
-	//Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = 1L;
+public class ArrayOfDayNames extends AbstractArrayOfDateNames {
+	// Constants
+	/** Constant of serialization */
+	private static final long serialVersionUID = -9097637272858071731L;
 	
-	/**Default constructor
+	/** Number of names */
+	public static final Integer NUMBER_OF_NAMES = 7;
+	
+	/** Constructor
+	 * @param sunday 		Name for Sunday
+	 * @param monday		Name for Monday
+	 * @param tuesday		Name for Tuesday
+	 * @param wednesday		Name for Wednesday
+	 * @param thursday		Name for Thursday
+	 * @param friday		Name for Friday
+	 * @param saturday		Name for Saturday
 	 */
-	public JsScopeUiEvent() {
-		super("event", "ui");
+	public ArrayOfDayNames(String sunday, String monday, String tuesday, 
+			String wednesday, String thursday, String friday, String saturday) {
+		super(new String[]{
+				sunday, 
+				monday, 
+				tuesday,
+				wednesday,
+				thursday,
+				friday,
+				saturday});
 	}
-	
-	/**
-	 * Creates a default {@link JsScopeUiEvent} to execute the given statement.
-	 * 
-	 * @param javascriptCode
-	 *            the JavaScript statement to execute with the scope.
-	 * @return the created {@link JsScopeUiEvent}.
+
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.ui.datepicker.AbstractArrayOfDateNames#getNumberOfName()
 	 */
-	public static JsScopeUiEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopeUiEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/* (non-Javadoc)
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append(javascriptCode);
-			}
-
-		};
+	@Override
+	public Integer getNumberOfName() {
+		return NUMBER_OF_NAMES;
 	}
 }

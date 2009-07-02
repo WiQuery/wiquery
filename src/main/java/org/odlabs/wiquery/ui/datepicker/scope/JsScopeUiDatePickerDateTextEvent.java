@@ -19,51 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.core;
+package org.odlabs.wiquery.ui.datepicker.scope;
 
 import org.odlabs.wiquery.core.javascript.JsScope;
-import org.odlabs.wiquery.core.javascript.JsScopeContext;
 
 
 /**
- * This class represent a JsScope event for the JQuery UI components
+ * This class represent a JsScope event for the datepicker JQuery UI components for
+ * the onclose and onselect callback
  * The javascript representation will be like this:
  * <p>
- * 	function(event, ui) { ... }
+ * 	function(dateText, inst) { ... }
  * </p>
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class JsScopeUiEvent extends JsScope {
+public abstract class JsScopeUiDatePickerDateTextEvent extends JsScope {
 	//Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 1L;
 	
 	/**Default constructor
 	 */
-	public JsScopeUiEvent() {
-		super("event", "ui");
-	}
-	
-	/**
-	 * Creates a default {@link JsScopeUiEvent} to execute the given statement.
-	 * 
-	 * @param javascriptCode
-	 *            the JavaScript statement to execute with the scope.
-	 * @return the created {@link JsScopeUiEvent}.
-	 */
-	public static JsScopeUiEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopeUiEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/* (non-Javadoc)
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append(javascriptCode);
-			}
-
-		};
+	public JsScopeUiDatePickerDateTextEvent() {
+		super("dateText", "inst");
 	}
 }

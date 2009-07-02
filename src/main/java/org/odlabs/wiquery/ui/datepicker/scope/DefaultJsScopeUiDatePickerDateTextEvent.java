@@ -19,51 +19,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.core;
+package org.odlabs.wiquery.ui.datepicker.scope;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 
-
 /**
- * This class represent a JsScope event for the JQuery UI components
- * The javascript representation will be like this:
- * <p>
- * 	function(event, ui) { ... }
- * </p>
+ * Default implementation of the JsScopeUiDatePickerDateTextEvent
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class JsScopeUiEvent extends JsScope {
+public class DefaultJsScopeUiDatePickerDateTextEvent extends JsScopeUiDatePickerDateTextEvent {
 	//Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 1L;
 	
-	/**Default constructor
-	 */
-	public JsScopeUiEvent() {
-		super("event", "ui");
+	// Properties
+	private CharSequence javascriptCode;
+	
+	public DefaultJsScopeUiDatePickerDateTextEvent(CharSequence javascriptCode) {
+		super();
+		this.javascriptCode = javascriptCode;
 	}
 	
-	/**
-	 * Creates a default {@link JsScopeUiEvent} to execute the given statement.
-	 * 
-	 * @param javascriptCode
-	 *            the JavaScript statement to execute with the scope.
-	 * @return the created {@link JsScopeUiEvent}.
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 	 */
-	public static JsScopeUiEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopeUiEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/* (non-Javadoc)
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append(javascriptCode);
-			}
-
-		};
+	@Override
+	protected final void execute(JsScopeContext scopeContext) {
+		scopeContext.append(javascriptCode);
 	}
+
 }

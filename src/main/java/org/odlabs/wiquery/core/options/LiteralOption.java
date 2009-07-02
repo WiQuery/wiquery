@@ -39,7 +39,7 @@ import java.io.Serializable;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class LiteralOption implements Serializable {
+public class LiteralOption implements Serializable, IListItemOption {
 
 	private static final long serialVersionUID = 6999431516689050752L;
 
@@ -61,6 +61,20 @@ public class LiteralOption implements Serializable {
 		this.literal = literal;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
+	 */
+	public CharSequence getJavascriptOption() {
+		return toString();
+	}
+
+	/**
+	 * @return the wrapped {@link String}.
+	 */
+	public String getLiteral() {
+		return literal;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -70,12 +84,4 @@ public class LiteralOption implements Serializable {
 	public String toString() {
 		return "'" + literal + "'";
 	}
-
-	/**
-	 * @return the wrapped {@link String}.
-	 */
-	public String getLiteral() {
-		return literal;
-	}
-
 }
