@@ -35,12 +35,26 @@ public class PulsateEffectJavaScriptResourceReference extends JavascriptResource
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -5550806128536330878L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static PulsateEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public PulsateEffectJavaScriptResourceReference() {
+	private PulsateEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.pulsate.js");
 	}
 
+	/**
+	 * Returns the {@link PulsateEffectJavaScriptResourceReference} instance.
+	 */
+	public static PulsateEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new PulsateEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

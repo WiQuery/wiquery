@@ -35,12 +35,26 @@ public class BounceEffectJavaScriptResourceReference extends JavascriptResourceR
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -3565759378628266183L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static BounceEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public BounceEffectJavaScriptResourceReference() {
+	private BounceEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.bounce.js");
 	}
 
+	/**
+	 * Returns the {@link BounceEffectJavaScriptResourceReference} instance.
+	 */
+	public static BounceEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new BounceEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

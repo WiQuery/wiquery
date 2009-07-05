@@ -35,12 +35,26 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 public class SortableJavaScriptResourceReference extends
 		JavascriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static SortableJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.
 	 */
-	public SortableJavaScriptResourceReference() {
+	private SortableJavaScriptResourceReference() {
 		super(SortableJavaScriptResourceReference.class, "ui.sortable.js");
 	}
 
+	/**
+	 * Returns the {@link SortableJavaScriptResourceReference} instance.
+	 */
+	public static SortableJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new SortableJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

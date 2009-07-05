@@ -37,10 +37,24 @@ public class FoldEffectJavaScriptResourceReference extends JavascriptResourceRef
 	private static final long serialVersionUID = 4691925978528852666L;
 
 	/**
+	 * Singleton instance.
+	 */
+	private static FoldEffectJavaScriptResourceReference instance;
+	
+	/**
 	 * Default constructor
 	 */
-	public FoldEffectJavaScriptResourceReference() {
+	private FoldEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.fold.js");
 	}
 
+	/**
+	 * Returns the {@link FoldEffectJavaScriptResourceReference} instance.
+	 */
+	public static FoldEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new FoldEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

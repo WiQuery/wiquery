@@ -61,7 +61,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(Tabs.class, "ui.tabs.js");
+		wiQueryResourceManager.addJavaScriptResource(TabsJavaScriptResourceReference.get());
 	}
 
 	/*

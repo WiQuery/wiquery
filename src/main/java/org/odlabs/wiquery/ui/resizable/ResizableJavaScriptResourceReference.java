@@ -36,14 +36,29 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  */
 public class ResizableJavaScriptResourceReference extends
 		JavascriptResourceReference {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3423205998397680042L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static ResizableJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link ResizableJavaScriptResourceReference}.
 	 */
-	public ResizableJavaScriptResourceReference() {
+	private ResizableJavaScriptResourceReference() {
 		super(ResizableJavaScriptResourceReference.class, "ui.resizable.js");
 	}
 
+	/**
+	 * Returns the {@link ResizableJavaScriptResourceReference} instance.
+	 */
+	public static ResizableJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new ResizableJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

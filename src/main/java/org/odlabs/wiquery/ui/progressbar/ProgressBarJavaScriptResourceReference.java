@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Objet Direct
+ * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,41 +19,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.effects;
+package org.odlabs.wiquery.ui.progressbar;
 
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ResizableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
+ * lionel.armanet $
  * <p>
- * 	References the JavaScript resource to import the Scale jQuery UI effect.
+ * References the JavaScript resource to get the ProgressBar component.
  * </p>
- * @author Julien Roche
- * @since 1.0
+ * 
+ * @author Lionel Armanet
+ * @since 0.5
  */
-public class ScaleEffectJavaScriptResourceReference extends JavascriptResourceReference {
+public class ProgressBarJavaScriptResourceReference extends
+		JavascriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = -3173953116856601631L;
+	/** Constant of serialization */
+	private static final long serialVersionUID = 3423205998397680042L;
 	
 	/**
 	 * Singleton instance.
 	 */
-	private static ScaleEffectJavaScriptResourceReference instance;
+	private static ProgressBarJavaScriptResourceReference instance;
 
 	/**
-	 * Default constructor
+	 * Builds a new instance of {@link ProgressBarJavaScriptResourceReference}.
 	 */
-	private ScaleEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.scale.js");
+	private ProgressBarJavaScriptResourceReference() {
+		super(ProgressBarJavaScriptResourceReference.class, "ui.progressbar.js");
 	}
 
 	/**
-	 * Returns the {@link ScaleEffectJavaScriptResourceReference} instance.
+	 * Returns the {@link ProgressBarJavaScriptResourceReference} instance.
 	 */
-	public static ScaleEffectJavaScriptResourceReference get() {
+	public static ProgressBarJavaScriptResourceReference get() {
 		if (instance == null) {
-			instance = new ScaleEffectJavaScriptResourceReference();
+			instance = new ProgressBarJavaScriptResourceReference();
 		}
 		return instance;
 	}

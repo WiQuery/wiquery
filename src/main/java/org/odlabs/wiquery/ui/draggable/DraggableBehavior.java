@@ -117,7 +117,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
-				.addJavaScriptResource(new DraggableJavaScriptResourceLocator());
+				.addJavaScriptResource(DraggableJavaScriptResourceLocator.get());
 	}
 
 	/*

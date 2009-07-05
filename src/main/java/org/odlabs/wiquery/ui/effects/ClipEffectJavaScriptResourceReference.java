@@ -35,12 +35,26 @@ public class ClipEffectJavaScriptResourceReference extends JavascriptResourceRef
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 4348767855865592967L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static ClipEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public ClipEffectJavaScriptResourceReference() {
+	private ClipEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.clip.js");
 	}
 
+	/**
+	 * Returns the {@link ClipEffectJavaScriptResourceReference} instance.
+	 */
+	public static ClipEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new ClipEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

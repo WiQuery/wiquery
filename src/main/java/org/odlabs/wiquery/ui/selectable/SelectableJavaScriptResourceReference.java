@@ -34,14 +34,29 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  */
 public class SelectableJavaScriptResourceReference extends
 		JavascriptResourceReference {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = -4480460830759651938L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static SelectableJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link SelectableJavaScriptResourceReference}.
 	 */
-	public SelectableJavaScriptResourceReference() {
+	private SelectableJavaScriptResourceReference() {
 		super(SelectableJavaScriptResourceReference.class, "ui.selectable.js");
 	}
 
+	/**
+	 * Returns the {@link SelectableJavaScriptResourceReference} instance.
+	 */
+	public static SelectableJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new SelectableJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

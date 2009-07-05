@@ -35,12 +35,26 @@ public class BlindEffectJavaScriptResourceReference extends JavascriptResourceRe
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 2433859014719481769L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static BlindEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public BlindEffectJavaScriptResourceReference() {
+	private BlindEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.blind.js");
 	}
 
+	/**
+	 * Returns the {@link BlindEffectJavaScriptResourceReference} instance.
+	 */
+	public static BlindEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new BlindEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

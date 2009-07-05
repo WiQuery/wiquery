@@ -35,12 +35,26 @@ public class ShakeEffectJavaScriptResourceReference extends JavascriptResourceRe
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -1202143038814716047L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static ShakeEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public ShakeEffectJavaScriptResourceReference() {
+	private ShakeEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.shake.js");
 	}
 
+	/**
+	 * Returns the {@link ShakeEffectJavaScriptResourceReference} instance.
+	 */
+	public static ShakeEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new ShakeEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

@@ -91,7 +91,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
-				.addJavaScriptResource(new DroppableJavaScriptResourceLocator());
+				.addJavaScriptResource(DroppableJavaScriptResourceLocator.get());
 	}
 
 	/*

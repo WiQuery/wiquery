@@ -77,7 +77,7 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
-				.addJavaScriptResource(new ResizableJavaScriptResourceReference());
+				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 	}
 
 	/* (non-Javadoc)

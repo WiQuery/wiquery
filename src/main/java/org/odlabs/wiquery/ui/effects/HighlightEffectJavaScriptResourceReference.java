@@ -37,10 +37,24 @@ public class HighlightEffectJavaScriptResourceReference extends JavascriptResour
 	private static final long serialVersionUID = -3395721774043602930L;
 
 	/**
+	 * Singleton instance.
+	 */
+	private static HighlightEffectJavaScriptResourceReference instance;
+	
+	/**
 	 * Default constructor
 	 */
-	public HighlightEffectJavaScriptResourceReference() {
+	private HighlightEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.highlight.js");
 	}
 
+	/**
+	 * Returns the {@link HighlightEffectJavaScriptResourceReference} instance.
+	 */
+	public static HighlightEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new HighlightEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

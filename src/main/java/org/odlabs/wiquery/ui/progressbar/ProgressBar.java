@@ -62,8 +62,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(ProgressBar.class,
-				"ui.progressbar.js");
+		wiQueryResourceManager.addJavaScriptResource(ProgressBarJavaScriptResourceReference.get());
 	}
 
 	/*

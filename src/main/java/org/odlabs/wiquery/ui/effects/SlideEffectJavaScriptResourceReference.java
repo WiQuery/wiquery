@@ -35,12 +35,26 @@ public class SlideEffectJavaScriptResourceReference extends JavascriptResourceRe
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 2062678871572539729L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static SlideEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public SlideEffectJavaScriptResourceReference() {
+	private SlideEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.slide.js");
 	}
 
+	/**
+	 * Returns the {@link SlideEffectJavaScriptResourceReference} instance.
+	 */
+	public static SlideEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new SlideEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

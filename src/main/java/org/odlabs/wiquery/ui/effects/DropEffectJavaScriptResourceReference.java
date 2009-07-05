@@ -35,12 +35,26 @@ public class DropEffectJavaScriptResourceReference extends JavascriptResourceRef
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -93284559079596805L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static DropEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public DropEffectJavaScriptResourceReference() {
+	private DropEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.drop.js");
 	}
 
+	/**
+	 * Returns the {@link DropEffectJavaScriptResourceReference} instance.
+	 */
+	public static DropEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new DropEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

@@ -159,7 +159,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
-				.addJavaScriptResource(new SortableJavaScriptResourceReference());
+				.addJavaScriptResource(SortableJavaScriptResourceReference.get());
 	}
 	
 	/*---- Options section ---*/

@@ -86,13 +86,12 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(Dialog.class,
-				"ui.dialog.js");
+		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
 		// TODO USE DEPENDENCIES MANGEMENT
 		wiQueryResourceManager
-				.addJavaScriptResource(new DraggableJavaScriptResourceLocator());
+				.addJavaScriptResource(DraggableJavaScriptResourceLocator.get());
 		wiQueryResourceManager
-				.addJavaScriptResource(new ResizableJavaScriptResourceReference());
+				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 	}
 
 	/*

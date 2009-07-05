@@ -84,7 +84,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(Slider.class, "ui.slider.js");
+		wiQueryResourceManager.addJavaScriptResource(SliderJavaScriptResourceReference.get());
 	}
 
 	/* (non-Javadoc)

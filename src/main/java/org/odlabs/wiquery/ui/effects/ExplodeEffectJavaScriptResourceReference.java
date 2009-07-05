@@ -35,12 +35,26 @@ public class ExplodeEffectJavaScriptResourceReference extends JavascriptResource
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 7452940370456162856L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static ExplodeEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public ExplodeEffectJavaScriptResourceReference() {
+	private ExplodeEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.explode.js");
 	}
 
+	/**
+	 * Returns the {@link ExplodeEffectJavaScriptResourceReference} instance.
+	 */
+	public static ExplodeEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new ExplodeEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

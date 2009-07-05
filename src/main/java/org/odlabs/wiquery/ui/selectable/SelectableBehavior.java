@@ -106,7 +106,7 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
-				.addJavaScriptResource(new SelectableJavaScriptResourceReference());
+				.addJavaScriptResource(SelectableJavaScriptResourceReference.get());
 	}
 
 	/**

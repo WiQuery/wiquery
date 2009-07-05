@@ -19,41 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.effects;
+package org.odlabs.wiquery.ui.slider;
 
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
  * <p>
- * 	References the JavaScript resource to import the Scale jQuery UI effect.
+ * 	References the JavaScript resource to get the Slider component.
  * </p>
  * @author Julien Roche
  * @since 1.0
  */
-public class ScaleEffectJavaScriptResourceReference extends JavascriptResourceReference {
-	// Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = -3173953116856601631L;
+public class SliderJavaScriptResourceReference extends
+		JavascriptResourceReference {
+	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
 	 * Singleton instance.
 	 */
-	private static ScaleEffectJavaScriptResourceReference instance;
+	private static SliderJavaScriptResourceReference instance;
 
 	/**
-	 * Default constructor
+	 * Builds a new instance of {@link SliderJavaScriptResourceReference}.
 	 */
-	private ScaleEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.scale.js");
+	private SliderJavaScriptResourceReference() {
+		super(SliderJavaScriptResourceReference.class, "ui.slider.js");
 	}
 
 	/**
-	 * Returns the {@link ScaleEffectJavaScriptResourceReference} instance.
+	 * Returns the {@link SliderJavaScriptResourceReference} instance.
 	 */
-	public static ScaleEffectJavaScriptResourceReference get() {
+	public static SliderJavaScriptResourceReference get() {
 		if (instance == null) {
-			instance = new ScaleEffectJavaScriptResourceReference();
+			instance = new SliderJavaScriptResourceReference();
 		}
 		return instance;
 	}

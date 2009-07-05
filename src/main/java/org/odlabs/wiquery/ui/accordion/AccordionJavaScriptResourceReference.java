@@ -19,41 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.effects;
+package org.odlabs.wiquery.ui.accordion;
 
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
  * <p>
- * 	References the JavaScript resource to import the Scale jQuery UI effect.
+ * 	References the JavaScript resource to get the DatePicker component.
  * </p>
  * @author Julien Roche
  * @since 1.0
  */
-public class ScaleEffectJavaScriptResourceReference extends JavascriptResourceReference {
-	// Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = -3173953116856601631L;
+public class AccordionJavaScriptResourceReference extends
+		JavascriptResourceReference {
+	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
 	 * Singleton instance.
 	 */
-	private static ScaleEffectJavaScriptResourceReference instance;
+	private static AccordionJavaScriptResourceReference instance;
 
 	/**
-	 * Default constructor
+	 * Builds a new instance of {@link AccordionJavaScriptResourceReference}.
 	 */
-	private ScaleEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.scale.js");
+	private AccordionJavaScriptResourceReference() {
+		super(AccordionJavaScriptResourceReference.class, "ui.accordion.js");
 	}
 
 	/**
-	 * Returns the {@link ScaleEffectJavaScriptResourceReference} instance.
+	 * Returns the {@link AccordionJavaScriptResourceReference} instance.
 	 */
-	public static ScaleEffectJavaScriptResourceReference get() {
+	public static AccordionJavaScriptResourceReference get() {
 		if (instance == null) {
-			instance = new ScaleEffectJavaScriptResourceReference();
+			instance = new AccordionJavaScriptResourceReference();
 		}
 		return instance;
 	}

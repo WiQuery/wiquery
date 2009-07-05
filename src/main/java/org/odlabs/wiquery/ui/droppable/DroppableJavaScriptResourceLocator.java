@@ -37,14 +37,29 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  */
 public class DroppableJavaScriptResourceLocator extends
 		JavascriptResourceReference {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3704373328245392715L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static DroppableJavaScriptResourceLocator instance;
 
 	/**
 	 * Builds a new instance of {@link DroppableJavaScriptResourceLocator}.
 	 */
-	public DroppableJavaScriptResourceLocator() {
+	private DroppableJavaScriptResourceLocator() {
 		super(DroppableJavaScriptResourceLocator.class, "ui.droppable.js");
 	}
 
+	/**
+	 * Returns the {@link DroppableJavaScriptResourceLocator} instance.
+	 */
+	public static DroppableJavaScriptResourceLocator get() {
+		if (instance == null) {
+			instance = new DroppableJavaScriptResourceLocator();
+		}
+		return instance;
+	}
 }

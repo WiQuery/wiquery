@@ -35,12 +35,26 @@ public class TransferEffectJavaScriptResourceReference extends JavascriptResourc
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -6460737051632029822L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static TransferEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public TransferEffectJavaScriptResourceReference() {
+	private TransferEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.transfer.js");
 	}
 
+	/**
+	 * Returns the {@link TransferEffectJavaScriptResourceReference} instance.
+	 */
+	public static TransferEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new TransferEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }

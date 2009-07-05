@@ -19,41 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.effects;
+package org.odlabs.wiquery.ui.dialog;
 
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
  * <p>
- * 	References the JavaScript resource to import the Scale jQuery UI effect.
+ * 	References the JavaScript resource to get the Dialog component.
  * </p>
  * @author Julien Roche
  * @since 1.0
  */
-public class ScaleEffectJavaScriptResourceReference extends JavascriptResourceReference {
-	// Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = -3173953116856601631L;
+public class DialogJavaScriptResourceReference extends
+		JavascriptResourceReference {
+	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
 	 * Singleton instance.
 	 */
-	private static ScaleEffectJavaScriptResourceReference instance;
+	private static DialogJavaScriptResourceReference instance;
 
 	/**
-	 * Default constructor
+	 * Builds a new instance of {@link DialogJavaScriptResourceReference}.
 	 */
-	private ScaleEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.scale.js");
+	private DialogJavaScriptResourceReference() {
+		super(DialogJavaScriptResourceReference.class, "ui.dialog.js");
 	}
 
 	/**
-	 * Returns the {@link ScaleEffectJavaScriptResourceReference} instance.
+	 * Returns the {@link DialogJavaScriptResourceReference} instance.
 	 */
-	public static ScaleEffectJavaScriptResourceReference get() {
+	public static DialogJavaScriptResourceReference get() {
 		if (instance == null) {
-			instance = new ScaleEffectJavaScriptResourceReference();
+			instance = new DialogJavaScriptResourceReference();
 		}
 		return instance;
 	}

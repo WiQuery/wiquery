@@ -35,12 +35,26 @@ public class CoreEffectJavaScriptResourceReference extends JavascriptResourceRef
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 308143135598505224L;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static CoreEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
-	public CoreEffectJavaScriptResourceReference() {
+	private CoreEffectJavaScriptResourceReference() {
 		super(CoreEffectJavaScriptResourceReference.class, "effects.core.js");
 	}
 
+	/**
+	 * Returns the {@link CoreEffectJavaScriptResourceReference} instance.
+	 */
+	public static CoreEffectJavaScriptResourceReference get() {
+		if (instance == null) {
+			instance = new CoreEffectJavaScriptResourceReference();
+		}
+		return instance;
+	}
 }
