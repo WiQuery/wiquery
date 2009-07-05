@@ -29,6 +29,7 @@ import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
+import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
@@ -64,7 +65,6 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
  * 	<ul>
  * 		<li>Method : dialog</li>
  * 		<li>Method : getDate</li>
- * 		<li>Method : setDate</li>
  * 	</ul>
  * 
  * @author Lionel Armanet
@@ -286,21 +286,23 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * Sets the selectable year range. This range can either be defined by a
 	 * start year and an end year (like 2001 to 2010), or it can be defined
 	 * relatively to the today's date (like current-10 to current+10).
-	 * <p>
-	 * Example to use a relatvie range:
-	 * <code>aDatPickerInstance.setYearRange(-10, 10);</code>
 	 * 
-	 * @param yearFrom
-	 *            the range's start
-	 * @param yearTo
-	 *            the range's end
+	 * @param yearRange
 	 */
-	public void setYearRange(short yearFrom, short yearTo) {
-		//TODO à améliorer
-		if (yearFrom > yearTo) {
-			throw new IllegalArgumentException("Invalid year range");
+	public void setYearRange(DatePickerYearRange yearRange) {
+		options.put("yearRange", yearRange);
+	}
+	
+	/**
+	 * @return the year range valu option
+	 */
+	public DatePickerYearRange getYearRange() {
+		IComplexOption yearRange = this.options.getComplexOption("yearRange");
+		if(yearRange != null && yearRange instanceof DatePickerYearRange){
+			return (DatePickerYearRange)yearRange;
 		}
-		options.putLiteral("yearRange", yearFrom + ":" + yearTo);
+		
+		return null;
 	}
 
 	/**
@@ -437,7 +439,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the maxDate option value
 	 */
 	public DateOption getMaxDate() {
-		ICollectionItemOptions maxDate = options.getListItemOptions("maxDate");
+		IComplexOption maxDate = options.getListItemOptions("maxDate");
 		
 		if(maxDate != null && maxDate instanceof DateOption){
 			return (DateOption) maxDate;
@@ -459,7 +461,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the minDate option value
 	 */
 	public DateOption getMinDate() {
-		ICollectionItemOptions minDate = options.getListItemOptions("minDate");
+		IComplexOption minDate = options.getListItemOptions("minDate");
 		
 		if(minDate != null && minDate instanceof DateOption){
 			return (DateOption) minDate;
@@ -481,7 +483,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the monthNames option value
 	 */
 	public ArrayOfMonthNames getMonthNames() {
-		ICollectionItemOptions monthNames = options.getListItemOptions("monthNames");
+		IComplexOption monthNames = options.getComplexOption("monthNames");
 		
 		if(monthNames != null && monthNames instanceof ArrayOfMonthNames){
 			return (ArrayOfMonthNames) monthNames;
@@ -502,7 +504,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the monthNames option value
 	 */
 	public ArrayOfMonthNames getMonthNamesShort() {
-		ICollectionItemOptions monthNamesShort = options.getListItemOptions("monthNamesShort");
+		IComplexOption monthNamesShort = options.getComplexOption("monthNamesShort");
 		
 		if(monthNamesShort != null && monthNamesShort instanceof ArrayOfMonthNames){
 			return (ArrayOfMonthNames) monthNamesShort;
@@ -560,16 +562,21 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	/**
 	 * Sets the number of months displayed on the date picker.
 	 */
-	public void setNumberOfMonths(short numberOfMonths) {
-		//TODO à améliorer ?
+	public void setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths) {
 		options.put("numberOfMonths", numberOfMonths);
 	}
 
 	/**
 	 * Returns the number of months displayed on the date picker.
 	 */
-	public short getNumberOfMonths() {
-		return options.getShort("numberOfMonths");
+	public DatePickerNumberOfMonths getNumberOfMonths() {
+		IComplexOption numberOfMonths = options.getComplexOption("numberOfMonths");
+		
+		if(numberOfMonths != null && numberOfMonths instanceof DatePickerNumberOfMonths){
+			return (DatePickerNumberOfMonths) numberOfMonths;
+		}
+		
+		return null;
 	}
 	
 	/**Set's the text to display for the previous month link. This attribute is one 
@@ -591,16 +598,21 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	/**Set the cutoff year for determining the century for a date
 	 * @param shortYearCutoff
 	 */
-	public void setShortYearCutoff(short shortYearCutoff) {
-		//TODO à améliorer ?
+	public void setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff) {
 		options.put("shortYearCutoff", shortYearCutoff);
 	}
 
 	/**
 	 * Returns the shortYearCutoff option value.
 	 */
-	public short getShortYearCutoff() {
-		return options.getShort("shortYearCutoff");
+	public DatePickerShortYearCutOff getShortYearCutoff() {
+		IComplexOption shortYearCutoff = options.getComplexOption("shortYearCutoff");
+		
+		if(shortYearCutoff != null && shortYearCutoff instanceof DatePickerShortYearCutOff){
+			return (DatePickerShortYearCutOff) shortYearCutoff;
+		}
+		
+		return null;
 	}
 	
 	/**Set the name of the animation used to show/hide the datepicker. Use 
@@ -764,7 +776,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the dayNames option value
 	 */
 	public ArrayOfDayNames getDayNames() {
-		ICollectionItemOptions dayNames = options.getListItemOptions("dayNames");
+		IComplexOption dayNames = options.getComplexOption("dayNames");
 		
 		if(dayNames != null && dayNames instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNames;
@@ -786,7 +798,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the dayNamesMin option value
 	 */
 	public ArrayOfDayNames getDayNamesMin() {
-		ICollectionItemOptions dayNamesMin = options.getListItemOptions("dayNamesMin");
+		IComplexOption dayNamesMin = options.getComplexOption("dayNamesMin");
 		
 		if(dayNamesMin != null && dayNamesMin instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNamesMin;
@@ -808,7 +820,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the dayNamesShort option value
 	 */
 	public ArrayOfDayNames getDayNamesShort() {
-		ICollectionItemOptions dayNamesShort = options.getListItemOptions("dayNamesShort");
+		IComplexOption dayNamesShort = options.getComplexOption("dayNamesShort");
 		
 		if(dayNamesShort != null && dayNamesShort instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNamesShort;
@@ -831,7 +843,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the defaultDate option value
 	 */
 	public DateOption getDefaultDate() {
-		ICollectionItemOptions defaultDate = options.getListItemOptions("defaultDate");
+		IComplexOption defaultDate = options.getComplexOption("defaultDate");
 		
 		if(defaultDate != null && defaultDate instanceof DateOption){
 			return (DateOption) defaultDate;
@@ -853,7 +865,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the duration option value
 	 */
 	public DatePickerDuration getDuration() {
-		ICollectionItemOptions duration = options.getListItemOptions("duration");
+		IComplexOption duration = options.getComplexOption("duration");
 		
 		if(duration != null && duration instanceof DatePickerDuration){
 			return (DatePickerDuration) duration;
@@ -983,6 +995,23 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public void hide(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.hide().render().toString());
+	}
+	
+	/**Method to set the date of the datepicker
+	 * @param dateOption Date to set
+	 * @return the associated JsStatement
+	 */
+	public JsStatement setDate(DateOption dateOption) {
+		return new JsQuery(this).$().chain("datepicker", "'setDate'",
+				dateOption.getJavascriptOption());
+	}
+
+	/**Method to set the date of the datepicker within the ajax request
+	 * @param ajaxRequestTarget
+	 * @param dateOption Date to set
+	 */
+	public void setDate(AjaxRequestTarget ajaxRequestTarget, DateOption dateOption) {
+		ajaxRequestTarget.appendJavascript(this.setDate(dateOption).render().toString());
 	}
 	
 	/**Method to show the datepicker

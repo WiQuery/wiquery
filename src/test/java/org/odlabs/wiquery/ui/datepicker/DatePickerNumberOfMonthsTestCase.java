@@ -7,39 +7,39 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DatePickerDurationTestCase extends TestCase{
+public class DatePickerNumberOfMonthsTestCase extends TestCase{
 	protected static final Logger log = LoggerFactory.getLogger(
-			DatePickerDurationTestCase.class);
+			DatePickerNumberOfMonthsTestCase.class);
 
 	@Test
 	public void testGetJavaScriptOption() {
-		DatePickerShortYearCutOff shortYearCutOff = new DatePickerShortYearCutOff(new Short("5"));
+		DatePickerDuration duration = new DatePickerDuration(new Short("5"));
 		
 		// Short param
 		String expectedJavascript = "5";
-		String generatedJavascript = shortYearCutOff.getJavascriptOption().toString();
+		String generatedJavascript = duration.getJavascriptOption().toString();
 		
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);		
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 		
-		// Literal param
-		shortYearCutOff.setLiteralParam("+25");
-		expectedJavascript = "'+25'";
-		generatedJavascript = shortYearCutOff.getJavascriptOption().toString();
+		// DurationEnum param
+		duration.setDurationEnumParam(DatePickerDuration.DurationEnum.FAST);
+		expectedJavascript = DatePickerDuration.DurationEnum.FAST.toString();
+		generatedJavascript = duration.getJavascriptOption().toString();
 		
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);		
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 		
 		// Null param
-		shortYearCutOff.setShortParam(null);
+		duration.setDurationEnumParam(null);
 		try {
-			generatedJavascript = shortYearCutOff.getJavascriptOption().toString();
+			generatedJavascript = duration.getJavascriptOption().toString();
 			assertTrue(false);
 		} catch (Exception e) {
 			// We have an expected error
-			assertEquals("The DatePickerShortYearCutOff must have one not null parameter", e.getMessage());
+			assertEquals("The DatePickerDuration must have one not null parameter", e.getMessage());
 		}
 	}
 }
