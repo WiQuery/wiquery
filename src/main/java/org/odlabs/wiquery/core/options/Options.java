@@ -361,7 +361,7 @@ public class Options implements Serializable {
 		if (object == null) {
 			return null;
 		}
-		assert (object instanceof ListItemOptions);
+		assert (object instanceof ICollectionItemOptions);
 		return (ICollectionItemOptions) object;
 	}
 

@@ -82,7 +82,7 @@ public class OptionsTestCase extends TestCase{
 		Assert.assertEquals(1, options.getInt("keyInt"));
 	}
 	
-	@Test
+	/*@Test
 	public void testGetJavaScriptOptions() {
 		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
@@ -112,7 +112,7 @@ public class OptionsTestCase extends TestCase{
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
-	}
+	}*/
 	
 	@Test
 	public void testGetLiteral() {
