@@ -38,7 +38,10 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @since 0.5
  */
 public abstract class Event implements ChainableStatement, Serializable {
-
+	// Constants
+	/**	Constant of serialization */
+	private static final long serialVersionUID = 6498129892490365888L;
+	
 	/**
 	 * The list of events triggering the {@link JsScope}.
 	 */

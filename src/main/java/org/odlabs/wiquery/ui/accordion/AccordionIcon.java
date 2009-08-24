@@ -36,17 +36,17 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 public class AccordionIcon  extends Object implements IComplexOption {
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 4723376695783554831L;
+	private static final long serialVersionUID = 4723376695783554832L;
 	
 	// Properties
-	private LiteralOption headerClass;
-	private LiteralOption headerSelectedClass;
+	private String headerClass;
+	private String headerSelectedClass;
 	
 	/**Default constructor
 	 * @param headerClass
 	 * @param headerSelectedClass
 	 */
-	public AccordionIcon(LiteralOption headerClass, LiteralOption headerSelectedClass) {
+	public AccordionIcon(String headerClass, String headerSelectedClass) {
 		super();
 		this.headerClass = headerClass;
 		this.headerSelectedClass = headerSelectedClass;
@@ -55,14 +55,14 @@ public class AccordionIcon  extends Object implements IComplexOption {
 	/**Method retrieving the class for the header
 	 * @return the class for the header
 	 */
-	public LiteralOption getHeaderClass() {
+	public String getHeaderClass() {
 		return headerClass;
 	}
 
 	/**Method retrieving the class for the headerSelected
 	 * @return the class for the headerSelected
 	 */
-	public LiteralOption getHeaderSelectedClass() {
+	public String getHeaderSelectedClass() {
 		return headerSelectedClass;
 	}
 	
@@ -70,21 +70,21 @@ public class AccordionIcon  extends Object implements IComplexOption {
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
-		return "{'header': " + headerClass + ", 'headerSelected': " 
-			+ headerSelectedClass + "}";
+		return "{'header': " + new LiteralOption(headerClass) + ", 'headerSelected': " 
+			+ new LiteralOption(headerSelectedClass) + "}";
 	}
 	
 	/**Method setting the class for the header
 	 * @param headerClass
 	 */
-	public void setHeaderClass(LiteralOption headerClass) {
+	public void setHeaderClass(String headerClass) {
 		this.headerClass = headerClass;
 	}
 
 	/**Method setting the class for the headerSelected
 	 * @param headerSelectedClass
 	 */
-	public void setHeaderSelectedClass(LiteralOption headerSelectedClass) {
+	public void setHeaderSelectedClass(String headerSelectedClass) {
 		this.headerSelectedClass = headerSelectedClass;
 	}
 }

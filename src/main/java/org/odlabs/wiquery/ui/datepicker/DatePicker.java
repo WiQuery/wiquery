@@ -85,7 +85,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	
 	// Constants
 	/** Constant of serialization */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	// Properties
 	private Options options;
@@ -158,9 +158,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * change the format of the date within this field. Leave as blank for no 
 	 * alternate field.
 	 * @param altField
+	 * @return instance of the current component
 	 */
-	public void setAltField(String altField) {
+	public DatePicker<T> setAltField(String altField) {
 		this.options.putLiteral("altField", altField);
+		return this;
 	}
 	
 	/**
@@ -195,9 +197,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * </ul>
 	 * 
 	 * @param altFormat
+	 * @return instance of the current component
 	 */
-	public void setAltFormat(String altFormat) {
+	public DatePicker<T> setAltFormat(String altFormat) {
 		this.options.putLiteral("altFormat", altFormat);
+		return this;
 	}
 	
 	/**
@@ -209,9 +213,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	
 	/**Set's the text to display after each date field, e.g. to show the required format.
 	 * @param appendText
+	 * @return instance of the current component
 	 */
-	public void setAppendText(String appendText) {
+	public DatePicker<T> setAppendText(String appendText) {
 		this.options.putLiteral("appendText", appendText);
+		return this;
 	}
 	
 	/**
@@ -224,9 +230,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	/**Set's URL for the popup button image. If set, button text becomes the alt 
 	 * value and is not directly displayed.
 	 * @param buttonImage
+	 * @return instance of the current component
 	 */
-	public void setButtonImage(String buttonImage) {
+	public DatePicker<T> setButtonImage(String buttonImage) {
 		this.options.putLiteral("buttonImage", buttonImage);
+		return this;
 	}
 	
 	/**
@@ -239,38 +247,49 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	/**Set to true to place an image after the field to use as the trigger 
 	 * without it appearing on a button.
 	 * @param buttonImageOnly
+	 * @return instance of the current component
 	 */
-	public void setButtonImageOnly(boolean buttonImageOnly) {
+	public DatePicker<T> setButtonImageOnly(boolean buttonImageOnly) {
 		options.put("buttonImageOnly", buttonImageOnly);
+		return this;
 	}
 
 	/**
 	 * @return the buttonImageOnly option value
 	 */
 	public boolean isButtonImageOnly() {
-		return options.getBoolean("buttonImageOnly");
+		if(this.options.containsKey("buttonImageOnly")){
+			return options.getBoolean("buttonImageOnly");
+		}
+		
+		return false;
 	}
 	
 	/**Set's the text to display on the trigger button. Use in conjunction with 
 	 * showOn equal to 'button' or 'both'.
 	 * @param buttonText
+	 * @return instance of the current component
 	 */
-	public void setButtonText(String buttonText) {
+	public DatePicker<T> setButtonText(String buttonText) {
 		this.options.putLiteral("buttonText", buttonText);
+		return this;
 	}
 	
 	/**
 	 * @return the buttonText option value
 	 */
 	public String getButtonText() {
-		return this.options.getLiteral("buttonText");
+		String buttonText = this.options.getLiteral("buttonText");
+		return buttonText == null ? "..." : buttonText;
 	}
 
 	/**
 	 * Sets if the date's month is selectable in a drop down list or not.
+	 * @return instance of the current component
 	 */
-	public void setChangeMonth(boolean changeMonth) {
+	public DatePicker<T> setChangeMonth(boolean changeMonth) {
 		options.put("changeMonth", changeMonth);
+		return this;
 	}
 
 	/**
@@ -278,7 +297,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * returns false otherwise.
 	 */
 	public boolean isChangeMonth() {
-		return options.getBoolean("changeMonth");
+		if(this.options.containsKey("changeMonth")){
+			return options.getBoolean("changeMonth");
+		}
+		
+		return false;
 	}
 
 	/**
@@ -287,9 +310,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * relatively to the today's date (like current-10 to current+10).
 	 * 
 	 * @param yearRange
+	 * @return instance of the current component
 	 */
-	public void setYearRange(DatePickerYearRange yearRange) {
+	public DatePicker<T> setYearRange(DatePickerYearRange yearRange) {
 		options.put("yearRange", yearRange);
+		return this;
 	}
 	
 	/**
@@ -306,132 +331,176 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 
 	/**
 	 * Sets if the date's year is selectable in a drop down list or not.
+	 * @return instance of the current component
 	 */
-	public void setChangeYear(boolean changeYear) {
+	public DatePicker<T> setChangeYear(boolean changeYear) {
 		options.put("changeYear", changeYear);
+		return this;
 	}
 
 	/**
 	 * Returns true if the date's year is selectable in a drop down list,
 	 * returns false otherwise.
 	 */
-	public boolean getChangeYear() {
-		return options.getBoolean("changeYear");
+	public boolean isChangeYear() {
+		if(this.options.containsKey("changeYear")){
+			return options.getBoolean("changeYear");
+		}
+		
+		return false;
 	}
 	
 	/**Set's the text to display for the close link. This attribute is one of 
 	 * the regionalisation attributes. Use the showButtonPanel to display this button.
 	 * @param closeText
+	 * @return instance of the current component
 	 */
-	public void setCloseText(String closeText) {
+	public DatePicker<T> setCloseText(String closeText) {
 		this.options.putLiteral("closeText", closeText);
+		return this;
 	}
 	
 	/**
 	 * @return the closeText option value
 	 */
 	public String getCloseText() {
-		return this.options.getLiteral("closeText");
+		String closeText = this.options.getLiteral("closeText");
+		return closeText == null ? "Done" : closeText;
 	}
 	
 	/**True if the input field is constrained to the current date format.
 	 * @param constrainInput
+	 * @return instance of the current component
 	 */
-	public void setConstrainInput(boolean constrainInput) {
+	public DatePicker<T> setConstrainInput(boolean constrainInput) {
 		options.put("constrainInput", constrainInput);
+		return this;
 	}
 
 	/**
 	 * @return the buttonImageOnly option value
 	 */
 	public boolean isConstrainInput() {
-		return options.getBoolean("constrainInput");
+		if(this.options.containsKey("constrainInput")){
+			return options.getBoolean("constrainInput");
+		}
+		
+		return true;
 	}
 	
 	/**Set's the text to display for the current day link. This attribute is one 
 	 * of the regionalisation attributes. Use the showButtonPanel to display 
 	 * this button.
 	 * @param currentText
+	 * @return instance of the current component
 	 */
-	public void setCurrentText(String currentText) {
+	public DatePicker<T> setCurrentText(String currentText) {
 		this.options.putLiteral("currentText", currentText);
+		return this;
 	}
 	
 	/**
 	 * @return the currentText option value
 	 */
 	public String getCurrentText() {
-		return this.options.getLiteral("currentText");
+		String currentText = this.options.getLiteral("currentText");
+		return currentText == null ? "Today" : currentText;
 	}
 
 	/**
 	 * Sets the calendar's starting day. 0 is for sunday, 1 for monday ...
 	 * 
 	 * @param firstDay
+	 * @return instance of the current component
 	 */
-	public void setFirstDay(short firstDay) {
+	public DatePicker<T> setFirstDay(short firstDay) {
 		options.put("firstDay", firstDay);
+		return this;
 	}
 
 	/**
 	 * Returns the calendar's starting day.
 	 */
 	public short getFirstDay() {
-		return options.getShort("firstDay");
+		if(this.options.containsKey("firstDay")){
+			return options.getShort("firstDay");
+		}
+		
+		return 0;
 	}
 	
 	/**If true, the current day link moves to the currently selected date instead of today.
 	 * @param gotoCurrent
+	 * @return instance of the current component
 	 */
-	public void setGotoCurrent(boolean gotoCurrent) {
+	public DatePicker<T> setGotoCurrent(boolean gotoCurrent) {
 		options.put("gotoCurrent", gotoCurrent);
+		return this;
 	}
 
 	/**
 	 * @return the gotoCurrent option value
 	 */
 	public boolean isGotoCurrent() {
-		return options.getBoolean("gotoCurrent");
+		if(this.options.containsKey("gotoCurrent")){
+			return options.getBoolean("gotoCurrent");
+		}
+		
+		return false;
 	}
 	
 	/**Normally the previous and next links are disabled when not applicable 
 	 * (see minDate/maxDate). You can hide them altogether by setting this 
 	 * attribute to true.
 	 * @param hideIfNoPrevNext
+	 * @return instance of the current component
 	 */
-	public void setHideIfNoPrevNext(boolean hideIfNoPrevNext) {
+	public DatePicker<T> setHideIfNoPrevNext(boolean hideIfNoPrevNext) {
 		options.put("hideIfNoPrevNext", hideIfNoPrevNext);
+		return this;
 	}
 
 	/**
 	 * @return the hideIfNoPrevNext option value
 	 */
 	public boolean isHideIfNoPrevNext() {
-		return options.getBoolean("hideIfNoPrevNext");
+		if(this.options.containsKey("hideIfNoPrevNext")){
+			return options.getBoolean("hideIfNoPrevNext");
+		}
+		
+		return false;
 	}
 	
 	/**True if the current language is drawn from right to left. This attribute 
 	 * is one of the regionalisation attributes.
 	 * @param isRTL
+	 * @return instance of the current component
 	 */
-	public void setIsRTL(boolean isRTL) {
+	public DatePicker<T> setIsRTL(boolean isRTL) {
 		options.put("isRTL", isRTL);
+		return this;
 	}
 
 	/**
 	 * @return the isRTL option value
 	 */
 	public boolean isIsRTL() {
-		return options.getBoolean("isRTL");
+		if(this.options.containsKey("isRTL")){
+			return options.getBoolean("isRTL");
+		}
+		
+		return false;
 	}
 	
 	/**Set a maximum selectable date via a Date object, or a number of days from 
 	 * today (e.g. +7) or a string of values and periods ('y' for years, 'm' for 
 	 * months, 'w' for weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
 	 * @param maxDate
+	 * @return instance of the current component
 	 */
-	public void setMaxDate(DateOption maxDate) {
+	public DatePicker<T> setMaxDate(DateOption maxDate) {
 		options.put("maxDate", maxDate);
+		return this;
 	}
 
 	/**
@@ -451,9 +520,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * today (e.g. +7) or a string of values and periods ('y' for years, 'm' for 
 	 * months, 'w' for weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
 	 * @param minDate
+	 * @return instance of the current component
 	 */
-	public void setMinDate(DateOption minDate) {
+	public DatePicker<T> setMinDate(DateOption minDate) {
 		options.put("minDate", minDate);
+		return this;
 	}
 
 	/**
@@ -473,9 +544,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * datepicker and as requested via the dateFormat setting. This attribute is 
 	 * one of the regionalisation attributes.
 	 * @param monthNames
+	 * @return instance of the current component
 	 */
-	public void setMonthNames(ArrayOfMonthNames monthNames) {
+	public DatePicker<T> setMonthNames(ArrayOfMonthNames monthNames) {
 		options.put("monthNames", monthNames);
+		return this;
 	}
 
 	/**
@@ -494,9 +567,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	/**Set's the list of abbreviated month names, for use as requested via the 
 	 * dateFormat setting. This attribute is one of the regionalisation attributes.
 	 * @param monthNamesShort
+	 * @return instance of the current component
 	 */
-	public void setMonthNamesShort(ArrayOfMonthNames monthNamesShort) {
+	public DatePicker<T> setMonthNamesShort(ArrayOfMonthNames monthNamesShort) {
 		options.put("monthNamesShort", monthNamesShort);
+		return this;
 	}
 
 	/**
@@ -516,39 +591,50 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * and currentText values before display, allowing them to display the 
 	 * target month names for example.
 	 * @param navigationAsDateFormat
+	 * @return instance of the current component
 	 */
-	public void setNavigationAsDateFormat(boolean navigationAsDateFormat) {
+	public DatePicker<T> setNavigationAsDateFormat(boolean navigationAsDateFormat) {
 		options.put("navigationAsDateFormat", navigationAsDateFormat);
+		return this;
 	}
 
 	/**
 	 * @return the navigationAsDateFormat option value
 	 */
 	public boolean isNavigationAsDateFormat() {
-		return options.getBoolean("navigationAsDateFormat");
+		if(this.options.containsKey("navigationAsDateFormat")){
+			return options.getBoolean("navigationAsDateFormat");
+		}
+		
+		return false;
 	}
 	
 	/**Set's the text to display for the next month link. This attribute is one 
 	 * of the regionalisation attributes. With the standard ThemeRoller styling, 
 	 * this value is replaced by an icon.
 	 * @param nextText
+	 * @return instance of the current component
 	 */
-	public void setNextText(String nextText) {
+	public DatePicker<T> setNextText(String nextText) {
 		this.options.putLiteral("nextText", nextText);
+		return this;
 	}
 	
 	/**
 	 * @return the nextText option value
 	 */
 	public String getNextText() {
-		return this.options.getLiteral("nextText");
+		String nextText = this.options.getLiteral("nextText");
+		return nextText == null ? "Next" : nextText;
 	}
 
 	/**
 	 * Sets if the next/previous months are showed in the calendar.
+	 * @return instance of the current component
 	 */
-	public void setShowOtherMonths(boolean showOtherMonths) {
+	public DatePicker<T> setShowOtherMonths(boolean showOtherMonths) {
 		options.put("showOtherMonths", showOtherMonths);
+		return this;
 	}
 
 	/**
@@ -560,9 +646,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 
 	/**
 	 * Sets the number of months displayed on the date picker.
+	 * @return instance of the current component
 	 */
-	public void setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths) {
+	public DatePicker<T> setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths) {
 		options.put("numberOfMonths", numberOfMonths);
+		return this;
 	}
 
 	/**
@@ -582,23 +670,28 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * of the regionalisation attributes. With the standard ThemeRoller styling, 
 	 * this value is replaced by an icon.
 	 * @param prevText
+	 * @return instance of the current component
 	 */
-	public void setPrevText(String prevText) {
+	public DatePicker<T> setPrevText(String prevText) {
 		this.options.putLiteral("prevText", prevText);
+		return this;
 	}
 	
 	/**
 	 * @return the prevText option value
 	 */
 	public String getPrevText() {
-		return this.options.getLiteral("prevText");
+		String prevText = this.options.getLiteral("prevText");
+		return prevText == null ? "Prev" : prevText;
 	}
 	
 	/**Set the cutoff year for determining the century for a date
 	 * @param shortYearCutoff
+	 * @return instance of the current component
 	 */
-	public void setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff) {
+	public DatePicker<T> setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff) {
 		options.put("shortYearCutoff", shortYearCutoff);
+		return this;
 	}
 
 	/**
@@ -618,68 +711,91 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * 'show' (the default), 'slideDown', 'fadeIn', or any of the show/hide 
 	 * jQuery UI effects
 	 * @param showAnim
+	 * @return instance of the current component
 	 */
-	public void setShowAnim(String showAnim) {
+	public DatePicker<T> setShowAnim(String showAnim) {
 		this.options.putLiteral("showAnim", showAnim);
+		return this;
 	}
 	
 	/**
 	 * @return the showAnim option value
 	 */
 	public String getShowAnim() {
-		return this.options.getLiteral("showAnim");
+		String showAnim = this.options.getLiteral("showAnim");
+		return showAnim == null ? "show" : showAnim;
 	}
 	
 	/**Whether to show the button panel.
 	 * @param showButtonPanel
+	 * @return instance of the current component
 	 */
-	public void setShowButtonPanel(boolean showButtonPanel) {
+	public DatePicker<T> setShowButtonPanel(boolean showButtonPanel) {
 		options.put("showButtonPanel", showButtonPanel);
+		return this;
 	}
 
 	/**
 	 * @return the showButtonPanel option value
 	 */
 	public boolean isShowButtonPanel() {
-		return options.getBoolean("showButtonPanel");
+		if(this.options.containsKey("showButtonPanel")){
+			return options.getBoolean("showButtonPanel");
+		}
+		
+		return false;
 	}
 	
 	/**Specify where in a multi-month display the current month shows, starting 
 	 * from 0 at the top/left.
 	 * @param showCurrentAtPos
+	 * @return instance of the current component
 	 */
-	public void setShowCurrentAtPos(short showCurrentAtPos) {
+	public DatePicker<T> setShowCurrentAtPos(short showCurrentAtPos) {
 		options.put("showCurrentAtPos", showCurrentAtPos);
+		return this;
 	}
 
 	/**
 	 * @return the showCurrentAtPos option value
 	 */
 	public short getShowCurrentAtPos() {
-		return options.getShort("showCurrentAtPos");
+		if(this.options.containsKey("showCurrentAtPos")){
+			return options.getShort("showCurrentAtPos");
+		}
+		
+		return 0;
 	}
 	
 	/**Whether to show the month after the year in the header.
 	 * @param showMonthAfterYear
+	 * @return instance of the current component
 	 */
-	public void setShowMonthAfterYear(boolean showMonthAfterYear) {
+	public DatePicker<T> setShowMonthAfterYear(boolean showMonthAfterYear) {
 		options.put("showMonthAfterYear", showMonthAfterYear);
+		return this;
 	}
 
 	/**
 	 * @return the showMonthAfterYear option value
 	 */
 	public boolean isShowMonthAfterYear() {
-		return options.getBoolean("showMonthAfterYear");
+		if(this.options.containsKey("showMonthAfterYear")){
+			return options.getBoolean("showMonthAfterYear");
+		}
+		
+		return false;
 	}
 	
 	/**Have the datepicker appear automatically when the field receives focus 
 	 * ('focus'), appear only when a button is clicked ('button'), or appear 
 	 * when either event takes place ('both').
 	 * @param showOn
+	 * @return instance of the current component
 	 */
-	public void setShowOn(ShowOnEnum showOn) {
+	public DatePicker<T> setShowOn(ShowOnEnum showOn) {
 		options.putLiteral("showOn", showOn.name().toLowerCase());
+		return this;
 	}
 
 	/**
@@ -687,15 +803,17 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public ShowOnEnum getShowOn() {
 		String literal = options.getLiteral("showOn");
-		return ShowOnEnum.valueOf(literal.toUpperCase());
+		return literal == null ? null : ShowOnEnum.valueOf(literal.toUpperCase());
 	}
 	
 	/**If using one of the jQuery UI effects for showAnim, you can provide 
 	 * additional settings for that animation via this option.
 	 * @param showOptions
+	 * @return instance of the current component
 	 */
-	public void setShowOptions(ListItemOptions<LiteralOption> showOptions) {
+	public DatePicker<T> setShowOptions(ListItemOptions<LiteralOption> showOptions) {
 		options.put("showOptions", showOptions);
+		return this;
 	}
 
 	/**
@@ -714,9 +832,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 
 	/**
 	 * Sets the number of months stepped when the next/previous button are hit.
+	 * @return instance of the current component
 	 */
-	public void setStepMonths(short stepMonths) {
+	public DatePicker<T> setStepMonths(short stepMonths) {
 		options.put("stepMonths", stepMonths);
+		return this;
 	}
 
 	/**
@@ -724,7 +844,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * hit.
 	 */
 	public short getStepMonths() {
-		return options.getShort("stepMonths");
+		if(this.options.containsKey("stepMonths")){
+			return options.getShort("stepMonths");
+		}
+		
+		return 1;
 	}
 
 	/**
@@ -749,16 +873,19 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * 	<li>'' - single quote</li>
 	 * 	<li>anything else - literal text</li>
 	 * </ul>
+	 * @return instance of the current component
 	 */
-	public void setDateFormat(String dateFormat) {
+	public DatePicker<T> setDateFormat(String dateFormat) {
 		options.putLiteral("dateFormat", dateFormat);
+		return this;
 	}
 
 	/**
 	 * Returns the ISO date format to use.
 	 */
 	public String getDateFormat() {
-		return options.getLiteral("dateFormat");
+		String dateFormat = options.getLiteral("dateFormat");
+		return dateFormat == null ? "'mm/dd/yy" : dateFormat;
 	}
 	
 	/**Set's the list of long day names, starting from Sunday, for use as 
@@ -766,9 +893,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * when hovering over the corresponding column headings. This attribute is 
 	 * one of the regionalisation attributes.
 	 * @param dayNames
+	 * @return instance of the current component
 	 */
-	public void setDayNames(ArrayOfDayNames dayNames) {
+	public DatePicker<T> setDayNames(ArrayOfDayNames dayNames) {
 		options.put("dayNames", dayNames);
+		return this;
 	}
 
 	/**
@@ -788,9 +917,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * column headers within the datepicker. This attribute is one of the 
 	 * regionalisation attributes.
 	 * @param dayNamesMin
+	 * @return instance of the current component
 	 */
-	public void setDayNamesMin(ArrayOfDayNames dayNamesMin) {
+	public DatePicker<T> setDayNamesMin(ArrayOfDayNames dayNamesMin) {
 		options.put("dayNamesMin", dayNamesMin);
+		return this;
 	}
 
 	/**
@@ -810,9 +941,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * requested via the dateFormat setting. This attribute is one of the 
 	 * regionalisation attributes.
 	 * @param dayNamesShort
+	 * @return instance of the current component
 	 */
-	public void setDayNamesShort(ArrayOfDayNames dayNamesShort) {
+	public DatePicker<T> setDayNamesShort(ArrayOfDayNames dayNamesShort) {
 		options.put("dayNamesShort", dayNamesShort);
+		return this;
 	}
 
 	/**
@@ -833,9 +966,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 
 	 * 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null for today.
 	 * @param defaultDate
+	 * @return instance of the current component
 	 */
-	public void setDefaultDate(DateOption defaultDate) {
+	public DatePicker<T> setDefaultDate(DateOption defaultDate) {
 		options.put("defaultDate", defaultDate);
+		return this;
 	}
 
 	/**
@@ -855,9 +990,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * milliseconds, a string representing one of the three predefined speeds 
 	 * ("slow", "normal", "fast"), or '' for immediately.
 	 * @param duration
+	 * @return instance of the current component
 	 */
-	public void setDuration(DatePickerDuration duration) {
+	public DatePicker<T> setDuration(DatePickerDuration duration) {
 		options.put("duration", duration);
+		return this;
 	}
 
 	/**
@@ -877,9 +1014,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	
 	/**Set's the callback before the datepicker is displayed.
 	 * @param beforeShow
+	 * @return instance of the current component
 	 */
-	public void setBeforeShowEvent(JsScopeUiEvent beforeShow) {
+	public DatePicker<T> setBeforeShowEvent(JsScopeUiEvent beforeShow) {
 		this.options.put("beforeShow", beforeShow);
+		return this;
 	}
 	
 	/**The function takes a date as a parameter and must return an array with [0] 
@@ -888,9 +1027,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * an optional popup tooltip for this date. It is called for each day in 
 	 * the datepicker before is it displayed.
 	 * @param beforeShowDay
+	 * @return instance of the current component
 	 */
-	public void setBeforeShowDayEvent(JsScopeUiDatePickerEvent beforeShowDay) {
+	public DatePicker<T> setBeforeShowDayEvent(JsScopeUiDatePickerEvent beforeShowDay) {
 		this.options.put("beforeShowDay", beforeShowDay);
+		return this;
 	}
 	
 	/**Allows you to define your own event when the datepicker moves to a new 
@@ -898,9 +1039,11 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * and the datepicker instance as parameters. this refers to the associated 
 	 * input field.
 	 * @param onChangeMonthYear
+	 * @return instance of the current component
 	 */
-	public void setOnChangeMonthYearEvent(JsScopeUiDatePickerOnChangeEvent onChangeMonthYear) {
+	public DatePicker<T> setOnChangeMonthYearEvent(JsScopeUiDatePickerOnChangeEvent onChangeMonthYear) {
 		this.options.put("onChangeMonthYear", onChangeMonthYear);
+		return this;
 	}
 	
 	/**Allows you to define your own event when the datepicker is closed, whether 
@@ -908,18 +1051,22 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * and the datepicker instance as parameters. this refers to the associated 
 	 * input field.
 	 * @param onClose
+	 * @return instance of the current component
 	 */
-	public void setOnCloseEvent(JsScopeUiDatePickerDateTextEvent onClose) {
+	public DatePicker<T> setOnCloseEvent(JsScopeUiDatePickerDateTextEvent onClose) {
 		this.options.put("onClose", onClose);
+		return this;
 	}
 	
 	/**Allows you to define your own event when the datepicker is selected. The 
 	 * function receives the selected date as text and the datepicker instance 
 	 * as parameters. this refers to the associated input field.
 	 * @param onSelect
+	 * @return instance of the current component
 	 */
-	public void setOnSelectEvent(JsScopeUiDatePickerDateTextEvent onSelect) {
+	public DatePicker<T> setOnSelectEvent(JsScopeUiDatePickerDateTextEvent onSelect) {
 		this.options.put("onSelect", onSelect);
+		return this;
 	}
 	
 	/*---- Methods section ---*/
@@ -964,6 +1111,13 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method returning the current date for the datepicker
+	 * @return the associated JsStatement
+	 */
+	public JsStatement getDate() {
+		return new JsQuery(this).$().chain("datepicker", "'getDate'");
 	}
 	
 	/**Method to hide the datepicker

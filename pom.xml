@@ -8,12 +8,12 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-m1</version>
+	<version>1.0-m2</version>
 
 	<name>WiQuery project</name>
 
 	<scm>
-		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-m1/</developerConnection>
+		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-m2/</developerConnection>
 	</scm>
 
 	<properties>

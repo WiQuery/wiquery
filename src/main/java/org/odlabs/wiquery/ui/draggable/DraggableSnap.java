@@ -36,11 +36,11 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 public class DraggableSnap implements IComplexOption {	
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 3404088696595137949L;
+	private static final long serialVersionUID = 3404088696595137950L;
 	
 	// Properties
 	private Boolean booleanParam;
-	private LiteralOption selectorParam;
+	private String selectorParam;
 	
 	/**Constructor
 	 * @param booleanParam Boolean parameter
@@ -52,7 +52,7 @@ public class DraggableSnap implements IComplexOption {
 	/**Constructor
 	 * @param selectorParam Selector parameter
 	 */
-	public DraggableSnap(LiteralOption selectorParam) {
+	public DraggableSnap(String selectorParam) {
 		this(null, selectorParam);
 	}
 	
@@ -60,7 +60,7 @@ public class DraggableSnap implements IComplexOption {
 	 * @param booleanParam Boolean parameter
 	 * @param selectorParam Selector parameter
 	 */
-	private DraggableSnap(Boolean booleanParam, LiteralOption selectorParam) {
+	private DraggableSnap(Boolean booleanParam, String selectorParam) {
 		super();
 		setParam(booleanParam, selectorParam);
 	}
@@ -75,7 +75,7 @@ public class DraggableSnap implements IComplexOption {
 	/**
 	 * @return the selectorParam
 	 */
-	public LiteralOption getSelectorPAram() {
+	public String getSelectorPAram() {
 		return selectorParam;
 	}
 	
@@ -93,7 +93,7 @@ public class DraggableSnap implements IComplexOption {
 			sequence = booleanParam.toString();
 		}
 		else if(selectorParam != null){
-			sequence = selectorParam.toString();
+			sequence = new LiteralOption(selectorParam).toString();
 		}
 		else{
 			throw new IllegalArgumentException("The DraggableSnap must have one not null parameter");
@@ -112,7 +112,7 @@ public class DraggableSnap implements IComplexOption {
 	/**Set's the selector parameter
 	 * @param selectorParam the selector to set
 	 */
-	public void setSelectorParam(LiteralOption selectorParam) {
+	public void setSelectorParam(String selectorParam) {
 		setParam(null, selectorParam);
 	}
 	
@@ -120,7 +120,7 @@ public class DraggableSnap implements IComplexOption {
 	 * @param booleanParam Boolean parameter
 	 * @param selectorParam Selector parameter
 	 */
-	private void setParam(Boolean booleanParam, LiteralOption selectorParam) {
+	private void setParam(Boolean booleanParam, String selectorParam) {
 		this.booleanParam = booleanParam;
 		this.selectorParam = selectorParam;
 	}

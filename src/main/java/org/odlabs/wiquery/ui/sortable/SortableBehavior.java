@@ -118,7 +118,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	/** Properties on the ui parameter (use it into callback functions) : The
 	 *  current helper element (most often a clone of the item) */
@@ -168,21 +168,24 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @return the appendTo option value
 	 */
 	public String getAppendTo() {
-		return this.options.getLiteral("appendTo");
+		String appendTo = this.options.getLiteral("appendTo");
+		return appendTo == null ? "parent" : appendTo;
 	}
 	
 	/**
 	 * @return the axis option value
 	 */
 	public AxisEnum getAxis() {
-		return AxisEnum.valueOf(this.options.getLiteral("axis").toUpperCase());
+		String axis = this.options.getLiteral("axis");
+		return axis == null ? null : AxisEnum.valueOf(axis.toUpperCase());
 	}
 	
 	/**
 	 * @return the cancel option value
 	 */
 	public String getCancel() {
-		return this.options.getLiteral("cancel");
+		String cancel = this.options.getLiteral("cancel");
+		return cancel == null ? "input,button" : cancel;
 	}
 	
 	/**
@@ -203,14 +206,16 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @return the cursor option value
 	 */
 	public String getCursor() {
-		return this.options.getLiteral("cursor");
+		String cursor = this.options.getLiteral("cursor");
+		return cursor == null ? "auto" : cursor;
 	}
 	
 	/**
 	 * @return the cursorAt option value
 	 */
 	public CursorAtEnum getCursorAt() {
-		return CursorAtEnum.valueOf(this.options.getLiteral("cursorAt").toUpperCase()
+		String cursorAt = this.options.getLiteral("cursorAt");
+		return cursorAt == null ? null : CursorAtEnum.valueOf(cursorAt.toUpperCase()
 				.replace(' ', '_'));
 	}
 	
@@ -218,35 +223,55 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @return the delay option value
 	 */
 	public int getDelay() {
-		return this.options.getInt("delay");
+		if(this.options.containsKey("delay")){
+			return this.options.getInt("delay");
+		}
+		
+		return 0;
 	}
 	
 	/**
 	 * @return the distance option value
 	 */
 	public int getDistance() {
-		return this.options.getInt("distance");
+		if(this.options.containsKey("distance")){
+			return this.options.getInt("distance");
+		}
+		
+		return 1;
 	}
 	
 	/**
 	 * @return the dropOnEmpty option value
 	 */
 	public boolean getDropOnEmpty() {
-		return this.options.getBoolean("dropOnEmpty");
+		if(this.options.containsKey("dropOnEmpty")){
+			return this.options.getBoolean("dropOnEmpty");
+		}
+		
+		return true;
 	}
 	
 	/**
 	 * @return the forceHelperSize option value
 	 */
 	public boolean getForceHelperSize() {
-		return this.options.getBoolean("forceHelperSize");
+		if(this.options.containsKey("forceHelperSize")){
+			return this.options.getBoolean("forceHelperSize");
+		}
+		
+		return false;
 	}
 	
 	/**
 	 * @return the forcePlaceholderSize option value
 	 */
 	public boolean getForcePlaceholderSize() {
-		return this.options.getBoolean("forcePlaceholderSize");
+		if(this.options.containsKey("forcePlaceholderSize")){
+			return this.options.getBoolean("forcePlaceholderSize");
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -274,14 +299,19 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @return the items option value
 	 */
 	public String getItems() {
-		return this.options.getLiteral("items");
+		String items = this.options.getLiteral("items");
+		return items == null ? "'> *" : items;
 	}
 	
 	/**
 	 * @return the opacity option value
 	 */
 	public float getOpacity() {
-		return this.options.getFloat("opacity");
+		if(this.options.containsKey("opacity")){
+			return this.options.getFloat("opacity");
+		}
+		
+		return 0F;
 	}
 	
 	/**Method retrieving the options of the component
@@ -301,154 +331,204 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the revert option value
 	 */
-	public boolean getRevert() {
-		return this.options.getBoolean("revert");
+	public boolean isRevert() {
+		if(this.options.containsKey("revert")){
+			return this.options.getBoolean("revert");
+		}
+		
+		return false;
 	}
 	
 	/**
 	 * @return the scroll option value
 	 */
-	public boolean getScroll() {
-		return this.options.getBoolean("scroll");
+	public boolean isScroll() {
+		if(this.options.containsKey("scroll")){
+			return this.options.getBoolean("scroll");
+		}
+		
+		return true;
 	}
 	
 	/**
 	 * @return the scrollSensitivity option value
 	 */
 	public int getScrollSensitivity() {
-		return this.options.getInt("scrollSensitivity");
+		if(this.options.containsKey("scrollSensitivity")){
+			return this.options.getInt("scrollSensitivity");
+		}
+		
+		return 20;
 	}
 	
 	/**
 	 * @return the scrollSpeed option value
 	 */
 	public int getScrollSpeed() {
-		return this.options.getInt("scrollSpeed");
+		if(this.options.containsKey("scrollSpeed")){
+			return this.options.getInt("scrollSpeed");
+		}
+		
+		return 20;
 	}
 	
 	/**
 	 * @return the tolerance option value
 	 */
 	public ToleranceEnum getTolerance() {
-		return ToleranceEnum.valueOf(this.options.getLiteral("tolerance").toUpperCase());
+		String tolerance = this.options.getLiteral("tolerance");
+		return tolerance == null ? null : ToleranceEnum.valueOf(tolerance.toUpperCase());
 	}
 	
 	/**
 	 * @return the zIndex option value
 	 */
 	public int getZIndex() {
-		return this.options.getInt("zIndex");
+		if(this.options.containsKey("zIndex")){
+			return this.options.getInt("zIndex");
+		}
+		
+		return 1000;
+		
 	}
 	
 	/**Defines where the helper that moves with the mouse is being appended to 
 	 * during the drag (for example, to resolve overlap/zIndex issues).
 	 * @param appendTo
+	 * @return instance of the current behavior
 	 */
-	public void setAppendTo(String appendTo) {
+	public SortableBehavior setAppendTo(String appendTo) {
 		this.options.putLiteral("appendTo", appendTo);
+		return this;
 	}
 	
 	/**If defined, the items can be dragged only horizontally or vertically. 
 	 * Possible values:'x', 'y'.
 	 * @param axis
+	 * @return instance of the current behavior
 	 */
-	public void setAxis(AxisEnum axis) {
+	public SortableBehavior setAxis(AxisEnum axis) {
 		this.options.putLiteral("axis", axis.toString().toLowerCase());
+		return this;
 	}
 	
 	/** Set's the prevent selecting if you start on elements matching the selector
 	 * @param cancel Selector (default : ':input,option')
+	 * @return instance of the current behavior
 	 */
-	public void setCancel(String cancel) {
+	public SortableBehavior setCancel(String cancel) {
 		this.options.putLiteral("cancel", cancel);
+		return this;
 	}
 	
 	/**Set a jQuery selector with items that also have sortables applied. 
 	 * If used, the sortable is now connected to the other one-way, so you can 
 	 * drag from this sortable to the other.
 	 * @param connectWith Selector
+	 * @return instance of the current behavior
 	 */
-	public void setConnectWith(String connectWith) {
+	public SortableBehavior setConnectWith(String connectWith) {
 		this.options.putLiteral("connectWith", connectWith);
+		return this;
 	}
 	
 	/**Constrains dragging to within the bounds of the specified element - 
 	 * can be a DOM element, 'parent', 'document', 'window', or a jQuery selector.
 	 * @param containment
+	 * @return instance of the current behavior
 	 */
-	public void setContainment(String containment) {
+	public SortableBehavior setContainment(String containment) {
 		this.options.putLiteral("containment", containment);
+		return this;
 	}
 	
 	/**Set the cursor that is being shown while sorting
 	 * @param cursor
+	 * @return instance of the current behavior
 	 */
-	public void setCursor(String cursor) {
+	public SortableBehavior setCursor(String cursor) {
 		this.options.putLiteral("cursor", cursor);
+		return this;
 	}
 	
 	/**Moves the sorting element or helper so the cursor always appears to drag 
 	 * from the same position. Coordinates can be given as a hash using a 
 	 * combination of one or two keys: { top, left, right, bottom }
 	 * @param cusorAt
+	 * @return instance of the current behavior
 	 */
-	public void setCursorAt(CursorAtEnum cusorAt) {
+	public SortableBehavior setCursorAt(CursorAtEnum cusorAt) {
 		this.options.putLiteral("cusorAt", cusorAt.toString().toLowerCase()
 				.replace('_', ' '));
+		return this;
 	}
 	
 	/** Set's the delay (in milliseconds) to define when the sorting should start
 	 * @param delay
+	 * @return instance of the current behavior
 	 */
-	public void setDelay(int delay) {
+	public SortableBehavior setDelay(int delay) {
 		this.options.put("delay", delay);
+		return this;
 	}
 	
 	/** Set's the tolerance in pixels
 	 * @param distance
+	 * @return instance of the current behavior
 	 */
-	public void setDistance(int distance) {
+	public SortableBehavior setDistance(int distance) {
 		this.options.put("distance", distance);
+		return this;
 	}
 	
 	/**If empty allows for an item to be dropped from a linked selectable.
 	 * @param dropOnEmpty
+	 * @return instance of the current behavior
 	 */
-	public void setDropOnEmpty(boolean dropOnEmpty) {
+	public SortableBehavior setDropOnEmpty(boolean dropOnEmpty) {
 		this.options.put("dropOnEmpty", dropOnEmpty);
+		return this;
 	}
 	
 	/**If true, forces the helper to have a size.
 	 * @param forceHelperSize
+	 * @return instance of the current behavior
 	 */
-	public void setForceHelperSize(boolean forceHelperSize) {
+	public SortableBehavior setForceHelperSize(boolean forceHelperSize) {
 		this.options.put("forceHelperSize", forceHelperSize);
+		return this;
 	}
 	
 	/**If true, forces the placeholder to have a size.
 	 * @param forcePlaceholderSize
+	 * @return instance of the current behavior
 	 */
-	public void setForcePlaceholderSize(boolean forcePlaceholderSize) {
+	public SortableBehavior setForcePlaceholderSize(boolean forcePlaceholderSize) {
 		this.options.put("forcePlaceholderSize", forcePlaceholderSize);
+		return this;
 	}
 	
 	/**Snaps the sorting element or helper to a grid, every x and y pixels. 
 	 * Array values: [x, y]
 	 * @param x
 	 * @param y
+	 * @return instance of the current behavior
 	 */
-	public void setGrid(int x, int y) {
+	public SortableBehavior setGrid(int x, int y) {
 		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<IntegerItemOptions>();
 		grids.add(new IntegerItemOptions(x));
 		grids.add(new IntegerItemOptions(y));
 		this.options.put("grid", grids);
+		return this;
 	}
 	
 	/**Restricts sort start click to the specified element.
 	 * @param handle
+	 * @return instance of the current behavior
 	 */
-	public void setHandle(String handle) {
+	public SortableBehavior setHandle(String handle) {
 		this.options.putLiteral("handle", handle);
+		return this;
 	}
 	
 	/**Allows for a helper element to be used for dragging display. The supplied
@@ -456,60 +536,76 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * return a DOMElement to be used as a custom proxy helper. Possible 
 	 * values: 'original', 'clone'
 	 * @param helper
+	 * @return instance of the current behavior
 	 */
-	public void setHelper(String helper) {
+	public SortableBehavior setHelper(String helper) {
 		this.options.putLiteral("helper", helper);
+		return this;
 	}
 	
 	/**Specifies which items inside the element should be sortable.
 	 * @param items Cursor (default : '> *')
+	 * @return instance of the current behavior
 	 */
-	public void setItems(String items) {
+	public SortableBehavior setItems(String items) {
 		this.options.putLiteral("items", items);
+		return this;
 	}
 	
 	/**Set the opacity of the helper while sorting. From 0.01 to 1
 	 * @param opacity
+	 * @return instance of the current behavior
 	 */
-	public void setOpacity(float opacity) {
+	public SortableBehavior setOpacity(float opacity) {
 		this.options.put("opacity", opacity);
+		return this;
 	}
 	
 	/**Set's the class that gets applied to the otherwise white space.
 	 * @param placeholder
+	 * @return instance of the current behavior
 	 */
-	public void setPlaceholder(String placeholder) {
+	public SortableBehavior setPlaceholder(String placeholder) {
 		this.options.putLiteral("placeholder", placeholder);
+		return this;
 	}
 	
 	/**If set to true, the item will be reverted to its new DOM position with 
 	 * a smooth animation.
 	 * @param revert
+	 * @return instance of the current behavior
 	 */
-	public void setRevert(boolean revert) {
+	public SortableBehavior setRevert(boolean revert) {
 		this.options.put("revert", revert);
+		return this;
 	}
 	
 	/**If set to true, the page scrolls when coming to an edge.
 	 * @param scroll
+	 * @return instance of the current behavior
 	 */
-	public void setScroll(boolean scroll) {
+	public SortableBehavior setScroll(boolean scroll) {
 		this.options.put("scroll", scroll);
+		return this;
 	}
 	
 	/**Defines how near the mouse must be to an edge to start scrolling.
 	 * @param scrollSensitivity
+	 * @return instance of the current behavior
 	 */
-	public void setScrollSensitivity(int scrollSensitivity) {
+	public SortableBehavior setScrollSensitivity(int scrollSensitivity) {
 		this.options.put("scrollSensitivity", scrollSensitivity);
+		return this;
 	}
 	
 	/**The speed at which the window should scroll once the mouse pointer gets 
 	 * within the scrollSensitivity distance.
 	 * @param scrollSpeed
+	 * @return instance of the current behavior
 	 */
-	public void setScrollSpeed(int scrollSpeed) {
+	public SortableBehavior setScrollSpeed(int scrollSpeed) {
 		this.options.put("scrollSpeed", scrollSpeed);
+		return this;
 	}
 	
 	/** Set's the tolerance
@@ -518,16 +614,20 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * 	<li><b>pointer</b>: mouse pointer overlaps the droppable</li>
 	 * </ul>
 	 * @param tolerance
+	 * @return instance of the current behavior
 	 */
-	public void setTolerance(ToleranceEnum tolerance) {
+	public SortableBehavior setTolerance(ToleranceEnum tolerance) {
 		this.options.putLiteral("tolerance", tolerance.toString().toLowerCase());
+		return this;
 	}
 	
 	/**Set's Z-index for element/helper while being sorted.
 	 * @param zIndex
+	 * @return instance of the current behavior
 	 */
-	public void setZIndex(int zIndex) {
+	public SortableBehavior setZIndex(int zIndex) {
 		this.options.put("zIndex", zIndex);
+		return this;
 	}
 
 	/* (non-Javadoc)
@@ -544,90 +644,114 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	/**Set's the callback when using connected lists, every connected list on 
 	 * drag start receives it.
 	 * @param activate
+	 * @return instance of the current behavior
 	 */
-	public void setActivateEvent(JsScopeUiEvent activate) {
+	public SortableBehavior setActivateEvent(JsScopeUiEvent activate) {
 		this.options.put("activate", activate);
+		return this;
 	}
 	
 	/**Set's the callback when sorting stops, but when the placeholder/helper is 
 	 * still available.
 	 * @param beforeStop
+	 * @return instance of the current behavior
 	 */
-	public void setBeforeStopEvent(JsScopeUiEvent beforeStop) {
+	public SortableBehavior setBeforeStopEvent(JsScopeUiEvent beforeStop) {
 		this.options.put("beforeStop", beforeStop);
+		return this;
 	}
 	
 	/**Set's the callback during sorting, but only when the DOM position has changed.
 	 * @param change
+	 * @return instance of the current behavior
 	 */
-	public void setChangeEvent(JsScopeUiEvent change) {
+	public SortableBehavior setChangeEvent(JsScopeUiEvent change) {
 		this.options.put("change", change);
+		return this;
 	}
 	
 	/**Set's the callback when sorting was stopped, is propagated to all possible
 	 * connected lists.
 	 * @param deactivate
+	 * @return instance of the current behavior
 	 */
-	public void setDeactivateEvent(JsScopeUiEvent deactivate) {
+	public SortableBehavior setDeactivateEvent(JsScopeUiEvent deactivate) {
 		this.options.put("deactivate", deactivate);
+		return this;
 	}
 	
 	/**Set's the callback when a sortable item is moved away from a connected list.
 	 * @param out
+	 * @return instance of the current behavior
 	 */
-	public void setOutEvent(JsScopeUiEvent out) {
+	public SortableBehavior setOutEvent(JsScopeUiEvent out) {
 		this.options.put("out", out);
+		return this;
 	}
 	
 	/**Set's the callback when a sortable item is moved into a connected list.
 	 * @param over
+	 * @return instance of the current behavior
 	 */
-	public void setOverEvent(JsScopeUiEvent over) {
+	public SortableBehavior setOverEvent(JsScopeUiEvent over) {
 		this.options.put("over", over);
+		return this;
 	}
 	
 	/**Set's the callback when a connected sortable list has received an item 
 	 * from another list.
 	 * @param receive
+	 * @return instance of the current behavior
 	 */
-	public void setReceiveEvent(JsScopeUiEvent receive) {
+	public SortableBehavior setReceiveEvent(JsScopeUiEvent receive) {
 		this.options.put("receive", receive);
+		return this;
 	}
 	
 	/**Set's the callback when a sortable item has been dragged out from the 
 	 * list and into another.
 	 * @param remove
+	 * @return instance of the current behavior
 	 */
-	public void setRemoveEvent(JsScopeUiEvent remove) {
+	public SortableBehavior setRemoveEvent(JsScopeUiEvent remove) {
 		this.options.put("remove", remove);
+		return this;
 	}
 	
 	/**Set's the callback during sorting
 	 * @param sort
+	 * @return instance of the current behavior
 	 */
-	public void setSortEvent(JsScopeUiEvent sort) {
+	public SortableBehavior setSortEvent(JsScopeUiEvent sort) {
 		this.options.put("sort", sort);
+		return this;
 	}
 	
 	/**Set's the callback when sorting starts
 	 * @param start
+	 * @return instance of the current behavior
 	 */
-	public void setStartEvent(JsScopeUiEvent start) {
+	public SortableBehavior setStartEvent(JsScopeUiEvent start) {
 		this.options.put("start", start);
+		return this;
 	}
 	
 	/**Set's the callback when sorting has stopped.
 	 * @param stop
+	 * @return instance of the current behavior
 	 */
-	public void setStopEvent(JsScopeUiEvent stop) {
+	public SortableBehavior setStopEvent(JsScopeUiEvent stop) {
 		this.options.put("stop", stop);
+		return this;
 	}
 	
 	/**Set's the callback when the user stopped sorting and the DOM position has changed.
 	 * @param update
+	 * @return instance of the current behavior
 	 */
-	public void setUpdateEvent(JsScopeUiEvent update) {
+	public SortableBehavior setUpdateEvent(JsScopeUiEvent update) {
 		this.options.put("update", update);
+		return this;
 	}
 	
 	/*---- Methods section ----*/

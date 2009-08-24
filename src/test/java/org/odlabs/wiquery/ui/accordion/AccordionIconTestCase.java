@@ -15,8 +15,7 @@ public class AccordionIconTestCase extends TestCase{
 	@Test
 	public void testGetJavaScriptOption() {
 		AccordionIcon accordionIcon = new AccordionIcon(
-				new LiteralOption("classA"), 
-				new LiteralOption("classB"));
+				"classA", "classB");
 		
 		// Int param
 		String expectedJavascript = "{'header': 'classA', 'headerSelected': 'classB'}";

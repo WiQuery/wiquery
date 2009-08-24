@@ -43,7 +43,7 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	// Constants
 	/** Constant of serialization */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	/**
 	 * Adding the standard droppable JavaScript behavior
@@ -149,7 +149,7 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		@Override
 		protected Options getOptions() {
 			throw new UnsupportedOperationException(
-					"You can call this method into the DroppableAjaxBehavior");
+					"You can't call this method into the DroppableAjaxBehavior");
 		}
 
 		/*
@@ -160,9 +160,9 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 * .odlabs.wiquery.ui.core.JsScopeUiEvent)
 		 */
 		@Override
-		public void setDropEvent(JsScopeUiEvent drop) {
+		public DroppableBehavior setDropEvent(JsScopeUiEvent drop) {
 			throw new UnsupportedOperationException(
-					"You can call this method into the DroppableAjaxBehavior");
+					"You can't call this method into the DroppableAjaxBehavior");
 		}
 
 		/**

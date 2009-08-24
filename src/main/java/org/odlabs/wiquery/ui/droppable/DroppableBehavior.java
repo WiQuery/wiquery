@@ -53,7 +53,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 
 	// Constants
 	/** Constant of serialization */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	/**
 	 * Properties on the ui parameter (use it into callback functions) : current
@@ -91,7 +91,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
-				.addJavaScriptResource(DroppableJavaScriptResourceLocator.get());
+				.addJavaScriptResource(DroppableJavaScriptResourceReference.get());
 	}
 
 	/*
@@ -124,13 +124,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * accepted.
 	 * 
 	 * @param accept
+	 * @return instance of the current behavior
 	 */
-	public void setAccept(DroppableAccept accept) {
+	public DroppableBehavior setAccept(DroppableAccept accept) {
 		this.options.put("accept", accept);
-	}
-
-	public void setAccept(String selector) {
-		this.options.putLiteral("accept", selector);
+		return this;
 	}
 
 	/**
@@ -150,9 +148,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * acceptable draggable is being dragged.
 	 * 
 	 * @param activeClass
+	 * @return instance of the current behavior
 	 */
-	public void setActiveClass(String activeClass) {
+	public DroppableBehavior setActiveClass(String activeClass) {
 		this.options.putLiteral("activeClass", activeClass);
+		return this;
 	}
 
 	/**
@@ -166,9 +166,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * If true, will prevent event propagation on nested droppables.
 	 * 
 	 * @param addClasses
+	 * @return instance of the current behavior
 	 */
-	public void setAddClasses(boolean addClasses) {
+	public DroppableBehavior setAddClasses(boolean addClasses) {
 		this.options.put("addClasses", addClasses);
+		return this;
 	}
 
 	/**
@@ -186,9 +188,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * If true, will prevent event propagation on nested droppables.
 	 * 
 	 * @param greedy
+	 * @return instance of the current behavior
 	 */
-	public void setGreedy(boolean greedy) {
+	public DroppableBehavior setGreedy(boolean greedy) {
 		this.options.put("greedy", greedy);
+		return this;
 	}
 
 	/**
@@ -207,9 +211,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * acceptable draggable is being hovered.
 	 * 
 	 * @param hoverClass
+	 * @return instance of the current behavior
 	 */
-	public void setHoverClass(String hoverClass) {
+	public DroppableBehavior setHoverClass(String hoverClass) {
 		this.options.putLiteral("hoverClass", hoverClass);
+		return this;
 	}
 
 	/**
@@ -225,9 +231,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * droppable will be accepted.
 	 * 
 	 * @param scope
+	 * @return instance of the current behavior
 	 */
-	public void setScope(String scope) {
+	public DroppableBehavior setScope(String scope) {
 		this.options.putLiteral("scope", scope);
+		return this;
 	}
 
 	/**
@@ -250,17 +258,20 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * </ul>
 	 * 
 	 * @param tolerance
+	 * @return instance of the current behavior
 	 */
-	public void setTolerance(ToleranceEnum tolerance) {
+	public DroppableBehavior setTolerance(ToleranceEnum tolerance) {
 		this.options
 				.putLiteral("tolerance", tolerance.toString().toLowerCase());
+		return this;
 	}
 
 	/**
 	 * @return the tolerance option enum
 	 */
 	public ToleranceEnum getTolerance() {
-		return ToleranceEnum.valueOf(this.options.getLiteral("tolerance")
+		String tolerance = this.options.getLiteral("tolerance");
+		return tolerance == null ? null : ToleranceEnum.valueOf(tolerance
 				.toUpperCase());
 	}
 
@@ -272,18 +283,22 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * dropped on.
 	 * 
 	 * @param activate
+	 * @return instance of the current behavior
 	 */
-	public void setActivateEvent(JsScopeUiEvent activate) {
+	public DroppableBehavior setActivateEvent(JsScopeUiEvent activate) {
 		this.options.put("activate", activate);
+		return this;
 	}
 
 	/**
 	 * Set's the callback when an accepted draggable stops dragging.
 	 * 
 	 * @param deactivate
+	 * @return instance of the current behavior
 	 */
-	public void setDeactivateEvent(JsScopeUiEvent deactivate) {
+	public DroppableBehavior setDeactivateEvent(JsScopeUiEvent deactivate) {
 		this.options.put("deactivate", deactivate);
+		return this;
 	}
 
 	/**
@@ -293,9 +308,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * draggable.
 	 * 
 	 * @param drop
+	 * @return instance of the current behavior
 	 */
-	public void setDropEvent(JsScopeUiEvent drop) {
+	public DroppableBehavior setDropEvent(JsScopeUiEvent drop) {
 		this.options.put("drop", drop);
+		return this;
 	}
 
 	/**
@@ -303,9 +320,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * tolerance of) this droppable.
 	 * 
 	 * @param out
+	 * @return instance of the current behavior
 	 */
-	public void setOutEvent(JsScopeUiEvent out) {
+	public DroppableBehavior setOutEvent(JsScopeUiEvent out) {
 		this.options.put("out", out);
+		return this;
 	}
 
 	/**
@@ -313,9 +332,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * the tolerance of) this droppable.
 	 * 
 	 * @param over
+	 * @return instance of the current behavior
 	 */
-	public void setOverEvent(JsScopeUiEvent over) {
+	public DroppableBehavior setOverEvent(JsScopeUiEvent over) {
 		this.options.put("over", over);
+		return this;
 	}
 
 	/*---- Methods section ---*/

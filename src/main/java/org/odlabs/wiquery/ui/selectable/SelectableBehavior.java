@@ -85,7 +85,7 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	//Properties
 	private Options options;
@@ -113,28 +113,38 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 * @return the cancel option value
 	 */
 	public String getCancel() {
-		return this.options.getLiteral("cancel");
+		String cancel = this.options.getLiteral("cancel");
+		return cancel == null ? "input,option" : cancel;
 	}
 
 	/**
 	 * @return the delay option value
 	 */
 	public int getDelay() {
-		return this.options.getInt("delay");
+		if(this.options.containsKey("delay")){
+			return this.options.getInt("delay");
+		}
+		
+		return 0;
 	}
 
 	/**
 	 * @return the distance option value
 	 */
 	public int getDistance() {
-		return this.options.getInt("distance");
+		if(this.options.containsKey("distance")){
+			return this.options.getInt("distance");
+		}
+		
+		return 0;
 	}
 
 	/**
 	 * @return the cancel option value
 	 */
 	public String getFilter() {
-		return this.options.getLiteral("filter");
+		String filter = this.options.getLiteral("filter");
+		return filter == null ? "*" : filter;
 	}
 
 	/**Method retrieving the options of the component
@@ -148,14 +158,19 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 * @return the tolerance option enum
 	 */
 	public ToleranceEnum getTolerance() {
-		return ToleranceEnum.valueOf(this.options.getLiteral("tolerance").toUpperCase());
+		String tolerance = this.options.getLiteral("tolerance");
+		return tolerance == null ? null : ToleranceEnum.valueOf(tolerance.toUpperCase());
 	}
 
 	/**
 	 * @return the autoRefresh option enum
 	 */
 	public boolean isAutoRefresh() {
-		return this.options.getBoolean("autoRefresh");
+		if(this.options.containsKey("autoRefresh")){
+			return this.options.getBoolean("autoRefresh");
+		}
+		
+		return true;
 	}
 
 	/** This determines whether to refresh (recalculate) the position and size 
@@ -163,37 +178,47 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 * many many items, you may want to set this to false and call the 
 	 * refresh method manually.
 	 * @param autoRefresh
+	 * @return instance of the current behavior
 	 */
-	public void setAutoRefresh(boolean autoRefresh) {
+	public SelectableBehavior setAutoRefresh(boolean autoRefresh) {
 		this.options.put("autoRefresh", autoRefresh);
+		return this;
 	}
 
 	/** Set's the prevent selecting if you start on elements matching the selector
 	 * @param cancel Selector (default : ':input,option')
+	 * @return instance of the current behavior
 	 */
-	public void setCancel(String cancel) {
+	public SelectableBehavior setCancel(String cancel) {
 		this.options.putLiteral("cancel", cancel);
+		return this;
 	}
 
 	/** Set's the delay (in milliseconds) to define when the selecting should start
 	 * @param delay
+	 * @return instance of the current behavior
 	 */
-	public void setDelay(int delay) {
+	public SelectableBehavior setDelay(int delay) {
 		this.options.put("delay", delay);
+		return this;
 	}
 
 	/** Set's the tolerance in pixels
 	 * @param distance
+	 * @return instance of the current behavior
 	 */
-	public void setDistance(int distance) {
+	public SelectableBehavior setDistance(int distance) {
 		this.options.put("distance", distance);
+		return this;
 	}
 
 	/** Set's the matching child to be selectable
 	 * @param filter Selector (default : '*')
+	 * @return instance of the current behavior
 	 */
-	public void setFilter(String filter) {
+	public SelectableBehavior setFilter(String filter) {
 		this.options.putLiteral("filter", filter);
+		return this;
 	}
 
 	/** Set's the tolerance
@@ -202,9 +227,11 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 * 	<li><b>touch</b>: draggable overlaps the droppable any amount</li>
 	 * </ul>
 	 * @param tolerance
+	 * @return instance of the current behavior
 	 */
-	public void setTolerance(ToleranceEnum tolerance) {
+	public SelectableBehavior setTolerance(ToleranceEnum tolerance) {
 		this.options.putLiteral("tolerance", tolerance.toString().toLowerCase());
+		return this;
 	}
 
 	/* (non-Javadoc)
@@ -221,52 +248,64 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 * This event is triggered at the end of the select operation, on each 
 	 * element added to the selection.
 	 * @param selected Associated JsScopeUiEvent
+	 * @return instance of the current behavior
 	 */
-	public void setSelectedEvent(JsScopeUiEvent selected) {
+	public SelectableBehavior setSelectedEvent(JsScopeUiEvent selected) {
 		this.options.put("selected", selected);
+		return this;
 	}
 	
 	/** Set's the selecting event
 	 * This event is triggered during the select operation, on each element 
 	 * added to the selection.
 	 * @param selecting Associated JsScopeUiEvent
+	 * @return instance of the current behavior
 	 */
-	public void setSelectingEvent(JsScopeUiEvent selecting) {
+	public SelectableBehavior setSelectingEvent(JsScopeUiEvent selecting) {
 		this.options.put("selecting", selecting);
+		return this;
 	}
 	
 	/** Set's the start event
 	 * This event is triggered at the beginning of the select operation.
 	 * @param start Associated JsScopeUiEvent
+	 * @return instance of the current behavior
 	 */
-	public void setStartEvent(JsScopeUiEvent start) {
+	public SelectableBehavior setStartEvent(JsScopeUiEvent start) {
 		this.options.put("start", start);
+		return this;
 	}
 	
 	/** Set's the stop event
 	 * This event is triggered at the end of the select operation.
 	 * @param stop Associated JsScopeUiEvent
+	 * @return instance of the current behavior
 	 */
-	public void setStopEvent(JsScopeUiEvent stop) {
+	public SelectableBehavior setStopEvent(JsScopeUiEvent stop) {
 		this.options.put("stop", stop);
+		return this;
 	}
 	
 	/** Set's the unselected event
 	 * This event is triggered at the end of the select operation, on each element
 	 * removed from the selection.
 	 * @param unselected Associated JsScopeUiEvent
+	 * @return instance of the current behavior
 	 */
-	public void setUnselectedEvent(JsScopeUiEvent unselected) {
+	public SelectableBehavior setUnselectedEvent(JsScopeUiEvent unselected) {
 		this.options.put("unselected", unselected);
+		return this;
 	}
 	
 	/** Set's the unselecting event
 	 * This event is triggered during the select operation, on each element 
 	 * removed from the selection.
 	 * @param unselecting Associated JsScopeUiEvent
+	 * @return instance of the current behavior
 	 */
-	public void setUnselectingEvent(JsScopeUiEvent unselecting) {
+	public SelectableBehavior setUnselectingEvent(JsScopeUiEvent unselecting) {
 		this.options.put("unselecting", unselecting);
+		return this;
 	}
 	
 	/*---- Methods section ----*/

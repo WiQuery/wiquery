@@ -46,7 +46,7 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 @WiQueryUIPlugin
 public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	/**
 	 * $Id$
@@ -98,29 +98,28 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	/*---- Options section ---*/
 
 	/**
-	 * Sets if this accordion must always has one opened content.
-	 */
-	public void setAlwaysOpen(boolean alwaysOpen) {
-		this.options.put("alwaysOpen", alwaysOpen);
-	}
-
-	/**
-	 * Returns true if this accordion must always has an opened content, false
-	 * otherwise.
-	 */
-	public boolean isAlwaysOpen() {
-		return this.options.getBoolean("alwaysOpen");
-	}
-
-	/**
 	 * Sets the effect to apply when the accordion's content is switched.
 	 * 
 	 * @param animationEffect
 	 *            the effect name to apply. Set it empty if you don't want to
 	 *            apply any effect.
+	 * @return instance of the current component
 	 */
-	public void setAnimationEffect(String animationEffect) {
-		this.options.putLiteral("animated", animationEffect);
+	public Accordion setAnimationEffect(AccordionAnimated animationEffect) {
+		this.options.put("animated", animationEffect);
+		return this;
+	}
+	
+	/**
+	 * @return the animated option value
+	 */
+	public AccordionAnimated getAnimationEffect() {
+		IComplexOption animated = this.options.getComplexOption("animated");
+		if(animated != null && animated instanceof AccordionAnimated){
+			return (AccordionAnimated) animated;
+		}
+		
+		return null;
 	}
 
 	/**
@@ -128,9 +127,11 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @param autoHeight
 	 *            true if this accordion's height is the highest content's one.
+	 * @return instance of the current component
 	 */
-	public void setAutoHeight(boolean autoHeight) {
+	public Accordion setAutoHeight(boolean autoHeight) {
 		this.options.put("autoHeight", autoHeight);
+		return this;
 	}
 
 	/**
@@ -139,15 +140,22 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see #setAutoHeight(boolean)
 	 */
 	public boolean isAutoHeight() {
-		return this.options.getBoolean("autoHeight");
+		if(this.options.containsKey("autoHeight")){
+			return this.options.getBoolean("autoHeight");
+		}
+		
+		return true;
 	}
 
 	/**
 	 * Sets the {@link AccordionTriggerEvent} to use to open content.
+	 * @return instance of the current component
 	 */
-	public void setTriggerEvent(AccordionTriggerEvent accordionTriggerEvent) {
+	public Accordion setTriggerEvent(AccordionTriggerEvent accordionTriggerEvent) {
 		this.options.putLiteral("event", accordionTriggerEvent.name()
 				.toLowerCase());
+		// TODO use of EventLabelOptions instead of AccordionTriggerEvent ?
+		return this;
 	}
 
 	/**
@@ -157,7 +165,8 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public AccordionTriggerEvent getTriggerEvent() {
 		String literal = this.options.getLiteral("event");
-		return AccordionTriggerEvent.valueOf(literal.toUpperCase());
+		return literal == null ? AccordionTriggerEvent.CLICK : 
+			AccordionTriggerEvent.valueOf(literal.toUpperCase());
 	}
 
 	/**
@@ -166,9 +175,11 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * <p>
 	 * <em>Overrides {@link #setAutoHeight(boolean)} behavior</em>
 	 * </p>
+	 * @return instance of the current component
 	 */
-	public void setFillSpace(boolean fillSpace) {
+	public Accordion setFillSpace(boolean fillSpace) {
 		this.options.put("fillSpace", fillSpace);
+		return this;
 	}
 
 	/**
@@ -176,15 +187,33 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @see #setFillSpace(boolean)
 	 */
-	public boolean getFillSpace() {
-		return this.options.getBoolean("fillSpace");
+	public boolean isFillSpace() {
+		if(this.options.containsKey("fillSpace")){
+			return this.options.getBoolean("fillSpace");
+		}
+		
+		return false;
 	}
 
 	/**
 	 * Sets the CSS selector used to defined a header in this accordion.
+	 * @return instance of the current component
 	 */
-	public void setHeader(String headerSelector) {
-		this.options.putLiteral("header", headerSelector);
+	public Accordion setHeader(AccordionHeader header) {
+		this.options.put("header", header);
+		return this;
+	}
+	
+	/**
+	 * @return the header option value
+	 */
+	public AccordionHeader getHeader() {
+		IComplexOption header = this.options.getComplexOption("header");
+		if(header != null && header instanceof AccordionHeader){
+			return (AccordionHeader) header;
+		}
+		
+		return null;
 	}
 
 	/**
@@ -192,16 +221,22 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * This enables accordions to work with dynamic content. <b>Won't work together
 	 * with autoHeight.</b>
 	 * @param clearStyle
+	 * @return instance of the current component
 	 */
-	public void setClearStyle(boolean clearStyle) {
+	public Accordion setClearStyle(boolean clearStyle) {
 		this.options.put("clearStyle", clearStyle);
+		return this;
 	}
 
 	/**
 	 * @see #setClearStyle(boolean)
 	 */
-	public boolean getClearStyle() {
-		return this.options.getBoolean("clearStyle");
+	public boolean isClearStyle() {
+		if(this.options.containsKey("clearStyle")){
+			return this.options.getBoolean("clearStyle");
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -209,15 +244,20 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * active section by the triggering event (click is the default).
 	 * @param collapsible
 	 */
-	public void setCollapsible(boolean collapsible) {
+	public Accordion setCollapsible(boolean collapsible) {
 		this.options.put("collapsible", collapsible);
+		return this;
 	}
 
 	/**
 	 * @see #setCollapsible(boolean)
 	 */
-	public boolean getCollapsible() {
-		return this.options.getBoolean("collapsible");
+	public boolean isCollapsible() {
+		if(this.options.containsKey("collapsible")){
+			return this.options.getBoolean("collapsible");
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -225,24 +265,32 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * Great for href-based state-saving. Use navigationFilter to implement 
 	 * your own matcher.
 	 * @param navigation
+	 * @return instance of the current component
 	 */
-	public void setNavigation(boolean navigation) {
+	public Accordion setNavigation(boolean navigation) {
 		this.options.put("navigation", navigation);
+		return this;
 	}
 
 	/**
-	 * @see #setCollapsible(boolean)
+	 * @see #setNavigation(boolean)
 	 */
-	public boolean getNavigation() {
-		return this.options.getBoolean("navigation");
+	public boolean isNavigation() {
+		if(this.options.containsKey("navigation")){
+			return this.options.getBoolean("navigation");
+		}
+		
+		return false;
 	}
 	
 	/**
 	 * Overwrite the default location.href-matching with your own matcher.
 	 * @param navigationFilter
+	 * @return instance of the current component
 	 */
-	public void setNavigationFilter(JsScope navigationFilter) {
+	public Accordion setNavigationFilter(JsScope navigationFilter) {
 		this.options.put("navigationFilter", navigationFilter);
+		return this;
 	}
 	
 	/**
@@ -263,9 +311,11 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * manipulated by jQuery UI ThemeRoller
 	 * Default: { 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }
 	 * @param icon
+	 * @return instance of the current component
 	 */
-	public void setIcons(AccordionIcon icons) {	
+	public Accordion setIcons(AccordionIcon icons) {	
 		this.options.put("icons", icons);
+		return this;
 	}
 	
 	/**
@@ -289,9 +339,11 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * Default: first child
 	 * 
 	 * @param active
+	 * @return instance of the current component
 	 */
-	public void setActive(AccordionActive active) {	
+	public Accordion setActive(AccordionActive active) {	
 		this.options.put("active", active);
+		return this;
 	}
 	
 	/*---- Events section ---*/
@@ -300,16 +352,20 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * the event will be triggered upon completion of the animation; otherwise,
 	 * it is triggered immediately. 
 	 * @param change
+	 * @return instance of the current component
 	 */
-	public void setChangeEvent(JsScopeUiEvent change) {
+	public Accordion setChangeEvent(JsScopeUiEvent change) {
 		this.options.put("change", change);
+		return this;
 	}
 	
 	/**Set's the callback when the accordion starts to change.  
 	 * @param changestart
+	 * @return instance of the current component
 	 */
-	public void setChangeStartEvent(JsScopeUiEvent changestart) {
+	public Accordion setChangeStartEvent(JsScopeUiEvent changestart) {
 		this.options.put("changestart", changestart);
+		return this;
 	}
 	
 	/*---- Methods section ---*/

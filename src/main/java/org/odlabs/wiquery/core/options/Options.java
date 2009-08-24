@@ -123,6 +123,20 @@ public class Options implements Serializable {
 		assert (object instanceof Short);
 		return ((Short) object).shortValue();
 	}
+	
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public double getDouble(String key) {
+		Object object = this.options.get(key);
+		assert (object instanceof Double);
+		return ((Double) this.options.get(key)).doubleValue();
+	}
 
 	/**
 	 * <p>
@@ -259,6 +273,21 @@ public class Options implements Serializable {
 	 *            the int value.
 	 */
 	public Options put(String key, int value) {
+		options.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * <p>
+	 * Puts an double value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the float double.
+	 */
+	public Options put(String key, double value) {
 		options.put(key, value);
 		return this;
 	}

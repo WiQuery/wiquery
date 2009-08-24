@@ -63,7 +63,7 @@ import org.apache.wicket.markup.html.WebPage;
  */
 public class JsStatement implements Serializable {
 
-	private static final long serialVersionUID = 3254345351404601199L;
+	private static final long serialVersionUID = 3254345351404601200L;
 
 	/**
 	 * This whole statement.
@@ -75,6 +75,17 @@ public class JsStatement implements Serializable {
 	 */
 	public JsStatement() {
 		statement = new StringBuilder();
+	}
+	
+	/**
+	 * Appends the jQuery's <code>$</code> function to the current
+	 * {@link JsStatement}. So, we can call some special jquery fonction, like
+	 * <code>$.browser</code> ...
+	 * @return {@link JsStatement} this instance.
+	 */
+	public JsStatement $() {
+		statement.append("$");
+		return this;
 	}
 
 	/**
@@ -99,7 +110,7 @@ public class JsStatement implements Serializable {
 		statement.append("')");
 		return this;
 	}
-
+	
 	/**
 	 * Same method as {@link #$(Component, String)} with an empty selector.
 	 * 
@@ -119,7 +130,7 @@ public class JsStatement implements Serializable {
 	 * 
 	 * @return {@link JsStatement} this instance.
 	 */
-	JsStatement document() {
+	public JsStatement document() {
 		statement.append("$(document)");
 		return this;
 	}
@@ -129,7 +140,7 @@ public class JsStatement implements Serializable {
 	 * 
 	 * @return {@link JsStatement} this instance.
 	 */
-	JsStatement self() {
+	public JsStatement self() {
 		statement.append("$(this)");
 		return this;
 	}

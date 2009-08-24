@@ -19,85 +19,84 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.droppable;
+package org.odlabs.wiquery.ui.accordion;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
 /**
- * $Id: DroppableAccept.java
+ * $Id: AccordionHeader
  * <p>
- * Bean for the accept option for the Droppable behavior
+ * Bean for the header option for the Accordion component
  * </p>
  * 
  * @author Julien Roche
  * @since 1.0
  */
-public class DroppableAccept implements IComplexOption {
+public class AccordionHeader implements IComplexOption {	
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 3404088696595137953L;
+	private static final long serialVersionUID = 3404088696595137949L;
 	
 	// Properties
-	private JsScope functionParam;
-	private String literalParam;
+	private LiteralOption literalParam;
+	private String objectParam;
 	
 	/**Constructor
 	 * @param literalParam Literal parameter
 	 */
-	public DroppableAccept(String literalParam) {
-		this(null, literalParam);
-	}
-	
-	/**Constructor
-	 * @param functionParam Function parameter
-	 */
-	public DroppableAccept(JsScope functionParam) {
-		this(functionParam, null);
+	public AccordionHeader(LiteralOption literalParam) {
+		this(literalParam, null);
 	}
 
 	/**Constructor
-	 * @param functionParam Function parameter
-	 * @param literalParam Literal parameter
+	 * @param objectParam object parameter (jQuery or DOMElement)
 	 */
-	private DroppableAccept(JsScope functionParam, String literalParam) {
+	public AccordionHeader(String objectParam) {
+		this(null, objectParam);
+	}
+	
+	/**Constructor
+	 * @param literalParam Literal parameter
+	 * @param objectParam object parameter
+	 */
+	private AccordionHeader(LiteralOption literalParam, String objectParam) {
 		super();
-		setParam(functionParam, literalParam);
+		setParam(literalParam, objectParam);
 	}
 	
 	/**
 	 * @return the literalParam
 	 */
-	public String getLiteralParam() {
+	public LiteralOption getLiteralParam() {
 		return literalParam;
 	}
 
 	/**
-	 * @return the functionParam
+	 * @return the objectParam
 	 */
-	public JsScope getFunctionParam() {
-		return functionParam;
+	public String getObjectParam() {
+		return objectParam;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
 	 */
 	public CharSequence getJavascriptOption() {
-		if(literalParam == null && functionParam == null){
-			throw new IllegalArgumentException("The DroppableAccept must have one not null parameter");
+		if(objectParam == null && literalParam == null){
+			throw new IllegalArgumentException("The AccordionHeader must have one not null parameter");
 		}
 		
 		CharSequence sequence = null;
 		
-		if(literalParam != null){
-			sequence = new LiteralOption(literalParam).toString();
+		if(objectParam != null){
+			sequence = objectParam;
 		}
-		else if(functionParam != null){
-			sequence = functionParam.render();
+		else if(literalParam != null){
+			sequence = literalParam.toString();
 		}
 		else{
-			throw new IllegalArgumentException("The DroppableAccept must have one not null parameter");
+			throw new IllegalArgumentException("The AccordionHeader must have one not null parameter");
 		}
 		
 		return sequence;
@@ -106,23 +105,23 @@ public class DroppableAccept implements IComplexOption {
 	/**Set's the literal parameter
 	 * @param literalParam the literal to set
 	 */
-	public void setHelperEnumParam(String literalParam) {
-		setParam(null, literalParam);
+	public void setLiteralParam(LiteralOption literalParam) {
+		setParam(literalParam, null);
 	}
 	
-	/**Set's the function parameter
-	 * @param functionParam the JsScope to set
+	/**Set's the object (jQuery or DOMElement) parameter
+	 * @param objectParam the literal to set
 	 */
-	public void setFunctionParam(JsScope functionParam) {
-		setParam(functionParam, null);
+	public void setObjectParam(String objectParam) {
+		setParam(null, objectParam);
 	}
 	
 	/**Method setting the right parameter
-	 * @param functionParam Function parameter
 	 * @param literalParam Literal parameter
+	 * @param objectParam object parameter
 	 */
-	private void setParam(JsScope functionParam, String literalParam) {
-		this.functionParam = functionParam;
+	private void setParam(LiteralOption literalParam, String objectParam) {
 		this.literalParam = literalParam;
+		this.objectParam = objectParam;
 	}
 }

@@ -1,20 +1,19 @@
-package org.odlabs.wiquery.ui.draggable;
+package org.odlabs.wiquery.ui.accordion;
 
 import junit.framework.TestCase;
 
-import org.odlabs.wiquery.core.options.LiteralOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DraggableSnapTestCase extends TestCase{
+public class AccordionAnimatedTestCase extends TestCase{
 	protected static final Logger log = LoggerFactory.getLogger(
-			DraggableSnapTestCase.class);
+			AccordionAnimatedTestCase.class);
 
 	@Test
 	public void testGetJavaScriptOption() {
-		DraggableSnap snap  = new DraggableSnap(true);
+		AccordionAnimated snap  = new AccordionAnimated(true);
 		
 		// Boolean param
 		String expectedJavascript = "true";
@@ -24,9 +23,9 @@ public class DraggableSnapTestCase extends TestCase{
 		log.info(generatedJavascript);		
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 		
-		// Selector param
-		snap.setSelectorParam("ul");
-		expectedJavascript = "'ul'";
+		// Effect param
+		snap.setEffectParam("slide");
+		expectedJavascript = "'slide'";
 		generatedJavascript = snap.getJavascriptOption().toString();
 		
 		log.info(expectedJavascript);
@@ -34,13 +33,13 @@ public class DraggableSnapTestCase extends TestCase{
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 		
 		// Null param
-		snap.setSelectorParam(null);
+		snap.setEffectParam(null);
 		try {
 			generatedJavascript = snap.getJavascriptOption().toString();
 			assertTrue(false);
 		} catch (Exception e) {
 			// We have an expected error
-			assertEquals("The DraggableSnap must have one not null parameter", e.getMessage());
+			assertEquals("The AccordionAnimated must have one not null parameter", e.getMessage());
 		}
 	}
 }

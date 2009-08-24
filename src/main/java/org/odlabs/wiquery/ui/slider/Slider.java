@@ -49,7 +49,7 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 public class Slider extends WebMarkupContainer implements IWiQueryPlugin {	
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 3738656024036987661L;
+	private static final long serialVersionUID = 3738656024036987662L;
 	
 	/** Properties on the ui parameter (use it into callback functions) :
 	 * DOMElement - the current focused handle */
@@ -76,8 +76,11 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param min Minimum value
 	 * @param max Maximum value
 	 */
-	public Slider(String id, Number min, Number max) {
+	public Slider(String id, int min, int max) {
 		super(id);
+		options = new Options();
+		setMin(min);
+		setMax(max);
 	}
 
 	/* (non-Javadoc)
@@ -105,60 +108,81 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/**Whether to slide handle smoothly when user click outside handle on the bar.
 	 * @param animate
+	 * @return instance of the current component
 	 */
-	public void setAnimate(boolean animate) {
+	public Slider setAnimate(boolean animate) {
 		this.options.put("animate", animate);
+		return this;
 	}
 	
 	/**
 	 * @return the animate option value
 	 */
-	public boolean getAnimate() {
-		return this.options.getBoolean("animate");
+	public boolean isAnimate() {
+		if(this.options.containsKey("animate")){
+			return this.options.getBoolean("animate");
+		}
+		
+		return false;
 	}
 	
 	/**Sets the maximum value of the slider.
 	 * @param max
+	 * @return instance of the current component
 	 */
-	public void setMax(int max) {
+	public Slider setMax(int max) {
 		this.options.put("max", max);
+		return this;
 	}
 
 	/**
 	 * @return the max option value
 	 */
 	public int getMax() {
-		return this.options.getInt("max");
+		if(this.options.containsKey("max")){
+			return this.options.getInt("max");
+		}
+		
+		return 100;
 	}
 	
 	/**Sets the minimum  value of the slider.
 	 * @param min
+	 * @return instance of the current component
 	 */
-	public void setMin(int min) {
+	public Slider setMin(int min) {
 		this.options.put("min", min);
+		return this;
 	}
 
 	/**
 	 * @return the min option value
 	 */
 	public int getMin() {
-		return this.options.getInt("min");
+		if(this.options.containsKey("min")){
+			return this.options.getInt("min");
+		}
+		
+		return 0;
 	}
 	
 	/**Normally you don't need to set this option because the plugin detects 
 	 * the slider orientation automatically. If the orientation is not correctly 
 	 * detected you can set this option to 'horizontal' or 'vertical'.
 	 * @param orientation
+	 * @return instance of the current component
 	 */
-	public void setOrientation(Orientation orientation) {
+	public Slider setOrientation(Orientation orientation) {
 		this.options.putLiteral("orientation", orientation.toString().toLowerCase());
+		return this;
 	}
 	
 	/**
 	 * @return the orientation option value
 	 */
 	public Orientation getOrientation() {
-		return Orientation.valueOf(this.options.getLiteral("orientation").toUpperCase());
+		String orientation = this.options.getLiteral("orientation");
+		return orientation == null ? null : Orientation.valueOf(orientation.toUpperCase());
 	}
 	
 	/**If set to true, the slider will detect if you have two handles and create
@@ -166,9 +190,11 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 'min' and 'max'. A min range goes from the slider min to one handle. A 
 	 * max range goes from one handle to the slider max.
 	 * @param range
+	 * @return instance of the current component
 	 */
-	public void setRange(SliderRange range) {
+	public Slider setRange(SliderRange range) {
 		this.options.put("range", range);
+		return this;
 	}
 	
 	/**
@@ -187,40 +213,55 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * min and max. The full specified value range of the slider (max - min) 
 	 * needs to be evenly divisible by the step.
 	 * @param step
+	 * @return instance of the current component
 	 */
-	public void setStep(int step) {
+	public Slider setStep(int step) {
 		this.options.put("step", step);
+		return this;
 	}
 
 	/**
 	 * @return the value option value
 	 */
 	public int getStep() {
-		return this.options.getInt("step");
+		if(this.options.containsKey("step")){
+			return this.options.getInt("step");
+		}
+		
+		return 1;
 	}
 	
 	/**Sets the current value of the slider
 	 * (Determines the value of the slider, if there's only one handle. If there
 	 *  is more than one handle, determines the value of the first handle.)
 	 * @param value
+	 * @return instance of the current component
 	 */
-	public void setValue(int value) {
+	public Slider setValue(int value) {
 		this.options.put("value", value);
+		return this;
 	}
 
 	/**
 	 * @return the value option value
 	 */
 	public int getValue() {
-		return this.options.getInt("value");
+		if(this.options.containsKey("value")){
+			return this.options.getInt("value");
+		}
+		
+		return 0;
+		
 	}
 	
 	/**This option can be used to specify multiple handles. If range is set to 
 	 * true, the length of 'values' should be 2.
 	 * @param values
+	 * @return instance of the current component
 	 */
-	public void setValues(ArrayItemOptions<IntegerItemOptions> values) {
+	public Slider setValues(ArrayItemOptions<IntegerItemOptions> values) {
 		this.options.put("values", values);
+		return this;
 	}
 	
 	/**
@@ -239,32 +280,40 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * obtain the value of the current handle, $(this).slider('values', index) 
 	 * to get another handle's value.
 	 * @param change
+	 * @return instance of the current component
 	 */
-	public void setChangeEvent(JsScopeUiEvent change) {
+	public Slider setChangeEvent(JsScopeUiEvent change) {
 		this.options.put("change", change);
+		return this;
 	}
 	
 	/**Set's the callback when when the user starts sliding.
 	 * @param start
+	 * @return instance of the current component
 	 */
-	public void setStartEvent(JsScopeUiEvent start) {
+	public Slider setStartEvent(JsScopeUiEvent start) {
 		this.options.put("start", start);
+		return this;
 	}
 	
 	/**This event is triggered on every mouse move during slide. Use ui.value 
 	 * (single-handled sliders) to obtain the value of the current handle, 
 	 * $(..).slider('value', index) to get another handles' value. 
 	 * @param start
+	 * @return instance of the current component
 	 */
-	public void setSlideEvent(JsScopeUiEvent slide) {
+	public Slider setSlideEvent(JsScopeUiEvent slide) {
 		this.options.put("slide", slide);
+		return this;
 	}
 	
 	/**Set's the callback when when the user stops sliding.
 	 * @param stop
+	 * @return instance of the current component
 	 */
-	public void setStopEvent(JsScopeUiEvent stop) {
+	public Slider setStopEvent(JsScopeUiEvent stop) {
 		this.options.put("stop", stop);
+		return this;
 	}
 	
 	/*---- Methods section ---*/

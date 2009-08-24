@@ -38,17 +38,17 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 public class DialogButton extends Object implements IListItemOption {
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = -1683433456056445577L;
+	private static final long serialVersionUID = -1683433456056445578L;
 	
 	// Properties
-	private LiteralOption title;
+	private String title;
 	private JsScope jsScope;
 	
 	/** Build a new instance of a dialog button
 	 * @param title Title of the button
 	 * @param jsScope JsScope of the button
 	 */
-	public DialogButton(LiteralOption title, JsScope jsScope) {
+	public DialogButton(String title, JsScope jsScope) {
 		super();
 		setTitle(title);
 		setJsScope(jsScope);
@@ -58,7 +58,7 @@ public class DialogButton extends Object implements IListItemOption {
 	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
 	 */
 	public final CharSequence getJavascriptOption() {
-		return getTitle().toString() + ":" + getJsScope().render();
+		return new LiteralOption(getTitle()) + ":" + getJsScope().render();
 	}
 	
 	/**Method retrieving the JsScope of the button
@@ -71,7 +71,7 @@ public class DialogButton extends Object implements IListItemOption {
 	/**Method retrieving the title of the button
 	 * @return the title
 	 */
-	public LiteralOption getTitle() {
+	public String getTitle() {
 		return title;
 	}
 	
@@ -85,7 +85,7 @@ public class DialogButton extends Object implements IListItemOption {
 	/**Method setting the title of the button
 	 * @param title
 	 */
-	public void setTitle(LiteralOption title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 }

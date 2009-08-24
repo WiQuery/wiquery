@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceLocator;
+import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
 
 /**
@@ -59,9 +59,15 @@ import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
  */
 @WiQueryUIPlugin
 public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Eumeration of possible window position
+	 * @author Lionel Armanet
+	 *
+	 */
 	public static enum WindowPosition {
 		TOP, BOTTOM, CENTER, LEFT, RIGHT
 	};
@@ -89,7 +95,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
 		// TODO USE DEPENDENCIES MANGEMENT
 		wiQueryResourceManager
-				.addJavaScriptResource(DraggableJavaScriptResourceLocator.get());
+				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
 		wiQueryResourceManager
 				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 	}
@@ -111,20 +117,31 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		return options;
 	}
 
-	// TODO
+	/**Method to open the dialog
+	 * @return the associated JsStatement
+	 */
 	public JsStatement open() {
 		return new JsQuery(this).$().chain("dialog", "'open'");
 	}
 
-	// TODO
+	
+	/**Method to close the dialog
+	 * @return the associated JsStatement
+	 */
 	public JsStatement close() {
 		return new JsQuery(this).$().chain("dialog", "'close'");
 	}
 
+	/**Method to open the dialog within the ajax request
+	 * @param ajaxRequestTarget
+	 */
 	public void open(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.open().render().toString());
 	}
 
+	/**Method to close the dialog within the ajax request
+	 * @param ajaxRequestTarget
+	 */
 	public void close(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.close().render().toString());
 	}
@@ -134,9 +151,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @param autoOpen
 	 *            true if the window auto opens, false otherwise
+	 * @return instance of the current component
 	 */
-	public void setAutoOpen(boolean autoOpen) {
+	public Dialog setAutoOpen(boolean autoOpen) {
 		options.put("autoOpen", autoOpen);
+		return this;
 	}
 
 	/**
@@ -144,9 +163,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @param modal
 	 *            true if the window is modal, false otherwise
+	 * @return instance of the current component
 	 */
-	public void setModal(boolean modal) {
+	public Dialog setModal(boolean modal) {
 		options.put("modal", modal);
+		return this;
 	}
 
 	/**
@@ -155,66 +176,83 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @param ratio
 	 *            a float value between 0 and 1 (1 is 100% black overlay)
+	 * @return instance of the current component
 	 */
-	public void setOverlayRatio(float ratio) {
+	public Dialog setOverlayRatio(float ratio) {
 		// TODO nested options !
 		options.put("overlay", "{opacity: " + ratio + ", background: 'black'}");
+		return this;
 	}
 
 	/**
 	 * @return if this window auto opens on page loading.
 	 */
 	public boolean isAutoOpen() {
-		return options.getBoolean("autoOpen");
+		if(this.options.containsKey("autoOpen")){
+			return options.getBoolean("autoOpen");
+		}
+		
+		return true;
 	}
 
 	/**
 	 * @return if this window is modal.
 	 */
 	public boolean isModal() {
-		return options.getBoolean("modal");
+		if(this.options.containsKey("modal")){
+			return options.getBoolean("modal");
+		}
+		
+		return false;
 	}
 
 	/**
 	 * Sets the window's width.
+	 * @return instance of the current component
 	 */
-	public void setWidth(int width) {
+	public Dialog setWidth(int width) {
 		options.put("width", width);
+		return this;
 	}
 
 	/**
 	 * Returns the dialog's width.
 	 */
 	public int getWidth() {
-		return options.getInt("width");
+		if(this.options.containsKey("width")){
+			return options.getInt("width");
+		}
+		
+		return 300;
 	}
 
 	/**
 	 * Sets the window's height.
+	 * @return instance of the current component
 	 */
-	public void setHeight(int height) {
+	public Dialog setHeight(int height) {
 		options.put("height", height);
+		return this;
 	}
 
 	/**
 	 * Returns the window's height.
 	 */
 	public int getHeight() {
-		return options.getInt("height");
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public void positionTop() {
-		options.put("position", "'top'");
+		if(this.options.containsKey("height")){
+			return options.getInt("height");
+		}
+		
+		return 0;
 	}
 
 	/**
 	 * Sets the window's position.
+	 * @return instance of the current component
 	 */
-	public void setPosition(WindowPosition windowPosition) {
+	public Dialog setPosition(WindowPosition windowPosition) {
 		options.putLiteral("position", windowPosition.name().toLowerCase());
+		return this;
 	}
 
 	/**
@@ -227,9 +265,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 
 	/**
 	 * Sets a css class to customize the window's display.
+	 * @return instance of the current component
 	 */
-	public void setCssClass(String cssClass) {
+	public Dialog setCssClass(String cssClass) {
 		options.putLiteral("dialogClass", cssClass);
+		return this;
 	}
 
 	/**
@@ -244,9 +284,18 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @param a
 	 *            {@link String} with the given effect's name.
+	 * @return instance of the current component
 	 */
-	public void setHideEffect(String hideEffect) {
+	public Dialog setHideEffect(String hideEffect) {
 		options.putLiteral("hide", hideEffect);
+		return this;
+	}
+	
+	/**
+	 * @return the hide option value
+	 */
+	public String getHideEffect() {
+		return this.options.getLiteral("hide");
 	}
 
 	/**
@@ -254,79 +303,119 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @param a
 	 *            {@link String} with the given effect's name.
+	 * @return instance of the current component
 	 */
-	public void setShowEffect(String hideEffect) {
+	public Dialog setShowEffect(String hideEffect) {
 		options.putLiteral("show", hideEffect);
+		return this;
+	}
+	
+	/**
+	 * @return the show option value
+	 */
+	public String getShowEffect() {
+		return this.options.getLiteral("show");
 	}
 
 	/**
 	 * Sets the window's max height.
+	 * @return instance of the current component
 	 */
-	public void setMaxHeight(int maxHeight) {
+	public Dialog setMaxHeight(int maxHeight) {
 		options.put("maxHeight", maxHeight);
+		return this;
 	}
 
 	/**
 	 * Returns the window's max height.
 	 */
 	public int getMaxHeight() {
-		return options.getInt("maxHeight");
+		if(this.options.containsKey("maxHeight")){
+			return options.getInt("maxHeight");
+		}
+		
+		return 0;
 	}
 
 	/**
 	 * Sets the window's max width.
+	 * @return instance of the current component
 	 */
-	public void setMaxWidth(int maxWidth) {
+	public Dialog setMaxWidth(int maxWidth) {
 		options.put("maxWidth", maxWidth);
+		return this;
 	}
 
 	/**
 	 * Returns the window's max width.
 	 */
 	public int getMaxWidth() {
-		return options.getInt("maxWidth");
+		if(this.options.containsKey("maxWidth")){
+			return options.getInt("maxWidth");
+		}
+		
+		return 0;
 	}
 
 	/**
 	 * Sets the window's min height.
+	 * @return instance of the current component
 	 */
-	public void setMinHeight(int minHeight) {
+	public Dialog setMinHeight(int minHeight) {
 		options.put("minHeight", minHeight);
+		return this;
 	}
 
 	/**
 	 * Returns the window's min height.
 	 */
 	public int getMinHeight() {
-		return options.getInt("minHeight");
+		if(this.options.containsKey("minHeight")){
+			return options.getInt("minHeight");
+		}
+		
+		return 150;
 	}
 
 	/**
 	 * Sets the window's min width.
+	 * @return instance of the current component
 	 */
-	public void setMinWidth(int minWidth) {
+	public Dialog setMinWidth(int minWidth) {
 		options.put("minWidth", minWidth);
+		return this;
 	}
 
 	/**
 	 * Returns the window's max width.
 	 */
 	public int getMinWidth() {
-		return options.getInt("minWidth");
+		if(this.options.containsKey("minWidth")){
+			return options.getInt("minWidth");
+		}
+		
+		return 150;
 	}
 
 	/**
 	 * Sets if this window is resizable or not.
+	 * @return instance of the current component
 	 */
-	public void setResizable(boolean resizable) {
+	public Dialog setResizable(boolean resizable) {
 		options.put("resizable", resizable);
+		return this;
 	}
 
 	/**
 	 * Returns <code>true</code> if this window is resizable.
 	 */
 	public boolean isResizable() {
-		return options.getBoolean("resizable");
+		if(this.options.containsKey("resizable")){
+			return options.getBoolean("resizable");
+		}
+		
+		return true;
+		
 	}
 
 	/**
@@ -335,9 +424,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * <strong>Note:</strong> the title can be automatically sets when the HTML
 	 * <code>title</code> attribute is set.
 	 * </p>
+	 * @return instance of the current component
 	 */
-	public void setTitle(String title) {
+	public Dialog setTitle(String title) {
 		options.putLiteral("title", title);
+		return this;
 	}
 
 	/**
@@ -355,9 +446,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	/**
 	 * Set's the close on escape keyboard shortcut
 	 * @param closeOnEscape
+	 * @return instance of the current component
 	 */
-	public void setCloseOnEscape(boolean closeOnEscape) {
+	public Dialog setCloseOnEscape(boolean closeOnEscape) {
 		this.options.put("closeOnEscape", closeOnEscape);
+		return this;
 	}
 
 	/**
@@ -378,9 +471,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * including the bgiframe plugin. Future versions may not require a separate 
 	 * plugin.
 	 * @param bgiframe
+	 * @return instance of the current component
 	 */
-	public void setBgiframe(boolean bgiframe) {
+	public Dialog setBgiframe(boolean bgiframe) {
 		this.options.put("bgiframe", bgiframe);
+		return this;
 	}
 
 	/**
@@ -391,15 +486,17 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 			return this.options.getBoolean("bgiframe");
 		}
 		
-		return true;
+		return false;
 	}
 	
 	/**
 	 * Enable or disable the draggable event
 	 * @param draggable
+	 * @return instance of the current component
 	 */
-	public void setDraggable(boolean draggable) {
+	public Dialog setDraggable(boolean draggable) {
 		this.options.put("draggable", draggable);
+		return this;
 	}
 
 	/**
@@ -418,9 +515,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * will cause the dialog to move to the front of other dialogs when it gains
 	 * focus.
 	 * @param stack
+	 * @return instance of the current component
 	 */
-	public void setStack(boolean stack) {
+	public Dialog setStack(boolean stack) {
 		this.options.put("stack", stack);
+		return this;
 	}
 
 	/**
@@ -436,9 +535,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/**Set's the starting z-index
 	 * @param zIndex
+	 * @return instance of the current component
 	 */
-	public void setZIndex(int zIndex) {
+	public Dialog setZIndex(int zIndex) {
 		this.options.put("zIndex", zIndex);
+		return this;
 	}
 	
 	/**
@@ -454,9 +555,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/**Set's a list of dialog button
 	 * @param buttons
+	 * @return instance of the current component
 	 */
-	public void setButtons(ListItemOptions<DialogButton> buttons) {
+	public Dialog setButtons(ListItemOptions<DialogButton> buttons) {
 		this.options.put("buttons", buttons);
+		return this;
 	}
 	
 	/**
@@ -475,72 +578,92 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * If the beforeclose event handler (callback function) returns false, the 
 	 * close will be prevented
 	 * @param beforeclose
+	 * @return instance of the current component
 	 */
-	public void setBeforeCloseEvent(JsScopeUiEvent beforeclose) {
+	public Dialog setBeforeCloseEvent(JsScopeUiEvent beforeclose) {
 		this.options.put("beforeclose", beforeclose);
+		return this;
 	}
 	
 	/**Set's the callback before the dialog is closed.
 	 * @param close
+	 * @return instance of the current component
 	 */
-	public void setCloseEvent(JsScopeUiEvent close) {
+	public Dialog setCloseEvent(JsScopeUiEvent close) {
 		this.options.put("close", close);
+		return this;
 	}
 	
 	/**Set's the callback when the dialog is dragged.
 	 * @param drag
+	 * @return instance of the current component
 	 */
-	public void setDragEvent(JsScopeUiEvent drag) {
+	public Dialog setDragEvent(JsScopeUiEvent drag) {
 		this.options.put("drag", drag);
+		return this;
 	}
 	
 	/**Set's the callback when the dialog is being dragged.
 	 * @param dragStart
+	 * @return instance of the current component
 	 */
-	public void setDragStartEvent(JsScopeUiEvent dragStart) {
+	public Dialog setDragStartEvent(JsScopeUiEvent dragStart) {
 		this.options.put("dragStart", dragStart);
+		return this;
 	}
 	
 	/**Set's the callback when the dialog has been dragged.
 	 * @param dragStop
+	 * @return instance of the current component
 	 */
-	public void setDragStopEvent(JsScopeUiEvent dragStop) {
+	public Dialog setDragStopEvent(JsScopeUiEvent dragStop) {
 		this.options.put("dragStop", dragStop);
+		return this;
 	}
 	
 	/**Set's the callback when the dialog gains focus.
 	 * @param focus
+	 * @return instance of the current component
 	 */
-	public void setFocusEvent(JsScopeUiEvent focus) {
+	public Dialog setFocusEvent(JsScopeUiEvent focus) {
 		this.options.put("focus", focus);
+		return this;
 	}
 	
 	/**Set's the callback before the dialog is opening.
 	 * @param open
+	 * @return instance of the current component
 	 */
-	public void setOpenEvent(JsScopeUiEvent open) {
+	public Dialog setOpenEvent(JsScopeUiEvent open) {
 		this.options.put("open", open);
+		return this;
 	}
 	
 	/**Set's the callback when the dialog is resized.
 	 * @param resize
+	 * @return instance of the current component
 	 */
-	public void setResizeEvent(JsScopeUiEvent resize) {
+	public Dialog setResizeEvent(JsScopeUiEvent resize) {
 		this.options.put("resize", resize);
+		return this;
 	}
 	
 	/**Set's the callback when the dialog is being resized.
 	 * @param resizeStart
+	 * @return instance of the current component
 	 */
-	public void setResizeStartEvent(JsScopeUiEvent resizeStart) {
+	public Dialog setResizeStartEvent(JsScopeUiEvent resizeStart) {
 		this.options.put("resizeStart", resizeStart);
+		return this;
 	}
 	
 	/**Set's the callback when the dialog has been resized.
 	 * @param resizeStop
+	 * @return instance of the current component
 	 */
-	public void setResizeStopEvent(JsScopeUiEvent resizeStop) {
+	public Dialog setResizeStopEvent(JsScopeUiEvent resizeStop) {
 		this.options.put("resizeStop", resizeStop);
+		return this;
 	}
 	
 	/**Method to destroy the dialog

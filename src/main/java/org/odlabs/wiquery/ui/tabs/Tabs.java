@@ -58,8 +58,21 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  */
 @WiQueryUIPlugin
 public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
-
-	private static final long serialVersionUID = 1L;
+	// Constantes
+	/** Constant of serialization */
+	private static final long serialVersionUID = 2L;
+	
+	/** Properties on the ui parameter (use it into callback functions) : 
+	 * anchor element of the selected tab */
+	public static final String UI_TAB = "ui.tab";
+	
+	/** Properties on the ui parameter (use it into callback functions) : 
+	 * element, that contains the selected tab contents */
+	public static final String UI_PANEL = "ui.panel";
+	
+	/** Properties on the ui parameter (use it into callback functions) : 
+	 * zero-based index of the selected tab */
+	public static final String UI_INDEX = "ui.index";
 
 	/**
 	 * Options are used to customize this component.
@@ -120,6 +133,36 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 //		
 //		return null;
 //	}
+//	
+//	/**
+//	 * Method to store the latest selected tab in a cookie. The cookie is 
+//	 * then used to determine the initially selected tab if the 
+//	 * selected option is not defined. Requires cookie plugin. 
+//	 * The object needs to have key/value pairs of the form the 
+//	 * cookie plugin expects as options. Available options (example): 
+//	 * { expires: 7, path: '/', domain: 'jquery.com', secure: true }. 
+//	 * 
+//	 * Since jQuery UI 1.7 it is also possible to define the cookie name 
+//	 * being used via name property.
+//	 * 
+//	 * @param cookie
+//	 */
+//	public void setCookie(JQueryCookieOption cookie) {
+//		this.options.put("cookie", cookie);
+//	}
+//	
+//	/**
+//	 * @return the cookie option value
+//	 */
+//	public JQueryCookieOption getAjaxOptions() {
+//		IComplexOption cookie = this.options.getComplexOption("cookie");
+//		
+//		if(cookie != null && cookie instanceof JQueryCookieOption) {
+//			return (JQueryCookieOption)cookie;
+//		}
+//		
+//		return null;
+//	}
 	
 	/**Whether or not to cache remote tabs content, e.g. load only once or with 
 	 * every click. Cached content is being lazy loaded, e.g once and only once 
@@ -127,53 +170,73 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * being cached by the browser you need to provide an extra cache: false 
 	 * flag to ajaxOptions.
 	 * @param cache
+	 * @return instance of the current component
 	 */
-	public void setCache(boolean cache) {
+	public Tabs setCache(boolean cache) {
 		options.put("cache", cache);
+		return this;
 	}
 
 	/**
 	 * @return the cache option value
 	 */
 	public boolean isCache() {
-		return options.getBoolean("cache");
+		if(this.options.containsKey("cache")){
+			return options.getBoolean("cache");
+		}
+		
+		return false;
 	}
 	
 	/**Set to true to allow an already selected tab to become unselected again 
-	 * upon reselection.
+	 * upon reselection. (Old version of this option : deselectable)
 	 * @param collapsible
+	 * @return instance of the current component
 	 */
-	public void setCollapsible(boolean collapsible) {
+	public Tabs setCollapsible(boolean collapsible) {
 		options.put("collapsible", collapsible);
+		return this;
 	}
 
 	/**
 	 * @return the collapsible option value
 	 */
 	public boolean isCollapsible() {
-		return options.getBoolean("collapsible");
+		if(this.options.containsKey("collapsible")){
+			return options.getBoolean("collapsible");
+		}
+		
+		return false;
 	}
 
 	/**
 	 * Sets which tab is displayed.
+	 * @return instance of the current component
 	 */
-	public void setDefaultSelectedTabIndex(int selectedTabIndex) {
+	public Tabs setDefaultSelectedTabIndex(int selectedTabIndex) {
 		this.options.put("selected", selectedTabIndex);
+		return this;
 	}
 
 	/**
 	 * Returns the which tab is selected by default.
 	 */
 	public int getDefaultSelectedTabIndex() {
-		return this.options.getInt("selected");
+		if(this.options.containsKey("selected")){
+			return this.options.getInt("selected");
+		}
+		
+		return 0;
 	}
 	
 	/**Set an array containing the position of the tabs (zero-based index) that 
 	 * should be disabled on initialization
 	 * @param disabled
+	 * @return instance of the current component
 	 */
-	public void setDisabled(ArrayItemOptions<IntegerItemOptions> disabled) {
+	public Tabs setDisabled(ArrayItemOptions<IntegerItemOptions> disabled) {
 		this.options.put("disabled", disabled);
+		return this;
 	}
 	
 	/**
@@ -185,9 +248,11 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/**Set the type of event to be used for selecting a tab
 	 * @param event
+	 * @return instance of the current component
 	 */
-	public void setEvent(EventLabelOptions event) {
+	public Tabs setEvent(EventLabelOptions event) {
 		this.options.put("event", event);
+		return this;
 	}
 	
 	/**
@@ -208,9 +273,11 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * ("slow", "normal", "fast") or the duration in milliseconds to run an 
 	 * animation (default is "normal").
 	 * @param fx
+	 * @return instance of the current component
 	 */
-	public void setFx(ListItemOptions<IListItemOption> fx) {
+	public Tabs setFx(ListItemOptions<IListItemOption> fx) {
 		this.options.put("fx", fx);
+		return this;
 	}
 	
 	/**
@@ -225,9 +292,11 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * generate an id from, an id/fragment identifier is created from this 
 	 * prefix and a unique id returned by $.data(el), for example "ui-tabs-54".
 	 * @param idPrefix
+	 * @return instance of the current component
 	 */
-	public void setIdPrefix(String idPrefix) {
+	public Tabs setIdPrefix(String idPrefix) {
 		this.options.put("idPrefix", idPrefix);
+		return this;
 	}
 
 	/**
@@ -246,9 +315,11 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * adding a tab with the add method or when creating a panel for a remote 
 	 * tab on the fly.
 	 * @param panelTemplate
+	 * @return instance of the current component
 	 */
-	public void setPanelTemplate(String panelTemplate) {
+	public Tabs setPanelTemplate(String panelTemplate) {
 		this.options.put("panelTemplate", panelTemplate);
+		return this;
 	}
 
 	/**
@@ -266,9 +337,11 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * Set the HTML content of this string is shown in a tab title while remote 
 	 * content is loading. Pass in empty string to deactivate that behavior.
 	 * @param spinner
+	 * @return instance of the current component
 	 */
-	public void setSpinner(String spinner) {
+	public Tabs setSpinner(String spinner) {
 		this.options.put("spinner", spinner);
+		return this;
 	}
 
 	/**
@@ -287,9 +360,11 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * placeholders #{href} and #{label} are replaced with the url and tab label 
 	 * that are passed as arguments to the add method.
 	 * @param tabTemplate
+	 * @return instance of the current component
 	 */
-	public void setTabTemplate(String tabTemplate) {
+	public Tabs setTabTemplate(String tabTemplate) {
 		this.options.put("tabTemplate", tabTemplate);
+		return this;
 	}
 
 	/**
@@ -307,51 +382,65 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/**Set the callback when a tab is added
 	 * @param add
+	 * @return instance of the current component
 	 */
-	public void setAddEvent(JsScopeUiEvent add) {
+	public Tabs setAddEvent(JsScopeUiEvent add) {
 		this.options.put("add", add);
+		return this;
 	}
 	
 	/**Set the callback when a tab is disabled
 	 * @param disable
+	 * @return instance of the current component
 	 */
-	public void setDisableEvent(JsScopeUiEvent disable) {
+	public Tabs setDisableEvent(JsScopeUiEvent disable) {
 		this.options.put("disable", disable);
+		return this;
 	}
 	
 	/**Set the callback when a tab is enabled
 	 * @param enable
+	 * @return instance of the current component
 	 */
-	public void setEnableEvent(JsScopeUiEvent enable) {
+	public Tabs setEnableEvent(JsScopeUiEvent enable) {
 		this.options.put("enable", enable);
+		return this;
 	}
 	
 	/**Set the callback when the content of a remote tab has been loaded
 	 * @param load
+	 * @return instance of the current component
 	 */
-	public void setLoadEvent(JsScopeUiEvent load) {
+	public Tabs setLoadEvent(JsScopeUiEvent load) {
 		this.options.put("load", load);
+		return this;
 	}
 	
 	/**Set the callback when a tab is removed
 	 * @param remove
+	 * @return instance of the current component
 	 */
-	public void setRemoveEvent(JsScopeUiEvent remove) {
+	public Tabs setRemoveEvent(JsScopeUiEvent remove) {
 		this.options.put("remove", remove);
+		return this;
 	}
 	
 	/**Set the callback when the user is clicking the tab
 	 * @param select
+	 * @return instance of the current component
 	 */
-	public void setSelectEvent(JsScopeUiEvent select) {
+	public Tabs setSelectEvent(JsScopeUiEvent select) {
 		this.options.put("select", select);
+		return this;
 	}
 	
 	/**Set the callback when a tab is shown
 	 * @param show
+	 * @return instance of the current component
 	 */
-	public void setShowEvent(JsScopeUiEvent show) {
+	public Tabs setShowEvent(JsScopeUiEvent show) {
 		this.options.put("show", show);
+		return this;
 	}
 
 	/*---- Methods section ---*/
@@ -374,6 +463,23 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 				"'#" + contentToAdd.getMarkupId() + "'", "'" + title + "'",
 				"" + index);
 	}
+	
+	/**
+	 * Add the given component in the tab
+	 * panel.
+	 * 
+	 * @param ajaxRequestTarget
+	 * @param index
+	 *            the insertion index.
+	 * @param title
+	 *            the tab title.
+	 * @param contentToAdd
+	 *            the {@link Component} to add.
+	 */
+	public void add(AjaxRequestTarget ajaxRequestTarget, int index, 
+			String title, Component contentToAdd) {
+		ajaxRequestTarget.appendJavascript(add(index, title, contentToAdd).render().toString());
+	}
 
 	/**
 	 * Returns the {@link JsStatement} to add the given component at the end of
@@ -389,6 +495,21 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 		contentToAdd.setOutputMarkupId(true);
 		return new JsQuery(this).$().chain("tabs", "'add'",
 				"'#" + contentToAdd.getMarkupId() + "'", "'" + title + "'");
+	}
+	
+	/**
+	 * Add the given component in the tab
+	 * panel.
+	 * 
+	 * @param ajaxRequestTarget
+	 * @param title
+	 *            the tab title.
+	 * @param contentToAdd
+	 *            the {@link Component} to add.
+	 */
+	public void add(AjaxRequestTarget ajaxRequestTarget, 
+			String title, Component contentToAdd) {
+		ajaxRequestTarget.appendJavascript(add(title, contentToAdd).render().toString());
 	}
 	
 	/**Method to add a new tab
@@ -525,6 +646,13 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 		ajaxRequestTarget.appendJavascript(this.enable(index).render().toString());
 	}
 	
+	/**Method retrieving the number of tabs of the first matched tab pane
+	 * @return the associated JsStatement
+	 */
+	public JsStatement length() {
+		return new JsQuery(this).$().chain("tabs", "'length'");
+	}
+	
 	/**Method to reload the content of an Ajax tab programmatically
 	 * @param index Index tab to select
 	 * @return the associated JsStatement
@@ -557,7 +685,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void remove(AjaxRequestTarget ajaxRequestTarget, int index) {
-		ajaxRequestTarget.appendJavascript(this.rotate(index).render().toString());
+		ajaxRequestTarget.appendJavascript(this.remove(index).render().toString());
 	}
 	
 	/**Method to set up an automatic rotation through tabs of a tab pane

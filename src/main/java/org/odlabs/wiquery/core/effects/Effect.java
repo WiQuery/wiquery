@@ -47,7 +47,10 @@ import org.odlabs.wiquery.core.javascript.JsScope;
  * @see ChainableStatement
  */
 public abstract class Effect implements ChainableStatement, Serializable {
-
+	// Constants
+	/**	Constant of serialization */
+	private static final long serialVersionUID = 6498661896790365888L;
+	
 	/**
 	 * The list of parameters to apply to the effect.
 	 */

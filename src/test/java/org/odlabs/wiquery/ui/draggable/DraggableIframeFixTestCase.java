@@ -25,7 +25,7 @@ public class DraggableIframeFixTestCase extends TestCase{
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 		
 		// Selector param
-		iframeFix.setSelectorParam(new LiteralOption("ul"));
+		iframeFix.setSelectorParam("ul");
 		expectedJavascript = "'ul'";
 		generatedJavascript = iframeFix.getJavascriptOption().toString();
 		

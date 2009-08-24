@@ -48,7 +48,7 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 public class ResizableBehavior extends WiQueryAbstractBehavior {
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 4155106232676863149L;
+	private static final long serialVersionUID = 4155106232676863150L;
 	
 	/** Properties on the ui parameter (use it into callback functions) : a jQuery 
 	 * object containing the helper element */
@@ -100,9 +100,11 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	
 	/**Resize these elements synchronous when resizing.
 	 * @param cssSelector
+	 * @return instance of the current behavior
 	 */
-	public void setAlsoResize(String cssSelector) {
+	public ResizableBehavior setAlsoResize(String cssSelector) {
 		this.options.putLiteral("alsoResize", cssSelector);
+		return this;
 	}
 
 	/**
@@ -114,24 +116,32 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 
 	/**Animates to the final size after resizing.
 	 * @param animate
+	 * @return instance of the current behavior
 	 */
-	public void setAnimate(boolean animate) {
+	public ResizableBehavior setAnimate(boolean animate) {
 		this.options.put("animate", animate);
+		return this;
 	}
 
 	/**
 	 * @return the animate option
 	 */
 	public boolean isAnimate() {
-		return this.options.getBoolean("alsoResize");
+		if(this.options.containsKey("alsoResize")){
+			return this.options.getBoolean("alsoResize");
+		}
+		
+		return false;
 	}
 	
 	/**
 	 * Sets the duration time for animating, in milliseconds. 
 	 * Other possible values: 'slow', 'normal', 'fast'.
+	 * @return instance of the current behavior
 	 */
-	public void setAnimeDuration(ResizableAnimeDuration animeDuration) {
+	public ResizableBehavior setAnimeDuration(ResizableAnimeDuration animeDuration) {
 		this.options.put("animeDuration", animeDuration);
+		return this;
 	}
 	
 	/**
@@ -148,25 +158,30 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 
 	/**Sets the easing effect for animating.
 	 * @param easing
+	 * @return instance of the current behavior
 	 */
-	public void setAnimateEasing(String easing) {
-		options.put("animateEasing", easing);
+	public ResizableBehavior setAnimateEasing(String easing) {
+		options.putLiteral("animateEasing", easing);
+		return this;
 	}
 
 	/**
 	 * @return the animateEasing option
 	 */
 	public String getAnimateEasing() {
-		return options.get("animateEasing");
+		String animateEasing = options.getLiteral("animateEasing");
+		return animateEasing == null ? "swing" : animateEasing;
 	}
 	
 	/**
 	 * If set to true, resizing is constrained by the original aspect ratio. 
 	 * Otherwise a custom aspect ratio can be specified, such as 9 / 16, or 0.5.
 	 * @param aspectRatio
+	 * @return instance of the current behavior
 	 */
-	public void setAspectRatio(ResizableAspectRatio aspectRatio) {
+	public ResizableBehavior setAspectRatio(ResizableAspectRatio aspectRatio) {
 		this.options.put("aspectRatio", aspectRatio);
+		return this;
 	}
 	
 	/**
@@ -184,39 +199,50 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	/**If set to true, automatically hides the handles except when the mouse 
 	 * hovers over the element.
 	 * @param autoHide
+	 * @return instance of the current behavior
 	 */
-	public void setAutoHide(boolean autoHide) {
+	public ResizableBehavior setAutoHide(boolean autoHide) {
 		options.put("autoHide", autoHide);
+		return this;
 	}
 	
 	/**
 	 * @return the autoHide option
 	 */
 	public boolean isAutoHide() {
-		return options.getBoolean("autoHide");
+		if(this.options.containsKey("autoHide")){
+			return this.options.getBoolean("autoHide");
+		}
+		
+		return false;
 	}
 	
 	/**Prevents resizing if you start on elements matching the selector.
 	 * @param cancel
+	 * @return instance of the current behavior
 	 */
-	public void setCancel(String cancel) {
+	public ResizableBehavior setCancel(String cancel) {
 		options.putLiteral("cancel", cancel);
+		return this;
 	}
 	
 	/**
 	 * @return the cancel option
 	 */
 	public String getCancel() {
-		return options.getLiteral("cancel");
+		String cancel = options.getLiteral("cancel");
+		return cancel == null ? "input,option" : cancel;
 	}
 	
 	/**
 	 * Sets the constrains resizing to within the bounds of the specified element. 
 	 * Possible values: 'parent', 'document', a DOMElement, or a Selector.
 	 * @param containment
+	 * @return instance of the current behavior
 	 */
-	public void setContainment(ResizableContainment containment) {
+	public ResizableBehavior setContainment(ResizableContainment containment) {
 		this.options.put("containment", containment);
+		return this;
 	}
 	
 	/**
@@ -235,58 +261,78 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 * specified, resizing will not start until after mouse is moved beyond duration. 
 	 * This can help prevent unintended resizing when clicking on an element.
 	 * @param delay
+	 * @return instance of the current behavior
 	 */
-	public void setDelay(int delay) {
+	public ResizableBehavior setDelay(int delay) {
 		options.put("delay", delay);
+		return this;
 	}
 	
 	/**
 	 * @return the distance option
 	 */
 	public int getDelay() {
-		return options.getInt("delay");
+		if(this.options.containsKey("delay")){
+			return options.getInt("delay");
+		}
+		
+		return 0;
 	}
 	
 	/**Sets the tolerance, in pixels, for when resizing should start. If specified,
 	 * resizing will not start until after mouse is moved beyond distance. This 
 	 * can help prevent unintended resizing when clicking on an element.
 	 * @param distance
+	 * @return instance of the current behavior
 	 */
-	public void setDistance(int distance) {
+	public ResizableBehavior setDistance(int distance) {
 		options.put("distance", distance);
+		return this;
 	}
 	
 	/**
 	 * @return the distance option
 	 */
 	public int getDistance() {
-		return options.getInt("distance");
+		if(this.options.containsKey("distance")){
+			return options.getInt("distance");
+		}
+		
+		return 1;
 	}
 	
 	/**Set to true, a semi-transparent helper element is shown for resizing.
 	 * @param ghost
+	 * @return instance of the current behavior
 	 */
-	public void setGhost(boolean ghost) {
+	public ResizableBehavior setGhost(boolean ghost) {
 		options.put("ghost", ghost);
+		return this;
 	}
 	
 	/**
 	 * @return the ghost option
 	 */
 	public boolean isGhost() {
-		return options.getBoolean("ghost");
+		if(this.options.containsKey("ghost")){
+			return options.getBoolean("ghost");
+		}
+		
+		return false;
 	}
 	
 	/**Snaps the resizing element to a grid, every x and y pixels. Array values: [x, y] 
 	 * Array values: [x, y]
 	 * @param x
 	 * @param y
+	 * @return instance of the current behavior
 	 */
-	public void setGrid(int x, int y) {
+	public ResizableBehavior setGrid(int x, int y) {
 		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<IntegerItemOptions>();
 		grids.add(new IntegerItemOptions(x));
 		grids.add(new IntegerItemOptions(y));
 		this.options.put("grid", grids);
+		return this;
 	}
 	
 	/**
@@ -307,9 +353,11 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 * child of the resizable, you can pass in the DOMElement or a valid jQuery 
 	 * object directly.
 	 * @param handles
+	 * @return instance of the current behavior
 	 */
-	public void setHandles(ResizableHandles handles) {
+	public ResizableBehavior setHandles(ResizableHandles handles) {
 		this.options.put("handles", handles);
+		return this;
 	}
 	
 	/**
@@ -328,9 +376,11 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 * resize during the drag of the resize handle. Once the resize is complete, 
 	 * the original element is sized.
 	 * @param helper
+	 * @return instance of the current behavior
 	 */
-	public void setHelper(String helper) {
+	public ResizableBehavior setHelper(String helper) {
 		options.putLiteral("helper", helper);
+		return this;
 	}
 	
 	/**
@@ -342,58 +392,82 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	
 	/**
 	 * Sets the component's max height.
+	 * @return instance of the current behavior
 	 */
-	public void setMaxHeight(int maxHeight) {
+	public ResizableBehavior setMaxHeight(int maxHeight) {
 		options.put("maxHeight", maxHeight);
+		return this;
 	}
 
 	/**
 	 * Returns the component's max height.
 	 */
 	public int getMaxHeight() {
-		return options.getInt("maxHeight");
+		if(this.options.containsKey("maxHeight")){
+			return options.getInt("maxHeight");
+		}
+		
+		return 0;
 	}
 
 	/**
 	 * Sets the window's max width.
+	 * @return instance of the current behavior
 	 */
-	public void setMaxWidth(int maxWidth) {
+	public ResizableBehavior setMaxWidth(int maxWidth) {
 		options.put("maxWidth", maxWidth);
+		return this;
 	}
 
 	/**
 	 * Returns the component's max width.
 	 */
 	public int getMaxWidth() {
-		return options.getInt("maxWidth");
+		if(this.options.containsKey("maxWidth")){
+			return options.getInt("maxWidth");
+		}
+		
+		return 0;
 	}
 
 	/**
 	 * Sets the component's min height.
+	 * @return instance of the current behavior
 	 */
-	public void setMinHeight(int minHeight) {
+	public ResizableBehavior setMinHeight(int minHeight) {
 		options.put("minHeight", minHeight);
+		return this;
 	}
 
 	/**
 	 * Returns the component's min height.
 	 */
 	public int getMinHeight() {
-		return options.getInt("minHeight");
+		if(this.options.containsKey("minHeight")){
+			return options.getInt("minHeight");
+		}
+		
+		return 10;
 	}
 
 	/**
 	 * Sets the component's min width.
+	 * @return instance of the current behavior
 	 */
-	public void setMinWidth(int minWidth) {
+	public ResizableBehavior setMinWidth(int minWidth) {
 		options.put("minWidth", minWidth);
+		return this;
 	}
 
 	/**
 	 * Returns the component's max width.
 	 */
 	public int getMinWidth() {
-		return options.getInt("minWidth");
+		if(this.options.containsKey("minWidth")){
+			return options.getInt("minWidth");
+		}
+		
+		return 10;
 	}
 	
 	/*---- Events section ---*/
@@ -401,25 +475,31 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	/**Set's the callback when the event is triggered during the resize, on the 
 	 * drag of the resize handler. 
 	 * @param resize
+	 * @return instance of the current behavior
 	 */
-	public void setResizeEvent(JsScopeUiEvent resize) {
+	public ResizableBehavior setResizeEvent(JsScopeUiEvent resize) {
 		this.options.put("resize", resize);
+		return this;
 	}
 	
 	/**Set's the callback when the event is triggered at the start of a resize 
 	 * operation.
 	 * @param start
+	 * @return instance of the current behavior
 	 */
-	public void setStartEvent(JsScopeUiEvent start) {
+	public ResizableBehavior setStartEvent(JsScopeUiEvent start) {
 		this.options.put("start", start);
+		return this;
 	}
 	
 	/**Set's the callback when the event is triggered at the end of a resize 
 	 * operation.
 	 * @param stop
+	 * @return instance of the current behavior
 	 */
-	public void setStopEvent(JsScopeUiEvent stop) {
+	public ResizableBehavior setStopEvent(JsScopeUiEvent stop) {
 		this.options.put("stop", stop);
+		return this;
 	}
 
 	/*---- Methods section ----*/	

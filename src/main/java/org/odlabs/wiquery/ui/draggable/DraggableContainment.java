@@ -37,6 +37,11 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @since 1.0
  */
 public class DraggableContainment implements IComplexOption {
+	/**
+	 * Enumeration of possible values for the containment option
+	 * @author Julien
+	 *
+	 */
 	public enum ContainmentEnum {
 		PARENT		(new LiteralOption("parent")),
 		DOCUMENT 	(new LiteralOption("document")),
@@ -60,12 +65,12 @@ public class DraggableContainment implements IComplexOption {
 	
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 3404088696595137949L;
+	private static final long serialVersionUID = 3404088696595137952L;
 	
 	// Properties
 	private ArrayItemOptions<IntegerItemOptions> arrayParam;
 	private ContainmentEnum containmentEnumParam;
-	private LiteralOption literalParam;
+	private String literalParam;
 	
 	/**Constructor
 	 * @param containmentEnumParam ContainmentEnum parameter
@@ -94,7 +99,7 @@ public class DraggableContainment implements IComplexOption {
 	/**Constructor
 	 * @param literalParam Literal parameter
 	 */
-	public DraggableContainment(LiteralOption literalParam) {
+	public DraggableContainment(String literalParam) {
 		this(null, null, literalParam);
 	}
 
@@ -104,7 +109,7 @@ public class DraggableContainment implements IComplexOption {
 	 * @param literalParam Literal parameter
 	 */
 	private DraggableContainment(ArrayItemOptions<IntegerItemOptions> arrayParam, 
-			ContainmentEnum containmentEnumParam, LiteralOption literalParam) {
+			ContainmentEnum containmentEnumParam, String literalParam) {
 		super();
 		setParam(arrayParam, containmentEnumParam, literalParam);
 	}
@@ -126,7 +131,7 @@ public class DraggableContainment implements IComplexOption {
 	/**
 	 * @return the literalParam
 	 */
-	public LiteralOption getLiteralParam() {
+	public String getLiteralParam() {
 		return literalParam;
 	}
 	
@@ -148,7 +153,7 @@ public class DraggableContainment implements IComplexOption {
 			sequence = arrayParam.getJavascriptOption();
 		}
 		else if(literalParam != null){
-			sequence = literalParam.toString();
+			sequence = new LiteralOption(literalParam).toString();
 		}
 		else{
 			throw new IllegalArgumentException("The DraggableContainment must have one not null parameter");
@@ -184,7 +189,7 @@ public class DraggableContainment implements IComplexOption {
 	/**Set's the literal parameter
 	 * @param literalParam the literal to set
 	 */
-	public void setLiteralParam(LiteralOption literalParam) {
+	public void setLiteralParam(String literalParam) {
 		setParam(null, null, literalParam);
 	}
 	
@@ -194,7 +199,7 @@ public class DraggableContainment implements IComplexOption {
 	 */
 	private void setParam(ArrayItemOptions<IntegerItemOptions> arrayParam, 
 			ContainmentEnum containmentEnumParam,
-			LiteralOption literalParam) {
+			String literalParam) {
 		this.arrayParam = arrayParam;
 		this.containmentEnumParam = containmentEnumParam;
 		this.literalParam = literalParam;

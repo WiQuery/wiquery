@@ -44,9 +44,11 @@ import org.odlabs.wiquery.ui.options.UiOptionsRenderer;
  */
 @WiQueryUIPlugin
 public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 8268721447610956664L;
 
+	// Properties
 	private Options options;
 
 	/**
@@ -96,25 +98,33 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/**Sets the current value of the progressBar
 	 * @param value
+	 * @return instance of the current component
 	 */
-	public void setValue(int value) {
+	public ProgressBar setValue(int value) {
 		this.options.put("value", value);
+		return this;
 	}
 
 	/**
 	 * @return the current value of the progressBar
 	 */
 	public int getValue() {
-		return this.options.getInt("value");
+		if(this.options.containsKey("value")){
+			return options.getInt("value");
+		}
+		
+		return 0;
 	}
 
 	/*---- Events section ---*/
 	
 	/**Set's the callback when the value of the progressBar changes.
 	 * @param change
+	 * @return instance of the current component
 	 */
-	public void setChangeEvent(JsScopeUiEvent change) {
+	public ProgressBar setChangeEvent(JsScopeUiEvent change) {
 		this.options.put("change", change);
+		return this;
 	}
 	
 	/*---- Methods section ---*/
@@ -162,6 +172,13 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
 	}
 	
+	/**Method to get the current value of the progressBar
+	 * @return the associated JsStatement
+	 */
+	public JsStatement value() {
+		return new JsQuery(this).$().chain("progressbar", "'value'");
+	}
+	
 	/**Method to set the current value of the progressBar
 	 * @param value
 	 * @return the associated JsStatement
@@ -176,5 +193,85 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void value(AjaxRequestTarget ajaxRequestTarget, int value) {
 		ajaxRequestTarget.appendJavascript(this.value(value).render().toString());
+	}
+	
+	/*---- wiQuery Methods section ---*/
+	
+	/**Method to increment the value of the progressBar
+	 * @return the associated JsStatement
+	 */
+	public JsStatement increment() {
+		return increment(1);
+	}
+	
+	/**Method to increment the value of the progressBar
+	 * @param increment The increment to add to the current value
+	 * @return the associated JsStatement
+	 */
+	public JsStatement increment(int increment) {
+		String varValue = "value_inc_" + getMarkupId(true);
+		
+		JsStatement statement = new JsStatement();
+		statement.append("var " + varValue + "= " + Math.abs(increment) 
+				+ " + " + value().render());
+		statement.append(new JsQuery(this).$().chain(
+								"progressbar", "'value'", 
+								varValue).render());
+		
+		return statement;
+	}
+	
+	/**Method to increment the value of the progressBar within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void increment(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.increment().render().toString());
+	}
+	
+	/**Method to increment the value of the progressBar within the ajax request
+	 * @param ajaxRequestTarget
+	 * @param increment The increment to add to the current value
+	 */
+	public void increment(AjaxRequestTarget ajaxRequestTarget, int increment) {
+		ajaxRequestTarget.appendJavascript(this.increment(increment).render().toString());
+	}
+	
+	/**Method to decrement the value of the progressBar
+	 * @return the associated JsStatement
+	 */
+	public JsStatement decrement() {
+		return decrement(1);
+	}
+	
+	/**Method to decrement the value of the progressBar
+	 * @param decrement The decrement to add to the current value
+	 * @return the associated JsStatement
+	 */
+	public JsStatement decrement(int decrement) {
+		String varValue = "value_dec_" + getMarkupId(true);
+		
+		JsStatement statement = new JsStatement();
+		statement.append("var " + varValue + "= -" + Math.abs(decrement) +
+				" + " + value().render());
+		statement.append(new JsQuery(this).$().chain(
+								"progressbar", "'value'", 
+								varValue).render());
+		
+		return statement;
+	}
+	
+	/**Method to decrement the value of the progressBar within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void decrement(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.decrement().render().toString());
+	}
+	
+	/**Method to decrement the value of the progressBar within the ajax request
+	 * @param ajaxRequestTarget
+	 * @param decrement The decrement to add to the current value
+	 */
+	public void decrement(AjaxRequestTarget ajaxRequestTarget, int decrement) {
+		ajaxRequestTarget.appendJavascript(this.decrement(decrement).render().toString());
 	}
 }

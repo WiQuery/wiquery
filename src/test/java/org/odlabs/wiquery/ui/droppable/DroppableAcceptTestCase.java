@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DraggableHelperTestCase extends TestCase{
+public class DroppableAcceptTestCase extends TestCase{
 	protected static final Logger log = LoggerFactory.getLogger(
-			DraggableHelperTestCase.class);
+			DroppableAcceptTestCase.class);
 
 	@Test
 	public void testGetJavaScriptOption() {
-		DroppableAccept helper  = new DroppableAccept(new LiteralOption(".special"));
+		DroppableAccept helper  = new DroppableAccept(".special");
 		
 		// HelperEnum param
 		String expectedJavascript = "'.special'";

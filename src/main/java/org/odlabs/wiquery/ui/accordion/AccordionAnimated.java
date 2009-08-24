@@ -19,50 +19,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.draggable;
+package org.odlabs.wiquery.ui.accordion;
 
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
 /**
- * $Id: DraggableSnap.java
+ * $Id: AccordionAnimated
  * <p>
- * Bean for the iframeFix option for the Draggable behavior
+ * Bean for the animated option for the Accordion component
  * </p>
  * 
  * @author Julien Roche
  * @since 1.0
  */
-public class DraggableIframeFix implements IComplexOption {	
+public class AccordionAnimated implements IComplexOption {	
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = 3404088696595137951L;
+	private static final long serialVersionUID = 3404088696595137949L;
 	
 	// Properties
 	private Boolean booleanParam;
-	private String selectorParam;
+	private String effectParam;
 	
 	/**Constructor
 	 * @param booleanParam Boolean parameter
 	 */
-	public DraggableIframeFix(Boolean booleanParam) {
+	public AccordionAnimated(Boolean booleanParam) {
 		this(booleanParam, null);
 	}
 
 	/**Constructor
-	 * @param selectorParam Selector parameter
+	 * @param effectParam Effect parameter
 	 */
-	public DraggableIframeFix(String selectorParam) {
-		this(null, selectorParam);
+	public AccordionAnimated(String effectParam) {
+		this(null, effectParam);
 	}
 	
 	/**Constructor
 	 * @param booleanParam Boolean parameter
-	 * @param selectorParam Selector parameter
+	 * @param effectParam Effect parameter
 	 */
-	private DraggableIframeFix(Boolean booleanParam, String selectorParam) {
+	private AccordionAnimated(Boolean booleanParam, String effectParam) {
 		super();
-		setParam(booleanParam, selectorParam);
+		setParam(booleanParam, effectParam);
 	}
 	
 	/**
@@ -73,18 +73,18 @@ public class DraggableIframeFix implements IComplexOption {
 	}
 
 	/**
-	 * @return the selectorParam
+	 * @return the effectParam
 	 */
-	public String getSelectorPAram() {
-		return selectorParam;
+	public String getEffectPAram() {
+		return effectParam;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
 	 */
 	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && selectorParam == null){
-			throw new IllegalArgumentException("The DraggableIframeFix must have one not null parameter");
+		if(booleanParam == null && effectParam == null){
+			throw new IllegalArgumentException("The AccordionAnimated must have one not null parameter");
 		}
 		
 		CharSequence sequence = null;
@@ -92,11 +92,11 @@ public class DraggableIframeFix implements IComplexOption {
 		if(booleanParam != null){
 			sequence = booleanParam.toString();
 		}
-		else if(selectorParam != null){
-			sequence = new LiteralOption(selectorParam).toString();
+		else if(effectParam != null){
+			sequence = new LiteralOption(effectParam).toString();
 		}
 		else{
-			throw new IllegalArgumentException("The DraggableIframeFix must have one not null parameter");
+			throw new IllegalArgumentException("The AccordionAnimated must have one not null parameter");
 		}
 		
 		return sequence;
@@ -109,19 +109,19 @@ public class DraggableIframeFix implements IComplexOption {
 		setParam(booleanParam, null);
 	}
 	
-	/**Set's the selector parameter
-	 * @param selectorParam the selector to set
+	/**Set's the effect parameter
+	 * @param effectParam the effect to set
 	 */
-	public void setSelectorParam(String selectorParam) {
-		setParam(null, selectorParam);
+	public void setEffectParam(String effectParam) {
+		setParam(null, effectParam);
 	}
 	
 	/**Method setting the right parameter
 	 * @param booleanParam Boolean parameter
-	 * @param selectorParam Selector parameter
+	 * @param effectParam Effect parameter
 	 */
-	private void setParam(Boolean booleanParam, String selectorParam) {
+	private void setParam(Boolean booleanParam, String effectParam) {
 		this.booleanParam = booleanParam;
-		this.selectorParam = selectorParam;
+		this.effectParam = effectParam;
 	}
 }

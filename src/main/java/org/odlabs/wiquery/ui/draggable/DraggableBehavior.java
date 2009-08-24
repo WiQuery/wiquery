@@ -105,6 +105,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public DraggableBehavior() {
 		super();
+		options = new Options();
 	}
 
 	/*
@@ -117,7 +118,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
-				.addJavaScriptResource(DraggableJavaScriptResourceLocator.get());
+				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
 	}
 
 	/*
@@ -127,7 +128,8 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	@Override
 	public JsStatement statement() {
-		return new JsQuery(getComponent()).$().chain("draggable");
+		return new JsQuery(getComponent()).$().chain("draggable", 
+				options.getJavaScriptOptions());
 	}
 	
 	/**Method retrieving the options of the component
@@ -143,9 +145,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * This may be desired as a performance optimization when calling .draggable() 
 	 * init on many hundreds of elements.
 	 * @param addClasses
+	 * @return instance of the current behavior
 	 */
-	public void setAddClasses(boolean addClasses) {
+	public DraggableBehavior setAddClasses(boolean addClasses) {
 		this.options.put("addClasses", addClasses);
+		return this;
 	}
 	
 	/**
@@ -163,9 +167,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * the draggable helper's container during dragging. By default, the helper 
 	 * is appended to the same container as the draggable.
 	 * @param appendTo
+	 * @return instance of the current behavior
 	 */
-	public void setAppendTo(String appendTo) {
+	public DraggableBehavior setAppendTo(String appendTo) {
 		this.options.putLiteral("appendTo", appendTo);
+		return this;
 	}
 	
 	/**
@@ -179,9 +185,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/**Constrains dragging to either the horizontal (x) or vertical (y) axis. 
 	 * Possible values: 'x', 'y'.
 	 * @param axis
+	 * @return instance of the current behavior
 	 */
-	public void setAxis(AxisEnum axis) {
+	public DraggableBehavior setAxis(AxisEnum axis) {
 		this.options.putLiteral("axis", axis.toString().toLowerCase());
+		return this;
 	}
 	
 	/**
@@ -193,25 +201,30 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/** Set's the prevent selecting if you start on elements matching the selector
 	 * @param cancel Selector (default : ':input,option')
+	 * @return instance of the current behavior
 	 */
-	public void setCancel(String cancel) {
+	public DraggableBehavior setCancel(String cancel) {
 		this.options.putLiteral("cancel", cancel);
+		return this;
 	}
 	
 	/**
 	 * @return the cancel option value
 	 */
 	public String getCancel() {
-		return this.options.getLiteral("cancel");
+		String cancel = this.options.getLiteral("cancel");
+		return cancel == null ? "input,option" : cancel;
 	}
 	
 	/**Allows the draggable to be dropped onto the specified sortables. If this 
 	 * option is used (helper must be set to 'clone' in order to work flawlessly), 
 	 * a draggable can be dropped onto a sortable list and then becomes part of it. 
 	 * @param connectToSortable
+	 * @return instance of the current behavior
 	 */
-	public void setConnectToSortable(String connectToSortable) {
+	public DraggableBehavior setConnectToSortable(String connectToSortable) {
 		this.options.putLiteral("connectToSortable", connectToSortable);
+		return this;
 	}
 	
 	/**
@@ -224,9 +237,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/**Set's the constrains dragging to within the bounds of the specified element 
 	 * or region. Possible string values: 'parent', 'document', 'window', [x1, y1, x2, y2]
 	 * @param containment
+	 * @return instance of the current behavior
 	 */
-	public void setHelper(DraggableContainment containment) {
+	public DraggableBehavior setContainment(DraggableContainment containment) {
 		this.options.put("containment", containment);
+		return this;
 	}
 	
 	/**
@@ -243,42 +258,50 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/**Set the css cursor during the drag operation.
 	 * @param cursor
+	 * @return instance of the current behavior
 	 */
-	public void setCursor(String cursor) {
+	public DraggableBehavior setCursor(String cursor) {
 		this.options.putLiteral("cursor", cursor);
+		return this;
 	}
 	
 	/**
 	 * @return the cursor option value
 	 */
 	public String getCursor() {
-		return this.options.getLiteral("cursor");
+		String cursor = this.options.getLiteral("cursor");
+		return cursor == null ? "auto" : cursor;
 	}
 	
 	/**Moves the dragging helper so the cursor always appears to drag from the same 
 	 * position. Coordinates can be given as a hash using a combination of one or 
 	 * two keys: { top, left, right, bottom }.
 	 * @param cusorAt
+	 * @return instance of the current behavior
 	 */
-	public void setCursorAt(CursorAtEnum cusorAt) {
+	public DraggableBehavior setCursorAt(CursorAtEnum cusorAt) {
 		this.options.putLiteral("cusorAt", cusorAt.toString().toLowerCase()
 				.replace('_', ' '));
+		return this;
 	}
 	
 	/**
 	 * @return the cursorAt option value
 	 */
 	public CursorAtEnum getCursorAt() {
-		return CursorAtEnum.valueOf(this.options.getLiteral("cursorAt").toUpperCase()
+		String cursorAt = this.options.getLiteral("cursorAt");
+		return cursorAt == null ? null : CursorAtEnum.valueOf(cursorAt.toUpperCase()
 				.replace(' ', '_'));
 	}
 	
 	/**Time in milliseconds after mousedown until dragging should start. This 
 	 * option can be used to prevent unwanted drags when clicking on an element.
 	 * @param delay
+	 * @return instance of the current behavior
 	 */
-	public void setDelay(int delay) {
+	public DraggableBehavior setDelay(int delay) {
 		this.options.put("delay", delay);
+		return this;
 	}
 	
 	/**
@@ -296,12 +319,13 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * dragging should start. This option can be used to prevent unwanted drags 
 	 * when clicking on an element.
 	 * @param distance
+	 * @return instance of the current behavior
 	 */
-	public void setDistance(int distance) {
+	public DraggableBehavior setDistance(int distance) {
 		this.options.put("distance", distance);
+		return this;
 	}
 	
-
 	/**
 	 * @return the distance option value
 	 */
@@ -316,12 +340,14 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/**Snaps the dragging helper to a grid, every x and y pixels. Array values: [x, y]
 	 * @param x
 	 * @param y
+	 * @return instance of the current behavior
 	 */
-	public void setGrid(int x, int y) {
+	public DraggableBehavior setGrid(int x, int y) {
 		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<IntegerItemOptions>();
 		grids.add(new IntegerItemOptions(x));
 		grids.add(new IntegerItemOptions(y));
 		this.options.put("grid", grids);
+		return this;
 	}
 	
 	/**
@@ -333,9 +359,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/**Restricts sort start click to the specified element.
 	 * @param handle
+	 * @return instance of the current behavior
 	 */
-	public void setHandle(String handle) {
+	public DraggableBehavior setHandle(String handle) {
 		this.options.putLiteral("handle", handle);
+		return this;
 	}
 	
 	/**
@@ -349,9 +377,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * values: 'original', 'clone', Function. If a function is specified, it 
 	 * must return a DOMElement.
 	 * @param helper
+	 * @return instance of the current behavior
 	 */
-	public void setHelper(DraggableHelper helper) {
+	public DraggableBehavior setHelper(DraggableHelper helper) {
 		this.options.put("helper", helper);
+		return this;
 	}
 	
 	/**
@@ -372,9 +402,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * all iframes on the page. If a selector is supplied, the matched iframes 
 	 * will have an overlay placed over them.
 	 * @param iframeFix
+	 * @return instance of the current behavior
 	 */
-	public void setSnap(DraggableIframeFix iframeFix) {
+	public DraggableBehavior setIframeFix(DraggableIframeFix iframeFix) {
 		this.options.put("iframeFix", iframeFix);
+		return this;
 	}
 	
 	/**
@@ -391,9 +423,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/**Set's the opacity for the helper while being dragged.
 	 * @param opacity
+	 * @return instance of the current behavior
 	 */
-	public void setOpacity(float opacity) {
+	public DraggableBehavior setOpacity(float opacity) {
 		this.options.put("opacity", opacity);
+		return this;
 	}
 	
 	/**
@@ -411,9 +445,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * Caution: This solves issues on highly dynamic pages, but dramatically 
 	 * decreases performance.
 	 * @param refreshPositions
+	 * @return instance of the current behavior
 	 */
-	public void setRefreshPositions(boolean refreshPositions) {
+	public DraggableBehavior setRefreshPositions(boolean refreshPositions) {
 		this.options.put("refreshPositions", refreshPositions);
+		return this;
 	}
 	
 	/**
@@ -424,7 +460,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return this.options.getBoolean("refreshPositions");
 		}
 		
-		return true;
+		return false;
 	}
 	
 	/**If set to true, the element will return to its start position when dragging 
@@ -432,9 +468,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * revert will only occur if the draggable has not been dropped on a droppable. 
 	 * For valid, it's the other way around.
 	 * @param revert
+	 * @return instance of the current behavior
 	 */
-	public void setRevert(DraggableRevert revert) {
+	public DraggableBehavior setRevert(DraggableRevert revert) {
 		this.options.put("revert", revert);
+		return this;
 	}
 	
 	/**
@@ -452,9 +490,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/**Set's the duration of the revert animation, in milliseconds. Ignored if 
 	 * revert is false.
 	 * @param revertDuration
+	 * @return instance of the current behavior
 	 */
-	public void setRevertDuration(int revertDuration) {
+	public DraggableBehavior setRevertDuration(int revertDuration) {
 		this.options.put("revertDuration", revertDuration);
+		return this;
 	}
 	
 	/**
@@ -472,9 +512,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * droppable's accept option. A draggable with the same scope value as a 
 	 * droppable will be accepted by the droppable.
 	 * @param scope
+	 * @return instance of the current behavior
 	 */
-	public void setScope(String scope) {
+	public DraggableBehavior setScope(String scope) {
 		this.options.putLiteral("scope", scope);
+		return this;
 	}
 	
 	/**
@@ -490,9 +532,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/**If set to true, container auto-scrolls while dragging.
 	 * @param scroll
+	 * @return instance of the current behavior
 	 */
-	public void setScroll(boolean scroll) {
+	public DraggableBehavior setScroll(boolean scroll) {
 		this.options.put("scroll", scroll);
+		return this;
 	}
 	
 	/**
@@ -509,9 +553,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/**Set's the distance in pixels from the edge of the viewport after which the 
 	 * viewport should scroll. Distance is relative to pointer, not the draggable.
 	 * @param scrollSensitivity
+	 * @return instance of the current behavior
 	 */
-	public void setScrollSensitivity(int scrollSensitivity) {
+	public DraggableBehavior setScrollSensitivity(int scrollSensitivity) {
 		this.options.put("scrollSensitivity", scrollSensitivity);
+		return this;
 	}
 	
 	/**
@@ -528,9 +574,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/**Set's speed at which the window should scroll once the mouse pointer gets 
 	 * within the scrollSensitivity distance.
 	 * @param scrollSpeed
+	 * @return instance of the current behavior
 	 */
-	public void setScrollSpeed(int scrollSpeed) {
+	public DraggableBehavior setScrollSpeed(int scrollSpeed) {
 		this.options.put("scrollSpeed", scrollSpeed);
+		return this;
 	}
 	
 	/**
@@ -548,9 +596,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * draggable will snap to the edges of the selected elements when near an 
 	 * edge of the element.
 	 * @param snap
+	 * @return instance of the current behavior
 	 */
-	public void setSnap(DraggableSnap snap) {
+	public DraggableBehavior setSnap(DraggableSnap snap) {
 		this.options.put("snap", snap);
+		return this;
 	}
 	
 	/**
@@ -568,9 +618,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/**Sets the edges of snap elements the draggable will snap to. Ignored if 
 	 * snap is false. Possible values: 'inner', 'outer', 'both'
 	 * @param snapMode
+	 * @return instance of the current behavior
 	 */
-	public void setSnapMode(SnapModeEnum snapMode) {
+	public DraggableBehavior setSnapMode(SnapModeEnum snapMode) {
 		options.putLiteral("snapMode", snapMode.name().toLowerCase());
+		return this;
 	}
 
 	/**
@@ -578,15 +630,17 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public SnapModeEnum getSnapMode() {
 		String literal = options.getLiteral("snapMode");
-		return SnapModeEnum.valueOf(literal.toUpperCase());
+		return literal == null ? null : SnapModeEnum.valueOf(literal.toUpperCase());
 	}
 	
 	/**Set's distance in pixels from the snap element edges at which snapping 
 	 * should occur. Ignored if snap is false.
 	 * @param snapTolerance
+	 * @return instance of the current behavior
 	 */
-	public void setSnapTolerance(int snapTolerance) {
+	public DraggableBehavior setSnapTolerance(int snapTolerance) {
 		this.options.put("snapTolerance", snapTolerance);
+		return this;
 	}
 	
 	/**
@@ -606,9 +660,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * item. Very useful in things like window managers. Optionally, a 'min' key 
 	 * can be set, so the zIndex cannot go below that value.
 	 * @param stack
+	 * @return instance of the current behavior
 	 */
-	public void setStack(String stack) {
+	public DraggableBehavior setStack(String stack) {
 		this.options.put("stack", stack);
+		return this;
 	}
 
 	/**
@@ -620,9 +676,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/**Set's the starting z-index
 	 * @param zIndex
+	 * @return instance of the current behavior
 	 */
-	public void setZIndex(int zIndex) {
+	public DraggableBehavior setZIndex(int zIndex) {
 		this.options.put("zIndex", zIndex);
+		return this;
 	}
 	
 	/**
@@ -640,23 +698,29 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/**Set's the callback when the mouse is moved during the dragging
 	 * @param drag
+	 * @return instance of the current behavior
 	 */
-	public void setDragEvent(JsScopeUiEvent drag) {
+	public DraggableBehavior setDragEvent(JsScopeUiEvent drag) {
 		this.options.put("drag", drag);
+		return this;
 	}
 	
 	/**Set's the callback when the user starts dragging.
 	 * @param start
+	 * @return instance of the current behavior
 	 */
-	public void setStartEvent(JsScopeUiEvent start) {
+	public DraggableBehavior setStartEvent(JsScopeUiEvent start) {
 		this.options.put("start", start);
+		return this;
 	}
 	
 	/**Set's the callback when the user stops dragging.
 	 * @param stop
+	 * @return instance of the current behavior
 	 */
-	public void setStopEvent(JsScopeUiEvent stop) {
+	public DraggableBehavior setStopEvent(JsScopeUiEvent stop) {
 		this.options.put("stop", stop);
+		return this;
 	}
 
 	

@@ -26,7 +26,7 @@ public class DraggableContainmentTestCase extends TestCase{
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 		
 		// Literal param
-		containment.setLiteralParam(new LiteralOption("#anId"));
+		containment.setLiteralParam("#anId");
 		expectedJavascript = "'#anId'";
 		generatedJavascript = containment.getJavascriptOption().toString();
 		

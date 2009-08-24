@@ -41,7 +41,10 @@ import org.odlabs.wiquery.core.javascript.JsScope;
  */
 public abstract class WickextAjaxEffectBehavior extends
 		AbstractDefaultAjaxBehavior {
-
+	// Constants
+	/**	Constant of serialization */
+	private static final long serialVersionUID = 6423661892490365888L;
+	
 	/**
 	 * The effect to use.
 	 */

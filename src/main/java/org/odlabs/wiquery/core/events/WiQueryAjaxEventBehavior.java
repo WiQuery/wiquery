@@ -36,7 +36,10 @@ import org.odlabs.wiquery.core.javascript.JsScope;
  */
 public abstract class WiQueryAjaxEventBehavior extends
 		AbstractDefaultAjaxBehavior {
-
+	// Constants
+	/**	Constant of serialization */
+	private static final long serialVersionUID = 6498661892490377987L;
+	
 	/**
 	 * The event tiggering the Ajax call.
 	 */

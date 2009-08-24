@@ -19,46 +19,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.droppable;
+package org.odlabs.wiquery.ui.draggable;
 
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
- * $Id: DroppableJavaScriptResourceLocator.java 81 2009-05-28 20:05:12Z
+ * $Id: DraggableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
  * lionel.armanet $
  * <p>
  * References the resource to apply draggable behavior on HTML components.
  * </p>
  * 
- * TODO RENAME
- * 
  * @author Lionel Armanet
  * @since 0.5
  */
-public class DroppableJavaScriptResourceLocator extends
+public class DraggableJavaScriptResourceReference extends
 		JavascriptResourceReference {
 	// Constants
 	/** Constant of serialization */
-	private static final long serialVersionUID = 3704373328245392715L;
+	private static final long serialVersionUID = 3704373328245392716L;
 	
 	/**
 	 * Singleton instance.
 	 */
-	private static DroppableJavaScriptResourceLocator instance;
+	private static DraggableJavaScriptResourceReference instance;
 
 	/**
-	 * Builds a new instance of {@link DroppableJavaScriptResourceLocator}.
+	 * Builds a new instance of {@link DraggableJavaScriptResourceReference}.
 	 */
-	private DroppableJavaScriptResourceLocator() {
-		super(DroppableJavaScriptResourceLocator.class, "ui.droppable.js");
+	private DraggableJavaScriptResourceReference() {
+		super(DraggableJavaScriptResourceReference.class, "ui.draggable.js");
 	}
 
 	/**
-	 * Returns the {@link DroppableJavaScriptResourceLocator} instance.
+	 * Returns the {@link DraggableJavaScriptResourceReference} instance.
 	 */
-	public static DroppableJavaScriptResourceLocator get() {
+	public static DraggableJavaScriptResourceReference get() {
 		if (instance == null) {
-			instance = new DroppableJavaScriptResourceLocator();
+			instance = new DraggableJavaScriptResourceReference();
 		}
 		return instance;
 	}
