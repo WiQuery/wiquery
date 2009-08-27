@@ -105,6 +105,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public DraggableBehavior() {
 		super();
+		options = new Options();
 	}
 
 	/*
