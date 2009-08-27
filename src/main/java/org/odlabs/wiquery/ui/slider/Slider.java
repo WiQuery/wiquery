@@ -76,7 +76,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param min Minimum value
 	 * @param max Maximum value
 	 */
-	public Slider(String id, int min, int max) {
+	public Slider(String id, Number min, Number max) {
 		super(id);
 		options = new Options();
 		setMin(min);
@@ -123,28 +123,28 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	/**Sets the maximum value of the slider.
 	 * @param max
 	 */
-	public void setMax(int max) {
-		this.options.put("max", max);
+	public void setMax(Number max) {
+		this.options.put("max", max.floatValue());
 	}
 
 	/**
 	 * @return the max option value
 	 */
-	public int getMax() {
+	public Number getMax() {
 		return this.options.getInt("max");
 	}
 	
 	/**Sets the minimum  value of the slider.
 	 * @param min
 	 */
-	public void setMin(int min) {
-		this.options.put("min", min);
+	public void setMin(Number min) {
+		this.options.put("min", min.floatValue());
 	}
 
 	/**
 	 * @return the min option value
 	 */
-	public int getMin() {
+	public Number getMin() {
 		return this.options.getInt("min");
 	}
 	
