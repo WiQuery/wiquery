@@ -76,8 +76,11 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param min Minimum value
 	 * @param max Maximum value
 	 */
-	public Slider(String id, Number min, Number max) {
+	public Slider(String id, int min, int max) {
 		super(id);
+		options = new Options();
+		setMin(min);
+		setMax(max);
 	}
 
 	/* (non-Javadoc)
