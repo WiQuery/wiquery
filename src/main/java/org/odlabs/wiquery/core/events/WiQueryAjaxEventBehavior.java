@@ -24,6 +24,7 @@ package org.odlabs.wiquery.core.events;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.javascript.JsScope;
+import org.odlabs.wiquery.core.javascript.JsScopeContext;
 
 /**
  * $Id$
@@ -74,8 +75,20 @@ public abstract class WiQueryAjaxEventBehavior extends
 
 					@Override
 					public JsScope callback() {
-						return JsScope.quickScope(WiQueryAjaxEventBehavior.this
-								.getCallbackScript());
+						return new JsScope("event") {
+							
+							@Override
+							protected void execute(JsScopeContext scopeContext) {
+								StringBuilder callback = new StringBuilder();
+								callback.append("if (")
+								.append(getPrecondition())
+								.append(") {");
+								callback.append(WiQueryAjaxEventBehavior.this
+										.getCallbackScript());
+								callback.append("}");
+							}
+						};
+
 					}
 
 				}));
@@ -100,5 +113,10 @@ public abstract class WiQueryAjaxEventBehavior extends
 	 *            The Ajax request target
 	 */
 	protected abstract void onEvent(AjaxRequestTarget target);
-
+	
+	
+	protected String getPrecondition() {
+		return "true";
+	}
+	
 }

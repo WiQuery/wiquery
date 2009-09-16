@@ -30,6 +30,7 @@ import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -178,15 +179,14 @@ public class JsQuery implements Serializable, IHeaderContributor {
 				.get());
 		if (requestTarget == null
 				|| !(requestTarget instanceof AjaxRequestTarget)) {
+
 			// appending component statement
 			// on dom ready, the code is executed.
-
 			JsStatement onreadyStatement = new JsStatement();
 			onreadyStatement.document().ready(
 					JsScope.quickScope(JsQuery.this.statement.render()));
 
-			response.renderString("<script type=\"text/javascript\">"
-					+ onreadyStatement.render() + "</script>");
+			response.renderJavascriptReference(new WiqueryGeneratedJavaScriptResourceReference(onreadyStatement.render()));
 		} else {
 			AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
 			ajaxRequestTarget.appendJavascript(statement.render().toString());

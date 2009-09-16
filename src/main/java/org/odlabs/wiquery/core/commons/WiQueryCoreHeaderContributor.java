@@ -167,7 +167,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		// REFACTOR A WebPage should be used instead ?
 		for (IWiQueryPlugin plugin : this.plugins) {
 			WiQueryResourceManager manager = resourceManagers.get(plugin);
-			jsStatement.append("\t\t" + plugin.statement().render());
+			jsStatement.append("\t" + plugin.statement().render() + "\n");
 			// adding jQuery UI resources
 			if (plugin.getClass().isAnnotationPresent(WiQueryUIPlugin.class)) {
 				this.importCoreUiResource(response);

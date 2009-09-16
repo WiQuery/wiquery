@@ -5,6 +5,7 @@ import org.apache.wicket.behavior.AbstractBehavior;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryCoreHeaderContributor;
+import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
@@ -24,7 +25,7 @@ public abstract class WiQueryAbstractBehavior extends AbstractBehavior implement
 	public void bind(Component component) {
 		this.component = component;
 		WiQueryCoreHeaderContributor contributor 
-			= new WiQueryCoreHeaderContributor();
+			= WiQueryInstantiationListener.bindToRequestCycle();
 		contributor.addPlugin(this);
 		component.add(new HeaderContributor(contributor));
 		super.bind(component);
