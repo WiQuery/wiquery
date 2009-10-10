@@ -175,21 +175,27 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 */
 	public void renderHead(IHeaderResponse response,
 			IRequestTarget requestTarget) {
-		response.renderJavascriptReference(CoreJavaScriptResourceReference
-				.get());
-		if (requestTarget == null
-				|| !(requestTarget instanceof AjaxRequestTarget)) {
-
-			// appending component statement
-			// on dom ready, the code is executed.
-			JsStatement onreadyStatement = new JsStatement();
-			onreadyStatement.document().ready(
-					JsScope.quickScope(JsQuery.this.statement.render()));
-
-			response.renderJavascriptReference(new WiqueryGeneratedJavaScriptResourceReference(onreadyStatement.render()));
-		} else {
-			AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
-			ajaxRequestTarget.appendJavascript(statement.render().toString());
+		response.renderJavascriptReference(
+				CoreJavaScriptResourceReference.get());
+		
+		String js = statement == null ? null : statement.render().toString();
+		
+		if(js != null && js.trim().length() > 0){
+			if (requestTarget == null
+					|| !(requestTarget instanceof AjaxRequestTarget)) {
+				// appending component statement
+				// on dom ready, the code is executed.
+				JsStatement onreadyStatement = new JsStatement();
+				onreadyStatement.document().ready(JsScope.quickScope(js));
+	
+				response.renderJavascriptReference(
+						new WiqueryGeneratedJavaScriptResourceReference(
+								onreadyStatement.render()));
+			
+			} else {
+				AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
+				ajaxRequestTarget.appendJavascript(js);
+			}
 		}
 	}
 
