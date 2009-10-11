@@ -100,6 +100,14 @@ public class WiQueryResourceManager implements Serializable {
 	public void addJavaScriptResource(Class<?> scope, String path) {
 		this.javascriptResources.add(new ResourceReference(scope, path));
 	}
+	
+	/**
+	 * Adds the given {@link ResourceReference} as a Css file
+	 * to import for the underlying component.
+	 */
+	public void addCssResource(ResourceReference reference) {
+		this.cssResources.add(reference);
+	}
 
 	/**
 	 * Adds the given file as a CSS file to import for the underlying component.
