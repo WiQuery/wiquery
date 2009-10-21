@@ -32,9 +32,27 @@ import org.odlabs.wiquery.core.util.MarkupIdVisitor;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
- * $Id: ResizableAjaxBehavior 
+ * $Id: SelectableAjaxBehavior 
  * <p>
- * Behavior to enable some Selectable callback to work with Ajax
+ * Sets the attached component selectable behavior. When the user finished to
+ * select some childs components,{@link #onSelection(Component[], AjaxRequestTarget)} 
+ * is called via Ajax.
+ * </p>
+ * 
+ * <p>
+ * This behavior contains a {@link SelectableBehavior} which is used to control 
+ * the options of the selectable, including all the options and event of the
+ * behavior. Example:
+ * <pre>
+ * SelectableAjaxBehavior selectable = new SelectableAjaxBehavior() {
+ * 		public void onSelection(Component[] components, AjaxRequestTarget ajaxRequestTarget) {
+ * 			...
+ * 		}
+ * }
+ * SelectableBehavior sb = selectable.getSelectableBehavior();
+ * sb.setTolerance(ToleranceEnum.FIT);
+ * add(selectable);
+ * </pre>
  * </p>
  * 
  * @author Julien Roche

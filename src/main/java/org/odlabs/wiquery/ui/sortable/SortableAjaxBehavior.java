@@ -36,7 +36,37 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 /**
  * $Id: SortableAjaxBehavior
  * <p>
- * Behavior to enable some Sortable callback to work with Ajax
+ * Sets the attached component sortable behavior. When the user finished to
+ * sort some childs components,{@link #onReceive(Component, int, Component, AjaxRequestTarget)},
+ * or / and {@link #onRemove(Component, AjaxRequestTarget)} or / and 
+ * {@link #onUpdate(Component, int, AjaxRequestTarget)} is / are called via Ajax.
+ * </p>
+ * 
+ * <p>
+ * This behavior contains a {@link SortableBehavior} which is used to control 
+ * the options of the sortable, including all the options and event of the
+ * behavior. Example:
+ * <pre>
+ * SortableAjaxBehavior sortable = new SortableAjaxBehavior(SortedEvent.RECEIVE) {
+ * 		public void onReceive(Component sortedComponent, int index, 
+			Component parentSortedComponent, AjaxRequestTarget ajaxRequestTarget) {
+ * 			// Only this method will be called
+ * 			...
+ * 		}
+ * 
+ * 		public void onRemove(Component sortedComponent, AjaxRequestTarget ajaxRequestTarget) {
+ * 			...
+ * 		}
+ * 
+ * 		public void onUpdate(Component sortedComponent, int index, AjaxRequestTarget ajaxRequestTarget) {
+ * 			...
+ * 		}
+ * }
+ * SortableBehavior sb = sortable.getSortableBehavior();
+ * sb.setConnectWith("#anotherSortableList");
+ * sb.setRevert(true);
+ * add(sortable);
+ * </pre>
  * </p>
  * 
  * @author Julien Roche

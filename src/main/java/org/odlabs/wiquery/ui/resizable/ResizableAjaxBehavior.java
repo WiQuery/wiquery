@@ -31,7 +31,25 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 /**
  * $Id: ResizableAjaxBehavior 
  * <p>
- * Behavior to enable some Resizable callback to work with Ajax
+ * Sets the attached component resizable. When the resized of the component is
+ * done, {@link #onResize(int, int, AjaxRequestTarget)} is called with Ajax.
+ * </p>
+ * 
+ * <p>
+ * This behavior contains a {@link ResizableBehavior} which is used to control 
+ * the options of the resizable, including all the options and event of the
+ * behavior. Example:
+ * <pre>
+ * ResizableAjaxBehavior resizable = new ResizableAjaxBehavior() {
+ * 		public void onResize(int height, int width, AjaxRequestTarget ajaxRequestTarget) {
+ * 			...
+ * 		}
+ * }
+ * ResizableBehavior rb = resizable.getResizableBehavior();
+ * rb.setAnimeDuration(new ResizableAnimeDuration(500));
+ * rb.setGhost(true);
+ * add(resizable);
+ * </pre>
  * </p>
  * 
  * @author Julien Roche

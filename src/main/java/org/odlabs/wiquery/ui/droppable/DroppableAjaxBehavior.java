@@ -37,6 +37,25 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * called by an Ajax request.
  * </p>
  * 
+ * <p>
+ * Contains a {@link DroppableBehavior} which is used to control the options of
+ * the droppable, including accept, activeClass, addClasses, greedy, hoverClass,
+ * scope, and tolerance.  For example:
+ * <pre>
+ * DroppableAjaxBehavior droppable = new DroppableAjaxBehavior() {
+ *      public void onDrop(Component droppedComponent,
+ *              AjaxRequestTarget ajaxRequestTarget) {
+ *                      ...
+ *      }
+ * };
+ * DroppableBehavior dp = droppable.getDroppableBehavior();
+ * dp.setAccept(new DroppableAccept(".fruit"));
+ * dp.setHoverClass("drophover");
+ * dp.setScope("candy");
+ * add(droppable);
+ * </pre>
+ * </p>
+ * 
  * @author Lionel Armanet
  * @since 1.0
  */
