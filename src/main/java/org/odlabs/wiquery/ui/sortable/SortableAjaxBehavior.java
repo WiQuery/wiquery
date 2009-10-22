@@ -119,7 +119,7 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	}
 	
 	/**
-	 * Cosntructor
+	 * Constructor
 	 * @param callbacks Ajax callbacks to enable
 	 */
 	public SortableAjaxBehavior(SortedEvent... callbacks) {

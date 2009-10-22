@@ -21,6 +21,8 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
+import java.util.Locale;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
@@ -64,7 +66,6 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
  * Missing functionnalities
  * 	<ul>
  * 		<li>Method : dialog</li>
- * 		<li>Method : getDate</li>
  * 	</ul>
  * 
  * @author Lionel Armanet
@@ -131,9 +132,12 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
-		wiQueryResourceManager
-				.addJavaScriptResource(new DatePickerLanguageResourceReference(
-						getLocale()));
+		
+		if(!Locale.ENGLISH.equals(getLocale())){ // #issue 24
+			wiQueryResourceManager
+					.addJavaScriptResource(new DatePickerLanguageResourceReference(
+							getLocale()));
+		}
 	}
 
 	/* (non-Javadoc)
