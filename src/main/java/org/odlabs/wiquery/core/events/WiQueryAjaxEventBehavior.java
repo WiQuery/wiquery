@@ -86,6 +86,7 @@ public abstract class WiQueryAjaxEventBehavior extends
 								callback.append(WiQueryAjaxEventBehavior.this
 										.getCallbackScript());
 								callback.append("}");
+								scopeContext.append(callback);
 							}
 						};
 

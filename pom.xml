@@ -32,7 +32,7 @@
 					</projectNameTemplate>
 					<wtpmanifest>true</wtpmanifest>
 					<wtpapplicationxml>true</wtpapplicationxml>
-					<wtpversion>2.0</wtpversion>
+					<wtpversion>1.5</wtpversion>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
