@@ -101,7 +101,9 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	 *            the theme to use
 	 */
 	public static void setTheme(ResourceReference resourceReference) {
-		theme = resourceReference;
+		if(resourceReference != null){
+			theme = resourceReference;
+		}
 	}
 
 	/**
