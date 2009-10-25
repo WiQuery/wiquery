@@ -233,8 +233,12 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 */
 		@Override
 		public DraggableBehavior setDragEvent(JsScopeUiEvent drag) {
-			throw new UnsupportedOperationException(
-				"You can't call this method into the DraggableAjaxBehavior");
+			if(callbacks.contains(DraggableEvent.DRAG)){
+				throw new UnsupportedOperationException(
+					"You can't call this method into the DraggableAjaxBehavior");
+			}
+			
+			return super.setDragEvent(drag);
 		}
 		
 		/**
@@ -249,8 +253,12 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 */
 		@Override
 		public DraggableBehavior setStartEvent(JsScopeUiEvent start) {
-			throw new UnsupportedOperationException(
-				"You can't call this method into the DraggableAjaxBehavior");
+			if(callbacks.contains(DraggableEvent.START)){
+				throw new UnsupportedOperationException(
+					"You can't call this method into the DraggableAjaxBehavior");
+			}
+			
+			return super.setStartEvent(start);
 		}
 		
 		/**
@@ -269,8 +277,12 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 */
 		@Override
 		public DraggableBehavior setStopEvent(JsScopeUiEvent drop) {
-			throw new UnsupportedOperationException(
+			if(callbacks.contains(DraggableEvent.STOP)){
+				throw new UnsupportedOperationException(
 					"You can't call this method into the DraggableAjaxBehavior");
+			}
+			
+			return super.setStopEvent(drop);
 		}
 
 		/**
