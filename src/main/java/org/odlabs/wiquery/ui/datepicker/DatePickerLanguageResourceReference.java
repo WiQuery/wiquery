@@ -41,10 +41,36 @@ public class DatePickerLanguageResourceReference extends
 
 	private static final long serialVersionUID = 5955164494361831059L;
 
+	/**
+	 * Constructor
+	 * @param locale Locale
+	 */
 	public DatePickerLanguageResourceReference(Locale locale) {
-
-		super(DatePickerLanguageResourceReference.class, "i18n/ui.datepicker-"
-				+ locale.getLanguage() + ".js");
+		super(DatePickerLanguageResourceReference.class, getJsFilename(locale));
 	}
 
+	/**
+	 * Method to calculate the name of the javascript file
+	 * @param locale Locale
+	 * @return the name
+	 */
+	private static String getJsFilename(Locale locale) {
+		String language = locale.getLanguage();
+		String country = locale.getCountry();
+		
+		StringBuffer js = new StringBuffer();
+		js.append("i18n/ui.datepicker-");
+		js.append(language);
+		
+		if(language != null && country != null && (
+				language.equals("pt") || 
+				language.equals("sr") || 
+				language.equals("zh"))){
+			js.append("-" + country);
+		}
+		
+		js.append(".js");
+		
+		return js.toString();
+	}
 }
