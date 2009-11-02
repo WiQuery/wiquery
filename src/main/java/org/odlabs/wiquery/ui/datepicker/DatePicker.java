@@ -134,7 +134,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
 		
 		Locale locale = getLocale();
-		if(locale != null && !Locale.ENGLISH.getLanguage().equals(locale)){ // #issue 24
+		if(locale != null && !Locale.ENGLISH.getLanguage().equals(locale.getLanguage())){ // #issue 24
 			wiQueryResourceManager
 					.addJavaScriptResource(new DatePickerLanguageResourceReference(
 							locale));
