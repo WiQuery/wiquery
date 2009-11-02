@@ -21,9 +21,9 @@
  */
 package org.odlabs.wiquery.ui.themes;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -245,10 +245,10 @@ public abstract class ThemeUiHelper {
 	 */
 	public static void errorText(Component component) {
 		component.add(
-				new AttributeModifier(
+				new AttributeAppender(
 						"class", 
 						true, 
-						new Model<String>("ui-state-error ui-corner-all")));
+						new Model<String>("ui-state-error ui-corner-all"), " "));
 	}
 	
 	/**
@@ -257,10 +257,10 @@ public abstract class ThemeUiHelper {
 	 */
 	public static void buttonRounded(Component component) {
 		component.add(
-				new AttributeModifier(
+				new AttributeAppender(
 						"class", 
 						true, 
-						new Model<String>("ui-state-default ui-corner-all")));
+						new Model<String>("ui-state-default ui-corner-all"), " "));
 	}
 	
 	/**
@@ -269,10 +269,10 @@ public abstract class ThemeUiHelper {
 	 */
 	public static void buttonRoundedFocused(Component component) {
 		component.add(
-				new AttributeModifier(
+				new AttributeAppender(
 						"class", 
 						true, 
-						new Model<String>("ui-state-default ui-corner-all ui-state-focus")));
+						new Model<String>("ui-state-default ui-corner-all ui-state-focus"), " "));
 	}
 	
 	/**
@@ -281,10 +281,10 @@ public abstract class ThemeUiHelper {
 	 */
 	public static void componentRounded(Component component) {
 		component.add(
-				new AttributeModifier(
+				new AttributeAppender(
 						"class", 
 						true, 
-						new Model<String>("ui-widget ui-widget-content ui-corner-all")));
+						new Model<String>("ui-widget ui-widget-content ui-corner-all"), " "));
 	}
 	
 	/**
@@ -293,10 +293,10 @@ public abstract class ThemeUiHelper {
 	 */
 	public static void highlightedText(Component component) {
 		component.add(
-				new AttributeModifier(
+				new AttributeAppender(
 						"class", 
 						true, 
-						new Model<String>("ui-state-highlight ui-corner-all")));
+						new Model<String>("ui-state-highlight ui-corner-all"), " "));
 	}
 	
 	/**
@@ -329,10 +329,10 @@ public abstract class ThemeUiHelper {
 	 */
 	public static void iconComponent(Component component, IconEnum iconEnum) {
 		component.add(
-				new AttributeModifier(
+				new AttributeAppender(
 						"class", 
 						true, 
-						new Model<String>("ui-icon " + iconEnum.getCssClass())));
+						new Model<String>("ui-icon " + iconEnum.getCssClass()), " "));
 	}
 	
 	/**
@@ -341,10 +341,10 @@ public abstract class ThemeUiHelper {
 	 */
 	public static void overlayComponent(Component component) {
 		component.add(
-				new AttributeModifier(
+				new AttributeAppender(
 						"class", 
 						true, 
-						new Model<String>("ui-overlay ui-widget-overlay ui-widget-shadow ui-corner-all")));
+						new Model<String>("ui-overlay ui-widget-overlay ui-widget-shadow ui-corner-all"), " "));
 	}
 	
 	/**
@@ -353,9 +353,32 @@ public abstract class ThemeUiHelper {
 	 */
 	public static void titleComponent(Component component) {
 		component.add(
-				new AttributeModifier(
+				new AttributeAppender(
 						"class", 
 						true, 
-						new Model<String>("ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix")));
+						new Model<String>("ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"), " "));
 	}
+	
+	/**
+	 * Styles the given {@link Component} as a jQuery UI header.
+	 */
+	public static void headerComponent(Component component) {
+		component.add(
+				new AttributeAppender(
+						"class", 
+						true, 
+						new Model<String>("ui-widget-header"), " "));		
+	}
+	
+	/**
+	 * Styles the given {@link Component} as a jQuery UI shadow.
+	 */
+	public static void shadowComponent(Component component) {
+		component.add(
+				new AttributeAppender(
+						"class", 
+						true, 
+						new Model<String>("ui-widget-shadow"), " "));
+	}
+	
 }
