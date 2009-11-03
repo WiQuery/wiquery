@@ -21,6 +21,7 @@
  */
 package org.odlabs.wiquery.core.commons;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
@@ -53,11 +54,14 @@ public class CoreJavaScriptResourceReference extends
 		return instance;
 	}
 
-	/**
-	 */
 	private static String resolveLibrary() {
-		return "jquery/jquery-1.3.2.min.js";
-
+		// returns a full version when application isn't in production mode
+		Application application = Application.get();
+		if (Application.DEVELOPMENT.equals(application.getConfigurationType())) {
+			return "jquery/jquery-1.3.2.js";	
+		} else {
+			return "jquery/jquery-1.3.2.min.js";			
+		}
 	}
 
 	/**

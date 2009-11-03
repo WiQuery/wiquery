@@ -51,7 +51,7 @@ public class CoreUIJavaScriptResourceReference extends
 	 * Builds a new instance of {@link CoreUIJavaScriptResourceReference}.
 	 */
 	private CoreUIJavaScriptResourceReference() {
-		super(CoreUIJavaScriptResourceReference.class, "ui.core.js");
+		super(CoreUIJavaScriptResourceReference.class, "ui.core.min.js");
 	}
 
 }

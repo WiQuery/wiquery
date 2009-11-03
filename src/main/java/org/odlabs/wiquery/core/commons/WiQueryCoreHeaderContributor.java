@@ -27,16 +27,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.IRequestTarget;
+import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.RequestCycle;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.odlabs.wiquery.core.commons.listener.JQueryCoreRenderingListener;
+import org.odlabs.wiquery.core.commons.listener.JQueryUICoreRenderingListener;
+import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
-import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
 /**
  * $Id$
@@ -49,11 +52,6 @@ import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
  * JavaScript is directly append to the given {@link AjaxRequestTarget}.
  * </p>
  * 
- * <p>
- * TODO THIS CLASS SHOULD BE REFACTORED, WE CAN'T MANAGE A SINGLE HEADER
- * CONTRIBUTOR TO DO ALL WIQUERY MAGIC !.
- * </p>
- * 
  * @author Benoit Bouchez
  * @author Lionel Armanet
  */
@@ -62,27 +60,13 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 
 	private static final long serialVersionUID = -347081993448442637L;
 
-	/**
-	 * The default theme.
+	/** 
+	 * meta data for WiQueryCoreHeaderContributor. 
 	 */
-	private static ResourceReference theme = new WiQueryCoreThemeResourceReference(
-			"fusion");
-
-	/*
-	 * TODO Refactor constants below, use enum instead
-	 */
-
-	/** Standard library selector ; usefull in dev mode */
-	public static final String LIBMODE_STANDARD = "";
-
-	/** Packed library selector */
-	public static final String LIBMODE_PACKED = ".packed";
-
-	/** Minified library selector */
-	public static final String LIBMODE_MINIFIED = ".min";
-
-	private static String libraryMode = LIBMODE_STANDARD;
-
+	private static final MetaDataKey<WiQueryCoreHeaderContributor> WIQUERY_KEY = new MetaDataKey<WiQueryCoreHeaderContributor>() {
+		private static final long serialVersionUID = 1L;
+	};
+	
 	/**
 	 * plugins is the list of plugins to render.
 	 */
@@ -94,41 +78,32 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private Map<IWiQueryPlugin, WiQueryResourceManager> resourceManagers = new HashMap<IWiQueryPlugin, WiQueryResourceManager>();
 
 	/**
-	 * Sets the application theme (this theme is not stored in session, it's a
-	 * theme for the whole application).
-	 * 
-	 * @param resourceReference
-	 *            the theme to use
+	 * The list of listeners that will be notified while a plugin is rendering.
 	 */
-	public static void setTheme(ResourceReference resourceReference) {
-		if(resourceReference != null){
-			theme = resourceReference;
+	private List<WiQueryPluginRenderingListener> pluginRenderingListeners = new ArrayList<WiQueryPluginRenderingListener>();
+	
+	/**
+	 * Returns the instance of the current request cycle.
+	 */
+	public static WiQueryCoreHeaderContributor bindToRequestCycle() {
+		WiQueryCoreHeaderContributor wickeryHeaderContributor = RequestCycle
+				.get().getMetaData(WIQUERY_KEY);
+		if (wickeryHeaderContributor == null) {
+			wickeryHeaderContributor = new WiQueryCoreHeaderContributor();
+			RequestCycle.get().setMetaData(WIQUERY_KEY,
+					wickeryHeaderContributor);
 		}
-	}
-
+		return wickeryHeaderContributor;
+	}	
+	
 	/**
-	 * Imports core jQuery resources (CSS / JavaScript).
-	 * 
-	 * @param headerResponse
-	 *            The {@link IHeaderResponse} to contribute to
+	 * Default constructor. Declares a standard configuration for listeners,
+	 * e.g. uses jQuery and jQuery UI listeners by default.
 	 */
-	void importCoreResource(IHeaderResponse headerResponse) {
-		headerResponse
-				.renderJavascriptReference(CoreJavaScriptResourceReference
-						.get());
-	}
-
-	/**
-	 * Imports core jQuery UI resources (CSS / JavaScript).
-	 * 
-	 * @param headerResponse
-	 *            The {@link IHeaderResponse} to contribute to
-	 */
-	void importCoreUiResource(IHeaderResponse headerResponse) {
-		headerResponse.renderCSSReference(theme);
-		headerResponse
-				.renderJavascriptReference(CoreUIJavaScriptResourceReference
-						.get());
+	public WiQueryCoreHeaderContributor() {
+		super();
+		this.pluginRenderingListeners.add(new JQueryCoreRenderingListener());
+		this.pluginRenderingListeners.add(new JQueryUICoreRenderingListener());			
 	}
 
 	/**
@@ -145,48 +120,65 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		this.plugins.add(wiqueryPlugin);
 	}
 
-	// TODO Find a better way to manage packed, min versions
-	public static String getLibraryMode() {
-		return libraryMode;
+	/**
+	 * Checks whether the given {@link IWiQueryPlugin} is attached to the
+	 * given target.
+	 */
+	public boolean isPluginAttachedToTarget(IWiQueryPlugin plugin, IRequestTarget target) {
+		if (target instanceof AjaxRequestTarget) {
+			AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) target;
+			if (ajaxRequestTarget.getComponents().contains(plugin)) {
+				// the component is directly added to the target
+				return true;
+			}
+			// looking at the target's components to check if any plugin
+			// is a behavior or a child of request target's components
+			for (Component component : ajaxRequestTarget.getComponents()) {
+				if (component.getBehaviors().contains(plugin)) {
+					// looking at component behaviors to check if the plugin is used
+					return true;
+				}
+				// visiting children if the given component is a container
+				if (component instanceof MarkupContainer) {
+					Object result = ((MarkupContainer) component).visitChildren(
+							new WiQueryPluginVisitor(plugin)
+					);
+					if (Boolean.TRUE.equals(result)) {
+						return true;
+					}
+				}
+			}
+			// plugin wasn't added
+			return false;
+		}
+		return true; 
 	}
-
-	// TODO Find a better way to manage packed, min versions
-	public static void setLibraryMode(String libraryMode) {
-		WiQueryCoreHeaderContributor.libraryMode = libraryMode;
-	}
-
+	
 	/**
 	 * Renders WiQuery's JavaScript code.
 	 */
 	public void renderHead(final IHeaderResponse response) {
-		// Component referenceComponent = null;
-		this.importCoreResource(response);
-		// generating on ready query
-
+		// the response is a unique statement containing all statements
+		// to call
 		JsQuery jsq = new JsQuery();
 		JsStatement jsStatement = new JsStatement();
-
-		// REFACTOR A WebPage should be used instead ?
+		IRequestTarget target = RequestCycle.get().getRequestTarget();
+		
 		for (IWiQueryPlugin plugin : this.plugins) {
-			WiQueryResourceManager manager = resourceManagers.get(plugin);
-			jsStatement.append("\t" + plugin.statement().render() + "\n");
-			// adding jQuery UI resources
-			if (plugin.getClass().isAnnotationPresent(WiQueryUIPlugin.class)) {
-				this.importCoreUiResource(response);
+			if (this.isPluginAttachedToTarget(plugin, target)) {
+				WiQueryResourceManager manager = resourceManagers.get(plugin);
+				jsStatement.append("\t" + plugin.statement().render() + "\n");
+				// calling listeners to compute specific stuff
+				for (WiQueryPluginRenderingListener listener : pluginRenderingListeners) {
+					listener.onRender(plugin, manager, response);
+				}
+				plugin.contribute(manager);
+				manager.initialize(response);				
 			}
-			plugin.contribute(manager);
-			manager.initialize(response);
 		}
 
 		jsq.setStatement(jsStatement);
-		jsq.renderHead(response, RequestCycle.get().getRequestTarget());
-
-		/*---- If we clear the plugins and the resource managers, we will have some
-		 * problems with submit link or ajaxsubmitlink ---*/
-		// after rendering, this contributor is re initialized
-		// plugins.clear();
-		// resourceManagers.clear();
-		/*---- ---*/
+		jsq.renderHead(response, target);
 	}
 
 }

@@ -76,7 +76,9 @@ public abstract class WiQueryAjaxEventBehavior extends
 					@Override
 					public JsScope callback() {
 						return new JsScope("event") {
-							
+
+							private static final long serialVersionUID = 1L;
+
 							@Override
 							protected void execute(JsScopeContext scopeContext) {
 								StringBuilder callback = new StringBuilder();

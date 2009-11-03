@@ -180,18 +180,16 @@ public class JsQuery implements Serializable, IHeaderContributor {
 		
 		String js = statement == null ? null : statement.render().toString();
 		
-		if(js != null && js.trim().length() > 0){
+		if (js != null && js.trim().length() > 0) {
 			if (requestTarget == null
 					|| !(requestTarget instanceof AjaxRequestTarget)) {
 				// appending component statement
 				// on dom ready, the code is executed.
 				JsStatement onreadyStatement = new JsStatement();
 				onreadyStatement.document().ready(JsScope.quickScope(js));
-	
 				response.renderJavascriptReference(
 						new WiqueryGeneratedJavaScriptResourceReference(
 								onreadyStatement.render()));
-			
 			} else {
 				AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
 				ajaxRequestTarget.appendJavascript(js);

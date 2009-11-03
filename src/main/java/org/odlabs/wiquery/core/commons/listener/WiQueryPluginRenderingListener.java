@@ -19,41 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.utils;
+package org.odlabs.wiquery.core.commons.listener;
 
-import org.apache.wicket.protocol.http.WebApplication;
-import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
+import org.apache.wicket.markup.html.IHeaderResponse;
+import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
+import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 
 /**
  * $Id$
  * <p>
- * Utility class to ease {@link WiQueryInstantiationListener} integration.
- * Configures a simple default WiQuery application. If you want to tune
- * your wiQuery application or if don't want to use inheritance you should
- * prefer the use of {@link WiQueryInstantiationListener}.
+ * 	Listens to WiQuery components rendering.
  * </p>
- * 
- * @see WiQueryInstantiationListener
  * @author Lionel Armanet
- * @since 0.5
+ * @since 1.0-m2
  */
-public abstract class WiQueryWebApplication extends WebApplication  {
+public interface WiQueryPluginRenderingListener {
 
-	/**
-	 * The wiquery listener used to manage WiQuery components
-	 */
-	private WiQueryInstantiationListener wiqueryPluginInstantiationListener;
-
-	/**
-	 * Adds WiQuery's instantiation listener to this application.
-	 */
-	@Override
-	protected void init() {
-		// we add a component instantiation listener to create plugin managers
-		// each time a plugin is created
-		wiqueryPluginInstantiationListener = new WiQueryInstantiationListener();
-		addComponentInstantiationListener(wiqueryPluginInstantiationListener);
-		super.init();
-	}
-
+	void onRender(IWiQueryPlugin plugin, WiQueryResourceManager resourceManager, IHeaderResponse response);
+	
 }
