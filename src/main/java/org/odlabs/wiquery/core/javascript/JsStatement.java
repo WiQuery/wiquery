@@ -76,7 +76,7 @@ public class JsStatement implements Serializable {
 	public JsStatement() {
 		statement = new StringBuilder();
 	}
-	
+
 	/**
 	 * Appends the jQuery's <code>$</code> function to the current
 	 * {@link JsStatement}. So, we can call some special jquery fonction, like
@@ -85,6 +85,20 @@ public class JsStatement implements Serializable {
 	 */
 	public JsStatement $() {
 		statement.append("$");
+		return this;
+	}
+	
+	/**
+	 * Same method as {@link #$(Component, String)} with an empty selector.
+	 * 
+	 * @return {@link JsStatement} this instance.
+	 */
+	public JsStatement $(Component context) {
+		String dollarSelector = context == null ? "" : ("'#"
+				+ context.getMarkupId() + "'");
+		statement.append("$(");
+		statement.append(dollarSelector);
+		statement.append(")");
 		return this;
 	}
 
@@ -112,46 +126,25 @@ public class JsStatement implements Serializable {
 	}
 	
 	/**
-	 * Same method as {@link #$(Component, String)} with an empty selector.
-	 * 
-	 * @return {@link JsStatement} this instance.
-	 */
-	public JsStatement $(Component context) {
-		String dollarSelector = context == null ? "" : ("'#"
-				+ context.getMarkupId() + "'");
-		statement.append("$(");
-		statement.append(dollarSelector);
-		statement.append(")");
-		return this;
-	}
-
-	/**
-	 * Appends $(document) to the statement.
-	 * 
-	 * @return {@link JsStatement} this instance.
-	 */
-	public JsStatement document() {
-		statement.append("$(document)");
-		return this;
-	}
-
-	/**
-	 * Appends the <code>this</code> keyword to this statement.
-	 * 
-	 * @return {@link JsStatement} this instance.
-	 */
-	public JsStatement self() {
-		statement.append("$(this)");
-		return this;
-	}
-
-	/**
 	 * Appends the given {@link CharSequence} to this statement.
 	 * 
 	 * @return {@link JsStatement} this instance.
 	 */
 	public JsStatement append(CharSequence charSequence) {
 		statement.append(charSequence);
+		return this;
+	}
+
+	/**
+	 * Chains a function call to this {@link JsStatement}. The function call is
+	 * wrapped in a ChainableStatement. (eases JavaScript integration).
+	 * 
+	 * @return {@link JsStatement} this instance.
+	 * @see #chain(CharSequence, CharSequence...).
+	 */
+	public JsStatement chain(ChainableStatement chainableStatement) {
+		this.chain(chainableStatement.chainLabel(), chainableStatement
+				.statementArgs());
 		return this;
 	}
 
@@ -183,19 +176,14 @@ public class JsStatement implements Serializable {
 	}
 
 	/**
-	 * Chains a function call to this {@link JsStatement}. The function call is
-	 * wrapped in a ChainableStatement. (eases JavaScript integration).
+	 * Appends $(document) to the statement.
 	 * 
 	 * @return {@link JsStatement} this instance.
-	 * @see #chain(CharSequence, CharSequence...).
 	 */
-	public JsStatement chain(ChainableStatement chainableStatement) {
-		this.chain(chainableStatement.chainLabel(), chainableStatement
-				.statementArgs());
+	public JsStatement document() {
+		statement.append("$(document)");
 		return this;
 	}
-
-	/* utility methods */
 
 	/**
 	 * Appends the <strong>each</strong> jQuery statement.
@@ -206,6 +194,15 @@ public class JsStatement implements Serializable {
 	public JsStatement each(JsScope scope) {
 		return this.chain("each", scope.render());
 	}
+
+	/**
+	 * @return the statement of the JsStatement
+	 */
+	public StringBuilder getStatement() {
+		return statement;
+	}
+
+	/* utility methods */
 
 	/**
 	 * Appends the <strong>ready</strong> jQuery statement.
@@ -224,15 +221,38 @@ public class JsStatement implements Serializable {
 	 * @return the renderable JavaScript statement as a {@link CharSequence}.
 	 */
 	public CharSequence render() {
+		return render(true);
+	}
+
+	/**
+	 * Renders this statement.
+	 * @param semicolon If true, a semicolon is automatically added
+	 * @return the renderable JavaScript statement as a {@link CharSequence}.
+	 */
+	public CharSequence render(boolean semicolon) {
 		String render = this.statement.toString();
-		String trimRendering = render.trim();
-		if (trimRendering.length() > 0) {
-			char last = trimRendering.charAt(trimRendering.length() - 1);
-			if (last != '}' && last != ';') {
-				render += ";";
+		
+		if(semicolon){
+			String trimRendering = render.trim();
+			
+			if (trimRendering.length() > 0) {
+				char last = trimRendering.charAt(trimRendering.length() - 1);
+				
+				if (last != '}' && last != ';') {
+					render += ";";
+				}
 			}
 		}
 		return render;
 	}
 
+	/**
+	 * Appends the <code>this</code> keyword to this statement.
+	 * 
+	 * @return {@link JsStatement} this instance.
+	 */
+	public JsStatement self() {
+		statement.append("$(this)");
+		return this;
+	}
 }
