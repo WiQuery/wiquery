@@ -21,12 +21,9 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.behavior.AbstractBehavior;
-import org.apache.wicket.behavior.HeaderContributor;
-import org.apache.wicket.markup.html.IHeaderResponse;
-import org.odlabs.wiquery.core.commons.CoreJavaScriptHeaderContributor;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
  * $Id$
@@ -39,7 +36,7 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
  * @see Effect
  * @see EffectSpeed
  */
-public class EffectBehavior extends AbstractBehavior {
+public class EffectBehavior extends WiQueryAbstractBehavior {
 
 	private static final long serialVersionUID = 3597955113451275208L;
 
@@ -49,11 +46,6 @@ public class EffectBehavior extends AbstractBehavior {
 	private Effect effect;
 
 	/**
-	 * The bind component.
-	 */
-	private Component component;
-
-	/**
 	 * Builds a new instance of {@link EffectBehavior}.
 	 */
 	public EffectBehavior(Effect effect) {
@@ -61,32 +53,13 @@ public class EffectBehavior extends AbstractBehavior {
 		this.effect = effect;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.behavior.AbstractBehavior#bind(
-	 *      org.apache.wicket.Component)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public void bind(Component component) {
-		super.bind(component);
-		this.component = component;
-		component.add(new HeaderContributor(
-				new CoreJavaScriptHeaderContributor()));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.behavior.AbstractBehavior#renderHead(
-	 *      org.apache.wicket.markup.html.IHeaderResponse)
-	 */
-	@Override
-	public void renderHead(IHeaderResponse response) {
-		// renders the JavaScript statement to bind this effect
-		JsQuery query = new JsQuery(this.component);
+	public JsStatement statement() {
+		JsQuery query = new JsQuery(getComponent());
 		query.$().chain(this.effect);
-		query.contribute(this.component);
+		return query.getStatement();
 	}
-
 }

@@ -1,3 +1,24 @@
+/*
+ * Copyright (c) 2009 WiQuery team
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package org.odlabs.wiquery.ui.draggable;
 
 import java.util.Arrays;
@@ -5,8 +26,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
@@ -38,16 +63,31 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	
 	// Constants
 	/** Constant of serialization */
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
+	
+	/** ResourceReference for the wiQuery Draggable javascript */
+	private static final JavascriptResourceReference wiQueryDraggableJs = 
+		new JavascriptResourceReference(
+				DraggableJavaScriptResourceReference.class, 
+				"wiquery-draggable.js");
 	
 	/** Drag type into the request */
-	private static final String DRAG_TYPE = "dragType";
+	protected static final String DRAG_TYPE = "dragType";
+	
+	/** Drag status (valid / invalid) */
+	protected static final String DRAG_STATUS = "dragStatus";
 
 	// Properties
 	/**
 	 * Adding the standard draggable JavaScript behavior
 	 */
 	private InnerDraggableBehavior draggableBehavior;
+	
+	/**
+	 * If true, when a drag is invalid (see {@link DraggableBehavior#setRevert(DraggableRevert)}), 
+	 * an ajax request will be send
+	 */
+	private boolean enableAjaxOnInvalid;
 	
 	/**
 	 * Required callbacks
@@ -58,7 +98,18 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * Default constructor
 	 */
 	public DraggableAjaxBehavior() {
-		this(DraggableEvent.values());
+		this(true, DraggableEvent.values());
+	}
+	
+	/**
+	 * Constructor
+	 * @param enableAjaxOnInvalid If true, when a drag is invalid 
+	 * an ajax request will be send. Otherwise, {@link #onStop(Component, AjaxRequestTarget)},
+	 * {@link #onValid(Component, AjaxRequestTarget)} and 
+	 * {@link #onInvalid(Component, AjaxRequestTarget)} will be never called.
+	 */
+	public DraggableAjaxBehavior(boolean enableAjaxOnInvalid) {
+		this(enableAjaxOnInvalid, DraggableEvent.values());
 	}
 	
 	/**
@@ -66,7 +117,21 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param callbacks Ajax callbacks to enable
 	 */
 	public DraggableAjaxBehavior(DraggableEvent... callbacks) {
+		this(true, callbacks);
+	}
+	
+	/**
+	 * Constructor
+	 * @param enableAjaxOnInvalid If true, when a drag is invalid 
+	 * an ajax request will be send. Otherwise, {@link #onStop(Component, AjaxRequestTarget)},
+	 * {@link #onValid(Component, AjaxRequestTarget)} and 
+	 * {@link #onInvalid(Component, AjaxRequestTarget)} will be never called.
+	 * @param callbacks Ajax callbacks to enable
+	 */
+	public DraggableAjaxBehavior(boolean enableAjaxOnInvalid,
+			DraggableEvent... callbacks) {
 		super();
+		this.enableAjaxOnInvalid = enableAjaxOnInvalid;
 		draggableBehavior = new InnerDraggableBehavior();
 		this.callbacks = new HashSet<DraggableEvent>(Arrays.asList(callbacks));
 	}
@@ -100,9 +165,24 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				 */
 				@Override
 				protected void execute(JsScopeContext scopeContext) {
-					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-							+ "&" + DRAG_TYPE + "=" + DraggableEvent.STOP.toString().toLowerCase()
-							+ "',null,null, function() {return true;})");
+					StringBuffer javascript = new StringBuffer();
+					javascript.append("var isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);");
+					
+					if(!enableAjaxOnInvalid){
+						// We must insert a test to detect the invalid state
+						javascript.append("if(!isInvalid){");
+					}
+					
+					javascript.append("wicketAjaxGet('" + getCallbackUrl(true));
+					javascript.append("&" + DRAG_TYPE + "=" + DraggableEvent.STOP.toString().toLowerCase());
+					javascript.append("&" + DRAG_STATUS + "='+isInvalid");
+					javascript.append(",null,null, function() {return true;})");
+					
+					if(!enableAjaxOnInvalid){
+						javascript.append("}");
+					}
+					
+					scopeContext.append(javascript);
 				}
 	
 			});
@@ -112,7 +192,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 			draggableBehavior.setInnerStartEvent(new JsScopeUiEvent() {
 				private static final long serialVersionUID = 1L;
 				
-				/* (non-Javadoc)
+				 /* (non-Javadoc)
 				 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 				 */
 				@Override
@@ -139,6 +219,13 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				}
 			});
 		}
+		
+		if(enableAjaxOnInvalid){
+			draggableBehavior.getInnerOptions().put(
+					"revert", 
+					new DraggableRevertScope(
+							"return $.ui.draggable._dragElementWasDropped(this, dropped);"));
+		}
 	}
 
 	/*
@@ -157,8 +244,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * For framework internal use only.
 	 */
 	public final void onDrag(AjaxRequestTarget target) {
+		Request request = this.getComponent().getRequest();
 		DraggableEvent dragEvent =  DraggableEvent.valueOf(
-				this.getComponent().getRequest().getParameter(DRAG_TYPE).toUpperCase());
+				request.getParameter(DRAG_TYPE).toUpperCase());
 		
 		switch(dragEvent){
 			case DRAG:
@@ -171,6 +259,15 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				
 			case STOP:
 				onStop(getComponent(), target);
+				
+				if(Boolean.valueOf(request.getParameter(DRAG_STATUS)) 
+						&& enableAjaxOnInvalid){
+					onInvalid(getComponent(), target);
+					
+				} else {
+					onValid(getComponent(), target);
+				}
+				
 				break;
 		}
 	}
@@ -184,7 +281,21 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 *            the Ajax target
 	 */
 	public abstract void onDrag(Component component, AjaxRequestTarget ajaxRequestTarget);
-
+	
+	/**
+	 * onInvalid is called back when the drag stop event has been fired and if
+	 * the drag was invalid.
+	 * 
+	 * The event {@link #onStop(Component, AjaxRequestTarget)} is called before
+	 * this event.
+	 * 
+	 * @param draggedComponent
+	 *            the dragged {@link Component}
+	 * @param ajaxRequestTarget
+	 *            the Ajax target
+	 */
+	public abstract void onInvalid(Component component, AjaxRequestTarget ajaxRequestTarget);
+	
 	/**
 	 * onStart is called back when the drag start event has been fired.
 	 * 
@@ -198,6 +309,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	/**
 	 * onStop is called back when the drag stop event has been fired.
 	 * 
+	 * This event is called before {@link #onValid(Component, AjaxRequestTarget)}
+	 * and before {@link #onInvalid(Component, AjaxRequestTarget)}
+	 * 
 	 * @param draggedComponent
 	 *            the dragged {@link Component}
 	 * @param ajaxRequestTarget
@@ -205,6 +319,50 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 */
 	public abstract void onStop(Component draggedComponent,
 			AjaxRequestTarget ajaxRequestTarget);
+	
+	/**
+	 * onInvalid is called back when the drag stop event has been fired and if
+	 * the drag was valid.
+	 * 
+	 * The event {@link #onStop(Component, AjaxRequestTarget)} is called before
+	 * this event.
+	 * 
+	 * @param draggedComponent
+	 *            the dragged {@link Component}
+	 * @param ajaxRequestTarget
+	 *            the Ajax target
+	 */
+	public abstract void onValid(Component component, AjaxRequestTarget ajaxRequestTarget);
+	
+	/**
+	 * Scope for the revert option
+	 * @author Julien Roche
+	 *
+	 */
+	private class DraggableRevertScope extends JsScope {
+		// Constants
+		/** Constant of serialization */
+		private static final long serialVersionUID = -4247629626060847839L;
+		
+		// Properties
+		private CharSequence javascript;
+		
+		/**
+		 * Default constructor
+		 */
+		public DraggableRevertScope(CharSequence javascript) {
+			super("dropped");
+			this.javascript = javascript;
+		}
+
+		/* (non-Javadoc)
+		 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
+		 */
+		@Override
+		protected void execute(JsScopeContext scopeContext) {
+			scopeContext.append(javascript);
+		}		
+	}
 
 	/**
 	 * We override the behavior to deny the access of critical methods (example,
@@ -216,6 +374,15 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		// Constants
 		/** Constant of serialization */
 		private static final long serialVersionUID = 5587258236214715234L;
+		
+		/* (non-Javadoc)
+		 * @see org.odlabs.wiquery.ui.draggable.DraggableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+		 */
+		@Override
+		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+			super.contribute(wiQueryResourceManager);
+			wiQueryResourceManager.addJavaScriptResource(wiQueryDraggableJs);
+		}
 
 		/*
 		 * (non-Javadoc)
@@ -226,6 +393,13 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		protected Options getOptions() {
 			throw new UnsupportedOperationException(
 					"You can't call this method into the DraggableAjaxBehavior");
+		}
+		
+		/**
+		 * For framework internal use only.
+		 */
+		private Options getInnerOptions() {
+			return super.getOptions();
 		}
 
 		/* (non-Javadoc)
@@ -246,6 +420,15 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 */
 		private DraggableBehavior setInnerDragEvent(JsScopeUiEvent drag) {
 			return super.setDragEvent(drag);
+		}
+
+		/* (non-Javadoc)
+		 * @see org.odlabs.wiquery.ui.draggable.DraggableBehavior#setRevert(org.odlabs.wiquery.ui.draggable.DraggableRevert)
+		 */
+		@Override
+		public DraggableBehavior setRevert(DraggableRevert revert) {
+			getInnerOptions().put("wiRevert", revert);
+			return this;
 		}
 
 		/* (non-Javadoc)

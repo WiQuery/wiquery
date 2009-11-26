@@ -1,0 +1,7 @@
+- Modification EffectBehavior (to test)
+
+- Modification WickextAjaxEffectBehavior (to test)
+
+- WickextAjaxEffectBehavior becomes WiqueryAjaxEffectBehavior
+
+- Modification DraggaleAjaxBehavior and add wiquery-draggable.js
