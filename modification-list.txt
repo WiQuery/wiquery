@@ -5,3 +5,5 @@
 - WickextAjaxEffectBehavior becomes WiqueryAjaxEffectBehavior
 
 - Modification DraggaleAjaxBehavior and add wiquery-draggable.js
+
+- Issue 31 : SortableAjaxBehavior

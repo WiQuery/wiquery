@@ -158,7 +158,7 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 				protected void execute(JsScopeContext scopeContext) {				
 					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
 							+ "&" + SORTED_TYPE + "=" + SortedEvent.RECEIVE.toString().toLowerCase() 
-							+ "&" + SORTED_INDEX + "='+$(this).children('li').index(" + SortableBehavior.UI_ITEM + ")+'"
+							+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
 							+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
 							+ "+'&" + SORTED_PARENT_ID + "='+ $(" + SortableBehavior.UI_SENDER + ").attr('id')" 
 							+ ", null,null, function() {return true;});");
@@ -204,7 +204,7 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 				protected void execute(JsScopeContext scopeContext) {
 					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
 							+ "&" + SORTED_TYPE + "=" + SortedEvent.UPDATE.toString().toLowerCase() 
-							+ "&" + SORTED_INDEX + "='+$(this).children('li').index(" + SortableBehavior.UI_ITEM + ")+'"
+							+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
 							+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
 							+ ", null,null, function() {return true;})");
 				}
