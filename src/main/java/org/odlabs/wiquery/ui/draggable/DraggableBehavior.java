@@ -30,6 +30,7 @@ import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
+import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
@@ -61,13 +62,17 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public enum CursorAtEnum {
 		TOP,
-		TOP_LEFT,
-		TOP_RIGHT,
 		LEFT,
 		RIGHT,
-		BOTTOM,
-		BOTTOM_LEFT,
-		BOTTOM_RIGHT;
+		BOTTOM;
+		/**
+		 * {@inheritDoc}
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return super.toString().toLowerCase().replace('_', ' ');
+		}
 	}
 	
 	/**
@@ -279,19 +284,21 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @param cusorAt
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setCursorAt(CursorAtEnum cusorAt) {
-		this.options.putLiteral("cusorAt", cusorAt.toString().toLowerCase()
-				.replace('_', ' '));
+	public DraggableBehavior setCursorAt(ListItemOptions<DraggableCursorAt> cusorAt) {
+		this.options.put("cusorAt", cusorAt);
 		return this;
 	}
 	
 	/**
 	 * @return the cursorAt option value
 	 */
-	public CursorAtEnum getCursorAt() {
-		String cursorAt = this.options.getLiteral("cursorAt");
-		return cursorAt == null ? null : CursorAtEnum.valueOf(cursorAt.toUpperCase()
-				.replace(' ', '_'));
+	@SuppressWarnings("unchecked")
+	public ListItemOptions<DraggableCursorAt> getCursorAt() {
+		if(this.options.containsKey("cursorAt")){
+			return (ListItemOptions<DraggableCursorAt>) this.options.getListItemOptions("cursorAt");
+		}
+		
+		return null;
 	}
 	
 	/**Time in milliseconds after mousedown until dragging should start. This 

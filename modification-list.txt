@@ -7,3 +7,5 @@
 - Modification DraggaleAjaxBehavior and add wiquery-draggable.js
 
 - Issue 31 : SortableAjaxBehavior
+
+- Issue 32 : Adding DraggableCursorAt & changes on DraggableBehavior
