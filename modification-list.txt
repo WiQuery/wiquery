@@ -9,3 +9,6 @@
 - Issue 31 : SortableAjaxBehavior
 
 - Issue 32 : Adding DraggableCursorAt & changes on DraggableBehavior
+
+- WiqueryGeneratedJavaScriptResourceReference : use the javascript compressor defines in
+the Wicket Application

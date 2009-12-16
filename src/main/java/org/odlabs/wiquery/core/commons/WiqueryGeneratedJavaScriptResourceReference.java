@@ -24,9 +24,11 @@ package org.odlabs.wiquery.core.commons;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.IClusterable;
 import org.apache.wicket.Resource;
 import org.apache.wicket.ResourceReference;
+import org.apache.wicket.javascript.IJavascriptCompressor;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.template.PackagedTextTemplate;
@@ -68,8 +70,13 @@ public class WiqueryGeneratedJavaScriptResourceReference extends
 			private static final long serialVersionUID = 1L;
 
 			public IResourceStream getResourceStream() {
+				IJavascriptCompressor compressor = Application.get()
+					.getResourceSettings()
+					.getJavascriptCompressor();
+				
 				Map<String, Object> genJs = new HashMap<String, Object>();
-				genJs.put("wiqueryoutput", javaScriptCode);
+				genJs.put("wiqueryoutput", compressor == null ? 
+						javaScriptCode : compressor.compress(javaScriptCode.toString()));
 				jstemplate.interpolate(genJs);
 				final String stringValue = jstemplate.asString();
 				return new StringResourceStream(stringValue);
