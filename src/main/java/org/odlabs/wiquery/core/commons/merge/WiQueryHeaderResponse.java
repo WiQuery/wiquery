@@ -68,6 +68,9 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		
 		for(ResourceReference r : resources) {
 			buffer.append(r.getClass().getSimpleName() + "_");
+			buffer.append((r.getName().indexOf('/') >= 0) ? 
+					r.getName().substring(r.getName().lastIndexOf('/') + 1) : 
+						r.getName() + "_");
 		}
 		
 		return buffer;

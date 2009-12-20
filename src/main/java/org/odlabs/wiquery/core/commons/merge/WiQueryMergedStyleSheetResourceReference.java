@@ -76,7 +76,7 @@ public class WiQueryMergedStyleSheetResourceReference extends
 	 */
 	public WiQueryMergedStyleSheetResourceReference(WiQueryHeaderResponse wiQueryHeaderResponse) {
 		super(WiQueryMergedStyleSheetResourceReference.class, 
-				TEMPLATE_NAME + 
+				TEMPLATE_NAME + "_" + 
 				WiQueryHeaderResponse.getMergedResourceName(wiQueryHeaderResponse.getStylesheet()));
 		
 		this.wiQueryHeaderResponse = wiQueryHeaderResponse;

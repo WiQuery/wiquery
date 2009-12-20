@@ -74,7 +74,7 @@ public class WiQueryMergedJavaScriptResourceReference extends
 	 */
 	public WiQueryMergedJavaScriptResourceReference(WiQueryHeaderResponse wiQueryHeaderResponse) {
 		super(WiQueryMergedJavaScriptResourceReference.class, 
-				TEMPLATE_NAME + 
+				TEMPLATE_NAME + "_" + 
 				WiQueryHeaderResponse.getMergedResourceName(wiQueryHeaderResponse.getJavascript()));
 		
 		this.wiQueryHeaderResponse = wiQueryHeaderResponse;
