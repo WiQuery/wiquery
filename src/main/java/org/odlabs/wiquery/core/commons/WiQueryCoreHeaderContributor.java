@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.IRequestTarget;
 import org.apache.wicket.MarkupContainer;
@@ -38,6 +39,10 @@ import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.commons.listener.JQueryCoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.JQueryUICoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
+import org.odlabs.wiquery.core.commons.merge.WiQueryHeaderResponse;
+import org.odlabs.wiquery.core.commons.merge.WiQueryMergedJavaScriptResourceReference;
+import org.odlabs.wiquery.core.commons.merge.WiQueryMergedResources;
+import org.odlabs.wiquery.core.commons.merge.WiQueryMergedStyleSheetResourceReference;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
@@ -57,7 +62,8 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  */
 public class WiQueryCoreHeaderContributor implements Serializable,
 		IHeaderContributor {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = -347081993448442637L;
 
 	/** 
@@ -66,21 +72,6 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private static final MetaDataKey<WiQueryCoreHeaderContributor> WIQUERY_KEY = new MetaDataKey<WiQueryCoreHeaderContributor>() {
 		private static final long serialVersionUID = 1L;
 	};
-	
-	/**
-	 * plugins is the list of plugins to render.
-	 */
-	private List<IWiQueryPlugin> plugins = new ArrayList<IWiQueryPlugin>();
-
-	/**
-	 * Maps a resource manager for a given plugin.
-	 */
-	private Map<IWiQueryPlugin, WiQueryResourceManager> resourceManagers = new HashMap<IWiQueryPlugin, WiQueryResourceManager>();
-
-	/**
-	 * The list of listeners that will be notified while a plugin is rendering.
-	 */
-	private List<WiQueryPluginRenderingListener> pluginRenderingListeners = new ArrayList<WiQueryPluginRenderingListener>();
 	
 	/**
 	 * Returns the instance of the current request cycle.
@@ -94,7 +85,33 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 					wickeryHeaderContributor);
 		}
 		return wickeryHeaderContributor;
-	}	
+	}
+
+	// Properties
+	/**
+	 * plugins is the list of plugins to render.
+	 */
+	private List<IWiQueryPlugin> plugins = new ArrayList<IWiQueryPlugin>();
+
+	/**
+	 * Maps a resource manager for a given plugin.
+	 */
+	private Map<IWiQueryPlugin, WiQueryResourceManager> resourceManagers = new HashMap<IWiQueryPlugin, WiQueryResourceManager>();
+	
+	/**
+	 * The list of listeners that will be notified while a plugin is rendering.
+	 */
+	private List<WiQueryPluginRenderingListener> pluginRenderingListeners = new ArrayList<WiQueryPluginRenderingListener>();	
+	
+	/**
+	 * Shall we merged wiQuery resources ?
+	 */
+	private final boolean enableResourcesMerging;
+	
+	/**
+	 * To merge resources
+	 */
+	private WiQueryHeaderResponse wiQueryHeaderResponse;
 	
 	/**
 	 * Default constructor. Declares a standard configuration for listeners,
@@ -103,7 +120,21 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	public WiQueryCoreHeaderContributor() {
 		super();
 		this.pluginRenderingListeners.add(new JQueryCoreRenderingListener());
-		this.pluginRenderingListeners.add(new JQueryUICoreRenderingListener());			
+		this.pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
+		
+		Application app = Application.get();
+		
+		if(app.getClass().isAnnotationPresent(WiQueryMergedResources.class)){
+			WiQueryMergedResources wqmr = app.getClass().getAnnotation(WiQueryMergedResources.class);
+			enableResourcesMerging = wqmr.enable();
+			
+		} else {
+			enableResourcesMerging = false;
+		}
+		
+		if(enableResourcesMerging){
+			wiQueryHeaderResponse = new WiQueryHeaderResponse();
+		}
 	}
 
 	/**
@@ -163,6 +194,15 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		JsQuery jsq = new JsQuery();
 		JsStatement jsStatement = new JsStatement();
 		IRequestTarget target = RequestCycle.get().getRequestTarget();
+		IHeaderResponse headerResponse = null;
+		
+		if(enableResourcesMerging){
+			wiQueryHeaderResponse.setIHeaderResponse(response);
+			headerResponse = wiQueryHeaderResponse;
+			
+		} else {
+			headerResponse = response;
+		}
 		
 		for (IWiQueryPlugin plugin : this.plugins) {
 			if (this.isPluginAttachedToTarget(plugin, target)) {
@@ -170,10 +210,22 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 				jsStatement.append("\t" + plugin.statement().render() + "\n");
 				// calling listeners to compute specific stuff
 				for (WiQueryPluginRenderingListener listener : pluginRenderingListeners) {
-					listener.onRender(plugin, manager, response);
+					listener.onRender(plugin, manager, headerResponse);
 				}
 				plugin.contribute(manager);
-				manager.initialize(response);				
+				manager.initialize(headerResponse);				
+			}
+		}
+		
+		if(enableResourcesMerging){
+			if(!wiQueryHeaderResponse.getStylesheet().isEmpty()){
+				response.renderCSSReference(
+						new WiQueryMergedStyleSheetResourceReference(wiQueryHeaderResponse));
+			}
+			
+			if(!wiQueryHeaderResponse.getJavascript().isEmpty()){
+				response.renderJavascriptReference(
+						new WiQueryMergedJavaScriptResourceReference(wiQueryHeaderResponse));
 			}
 		}
 

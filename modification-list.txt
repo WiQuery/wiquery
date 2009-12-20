@@ -12,3 +12,6 @@
 
 - WiqueryGeneratedJavaScriptResourceReference : use the javascript compressor defines in
 the Wicket Application
+
+- Wiquery Merging resources process : package org.odlabs.wiquery.core.commons.merge 
+	 and modification of WiQueryCoreHeaderContributor
