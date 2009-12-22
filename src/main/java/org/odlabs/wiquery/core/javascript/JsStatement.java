@@ -25,6 +25,10 @@ import java.io.Serializable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
+import org.odlabs.wiquery.core.javascript.helper.AttributesHelper;
+import org.odlabs.wiquery.core.javascript.helper.CssHelper;
+import org.odlabs.wiquery.core.javascript.helper.ManipulatingHelper;
+import org.odlabs.wiquery.core.options.Options;
 
 /**
  * $Id$
@@ -126,6 +130,22 @@ public class JsStatement implements Serializable {
 	}
 	
 	/**
+	 * Binds the <code>addClass</code> statement.
+	 */
+	public JsStatement addClass(String className) {
+		chain(AttributesHelper.addClass(className));
+		return this;
+	}
+
+	/**
+	 * Binds the <code>after</code> statement.
+	 */
+	public JsStatement after(CharSequence html) {
+		chain(ManipulatingHelper.after(html));
+		return this;
+	}
+
+	/**
 	 * Appends the given {@link CharSequence} to this statement.
 	 * 
 	 * @return {@link JsStatement} this instance.
@@ -134,6 +154,32 @@ public class JsStatement implements Serializable {
 		statement.append(charSequence);
 		return this;
 	}
+
+	/**
+	 * Binds the <code>attr</code> statement.
+	 */
+	public JsStatement attr(String key, JsScope computedValue) {
+		chain(AttributesHelper.attr(key, computedValue));
+		return this;
+	}
+
+	/**
+	 * Binds the <code>attr</code> statement.
+	 */
+	public JsStatement attr(String key, String value) {
+		chain(AttributesHelper.attr(key, value));
+		return this;
+	}
+
+	/**
+	 * Binds the <code>before</code> statement.
+	 */
+	public JsStatement before(CharSequence html) {
+		chain(ManipulatingHelper.before(html));
+		return this;
+	}
+
+	/* utility methods */
 
 	/**
 	 * Chains a function call to this {@link JsStatement}. The function call is
@@ -176,6 +222,22 @@ public class JsStatement implements Serializable {
 	}
 
 	/**
+	 * Binds the <code>css</code> statement.
+	 */
+	public JsStatement css(Options options) {
+		chain(CssHelper.css(options));
+		return this;
+	}
+
+	/**
+	 * Binds the <code>css</code> statement.
+	 */
+	public JsStatement css(String name, String value) {
+		chain(CssHelper.css(name, value));
+		return this;
+	}
+	
+	/**
 	 * Appends $(document) to the statement.
 	 * 
 	 * @return {@link JsStatement} this instance.
@@ -184,7 +246,7 @@ public class JsStatement implements Serializable {
 		statement.append("$(document)");
 		return this;
 	}
-
+	
 	/**
 	 * Appends the <strong>each</strong> jQuery statement.
 	 * 
@@ -194,16 +256,38 @@ public class JsStatement implements Serializable {
 	public JsStatement each(JsScope scope) {
 		return this.chain("each", scope.render());
 	}
-
+	
 	/**
 	 * @return the statement of the JsStatement
 	 */
 	public StringBuilder getStatement() {
 		return statement;
 	}
-
-	/* utility methods */
-
+	
+	/**
+	 * Binds the <code>html</code> statement.
+	 */
+	public JsStatement html(CharSequence htmlContents) {
+		chain(AttributesHelper.html(htmlContents));
+		return this;
+	}
+	
+	/**
+	 * Binds the <code>insertAfter</code> statement.
+	 */
+	public JsStatement insertAfter(String expression) {
+		chain(ManipulatingHelper.insertAfter(expression));
+		return this;
+	}
+	
+	/**
+	 * Binds the <code>insertBefore</code> statement.
+	 */
+	public JsStatement insertBefore(String expression) {
+		chain(ManipulatingHelper.insertBefore(expression));
+		return this;
+	}
+	
 	/**
 	 * Appends the <strong>ready</strong> jQuery statement.
 	 * 
@@ -214,7 +298,23 @@ public class JsStatement implements Serializable {
 	public JsStatement ready(JsScope scope) {
 		return this.chain("ready", scope.render());
 	}
-
+	
+	/**
+	 * Binds the <code>removeAttr</code> statement.
+	 */
+	public JsStatement removeAttr(String key) {
+		chain(AttributesHelper.removeAttr(key));
+		return this;
+	}
+	
+	/**
+	 * Binds the <code>removeClass</code> statement.
+	 */
+	public JsStatement removeClass(String className) {
+		chain(AttributesHelper.removeClass(className));
+		return this;
+	}
+	
 	/**
 	 * Renders this statement.
 	 * 
@@ -245,7 +345,7 @@ public class JsStatement implements Serializable {
 		}
 		return render;
 	}
-
+	
 	/**
 	 * Appends the <code>this</code> keyword to this statement.
 	 * 
@@ -253,6 +353,14 @@ public class JsStatement implements Serializable {
 	 */
 	public JsStatement self() {
 		statement.append("$(this)");
+		return this;
+	}
+	
+	/**
+	 * Binds the <code>toggleClass</code> statement.
+	 */
+	public JsStatement toggleClass(String className) {
+		chain(AttributesHelper.toggleClass(className));
 		return this;
 	}
 }

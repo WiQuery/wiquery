@@ -32,7 +32,7 @@ package org.odlabs.wiquery.core.events;
  */
 public enum StateEvent implements EventLabel {
 
-	BLUR, CHANGE, FOCUS, LOAD;
+	ABORT, BLUR, CHANGE, ERROR, FOCUS, LOAD, RESIZE, SELECT, UNLOAD;
 
 	/*
 	 * (non-Javadoc)

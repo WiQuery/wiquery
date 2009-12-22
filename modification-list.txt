@@ -6,7 +6,7 @@
 
 - Modification DraggaleAjaxBehavior and add wiquery-draggable.js
 
-- Issue 31 : SortableAjaxBehavior
+- Issue 31 : SortableAjaxBehavior (use of :data(sortable-item) )
 
 - Issue 32 : Adding DraggableCursorAt & changes on DraggableBehavior
 
@@ -15,3 +15,9 @@ the Wicket Application
 
 - Wiquery Merging resources process : package org.odlabs.wiquery.core.commons.merge 
 	 and modification of WiQueryCoreHeaderContributor
+	 
+- Modification JsStatement : shortcuts for AtributesHelper, CssHelper and ManipulatingHelper
+
+- Modification StateEvent (add missing states)
+
+- Add FormEvent (event RESET and SUBMIT)
