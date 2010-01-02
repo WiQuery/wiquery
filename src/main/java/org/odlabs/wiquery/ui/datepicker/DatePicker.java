@@ -37,6 +37,7 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.datepicker.DatePickerLanguageResourceReference.DatePickerLanguages;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
@@ -134,7 +135,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
 		
 		Locale locale = getLocale();
-		if(locale != null && !Locale.ENGLISH.getLanguage().equals(locale.getLanguage())){ // #issue 24
+		if(DatePickerLanguages.isCanHaveLocaleFile(locale)){
 			wiQueryResourceManager
 					.addJavaScriptResource(new DatePickerLanguageResourceReference(
 							locale));

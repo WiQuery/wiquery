@@ -21,3 +21,5 @@ the Wicket Application
 - Modification StateEvent (add missing states)
 
 - Add FormEvent (event RESET and SUBMIT)
+
+- Add an enumeration for the datepicker and modified DatePicker & DatePickerLanguageResourceReference

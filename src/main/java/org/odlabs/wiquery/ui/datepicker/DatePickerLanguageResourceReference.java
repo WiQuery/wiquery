@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.datepicker;
 
 import java.util.Locale;
 
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
@@ -38,7 +39,192 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  */
 public class DatePickerLanguageResourceReference extends
 		JavascriptResourceReference {
-
+	/**
+	 * Enumeration of possibles alternatives languages for the DatePicker
+	 * (Default locale for the DatePicker : EN)
+	 * @author Julien Roche
+	 *
+	 */
+	public enum DatePickerLanguages {
+		ALBANIAN			("sq"),
+		ARABIC				("ar"),
+		ARMENIAN			("hy"),
+		BRAZILIAN			("pt", "BR"),
+		BULGARIAN			("bg"),
+		CATALAN				("ca"),
+		CROATIAN			("hr"),
+		CZECH				("cs"),
+		DANISH				("da"),
+		DUTCH				("nl"),
+		ESPERANTO			("eo"),
+		FINNISH				("fi"),
+		FRENCH				(Locale.FRENCH),
+		GERMAN				(Locale.GERMAN),
+		GREEK				("el"),
+		HEBREW				("he"),
+		HUNGARIAN			("hu"),
+		ICELANDIC			("is"),
+		INDONESIAN			("id"),
+		ITALIAN				(Locale.ITALIAN),
+		JAPANESE			(Locale.JAPANESE),
+		KOREAN				(Locale.KOREAN),
+		LATVIAN				("lv"),
+		LITHUANIAN			("lt"),
+		MALAYSIAN			("ms"),
+		NORVEGIAN			("no"),
+		PERSIAN				("fa"),
+		POLISH				("pl"),
+		ROMANIAN			("ro"),
+		RUSSIAN				("ru"),
+		SERBIA				("sr", "SR"),
+		SERBIAN				("sr"),
+		SIMPLIFIED_CHINESE	(Locale.SIMPLIFIED_CHINESE),
+		SLOVAK				("sk"),
+		SLOVENIAN			("sl"),
+		SPANISH				("es"),
+		SWEDISH				("sv"),
+		THAI				("th"),
+		TRADITIONAL_CHINESE	(Locale.TRADITIONAL_CHINESE),
+		TURKISH				("tu"),
+		UKRAINIAN			("uk");
+		
+		// Properties
+		private final Locale locale;
+		
+		/**
+		 * Constructor
+		 * @param locale
+		 */
+		DatePickerLanguages(Locale locale) {
+			this.locale = locale;
+		}
+		
+		/**
+		 * Constructor
+		 * @param language
+		 */
+		DatePickerLanguages(String language) {
+			this.locale = new Locale(language);
+		}
+		
+		/**
+		 * Constructor
+		 * @param language
+		 * @param country
+		 */
+		DatePickerLanguages(String language, String country) {
+			this.locale = new Locale(language, country);
+		}
+		
+		/**
+		 * Constructor
+		 * @param language
+		 * @param country
+		 * @param variant
+		 */
+		DatePickerLanguages(String language, String country, String variant) {
+			this.locale = new Locale(language, country, variant);
+		}
+		
+		/**
+		 * @return the locale
+		 */
+		public Locale getLocale() {
+			return locale;
+		}
+		
+		/**
+		 * Try to find the most appropriate value in the enumeration
+		 * @param locale Locale to search
+		 * @return the value
+		 */
+		public static DatePickerLanguages getDatePickerLanguages(Locale locale){
+			Locale tmpLocale = null;
+			String language = locale.getLanguage();
+			String country = locale.getCountry();
+			String variant = locale.getVariant();
+			
+			country = country == null || country.trim().length() <= 0 ? null : country;
+			variant = variant == null || variant.trim().length() <= 0 ? null : variant;
+			
+			// Equals on language-country-variant
+			if(variant != null){
+				for(DatePickerLanguages l : values()){
+					tmpLocale = l.getLocale();
+					
+					if(tmpLocale.getLanguage().equals(language)
+							&& tmpLocale.getCountry().equals(country)
+							&& tmpLocale.getVariant().equals(variant)){
+						return l;
+					}
+				}
+			}
+			
+			// Equals on language-country
+			if(country != null){
+				for(DatePickerLanguages l : values()){
+					tmpLocale = l.getLocale();
+					
+					if(tmpLocale.getLanguage().equals(language)
+							&& tmpLocale.getCountry().equals(country)){
+						return l;
+					}
+				}
+			}
+			
+			// Equals on language
+			for(DatePickerLanguages l : values()){
+				tmpLocale = l.getLocale();
+				
+				if(tmpLocale.getLanguage().equals(language)){
+					return l;
+				}
+			}
+			
+			return null;
+		}
+		
+		/**
+		 * Method calculating the name of the jQuery UI Locale file
+		 * @param dpl Language to use
+		 * @return the filename
+		 */
+		public static CharSequence getJsFileName(DatePickerLanguages dpl) {
+			Locale locale = dpl.getLocale();
+			String country = locale.getCountry();
+			String variant = locale.getVariant();
+			StringBuffer js = new StringBuffer();
+			
+			js.append("i18n/ui.datepicker-");
+			js.append(locale.getLanguage());
+			
+			if(country != null && country.trim().length() > 0){
+				js.append("-" + country);
+				
+				if(variant != null && variant.trim().length() > 0){
+					js.append("-" + variant);
+				}
+			}
+			
+			js.append(".min.js");
+			
+			return js;
+		}
+		
+		/**
+		 * Return true if we can have a javascript locale file for our DatePicker
+		 * @param locale
+		 * @return the state
+		 */
+		public static boolean isCanHaveLocaleFile(Locale locale) {
+			return locale != null 
+				&& !Locale.ENGLISH.getLanguage().equals(locale.getLanguage()) // #issue 24
+				&& getDatePickerLanguages(locale) != null;
+		}
+	}
+	
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 5955164494361831059L;
 
 	/**
@@ -55,22 +241,12 @@ public class DatePickerLanguageResourceReference extends
 	 * @return the name
 	 */
 	private static String getJsFilename(Locale locale) {
-		String language = locale.getLanguage();
-		String country = locale.getCountry();
+		DatePickerLanguages dpl = DatePickerLanguages.getDatePickerLanguages(locale);
 		
-		StringBuffer js = new StringBuffer();
-		js.append("i18n/ui.datepicker-");
-		js.append(language);
-		
-		if(language != null && country != null && (
-				language.equals("pt") || 
-				language.equals("sr") || 
-				language.equals("zh"))){
-			js.append("-" + country);
+		if(dpl == null){
+			throw new WicketRuntimeException("The locale cannot load the required javascript locale file");
 		}
 		
-		js.append(".js");
-		
-		return js.toString();
+		return DatePickerLanguages.getJsFileName(dpl).toString();
 	}
 }
