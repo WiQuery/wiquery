@@ -25,3 +25,8 @@ the Wicket Application
 - Add an enumeration for the datepicker and modified DatePicker & DatePickerLanguageResourceReference
 
 - Modification of MouseEvent : add missing MouseEnter and MouseLeave
+
+- Add a new method in JsUtils
+
+- Add some new unit tests : JsUtilsTestCase, AttributesHelperTestCase, CssHelperTestCase, 
+ManipulatingHelperTestCase, TraversingHelperTestCase

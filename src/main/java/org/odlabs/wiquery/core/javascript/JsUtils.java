@@ -33,6 +33,25 @@ import org.odlabs.wiquery.core.events.EventLabel;
  * @since 0.7
  */
 public class JsUtils {
+	
+	/**
+	 * @return a javascript representation of the array
+	 */
+	public static CharSequence array(CharSequence... args) {
+		StringBuffer array = new StringBuffer();
+		array.append("[");
+		
+		if(args.length > 0){
+			array.append(args[0]);
+			
+			for(int i = 1; i < args.length; i++) {
+				array.append(", " + args[i]);
+			}
+		}
+		
+		array.append("]");
+		return array;
+	}
 
 	/**
 	 * Quotes the given string (eg. makes a JavaScript String).
