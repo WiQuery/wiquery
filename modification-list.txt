@@ -30,3 +30,7 @@ the Wicket Application
 
 - Add some new unit tests : JsUtilsTestCase, AttributesHelperTestCase, CssHelperTestCase, 
 ManipulatingHelperTestCase, TraversingHelperTestCase
+
+- Add EventHelper and EventHelperTestCase
+
+- Add new unit tests : JsQueryTestCase, JsStatementTestCase
