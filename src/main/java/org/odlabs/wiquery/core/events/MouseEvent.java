@@ -32,7 +32,7 @@ package org.odlabs.wiquery.core.events;
  */
 public enum MouseEvent implements EventLabel {
 
-	CLICK, DBLCLICK, MOUSEDOWN, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP, SCROLL;
+	CLICK, DBLCLICK, MOUSEDOWN, MOUSEENTER, MOUSELEAVE, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP, SCROLL;
 
 	/*
 	 * (non-Javadoc)

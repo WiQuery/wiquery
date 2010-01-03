@@ -23,3 +23,5 @@ the Wicket Application
 - Add FormEvent (event RESET and SUBMIT)
 
 - Add an enumeration for the datepicker and modified DatePicker & DatePickerLanguageResourceReference
+
+- Modification of MouseEvent : add missing MouseEnter and MouseLeave
