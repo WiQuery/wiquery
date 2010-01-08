@@ -1,4 +1,4 @@
-package org.odlabs.wiquery.ui.core.options;
+package org.odlabs.wiquery.core.options;
 
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;

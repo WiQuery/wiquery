@@ -34,3 +34,7 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 - Add EventHelper and EventHelperTestCase
 
 - Add new unit tests : JsQueryTestCase, JsStatementTestCase
+
+- Add DatePickerLanguageResourceReferenceTestCase
+
+- Add new methods in JsUtils, and now LiteralOption can use double quote, and LiteralOptionTestCase

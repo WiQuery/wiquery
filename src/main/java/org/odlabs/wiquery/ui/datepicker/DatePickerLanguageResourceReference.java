@@ -143,6 +143,7 @@ public class DatePickerLanguageResourceReference extends
 			String language = locale.getLanguage();
 			String country = locale.getCountry();
 			String variant = locale.getVariant();
+			String empty = "";
 			
 			country = country == null || country.trim().length() <= 0 ? null : country;
 			variant = variant == null || variant.trim().length() <= 0 ? null : variant;
@@ -166,7 +167,8 @@ public class DatePickerLanguageResourceReference extends
 					tmpLocale = l.getLocale();
 					
 					if(tmpLocale.getLanguage().equals(language)
-							&& tmpLocale.getCountry().equals(country)){
+							&& tmpLocale.getCountry().equals(country)
+							&& tmpLocale.getVariant().equals(empty)){
 						return l;
 					}
 				}
@@ -176,7 +178,9 @@ public class DatePickerLanguageResourceReference extends
 			for(DatePickerLanguages l : values()){
 				tmpLocale = l.getLocale();
 				
-				if(tmpLocale.getLanguage().equals(language)){
+				if(tmpLocale.getLanguage().equals(language)
+						&& tmpLocale.getCountry().equals(empty)
+						&& tmpLocale.getVariant().equals(empty)){
 					return l;
 				}
 			}
@@ -190,6 +194,10 @@ public class DatePickerLanguageResourceReference extends
 		 * @return the filename
 		 */
 		public static CharSequence getJsFileName(DatePickerLanguages dpl) {
+			if(dpl == null){
+				return null;
+			}
+			
 			Locale locale = dpl.getLocale();
 			String country = locale.getCountry();
 			String variant = locale.getVariant();

@@ -1,34 +1,34 @@
-package org.odlabs.wiquery.ui.core.options;
+package org.odlabs.wiquery.core.options;
 
 import junit.framework.TestCase;
 
+import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
-import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * Unit test on the {@link ListItemOptions}
+ * Unit test on the {@link ArrayItemOptions}
  * @author Julien Roche
  *
  */
-public class ListItemOptionsTestCase extends TestCase {
+public class ArrayItemOptionsTestCase extends TestCase {
 
 	protected static final Logger log = LoggerFactory.getLogger(
-			ListItemOptionsTestCase.class);
+			ArrayItemOptionsTestCase.class);
 
 	/**
 	 * Check the syntax
 	 */
 	@Test
 	public void testGetJavascriptItemOptions() {
-		ListItemOptions<IntegerItemOptions> options = new ListItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> options = new ArrayItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
 		
-		String expectedJavascript = "{}";
+		String expectedJavascript = "[]";
 		String generatedJavascript = options.getJavascriptOption().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -37,7 +37,7 @@ public class ListItemOptionsTestCase extends TestCase {
 		// Second generation
 		options.add(o1);
 		options.add(o2);
-		expectedJavascript = "{5,43}";
+		expectedJavascript = "[5,43]";
 		generatedJavascript = options.getJavascriptOption().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -49,7 +49,7 @@ public class ListItemOptionsTestCase extends TestCase {
 	 */
 	@Test
 	public void testValues() {
-		ListItemOptions<IntegerItemOptions> options = new ListItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> options = new ArrayItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
 		

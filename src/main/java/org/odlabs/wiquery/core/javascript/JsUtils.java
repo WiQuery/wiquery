@@ -52,21 +52,35 @@ public class JsUtils {
 		array.append("]");
 		return array;
 	}
-
+	
 	/**
-	 * Quotes the given string (eg. makes a JavaScript String).
+	 * Double quotes the given string (eg. makes a JavaScript String).
 	 */
-	public static String quotes(CharSequence stringToQuote) {
-		return "'" + stringToQuote + "'";
+	public static String doubleQuotes(CharSequence stringToDoubleQuote) {
+		return doubleQuotes(stringToDoubleQuote, false);
+	}
+	
+	/**
+	 * Double quotes the given string (eg. makes a JavaScript String).
+	 */
+	public static String doubleQuotes(CharSequence stringToDoubleQuote, boolean escapeDoubleQuote) {
+		return "\"" + (escapeDoubleQuote ? escapeDoubleQuote(stringToDoubleQuote) : stringToDoubleQuote) + "\"";
+	}
+	
+	/**
+	 * @return the sequence with escaped double quotes
+	 */
+	public static String escapeDoubleQuote(CharSequence stringToDoubleQuote) {
+		return stringToDoubleQuote == null ? null : stringToDoubleQuote.toString().replace("\"", "\\\"");
 	}
 
 	/**
-	 * Converts an int to a String. (common alias of valueOf).
+	 * @return the sequence with escaped quotes
 	 */
-	public static String string(int value) {
-		return String.valueOf(value);
+	public static String escapeQuote(CharSequence stringToQuote) {
+		return stringToQuote == null ? null : stringToQuote.toString().replace("'", "\\'");
 	}
-
+	
 	/**
 	 * Converts the given array of {@link EventLabel} to a {@link String}.
 	 */
@@ -80,5 +94,26 @@ public class JsUtils {
 			output += " " + eventLabel.getEventLabel();
 		}
 		return output + "'";
+	}
+	
+	/**
+	 * Quotes the given string (eg. makes a JavaScript String).
+	 */
+	public static String quotes(CharSequence stringToQuote) {
+		return quotes(stringToQuote, false);
+	}
+
+	/**
+	 * Quotes the given string (eg. makes a JavaScript String).
+	 */
+	public static String quotes(CharSequence stringToQuote, boolean escapeQuote) {
+		return "'" + (escapeQuote ? escapeQuote(stringToQuote) : stringToQuote) + "'";
+	}
+
+	/**
+	 * Converts an int to a String. (common alias of valueOf).
+	 */
+	public static String string(int value) {
+		return String.valueOf(value);
 	}
 }
