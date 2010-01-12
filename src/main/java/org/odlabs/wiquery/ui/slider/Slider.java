@@ -110,7 +110,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param animate
 	 * @return instance of the current component
 	 */
-	public Slider setAnimate(boolean animate) {
+	public Slider setAnimate(SliderAnimate animate) {
 		this.options.put("animate", animate);
 		return this;
 	}
@@ -118,12 +118,12 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	/**
 	 * @return the animate option value
 	 */
-	public boolean isAnimate() {
-		if(this.options.containsKey("animate")){
-			return this.options.getBoolean("animate");
+	public SliderAnimate isAnimate() {
+		if(this.options.getComplexOption("animate") instanceof SliderAnimate){
+			return (SliderAnimate) this.options.getComplexOption("animate");
 		}
 		
-		return false;
+		return new SliderAnimate(false);
 	}
 	
 	/**Sets the maximum value of the slider.
@@ -182,7 +182,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Orientation getOrientation() {
 		String orientation = this.options.getLiteral("orientation");
-		return orientation == null ? null : Orientation.valueOf(orientation.toUpperCase());
+		return orientation == null ? Orientation.HORIZONTAL : Orientation.valueOf(orientation.toUpperCase());
 	}
 	
 	/**If set to true, the slider will detect if you have two handles and create
@@ -206,7 +206,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 			return (SliderRange) range;
 		}
 		
-		return null;
+		return new SliderRange(false);
 	}
 	
 	/**Sets the size or amount of each interval or step the slider takes between 

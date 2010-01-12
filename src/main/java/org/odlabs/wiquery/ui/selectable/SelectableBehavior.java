@@ -159,7 +159,7 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public ToleranceEnum getTolerance() {
 		String tolerance = this.options.getLiteral("tolerance");
-		return tolerance == null ? null : ToleranceEnum.valueOf(tolerance.toUpperCase());
+		return tolerance == null ? ToleranceEnum.TOUCH : ToleranceEnum.valueOf(tolerance.toUpperCase());
 	}
 
 	/**

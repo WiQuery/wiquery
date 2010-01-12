@@ -34,6 +34,7 @@ import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.draggable.DraggableHelper.HelperEnum;
 
 /**
  * $Id$
@@ -201,7 +202,8 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @return the axis option value
 	 */
 	public AxisEnum getAxis() {
-		return AxisEnum.valueOf(this.options.getLiteral("axis").toUpperCase());
+		String axis = this.options.getLiteral("axis");
+		return axis == null ? null : AxisEnum.valueOf(axis.toUpperCase());
 	}
 	
 	/** Set's the prevent selecting if you start on elements matching the selector
@@ -400,7 +402,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return (DraggableHelper) helper;
 		}
 			
-		return null;
+		return new DraggableHelper(HelperEnum.ORIGINAL);
 	}
 	
 	/**Prevent iframes from capturing the mousemove events during a drag. Useful 
@@ -425,7 +427,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return (DraggableIframeFix) iframeFix;
 		}
 			
-		return null;
+		return new DraggableIframeFix(false);
 	}
 	
 	/**Set's the opacity for the helper while being dragged.
@@ -491,7 +493,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return (DraggableRevert) revert;
 		}
 			
-		return null;
+		return new DraggableRevert(false);
 	}
 	
 	/**Set's the duration of the revert animation, in milliseconds. Ignored if 
@@ -619,7 +621,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return (DraggableSnap) snap;
 		}
 			
-		return null;
+		return new DraggableSnap(false);
 	}
 
 	/**Sets the edges of snap elements the draggable will snap to. Ignored if 
@@ -637,7 +639,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public SnapModeEnum getSnapMode() {
 		String literal = options.getLiteral("snapMode");
-		return literal == null ? null : SnapModeEnum.valueOf(literal.toUpperCase());
+		return literal == null ? SnapModeEnum.BOTH : SnapModeEnum.valueOf(literal.toUpperCase());
 	}
 	
 	/**Set's distance in pixels from the snap element edges at which snapping 

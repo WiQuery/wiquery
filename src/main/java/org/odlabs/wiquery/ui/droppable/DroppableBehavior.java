@@ -140,7 +140,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 			return (DroppableAccept) accept;
 		}
 
-		return null;
+		return new DroppableAccept("*");
 	}
 
 	/**
@@ -179,9 +179,9 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	public boolean isAddClasses() {
 		if (this.options.containsKey("addClasses")) {
 			return this.options.getBoolean("addClasses");
-		} else {
-			return true;
 		}
+		
+		return true;
 	}
 
 	/**
@@ -201,9 +201,9 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	public boolean isGreedy() {
 		if (this.options.containsKey("greedy")) {
 			return this.options.getBoolean("greedy");
-		} else {
-			return false;
 		}
+		
+		return false;
 	}
 
 	/**
@@ -271,7 +271,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public ToleranceEnum getTolerance() {
 		String tolerance = this.options.getLiteral("tolerance");
-		return tolerance == null ? null : ToleranceEnum.valueOf(tolerance
+		return tolerance == null ? ToleranceEnum.INTERSECT : ToleranceEnum.valueOf(tolerance
 				.toUpperCase());
 	}
 

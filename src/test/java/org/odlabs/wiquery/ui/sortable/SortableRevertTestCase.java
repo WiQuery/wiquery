@@ -1,4 +1,4 @@
-package org.odlabs.wiquery.ui.draggable;
+package org.odlabs.wiquery.ui.sortable;
 
 import junit.framework.TestCase;
 
@@ -7,39 +7,39 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DraggableIframeFixTestCase extends TestCase{
+public class SortableRevertTestCase extends TestCase{
 	protected static final Logger log = LoggerFactory.getLogger(
-			DraggableIframeFixTestCase.class);
+			SortableRevertTestCase.class);
 
 	@Test
 	public void testGetJavaScriptOption() {
-		DraggableIframeFix iframeFix  = new DraggableIframeFix(true);
+		SortableRevert revert  = new SortableRevert(true);
 		
 		// Boolean param
 		String expectedJavascript = "true";
-		String generatedJavascript = iframeFix.getJavascriptOption().toString();
+		String generatedJavascript = revert.getJavascriptOption().toString();
 		
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);		
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 		
-		// Selector param
-		iframeFix.setSelectorParam("ul");
-		expectedJavascript = "'ul'";
-		generatedJavascript = iframeFix.getJavascriptOption().toString();
+		// Integer param
+		revert.setIntParam(25);
+		expectedJavascript = "25";
+		generatedJavascript = revert.getJavascriptOption().toString();
 		
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);		
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 		
 		// Null param
-		iframeFix.setSelectorParam(null);
+		revert.setIntParam(null);
 		try {
-			generatedJavascript = iframeFix.getJavascriptOption().toString();
+			generatedJavascript = revert.getJavascriptOption().toString();
 			assertTrue(false);
 		} catch (Exception e) {
 			// We have an expected error
-			assertEquals("The DraggableIframeFix must have one not null parameter", e.getMessage());
+			assertEquals("The SortableRevert must have one not null parameter", e.getMessage());
 		}
 	}
 }

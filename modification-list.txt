@@ -38,3 +38,35 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 - Add DatePickerLanguageResourceReferenceTestCase
 
 - Add new methods in JsUtils, and now LiteralOption can use double quote, and LiteralOptionTestCase
+
+- Check, modify and fix the ui components and behaviors:
+	* SortableBehavior:
+		- containment ==> SortableContainment + SortableContainmentTestCase
+		- helper ==> SortableHelper + SortableHelperTestCase
+		- revert ==> SortableRevert + SortableReverTestCase
+		- some getter methods (change name ==> 'get' to 'is')
+		- serialize method
+	* SelectableBehavior
+		- return of the getTolerance method
+	* DroppableBehavior
+		- return of getAccept method, getTolerance
+	* ResizableBehavior
+		- also resize ==> ResizableAlsoResize + ResizableAlsoResizeTestCase
+		- return of getAnimateDuration
+	* DraggableBehavior
+		- return of getHelper method, getDraggableIframeFix, getRevert, getSnap, getSnapMode
+	* Accordion
+		- return of getAnimated method, getHeader, getIcons
+	* Slider
+		- animate ==> SliderAnimate + SliderAnimateTestCase
+		- return of getOrientation, getRange
+	* Dialog
+		- add the closeText option
+		- return of getDialogClass, getPosition
+	* DatePicker
+		- return of getAltField, getAltFormat, getAppendText, getButtonImage, getDayNames, getDayNamesMin, getDayNamesShort, getDuration, getMonthNames, getMonthNamesShort, getNumberOfMonths, getShortYearCutoff, getShowOn, getShowOtherMonths, getYearRange
+	* Tabs
+		- add JQueryCookieOption for the cookie option
+		- add JQueryAjaxOption for the ajaxOptions option
+		- fix setIdPrefix, setPanelTemplate, setSpinner, setTabTemplate
+		- return of getEvent 

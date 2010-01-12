@@ -37,6 +37,7 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.datepicker.DatePickerDuration.DurationEnum;
 import org.odlabs.wiquery.ui.datepicker.DatePickerLanguageResourceReference.DatePickerLanguages;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
@@ -175,7 +176,8 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the altField option value
 	 */
 	public String getAltField() {
-		return this.options.getLiteral("altField");
+		String altField = this.options.getLiteral("altField");
+		return altField == null ? "" : altField;
 	}
 	
 	/**The dateFormat to be used for the altField option. This allows one date 
@@ -214,7 +216,8 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the altFormat option value
 	 */
 	public String getAltFormat() {
-		return this.options.getLiteral("altFormat");
+		String altFormat = this.options.getLiteral("altFormat");
+		return altFormat == null ? "" : altFormat;
 	}
 	
 	/**Set's the text to display after each date field, e.g. to show the required format.
@@ -230,7 +233,8 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the appendText option value
 	 */
 	public String getAppendText() {
-		return this.options.getLiteral("appendText");
+		String appendText = this.options.getLiteral("appendText");
+		return appendText == null ? "" : appendText;
 	}
 	
 	/**Set's URL for the popup button image. If set, button text becomes the alt 
@@ -247,7 +251,8 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the buttonImage option value
 	 */
 	public String getButtonImage() {
-		return this.options.getLiteral("buttonImage");
+		String buttonImage = this.options.getLiteral("buttonImage");
+		return buttonImage == null ? "" : buttonImage;
 	}
 	
 	/**Set to true to place an image after the field to use as the trigger 
@@ -332,7 +337,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (DatePickerYearRange)yearRange;
 		}
 		
-		return null;
+		return new DatePickerYearRange(new Short("-10"), new Short("10"));
 	}
 
 	/**
@@ -567,7 +572,8 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (ArrayOfMonthNames) monthNames;
 		}
 		
-		return null;
+		return new ArrayOfMonthNames("January", "February", "March", "April", 
+				"May", "June", "July", "August", "September", "October", "November", "December");
 	}
 	
 	/**Set's the list of abbreviated month names, for use as requested via the 
@@ -590,7 +596,8 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (ArrayOfMonthNames) monthNamesShort;
 		}
 		
-		return null;
+		return new ArrayOfMonthNames("Jan", "Feb", "Mar", "Apr", 
+				"May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 	}
 	
 	/**When true the formatDate function is applied to the prevText, nextText, 
@@ -646,8 +653,12 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	/**
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
-	public boolean getShowOtherMonths() {
-		return options.getBoolean("showOtherMonths");
+	public boolean isShowOtherMonths() {
+		if(this.options.containsKey("showOtherMonths")){
+			return options.getBoolean("showOtherMonths");
+		}
+		
+		return false;
 	}
 
 	/**
@@ -669,7 +680,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (DatePickerNumberOfMonths) numberOfMonths;
 		}
 		
-		return null;
+		return new DatePickerNumberOfMonths(new Short("1"));
 	}
 	
 	/**Set's the text to display for the previous month link. This attribute is one 
@@ -710,7 +721,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (DatePickerShortYearCutOff) shortYearCutoff;
 		}
 		
-		return null;
+		return new DatePickerShortYearCutOff("+10");
 	}
 	
 	/**Set the name of the animation used to show/hide the datepicker. Use 
@@ -809,7 +820,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public ShowOnEnum getShowOn() {
 		String literal = options.getLiteral("showOn");
-		return literal == null ? null : ShowOnEnum.valueOf(literal.toUpperCase());
+		return literal == null ? ShowOnEnum.FOCUS : ShowOnEnum.valueOf(literal.toUpperCase());
 	}
 	
 	/**If using one of the jQuery UI effects for showAnim, you can provide 
@@ -916,7 +927,8 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (ArrayOfDayNames) dayNames;
 		}
 		
-		return null;
+		return new ArrayOfDayNames("Sunday", "Monday", "Tuesday", "Wednesday", 
+				"Thursday", "Friday", "Saturday");
 	}
 	
 	/**Set's the list of minimised day names, starting from Sunday, for use as 
@@ -940,7 +952,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (ArrayOfDayNames) dayNamesMin;
 		}
 		
-		return null;
+		return new ArrayOfDayNames("Su", "Mo", "Tu", "We", "Th", "Fr", "Sa");
 	}
 	
 	/**Set's the list of abbreviated day names, starting from Sunday, for use as 
@@ -964,7 +976,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (ArrayOfDayNames) dayNamesShort;
 		}
 		
-		return null;
+		return new ArrayOfDayNames("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
 	}
 	
 	/**Set the date to highlight on first opening if the field is blank. Specify 
@@ -1013,7 +1025,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 			return (DatePickerDuration) duration;
 		}
 		
-		return null;
+		return new DatePickerDuration(DurationEnum.NORMAL);
 	}
 
 	/*---- Events section ---*/

@@ -26,7 +26,8 @@ public class JQueryAjaxOption extends Object implements IComplexOption {
 		options = new Options();
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
@@ -49,30 +50,40 @@ public class JQueryAjaxOption extends Object implements IComplexOption {
 	 * any actions while the request is active.
 	 * @param async
 	 */
-	public void setAsync(boolean async) {
+	public JQueryAjaxOption setAsync(boolean async) {
 		this.options.put("async", async);
+		return this;
 	}
 	
 	/**
 	 * @return the async option value
 	 */
 	public boolean isAsync() {
-		return this.options.getBoolean("async");
+		if(this.options.containsKey("async")){
+			return this.options.getBoolean("async");
+		}
+		
+		return false;
 	}
 	
 	/**
 	 * Set to false it will force the pages that you request to not be cached by the browser.
 	 * @param cache
 	 */
-	public void setCache(boolean cache) {
+	public JQueryAjaxOption setCache(boolean cache) {
 		this.options.put("cache", cache);
+		return this;
 	}
 	
 	/**
 	 * @return the cache option value
 	 */
 	public boolean isCache() {
-		return this.options.getBoolean("cache");
+		if(this.options.containsKey("cache")){
+			return this.options.getBoolean("cache");
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -80,8 +91,9 @@ public class JQueryAjaxOption extends Object implements IComplexOption {
 	 * "application/x-www-form-urlencoded", which is fine for most cases.
 	 * @param contentType
 	 */
-	public void setContentType(String contentType) {
+	public JQueryAjaxOption setContentType(String contentType) {
 		this.options.put("contentType", contentType);
+		return this;
 	}
 	
 	/**
@@ -99,8 +111,9 @@ public class JQueryAjaxOption extends Object implements IComplexOption {
 	 * with same key i.e. {foo:["bar1", "bar2"]} becomes '&foo=bar1&foo=bar2'.
 	 * @param contentType
 	 */
-	public void setData(String data) {
+	public JQueryAjaxOption setData(String data) {
 		this.options.put("data", data);
+		return this;
 	}
 	
 	/**
@@ -132,8 +145,9 @@ public class JQueryAjaxOption extends Object implements IComplexOption {
 	 * 
 	 * @param dataType
 	 */
-	public void setDataType(String dataType) {
+	public JQueryAjaxOption setDataType(String dataType) {
 		this.options.put("dataType", dataType);
+		return this;
 	}
 	
 	/**

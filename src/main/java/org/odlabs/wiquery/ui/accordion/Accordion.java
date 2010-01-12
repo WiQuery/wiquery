@@ -119,7 +119,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 			return (AccordionAnimated) animated;
 		}
 		
-		return null;
+		return new AccordionAnimated("slide");
 	}
 
 	/**
@@ -154,7 +154,6 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	public Accordion setTriggerEvent(AccordionTriggerEvent accordionTriggerEvent) {
 		this.options.putLiteral("event", accordionTriggerEvent.name()
 				.toLowerCase());
-		// TODO use of EventLabelOptions instead of AccordionTriggerEvent ?
 		return this;
 	}
 
@@ -213,7 +212,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 			return (AccordionHeader) header;
 		}
 		
-		return null;
+		return new AccordionHeader("> li> :first-child, > :not(li):even");
 	}
 
 	/**
@@ -302,7 +301,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 			return (AccordionIcon) icons;
 		}
 		
-		return null;
+		return new AccordionIcon("ui-icon-triangle-1-e", "ui-icon-triangle-1-s");
 	}
 	
 	/**

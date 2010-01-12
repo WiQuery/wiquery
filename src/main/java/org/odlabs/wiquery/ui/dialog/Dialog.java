@@ -260,7 +260,24 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public WindowPosition getPosition() {
 		String literal = options.getLiteral("position");
-		return WindowPosition.valueOf(literal.toUpperCase());
+		return literal == null ? WindowPosition.CENTER : WindowPosition.valueOf(literal.toUpperCase());
+	}
+	
+	/**
+	 * Sets a the text for the close button
+	 * @return instance of the current component
+	 */
+	public Dialog setCloseText(String closeText) {
+		options.putLiteral("closeText", closeText);
+		return this;
+	}
+
+	/**
+	 * @return the closeText option
+	 */
+	public String getCloseText() {
+		String closeText = options.getLiteral("closeText");
+		return closeText == null ? "close" : closeText;
 	}
 
 	/**
@@ -276,7 +293,8 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * Returns the css class applied to customize this window.
 	 */
 	public String getCssClass() {
-		return options.get("dialogClass");
+		String dialogClass = options.getLiteral("dialogClass");
+		return dialogClass == null ? "*" : dialogClass;
 	}
 
 	/**

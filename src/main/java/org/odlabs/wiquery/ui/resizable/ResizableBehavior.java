@@ -30,10 +30,12 @@ import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
+import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.resizable.ResizableAnimeDuration.DurationEnum;
 
 /**
  * $Id$
@@ -99,19 +101,23 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	/*---- Options section ---*/
 	
 	/**Resize these elements synchronous when resizing.
-	 * @param cssSelector
+	 * @param alsoResize
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAlsoResize(String cssSelector) {
-		this.options.putLiteral("alsoResize", cssSelector);
+	public ResizableBehavior setAlsoResize(ResizableAlsoResize alsoResize) {
+		this.options.put("alsoResize", alsoResize);
 		return this;
 	}
 
 	/**
 	 * @return the alsoResize option
 	 */
-	public String getAlsoResize() {
-		return this.options.getLiteral("alsoResize");
+	public ResizableAlsoResize getAlsoResize() {
+		if(this.options.getComplexOption("alsoResize") instanceof ResizableAlsoResize) {
+			return (ResizableAlsoResize) this.options.getComplexOption("alsoResize");
+		}
+		
+		return null;
 	}
 
 	/**Animates to the final size after resizing.
@@ -153,7 +159,7 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 			return (ResizableAnimeDuration) animeDuration;
 		}
 		
-		return null;
+		return new ResizableAnimeDuration(DurationEnum.SLOW);
 	}
 
 	/**Sets the easing effect for animating.
@@ -369,7 +375,7 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 			return (ResizableHandles) handles;
 		}
 		
-		return null;
+		return new ResizableHandles(new LiteralOption("e,s,se"));
 	}
 	
 	/**Sets the css class that will be added to a proxy element to outline the 
