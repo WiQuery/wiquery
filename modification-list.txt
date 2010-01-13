@@ -70,3 +70,7 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 		- add JQueryAjaxOption for the ajaxOptions option
 		- fix setIdPrefix, setPanelTemplate, setSpinner, setTabTemplate
 		- return of getEvent 
+
+- Move to Wicket 1.4.5
+
+- Add unit test JQueryCookieOptionTestCase & JQueryAjaxOptionTestCase

@@ -93,7 +93,7 @@ public class Options implements Serializable {
 	 */
 	public String get(String key) {
 		Object object = options.get(key);
-		return object.toString();
+		return object == null ? null : object.toString();
 	}
 
 	/**

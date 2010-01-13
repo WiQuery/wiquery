@@ -1,18 +1,11 @@
 package org.odlabs.wiquery.core.options;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
-import org.odlabs.wiquery.core.options.ArrayItemOptions;
-import org.odlabs.wiquery.core.options.ICollectionItemOptions;
-import org.odlabs.wiquery.core.options.IComplexOption;
-import org.odlabs.wiquery.core.options.IntegerItemOptions;
-import org.odlabs.wiquery.core.options.ListItemOptions;
-import org.odlabs.wiquery.core.options.Options;
+import junit.framework.TestCase;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import junit.framework.TestCase;
 
 /**
  * Unit test on the {@link ListItemOptions}
