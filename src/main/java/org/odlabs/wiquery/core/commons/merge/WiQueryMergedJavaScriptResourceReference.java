@@ -59,8 +59,8 @@ public class WiQueryMergedJavaScriptResourceReference extends
 	/** Name of the template for our ResourceReference */
 	private static final String TEMPLATE_NAME = "wiquery-merged.js";
 	
-	/** Encoding format */
-	private static final String ENCODING_FORMAT = "UTF-8";
+	/** Content-type */
+	private static final String CONTENT_TYPE = "text/javascript";
 	
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(WiQueryMergedJavaScriptResourceReference.class);
@@ -122,8 +122,7 @@ public class WiQueryMergedJavaScriptResourceReference extends
 								getClass().getResourceAsStream(
 										"/" + Packages.absolutePath(
 												ref.getScope(),	"") 
-												+ "/" + ref.getName()),
-								ENCODING_FORMAT);
+												+ "/" + ref.getName()));
 					} catch (Exception e) {
 						temp = null;
 						e.printStackTrace();
@@ -143,7 +142,7 @@ public class WiQueryMergedJavaScriptResourceReference extends
 				genJs.put("wiqueryresources", buffer);
 				jstemplate.interpolate(genJs);
 				
-				return new StringResourceStream(jstemplate.asString());
+				return new StringResourceStream(jstemplate.asString(), CONTENT_TYPE);
 			}
 		};
 	}

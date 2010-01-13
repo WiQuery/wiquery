@@ -61,8 +61,8 @@ public class WiQueryMergedStyleSheetResourceReference extends
 	/** Name of the template for our ResourceReference */
 	private static final String TEMPLATE_NAME = "wiquery-merged.css";
 	
-	/** Encoding format */
-	private static final String ENCODING_FORMAT = "UTF-8";
+	/** Content-type */
+	private static final String CONTENT_TYPE = "text/css";
 	
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(WiQueryMergedStyleSheetResourceReference.class);
@@ -129,8 +129,7 @@ public class WiQueryMergedStyleSheetResourceReference extends
 								getClass().getResourceAsStream(
 										"/" + Packages.absolutePath(
 												ref.getScope(),	"") 
-												+ "/" + ref.getName()),
-								ENCODING_FORMAT);
+												+ "/" + ref.getName()));
 						
 						// Replace of url in the css file
 						name = ref.getName();
@@ -168,7 +167,7 @@ public class WiQueryMergedStyleSheetResourceReference extends
 				genCss.put("wiqueryresources", buffer);
 				csstemplate.interpolate(genCss);
 				
-				return new StringResourceStream(csstemplate.asString());
+				return new StringResourceStream(csstemplate.asString(), CONTENT_TYPE);
 			}
 		};
 	}
