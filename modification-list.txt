@@ -74,3 +74,11 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 - Move to Wicket 1.4.5
 
 - Add unit test JQueryCookieOptionTestCase & JQueryAjaxOptionTestCase
+
+- Move to jQuery 1.4
+
+- Change WiqueryEventBehavior to use 'setOuptutMarkupId' on the bind method
+
+- Add SlideToggle effect
+
+- Change ThemeDecorator example and add Effect example

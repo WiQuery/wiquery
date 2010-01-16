@@ -57,11 +57,12 @@ public class CoreJavaScriptResourceReference extends
 	private static String resolveLibrary() {
 		// returns a full version when application isn't in production mode
 		Application application = Application.get();
+		
 		if (Application.DEVELOPMENT.equals(application.getConfigurationType())) {
-			return "jquery/jquery-1.3.2.js";	
-		} else {
-			return "jquery/jquery-1.3.2.min.js";			
+			return "jquery/jquery-1.4.js";	
 		}
+		
+		return "jquery/jquery-1.4.min.js";
 	}
 
 	/**

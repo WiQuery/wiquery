@@ -21,6 +21,7 @@
  */
 package org.odlabs.wiquery.core.events;
 
+import org.apache.wicket.Component;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -54,11 +55,29 @@ public class WiQueryEventBehavior extends WiQueryAbstractBehavior {
 		super();
 		this.event = event;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#bind(org.apache.wicket.Component)
+	 */
+	@Override
+	public void bind(Component component) {
+		super.bind(component);
+		component.setOutputMarkupId(true);
+	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		// nothing to do
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
+	 */
 	public JsStatement statement() {
 		return new JsQuery(this.getComponent()).$().chain(event);
 	}
