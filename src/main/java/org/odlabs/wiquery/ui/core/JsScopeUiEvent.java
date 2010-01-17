@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.core;
 
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 
 
 /**
@@ -64,6 +65,28 @@ public abstract class JsScopeUiEvent extends JsScope {
 				scopeContext.append(javascriptCode);
 			}
 
+		};
+	}
+	
+	/**
+	 * Creates a default {@link JsScopeUiEvent} to execute the given statement.
+	 * 
+	 * @param jsStatement
+	 *            the JavaScript statement to execute with the scope.
+	 * @return the created {@link JsScopeUiEvent}.
+	 */
+	public static JsScopeUiEvent quickScope(final JsStatement jsStatement) {
+		return new JsScopeUiEvent() {
+			private static final long serialVersionUID = 1L;
+
+			/**
+			 * {@inheritDoc}
+			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
+			 */
+			@Override
+			protected void execute(JsScopeContext scopeContext) {
+				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
+			}
 		};
 	}
 }

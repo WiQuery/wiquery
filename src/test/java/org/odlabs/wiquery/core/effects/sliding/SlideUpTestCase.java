@@ -21,44 +21,25 @@
  */
 package org.odlabs.wiquery.core.effects.sliding;
 
-import org.odlabs.wiquery.core.effects.Effect;
-import org.odlabs.wiquery.core.effects.EffectSpeed;
+import junit.framework.TestCase;
+
+import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 
 /**
- * $Id$
- * <p>
- * Defines the slideToggle {@link Effect}. A slide down effect consists to slide 
- * toggle the visibility of all matched elements by adjusting their height
- * </p>
- * 
+ * Test on {@link SlideUp}
  * @author Julien Roche
- * @since 1.1
+ *
  */
-public class SlideToggle extends Effect {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = -5701176979001030721L;
-	
+public class SlideUpTestCase extends TestCase {
 	/**
-	 * Creates this effect
+	 * Test the javascript generation
 	 */
-	public SlideToggle() {
-		super();
+	@Test
+	public void testJavascriptGeneration() {
+		Assert.assertEquals(new JsStatement().$(null, "#aComponent").chain(new SlideUp()).render().toString(), 
+				"$('#aComponent').slideUp();");
 	}
-
-	/**
-	 * Creates this effect with the given {@link EffectSpeed}.
-	 */
-	public SlideToggle(EffectSpeed effectSpeed) {
-		super(effectSpeed);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
-		return "slideToggle";
-	}
-
 }

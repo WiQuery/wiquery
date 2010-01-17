@@ -86,6 +86,26 @@ public abstract class JsScope implements Serializable {
 
 		};
 	}
+	
+	/**
+	 * Creates a default {@link JsScope} to execute the given statement.
+	 * 
+	 * @param jsStatement
+	 *            the JavaScript statement to execute with the scope.
+	 * @return the created {@link JsScope}.
+	 */
+	public static JsScope quickScope(final JsStatement jsStatement) {
+		return new JsScope() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void execute(JsScopeContext scopeContext) {
+				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
+			}
+
+		};
+	}
 
 	/**
 	 * Constructs a new {@link JsScope} instance with the given args. This is

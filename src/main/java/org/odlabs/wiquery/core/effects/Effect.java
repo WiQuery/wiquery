@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.odlabs.wiquery.core.javascript.ChainableStatement;
 import org.odlabs.wiquery.core.javascript.JsScope;
+import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
  * $Id$
@@ -51,11 +52,13 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 6498661896790365888L;
 	
+	// Properties
 	/**
 	 * The list of parameters to apply to the effect.
 	 */
 	private List<CharSequence> parameters;
 
+	/** Callback on the effect */
 	private JsScope callback;
 
 	/**
@@ -78,24 +81,42 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	 */
 	public Effect(EffectSpeed effectSpeed, CharSequence... parameters) {
 		this(parameters);
-		this.parameters
-				.add(0, "'" + effectSpeed.getJavaScriptStatement() + "'");
+		this.parameters.add(0, JsUtils.quotes(effectSpeed.getJavaScriptStatement()));
+	}
+	
+	/**
+	 * Creates a new effect.
+	 * 
+	 * @param effectSpeed
+	 *            the speed to display the effect.
+	 * @param callback
+	 * 			  Callback on the effect
+	 * @param parameters
+	 *            the list of parameters to apply to the effect.
+	 */
+	public Effect(EffectSpeed effectSpeed, JsScope callback, CharSequence... parameters) {
+		this(parameters);
+		this.parameters.add(0, JsUtils.quotes(effectSpeed.getJavaScriptStatement()));
+		this.callback = callback;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#statementArgs()
 	 */
 	public CharSequence[] statementArgs() {
 		if (this.effectCallback() != null) {
 			this.parameters.add(this.effectCallback().render());
 		}
+		
 		CharSequence[] args = new CharSequence[this.parameters.size()];
 		int count = 0;
+		
 		for (CharSequence charSequence : this.parameters) {
 			args[count] = charSequence;
+			count++;
 		}
+		
 		return args;
 	}
 
@@ -114,7 +135,7 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	 * @param callback
 	 *            A {@link JsScope} defining the callback
 	 */
-	void setCallback(JsScope callback) {
+	public void setCallback(JsScope callback) {
 		this.callback = callback;
 	}
 

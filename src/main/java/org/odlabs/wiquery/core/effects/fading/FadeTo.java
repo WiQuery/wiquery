@@ -35,8 +35,16 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
  * @since 0.7
  */
 public class FadeTo extends Effect {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 5145053114082342165L;
+	
+	/**
+	 * Creates this effect
+	 */
+	public FadeTo() {
+		super();
+	}
 
 	/**
 	 * Constructs a new fadeto effect executing at the given {@link EffectSpeed}

@@ -23,10 +23,12 @@ package org.odlabs.wiquery.core.javascript;
 
 import junit.framework.TestCase;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.core.javascript.helper.CssHelper;
 import org.odlabs.wiquery.core.options.Options;
+import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -78,7 +80,12 @@ public class JsStatementTestCase extends TestCase {
 	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsStatement#$(org.apache.wicket.Component)}.
 	 */
 	public void test$Component() {
-		new WicketTester();
+		new WicketTester(new WiQueryWebApplication() {
+			@Override
+			public Class<? extends Page> getHomePage() {
+				return null;
+			}
+		});
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		assertAndLog("$('#anId');", jsStatement.$(component).render());
@@ -91,7 +98,12 @@ public class JsStatementTestCase extends TestCase {
 		assertAndLog("$('span');", jsStatement.$(null, "span").render());
 		jsStatement = new JsStatement();
 		
-		new WicketTester();
+		new WicketTester(new WiQueryWebApplication() {
+			@Override
+			public Class<? extends Page> getHomePage() {
+				return null;
+			}
+		});
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		assertAndLog("$('#anId span');", jsStatement.$(component, "span").render());

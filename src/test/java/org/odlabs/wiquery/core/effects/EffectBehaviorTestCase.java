@@ -19,80 +19,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.core.javascript;
+package org.odlabs.wiquery.core.effects;
 
 import junit.framework.TestCase;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.util.tester.WicketTester;
+import org.odlabs.wiquery.core.effects.basic.Hide;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.Test;
+
 
 /**
- * Test {@link JsQuery}
+ * Test on {@link EffectBehavior}
  * @author Julien Roche
  *
  */
-public class JsQueryTestCase extends TestCase {
-	// Constants
-	/** Logger */
-	protected static final Logger log = LoggerFactory.getLogger(
-			JsQueryTestCase.class);
-	
+public class EffectBehaviorTestCase extends TestCase {
 	// Properties
-	private JsQuery jsQuery;
+	private Component component;
+	private EffectBehavior effectBehavior;
 	
 	/**
-	 * Log and assert javascript
-	 * @param expectedJavascript
-	 * @param generatedJavascript
+	 * @throws java.lang.Exception
 	 */
-	private void assertAndLog(CharSequence expectedJavascript, 
-			CharSequence generatedJavascript) {
-		log.info(expectedJavascript.toString());
-		log.info(generatedJavascript.toString());
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void setUp() throws Exception {
 		new WicketTester(new WiQueryWebApplication() {
 			@Override
 			public Class<? extends Page> getHomePage() {
 				return null;
 			}
 		});
-		WebMarkupContainer component = new WebMarkupContainer("anId");
-		component.setMarkupId("anId");
-		jsQuery = new JsQuery(component);
+		
+		effectBehavior = new EffectBehavior(new Hide());
+		
+		component = new WebMarkupContainer("aComponent");
+		component.setMarkupId(component.getId());
+		component.setOutputMarkupId(true);
+		component.add(effectBehavior);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsQuery#$()}.
+	 * Test method for {@link org.odlabs.wiquery.core.effects.EffectBehavior#statement()}.
 	 */
-	public void test$() {
-		assertAndLog("$('#anId');", jsQuery.$().render());
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsQuery#$(java.lang.String)}.
-	 */
-	public void test$String() {
-		assertAndLog("$('#anId span');", jsQuery.$("span").render());
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsQuery#document()}.
-	 */
-	public void testDocument() {
-		assertAndLog("$(document);", jsQuery.document().render());
+	@Test
+	public void testStatement() {
+		Assert.assertEquals(effectBehavior.statement().render().toString(), "$('#aComponent').hide();");
 	}
 }

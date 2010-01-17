@@ -35,8 +35,16 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
  * @since 0.5
  */
 public class FadeOut extends Effect {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 448124792230851531L;
+	
+	/**
+	 * Creates this effect
+	 */
+	public FadeOut() {
+		super();
+	}
 
 	/**
 	 * Creates this effect with the given {@link EffectSpeed}.

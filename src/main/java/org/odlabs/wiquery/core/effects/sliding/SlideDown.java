@@ -35,8 +35,16 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
  * @since 0.5
  */
 public class SlideDown extends Effect {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = -1708160228524287367L;
+	
+	/**
+	 * Creates this effect
+	 */
+	public SlideDown() {
+		super();
+	}
 
 	/**
 	 * Creates this effect with the given {@link EffectSpeed}.

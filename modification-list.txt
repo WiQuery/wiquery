@@ -82,3 +82,13 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 - Add SlideToggle effect
 
 - Change ThemeDecorator example and add Effect example
+
+- issue 36 : Change JQueryUICoreRenderingListener to insert the static method getDefaultTheme
+
+- Add a default constructor in sliding and fading effect
+
+- Add in JsScope & JsScopeUiEvent quickScope(JsStatement)
+
+- Fix a bug on Effect#statementArgs (count was never incremented)
+
+- Add unit test for the effects

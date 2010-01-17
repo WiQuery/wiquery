@@ -39,6 +39,29 @@ public class JsScopeTestCase extends TestCase {
 		
 		Assert.assertEquals(generatedJavascript, expectedJavascript);
 	}
+	
+	/**
+	 * Check the quickScope function
+	 */
+	@Test
+	public void testQuickScopeJsStatement() {
+		String expectedJavascript = "function() {\n\talert('test');\n}";
+		JsScope quickScope = JsScope.quickScope(new JsStatement().append("alert('test')"));
+		String generatedJavascript = quickScope.render().toString();
+		
+		log.info(expectedJavascript);
+		log.info(generatedJavascript);
+		
+		Assert.assertEquals(generatedJavascript, expectedJavascript);
+		
+		// Second generation
+		generatedJavascript = quickScope.render().toString();
+		
+		log.info(expectedJavascript);
+		log.info(generatedJavascript);
+		
+		Assert.assertEquals(generatedJavascript, expectedJavascript);
+	}
 
 	/**
 	 * Check the syntax

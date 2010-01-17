@@ -1,7 +1,11 @@
 package org.odlabs.wiquery.core.options;
 
+import java.util.Arrays;
+import java.util.List;
+
 import junit.framework.TestCase;
 
+import org.odlabs.wiquery.core.javascript.JsScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -75,7 +79,7 @@ public class OptionsTestCase extends TestCase{
 		Assert.assertEquals(1, options.getInt("keyInt"));
 	}
 	
-	/*@Test
+	@Test
 	public void testGetJavaScriptOptions() {
 		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
@@ -97,15 +101,25 @@ public class OptionsTestCase extends TestCase{
 		options.put("keyScope", jsScope);
 		options.put("keyComplexOption", impl);
 		
-		String expectedJavascript = "{keyString: string, keyBoolean: true, " +
-				"keyInt: 1, keyComplexOption: alert('complex option');, keyFloat: 1.0, " +
-				"keyScope: function() {\n\talert('test');\n}," +
-				" keyOptions: [5,23], keyLiteral: 'literal'}";
 		String generatedJavascript = options.getJavaScriptOptions().toString();
-		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-	}*/
+		
+		Assert.assertTrue(generatedJavascript.startsWith("{"));
+		Assert.assertTrue(generatedJavascript.endsWith("}"));
+		
+		generatedJavascript = generatedJavascript.substring(1, generatedJavascript.length() - 1);
+		List<String> opts = Arrays.asList(generatedJavascript.split(", "));
+		
+		Assert.assertEquals(opts.size(), 8);
+		Assert.assertTrue(opts.contains("keyString: string"));
+		Assert.assertTrue(opts.contains("keyBoolean: true"));
+		Assert.assertTrue(opts.contains("keyInt: 1"));
+		Assert.assertTrue(opts.contains("keyComplexOption: alert('complex option');"));
+		Assert.assertTrue(opts.contains("keyFloat: 1.0"));
+		Assert.assertTrue(opts.contains("keyOptions: [5,23]"));
+		Assert.assertTrue(opts.contains("keyLiteral: 'literal'"));
+		Assert.assertTrue(opts.contains("keyScope: function() {\n\talert('test');\n}"));
+	}
 	
 	@Test
 	public void testGetLiteral() {
