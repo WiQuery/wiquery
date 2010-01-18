@@ -92,3 +92,33 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 - Fix a bug on Effect#statementArgs (count was never incremented)
 
 - Add unit test for the effects
+
+- Ascendant compatibility:
+	* SortableBehavior
+		- revert
+		- helper
+		- containment
+		- dropOnEmpty
+		- forceHelperSize
+		- forcePlaceholderSize
+	* SelectableBehavior
+		- none
+	* DroppableBehavior
+		- none
+	* ResizableBehavior
+		- alsoResize
+	* DraggableBehavior
+		- CursorAtEnum
+		- cursorAt
+	* Accordion
+		- none
+	* Slider
+		- none
+	* Dialog
+		- none
+	* DatePicker
+		- none
+	* Tabs
+		- none
+		
+- TODO windowsposition

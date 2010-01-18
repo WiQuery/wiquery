@@ -101,6 +101,26 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	/*---- Options section ---*/
 	
 	/**Resize these elements synchronous when resizing.
+	 * @param cssSelector
+	 * @return instance of the current behavior
+	 * @deprecated will be removed in 1.2
+	 */
+	@Deprecated
+	public ResizableBehavior setAlsoResize(String cssSelector) {
+		this.options.putLiteral("alsoResize", cssSelector);
+		return this;
+	}
+
+	/**
+	 * @return the alsoResize option
+	 * @deprecated will be changed in 1.2 to return a {@link ResizableAlsoResize}
+	 */
+	@Deprecated
+	public String getAlsoResize() {
+		return this.options.getLiteral("alsoResize");
+	}
+	
+	/**Resize these elements synchronous when resizing.
 	 * @param alsoResize
 	 * @return instance of the current behavior
 	 */
@@ -112,7 +132,7 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the alsoResize option
 	 */
-	public ResizableAlsoResize getAlsoResize() {
+	public ResizableAlsoResize getAlsoResizeComplex() {
 		if(this.options.getComplexOption("alsoResize") instanceof ResizableAlsoResize) {
 			return (ResizableAlsoResize) this.options.getComplexOption("alsoResize");
 		}

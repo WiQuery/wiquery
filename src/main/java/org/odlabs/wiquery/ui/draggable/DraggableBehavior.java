@@ -63,9 +63,22 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public enum CursorAtEnum {
 		TOP,
+		/** @deprecated will be removed in 1.2 */
+		@Deprecated
+		TOP_LEFT,
+		/** @deprecated will be removed in 1.2 */
+		@Deprecated
+		TOP_RIGHT,
 		LEFT,
 		RIGHT,
-		BOTTOM;
+		BOTTOM,
+		/** @deprecated will be removed in 1.2 */
+		@Deprecated
+		BOTTOM_LEFT,
+		/** @deprecated will be removed in 1.2 */
+		@Deprecated
+		BOTTOM_RIGHT;
+		
 		/**
 		 * {@inheritDoc}
 		 * @see java.lang.Enum#toString()
@@ -285,6 +298,20 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * two keys: { top, left, right, bottom }.
 	 * @param cusorAt
 	 * @return instance of the current behavior
+	 * @deprecated will be removed in 1.2
+	 */
+	@Deprecated
+	public DraggableBehavior setCursorAt(CursorAtEnum cusorAt) {
+		this.options.putLiteral("cusorAt", cusorAt.toString().toLowerCase()
+				.replace('_', ' '));
+		return this;
+	}
+	
+	/**Moves the dragging helper so the cursor always appears to drag from the same 
+	 * position. Coordinates can be given as a hash using a combination of one or 
+	 * two keys: { top, left, right, bottom }.
+	 * @param cusorAt
+	 * @return instance of the current behavior
 	 */
 	public DraggableBehavior setCursorAt(ListItemOptions<DraggableCursorAt> cusorAt) {
 		this.options.put("cusorAt", cusorAt);
@@ -293,9 +320,20 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/**
 	 * @return the cursorAt option value
+	 * @deprecated will be changed in 1.2 to return a ListItemOptions<DraggableCursorAt> 
+	 */
+	@Deprecated
+	public CursorAtEnum getCursorAt() {
+		String cursorAt = this.options.getLiteral("cursorAt");
+		return cursorAt == null ? null : CursorAtEnum.valueOf(cursorAt.toUpperCase()
+				.replace(' ', '_'));
+	}
+	
+	/**
+	 * @return the cursorAt option value
 	 */
 	@SuppressWarnings("unchecked")
-	public ListItemOptions<DraggableCursorAt> getCursorAt() {
+	public ListItemOptions<DraggableCursorAt> getCursorAtComplex() {
 		if(this.options.containsKey("cursorAt")){
 			return (ListItemOptions<DraggableCursorAt>) this.options.getListItemOptions("cursorAt");
 		}

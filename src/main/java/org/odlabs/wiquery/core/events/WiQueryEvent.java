@@ -1,7 +1,8 @@
 package org.odlabs.wiquery.core.events;
 
 /**
- * @deprecated $Id$
+ * @deprecated will be removed in 1.2
+ * $Id$
  *             <p>
  *             TODO insert comments here
  *             </p>

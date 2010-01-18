@@ -28,6 +28,7 @@ import java.util.Set;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.core.util.MarkupIdVisitor;
@@ -126,6 +127,15 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 		super();
 		sortableBehavior = new InnerSortableBehavior();
 		this.callbacks = new HashSet<SortedEvent>(Arrays.asList(callbacks));
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 * Override this method for additional resources
+	 */
+	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		// To override
 	}
 
 	/**
@@ -309,11 +319,20 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 		// Constants
 		/** Constant of serialization */
 		private static final long serialVersionUID = 5587258236214715234L;
+		
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+		 */
+		@Override
+		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+			super.contribute(wiQueryResourceManager);
+			SortableAjaxBehavior.this.contribute(wiQueryResourceManager);
+		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#getOptions()
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#getOptions()
 		 */
 		@Override
 		protected Options getOptions() {
@@ -321,7 +340,8 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 					"You can't call this method into the DroppableAjaxBehavior");
 		}
 
-		/* (non-Javadoc)
+		/**
+		 * {@inheritDoc}
 		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setReceiveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
 		 */
 		@Override
@@ -334,7 +354,8 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 			return super.setReceiveEvent(receive);
 		}
 		
-		/* (non-Javadoc)
+		/**
+		 * {@inheritDoc}
 		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setRemoveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
 		 */
 		@Override
@@ -347,7 +368,8 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 			return super.setRemoveEvent(remove);
 		}
 
-		/* (non-Javadoc)
+		/**
+		 * {@inheritDoc}
 		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setUpdateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
 		 */
 		@Override

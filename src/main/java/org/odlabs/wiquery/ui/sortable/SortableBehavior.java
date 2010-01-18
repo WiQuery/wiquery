@@ -146,23 +146,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		 options = new Options();
 	}
 
-	/**Method to cancel
-	 * This will return the element back to its pre-init state.
-	 * @return the associated JsStatement
-	 */
-	public JsStatement cancel() {
-		return new JsQuery(getComponent()).$().chain("sortable", "'cancel'");
-	}
-	
-	/*---- Options section ---*/
-	
-	/**Method to cancel within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void cancel(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.cancel().render().toString());
-	}
-	
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
@@ -174,48 +157,16 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 				.addJavaScriptResource(SortableJavaScriptResourceReference.get());
 	}
 	
-	/**Method to destroy
-	 * This will return the element back to its pre-init state.
-	 * @return the associated JsStatement
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
-	public JsStatement destroy() {
-		return new JsQuery(getComponent()).$().chain("sortable", "'destroy'");
+	@Override
+	public JsStatement statement() {
+		return new JsQuery(this.getComponent()).$().chain("sortable",
+				this.options.getJavaScriptOptions());
 	}
 	
-	/**Method to destroy within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
-	}
-	
-	/**Method to disable
-	 * @return the associated JsStatement
-	 */
-	public JsStatement disable() {
-		return new JsQuery(getComponent()).$().chain("sortable", "'disable'");
-	}
-	
-	/**Method to disable within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
-	}
-	
-	/**Method to enable
-	 * @return the associated JsStatement
-	 */
-	public JsStatement enable() {
-		return new JsQuery(getComponent()).$().chain("sortable", "'enable'");
-	}
-	
-	/**Method to enable within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
-	}
+	/*---- Options section ---*/
 	
 	/**
 	 * @return the appendTo option value
@@ -250,8 +201,17 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	
 	/**
 	 * @return the containment option value
+	 * @deprecated will be changed in 1.2 to return a {@link SortableContainment}
 	 */
-	public SortableContainment getContainment() {
+	@Deprecated
+	public String getContainment() {
+		return this.options.getLiteral("containment");
+	}
+	
+	/**
+	 * @return the containment option value
+	 */
+	public SortableContainment getContainmentComplex() {
 		if(this.options.getComplexOption("containment") instanceof SortableContainment){
 			return (SortableContainment) this.options.getComplexOption("containment");
 		}
@@ -299,6 +259,33 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	}
 	
 	/**
+	 * @return the dropOnEmpty option value
+	 * @deprecated will be removed in 1.2
+	 */
+	@Deprecated
+	public boolean getDropOnEmpty() {
+		return isDropOnEmpty();
+	}
+	
+	/**
+	 * @return the forceHelperSize option value
+	 * @deprecated will be removed in 1.2
+	 */
+	@Deprecated
+	public boolean getForceHelperSize() {
+		return isForceHelperSize();
+	}
+	
+	/**
+	 * @return the forcePlaceholderSize option value
+	 * @deprecated will be removed in 1.2
+	 */
+	@Deprecated
+	public boolean getForcePlaceholderSize() {
+		return isForcePlaceholderSize();
+	}
+	
+	/**
 	 * @return the grid option value
 	 */
 	public ICollectionItemOptions getGrid() {
@@ -314,8 +301,17 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	
 	/**
 	 * @return the helper option value
+	 * @deprecated will be changed in 1.2 to return a {@link SortableHelper}
 	 */
-	public SortableHelper getHelper() {
+	@Deprecated
+	public String getHelper() {
+		return this.options.getLiteral("helper");
+	}
+	
+	/**
+	 * @return the helper option value
+	 */
+	public SortableHelper getHelperComplex() {
 		if(this.options.getComplexOption("helper") instanceof SortableHelper){
 			return (SortableHelper) this.options.getComplexOption("helper");
 		}
@@ -443,6 +439,19 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	}
 	
 	/**
+	 * @return the revert option value
+	 * @deprecated will be changed in 1.2 to return a {@link SortableRevert}
+	 */
+	@Deprecated
+	public boolean isRevert() {
+		if(this.options.containsKey("revert")){
+			return this.options.getBoolean("revert");
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * @return the scroll option value
 	 */
 	public boolean isScroll() {
@@ -451,58 +460,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		}
 		
 		return true;
-	}
-	
-	/**Method to refresh
-	 * @return the associated JsStatement
-	 */
-	public JsStatement refresh() {
-		return new JsQuery(getComponent()).$().chain("sortable", "'refresh'");
-	}
-	
-	/**Method to refresh within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void refresh(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.refresh().render().toString());
-	}
-	
-	/**Method to refresh positions
-	 * @return the associated JsStatement
-	 */
-	public JsStatement refreshPositions() {
-		return new JsQuery(getComponent()).$().chain("sortable", "'refreshPositions'");
-	}
-	
-	/**Method to refresh positions within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void refreshPositions(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.refreshPositions().render().toString());
-	}
-	
-	/**Method to serialize (in default mode)
-	 * @return the associated JsStatement
-	 */
-	public JsStatement serialize() {
-		return new JsQuery(getComponent()).$().chain("sortable", "'serialize'");
-	}
-	
-	/**Method to serialize (in default mode) within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void serialize(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.serialize().render().toString());
-	}
-	
-	/**Set's the callback when using connected lists, every connected list on 
-	 * drag start receives it.
-	 * @param activate
-	 * @return instance of the current behavior
-	 */
-	public SortableBehavior setActivateEvent(JsScopeUiEvent activate) {
-		this.options.put("activate", activate);
-		return this;
 	}
 	
 	/**Defines where the helper that moves with the mouse is being appended to 
@@ -525,31 +482,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 	
-	/**Set's the callback when sorting stops, but when the placeholder/helper is 
-	 * still available.
-	 * @param beforeStop
-	 * @return instance of the current behavior
-	 */
-	public SortableBehavior setBeforeStopEvent(JsScopeUiEvent beforeStop) {
-		this.options.put("beforeStop", beforeStop);
-		return this;
-	}
-	
 	/** Set's the prevent selecting if you start on elements matching the selector
 	 * @param cancel Selector (default : ':input,option')
 	 * @return instance of the current behavior
 	 */
 	public SortableBehavior setCancel(String cancel) {
 		this.options.putLiteral("cancel", cancel);
-		return this;
-	}
-	
-	/**Set's the callback during sorting, but only when the DOM position has changed.
-	 * @param change
-	 * @return instance of the current behavior
-	 */
-	public SortableBehavior setChangeEvent(JsScopeUiEvent change) {
-		this.options.put("change", change);
 		return this;
 	}
 	
@@ -561,6 +499,18 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public SortableBehavior setConnectWith(String connectWith) {
 		this.options.putLiteral("connectWith", connectWith);
+		return this;
+	}
+	
+	/**Constrains dragging to within the bounds of the specified element - 
+	 * can be a DOM element, 'parent', 'document', 'window', or a jQuery selector.
+	 * @param containment
+	 * @return instance of the current behavior
+	 * @deprecated will be removed in 1.2
+	 */
+	@Deprecated
+	public SortableBehavior setContainment(String containment) {
+		this.options.putLiteral("containment", containment);
 		return this;
 	}
 	
@@ -595,16 +545,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 	
-	/**Set's the callback when sorting was stopped, is propagated to all possible
-	 * connected lists.
-	 * @param deactivate
-	 * @return instance of the current behavior
-	 */
-	public SortableBehavior setDeactivateEvent(JsScopeUiEvent deactivate) {
-		this.options.put("deactivate", deactivate);
-		return this;
-	}
-	
 	/** Set's the delay (in milliseconds) to define when the sorting should start
 	 * @param delay
 	 * @return instance of the current behavior
@@ -622,8 +562,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		this.options.put("distance", distance);
 		return this;
 	}
-	
-	/*---- Events section ---*/
 	
 	/**If empty allows for an item to be dropped from a linked selectable.
 	 * @param dropOnEmpty
@@ -681,6 +619,20 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * values: 'original', 'clone'
 	 * @param helper
 	 * @return instance of the current behavior
+	 * @deprecated will be removed in 1.2
+	 */
+	@Deprecated
+	public SortableBehavior setHelper(String helper) {
+		this.options.putLiteral("helper", helper);
+		return this;
+	}
+	
+	/**Allows for a helper element to be used for dragging display. The supplied
+	 * function receives the event and the element being sorted, and should 
+	 * return a DOMElement to be used as a custom proxy helper. Possible 
+	 * values: 'original', 'clone'
+	 * @param helper
+	 * @return instance of the current behavior
 	 */
 	public SortableBehavior setHelper(SortableHelper helper) {
 		this.options.put("helper", helper);
@@ -705,24 +657,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 	
-	/**Set's the callback when a sortable item is moved away from a connected list.
-	 * @param out
-	 * @return instance of the current behavior
-	 */
-	public SortableBehavior setOutEvent(JsScopeUiEvent out) {
-		this.options.put("out", out);
-		return this;
-	}
-	
-	/**Set's the callback when a sortable item is moved into a connected list.
-	 * @param over
-	 * @return instance of the current behavior
-	 */
-	public SortableBehavior setOverEvent(JsScopeUiEvent over) {
-		this.options.put("over", over);
-		return this;
-	}
-	
 	/**Set's the class that gets applied to the otherwise white space.
 	 * @param placeholder
 	 * @return instance of the current behavior
@@ -732,28 +666,18 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 	
-	/**Set's the callback when a connected sortable list has received an item 
-	 * from another list.
-	 * @param receive
+	/**If set to true, the item will be reverted to its new DOM position with 
+	 * a smooth animation.
+	 * @param revert
 	 * @return instance of the current behavior
+	 * @deprecated will be removed in 1.2
 	 */
-	public SortableBehavior setReceiveEvent(JsScopeUiEvent receive) {
-		this.options.put("receive", receive);
+	@Deprecated
+	public SortableBehavior setRevert(boolean revert) {
+		this.options.put("revert", revert);
 		return this;
 	}
 	
-	/*---- Methods section ----*/
-	
-	/**Set's the callback when a sortable item has been dragged out from the 
-	 * list and into another.
-	 * @param remove
-	 * @return instance of the current behavior
-	 */
-	public SortableBehavior setRemoveEvent(JsScopeUiEvent remove) {
-		this.options.put("remove", remove);
-		return this;
-	}
-
 	/**If set to true, the item will be reverted to its new DOM position with 
 	 * a smooth animation.
 	 * @param revert
@@ -792,6 +716,106 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 
+	/** Set's the tolerance
+	 * <ul>
+	 * 	<li><b>intersect</b>: draggable overlaps the droppable at least 50%</li>
+	 * 	<li><b>pointer</b>: mouse pointer overlaps the droppable</li>
+	 * </ul>
+	 * @param tolerance
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setTolerance(ToleranceEnum tolerance) {
+		this.options.putLiteral("tolerance", tolerance.toString().toLowerCase());
+		return this;
+	}
+
+	/**Set's Z-index for element/helper while being sorted.
+	 * @param zIndex
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setZIndex(int zIndex) {
+		this.options.put("zIndex", zIndex);
+		return this;
+	}
+	
+	/*---- Events section ---*/
+	/**Set's the callback when using connected lists, every connected list on 
+	 * drag start receives it.
+	 * @param activate
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setActivateEvent(JsScopeUiEvent activate) {
+		this.options.put("activate", activate);
+		return this;
+	}
+	
+	/**Set's the callback when sorting stops, but when the placeholder/helper is 
+	 * still available.
+	 * @param beforeStop
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setBeforeStopEvent(JsScopeUiEvent beforeStop) {
+		this.options.put("beforeStop", beforeStop);
+		return this;
+	}
+	
+	/**Set's the callback during sorting, but only when the DOM position has changed.
+	 * @param change
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setChangeEvent(JsScopeUiEvent change) {
+		this.options.put("change", change);
+		return this;
+	}
+	
+	/**Set's the callback when sorting was stopped, is propagated to all possible
+	 * connected lists.
+	 * @param deactivate
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setDeactivateEvent(JsScopeUiEvent deactivate) {
+		this.options.put("deactivate", deactivate);
+		return this;
+	}
+	
+	/**Set's the callback when a sortable item is moved away from a connected list.
+	 * @param out
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setOutEvent(JsScopeUiEvent out) {
+		this.options.put("out", out);
+		return this;
+	}
+	
+	/**Set's the callback when a sortable item is moved into a connected list.
+	 * @param over
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setOverEvent(JsScopeUiEvent over) {
+		this.options.put("over", over);
+		return this;
+	}
+	
+	/**Set's the callback when a connected sortable list has received an item 
+	 * from another list.
+	 * @param receive
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setReceiveEvent(JsScopeUiEvent receive) {
+		this.options.put("receive", receive);
+		return this;
+	}
+	
+	/**Set's the callback when a sortable item has been dragged out from the 
+	 * list and into another.
+	 * @param remove
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setRemoveEvent(JsScopeUiEvent remove) {
+		this.options.put("remove", remove);
+		return this;
+	}
+	
 	/**Set's the callback during sorting
 	 * @param sort
 	 * @return instance of the current behavior
@@ -819,19 +843,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 	
-	/** Set's the tolerance
-	 * <ul>
-	 * 	<li><b>intersect</b>: draggable overlaps the droppable at least 50%</li>
-	 * 	<li><b>pointer</b>: mouse pointer overlaps the droppable</li>
-	 * </ul>
-	 * @param tolerance
-	 * @return instance of the current behavior
-	 */
-	public SortableBehavior setTolerance(ToleranceEnum tolerance) {
-		this.options.putLiteral("tolerance", tolerance.toString().toLowerCase());
-		return this;
-	}
-
 	/**Set's the callback when the user stopped sorting and the DOM position has changed.
 	 * @param update
 	 * @return instance of the current behavior
@@ -841,22 +852,105 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 	
-	/**Set's Z-index for element/helper while being sorted.
-	 * @param zIndex
-	 * @return instance of the current behavior
+	/*---- Methods section ----*/
+	/**Method to cancel
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
 	 */
-	public SortableBehavior setZIndex(int zIndex) {
-		this.options.put("zIndex", zIndex);
-		return this;
+	public JsStatement cancel() {
+		return new JsQuery(getComponent()).$().chain("sortable", "'cancel'");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
+   /**Method to cancel within the ajax request
+	 * @param ajaxRequestTarget
 	 */
-	@Override
-	public JsStatement statement() {
-		return new JsQuery(this.getComponent()).$().chain("sortable",
-				this.options.getJavaScriptOptions());
+	public void cancel(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.cancel().render().toString());
+	}
+	
+	/**Method to destroy
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return new JsQuery(getComponent()).$().chain("sortable", "'destroy'");
+	}
+	
+	/**Method to destroy within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+	}
+	
+	/**Method to disable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return new JsQuery(getComponent()).$().chain("sortable", "'disable'");
+	}
+	
+	/**Method to disable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+	}
+	
+	/**Method to enable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return new JsQuery(getComponent()).$().chain("sortable", "'enable'");
+	}
+	
+	/**Method to enable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to refresh
+	 * @return the associated JsStatement
+	 */
+	public JsStatement refresh() {
+		return new JsQuery(getComponent()).$().chain("sortable", "'refresh'");
+	}
+	
+	/**Method to refresh within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void refresh(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.refresh().render().toString());
+	}
+	
+	/**Method to refresh positions
+	 * @return the associated JsStatement
+	 */
+	public JsStatement refreshPositions() {
+		return new JsQuery(getComponent()).$().chain("sortable", "'refreshPositions'");
+	}
+	
+	/**Method to refresh positions within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void refreshPositions(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.refreshPositions().render().toString());
+	}
+	
+	/**Method to serialize (in default mode)
+	 * @return the associated JsStatement
+	 */
+	public JsStatement serialize() {
+		return new JsQuery(getComponent()).$().chain("sortable", "'serialize'");
+	}
+	
+	/**Method to serialize (in default mode) within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void serialize(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.serialize().render().toString());
 	}
 	
 	/**Method to serializes the sortable's item id's into an array of string

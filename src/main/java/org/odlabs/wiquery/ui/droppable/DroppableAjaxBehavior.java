@@ -24,6 +24,7 @@ package org.odlabs.wiquery.ui.droppable;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.core.util.MarkupIdVisitor;
@@ -75,6 +76,15 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	public DroppableAjaxBehavior() {
 		super();
 		droppableBehavior = new InnerDroppableBehavior();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 * Override this method for additional resources
+	 */
+	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		// To override
 	}
 
 	/**
@@ -159,10 +169,19 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		// Constants
 		/** Constant of serialization */
 		private static final long serialVersionUID = 5587258236214715234L;
+		
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+		 */
+		@Override
+		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+			super.contribute(wiQueryResourceManager);
+			DroppableAjaxBehavior.this.contribute(wiQueryResourceManager);
+		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
+		/**
+		 * {@inheritDoc}
 		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#getOptions()
 		 */
 		@Override
@@ -171,12 +190,9 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					"You can't call this method into the DroppableAjaxBehavior");
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.odlabs.wiquery.ui.droppable.DroppableBehavior#setDropEvent(org
-		 * .odlabs.wiquery.ui.core.JsScopeUiEvent)
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#setDropEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
 		 */
 		@Override
 		public DroppableBehavior setDropEvent(JsScopeUiEvent drop) {

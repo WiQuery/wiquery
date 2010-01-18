@@ -24,6 +24,7 @@ package org.odlabs.wiquery.ui.resizable;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
@@ -77,6 +78,15 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	public ResizableAjaxBehavior() {
 		super();
 		resizableBehavior = new InnerDroppableBehavior();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 * Override this method for additional resources
+	 */
+	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		// To override
 	}
 
 	/**
@@ -167,11 +177,20 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		// Constants
 		/** Constant of serialization */
 		private static final long serialVersionUID = 5587258236214715234L;
+		
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+		 */
+		@Override
+		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+			super.contribute(wiQueryResourceManager);
+			ResizableAjaxBehavior.this.contribute(wiQueryResourceManager);
+		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#getOptions()
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#getOptions()
 		 */
 		@Override
 		protected Options getOptions() {
@@ -179,7 +198,8 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					"You can't call this method into the ResizableAjaxBehavior");
 		}
 
-		/* (non-Javadoc)
+		/**
+		 * {@inheritDoc}
 		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
 		 */
 		@Override

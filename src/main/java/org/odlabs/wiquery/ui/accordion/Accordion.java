@@ -149,8 +149,10 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 
 	/**
 	 * Sets the {@link AccordionTriggerEvent} to use to open content.
+	 * @deprecated will be removed in 1.2
 	 * @return instance of the current component
 	 */
+	@Deprecated
 	public Accordion setTriggerEvent(AccordionTriggerEvent accordionTriggerEvent) {
 		this.options.putLiteral("event", accordionTriggerEvent.name()
 				.toLowerCase());
@@ -159,10 +161,28 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 
 	/**
 	 * Returns the {@link AccordionTriggerEvent}.
+	 * @deprecated will be removed in 1.2
+	 * @see #setTriggerEvent(org.objetdirect.wickext.ui.accordion.Accordion.AccordionTriggerEvent)
+	 */
+	@Deprecated
+	public AccordionTriggerEvent getTriggerEvent() {
+		return getEvent();
+	}
+	
+	/**
+	 * Sets the {@link AccordionTriggerEvent} to use to open content.
+	 * @return instance of the current component
+	 */
+	public Accordion setEvent(AccordionTriggerEvent accordionTriggerEvent) {
+		return setEvent(accordionTriggerEvent);
+	}
+
+	/**
+	 * Returns the {@link AccordionTriggerEvent}.
 	 * 
 	 * @see #setTriggerEvent(org.objetdirect.wickext.ui.accordion.Accordion.AccordionTriggerEvent)
 	 */
-	public AccordionTriggerEvent getTriggerEvent() {
+	public AccordionTriggerEvent getEvent() {
 		String literal = this.options.getLiteral("event");
 		return literal == null ? AccordionTriggerEvent.CLICK : 
 			AccordionTriggerEvent.valueOf(literal.toUpperCase());
