@@ -30,6 +30,7 @@ import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.core.util.MarkupIdVisitor;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
@@ -75,6 +76,101 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  */
 public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	/**
+	 * We override the behavior to deny the access of critical methods
+	 * 
+	 * @author Julien Roche
+	 * 
+	 */
+	private class InnerSortableBehavior extends SortableBehavior {
+		// Constants
+		/** Constant of serialization */
+		private static final long serialVersionUID = 5587258236214715234L;
+		
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+		 */
+		@Override
+		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+			super.contribute(wiQueryResourceManager);
+			SortableAjaxBehavior.this.contribute(wiQueryResourceManager);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#getOptions()
+		 */
+		@Override
+		protected Options getOptions() {
+			throw new UnsupportedOperationException(
+					"You can't call this method into the DroppableAjaxBehavior");
+		}
+
+		/**
+		 * For framework internal use only.
+		 */
+		private void setInnerReceiveEvent(JsScopeUiEvent receive) {
+			super.setReceiveEvent(receive);
+		}
+		
+		/**
+		 * For framework internal use only.
+		 */
+		private void setInnerRemoveEvent(JsScopeUiEvent remove) {
+			super.setRemoveEvent(remove);
+		}
+
+		/**
+		 * For framework internal use only.
+		 */
+		private void setInnerUpdateEvent(JsScopeUiEvent update) {
+			super.setUpdateEvent(update);
+		}
+		
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setReceiveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
+		 */
+		@Override
+		public SortableBehavior setReceiveEvent(JsScopeUiEvent receive) {
+			if(callbacks.contains(SortedEvent.RECEIVE)){
+				throw new UnsupportedOperationException(
+				"You can't call this method into the SortableAjaxBehavior");
+			}
+			
+			return super.setReceiveEvent(receive);
+		}
+		
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setRemoveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
+		 */
+		@Override
+		public SortableBehavior setRemoveEvent(JsScopeUiEvent remove) {
+			if(callbacks.contains(SortedEvent.REMOVE)){
+				throw new UnsupportedOperationException(
+				"You can't call this method into the SortableAjaxBehavior");
+			}
+			
+			return super.setRemoveEvent(remove);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setUpdateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
+		 */
+		@Override
+		public SortableBehavior setUpdateEvent(JsScopeUiEvent update) {
+			if(callbacks.contains(SortedEvent.UPDATE)){
+				throw new UnsupportedOperationException(
+				"You can't call this method into the SortableAjaxBehavior");
+			}
+			
+			return super.setUpdateEvent(update);
+		}
+	}
+	
+	/**
 	 * Enumeration of sorted ajax callback
 	 * @author Julien Roche
 	 *
@@ -106,12 +202,12 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	 * Adding the standard sortable JavaScript behavior
 	 */
 	private InnerSortableBehavior sortableBehavior;
-	
+
 	/**
 	 * Required callbacks
 	 */
 	private Set<SortedEvent> callbacks;
-
+	
 	/**
 	 * Default constructor
 	 */
@@ -128,7 +224,7 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 		sortableBehavior = new InnerSortableBehavior();
 		this.callbacks = new HashSet<SortedEvent>(Arrays.asList(callbacks));
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
@@ -144,7 +240,7 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	public SortableBehavior getSortableBehavior() {
 		return sortableBehavior;
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -222,18 +318,30 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 			});
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
+	
+	/**
+	 * onReceive is called back when a connected sortable list has received an item 
+	 * from another list. 
 	 * 
-	 * @see
-	 * org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache
-	 * .wicket.ajax.AjaxRequestTarget)
+	 * @param sortedComponent
+	 *            the sorted {@link Component}
+	 * @param parentSortedComponent 
+	 * 			  the parent of the sorted {@link Component}
+	 * @param index Index of the sorted {@link Component}
+	 * @param ajaxRequestTarget
+	 *            the Ajax target
 	 */
-	@Override
-	protected void respond(AjaxRequestTarget target) {
-		onSort(target);
-	}
+	public abstract void onReceive(Component sortedComponent, int index, 
+			Component parentSortedComponent, AjaxRequestTarget ajaxRequestTarget);
+
+	/**
+	 * OnRemove is called back when a sortable item has been dragged out from the 
+	 * list and into another.
+	 * @param sortedComponent the sorted {@link Component}
+	 * @param ajaxRequestTarget the Ajax target
+	 */
+	public abstract void onRemove(Component sortedComponent,
+			AjaxRequestTarget ajaxRequestTarget);
 
 	/**
 	 * For framework internal use only.
@@ -271,30 +379,6 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 			break;
 		}
 	}
-
-	/**
-	 * onReceive is called back when a connected sortable list has received an item 
-	 * from another list. 
-	 * 
-	 * @param sortedComponent
-	 *            the sorted {@link Component}
-	 * @param parentSortedComponent 
-	 * 			  the parent of the sorted {@link Component}
-	 * @param index Index of the sorted {@link Component}
-	 * @param ajaxRequestTarget
-	 *            the Ajax target
-	 */
-	public abstract void onReceive(Component sortedComponent, int index, 
-			Component parentSortedComponent, AjaxRequestTarget ajaxRequestTarget);
-	
-	/**
-	 * OnRemove is called back when a sortable item has been dragged out from the 
-	 * list and into another.
-	 * @param sortedComponent the sorted {@link Component}
-	 * @param ajaxRequestTarget the Ajax target
-	 */
-	public abstract void onRemove(Component sortedComponent,
-			AjaxRequestTarget ajaxRequestTarget);
 	
 	/**
 	 * onUpdate is called back when the user stopped sorting and the DOM 
@@ -308,99 +392,21 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	 */
 	public abstract void onUpdate(Component sortedComponent, int index,
 			AjaxRequestTarget ajaxRequestTarget);
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
+	 */
+	@Override
+	protected void respond(AjaxRequestTarget target) {
+		onSort(target);
+	}
 
 	/**
-	 * We override the behavior to deny the access of critical methods
-	 * 
-	 * @author Julien Roche
-	 * 
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
 	 */
-	private class InnerSortableBehavior extends SortableBehavior {
-		// Constants
-		/** Constant of serialization */
-		private static final long serialVersionUID = 5587258236214715234L;
-		
-		/**
-		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-		 */
-		@Override
-		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-			super.contribute(wiQueryResourceManager);
-			SortableAjaxBehavior.this.contribute(wiQueryResourceManager);
-		}
-
-		/**
-		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#getOptions()
-		 */
-		@Override
-		protected Options getOptions() {
-			throw new UnsupportedOperationException(
-					"You can't call this method into the DroppableAjaxBehavior");
-		}
-
-		/**
-		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setReceiveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
-		 */
-		@Override
-		public SortableBehavior setReceiveEvent(JsScopeUiEvent receive) {
-			if(callbacks.contains(SortedEvent.RECEIVE)){
-				throw new UnsupportedOperationException(
-				"You can't call this method into the SortableAjaxBehavior");
-			}
-			
-			return super.setReceiveEvent(receive);
-		}
-		
-		/**
-		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setRemoveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
-		 */
-		@Override
-		public SortableBehavior setRemoveEvent(JsScopeUiEvent remove) {
-			if(callbacks.contains(SortedEvent.REMOVE)){
-				throw new UnsupportedOperationException(
-				"You can't call this method into the SortableAjaxBehavior");
-			}
-			
-			return super.setRemoveEvent(remove);
-		}
-
-		/**
-		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#setUpdateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
-		 */
-		@Override
-		public SortableBehavior setUpdateEvent(JsScopeUiEvent update) {
-			if(callbacks.contains(SortedEvent.UPDATE)){
-				throw new UnsupportedOperationException(
-				"You can't call this method into the SortableAjaxBehavior");
-			}
-			
-			return super.setUpdateEvent(update);
-		}
-		
-		/**
-		 * For framework internal use only.
-		 */
-		private void setInnerReceiveEvent(JsScopeUiEvent receive) {
-			super.setReceiveEvent(receive);
-		}
-		
-		/**
-		 * For framework internal use only.
-		 */
-		private void setInnerRemoveEvent(JsScopeUiEvent remove) {
-			super.setRemoveEvent(remove);
-		}
-
-		/**
-		 * For framework internal use only.
-		 */
-		private void setInnerUpdateEvent(JsScopeUiEvent update) {
-			super.setUpdateEvent(update);
-		}
+	protected JsStatement statement() {
+		return sortableBehavior.statement();
 	}
 }

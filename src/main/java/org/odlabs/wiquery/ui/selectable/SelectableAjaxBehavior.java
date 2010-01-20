@@ -27,6 +27,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.core.util.MarkupIdVisitor;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
@@ -169,6 +170,14 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 */
 	public abstract void onSelection(Component[] components,
 			AjaxRequestTarget ajaxRequestTarget);
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 */
+	protected JsStatement statement() {
+		return selectableBehavior.statement();
+	}
 
 	/**
 	 * We override the behavior to deny the access of critical methods 

@@ -209,14 +209,12 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return the associated JsStatement
 	 */
 	public JsStatement increment(int increment) {
-		String varValue = "value_inc_" + getMarkupId(true);
-		
 		JsStatement statement = new JsStatement();
-		statement.append("var " + varValue + "= " + Math.abs(increment) 
-				+ " + " + value().render());
 		statement.append(new JsQuery(this).$().chain(
 								"progressbar", "'value'", 
-								varValue).render());
+								new JsQuery(this).$().chain(
+										"progressbar", "'value'").render(false) + " + " + increment
+								).render());
 		
 		return statement;
 	}
@@ -248,14 +246,12 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return the associated JsStatement
 	 */
 	public JsStatement decrement(int decrement) {
-		String varValue = "value_dec_" + getMarkupId(true);
-		
 		JsStatement statement = new JsStatement();
-		statement.append("var " + varValue + "= -" + Math.abs(decrement) +
-				" + " + value().render());
 		statement.append(new JsQuery(this).$().chain(
 								"progressbar", "'value'", 
-								varValue).render());
+								new JsQuery(this).$().chain(
+										"progressbar", "'value'").render(false) + " - " + decrement
+								).render());
 		
 		return statement;
 	}

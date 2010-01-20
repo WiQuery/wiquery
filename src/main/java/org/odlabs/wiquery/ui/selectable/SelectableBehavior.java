@@ -234,7 +234,8 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override

@@ -122,3 +122,12 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 		- none
 		
 - TODO windowsposition
+
+- Unit test:
+	* SelectableAjaxBehavior
+	* SelectableBehavior
+	* ResizableAjaxBehavior
+	* SortableAjaxBehaviorTest
+	* SortableBehavior
+	* DroppableAjaxBehavior
+	* DraggableAjaxBehavior

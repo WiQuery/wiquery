@@ -26,6 +26,7 @@ import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
@@ -57,10 +58,59 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * @since 1.0
  */
 public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior {
+	/**
+	 * We override the behavior to deny the access of critical methods 
+	 * 
+	 * @author Julien Roche
+	 * 
+	 */
+	private class InnerDroppableBehavior extends ResizableBehavior {
+		// Constants
+		/** Constant of serialization */
+		private static final long serialVersionUID = 5587258236214715234L;
+		
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+		 */
+		@Override
+		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+			super.contribute(wiQueryResourceManager);
+			ResizableAjaxBehavior.this.contribute(wiQueryResourceManager);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#getOptions()
+		 */
+		@Override
+		protected Options getOptions() {
+			throw new UnsupportedOperationException(
+					"You can't call this method into the ResizableAjaxBehavior");
+		}
+
+		/**
+		 * For framework internal use only.
+		 */
+		private void setInnerStopEvent(JsScopeUiEvent stop) {
+			super.setStopEvent(stop);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
+		 */
+		@Override
+		public ResizableBehavior setStopEvent(JsScopeUiEvent stop) {
+			throw new UnsupportedOperationException(
+					"You can't call this method into the ResizableAjaxBehavior");
+		}
+	}
+
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * Adding the standard resizable JavaScript behavior
 	 */
@@ -68,10 +118,10 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	
 	/** Height into the request */
 	private static final String RESIZED_HEIGHT = "resizedHeight";
-	
+
 	/** Width into the request */
 	private static final String RESIZED_WIDTH = "resizedWidth";
-
+	
 	/**
 	 * Default constructor
 	 */
@@ -79,7 +129,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		super();
 		resizableBehavior = new InnerDroppableBehavior();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
@@ -124,19 +174,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 
 		});
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache
-	 * .wicket.ajax.AjaxRequestTarget)
-	 */
-	@Override
-	protected void respond(AjaxRequestTarget target) {
-		onResize(target);
-	}
-
+	
 	/**
 	 * For framework internal use only.
 	 */
@@ -149,15 +187,6 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	}
 
 	/**
-	 * onDrop is called back when the drop event has been fired.
-	 * 
-	 * @param droppedComponent
-	 *            the dropped {@link Component}
-	 * @param ajaxRequestTarget
-	 *            the Ajax target
-	 */
-	
-	/**
 	 * onResize is triggered at the end of a resize operation. 
 	 * 
 	 * @param height Height of the resized {@link Component}
@@ -168,51 +197,28 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 			AjaxRequestTarget ajaxRequestTarget);
 
 	/**
-	 * We override the behavior to deny the access of critical methods 
+	 * onDrop is called back when the drop event has been fired.
 	 * 
-	 * @author Julien Roche
-	 * 
+	 * @param droppedComponent
+	 *            the dropped {@link Component}
+	 * @param ajaxRequestTarget
+	 *            the Ajax target
 	 */
-	private class InnerDroppableBehavior extends ResizableBehavior {
-		// Constants
-		/** Constant of serialization */
-		private static final long serialVersionUID = 5587258236214715234L;
-		
-		/**
-		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-		 */
-		@Override
-		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-			super.contribute(wiQueryResourceManager);
-			ResizableAjaxBehavior.this.contribute(wiQueryResourceManager);
-		}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
+	 */
+	@Override
+	protected void respond(AjaxRequestTarget target) {
+		onResize(target);
+	}
 
-		/**
-		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#getOptions()
-		 */
-		@Override
-		protected Options getOptions() {
-			throw new UnsupportedOperationException(
-					"You can't call this method into the ResizableAjaxBehavior");
-		}
-
-		/**
-		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
-		 */
-		@Override
-		public ResizableBehavior setStopEvent(JsScopeUiEvent stop) {
-			throw new UnsupportedOperationException(
-					"You can't call this method into the ResizableAjaxBehavior");
-		}
-
-		/**
-		 * For framework internal use only.
-		 */
-		private void setInnerStopEvent(JsScopeUiEvent stop) {
-			super.setStopEvent(stop);
-		}
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 */
+	protected JsStatement statement() {
+		return resizableBehavior.statement();
 	}
 }

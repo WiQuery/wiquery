@@ -324,7 +324,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public String getItems() {
 		String items = this.options.getLiteral("items");
-		return items == null ? "'> *" : items;
+		return items == null ? "> *" : items;
 	}
 	
 	/**
@@ -349,7 +349,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @return the placeHolder option value
 	 */
 	public String getPlaceHolder() {
-		return this.options.getLiteral("placeHolder");
+		return this.options.getLiteral("placeholder");
 	}
 	
 	/**
@@ -540,7 +540,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @return instance of the current behavior
 	 */
 	public SortableBehavior setCursorAt(CursorAtEnum cusorAt) {
-		this.options.putLiteral("cusorAt", cusorAt.toString().toLowerCase()
+		this.options.putLiteral("cursorAt", cusorAt.toString().toLowerCase()
 				.replace('_', ' '));
 		return this;
 	}

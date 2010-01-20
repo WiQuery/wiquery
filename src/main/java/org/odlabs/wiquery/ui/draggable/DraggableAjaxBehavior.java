@@ -33,6 +33,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
@@ -487,15 +488,20 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		// To override
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache
-	 * .wicket.ajax.AjaxRequestTarget)
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
 	 */
 	@Override
 	protected void respond(AjaxRequestTarget target) {
 		onDrag(target);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 */
+	protected JsStatement statement() {
+		return draggableBehavior.statement();
 	}
 }
