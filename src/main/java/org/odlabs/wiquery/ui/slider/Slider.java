@@ -140,7 +140,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Number getMax() {
 		if(this.options.containsKey("max")){
-			return this.options.getInt("max");
+			return this.options.getFloat("max");
 		}
 		
 		return 100;
@@ -160,7 +160,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Number getMin() {
 		if(this.options.containsKey("min")){
-			return this.options.getInt("min");
+			return this.options.getFloat("min");
 		}
 		
 		return 0;

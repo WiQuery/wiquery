@@ -153,8 +153,8 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 * @return the animate option
 	 */
 	public boolean isAnimate() {
-		if(this.options.containsKey("alsoResize")){
-			return this.options.getBoolean("alsoResize");
+		if(this.options.containsKey("animate")){
+			return this.options.getBoolean("animate");
 		}
 		
 		return false;

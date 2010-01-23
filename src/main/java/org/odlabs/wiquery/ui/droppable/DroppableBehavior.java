@@ -136,7 +136,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public DroppableAccept getAccept() {
 		IComplexOption accept = this.options.getComplexOption("accept");
-		if (accept == null && accept instanceof DroppableAccept) {
+		if (accept != null && accept instanceof DroppableAccept) {
 			return (DroppableAccept) accept;
 		}
 

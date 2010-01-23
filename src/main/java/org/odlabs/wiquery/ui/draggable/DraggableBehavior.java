@@ -314,7 +314,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @return instance of the current behavior
 	 */
 	public DraggableBehavior setCursorAt(ListItemOptions<DraggableCursorAt> cusorAt) {
-		this.options.put("cusorAt", cusorAt);
+		this.options.put("cursorAt", cusorAt);
 		return this;
 	}
 	
@@ -710,15 +710,24 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @return instance of the current behavior
 	 */
 	public DraggableBehavior setStack(String stack) {
-		this.options.put("stack", stack);
+		this.options.putLiteral("stack", stack);
 		return this;
+	}
+	
+	/**
+	 * @returns the stack option
+	 */
+	public String getStack() {
+		return this.options.getLiteral("stack");
 	}
 
 	/**
 	 * @returns the stack option
+	 * @deprecated will be removed in 1.2
 	 */
-	public String isStack() {		
-		return this.options.get("stack");
+	@Deprecated
+	public String isStack() {
+		return this.options.getLiteral("stack");
 	}
 	
 	/**Set's the starting z-index

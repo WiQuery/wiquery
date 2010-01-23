@@ -22,7 +22,6 @@
 package org.odlabs.wiquery.ui.draggable;
 
 import org.odlabs.wiquery.core.options.IListItemOption;
-import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.CursorAtEnum;
 
 
@@ -67,7 +66,7 @@ public class DraggableCursorAt extends Object implements IListItemOption {
 	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
 	 */
 	public final CharSequence getJavascriptOption() {
-		return new LiteralOption(getCursorAtEnum().toString()) + ":" + getGap();
+		return getCursorAtEnum().toString() + ":" + getGap();
 	}
 
 	public void setCursorAtEnum(CursorAtEnum cursorAtEnum) {

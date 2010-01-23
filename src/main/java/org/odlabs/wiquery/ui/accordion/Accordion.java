@@ -29,6 +29,7 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
+import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
@@ -96,7 +97,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 	
 	/*---- Options section ---*/
-
+	
 	/**
 	 * Sets the effect to apply when the accordion's content is switched.
 	 * 
@@ -105,7 +106,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 *            apply any effect.
 	 * @return instance of the current component
 	 */
-	public Accordion setAnimationEffect(AccordionAnimated animationEffect) {
+	public Accordion setAnimated(AccordionAnimated animationEffect) {
 		this.options.put("animated", animationEffect);
 		return this;
 	}
@@ -113,6 +114,37 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	/**
 	 * @return the animated option value
 	 */
+	public AccordionAnimated getAnimated() {
+		IComplexOption animated = this.options.getComplexOption("animated");
+		if(animated != null && animated instanceof AccordionAnimated){
+			return (AccordionAnimated) animated;
+		}
+		
+		return new AccordionAnimated("slide");
+	}
+
+	/**
+	 * Sets the effect to apply when the accordion's content is switched.
+	 * 
+	 * @param animationEffect
+	 *            the effect name to apply. Set it empty if you don't want to
+	 *            apply any effect.
+	 * @return instance of the current component
+	 * @deprecated will be removed in 1.2
+	 * @see Accordion#setAnimated(AccordionAnimated)
+	 */
+	@Deprecated
+	public Accordion setAnimationEffect(AccordionAnimated animationEffect) {
+		this.options.put("animated", animationEffect);
+		return this;
+	}
+	
+	/**
+	 * @return the animated option value
+	 * @deprecated will be removed in 1.2
+	 * @see Accordion#getAnimated()
+	 */
+	@Deprecated
 	public AccordionAnimated getAnimationEffect() {
 		IComplexOption animated = this.options.getComplexOption("animated");
 		if(animated != null && animated instanceof AccordionAnimated){
@@ -154,9 +186,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	@Deprecated
 	public Accordion setTriggerEvent(AccordionTriggerEvent accordionTriggerEvent) {
-		this.options.putLiteral("event", accordionTriggerEvent.name()
-				.toLowerCase());
-		return this;
+		return setEvent(accordionTriggerEvent);
 	}
 
 	/**
@@ -174,7 +204,9 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return instance of the current component
 	 */
 	public Accordion setEvent(AccordionTriggerEvent accordionTriggerEvent) {
-		return setEvent(accordionTriggerEvent);
+		this.options.putLiteral("event", accordionTriggerEvent.name()
+				.toLowerCase());
+		return this;
 	}
 
 	/**
@@ -232,7 +264,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 			return (AccordionHeader) header;
 		}
 		
-		return new AccordionHeader("> li> :first-child, > :not(li):even");
+		return new AccordionHeader(new LiteralOption("> li> :first-child, > :not(li):even"));
 	}
 
 	/**
