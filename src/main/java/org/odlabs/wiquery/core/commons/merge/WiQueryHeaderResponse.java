@@ -31,6 +31,7 @@ import java.util.Set;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Response;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.internal.HeaderResponse;
 
@@ -45,6 +46,24 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Method calculating the names for the merged resources (for the browser's cache)
+	 * @param resources
+	 * @return the name
+	 */
+	public static CharSequence getMergedResourceName(Collection<ResourceReference> resources) {
+		StringBuffer buffer = new StringBuffer();
+		
+		for(ResourceReference r : resources) {
+			buffer.append(r.getClass().getSimpleName() + "_");
+//			buffer.append((r.getName().indexOf('/') >= 0) ? 
+//					r.getName().substring(r.getName().lastIndexOf('/') + 1) : 
+//						r.getName() + "_");
+			buffer.append(r.getName().replace("/", ":"));
+		}
+		
+		return buffer;
+	}
 	// Properties
 	private final Set<ResourceReference> javascript;
 	private final Set<ResourceReference> stylesheet;
@@ -56,24 +75,6 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	 */
 	public WiQueryHeaderResponse() {
 		this(null);
-	}
-	
-	/**
-	 * Method calculating the names for the merged resources (for the browser's cache)
-	 * @param resources
-	 * @return the name
-	 */
-	public static CharSequence getMergedResourceName(Collection<ResourceReference> resources) {
-		StringBuffer buffer = new StringBuffer();
-		
-		for(ResourceReference r : resources) {
-			buffer.append(r.getClass().getSimpleName() + "_");
-			buffer.append((r.getName().indexOf('/') >= 0) ? 
-					r.getName().substring(r.getName().lastIndexOf('/') + 1) : 
-						r.getName() + "_");
-		}
-		
-		return buffer;
 	}
 	
 	/**
@@ -123,7 +124,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	 */
 	private void markResourceReference(Object object) {
 		iHeaderResponse.markRendered(object);
-		markRendered(object);
+		//markRendered(object);
 		objects.add(object);
 	}
 
@@ -135,7 +136,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	public void renderCSSReference(ResourceReference reference) {
 		Object object = Arrays.asList(new Object[] { "css", RequestCycle.get().urlFor(reference), null });
 		
-		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasRendered(object)){
+		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
 			stylesheet.add(reference);
 			markResourceReference(object);
 		}
@@ -149,7 +150,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	public void renderCSSReference(ResourceReference reference, String media) {
 		Object object = Arrays.asList(new Object[] { "css", RequestCycle.get().urlFor(reference), media });
 		
-		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasRendered(object)){
+		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
 			stylesheet.add(reference);
 			markResourceReference(object);
 		}
@@ -163,7 +164,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	public void renderJavascriptReference(ResourceReference reference) {
 		Object object = Arrays.asList(new Object[] { "javascript", RequestCycle.get().urlFor(reference) });
 		
-		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasRendered(object)){
+		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
 			javascript.add(reference);
 			markResourceReference(object);
 		}
@@ -177,7 +178,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	public void renderJavascriptReference(ResourceReference reference, String id) {
 		Object object = Arrays.asList(new Object[] { "javascript", RequestCycle.get().urlFor(reference) });
 		
-		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasRendered(object)){
+		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
 			javascript.add(reference);
 			markResourceReference(object);
 		}
@@ -191,12 +192,24 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		this.iHeaderResponse = iHeaderResponse;
 		
 		if(iHeaderResponse != null){
-			for(Object obj : objects){
-				iHeaderResponse.markRendered(obj);
+			if(RequestCycle.get().getRequestTarget() instanceof AjaxRequestTarget){
+				for(Object obj : objects){
+					iHeaderResponse.markRendered(obj);
+				}
+				
+			} else {
+				objects.clear(); // We have reloaded the page
 			}
 		}
 		
 		javascript.clear(); // Flush javascript resources already loaded
 		stylesheet.clear(); // Flush CSS resources already loaded
+	}
+	
+	/**
+	 * @see org.apache.wicket.markup.html.IHeaderResponse#wasRendered(java.lang.Object)
+	 */
+	private boolean wasInternalRendered(Object object) {
+		return objects.contains(object);
 	}
 }
