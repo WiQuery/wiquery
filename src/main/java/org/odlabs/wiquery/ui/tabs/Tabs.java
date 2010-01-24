@@ -274,6 +274,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	public Tabs setFx(ListItemOptions<IListItemOption> fx) {
 		this.options.put("fx", fx);
 		return this;
+		// TODO change this method
 	}
 	
 	/**

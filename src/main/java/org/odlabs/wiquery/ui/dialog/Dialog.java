@@ -91,9 +91,12 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		this.setPosition(WindowPosition.CENTER);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
-		// TODO USE DEPENDENCIES MANGEMENT
 		wiQueryResourceManager
 				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
 		wiQueryResourceManager
@@ -253,6 +256,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public Dialog setPosition(WindowPosition windowPosition) {
 		options.putLiteral("position", windowPosition.name().toLowerCase());
 		return this;
+		// TODO change the parameter of this method
 	}
 
 	/**
@@ -456,7 +460,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public String getTitle() {
 		if (this.options.containsKey("title")) {
-			return this.options.get("title");
+			return this.options.getLiteral("title");
 		}
 		return "";
 	}
@@ -516,10 +520,23 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		this.options.put("draggable", draggable);
 		return this;
 	}
-
+	
 	/**
 	 * @returns <code>true</code> if the dialog is draggable
 	 */
+	public boolean isDraggable() {
+		if(this.options.containsKey("draggable")){
+			return this.options.getBoolean("draggable");
+		}
+		
+		return true;
+	}
+
+	/**
+	 * @returns <code>true</code> if the dialog is draggable
+	 * @deprecated will be removed is 1.2
+	 */
+	@Deprecated
 	public boolean isDraggrable() {
 		if(this.options.containsKey("draggable")){
 			return this.options.getBoolean("draggable");

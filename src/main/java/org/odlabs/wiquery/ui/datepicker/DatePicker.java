@@ -518,7 +518,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the maxDate option value
 	 */
 	public DateOption getMaxDate() {
-		IComplexOption maxDate = options.getListItemOptions("maxDate");
+		IComplexOption maxDate = options.getComplexOption("maxDate");
 		
 		if(maxDate != null && maxDate instanceof DateOption){
 			return (DateOption) maxDate;
@@ -542,7 +542,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return the minDate option value
 	 */
 	public DateOption getMinDate() {
-		IComplexOption minDate = options.getListItemOptions("minDate");
+		IComplexOption minDate = options.getComplexOption("minDate");
 		
 		if(minDate != null && minDate instanceof DateOption){
 			return (DateOption) minDate;
@@ -831,6 +831,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public DatePicker<T> setShowOptions(ListItemOptions<LiteralOption> showOptions) {
 		options.put("showOptions", showOptions);
 		return this;
+		// TODO change this method
 	}
 
 	/**
@@ -902,7 +903,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public String getDateFormat() {
 		String dateFormat = options.getLiteral("dateFormat");
-		return dateFormat == null ? "'mm/dd/yy" : dateFormat;
+		return dateFormat == null ? "mm/dd/yy" : dateFormat;
 	}
 	
 	/**Set's the list of long day names, starting from Sunday, for use as 

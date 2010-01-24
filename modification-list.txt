@@ -120,8 +120,8 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 		- none
 	* Tabs
 		- none
-		
-- TODO windowsposition
+
+- Change the theme roller
 
 - Unit test:
 	* SelectableAjaxBehavior
