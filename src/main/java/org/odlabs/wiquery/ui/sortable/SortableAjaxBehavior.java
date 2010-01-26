@@ -71,10 +71,11 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * </pre>
  * </p>
  * 
+ * @param <E> Type of component to find
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
+public abstract class SortableAjaxBehavior<E extends Component> extends AbstractDefaultAjaxBehavior {
 	/**
 	 * We override the behavior to deny the access of critical methods
 	 * 
@@ -331,7 +332,7 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	 * @param ajaxRequestTarget
 	 *            the Ajax target
 	 */
-	public abstract void onReceive(Component sortedComponent, int index, 
+	public abstract void onReceive(E sortedComponent, int index, 
 			Component parentSortedComponent, AjaxRequestTarget ajaxRequestTarget);
 
 	/**
@@ -340,12 +341,13 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	 * @param sortedComponent the sorted {@link Component}
 	 * @param ajaxRequestTarget the Ajax target
 	 */
-	public abstract void onRemove(Component sortedComponent,
+	public abstract void onRemove(E sortedComponent,
 			AjaxRequestTarget ajaxRequestTarget);
 
 	/**
 	 * For framework internal use only.
 	 */
+	@SuppressWarnings("unchecked")
 	public final void onSort(AjaxRequestTarget target) {
 		// getting sorted element id to retrieve the Wicket component
 		String input = this.getComponent().getRequest().getParameter(
@@ -360,7 +362,7 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 			
 		MarkupIdVisitor visitor = new MarkupIdVisitor(input);
 		this.getComponent().getPage().visitChildren(visitor);
-		Component sortedComponent = visitor.getFoundComponent();
+		E sortedComponent = (E) visitor.getFoundComponent();
 		
 		switch(sortedEvent){
 		case RECEIVE:
@@ -390,7 +392,7 @@ public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	 * @param ajaxRequestTarget
 	 *            the Ajax target
 	 */
-	public abstract void onUpdate(Component sortedComponent, int index,
+	public abstract void onUpdate(E sortedComponent, int index,
 			AjaxRequestTarget ajaxRequestTarget);
 	
 	/**

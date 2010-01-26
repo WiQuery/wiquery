@@ -69,7 +69,7 @@ public class SortableAjaxBehaviorTestCase extends TestCase {
 				"$('#anId').sortable({update: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=update&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id'), null,null, function() {return true;});\n}, receive: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=receive&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id')+'&sortedParentId='+ $(ui.sender).attr('id'), null,null, function() {return true;});\n}, remove: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=remove&sortedId='+ $(ui.item).attr('id'), null,null, function() {return true;});\n}});");
 	}
 
-	private class InnerSortableAjaxBehavior extends SortableAjaxBehavior {
+	private class InnerSortableAjaxBehavior extends SortableAjaxBehavior<Component> {
 		private static final long serialVersionUID = 1L;
 
 		/**

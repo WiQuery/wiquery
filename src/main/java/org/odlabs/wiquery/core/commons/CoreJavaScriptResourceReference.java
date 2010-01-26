@@ -59,10 +59,10 @@ public class CoreJavaScriptResourceReference extends
 		Application application = Application.get();
 		
 		if (Application.DEVELOPMENT.equals(application.getConfigurationType())) {
-			return "jquery/jquery-1.4.js";	
+			return "jquery/jquery-1.4.1.js";	
 		}
 		
-		return "jquery/jquery-1.4.min.js";
+		return "jquery/jquery-1.4.1.min.js";
 	}
 
 	/**

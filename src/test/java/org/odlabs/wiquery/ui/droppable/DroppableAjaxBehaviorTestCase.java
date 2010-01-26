@@ -69,7 +69,7 @@ public class DroppableAjaxBehaviorTestCase extends TestCase {
 				"$('#anId').droppable({drop: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&droppedId='+ui.draggable[0].id, null,null, function() {return true;});\n}});");
 	}
 
-	private class InnerDroppableAjaxBehavior extends DroppableAjaxBehavior {
+	private class InnerDroppableAjaxBehavior extends DroppableAjaxBehavior<Component> {
 		private static final long serialVersionUID = 1L;
 
 		/**

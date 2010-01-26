@@ -58,10 +58,11 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * </pre>
  * </p>
  * 
+ * @param <E> Type of component to find
  * @author Lionel Armanet
  * @since 1.0
  */
-public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior {
+public abstract class DroppableAjaxBehavior<E extends Component> extends AbstractDefaultAjaxBehavior {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 2L;
@@ -143,13 +144,14 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	/**
 	 * For framework internal use only.
 	 */
+	@SuppressWarnings("unchecked")
 	public final void onDrop(AjaxRequestTarget target) {
 		// getting dropped element id to retrieve the Wicket component
 		String input = this.getComponent().getRequest().getParameter(
 				"droppedId");
 		MarkupIdVisitor visitor = new MarkupIdVisitor(input);
 		this.getComponent().getPage().visitChildren(visitor);
-		onDrop(visitor.getFoundComponent(), target);
+		onDrop((E) visitor.getFoundComponent(), target);
 	}
 
 	/**
@@ -160,7 +162,7 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param ajaxRequestTarget
 	 *            the Ajax target
 	 */
-	public abstract void onDrop(Component droppedComponent,
+	public abstract void onDrop(E droppedComponent,
 			AjaxRequestTarget ajaxRequestTarget);
 
 	/**

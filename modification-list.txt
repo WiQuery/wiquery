@@ -131,3 +131,6 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 	* SortableBehavior
 	* DroppableAjaxBehavior
 	* DraggableAjaxBehavior
+	
+- move to jquery 1.4.1
+- add generics on sortable and droppable
