@@ -136,4 +136,6 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 
 - add generics on sortable and droppable
 
-- fixe issue 39 : wiquery-gen.js
+- fix issue 39 : wiquery-gen.js
+
+- add a base of DialogUtils

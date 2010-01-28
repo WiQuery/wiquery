@@ -210,10 +210,10 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	private static final long serialVersionUID = 3L;
 	
 	/** ResourceReference for the wiQuery Draggable javascript */
-	private static final JavascriptResourceReference wiQueryDraggableJs = 
+	public static final JavascriptResourceReference wiQueryDraggableJs = 
 		new JavascriptResourceReference(
 				DraggableJavaScriptResourceReference.class, 
-				"wiquery-draggable.js");
+				"wiquery-draggable.min.js");
 
 	/** Drag type into the request */
 	protected static final String DRAG_TYPE = "dragType";
