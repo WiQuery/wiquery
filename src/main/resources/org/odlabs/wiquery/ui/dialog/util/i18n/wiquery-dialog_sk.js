@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Slovak translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
+    $.ui.dialog.wiquery.regional['sk'] = {
       okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+      cancelButton: 'Zrušiť',
+      questionTitle: 'Otázka',
+      waitTitle: 'Prosím čakajte',
+      errorTitle: 'Chyba',
+      warningTitle: 'Výstraha'
     };
 });

@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Russian translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+    $.ui.dialog.wiquery.regional['ru'] = {
+      okButton: 'Хорошо',
+      cancelButton: 'Отмена',
+      questionTitle: 'Вопрос',
+      waitTitle: 'Пожалуйста, подождите',
+      errorTitle: 'Ошибка',
+      warningTitle: 'Предупреждение'
     };
 });

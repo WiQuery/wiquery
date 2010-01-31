@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Vietnamese translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
+    $.ui.dialog.wiquery.regional['vi'] = {
       okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+      cancelButton: 'Hủy',
+      questionTitle: 'Câu hỏi',
+      waitTitle: 'Xin vui lòng chờ',
+      errorTitle: 'Lỗi',
+      warningTitle: 'Cảnh báo'
     };
 });

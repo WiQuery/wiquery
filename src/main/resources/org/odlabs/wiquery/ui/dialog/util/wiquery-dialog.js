@@ -35,14 +35,6 @@
 	 * @param message Message of the dialog
 	 */
 	$.ui.dialog.wiquery.simpleDialog = function(id, language, title, message) {
-			$.i18n.properties({
-					language: language, 
-					mode: 'both', 
-					name: 
-					'wiquery-dialog',
-					path: 'i18n/'
-			});
-
 			var dialogId = 'dialog' + id;
      		var buttonsMap = new Object();
      		buttonsMap[$.ui.dialog.wiquery.regional[language].okButton] = function(){ $(this).dialog('close'); };
@@ -68,14 +60,6 @@
 	 * @param waitImgPath Path for the waiting picture
 	 */
 	$.ui.dialog.wiquery.waitDialog = function(id, language, waitImgPath) {
-			$.i18n.properties({
-					language: language, 
-					mode: 'both', 
-					name: 
-					'wiquery-dialog', 
-					path: 'i18n/'
-			});
-
 			var dialogId = 'dialog' + id;
      		var buttonsMap = new Object();
      		buttonsMap[$.ui.dialog.wiquery.regional[language].okButton] = function(){ $(this).dialog('close'); };
@@ -107,14 +91,6 @@
 	 * @param questionImgPath Path of the question picture
 	 */
 	$.ui.dialog.wiquery.questionDialog = function(id, language, message, questionImgPath) {
-			$.i18n.properties({
-					language: language, 
-					mode: 'both', 
-					name: 
-					'wiquery-dialog', 
-					path: 'i18n/'
-			});
-
 			var dialogId = 'dialog' + id;
      		var buttonsMap = new Object();
      		buttonsMap[$.ui.dialog.wiquery.regional[language].okButton] = function(){ $(this).dialog('close'); };
@@ -140,14 +116,6 @@
 	 * @param errorImgPath Path of the error picture
 	 */
 	$.ui.dialog.wiquery.errorDialog = function(id, language, message, errorImgPath) {
-			$.i18n.properties({
-					language: language, 
-					mode: 'both', 
-					name: 
-					'wiquery-dialog', 
-					path: 'i18n/'
-			});
-
 			var dialogId = 'dialog' + id;
      		var buttonsMap = new Object();
      		buttonsMap[$.ui.dialog.wiquery.regional[language].okButton] = function(){ $(this).dialog('close'); };
@@ -173,14 +141,6 @@
 	 * @param warningImgPath Path of the warning picture
 	 */
 	$.ui.dialog.wiquery.warningDialog = function(id, language, message, warningImgPath) {
-			$.i18n.properties({
-					language: language, 
-					mode: 'both', 
-					name: 
-					'wiquery-dialog', 
-					path: 'i18n/'
-			});
-
 			var dialogId = 'dialog' + id;
      		var buttonsMap = new Object();
      		buttonsMap[$.ui.dialog.wiquery.regional[language].okButton] = function(){ $(this).dialog('close'); };

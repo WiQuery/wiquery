@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Thai translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+    $.ui.dialog.wiquery.regional['th'] = {
+      okButton: 'ตกลง',
+      cancelButton: 'ยกเลิก',
+      questionTitle: 'คำถาม',
+      waitTitle: 'โปรด รอ สัก ครู่',
+      errorTitle: 'ข้อ ผิด พลาด',
+      warningTitle: 'การ เตือน'
     };
 });

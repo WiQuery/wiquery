@@ -117,6 +117,15 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	public Set<ResourceReference> getStylesheet() {
 		return stylesheet;
 	}
+	
+	/**
+	 * Method return true if the resource can be merged
+	 * @param resource
+	 * @return the state
+	 */
+	protected Boolean isMergeable(ResourceReference resource) {
+		return !resource.getClass().isAnnotationPresent(WiQueryNotMerged.class);
+	}
 
 	/**
 	 * Mark the {@link ResourceReference}
@@ -137,8 +146,14 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		Object object = Arrays.asList(new Object[] { "css", RequestCycle.get().urlFor(reference), null });
 		
 		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
-			stylesheet.add(reference);
-			markResourceReference(object);
+			
+			if(isMergeable(reference)){
+				stylesheet.add(reference);
+				markResourceReference(object);
+				
+			} else {
+				iHeaderResponse.renderCSSReference(reference);
+			}
 		}
 	}
 	
@@ -151,8 +166,14 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		Object object = Arrays.asList(new Object[] { "css", RequestCycle.get().urlFor(reference), media });
 		
 		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
-			stylesheet.add(reference);
-			markResourceReference(object);
+			
+			if(isMergeable(reference)){
+				stylesheet.add(reference);
+				markResourceReference(object);
+				
+			} else {
+				iHeaderResponse.renderCSSReference(reference, media);
+			}
 		}
 	}
 
@@ -165,8 +186,14 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		Object object = Arrays.asList(new Object[] { "javascript", RequestCycle.get().urlFor(reference) });
 		
 		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
-			javascript.add(reference);
-			markResourceReference(object);
+			
+			if(isMergeable(reference)){
+				javascript.add(reference);
+				markResourceReference(object);
+				
+			} else {
+				iHeaderResponse.renderCSSReference(reference);
+			}
 		}
 	}
 
@@ -179,8 +206,14 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		Object object = Arrays.asList(new Object[] { "javascript", RequestCycle.get().urlFor(reference) });
 		
 		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
-			javascript.add(reference);
-			markResourceReference(object);
+			
+			if(isMergeable(reference)){
+				javascript.add(reference);
+				markResourceReference(object);
+				
+			} else {
+				iHeaderResponse.renderJavascriptReference(reference, id);
+			}
 		}
 	}
 

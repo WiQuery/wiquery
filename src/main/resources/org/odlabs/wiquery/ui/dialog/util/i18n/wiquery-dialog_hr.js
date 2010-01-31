@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Croatian translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+    $.ui.dialog.wiquery.regional['hr'] = {
+      okButton: 'U redu',
+      cancelButton: 'Odustani',
+      questionTitle: 'Pitanje',
+      waitTitle: 'Please wait',
+      errorTitle: 'Greška',
+      warningTitle: 'Upozorenje'
     };
 });

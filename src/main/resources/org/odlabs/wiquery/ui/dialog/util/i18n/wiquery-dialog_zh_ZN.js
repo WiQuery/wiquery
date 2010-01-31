@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Simplified chinese translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+    $.ui.dialog.wiquery.regional['zh_ZN'] = {
+      okButton: '好的',
+      cancelButton: '取消',
+      questionTitle: '问题',
+      waitTitle: '请稍候',
+      errorTitle: '错误',
+      warningTitle: '警告'
     };
 });

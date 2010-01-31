@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Lithuanian translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+    $.ui.dialog.wiquery.regional['lt'] = {
+      okButton: 'Gerai',
+      cancelButton: 'Atšaukti',
+      questionTitle: 'Klausimas',
+      waitTitle: 'Palaukite',
+      errorTitle: 'Klaida',
+      warningTitle: 'Įspėjimas'
     };
 });

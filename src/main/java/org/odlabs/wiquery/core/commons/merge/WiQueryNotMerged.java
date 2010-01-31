@@ -19,15 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.odlabs.wiquery.core.commons.merge;
 
-/** French translation */
-jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
-    };
-});
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.apache.wicket.ResourceReference;
+
+/**
+ * $Id$
+ * <p>
+ * Annotates a {@link ResourceReference} to include it into the merging process
+ * </p>
+ * 
+ * @author Julien Roche
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(value = ElementType.TYPE)
+@Inherited
+public @interface WiQueryNotMerged {
+}

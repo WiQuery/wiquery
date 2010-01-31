@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Estonian translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+    $.ui.dialog.wiquery.regional['et'] = {
+      okButton: 'Korras',
+      cancelButton: 'Tühista',
+      questionTitle: 'Küsimus',
+      waitTitle: 'Palun oodake',
+      errorTitle: 'Viga',
+      warningTitle: 'Hoiatus'
     };
 });

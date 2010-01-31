@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Hindi translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+    $.ui.dialog.wiquery.regional['hi_IN'] = {
+      okButton: 'ठीक है',
+      cancelButton: 'रद्द करें',
+      questionTitle: 'सवाल',
+      waitTitle: 'कृपया इंतज़ार',
+      errorTitle: 'त्रुटि',
+      warningTitle: 'चेतावनी'
     };
 });

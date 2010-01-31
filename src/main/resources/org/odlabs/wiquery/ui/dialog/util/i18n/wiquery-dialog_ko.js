@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-/** French translation */
+/** Korean translation */
 jQuery(function($) {
-    $.ui.dialog.wiquery.regional['fr'] = {
-      okButton: 'Ok',
-      cancelButton: 'Annuler',
-      questionTitle: 'Question',
-      waitTitle: 'Veuillez patienter',
-      errorTitle: 'Erreur',
-      warningTitle: 'Avertissement'
+    $.ui.dialog.wiquery.regional['ko'] = {
+      okButton: '좋아',
+      cancelButton: '취소',
+      questionTitle: '질문',
+      waitTitle: '잠시 기다려주십시오',
+      errorTitle: '오류',
+      warningTitle: '경고'
     };
 });
