@@ -45,7 +45,7 @@ public class BlindEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Default constructor
 	 */
 	private BlindEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.blind.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.blind.min.js");
 	}
 
 	/**

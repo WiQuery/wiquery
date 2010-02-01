@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
 /**
- * $Id: AccordionIcon.java
+ * $Id$
  * <p>
  * Bean for the icon option into the Accordion component
  * </p>

@@ -45,7 +45,7 @@ public class TransferEffectJavaScriptResourceReference extends JavascriptResourc
 	 * Default constructor
 	 */
 	private TransferEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.transfer.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.transfer.min.js");
 	}
 
 	/**

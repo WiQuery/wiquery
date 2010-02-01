@@ -33,9 +33,10 @@ import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
-import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableAnimeDuration.DurationEnum;
+import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -76,8 +77,8 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager
-				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
 		wiQueryResourceManager
 				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 	}

@@ -39,7 +39,7 @@ public class WiQueryCoreThemeResourceReference extends ResourceReference {
 
 	public WiQueryCoreThemeResourceReference(String theme) {
 		super(WiQueryCoreThemeResourceReference.class, theme
-				+ "/jquery-ui-1.7.2.custom.css");
+				+ "/jquery-ui-1.8rc1.custom.css");
 	}
 
 }

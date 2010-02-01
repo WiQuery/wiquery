@@ -45,7 +45,7 @@ public class DropEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Default constructor
 	 */
 	private DropEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.drop.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.drop.min.js");
 	}
 
 	/**

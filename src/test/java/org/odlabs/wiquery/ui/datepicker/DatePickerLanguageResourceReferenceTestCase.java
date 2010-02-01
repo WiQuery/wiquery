@@ -43,21 +43,10 @@ public class DatePickerLanguageResourceReferenceTestCase extends TestCase {
 		
 		Assert.assertEquals(
 				DatePickerLanguages.getJsFileName(DatePickerLanguages.FRENCH).toString(),
-				"i18n/ui.datepicker-fr.min.js");
+				"i18n/jquery.ui.datepicker-fr.min.js");
 		
 		Assert.assertEquals(
 				DatePickerLanguages.getJsFileName(DatePickerLanguages.SERBIA).toString(),
-				"i18n/ui.datepicker-sr-SR.min.js");
-	}
-	
-	/**
-	 * Test {@link DatePickerLanguageResourceReference.DatePickerLanguages#isCanHaveLocaleFile(Locale))}
-	 */
-	@Test
-	public void testIsCanHaveLocaleFile() {
-		Assert.assertFalse(DatePickerLanguages.isCanHaveLocaleFile(null));
-		Assert.assertFalse(DatePickerLanguages.isCanHaveLocaleFile(new Locale("gj")));
-		Assert.assertFalse(DatePickerLanguages.isCanHaveLocaleFile(new Locale("en")));
-		Assert.assertTrue(DatePickerLanguages.isCanHaveLocaleFile(Locale.FRENCH));
+				"i18n/jquery.ui.datepicker-sr-SR.min.js");
 	}
 }

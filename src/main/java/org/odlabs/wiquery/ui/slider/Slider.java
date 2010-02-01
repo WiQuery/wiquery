@@ -34,6 +34,8 @@ import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id: Slider.java
@@ -87,6 +89,8 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(SliderJavaScriptResourceReference.get());
 	}
 

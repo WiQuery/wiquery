@@ -49,7 +49,7 @@ public class ResizableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link ResizableJavaScriptResourceReference}.
 	 */
 	private ResizableJavaScriptResourceReference() {
-		super(ResizableJavaScriptResourceReference.class, "ui.resizable.js");
+		super(ResizableJavaScriptResourceReference.class, "jquery.ui.resizable.min.js");
 	}
 
 	/**

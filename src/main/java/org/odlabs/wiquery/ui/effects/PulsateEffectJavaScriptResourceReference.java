@@ -45,7 +45,7 @@ public class PulsateEffectJavaScriptResourceReference extends JavascriptResource
 	 * Default constructor
 	 */
 	private PulsateEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.pulsate.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.pulsate.min.js");
 	}
 
 	/**

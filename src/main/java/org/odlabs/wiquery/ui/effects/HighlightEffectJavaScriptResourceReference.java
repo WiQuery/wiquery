@@ -45,7 +45,7 @@ public class HighlightEffectJavaScriptResourceReference extends JavascriptResour
 	 * Default constructor
 	 */
 	private HighlightEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.highlight.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.highlight.min.js");
 	}
 
 	/**

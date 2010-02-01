@@ -139,3 +139,9 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 - fix issue 39 : wiquery-gen.js
 
 - add a base of DialogUtils
+
+- Add a new Annotation : WiQueryNotMerged
+
+- Move to jquery ui 1.8 rc1 and add button and autocomplete
+
+- Move to wicket 1.4.6

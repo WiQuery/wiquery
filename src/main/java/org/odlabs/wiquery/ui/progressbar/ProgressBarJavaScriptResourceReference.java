@@ -48,7 +48,7 @@ public class ProgressBarJavaScriptResourceReference extends
 	 * Builds a new instance of {@link ProgressBarJavaScriptResourceReference}.
 	 */
 	private ProgressBarJavaScriptResourceReference() {
-		super(ProgressBarJavaScriptResourceReference.class, "ui.progressbar.js");
+		super(ProgressBarJavaScriptResourceReference.class, "jquery.ui.progressbar.min.js");
 	}
 
 	/**

@@ -351,18 +351,6 @@ public class DialogTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#setBeforeCloseEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
-	 */
-	@Test
-	public void testSetBeforeCloseEvent() {
-		Assert.assertEquals(dialog.statement().render().toString(), 
-			"$('#anId').dialog({autoOpen: false, position: 'center'});");
-		dialog.setBeforeCloseEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertTrue(dialog.statement().render().toString().contains( 
-			"beforeclose: function(event, ui) {\n\talert('event');\n}"));
-	}
-
-	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#setCloseEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test

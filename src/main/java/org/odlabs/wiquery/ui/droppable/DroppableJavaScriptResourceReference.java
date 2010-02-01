@@ -50,7 +50,7 @@ public class DroppableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link DroppableJavaScriptResourceReference}.
 	 */
 	private DroppableJavaScriptResourceReference() {
-		super(DroppableJavaScriptResourceReference.class, "ui.droppable.js");
+		super(DroppableJavaScriptResourceReference.class, "jquery.ui.droppable.min.js");
 	}
 
 	/**

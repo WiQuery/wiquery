@@ -48,7 +48,7 @@ public class DraggableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link DraggableJavaScriptResourceReference}.
 	 */
 	private DraggableJavaScriptResourceReference() {
-		super(DraggableJavaScriptResourceReference.class, "ui.draggable.js");
+		super(DraggableJavaScriptResourceReference.class, "jquery.ui.draggable.min.js");
 	}
 
 	/**

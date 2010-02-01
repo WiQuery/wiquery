@@ -28,8 +28,9 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -88,8 +89,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager
-				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
 		wiQueryResourceManager
 				.addJavaScriptResource(DroppableJavaScriptResourceReference.get());
 	}

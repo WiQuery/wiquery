@@ -45,7 +45,7 @@ public class SortableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.
 	 */
 	private SortableJavaScriptResourceReference() {
-		super(SortableJavaScriptResourceReference.class, "ui.sortable.js");
+		super(SortableJavaScriptResourceReference.class, "jquery.ui.sortable.min.js");
 	}
 
 	/**

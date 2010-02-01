@@ -46,9 +46,12 @@ public class DatePickerLanguageResourceReference extends
 	 *
 	 */
 	public enum DatePickerLanguages {
+		AFRIKAANS			("af"),
 		ALBANIAN			("sq"),
 		ARABIC				("ar"),
 		ARMENIAN			("hy"),
+		AZERBAIJANI			("az"),
+		BOSNIAN				("bs"),
 		BRAZILIAN			("pt", "BR"),
 		BULGARIAN			("bg"),
 		CATALAN				("ca"),
@@ -57,6 +60,8 @@ public class DatePickerLanguageResourceReference extends
 		DANISH				("da"),
 		DUTCH				("nl"),
 		ESPERANTO			("eo"),
+		ESTONIAN			("et"),
+		EUSKARAKO			("eu"),
 		FINNISH				("fi"),
 		FRENCH				(Locale.FRENCH),
 		GERMAN				(Locale.GERMAN),
@@ -83,10 +88,13 @@ public class DatePickerLanguageResourceReference extends
 		SLOVENIAN			("sl"),
 		SPANISH				("es"),
 		SWEDISH				("sv"),
+		SWISS				("fr", "CH"),
 		THAI				("th"),
 		TRADITIONAL_CHINESE	(Locale.TRADITIONAL_CHINESE),
-		TURKISH				("tu"),
-		UKRAINIAN			("uk");
+		TURKISH				("tr"),
+		UNITED_KINGDOM		(Locale.UK), // Default locale
+		UKRAINIAN			("uk"),
+		VIETNAMESE			("vi");
 		
 		// Properties
 		private final Locale locale;
@@ -139,6 +147,10 @@ public class DatePickerLanguageResourceReference extends
 		 * @return the value
 		 */
 		public static DatePickerLanguages getDatePickerLanguages(Locale locale){
+			if(locale == null || locale.getLanguage().equalsIgnoreCase(Locale.ENGLISH.getCountry())){
+				return DatePickerLanguages.UNITED_KINGDOM;
+			}
+			
 			Locale tmpLocale = null;
 			String language = locale.getLanguage();
 			String country = locale.getCountry();
@@ -203,7 +215,7 @@ public class DatePickerLanguageResourceReference extends
 			String variant = locale.getVariant();
 			StringBuffer js = new StringBuffer();
 			
-			js.append("i18n/ui.datepicker-");
+			js.append("i18n/jquery.ui.datepicker-");
 			js.append(locale.getLanguage());
 			
 			if(country != null && country.trim().length() > 0){
@@ -217,17 +229,6 @@ public class DatePickerLanguageResourceReference extends
 			js.append(".min.js");
 			
 			return js;
-		}
-		
-		/**
-		 * Return true if we can have a javascript locale file for our DatePicker
-		 * @param locale
-		 * @return the state
-		 */
-		public static boolean isCanHaveLocaleFile(Locale locale) {
-			return locale != null 
-				&& !Locale.ENGLISH.getLanguage().equals(locale.getLanguage()) // #issue 24
-				&& getDatePickerLanguages(locale) != null;
 		}
 	}
 	

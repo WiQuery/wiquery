@@ -47,7 +47,7 @@ public class SelectableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link SelectableJavaScriptResourceReference}.
 	 */
 	private SelectableJavaScriptResourceReference() {
-		super(SelectableJavaScriptResourceReference.class, "ui.selectable.js");
+		super(SelectableJavaScriptResourceReference.class, "jquery.ui.selectable.min.js");
 	}
 
 	/**

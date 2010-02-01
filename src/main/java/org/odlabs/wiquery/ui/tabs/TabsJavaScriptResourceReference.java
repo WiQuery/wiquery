@@ -44,7 +44,7 @@ public class TabsJavaScriptResourceReference extends
 	 * Builds a new instance of {@link TabsJavaScriptResourceReference}.
 	 */
 	private TabsJavaScriptResourceReference() {
-		super(TabsJavaScriptResourceReference.class, "ui.tabs.js");
+		super(TabsJavaScriptResourceReference.class, "jquery.ui.tabs.min.js");
 	}
 
 	/**

@@ -3,6 +3,14 @@ package org.odlabs.wiquery.ui.autocomplete;
 import org.apache.wicket.Response;
 import org.apache.wicket.model.IModel;
 
+/**
+ * @author Julien Roche
+ *
+ * @param <T>
+ * @param <E>
+ * @deprecated will be removed in 1.2
+ */
+@Deprecated
 public class AutocompleteValue<T, E> {
 
 	private IModel<T> key;

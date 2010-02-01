@@ -45,7 +45,7 @@ public class BounceEffectJavaScriptResourceReference extends JavascriptResourceR
 	 * Default constructor
 	 */
 	private BounceEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.bounce.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.bounce.min.js");
 	}
 
 	/**

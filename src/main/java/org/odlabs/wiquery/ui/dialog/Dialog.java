@@ -32,7 +32,10 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -96,6 +99,9 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
 		wiQueryResourceManager
 				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
@@ -614,9 +620,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * close will be prevented
 	 * @param beforeclose
 	 * @return instance of the current component
+	 * @deprecated will be removed when we will used jquery ui 1.9 (see ticket http://dev.jqueryui.com/ticket/4669)
 	 */
+	@Deprecated
 	public Dialog setBeforeCloseEvent(JsScopeUiEvent beforeclose) {
-		this.options.put("beforeclose", beforeclose);
+		this.options.put("beforeClose", beforeclose);
 		return this;
 	}
 	

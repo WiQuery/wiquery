@@ -44,7 +44,7 @@ public class DialogJavaScriptResourceReference extends
 	 * Builds a new instance of {@link DialogJavaScriptResourceReference}.
 	 */
 	private DialogJavaScriptResourceReference() {
-		super(DialogJavaScriptResourceReference.class, "ui.dialog.js");
+		super(DialogJavaScriptResourceReference.class, "jquery.ui.dialog.min.js");
 	}
 
 	/**

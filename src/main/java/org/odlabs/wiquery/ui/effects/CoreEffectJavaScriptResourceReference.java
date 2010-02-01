@@ -45,7 +45,7 @@ public class CoreEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Default constructor
 	 */
 	private CoreEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.core.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.core.min.js");
 	}
 
 	/**

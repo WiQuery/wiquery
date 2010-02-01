@@ -44,7 +44,7 @@ public class SliderJavaScriptResourceReference extends
 	 * Builds a new instance of {@link SliderJavaScriptResourceReference}.
 	 */
 	private SliderJavaScriptResourceReference() {
-		super(SliderJavaScriptResourceReference.class, "ui.slider.js");
+		super(SliderJavaScriptResourceReference.class, "jquery.ui.slider.min.js");
 	}
 
 	/**

@@ -35,7 +35,10 @@ import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.dialog.Dialog;
 import org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id: DialogResourcesBehavior.java
@@ -69,13 +72,13 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		FRENCH				(Locale.FRENCH),
 		GREEK				("el"),
 		HEBREW				("iw"),
-		HINDI				("hi_IN"),
+		HINDI				("hi", "IN"),
 		HUNGARIAN			("hu"),
 		ICELANDIC			("is"),
 		INDONESIAN			("in"),
 		ITALIAN				("it"),
 		JAPANESE			("ja"),
-		KOREAN				("ko"),
+		KOREAN				(Locale.KOREAN),
 		LITHUANIAN			("lt"),
 		NORVEGIAN			("no"),
 		POLISH				("pl"),
@@ -100,6 +103,10 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		 * @return the value
 		 */
 		public static DialogUtilsLanguages getDialogUtilsLanguages(Locale locale){
+			if(locale == null){
+				return DialogUtilsLanguages.ENGLISH;
+			}
+			
 			Locale tmpLocale = null;
 			String language = locale.getLanguage();
 			String country = locale.getCountry();
@@ -183,10 +190,10 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 			buffer.append("wiquery-dialog_");
 			buffer.append(locale.getLanguage());
 			
-			if(locale.getCountry() == null || locale.getCountry().equals("")){
+			if(locale.getCountry() != null && !locale.getCountry().equals("")){
 				buffer.append("_" + locale.getCountry());
 				
-				if(locale.getVariant() == null || locale.getVariant().equals("")){
+				if(locale.getVariant() != null && !locale.getVariant().equals("")){
 					buffer.append("_" + locale.getVariant());
 				}
 			}
@@ -275,6 +282,10 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		super.contribute(wiQueryResourceManager);
+		
+		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
 		
 		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
 		wiQueryResourceManager

@@ -45,7 +45,7 @@ public class SlideEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Default constructor
 	 */
 	private SlideEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "effects.slide.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.slide.min.js");
 	}
 
 	/**

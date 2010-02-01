@@ -44,7 +44,7 @@ public class DatePickerJavaScriptResourceReference extends
 	 * Builds a new instance of {@link DatePickerJavaScriptResourceReference}.
 	 */
 	private DatePickerJavaScriptResourceReference() {
-		super(DatePickerJavaScriptResourceReference.class, "ui.datepicker.js");
+		super(DatePickerJavaScriptResourceReference.class, "jquery.ui.datepicker.min.js");
 	}
 
 	/**

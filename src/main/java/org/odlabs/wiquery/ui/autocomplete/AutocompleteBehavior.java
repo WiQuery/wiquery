@@ -14,6 +14,14 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 
+/**
+ * @author Julien Roche
+ *
+ * @param <T>
+ * @param <E>
+ * @deprecated will be removed in 1.2
+ */
+@Deprecated
 @WiQueryUIPlugin
 public abstract class AutocompleteBehavior<T, E> extends AbstractDefaultAjaxBehavior implements
 		IWiQueryPlugin {

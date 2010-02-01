@@ -21,8 +21,6 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
-import java.util.Locale;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
@@ -38,10 +36,10 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.datepicker.DatePickerDuration.DurationEnum;
-import org.odlabs.wiquery.ui.datepicker.DatePickerLanguageResourceReference.DatePickerLanguages;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
+import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -133,14 +131,12 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
 		
-		Locale locale = getLocale();
-		if(DatePickerLanguages.isCanHaveLocaleFile(locale)){
-			wiQueryResourceManager
-					.addJavaScriptResource(new DatePickerLanguageResourceReference(
-							locale));
-		}
+		wiQueryResourceManager
+			.addJavaScriptResource(new DatePickerLanguageResourceReference(
+				getLocale())); // If locale is null or there is no translation, we will have the english version
 	}
 
 	/* (non-Javadoc)
