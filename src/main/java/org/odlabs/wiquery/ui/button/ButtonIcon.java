@@ -43,8 +43,8 @@ public class ButtonIcon  extends Object implements IComplexOption {
 	private String secondary;
 	
 	/**Default constructor
-	 * @param primary
-	 * @param secondary
+	 * @param primary (can be null)
+	 * @param secondary (can be null)
 	 */
 	public ButtonIcon(String primary, String secondary) {
 		super();
@@ -71,8 +71,23 @@ public class ButtonIcon  extends Object implements IComplexOption {
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
-		return "{primary: " + new LiteralOption(primary) + ", secondary: " 
-			+ new LiteralOption(secondary) + "}";
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("{");
+		
+		if(primary != null && secondary != null){
+			buffer.append("primary: " + new LiteralOption(primary));
+			buffer.append(", secondary: " + new LiteralOption(secondary));
+			
+		} else if(primary != null){
+			buffer.append("primary: " + new LiteralOption(primary));
+			
+		} else if(primary != null){
+			buffer.append("secondary: " + new LiteralOption(secondary));
+		}
+		
+		buffer.append("}");
+		
+		return buffer;
 	}
 	
 	/**Method setting the class for the primary icon
