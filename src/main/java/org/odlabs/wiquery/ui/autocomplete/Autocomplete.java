@@ -33,6 +33,7 @@ import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
@@ -78,6 +79,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(AutocompleteJavascriptResourceReference.get());
 	}
 	
