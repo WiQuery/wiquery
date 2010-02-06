@@ -22,10 +22,13 @@
 package org.odlabs.wiquery.core.commons;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.behavior.HeaderContributor;
+import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
  * $Id: WiQueryInstantiationListener.java 89 2009-06-02 21:42:53Z lionel.armanet
@@ -44,15 +47,24 @@ import org.apache.wicket.behavior.HeaderContributor;
  */
 public class WiQueryInstantiationListener implements
 		IComponentInstantiationListener, Serializable {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = -7398777039788778234L;
+	
+	/** List of all {@link WiQueryPluginRenderingListener} */
+	protected static final List<WiQueryPluginRenderingListener> listeners = new ArrayList<WiQueryPluginRenderingListener>();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.apache.wicket.application.IComponentInstantiationListener#onInstantiation
-	 * (org.apache.wicket.Component)
+	/**
+	 * Method adding a new {@link WiQueryPluginRenderingListener}
+	 * @param listener
+	 */
+	public void addWiQueryPluginRenderingListener(WiQueryPluginRenderingListener listener) {
+		listeners.add(listener);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.application.IComponentInstantiationListener#onInstantiation(org.apache.wicket.Component)
 	 */
 	public void onInstantiation(final Component component) {
 		// theme management

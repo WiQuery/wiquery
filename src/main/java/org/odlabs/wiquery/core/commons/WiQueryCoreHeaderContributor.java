@@ -32,8 +32,12 @@ import org.apache.wicket.Component;
 import org.apache.wicket.IRequestTarget;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.MetaDataKey;
+import org.apache.wicket.Page;
+import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;
+import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.behavior.IBehavior;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.commons.listener.JQueryCoreRenderingListener;
@@ -119,8 +123,13 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	 */
 	public WiQueryCoreHeaderContributor() {
 		super();
+		
+		// Default listeners
 		this.pluginRenderingListeners.add(new JQueryCoreRenderingListener());
 		this.pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
+		
+		// Listeners add by users
+		this.pluginRenderingListeners.addAll(WiQueryInstantiationListener.listeners);
 		
 		Application app = Application.get();
 		
@@ -186,6 +195,58 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	}
 	
 	/**
+	 * Check if the plugin is visible
+	 * @param plugin Plugin to check
+	 * @param target The current request target
+	 * @return the state (default true)
+	 */
+	public boolean isPluginVisible(IWiQueryPlugin plugin, IRequestTarget target) {
+		if(plugin instanceof Component){
+			Component component = ((Component) plugin);
+			return component.isVisibleInHierarchy() && component.isRenderAllowed();
+			
+		} else if(plugin instanceof IBehavior && !(target instanceof AjaxRequestTarget)){
+			// In a classic request, if the behavior's component isn't visible,
+			// the behavior will not be executed
+			Request request = RequestCycle.get().getRequest();
+			
+			if(request != null && request.getPage() != null){
+				Page page = request.getPage();
+				final IBehavior iBehavior = (IBehavior) plugin;
+				Object result = page.visitChildren(new IVisitor<Component>() {
+					
+					/**
+					 * {@inheritDoc}
+					 * @see org.apache.wicket.Component.IVisitor#component(org.apache.wicket.Component)
+					 */
+					public Object component(Component component) {
+						if(component.getBehaviors().contains(iBehavior)){
+							return component.isVisibleInHierarchy() && component.isRenderAllowed();
+						}
+						
+						return IVisitor.CONTINUE_TRAVERSAL;
+					}
+				});
+				
+				return Boolean.TRUE.equals(result);
+			}
+			
+		} else if(plugin instanceof IBehavior && target instanceof AjaxRequestTarget){
+			// In an ajax request target, we shall test the visibility of the component
+			AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) target;
+			IBehavior iBehavior = (IBehavior) plugin;
+			
+			for(Component component : ajaxRequestTarget.getComponents()){
+				if(component.getBehaviors().contains(iBehavior)){
+					return component.isVisibleInHierarchy() && component.isRenderAllowed();
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
 	 * Renders WiQuery's JavaScript code.
 	 */
 	public void renderHead(final IHeaderResponse response) {
@@ -193,6 +254,8 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		// to call
 		JsQuery jsq = new JsQuery();
 		JsStatement jsStatement = new JsStatement();
+		JsStatement tempStatement = null;
+		WiQueryResourceManager manager = null;
 		IRequestTarget target = RequestCycle.get().getRequestTarget();
 		IHeaderResponse headerResponse = null;
 		
@@ -205,9 +268,15 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		}
 		
 		for (IWiQueryPlugin plugin : this.plugins) {
-			if (this.isPluginAttachedToTarget(plugin, target)) {
-				WiQueryResourceManager manager = resourceManagers.get(plugin);
-				jsStatement.append("\t" + plugin.statement().render() + "\n");
+			if(isPluginAttachedToTarget(plugin, target) && isPluginVisible(plugin, target)) {
+				tempStatement = plugin.statement();
+				
+				if(tempStatement != null){
+					jsStatement.append("\t" + tempStatement.render() + "\n");
+				}
+				
+				manager = resourceManagers.get(plugin);
+				
 				// calling listeners to compute specific stuff
 				for (WiQueryPluginRenderingListener listener : pluginRenderingListeners) {
 					listener.onRender(plugin, manager, headerResponse);
@@ -218,11 +287,13 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		}
 		
 		if(enableResourcesMerging){
+			// Merging of stylesheet resources
 			if(!wiQueryHeaderResponse.getStylesheet().isEmpty()){
 				response.renderCSSReference(
 						new WiQueryMergedStyleSheetResourceReference(wiQueryHeaderResponse));
 			}
 			
+			// Merging of javascript resources
 			if(!wiQueryHeaderResponse.getJavascript().isEmpty()){
 				response.renderJavascriptReference(
 						new WiQueryMergedJavaScriptResourceReference(wiQueryHeaderResponse));

@@ -145,3 +145,12 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 - Move to jquery ui 1.8 rc1 and add button and autocomplete
 
 - Move to wicket 1.4.6
+
+- Add WiQueryAbstractAjaxBehavior
+
+- statement can return null
+
+- WiqueryHeaderContributor : we check if the component is visible or if the behavior is
+in a visible component
+
+- We can add WiQueryPluginRenderingListener
