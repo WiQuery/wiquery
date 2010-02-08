@@ -35,6 +35,7 @@ import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Page;
 import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.IBehavior;
@@ -293,10 +294,20 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 						new WiQueryMergedStyleSheetResourceReference(wiQueryHeaderResponse));
 			}
 			
+			// Insertion of non mergeable stylesheet
+			for(ResourceReference ref : wiQueryHeaderResponse.getStylesheetUnmergeable()){
+				response.renderCSSReference(ref);
+			}
+			
 			// Merging of javascript resources
 			if(!wiQueryHeaderResponse.getJavascript().isEmpty()){
 				response.renderJavascriptReference(
 						new WiQueryMergedJavaScriptResourceReference(wiQueryHeaderResponse));
+			}
+			
+			// Insertion of non mergeable javascript
+			for(ResourceReference ref : wiQueryHeaderResponse.getJavascriptUnmergeable()){
+				response.renderJavascriptReference(ref);
 			}
 		}
 

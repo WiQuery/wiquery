@@ -44,15 +44,40 @@ import org.apache.wicket.util.time.Time;
  */
 public class WiqueryGeneratedJavaScriptResourceReference extends
 		ResourceReference implements IClusterable {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
 	
+	/** Template's name */
 	private static final String TEMPLATE_NAME = "wiquery-gen.js";
 	
+	// Properties
 	private CharSequence javaScriptCode;
-	
 	private PackagedTextTemplate jstemplate = new PackagedTextTemplate(WiqueryGeneratedJavaScriptResourceReference.class, "wiquery-gen.js");
 	
+	/**
+	 * Method creating the javascript code for the wiQuery
+	 * @param javaScriptCode
+	 * @return the javascript
+	 */
+	public static String wiqueryGeneratedJavascriptCode(CharSequence javaScriptCode) {
+		PackagedTextTemplate jstemplate = new PackagedTextTemplate(WiqueryGeneratedJavaScriptResourceReference.class, "wiquery-gen.js");
+		IJavascriptCompressor compressor = Application.get()
+			.getResourceSettings()
+			.getJavascriptCompressor();
+	
+		Map<String, Object> genJs = new HashMap<String, Object>();
+		genJs.put("wiqueryoutput", compressor == null ? 
+				javaScriptCode : compressor.compress(javaScriptCode.toString()));
+		jstemplate.interpolate(genJs);
+		
+		return jstemplate.asString();
+	}
+	
+	/**
+	 * Constructor
+	 * @param javaScriptCode
+	 */
 	public WiqueryGeneratedJavaScriptResourceReference(CharSequence javaScriptCode) {
 		super(WiqueryGeneratedJavaScriptResourceReference.class, System.currentTimeMillis() + TEMPLATE_NAME);
 		this.javaScriptCode = javaScriptCode;
@@ -69,16 +94,12 @@ public class WiqueryGeneratedJavaScriptResourceReference extends
 		return new Resource() {
 			private static final long serialVersionUID = 1L;
 
+			/**
+			 * {@inheritDoc}
+			 * @see org.apache.wicket.Resource#getResourceStream()
+			 */
 			public IResourceStream getResourceStream() {
-				IJavascriptCompressor compressor = Application.get()
-					.getResourceSettings()
-					.getJavascriptCompressor();
-				
-				Map<String, Object> genJs = new HashMap<String, Object>();
-				genJs.put("wiqueryoutput", compressor == null ? 
-						javaScriptCode : compressor.compress(javaScriptCode.toString()));
-				jstemplate.interpolate(genJs);
-				final String stringValue = jstemplate.asString();
+				final String stringValue = wiqueryGeneratedJavascriptCode(javaScriptCode);
 				return new StringResourceStream(stringValue);
 			}
 		};

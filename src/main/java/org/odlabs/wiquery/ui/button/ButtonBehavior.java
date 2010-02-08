@@ -22,22 +22,18 @@
 package org.odlabs.wiquery.ui.button;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.ComponentTag;
-import org.apache.wicket.markup.MarkupStream;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.javascript.helper.EventsHelper;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
  * <p>
- * Creates a button UI component from this {@link WebMarkupContainer}'s
+ * Creates a jQuery UI button behavior to decorate a link or a button
  * HTML markup.
  * </p>
  * 
@@ -47,86 +43,46 @@ import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
  * @since 1.1
  */
 @WiQueryUIPlugin
-public class Button extends WebMarkupContainer implements
-		IWiQueryPlugin {
+public class ButtonBehavior extends WiQueryAbstractBehavior {
 	// Constants
 	/**	Constant of serialization */
-	private static final long serialVersionUID = -5696879997749115456L;
+	private static final long serialVersionUID = -4079980500720298690L;
 	
 	// Properties
-	private ButtonBehavior buttonBehavior;
-	private JsScopeUiEvent clickEvent;
-
+	private Options options;
+	
 	/**
-	 * Constructor
-	 * @param id Wicket identifiant
+	 * Default constructor
 	 */
-	public Button(String id) {
-		super(id);
-		setOutputMarkupId(true);
-		buttonBehavior = new ButtonBehavior();
-		add(buttonBehavior);
+	public ButtonBehavior() {
+		super();
+		options = new Options();
 	}
 	
 	/**
-	 * Constructor
-	 * @param id Wicket identifiant
-	 * @param label Button label
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
-	public Button(String id, String label) {
-		this(id);
-		setLabel(label);
+	@Override
+	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
 	}
 	
 	/**Method retrieving the options of the component
 	 * @return the options
 	 */
 	protected Options getOptions() {
-		return buttonBehavior.getOptions();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
+		return options;
 	}
 	
 	/**
-	 * @see org.apache.wicket.Component#onComponentTagBody(org.apache.wicket.markup.MarkupStream,
-	 *      org.apache.wicket.markup.ComponentTag)
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override
-	protected void onComponentTagBody(final MarkupStream markupStream, final ComponentTag openTag)	{
-		String tagname = openTag.getName();
-		
-		if(!tagname.equalsIgnoreCase("input") 
-				&& !tagname.equalsIgnoreCase("button")
-				&& !tagname.equalsIgnoreCase("a")){
-			findMarkupStream().throwMarkupException(
-					"Component " 
-					+ getId() 
-					+ " must be applied to a tag of type 'input', 'button' or 'a', not "
-					+ openTag.toUserDebugString());
-		}
-		
-		replaceComponentTagBody(markupStream, openTag, getDefaultModelObjectAsString());
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
-	 */
 	public JsStatement statement() {
-		JsStatement jquery = buttonBehavior.statement();
-		
-		if(clickEvent != null) {
-			jquery.chain(EventsHelper.click(clickEvent));
-		}
-		
-		return jquery;
+		return new JsQuery(getComponent()).$().chain("button", options.getJavaScriptOptions());
 	}
 	
 	/*---- Options section ---*/
@@ -137,8 +93,8 @@ public class Button extends WebMarkupContainer implements
 	 * @param text
 	 * @return the Button
 	 */
-	public Button setText(boolean text) {
-		buttonBehavior.setText(text);
+	public ButtonBehavior setText(boolean text) {
+		options.put("text", text);
 		return this;
 	}
 	
@@ -146,7 +102,11 @@ public class Button extends WebMarkupContainer implements
 	 * @return the text option value
 	 */
 	public boolean isText() {
-		return buttonBehavior.isText();
+		if(options.containsKey("text")){
+			return options.getBoolean("text");
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -159,8 +119,8 @@ public class Button extends WebMarkupContainer implements
 	 * @param icons
 	 * @return the button
 	 */
-	public Button setIcons(ButtonIcon icons) {
-		buttonBehavior.setIcons(icons);
+	public ButtonBehavior setIcons(ButtonIcon icons) {
+		options.put("icons", icons);
 		return this;
 	}
 	
@@ -168,7 +128,7 @@ public class Button extends WebMarkupContainer implements
 	 * @return the icons value option
 	 */
 	public ButtonIcon getIcons() {
-		return buttonBehavior.getIcons();
+		return (ButtonIcon) options.getComplexOption("icons");
 	}
 	
 	/**
@@ -179,8 +139,8 @@ public class Button extends WebMarkupContainer implements
 	 * @param label
 	 * @return the button
 	 */
-	public Button setLabel(String label) {
-		buttonBehavior.setLabel(label);
+	public ButtonBehavior setLabel(String label) {
+		options.putLiteral("label", label);
 		return this;
 	}
 	
@@ -188,24 +148,10 @@ public class Button extends WebMarkupContainer implements
 	 * @return the label value option
 	 */
 	public String getLabel() {
-		return buttonBehavior.getLabel();
+		return options.getLiteral("label");
 	}
 	
 	/*---- Events section ---*/
-	
-	/**
-	 * Usually the native click event, with the exception of keyboard-triggered 
-	 * click with the space key on anchors and generally on checkboxes and radio buttons.
-	 * 
-	 * This is not a part of jQuery UI
-	 * 
-	 * @param change
-	 * @return instance of the current component
-	 */
-	public Button setClickEvent(JsScopeUiEvent click) {
-		this.clickEvent = click;
-		return this;
-	}
 	
 	/*---- Methods section ---*/
 	
@@ -214,7 +160,7 @@ public class Button extends WebMarkupContainer implements
 	 * @return the associated JsStatement
 	 */
 	public JsStatement destroy() {
-		return buttonBehavior.destroy();
+		return new JsQuery(getComponent()).$().chain("button", "'destroy'");
 	}
 
 	/**Method to destroy the button within the ajax request
@@ -228,7 +174,7 @@ public class Button extends WebMarkupContainer implements
 	 * @return the associated JsStatement
 	 */
 	public JsStatement disable() {
-		return buttonBehavior.disable();
+		return new JsQuery(getComponent()).$().chain("button", "'disable'");
 	}
 
 	/**Method to disable the button within the ajax request
@@ -242,7 +188,7 @@ public class Button extends WebMarkupContainer implements
 	 * @return the associated JsStatement
 	 */
 	public JsStatement enable() {
-		return buttonBehavior.enable();
+		return new JsQuery(getComponent()).$().chain("button", "'enable'");
 	}
 
 	/**Method to enable the button within the ajax request

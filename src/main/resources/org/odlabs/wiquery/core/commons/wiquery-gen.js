@@ -1,7 +1,5 @@
-<!--/*--><![CDATA[/*><!--*/ 
 (function($) {
 
 ${wiqueryoutput}
 
 })(jQuery);
-/*-->]]>*/

@@ -154,3 +154,7 @@ ManipulatingHelperTestCase, TraversingHelperTestCase
 in a visible component
 
 - We can add WiQueryPluginRenderingListener
+
+- fix issue 38
+
+- add ButtonBehavior

@@ -56,9 +56,6 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		
 		for(ResourceReference r : resources) {
 			buffer.append(r.getClass().getSimpleName() + "_");
-//			buffer.append((r.getName().indexOf('/') >= 0) ? 
-//					r.getName().substring(r.getName().lastIndexOf('/') + 1) : 
-//						r.getName() + "_");
 			buffer.append(r.getName().replace("/", ":"));
 		}
 		
@@ -67,6 +64,8 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	// Properties
 	private final Set<ResourceReference> javascript;
 	private final Set<ResourceReference> stylesheet;
+	private final Set<ResourceReference> javascriptUnmergeable;
+	private final Set<ResourceReference> stylesheetUnmergeable;
 	private final Set<Object> objects;
 	private transient IHeaderResponse iHeaderResponse;
 	
@@ -84,6 +83,8 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	public WiQueryHeaderResponse(IHeaderResponse iHeaderResponse) {
 		javascript = new LinkedHashSet<ResourceReference>();
 		stylesheet = new LinkedHashSet<ResourceReference>();
+		javascriptUnmergeable = new LinkedHashSet<ResourceReference>();
+		stylesheetUnmergeable = new LinkedHashSet<ResourceReference>();
 		objects = new HashSet<Object>();
 		this.iHeaderResponse = iHeaderResponse;
 	}
@@ -102,6 +103,10 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		return javascript;
 	}
 
+	public Set<ResourceReference> getJavascriptUnmergeable() {
+		return javascriptUnmergeable;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#getRealResponse()
@@ -110,14 +115,18 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	protected Response getRealResponse() {
 		return null;
 	}
-
+	
 	/**
 	 * @return the stylesheets from wiQuery framework and plugins
 	 */
 	public Set<ResourceReference> getStylesheet() {
 		return stylesheet;
 	}
-	
+
+	public Set<ResourceReference> getStylesheetUnmergeable() {
+		return stylesheetUnmergeable;
+	}
+
 	/**
 	 * Method return true if the resource can be merged
 	 * @param resource
@@ -126,7 +135,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	protected Boolean isMergeable(ResourceReference resource) {
 		return !resource.getClass().isAnnotationPresent(WiQueryNotMerged.class);
 	}
-
+	
 	/**
 	 * Mark the {@link ResourceReference}
 	 * @param object
@@ -149,14 +158,15 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 			
 			if(isMergeable(reference)){
 				stylesheet.add(reference);
-				markResourceReference(object);
 				
 			} else {
-				iHeaderResponse.renderCSSReference(reference);
+				stylesheetUnmergeable.add(reference);
 			}
+			
+			markResourceReference(object);
 		}
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#renderCSSReference(org.apache.wicket.ResourceReference, java.lang.String)
@@ -169,11 +179,12 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 			
 			if(isMergeable(reference)){
 				stylesheet.add(reference);
-				markResourceReference(object);
 				
 			} else {
-				iHeaderResponse.renderCSSReference(reference, media);
+				stylesheetUnmergeable.add(reference);
 			}
+			
+			markResourceReference(object);
 		}
 	}
 
@@ -189,11 +200,12 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 			
 			if(isMergeable(reference)){
 				javascript.add(reference);
-				markResourceReference(object);
 				
 			} else {
-				iHeaderResponse.renderCSSReference(reference);
+				javascriptUnmergeable.add(reference);
 			}
+			
+			markResourceReference(object);
 		}
 	}
 
@@ -209,11 +221,12 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 			
 			if(isMergeable(reference)){
 				javascript.add(reference);
-				markResourceReference(object);
 				
 			} else {
-				iHeaderResponse.renderJavascriptReference(reference, id);
+				javascriptUnmergeable.add(reference);
 			}
+			
+			markResourceReference(object);
 		}
 	}
 
@@ -237,6 +250,9 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 		
 		javascript.clear(); // Flush javascript resources already loaded
 		stylesheet.clear(); // Flush CSS resources already loaded
+		
+		javascriptUnmergeable.clear();
+		stylesheetUnmergeable.clear();
 	}
 	
 	/**
