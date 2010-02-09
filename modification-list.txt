@@ -158,3 +158,5 @@ in a visible component
 - fix issue 38
 
 - add ButtonBehavior
+
+- add PositionBehavior
