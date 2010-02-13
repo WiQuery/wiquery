@@ -98,7 +98,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 			protected void populateItem(ListItem<ButtonElement<T>> item) {
 				ButtonElement<T> buttonElement = item.getModelObject();
 				
-				Check<T> check = new Check<T>("buttonCheck", buttonElement.getModel(), checkGroup);
+				Check<T> check = newCheck("buttonCheck", buttonElement.getModel(), checkGroup);
 				check.setLabel(buttonElement.getLabel());
 				check.setOutputMarkupId(true);
 				
@@ -110,7 +110,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 		};
 		checkGroup.add(view);
 	}
-
+	
 	/**
 	 * Constructor
 	 * @param id Wicket identifiant
@@ -145,6 +145,18 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 */
 	public CheckGroup<T> getCheckGroup() {
 		return checkGroup;
+	}
+	
+	/**
+	 * Method creating a new {@link Check}
+	 * @param wicketId Wicket identifiant
+	 * @param model Model to use
+	 * @param group Group of the {@link Check}
+	 * @return a {@link Check}
+	 */
+	protected Check<T> newCheck(String wicketId, IModel<T> model, CheckGroup<T> group) {
+		Check<T> check = new Check<T>(wicketId, model, group);
+		return check;
 	}
 
 	/**

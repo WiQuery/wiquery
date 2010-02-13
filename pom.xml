@@ -13,12 +13,13 @@
 	<name>WiQuery project</name>
 
 	<scm>
-		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-m2/</developerConnection>
+		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wiquery-1.1-experiment/</developerConnection>
 	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<wicket.version>1.4.6</wicket.version>
+		<jackson.version>1.4.2</jackson.version>
 	</properties>
 
 	<build>
@@ -110,6 +111,12 @@
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket</artifactId>
 			<version>${wicket.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->

@@ -95,7 +95,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 			protected void populateItem(ListItem<ButtonElement<T>> item) {
 				ButtonElement<T> buttonElement = item.getModelObject();
 				
-				Radio<T> radio = new Radio<T>("buttonRadio", buttonElement.getModel(), radioGroup);
+				Radio<T> radio = newRadio("buttonRadio", buttonElement.getModel(), radioGroup);
 				radio.setLabel(buttonElement.getLabel());
 				radio.setOutputMarkupId(true);
 				
@@ -141,6 +141,18 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	 */
 	public RadioGroup<T> getRadioGroup() {
 		return radioGroup;
+	}
+	
+	/**
+	 * Method creating a new {@link Radio}
+	 * @param wicketId Wicket identifiant
+	 * @param model Model to use
+	 * @param group Group of the {@link Radio}
+	 * @return a {@link Radio}
+	 */
+	protected Radio<T> newRadio(String wicketId, IModel<T> model, RadioGroup<T> group) {
+		Radio<T> radio = new Radio<T>(wicketId, model, group);
+		return radio;
 	}
 
 	/**

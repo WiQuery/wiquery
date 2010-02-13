@@ -104,6 +104,8 @@ public class Button extends WebMarkupContainer implements
 		
 		if(!tagname.equalsIgnoreCase("input") 
 				&& !tagname.equalsIgnoreCase("button")
+				&& !tagname.equalsIgnoreCase("submit")
+				&& !tagname.equalsIgnoreCase("reset")
 				&& !tagname.equalsIgnoreCase("a")){
 			findMarkupStream().throwMarkupException(
 					"Component " 
