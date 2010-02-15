@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<project name="WickeXt">
+	<bannerLeft>
+		<name>WickeXt project - Version ${project.version}</name>
+	</bannerLeft>
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+	    <version>1.0</version>
+	</skin>
+	
+	<body>
+		<links>
+			<item name="Home" href="index.html" />
+		</links>
+
+	    <menu name="WickeXt ${project.version} tutorials">
+	      <item name="Quickstart" href="quickstart.html"/>
+	    </menu>	
+	</body>
+
+</project>
