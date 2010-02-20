@@ -1,5 +1,5 @@
 /*
- * jQuery UI Slider 1.8rc1
+ * jQuery UI Slider 1.8rc2
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -20,6 +20,7 @@
 var numPages = 5;
 
 $.widget("ui.slider", $.ui.mouse, {
+	widgetEventPrefix: "slide",
 	options: {
 		animate: false,
 		distance: 0,
@@ -35,6 +36,7 @@ $.widget("ui.slider", $.ui.mouse, {
 
 		var self = this, o = this.options;
 		this._keySliding = false;
+		this._mouseSliding = false;
 		this._animateOff = true;
 		this._handleIndex = null;
 		this._detectOrientation();
@@ -261,6 +263,7 @@ $.widget("ui.slider", $.ui.mouse, {
 		}
 
 		this._start(event, index);
+		this._mouseSliding = true;
 
 		self._handleIndex = index;
 
@@ -304,6 +307,7 @@ $.widget("ui.slider", $.ui.mouse, {
 	_mouseStop: function(event) {
 
 		this.handles.removeClass("ui-state-active");
+		this._mouseSliding = false;
 		this._stop(event, this._handleIndex);
 		this._change(event, this._handleIndex);
 		this._handleIndex = null;
@@ -420,15 +424,17 @@ $.widget("ui.slider", $.ui.mouse, {
 	},
 
 	_change: function(event, index) {
-		var uiHash = {
-			handle: this.handles[index],
-			value: this.value()
-		};
-		if (this.options.values && this.options.values.length) {
-			uiHash.value = this.values(index);
-			uiHash.values = this.values();
+		if (!this._keySliding && !this._mouseSliding) {
+			var uiHash = {
+				handle: this.handles[index],
+				value: this.value()
+			};
+			if (this.options.values && this.options.values.length) {
+				uiHash.value = this.values(index);
+				uiHash.values = this.values();
+			}
+			this._trigger("change", event, uiHash);
 		}
-		this._trigger("change", event, uiHash);
 	},
 
 	value: function(newValue) {
@@ -607,8 +613,7 @@ $.widget("ui.slider", $.ui.mouse, {
 });
 
 $.extend($.ui.slider, {
-	version: "1.8rc1",
-	eventPrefix: "slide"
+	version: "1.8rc2"
 });
 
 })(jQuery);

@@ -1,5 +1,5 @@
 /*
- * jQuery UI Autocomplete 1.8rc1
+ * jQuery UI Autocomplete 1.8rc2
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -10,6 +10,7 @@
  * Depends:
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
+ *  jquery.ui.position.js
  */
 (function( $ ) {
 
@@ -21,7 +22,6 @@ $.widget( "ui.autocomplete", {
 	_create: function() {
 		var self = this;
 		this.element
-			.addClass( "ui-autocomplete" )
 			.attr( "autocomplete", "off" )
 			// TODO verify these actually work as intended
 			.attr({
@@ -92,6 +92,44 @@ $.widget( "ui.autocomplete", {
 		this.response = function() {
 			return self._response.apply( self, arguments );
 		};
+		this.menu = $( "<ul></ul>" )
+			.addClass( "ui-autocomplete" )
+			.appendTo( this.element.parent() )
+			.menu({
+				focus: function( event, ui ) {
+					var item = ui.item.data( "item.autocomplete" );
+					if ( false !== self._trigger( "focus", null, { item: item } ) ) {
+						// use value to match what will end up in the input
+						self.element.val( item.value );
+					}
+				},
+				selected: function( event, ui ) {
+					var item = ui.item.data( "item.autocomplete" );
+					if ( false !== self._trigger( "select", event, { item: item } ) ) {
+						self.element.val( item.value );
+					}
+					self.close( event );
+					self.previous = self.element.val();
+					// only trigger when focus was lost (click on menu)
+					if ( self.element[0] != document.activeElement ) {
+						self.element.focus();
+					}
+				}
+			})
+			.zIndex( this.element.zIndex() + 1 )
+			// workaround for jQuery bug #5781 http://dev.jquery.com/ticket/5781
+			.css({ top: 0, left: 0 })
+			.position({
+				my: "left top",
+				at: "left bottom",
+				of: this.element,
+				collision: "none"
+			})
+			.hide()
+			.data( "menu" );
+		if ( $.fn.bgiframe ) {
+			 menu.element.bgiframe();
+		}
 	},
 
 	destroy: function() {
@@ -101,9 +139,7 @@ $.widget( "ui.autocomplete", {
 			.removeAttr( "role" )
 			.removeAttr( "aria-autocomplete" )
 			.removeAttr( "aria-haspopup" );
-		if ( this.menu ) {
-			this.menu.element.remove();
-		}
+		this.menu.element.remove();
 		$.Widget.prototype.destroy.call( this );
 	},
 
@@ -170,10 +206,9 @@ $.widget( "ui.autocomplete", {
 
 	close: function( event ) {
 		clearTimeout( this.closing );
-		if ( this.menu ) {
+		if ( this.menu.element.is(":visible") ) {
 			this._trigger( "close", event );
-			this.menu.element.remove();
-			this.menu = null;
+			this.menu.element.hide();
 		}
 		if ( this.previous != this.element.val() ) {
 			this._trigger( "change", event );
@@ -200,62 +235,29 @@ $.widget( "ui.autocomplete", {
 	},
 
 	_suggest: function( items ) {
-		if (this.menu) {
-			this.menu.element.remove();
-		}
 		var self = this,
-			ul = $( "<ul></ul>" ),
-			parent = this.element.parent();
-
+			ul = this.menu.element.empty();
 		$.each( items, function( index, item ) {
-			$( "<li></li>" )
-				.data( "item.autocomplete", item )
-				.append( "<a>" + item.label + "</a>" )
-				.appendTo( ul );
+			self._renderItem( ul, item );
 		});
-		this.menu = ul
-			.addClass( "ui-autocomplete-menu" )
-			.appendTo( parent )
-			.menu({
-				focus: function( event, ui ) {
-					var item = ui.item.data( "item.autocomplete" );
-					if ( false !== self._trigger( "focus", null, { item: item } ) ) {
-						// use value to match what will end up in the input
-						self.element.val( item.value );
-					}
-				},
-				selected: function( event, ui ) {
-					var item = ui.item.data( "item.autocomplete" );
-					if ( false !== self._trigger( "select", event, { item: item } ) ) {
-						self.element.val( item.value );
-					}
-					self.close( event );
-					self.previous = self.element.val();
-					// only trigger when focus was lost (click on menu)
-					if ( self.element[0] != document.activeElement ) {
-						self.element.focus();
-					}
-				}
-			})
-			.zIndex( this.element.zIndex() + 1 )
-			// workaround for jQuery bug #5781 http://dev.jquery.com/ticket/5781
-			.css({ top: 0, left: 0 })
-			.position({
-				my: "left top",
-				at: "left bottom",
-				of: this.element
-			})
-			.data( "menu" );
+		// TODO refresh should check if the active item is still in the dom, removing the need for a manual deactivate
+		this.menu.deactivate();
+		this.menu.refresh();
+		this.menu.element.show();
 		if ( ul.width() <= this.element.width() ) {
 			ul.width( this.element.width() );
 		}
-		if ( $.fn.bgiframe ) {
-			ul.bgiframe();
-		}
+	},
+
+	_renderItem: function( ul, item) {
+		return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( "<a>" + item.label + "</a>" )
+			.appendTo( ul );
 	},
 
 	_move: function( direction, event ) {
-		if ( !this.menu ) {
+		if ( !this.menu.element.is(":visible") ) {
 			this.search( null, event );
 			return;
 		}
@@ -269,8 +271,7 @@ $.widget( "ui.autocomplete", {
 	},
 
 	widget: function() {
-		// return empty jQuery object when menu isn't initialized yet
-		return this.menu ? this.menu.element : $([]);
+		return this.menu.element;
 	}
 });
 
@@ -315,7 +316,14 @@ $.widget("ui.menu", {
 				e.preventDefault();
 				self.select();
 			});
-		var items = this.element.children("li")
+		this.refresh();
+	},
+	
+	refresh: function() {
+		var self = this;
+
+		// don't refresh list items that are already adapted
+		var items = this.element.children("li:not(.ui-menu-item)")
 			.addClass("ui-menu-item")
 			.attr("role", "menuitem");
 		

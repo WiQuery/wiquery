@@ -1,5 +1,5 @@
 /*
- * jQuery UI Dialog 1.8rc1
+ * jQuery UI Dialog 1.8rc2
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -8,13 +8,13 @@
  * http://docs.jquery.com/UI/Dialog
  *
  * Depends:
- *  jquery.ui.button.js
  *	jquery.ui.core.js
+ *	jquery.ui.widget.js
+ *  jquery.ui.button.js
  *	jquery.ui.draggable.js
  *	jquery.ui.mouse.js
  *	jquery.ui.position.js
  *	jquery.ui.resizable.js
- *	jquery.ui.widget.js
  */
 (function($) {
 
@@ -114,9 +114,6 @@ $.widget("ui.dialog", {
 				.blur(function() {
 					uiDialogTitlebarClose.removeClass('ui-state-focus');
 				})
-				.mousedown(function(ev) {
-					ev.stopPropagation();
-				})
 				.click(function(event) {
 					self.close(event);
 					return false;
@@ -191,6 +188,8 @@ $.widget("ui.dialog", {
 		(self.overlay && self.overlay.destroy());
 		self.uiDialog.unbind('keypress.ui-dialog');
 
+		self._isOpen = false;
+
 		(self.options.hide
 			? self.uiDialog.hide(self.options.hide, function() {
 				self._trigger('close', event);
@@ -198,8 +197,6 @@ $.widget("ui.dialog", {
 			: self.uiDialog.hide() && self._trigger('close', event));
 
 		$.ui.dialog.overlay.resize();
-
-		self._isOpen = false;
 
 		// adjust the maxZ to allow other modal dialogs to continue to work (see #4309)
 		if (self.options.modal) {
@@ -327,7 +324,7 @@ $.widget("ui.dialog", {
 			heightBeforeDrag;
 
 		self.uiDialog.draggable({
-			cancel: '.ui-dialog-content',
+			cancel: '.ui-dialog-content, .ui-dialog-titlebar-close',
 			handle: '.ui-dialog-titlebar',
 			containment: 'document',
 			start: function(event) {
@@ -448,7 +445,14 @@ $.widget("ui.dialog", {
 				at: myAt.join(' '),
 				offset: offset.join(' '),
 				of: window,
-				collision: 'fit'
+				collision: 'fit',
+				// ensure that the titlebar is never outside the document
+				using: function(pos) {
+					var topOffset = $(this).css(pos).offset().top;
+					if (topOffset < 0) {
+						$(this).css('top', pos.top - topOffset);
+					}
+				}
 			});
 		if (!isVisible) {
 			this.uiDialog.hide();
@@ -572,7 +576,7 @@ $.widget("ui.dialog", {
 });
 
 $.extend($.ui.dialog, {
-	version: "1.8rc1",
+	version: "1.8rc2",
 
 	uuid: 0,
 	maxZ: 0,
@@ -600,8 +604,8 @@ $.extend($.ui.dialog.overlay, {
 				// handle $(el).dialog().dialog('close') (see #4065)
 				if ($.ui.dialog.overlay.instances.length) {
 					$(document).bind($.ui.dialog.overlay.events, function(event) {
-						var dialogZ = $(event.target).parents('.ui-dialog').css('zIndex') || 0;
-						return (dialogZ > $.ui.dialog.overlay.maxZ);
+						// stop events if the z-index of the target is <= the z-index of the overlay
+						return ($(event.target).zIndex() >= $.ui.dialog.overlay.maxZ);
 					});
 				}
 			}, 1);

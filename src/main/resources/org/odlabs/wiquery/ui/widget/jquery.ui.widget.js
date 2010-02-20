@@ -1,5 +1,5 @@
 /*!
- * jQuery UI Widget 1.8rc1
+ * jQuery UI Widget 1.8rc2
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -12,12 +12,16 @@
 var _remove = $.fn.remove;
 
 $.fn.remove = function( selector, keepData ) {
-	if ( !keepData ) {
-		$( "*", this ).add( this ).each(function() {
-			$( this ).triggerHandler( "remove" );
-		});
-	}
-	return _remove.apply( this, arguments );
+	return this.each(function() {
+		if ( !keepData ) {
+			if ( !selector || $.filter( selector, [ this ] ).length ) {
+				$( "*", this ).add( this ).each(function() {
+					$( this ).triggerHandler( "remove" );
+				});
+			}
+		}
+		return _remove.call( $(this), selector, keepData );
+	});
 };
 
 $.widget = function( name, base, prototype ) {

@@ -1,5 +1,5 @@
 /*
- * jQuery UI Tabs 1.8rc1
+ * jQuery UI Tabs 1.8rc2
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -169,7 +169,7 @@ $.widget("ui.tabs", {
 				if (typeof o.selected != 'number' && this.lis.filter('.ui-tabs-selected').length) {
 					o.selected = this.lis.index(this.lis.filter('.ui-tabs-selected'));
 				}
-				o.selected = o.selected || this.lis.length ? 0 : -1;
+				o.selected = o.selected || (this.lis.length ? 0 : -1);
 			}
 			else if (o.selected === null) { // usage of null is deprecated, TODO remove in next release
 				o.selected = -1;
@@ -644,7 +644,7 @@ $.widget("ui.tabs", {
 });
 
 $.extend($.ui.tabs, {
-	version: '1.8rc1'
+	version: '1.8rc2'
 });
 
 /*

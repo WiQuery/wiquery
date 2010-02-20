@@ -1,5 +1,5 @@
 /*
- * jQuery UI Droppable 1.8rc1
+ * jQuery UI Droppable 1.8rc2
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -10,13 +10,13 @@
  * Depends:
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
- *	jquery.ui.draggable.js
  *	jquery.ui.mouse.js
- *	jquery.ui.widget.js
+ *	jquery.ui.draggable.js
  */
 (function($) {
 
 $.widget("ui.droppable", {
+	widgetEventPrefix: "drop",
 	options: {
 		accept: '*',
 		activeClass: false,
@@ -147,8 +147,7 @@ $.widget("ui.droppable", {
 });
 
 $.extend($.ui.droppable, {
-	version: "1.8rc1",
-	eventPrefix: 'drop'
+	version: "1.8rc2"
 });
 
 $.ui.intersect = function(draggable, droppable, toleranceMode) {

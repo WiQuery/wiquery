@@ -1,5 +1,5 @@
 /*
- * jQuery UI Effects Fade 1.8rc1
+ * jQuery UI Effects Fade 1.8rc2
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)

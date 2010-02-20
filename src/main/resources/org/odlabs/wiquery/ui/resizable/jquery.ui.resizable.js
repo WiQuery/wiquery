@@ -1,5 +1,5 @@
 /*
- * jQuery UI Resizable 1.8rc1
+ * jQuery UI Resizable 1.8rc2
  *
  * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -15,6 +15,7 @@
 (function($) {
 
 $.widget("ui.resizable", $.ui.mouse, {
+	widgetEventPrefix: "resize",
 	options: {
 		alsoResize: false,
 		animate: false,
@@ -204,7 +205,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 		if (this.elementIsWrapper) {
 			_destroy(this.element);
 			var wrapper = this.element;
-			wrapper.parent().append(
+			wrapper.after(
 				this.originalElement.css({
 					position: wrapper.css('position'),
 					width: wrapper.outerWidth(),
@@ -212,7 +213,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 					top: wrapper.css('top'),
 					left: wrapper.css('left')
 				})
-			).end().remove();
+			).remove();
 		}
 
 		this.originalElement.css('resize', this.originalResizeStyle);
@@ -518,8 +519,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 });
 
 $.extend($.ui.resizable, {
-	version: "1.8rc1",
-	eventPrefix: "resize"
+	version: "1.8rc2"
 });
 
 /*
