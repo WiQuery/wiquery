@@ -23,11 +23,11 @@ package org.odlabs.wiquery.core.effects;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.behavior.HeaderContributor;
-import org.apache.wicket.markup.html.IHeaderResponse;
-import org.odlabs.wiquery.core.commons.CoreJavaScriptHeaderContributor;
+import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
+import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
  * $Id$
@@ -38,11 +38,8 @@ import org.odlabs.wiquery.core.javascript.JsScope;
  * 
  * @author Lionel Armanet
  * @since 1.0
- * @deprecated will be removed in 1.1
  */
-@Deprecated
-public abstract class WickextAjaxEffectBehavior extends
-		AbstractDefaultAjaxBehavior {
+public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehavior implements IWiQueryPlugin {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 6423661892490365888L;
@@ -55,30 +52,14 @@ public abstract class WickextAjaxEffectBehavior extends
 	/**
 	 * Creates this behavior for a given {@link Effect}.
 	 */
-	public WickextAjaxEffectBehavior(Effect effect) {
-		super();
+	public WiqueryAjaxEffectBehavior(Effect effect) {
 		this.effect = effect;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
+	/**
+	 * {@inheritDoc}
 	 */
-	@Override
-	protected void onBind() {
-		this.getComponent().getPage().add(
-				new HeaderContributor(new CoreJavaScriptHeaderContributor()));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
-	 */
-	@Override
-	protected void respond(AjaxRequestTarget target) {
-
+	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 	}
 
 	/*
@@ -108,18 +89,13 @@ public abstract class WickextAjaxEffectBehavior extends
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	@Override
-	public void renderHead(IHeaderResponse response) {
-		super.renderHead(response);
-		// renders the JavaScript statement
+	public JsStatement statement() {
 		JsQuery query = new JsQuery(this.getComponent());
 		effect.setCallback(JsScope.quickScope(getHandlerScript()));
 		query.$().chain(effect).render();
-		query.renderHead(response);
+		return query.getStatement();
 	}
 }

@@ -19,47 +19,61 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.core.effects;
+package org.odlabs.wiquery.ui.draggable;
 
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
-import org.odlabs.wiquery.core.javascript.JsQuery;
-import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.IListItemOption;
+import org.odlabs.wiquery.ui.draggable.DraggableBehavior.CursorAtEnum;
+
 
 /**
- * $Id$
+ * $Id: DraggableCursorAt.java
  * <p>
- * Attach an effect to the given component.
+ * Bean to hold an option for 'cursorAt'
  * </p>
  * 
- * @author Lionel Armanet
- * @since 0.5
- * @see Effect
- * @see EffectSpeed
+ * @author Julien Roche
+ * @since 1.0
  */
-public class EffectBehavior extends WiQueryAbstractBehavior {
-
-	private static final long serialVersionUID = 3597955113451275208L;
-
-	/**
-	 * The attached effect.
+public class DraggableCursorAt extends Object implements IListItemOption {
+	// Constants
+	/**	Constant of serialization */
+	private static final long serialVersionUID = -1683433456056445578L;
+	
+	// Properties
+	private CursorAtEnum cursorAtEnum;
+	private int gap;
+	
+	/** Build a new instance
+	 * @param cursorAtEnum Position
+	 * @param gap
 	 */
-	private Effect effect;
-
-	/**
-	 * Builds a new instance of {@link EffectBehavior}.
-	 */
-	public EffectBehavior(Effect effect) {
+	public DraggableCursorAt(CursorAtEnum cursorAtEnum, int gap) {
 		super();
-		this.effect = effect;
+		setCursorAtEnum(cursorAtEnum);
+		setGap(gap);
+	}
+	
+	public CursorAtEnum getCursorAtEnum() {
+		return cursorAtEnum;
+	}
+
+	public int getGap() {
+		return gap;
 	}
 
 	/**
 	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
 	 */
-	@Override
-	public JsStatement statement() {
-		JsQuery query = new JsQuery(getComponent());
-		query.$().chain(this.effect);
-		return query.getStatement();
+	public final CharSequence getJavascriptOption() {
+		return getCursorAtEnum().toString() + ":" + getGap();
+	}
+
+	public void setCursorAtEnum(CursorAtEnum cursorAtEnum) {
+		this.cursorAtEnum = cursorAtEnum;
+	}
+
+	public void setGap(int gap) {
+		this.gap = gap;
 	}
 }
