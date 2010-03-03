@@ -82,7 +82,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-m1</scmConnection>
+					<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wiquery-1.1-experiment</scmConnection>
 					<doCheck>false</doCheck>
 					<doUpdate>false</doUpdate>
 				</configuration>
@@ -115,7 +115,7 @@
 		
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
+			<artifactId>jackson-mapper-asl</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
 
