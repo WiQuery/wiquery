@@ -1,5 +1,7 @@
 package org.odlabs.wiquery.core;
 
+import junit.framework.TestCase;
+
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -9,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class JSQueryTestCase {
+public class JSQueryTestCase extends TestCase {
 
 	protected static final Logger log = LoggerFactory.getLogger(
 			JSQueryTestCase.class);
@@ -69,5 +71,4 @@ public class JSQueryTestCase {
 		jss.append(jsq.getStatement().render());
 		log.info(jss.render().toString());
 	}
-	
 }

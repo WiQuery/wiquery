@@ -23,6 +23,8 @@ package org.odlabs.wiquery.core.commons.merge;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,8 +66,31 @@ public class WiQueryMergedStyleSheetResourceReference extends
 	/** Content-type */
 	private static final String CONTENT_TYPE = "text/css";
 	
+	/** Regular expression to find the url */
+	private static final String REGEX = "url\\(.*?\\)";
+	
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(WiQueryMergedStyleSheetResourceReference.class);
+	
+	private static String getCssUrl(String url, String baseUrl) {
+		String cleaned = url.replace(" ", "").replace("'", "").replace("\"", "");
+		cleaned = cleaned.substring(4); // remove '('
+		cleaned = cleaned.substring(0, cleaned.length() - 1); // remove ')'
+		
+		if(cleaned.startsWith("http:") 
+				|| cleaned.startsWith("https:")
+				|| cleaned.startsWith("ftp:")
+				|| cleaned.startsWith("file:")){
+			return url;
+		}
+		
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("url(");
+		buffer.append(baseUrl);
+		buffer.append(cleaned);
+		buffer.append(")");
+		return buffer.toString();
+	}
 	
 	// Properties
 	private PackagedTextTemplate csstemplate;
@@ -112,7 +137,10 @@ public class WiQueryMergedStyleSheetResourceReference extends
 				String temp;
 				String cssUrl;
 				String name;
+				String old;
+				String match;
 				StringBuffer buffer = new StringBuffer();
+				
 				HttpServletRequest request = ((WebRequest)RequestCycle.get().getRequest()).getHttpServletRequest();
 				String baseHost = request.getRequestURL().toString();
 				baseHost = baseHost.substring(0, baseHost.indexOf(request.getRequestURI()))
@@ -131,26 +159,24 @@ public class WiQueryMergedStyleSheetResourceReference extends
 												ref.getScope(),	"") 
 												+ "/" + ref.getName()));
 						
-						// Replace of url in the css file
+						// Replace of url in the css file (regexp: url\(.*?\) )
 						name = ref.getName();
 						cssUrl = baseHost + ref.getScope().getName() + "/"
 							+ (name.indexOf("/") < 0 ? "" : name.substring(0, name.lastIndexOf("/")))
 							+ "/";
 						
-						// Remove the simple et double quote
-						temp = temp.replace("url('", "url(");
-						temp = temp.replace("url(\"", "url(");
-						temp = temp.replace("')", ")");
-						temp = temp.replace("\")", ")");
-						
-						// Preserve the url with an http url
-						temp = temp.replace("url(http", "wiqueryUrlTemp");
-						
-						// Change the url
-						temp = temp.replace("url(", "url(" + cssUrl);
-						
-						// Retrieve the preserved url
-						temp = temp.replace("wiqueryUrlTemp", "url(http");
+						Pattern p = Pattern.compile(REGEX);
+						Matcher m = p.matcher(temp); // get a matcher object
+						int count = 0;
+						while(m.find()) {
+							count++;
+							match = m.group();
+							old = getCssUrl(match, cssUrl);
+							
+							if(!old.equals(match)){
+								temp = temp.replace(match, old);
+							}
+						}
 						
 					} catch (Exception e) {
 						temp = null;
