@@ -55,6 +55,7 @@ public class DatePickerLanguageResourceReference extends
 		BRAZILIAN			("pt", "BR"),
 		BULGARIAN			("bg"),
 		CATALAN				("ca"),
+		CHINESE				("zh", "HK"),
 		CROATIAN			("hr"),
 		CZECH				("cs"),
 		DANISH				("da"),
