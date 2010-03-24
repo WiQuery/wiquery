@@ -270,7 +270,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		new ResourceReference(DialogUtilsBehavior.class, "warning.png");
 	
 	/** Constant of wiQuery Dialog resource */
-	public static final JavascriptResourceReference wiQueryDialogJs = 
+	public static final JavascriptResourceReference WIQUERY_DIALOG_JS = 
 		new JavascriptResourceReference(
 				DialogUtilsBehavior.class, 
 				"wiquery-dialog.min.js");
@@ -293,7 +293,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager
 				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 		
-		wiQueryResourceManager.addJavaScriptResource(wiQueryDialogJs);
+		wiQueryResourceManager.addJavaScriptResource(WIQUERY_DIALOG_JS);
 		wiQueryResourceManager.addJavaScriptResource(
 				DialogUtilsLanguages.getDialogUtilsResource(
 						DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())));
