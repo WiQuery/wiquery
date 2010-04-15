@@ -381,6 +381,20 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 		ajaxRequestTarget.appendJavascript(this.value(value).render().toString());
 	}
 	
+	/**Method to get the values of the slider.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement values() {
+		return new JsQuery(this).$().chain("slider", "'values'");
+	}
+
+	/**Method to set the current values of the slider within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void values(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.values().render().toString());
+	}
+	
 	/**Method to set the values of the slider. For multiple handle or range sliders.
 	 * @param index
 	 * @param value
