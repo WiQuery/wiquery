@@ -33,7 +33,6 @@ import org.apache.wicket.IRequestTarget;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Page;
-import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Component.IVisitor;
@@ -209,10 +208,9 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		} else if(plugin instanceof IBehavior && !(target instanceof AjaxRequestTarget)){
 			// In a classic request, if the behavior's component isn't visible,
 			// the behavior will not be executed
-			Request request = RequestCycle.get().getRequest();
+			Page page = RequestCycle.get().getResponsePage();
 			
-			if(request != null && request.getPage() != null){
-				Page page = request.getPage();
+			if(page != null){
 				final IBehavior iBehavior = (IBehavior) plugin;
 				Object result = page.visitChildren(new IVisitor<Component>() {
 					
