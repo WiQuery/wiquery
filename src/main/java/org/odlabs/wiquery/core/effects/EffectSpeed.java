@@ -27,14 +27,14 @@ package org.odlabs.wiquery.core.effects;
  * Defines how much an {@link Effect} speeds.
  * </p>
  * 
- * @author Lionel Armanet
+ * @author Lionel Armanet, reiern70
  * @since 0.5
  * @see Effect
  * @see EffectBehavior
  */
 public enum EffectSpeed {
 
-	SLOW, MEDIUM, FAST;
+	SLOW, FAST;
 
 	/**
 	 * @return a non null String containing the effect speed value.
