@@ -160,7 +160,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Number getMin() {
 		if(this.options.containsKey("min")){
-			return this.options.getInt("min");
+			return this.options.getFloat("min");
 		}
 		
 		return 0;
