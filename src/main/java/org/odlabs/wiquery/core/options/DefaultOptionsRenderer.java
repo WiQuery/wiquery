@@ -47,15 +47,12 @@ public class DefaultOptionsRenderer implements IOptionsRenderer {
 
 	private static final long serialVersionUID = 6303118317934309154L;
 
-	private static IOptionsRenderer instance;
+	private static IOptionsRenderer instance = new DefaultOptionsRenderer();;
 
 	/**
 	 * @return the {@link IOptionsRenderer} instance.
 	 */
 	public static IOptionsRenderer get() {
-		if (instance == null) {
-			instance = new DefaultOptionsRenderer();
-		}
 		return instance;
 	}
 

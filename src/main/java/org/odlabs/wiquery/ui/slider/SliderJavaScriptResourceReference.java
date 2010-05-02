@@ -38,7 +38,7 @@ public class SliderJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static SliderJavaScriptResourceReference instance;
+	private static SliderJavaScriptResourceReference instance = new SliderJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link SliderJavaScriptResourceReference}.
@@ -51,9 +51,6 @@ public class SliderJavaScriptResourceReference extends
 	 * Returns the {@link SliderJavaScriptResourceReference} instance.
 	 */
 	public static SliderJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new SliderJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

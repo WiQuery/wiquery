@@ -39,7 +39,7 @@ public class BlindEffectJavaScriptResourceReference extends JavascriptResourceRe
 	/**
 	 * Singleton instance.
 	 */
-	private static BlindEffectJavaScriptResourceReference instance;
+	private static BlindEffectJavaScriptResourceReference instance = new BlindEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class BlindEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Returns the {@link BlindEffectJavaScriptResourceReference} instance.
 	 */
 	public static BlindEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new BlindEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

@@ -39,7 +39,7 @@ public class PulsateEffectJavaScriptResourceReference extends JavascriptResource
 	/**
 	 * Singleton instance.
 	 */
-	private static PulsateEffectJavaScriptResourceReference instance;
+	private static PulsateEffectJavaScriptResourceReference instance = new PulsateEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class PulsateEffectJavaScriptResourceReference extends JavascriptResource
 	 * Returns the {@link PulsateEffectJavaScriptResourceReference} instance.
 	 */
 	public static PulsateEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new PulsateEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

@@ -38,7 +38,7 @@ public class DatePickerJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static DatePickerJavaScriptResourceReference instance;
+	private static DatePickerJavaScriptResourceReference instance = new DatePickerJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link DatePickerJavaScriptResourceReference}.
@@ -51,9 +51,6 @@ public class DatePickerJavaScriptResourceReference extends
 	 * Returns the {@link DatePickerJavaScriptResourceReference} instance.
 	 */
 	public static DatePickerJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new DatePickerJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

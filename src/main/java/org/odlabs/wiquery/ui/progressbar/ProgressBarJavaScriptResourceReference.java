@@ -42,7 +42,7 @@ public class ProgressBarJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static ProgressBarJavaScriptResourceReference instance;
+	private static ProgressBarJavaScriptResourceReference instance = new ProgressBarJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link ProgressBarJavaScriptResourceReference}.
@@ -55,9 +55,6 @@ public class ProgressBarJavaScriptResourceReference extends
 	 * Returns the {@link ProgressBarJavaScriptResourceReference} instance.
 	 */
 	public static ProgressBarJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new ProgressBarJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

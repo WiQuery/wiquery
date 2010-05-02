@@ -44,7 +44,7 @@ public class DroppableJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static DroppableJavaScriptResourceReference instance;
+	private static DroppableJavaScriptResourceReference instance = new DroppableJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link DroppableJavaScriptResourceReference}.
@@ -57,9 +57,6 @@ public class DroppableJavaScriptResourceReference extends
 	 * Returns the {@link DroppableJavaScriptResourceReference} instance.
 	 */
 	public static DroppableJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new DroppableJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

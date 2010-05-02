@@ -39,7 +39,7 @@ public class TransferEffectJavaScriptResourceReference extends JavascriptResourc
 	/**
 	 * Singleton instance.
 	 */
-	private static TransferEffectJavaScriptResourceReference instance;
+	private static TransferEffectJavaScriptResourceReference instance = new TransferEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class TransferEffectJavaScriptResourceReference extends JavascriptResourc
 	 * Returns the {@link TransferEffectJavaScriptResourceReference} instance.
 	 */
 	public static TransferEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new TransferEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

@@ -39,7 +39,7 @@ public class ShakeEffectJavaScriptResourceReference extends JavascriptResourceRe
 	/**
 	 * Singleton instance.
 	 */
-	private static ShakeEffectJavaScriptResourceReference instance;
+	private static ShakeEffectJavaScriptResourceReference instance = new ShakeEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class ShakeEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Returns the {@link ShakeEffectJavaScriptResourceReference} instance.
 	 */
 	public static ShakeEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new ShakeEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

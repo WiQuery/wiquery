@@ -39,7 +39,7 @@ public class ClipEffectJavaScriptResourceReference extends JavascriptResourceRef
 	/**
 	 * Singleton instance.
 	 */
-	private static ClipEffectJavaScriptResourceReference instance;
+	private static ClipEffectJavaScriptResourceReference instance = new ClipEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class ClipEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Returns the {@link ClipEffectJavaScriptResourceReference} instance.
 	 */
 	public static ClipEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new ClipEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

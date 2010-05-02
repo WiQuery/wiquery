@@ -39,7 +39,7 @@ public class SortableJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static SortableJavaScriptResourceReference instance;
+	private static SortableJavaScriptResourceReference instance = new SortableJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.
@@ -52,9 +52,6 @@ public class SortableJavaScriptResourceReference extends
 	 * Returns the {@link SortableJavaScriptResourceReference} instance.
 	 */
 	public static SortableJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new SortableJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

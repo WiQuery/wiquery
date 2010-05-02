@@ -41,7 +41,7 @@ public class SelectableJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static SelectableJavaScriptResourceReference instance;
+	private static SelectableJavaScriptResourceReference instance = new SelectableJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link SelectableJavaScriptResourceReference}.
@@ -54,9 +54,6 @@ public class SelectableJavaScriptResourceReference extends
 	 * Returns the {@link SelectableJavaScriptResourceReference} instance.
 	 */
 	public static SelectableJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new SelectableJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

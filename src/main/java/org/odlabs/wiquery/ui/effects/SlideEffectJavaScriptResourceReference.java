@@ -39,7 +39,7 @@ public class SlideEffectJavaScriptResourceReference extends JavascriptResourceRe
 	/**
 	 * Singleton instance.
 	 */
-	private static SlideEffectJavaScriptResourceReference instance;
+	private static SlideEffectJavaScriptResourceReference instance = new SlideEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class SlideEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Returns the {@link SlideEffectJavaScriptResourceReference} instance.
 	 */
 	public static SlideEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new SlideEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

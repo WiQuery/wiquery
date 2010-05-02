@@ -41,7 +41,7 @@ public class BgiframeJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static BgiframeJavaScriptResourceReference instance;
+	private static BgiframeJavaScriptResourceReference instance = new BgiframeJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link BgiframeJavaScriptResourceReference}.
@@ -54,9 +54,6 @@ public class BgiframeJavaScriptResourceReference extends
 	 * Returns the {@link BgiframeJavaScriptResourceReference} instance.
 	 */
 	public static BgiframeJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new BgiframeJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

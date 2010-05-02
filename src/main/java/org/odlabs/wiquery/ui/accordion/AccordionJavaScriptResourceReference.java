@@ -38,7 +38,7 @@ public class AccordionJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static AccordionJavaScriptResourceReference instance;
+	private static AccordionJavaScriptResourceReference instance = new AccordionJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link AccordionJavaScriptResourceReference}.
@@ -51,9 +51,6 @@ public class AccordionJavaScriptResourceReference extends
 	 * Returns the {@link AccordionJavaScriptResourceReference} instance.
 	 */
 	public static AccordionJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new AccordionJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }
