@@ -22,6 +22,7 @@
 package org.odlabs.wiquery.core.effects.basic;
 
 import org.odlabs.wiquery.core.effects.Effect;
+import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
  * $Id$
@@ -30,7 +31,7 @@ import org.odlabs.wiquery.core.effects.Effect;
  * when it's hidden, and to hide it when it's displayed.
  * </p>
  * 
- * @author Lionel Armanet
+ * @author Lionel Armanet, reiern70
  * @since 0.7
  */
 public class Toggle extends Effect {
@@ -42,6 +43,15 @@ public class Toggle extends Effect {
 	 */
 	public Toggle() {
 		super();
+	}
+	
+	/**
+	 * Creates this effect with the given {@link EffectSpeed}.
+	 * 
+	 * @param effectSpeed
+	 */
+	public Toggle(EffectSpeed effectSpeed) {
+		super(effectSpeed);
 	}
 
 	/*
