@@ -233,6 +233,27 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		return appendText == null ? "" : appendText;
 	}
 	
+	/**
+	 * Set to true to automatically resize the input field to accomodate dates 
+	 * in the current dateFormat.
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setSAutoSize(boolean autoSize) {
+		options.put("autoSize", autoSize);
+		return this;
+	}
+
+	/**
+	 * @return the autoSize option
+	 */
+	public boolean isAutoSize() {
+		if(this.options.containsKey("autoSize")){
+			return options.getBoolean("autoSize");
+		}
+		
+		return false;
+	}
+	
 	/**Set's URL for the popup button image. If set, button text becomes the alt 
 	 * value and is not directly displayed.
 	 * @param buttonImage
@@ -842,6 +863,28 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * When true a column is added to show the week of the year. The calculateWeek 
+	 * option determines how the week of the year is calculated. You may also 
+	 * want to change the firstDay option.
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowWeek(boolean showWeek) {
+		options.put("showWeek", showWeek);
+		return this;
+	}
+
+	/**
+	 * @return the showWeek option
+	 */
+	public boolean isShowWeek() {
+		if(this.options.containsKey("showWeek")){
+			return options.getBoolean("showWeek");
+		}
+		
+		return false;
 	}
 
 	/**
