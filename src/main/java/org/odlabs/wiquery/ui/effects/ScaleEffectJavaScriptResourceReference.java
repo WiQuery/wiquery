@@ -39,7 +39,7 @@ public class ScaleEffectJavaScriptResourceReference extends JavascriptResourceRe
 	/**
 	 * Singleton instance.
 	 */
-	private static ScaleEffectJavaScriptResourceReference instance;
+	private static ScaleEffectJavaScriptResourceReference instance = new ScaleEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class ScaleEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Returns the {@link ScaleEffectJavaScriptResourceReference} instance.
 	 */
 	public static ScaleEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new ScaleEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

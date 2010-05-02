@@ -39,7 +39,7 @@ public class DropEffectJavaScriptResourceReference extends JavascriptResourceRef
 	/**
 	 * Singleton instance.
 	 */
-	private static DropEffectJavaScriptResourceReference instance;
+	private static DropEffectJavaScriptResourceReference instance = new DropEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class DropEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Returns the {@link DropEffectJavaScriptResourceReference} instance.
 	 */
 	public static DropEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new DropEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

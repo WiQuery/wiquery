@@ -43,7 +43,7 @@ public class ResizableJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static ResizableJavaScriptResourceReference instance;
+	private static ResizableJavaScriptResourceReference instance = new ResizableJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link ResizableJavaScriptResourceReference}.
@@ -56,9 +56,6 @@ public class ResizableJavaScriptResourceReference extends
 	 * Returns the {@link ResizableJavaScriptResourceReference} instance.
 	 */
 	public static ResizableJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new ResizableJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

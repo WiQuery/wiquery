@@ -38,7 +38,7 @@ public class PositionJavascriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static PositionJavascriptResourceReference instance;
+	private static PositionJavascriptResourceReference instance = new PositionJavascriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link PositionJavascriptResourceReference}.
@@ -51,9 +51,6 @@ public class PositionJavascriptResourceReference extends
 	 * Returns the {@link PositionJavascriptResourceReference} instance.
 	 */
 	public static PositionJavascriptResourceReference get() {
-		if (instance == null) {
-			instance = new PositionJavascriptResourceReference();
-		}
 		return instance;
 	}
 }

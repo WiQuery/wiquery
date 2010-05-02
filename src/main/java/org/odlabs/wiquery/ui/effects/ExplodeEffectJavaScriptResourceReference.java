@@ -39,7 +39,7 @@ public class ExplodeEffectJavaScriptResourceReference extends JavascriptResource
 	/**
 	 * Singleton instance.
 	 */
-	private static ExplodeEffectJavaScriptResourceReference instance;
+	private static ExplodeEffectJavaScriptResourceReference instance = new ExplodeEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class ExplodeEffectJavaScriptResourceReference extends JavascriptResource
 	 * Returns the {@link ExplodeEffectJavaScriptResourceReference} instance.
 	 */
 	public static ExplodeEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new ExplodeEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

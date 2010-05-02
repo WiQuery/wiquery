@@ -38,7 +38,7 @@ public class AutocompleteJavascriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static AutocompleteJavascriptResourceReference instance;
+	private static AutocompleteJavascriptResourceReference instance = new AutocompleteJavascriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link AutocompleteJavascriptResourceReference}.
@@ -51,9 +51,6 @@ public class AutocompleteJavascriptResourceReference extends
 	 * Returns the {@link AutocompleteJavascriptResourceReference} instance.
 	 */
 	public static AutocompleteJavascriptResourceReference get() {
-		if (instance == null) {
-			instance = new AutocompleteJavascriptResourceReference();
-		}
 		return instance;
 	}
 }

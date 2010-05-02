@@ -39,7 +39,7 @@ public class FoldEffectJavaScriptResourceReference extends JavascriptResourceRef
 	/**
 	 * Singleton instance.
 	 */
-	private static FoldEffectJavaScriptResourceReference instance;
+	private static FoldEffectJavaScriptResourceReference instance = new FoldEffectJavaScriptResourceReference();;
 	
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class FoldEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Returns the {@link FoldEffectJavaScriptResourceReference} instance.
 	 */
 	public static FoldEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new FoldEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

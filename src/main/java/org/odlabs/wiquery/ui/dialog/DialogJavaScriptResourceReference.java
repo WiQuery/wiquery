@@ -38,7 +38,7 @@ public class DialogJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static DialogJavaScriptResourceReference instance;
+	private static DialogJavaScriptResourceReference instance = new DialogJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link DialogJavaScriptResourceReference}.
@@ -51,9 +51,6 @@ public class DialogJavaScriptResourceReference extends
 	 * Returns the {@link DialogJavaScriptResourceReference} instance.
 	 */
 	public static DialogJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new DialogJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

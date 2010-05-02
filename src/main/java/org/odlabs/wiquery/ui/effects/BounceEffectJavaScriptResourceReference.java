@@ -39,7 +39,7 @@ public class BounceEffectJavaScriptResourceReference extends JavascriptResourceR
 	/**
 	 * Singleton instance.
 	 */
-	private static BounceEffectJavaScriptResourceReference instance;
+	private static BounceEffectJavaScriptResourceReference instance = new BounceEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class BounceEffectJavaScriptResourceReference extends JavascriptResourceR
 	 * Returns the {@link BounceEffectJavaScriptResourceReference} instance.
 	 */
 	public static BounceEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new BounceEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

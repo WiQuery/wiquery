@@ -38,7 +38,7 @@ public class WidgetJavascriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static WidgetJavascriptResourceReference instance;
+	private static WidgetJavascriptResourceReference instance = new WidgetJavascriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link WidgetJavascriptResourceReference}.
@@ -51,9 +51,6 @@ public class WidgetJavascriptResourceReference extends
 	 * Returns the {@link WidgetJavascriptResourceReference} instance.
 	 */
 	public static WidgetJavascriptResourceReference get() {
-		if (instance == null) {
-			instance = new WidgetJavascriptResourceReference();
-		}
 		return instance;
 	}
 }

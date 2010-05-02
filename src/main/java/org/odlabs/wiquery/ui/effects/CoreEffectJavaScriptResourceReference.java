@@ -39,7 +39,7 @@ public class CoreEffectJavaScriptResourceReference extends JavascriptResourceRef
 	/**
 	 * Singleton instance.
 	 */
-	private static CoreEffectJavaScriptResourceReference instance;
+	private static CoreEffectJavaScriptResourceReference instance = new CoreEffectJavaScriptResourceReference();;
 
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class CoreEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Returns the {@link CoreEffectJavaScriptResourceReference} instance.
 	 */
 	public static CoreEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new CoreEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

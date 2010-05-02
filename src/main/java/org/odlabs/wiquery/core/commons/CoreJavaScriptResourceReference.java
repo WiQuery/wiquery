@@ -42,15 +42,12 @@ public class CoreJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static CoreJavaScriptResourceReference instance;
+	private static CoreJavaScriptResourceReference instance = new CoreJavaScriptResourceReference();;
 
 	/**
 	 * Returns the {@link CoreJavaScriptResourceReference} instance.
 	 */
 	public static CoreJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new CoreJavaScriptResourceReference();
-		}
 		return instance;
 	}
 

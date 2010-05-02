@@ -38,7 +38,7 @@ public class MouseJavascriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static MouseJavascriptResourceReference instance;
+	private static MouseJavascriptResourceReference instance = new MouseJavascriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link MouseJavascriptResourceReference}.
@@ -51,9 +51,6 @@ public class MouseJavascriptResourceReference extends
 	 * Returns the {@link MouseJavascriptResourceReference} instance.
 	 */
 	public static MouseJavascriptResourceReference get() {
-		if (instance == null) {
-			instance = new MouseJavascriptResourceReference();
-		}
 		return instance;
 	}
 }

@@ -39,7 +39,7 @@ public class HighlightEffectJavaScriptResourceReference extends JavascriptResour
 	/**
 	 * Singleton instance.
 	 */
-	private static HighlightEffectJavaScriptResourceReference instance;
+	private static HighlightEffectJavaScriptResourceReference instance = new HighlightEffectJavaScriptResourceReference();;
 	
 	/**
 	 * Default constructor
@@ -52,9 +52,6 @@ public class HighlightEffectJavaScriptResourceReference extends JavascriptResour
 	 * Returns the {@link HighlightEffectJavaScriptResourceReference} instance.
 	 */
 	public static HighlightEffectJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new HighlightEffectJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

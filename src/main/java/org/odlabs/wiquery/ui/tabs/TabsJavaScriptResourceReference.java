@@ -38,7 +38,7 @@ public class TabsJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static TabsJavaScriptResourceReference instance;
+	private static TabsJavaScriptResourceReference instance = new TabsJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link TabsJavaScriptResourceReference}.
@@ -51,9 +51,6 @@ public class TabsJavaScriptResourceReference extends
 	 * Returns the {@link TabsJavaScriptResourceReference} instance.
 	 */
 	public static TabsJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new TabsJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }

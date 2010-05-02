@@ -42,7 +42,7 @@ public class DraggableJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static DraggableJavaScriptResourceReference instance;
+	private static DraggableJavaScriptResourceReference instance = new DraggableJavaScriptResourceReference();;
 
 	/**
 	 * Builds a new instance of {@link DraggableJavaScriptResourceReference}.
@@ -55,9 +55,6 @@ public class DraggableJavaScriptResourceReference extends
 	 * Returns the {@link DraggableJavaScriptResourceReference} instance.
 	 */
 	public static DraggableJavaScriptResourceReference get() {
-		if (instance == null) {
-			instance = new DraggableJavaScriptResourceReference();
-		}
 		return instance;
 	}
 }
