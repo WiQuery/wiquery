@@ -33,21 +33,54 @@ import org.odlabs.wiquery.core.events.EventLabel;
  * @since 0.7
  */
 public class JsUtils {
-
+	
 	/**
-	 * Quotes the given string (eg. makes a JavaScript String).
+	 * @return a javascript representation of the array
 	 */
-	public static String quotes(CharSequence stringToQuote) {
-		return "'" + stringToQuote + "'";
+	public static CharSequence array(CharSequence... args) {
+		StringBuffer array = new StringBuffer();
+		array.append("[");
+		
+		if(args.length > 0){
+			array.append(args[0]);
+			
+			for(int i = 1; i < args.length; i++) {
+				array.append(", " + args[i]);
+			}
+		}
+		
+		array.append("]");
+		return array;
+	}
+	
+	/**
+	 * Double quotes the given string (eg. makes a JavaScript String).
+	 */
+	public static String doubleQuotes(CharSequence stringToDoubleQuote) {
+		return doubleQuotes(stringToDoubleQuote, false);
+	}
+	
+	/**
+	 * Double quotes the given string (eg. makes a JavaScript String).
+	 */
+	public static String doubleQuotes(CharSequence stringToDoubleQuote, boolean escapeDoubleQuote) {
+		return "\"" + (escapeDoubleQuote ? escapeDoubleQuote(stringToDoubleQuote) : stringToDoubleQuote) + "\"";
+	}
+	
+	/**
+	 * @return the sequence with escaped double quotes
+	 */
+	public static String escapeDoubleQuote(CharSequence stringToDoubleQuote) {
+		return stringToDoubleQuote == null ? null : stringToDoubleQuote.toString().replace("\"", "\\\"");
 	}
 
 	/**
-	 * Converts an int to a String. (common alias of valueOf).
+	 * @return the sequence with escaped quotes
 	 */
-	public static String string(int value) {
-		return String.valueOf(value);
+	public static String escapeQuote(CharSequence stringToQuote) {
+		return stringToQuote == null ? null : stringToQuote.toString().replace("'", "\\'");
 	}
-
+	
 	/**
 	 * Converts the given array of {@link EventLabel} to a {@link String}.
 	 */
@@ -61,5 +94,26 @@ public class JsUtils {
 			output += " " + eventLabel.getEventLabel();
 		}
 		return output + "'";
+	}
+	
+	/**
+	 * Quotes the given string (eg. makes a JavaScript String).
+	 */
+	public static String quotes(CharSequence stringToQuote) {
+		return quotes(stringToQuote, false);
+	}
+
+	/**
+	 * Quotes the given string (eg. makes a JavaScript String).
+	 */
+	public static String quotes(CharSequence stringToQuote, boolean escapeQuote) {
+		return "'" + (escapeQuote ? escapeQuote(stringToQuote) : stringToQuote) + "'";
+	}
+
+	/**
+	 * Converts an int to a String. (common alias of valueOf).
+	 */
+	public static String string(int value) {
+		return String.valueOf(value);
 	}
 }

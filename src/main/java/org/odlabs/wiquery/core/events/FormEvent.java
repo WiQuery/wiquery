@@ -24,19 +24,18 @@ package org.odlabs.wiquery.core.events;
 /**
  * $Id$
  * <p>
- * Defines standard state events.
+ * Defines standard form events.
  * </p>
  * 
- * @author Lionel Armanet
- * @since 0.5
+ * @author Julien Roche
+ * @since 1.0.2
  */
-public enum StateEvent implements EventLabel {
+public enum FormEvent implements EventLabel {
 
-	ABORT, BLUR, CHANGE, ERROR, FOCUS, LOAD, RESIZE, SELECT, UNLOAD;
+	RESET, SUBMIT;
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.events.EventLabel#getEventLabel()
 	 */
 	public String getEventLabel() {
