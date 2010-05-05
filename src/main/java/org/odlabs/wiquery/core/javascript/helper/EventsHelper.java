@@ -38,7 +38,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * </p>
  * 
  * @author Julien Roche
- * @since 1.1
+ * @since 1.0.2
  */
 public abstract class EventsHelper {
 	/**

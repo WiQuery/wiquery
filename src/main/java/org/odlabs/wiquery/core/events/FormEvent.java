@@ -28,7 +28,7 @@ package org.odlabs.wiquery.core.events;
  * </p>
  * 
  * @author Julien Roche
- * @since 1.1
+ * @since 1.0.2
  */
 public enum FormEvent implements EventLabel {
 
