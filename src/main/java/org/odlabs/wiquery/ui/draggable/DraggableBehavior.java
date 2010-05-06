@@ -365,6 +365,27 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 		return 0;
 	}
 	
+	/**Disables (true) or enables (false) the draggable. Can be set when 
+	 * initialising (first creating) the draggable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
+	
 	/** Set's the distance in pixels after mousedown the mouse must move before 
 	 * dragging should start. This option can be used to prevent unwanted drags 
 	 * when clicking on an element.
@@ -826,5 +847,19 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to returns the .ui-draggable element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(getComponent()).$().chain("draggable", "'widget'");
+	}
+
+	/**Method to returns the .ui-draggable element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

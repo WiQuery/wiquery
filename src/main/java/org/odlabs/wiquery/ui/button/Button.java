@@ -133,6 +133,23 @@ public class Button extends WebMarkupContainer implements
 	
 	/*---- Options section ---*/
 	
+	/**Disables (true) or enables (false) the button. Can be set when 
+	 * initialising (first creating) the button.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Button setDisabled(boolean disabled) {
+		buttonBehavior.setDisabled(disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		return buttonBehavior.isDisabled();
+	}
+	
 	/**
 	 * Whether to show any text - when set to false (display no text), icons 
 	 * (see icons option) must be enabled, otherwise it'll be ignored.
@@ -252,5 +269,19 @@ public class Button extends WebMarkupContainer implements
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to returns the .ui-autocomplete  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return buttonBehavior.widget();
+	}
+
+	/**Method to returns the .ui-autocomplete  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

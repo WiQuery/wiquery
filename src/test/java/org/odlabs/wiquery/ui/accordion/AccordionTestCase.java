@@ -193,6 +193,16 @@ public class AccordionTestCase extends TestCase {
 		accordion.setCollapsible(true);
 		Assert.assertTrue(accordion.isCollapsible());
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(accordion.isDisabled());
+		accordion.setDisabled(true);
+		Assert.assertTrue(accordion.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isFillSpace()}.
@@ -245,5 +255,15 @@ public class AccordionTestCase extends TestCase {
 	public void testStatement() {
 		Assert.assertNotNull(accordion.statement());
 		Assert.assertEquals(accordion.statement().render().toString(), "$('#anId').accordion({});");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(accordion.widget());
+		Assert.assertEquals(accordion.widget().render().toString(), 
+				"$('#anId').accordion('widget');");
 	}
 }

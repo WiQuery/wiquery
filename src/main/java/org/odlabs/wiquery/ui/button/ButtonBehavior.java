@@ -87,6 +87,27 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 	
 	/*---- Options section ---*/
 	
+	/**Disables (true) or enables (false) the button. Can be set when 
+	 * initialising (first creating) the button.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public ButtonBehavior setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Whether to show any text - when set to false (display no text), icons 
 	 * (see icons option) must be enabled, otherwise it'll be ignored.
@@ -196,5 +217,19 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to returns the .ui-autocomplete  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(getComponent()).$().chain("button", "'widget'");
+	}
+
+	/**Method to returns the .ui-autocomplete  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

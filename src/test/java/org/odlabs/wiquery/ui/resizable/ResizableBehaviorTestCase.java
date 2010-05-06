@@ -113,15 +113,15 @@ public class ResizableBehaviorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAnimeDuration()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAnimateDuration()}.
 	 */
 	@Test
-	public void testGetAnimeDuration() {
-		Assert.assertNotNull(resizableBehavior.getAnimeDuration());
-		Assert.assertEquals(resizableBehavior.getAnimeDuration().getJavascriptOption().toString(), 
+	public void testGetAnimateDuration() {
+		Assert.assertNotNull(resizableBehavior.getAnimateDuration());
+		Assert.assertEquals(resizableBehavior.getAnimateDuration().getJavascriptOption().toString(), 
 				"'slow'");
-		resizableBehavior.setAnimeDuration(new ResizableAnimeDuration(1000));
-		Assert.assertEquals(resizableBehavior.getAnimeDuration().getJavascriptOption().toString(), 
+		resizableBehavior.setAnimateDuration(new ResizableAnimeDuration(1000));
+		Assert.assertEquals(resizableBehavior.getAnimateDuration().getJavascriptOption().toString(), 
 			"1000");
 	}
 
@@ -279,6 +279,16 @@ public class ResizableBehaviorTestCase extends TestCase {
 		resizableBehavior.setAutoHide(true);
 		Assert.assertTrue(resizableBehavior.isAutoHide());
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(resizableBehavior.isDisabled());
+		resizableBehavior.setDisabled(true);
+		Assert.assertTrue(resizableBehavior.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isGhost()}.
@@ -333,5 +343,15 @@ public class ResizableBehaviorTestCase extends TestCase {
 	public void testStatement() {
 		Assert.assertNotNull(resizableBehavior.statement());
 		Assert.assertEquals(resizableBehavior.statement().render().toString(), "$('#anId').resizable({});");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(resizableBehavior.widget());
+		Assert.assertEquals(resizableBehavior.widget().render().toString(), 
+				"$('#anId').resizable('widget');");
 	}
 }

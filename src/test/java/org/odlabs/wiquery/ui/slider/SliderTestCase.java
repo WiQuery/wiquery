@@ -177,6 +177,16 @@ public class SliderTestCase extends TestCase {
 		slider.setAnimate(new SliderAnimate(true));
 		Assert.assertEquals(slider.isAnimate().getJavascriptOption().toString(), "true");
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(slider.isDisabled());
+		slider.setDisabled(true);
+		Assert.assertTrue(slider.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
@@ -250,5 +260,15 @@ public class SliderTestCase extends TestCase {
 		Assert.assertNotNull(slider.values(6, 8));
 		Assert.assertEquals(slider.values(6, 8).render().toString(), 
 				"$('#anId').slider('values', 6, 8);");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(slider.widget());
+		Assert.assertEquals(slider.widget().render().toString(), 
+				"$('#anId').slider('widget');");
 	}
 }

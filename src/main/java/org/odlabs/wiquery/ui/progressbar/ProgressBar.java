@@ -98,6 +98,27 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 
 	/*---- Options section ---*/
 	
+	/**Disables (true) or enables (false) the progressBar. Can be set when 
+	 * initialising (first creating) the progressBar.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public ProgressBar setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
+	
 	/**Sets the current value of the progressBar
 	 * @param value
 	 * @return instance of the current component
@@ -271,5 +292,19 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void decrement(AjaxRequestTarget ajaxRequestTarget, int decrement) {
 		ajaxRequestTarget.appendJavascript(this.decrement(decrement).render().toString());
+	}
+	
+	/**Method to returns the .ui-progressbar  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(this).$().chain("progressbar", "'widget'");
+	}
+
+	/**Method to returns the .ui-progressbar element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

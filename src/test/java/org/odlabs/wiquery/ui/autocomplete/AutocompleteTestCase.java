@@ -135,6 +135,16 @@ public class AutocompleteTestCase extends TestCase {
 		Assert.assertNotNull(autocomplete.getSource());
 		Assert.assertEquals(autocomplete.getSource().getJavascriptOption().toString(), "'http://localhost:8080/url.jsp'");
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(autocomplete.isDisabled());
+		autocomplete.setDisabled(true);
+		Assert.assertTrue(autocomplete.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#search()}.
@@ -235,5 +245,15 @@ public class AutocompleteTestCase extends TestCase {
 	public void testStatement() {
 		Assert.assertNotNull(autocomplete.statement());
 		Assert.assertEquals(autocomplete.statement().render().toString(), "$('#anId').autocomplete({});");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(autocomplete.widget());
+		Assert.assertEquals(autocomplete.widget().render().toString(), 
+				"$('#anId').autocomplete('widget');");
 	}
 }

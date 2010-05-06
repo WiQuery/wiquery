@@ -247,6 +247,27 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 		
 		return false;
 	}
+	
+	/**Disables (true) or enables (false) the accordion. Can be set when 
+	 * initialising (first creating) the accordion.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Accordion setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
 
 	/**
 	 * Sets the CSS selector used to defined a header in this accordion.
@@ -484,5 +505,19 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to returns the .ui-accordion  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(this).$().chain("accordion", "'widget'");
+	}
+
+	/**Method to returns the .ui-accordion  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

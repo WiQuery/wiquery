@@ -185,6 +185,27 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 		this.options.put("autoRefresh", autoRefresh);
 		return this;
 	}
+	
+	/**Disables (true) or enables (false) the selectable. Can be set when 
+	 * initialising (first creating) the selectable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public SelectableBehavior setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
 
 	/** Set's the prevent selecting if you start on elements matching the selector
 	 * @param cancel Selector (default : ':input,option')
@@ -366,5 +387,19 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void refresh(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.refresh().render().toString());
+	}
+	
+	/**Method to returns the .ui-selectable  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(getComponent()).$().chain("selectable", "'widget'");
+	}
+
+	/**Method to returns the .ui-selectable  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

@@ -406,6 +406,27 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		
 	}
 	
+	/**Disables (true) or enables (false) the sortable. Can be set when 
+	 * initialising (first creating) the sortable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * @return the dropOnEmpty option value
 	 */
@@ -959,5 +980,19 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public JsStatement toArray() {
 		return new JsQuery(getComponent()).$().chain("sortable", "'toArray'");
+	}
+	
+	/**Method to returns the .ui-sortable  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(getComponent()).$().chain("sortable", "'widget'");
+	}
+
+	/**Method to returns the .ui-sortable  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

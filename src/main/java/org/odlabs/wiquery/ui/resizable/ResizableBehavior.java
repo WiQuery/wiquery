@@ -166,16 +166,16 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 * Other possible values: 'slow', 'normal', 'fast'.
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAnimeDuration(ResizableAnimeDuration animeDuration) {
-		this.options.put("animeDuration", animeDuration);
+	public ResizableBehavior setAnimateDuration(ResizableAnimeDuration animeDuration) {
+		this.options.put("animateDuration", animeDuration);
 		return this;
 	}
 	
 	/**
 	 * @return the animeDuration option
 	 */
-	public ResizableAnimeDuration getAnimeDuration() {
-		IComplexOption animeDuration = this.options.getComplexOption("animeDuration");
+	public ResizableAnimeDuration getAnimateDuration() {
+		IComplexOption animeDuration = this.options.getComplexOption("animateDuration");
 		if(animeDuration != null && animeDuration instanceof ResizableAnimeDuration){
 			return (ResizableAnimeDuration) animeDuration;
 		}
@@ -326,6 +326,27 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 		}
 		
 		return 1;
+	}
+	
+	/**Disables (true) or enables (false) the resizable. Can be set when 
+	 * initialising (first creating) the resizable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
 	}
 	
 	/**Set to true, a semi-transparent helper element is shown for resizing.
@@ -572,5 +593,19 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to returns the .ui-resizable  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(getComponent()).$().chain("resizable", "'widget'");
+	}
+
+	/**Method to returns the .ui-resizable  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

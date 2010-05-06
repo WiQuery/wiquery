@@ -198,6 +198,27 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 		return null;
 	}
 	
+	/**Disables (true) or enables (false) the autocomplete. Can be set when 
+	 * initialising (first creating) the autcomplete.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Autocomplete<T> setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
+	
 	/*---- Events section ---*/
 	
 	/**
@@ -356,5 +377,19 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public void search(AjaxRequestTarget ajaxRequestTarget, String value) {
 		ajaxRequestTarget.appendJavascript(this.search(value).render().toString());
+	}
+	
+	/**Method to returns the .ui-autocomplete  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(this).$().chain("autocomplete", "'widget'");
+	}
+
+	/**Method to returns the .ui-autocomplete  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

@@ -318,9 +318,19 @@ public class TabsTestCase extends TestCase {
 		tabs.setCollapsible(true);
 		Assert.assertTrue(tabs.isCollapsible());
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(tabs.isDisabled());
+		tabs.setDisabled(true);
+		Assert.assertTrue(tabs.isDisabled());
+	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#length()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#length()}.
 	 */
 	@Test
 	public void testLength() {
@@ -480,5 +490,15 @@ public class TabsTestCase extends TestCase {
 		Assert.assertNotNull(tabs.url(5, "a label"));
 		Assert.assertEquals(tabs.url(5, "a label").render().toString(), 
 				"$('#anId').tabs('url', 5, 'a label');");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(tabs.widget());
+		Assert.assertEquals(tabs.widget().render().toString(), 
+				"$('#anId').tabs('widget');");
 	}
 }

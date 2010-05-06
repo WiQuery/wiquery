@@ -408,9 +408,19 @@ public class DatePickerTestCase extends TestCase {
 		datePicker.setStepMonths(new Short("5"));
 		Assert.assertEquals(datePicker.getStepMonths(), 5);
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#getWeekHeader()}.
+	 */
+	@Test
+	public void testGetWeekHeader() {
+		Assert.assertEquals(datePicker.getWeekHeader(), "WK");
+		datePicker.setWeekHeader("W");
+		Assert.assertEquals(datePicker.getWeekHeader(), "W");
+	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#getYearRange()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#getYearSuffix()}.
 	 */
 	@Test
 	public void testGetYearRange() {
@@ -418,6 +428,16 @@ public class DatePickerTestCase extends TestCase {
 		Assert.assertEquals(datePicker.getYearRange().getJavascriptOption().toString(), "'-10:+10'");
 		datePicker.setYearRange(new DatePickerYearRange(new Short("-20"), new Short("20")));
 		Assert.assertEquals(datePicker.getYearRange().getJavascriptOption().toString(), "'-20:+20'");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#getYearSuffix()}.
+	 */
+	@Test
+	public void testGetYearSuffix() {
+		Assert.assertEquals(datePicker.getYearSuffix(), "");
+		datePicker.setYearSuffix("CE");
+		Assert.assertEquals(datePicker.getYearSuffix(), "CE");
 	}
 
 	/**
@@ -438,6 +458,16 @@ public class DatePickerTestCase extends TestCase {
 		Assert.assertNotNull(datePicker.hide(new Short("5")));
 		Assert.assertEquals(datePicker.hide(new Short("5")).render().toString(), 
 				"$('#anId').datepicker('hide', 5);");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#isAutoSize()}.
+	 */
+	@Test
+	public void testIsAutoSize() {
+		Assert.assertFalse(datePicker.isAutoSize());
+		datePicker.setAutoSize(true);
+		Assert.assertTrue(datePicker.isAutoSize());
 	}
 
 	/**
@@ -479,6 +509,16 @@ public class DatePickerTestCase extends TestCase {
 		datePicker.setConstrainInput(false);
 		Assert.assertFalse(datePicker.isConstrainInput());
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(datePicker.isDisabled());
+		datePicker.setDisabled(true);
+		Assert.assertTrue(datePicker.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#isGotoCurrent()}.
@@ -519,6 +559,16 @@ public class DatePickerTestCase extends TestCase {
 		datePicker.setNavigationAsDateFormat(true);
 		Assert.assertTrue(datePicker.isNavigationAsDateFormat());
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#isSelectOtherMonths()}.
+	 */
+	@Test
+	public void testIsSelectOtherMonths() {
+		Assert.assertFalse(datePicker.isSelectOtherMonths());
+		datePicker.setSelectOtherMonths(true);
+		Assert.assertTrue(datePicker.isSelectOtherMonths());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#isShowButtonPanel()}.
@@ -548,6 +598,16 @@ public class DatePickerTestCase extends TestCase {
 		Assert.assertFalse(datePicker.isShowOtherMonths());
 		datePicker.setShowOtherMonths(true);
 		Assert.assertTrue(datePicker.isShowOtherMonths());
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#isShowWeek()}.
+	 */
+	@Test
+	public void testIsShowWeek() {
+		Assert.assertFalse(datePicker.isShowWeek());
+		datePicker.setShowWeek(true);
+		Assert.assertTrue(datePicker.isShowWeek());
 	}
 
 	/**
@@ -639,5 +699,15 @@ public class DatePickerTestCase extends TestCase {
 	public void testStatement() {
 		Assert.assertNotNull(datePicker.statement());
 		Assert.assertEquals(datePicker.statement().render().toString(), "$('#anId').datepicker({});");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(datePicker.widget());
+		Assert.assertEquals(datePicker.widget().render().toString(), 
+				"$('#anId').datepicker('widget');");
 	}
 }

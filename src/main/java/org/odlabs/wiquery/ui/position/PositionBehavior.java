@@ -32,6 +32,12 @@ import org.odlabs.wiquery.core.options.Options;
  * <p>
  * 	Behavior using the position utilities
  * </p>
+ * 
+ * Missing functionalities:
+ * <ul>
+ * 	<li>using</li>
+ * </ul>
+ * 
  * @author Julien Roche
  * @since 1.1
  */

@@ -116,6 +116,16 @@ public class ButtonTestCase extends TestCase {
 		button.setLabel("a label");
 		Assert.assertEquals(button.getOptions().getJavaScriptOptions().toString(), "{label: 'a label'}");
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(button.isDisabled());
+		button.setDisabled(true);
+		Assert.assertTrue(button.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#isText()}.
@@ -134,5 +144,15 @@ public class ButtonTestCase extends TestCase {
 	public void testStatement() {
 		Assert.assertNotNull(button.statement());
 		Assert.assertEquals(button.statement().render().toString(), "$('#anId').button({});");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(button.widget());
+		Assert.assertEquals(button.widget().render().toString(), 
+				"$('#anId').button('widget');");
 	}
 }

@@ -164,6 +164,16 @@ public class DroppableBehaviorTestCase extends TestCase {
 		droppableBehavior.setAddClasses(false);
 		Assert.assertFalse(droppableBehavior.isAddClasses());
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(droppableBehavior.isDisabled());
+		droppableBehavior.setDisabled(true);
+		Assert.assertTrue(droppableBehavior.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#isGreedy()}.
@@ -242,5 +252,15 @@ public class DroppableBehaviorTestCase extends TestCase {
 	public void testStatement() {
 		Assert.assertNotNull(droppableBehavior.statement());
 		Assert.assertEquals(droppableBehavior.statement().render().toString(), "$('#anId').droppable({});");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(droppableBehavior.widget());
+		Assert.assertEquals(droppableBehavior.widget().render().toString(), 
+				"$('#anId').droppable('widget');");
 	}
 }

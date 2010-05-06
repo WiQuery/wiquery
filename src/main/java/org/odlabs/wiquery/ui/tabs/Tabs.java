@@ -228,6 +228,27 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 		return 0;
 	}
 	
+	/**Disables (true) or enables (false) the tabs. Can be set when 
+	 * initialising (first creating) the tabs.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Tabs setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
+	
 	/**Set an array containing the position of the tabs (zero-based index) that 
 	 * should be disabled on initialization
 	 * @param disabled
@@ -759,5 +780,19 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void url(AjaxRequestTarget ajaxRequestTarget, int index, String url) {
 		ajaxRequestTarget.appendJavascript(this.url(index, url).render().toString());
+	}
+	
+	/**Method to returns the .ui-slider  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(this).$().chain("tabs", "'widget'");
+	}
+
+	/**Method to returns the .ui-slider element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

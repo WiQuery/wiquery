@@ -27,6 +27,7 @@ import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
+import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
@@ -238,7 +239,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * in the current dateFormat.
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setSAutoSize(boolean autoSize) {
+	public DatePicker<T> setAutoSize(boolean autoSize) {
 		options.put("autoSize", autoSize);
 		return this;
 	}
@@ -310,6 +311,20 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		String buttonText = this.options.getLiteral("buttonText");
 		return buttonText == null ? "..." : buttonText;
 	}
+	
+	/**A function to calculate the week of the year for a given date. The default 
+	 * implementation uses the ISO 8601 definition: weeks start on a Monday; 
+	 * the first week of the year contains the first Thursday of the year.
+	 * 
+	 * Default: $.datepicker.iso8601Week
+	 * 
+	 * @param calculateWeek
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setOnSelectEvent(JsScope calculateWeek) {
+		this.options.put("calculateWeek", calculateWeek);
+		return this;
+	}
 
 	/**
 	 * Sets if the date's month is selectable in a drop down list or not.
@@ -330,6 +345,24 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		}
 		
 		return false;
+	}
+	
+	/**The text to display for the week of the year column heading. This attribute 
+	 * is one of the regionalisation attributes. Use showWeek to display this column.
+	 * @param weekHeader
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setWeekHeader(String weekHeader) {
+		this.options.putLiteral("weekHeader", weekHeader);
+		return this;
+	}
+	
+	/**
+	 * @return the weekHeader option value
+	 */
+	public String getWeekHeader() {
+		String weekHeader = this.options.getLiteral("weekHeader");
+		return weekHeader == null ? "WK" : weekHeader;
 	}
 
 	/**
@@ -355,6 +388,24 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		}
 		
 		return new DatePickerYearRange(new Short("-10"), new Short("10"));
+	}
+	
+	/**Additional text to display after the year in the month headers. This 
+	 * attribute is one of the regionalisation attributes.
+	 * @param yearSuffix
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setYearSuffix(String yearSuffix) {
+		this.options.putLiteral("yearSuffix", yearSuffix);
+		return this;
+	}
+	
+	/**
+	 * @return the yearSuffix option value
+	 */
+	public String getYearSuffix() {
+		String yearSuffix = this.options.getLiteral("yearSuffix");
+		return yearSuffix == null ? "" : yearSuffix;
 	}
 
 	/**
@@ -456,6 +507,8 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		
 		return 0;
 	}
+	
+	
 	
 	/**If true, the current day link moves to the currently selected date instead of today.
 	 * @param gotoCurrent
@@ -717,6 +770,27 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	public String getPrevText() {
 		String prevText = this.options.getLiteral("prevText");
 		return prevText == null ? "Prev" : prevText;
+	}
+	
+	/**When true days in other months shown before or after the current month 
+	 * are selectable. This only applies if showOtherMonths is also true.
+	 * @param selectOtherMonths
+	 * @return instance of the current behavior
+	 */
+	public DatePicker<T> setSelectOtherMonths(boolean selectOtherMonths) {
+		this.options.put("selectOtherMonths", selectOtherMonths);
+		return this;
+	}
+	
+	/**
+	 * @return the selectOtherMonths option
+	 */
+	public boolean isSelectOtherMonths() {
+		if(this.options.containsKey("selectOtherMonths")){
+			return this.options.getBoolean("selectOtherMonths");
+		}
+		
+		return false;
 	}
 	
 	/**Set the cutoff year for determining the century for a date
@@ -1067,6 +1141,27 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		
 		return new DatePickerDuration(DurationEnum.NORMAL);
 	}
+	
+	/**Disables (true) or enables (false) the datepicker. Can be set when 
+	 * initialising (first creating) the datepicker.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public DatePicker<T> setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
 
 	/*---- Events section ---*/
 	
@@ -1237,5 +1332,19 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public void show(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.show().render().toString());
+	}
+	
+	/**Method to returns the .ui-datepicker  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(this).$().chain("datepicker", "'widget'");
+	}
+
+	/**Method to returns the .ui-datepicker element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

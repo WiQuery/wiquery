@@ -311,6 +311,16 @@ public class SortableBehaviorTestCase extends TestCase {
 		sortableBehavior.setZIndex(30);
 		Assert.assertEquals(sortableBehavior.getZIndex(), 30);
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(sortableBehavior.isDisabled());
+		sortableBehavior.setDisabled(true);
+		Assert.assertTrue(sortableBehavior.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isDropOnEmpty()}.
@@ -544,5 +554,15 @@ public class SortableBehaviorTestCase extends TestCase {
 		Assert.assertNotNull(sortableBehavior.toArray());
 		Assert.assertEquals(sortableBehavior.toArray().render().toString(), 
 				"$('#anId').sortable('toArray');");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(sortableBehavior.widget());
+		Assert.assertEquals(sortableBehavior.widget().render().toString(), 
+				"$('#anId').sortable('widget');");
 	}
 }

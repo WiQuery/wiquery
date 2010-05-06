@@ -156,6 +156,16 @@ public class SelectableBehaviorTestCase extends TestCase {
 		selectableBehavior.setAutoRefresh(false);
 		Assert.assertFalse(selectableBehavior.isAutoRefresh());
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(selectableBehavior.isDisabled());
+		selectableBehavior.setDisabled(true);
+		Assert.assertTrue(selectableBehavior.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#refresh()}.
@@ -249,4 +259,13 @@ public class SelectableBehaviorTestCase extends TestCase {
 				"$('#anId').selectable({});");
 	}
 
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(selectableBehavior.widget());
+		Assert.assertEquals(selectableBehavior.widget().render().toString(), 
+				"$('#anId').selectable('widget');");
+	}
 }

@@ -130,6 +130,16 @@ public class DialogTestCase extends TestCase {
 		dialog.setCssClass(".aClass");
 		Assert.assertEquals(dialog.getCssClass(), ".aClass");
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#getDialogClass()}.
+	 */
+	@Test
+	public void testGetDialogClass() {
+		Assert.assertEquals(dialog.getDialogClass(), "");
+		dialog.setDialogClass("myClass");
+		Assert.assertEquals(dialog.getDialogClass(), "myClass");
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#getHeight()}.
@@ -261,16 +271,6 @@ public class DialogTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#isBgiframe()}.
-	 */
-	@Test
-	public void testIsBgiframe() {
-		Assert.assertFalse(dialog.isBgiframe());
-		dialog.setBgiframe(true);
-		Assert.assertTrue(dialog.isBgiframe());
-	}
-
-	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#isCloseOnEscape()}.
 	 */
 	@Test
@@ -278,6 +278,16 @@ public class DialogTestCase extends TestCase {
 		Assert.assertTrue(dialog.isCloseOnEscape());
 		dialog.setCloseOnEscape(false);
 		Assert.assertFalse(dialog.isCloseOnEscape());
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(dialog.isDisabled());
+		dialog.setDisabled(true);
+		Assert.assertTrue(dialog.isDisabled());
 	}
 
 	/**
@@ -465,5 +475,15 @@ public class DialogTestCase extends TestCase {
 	public void testStatement() {
 		Assert.assertNotNull(dialog.statement());
 		Assert.assertEquals(dialog.statement().render().toString(), "$('#anId').dialog({autoOpen: false, position: 'center'});");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(dialog.widget());
+		Assert.assertEquals(dialog.widget().render().toString(), 
+				"$('#anId').dialog('widget');");
 	}
 }

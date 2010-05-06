@@ -144,6 +144,16 @@ public class ProgressBarTestCase extends TestCase {
 		Assert.assertEquals(progressBar.increment(5).render().toString(), 
 				"$('#anId').progressbar('value', $('#anId').progressbar('value') + 5);");
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(progressBar.isDisabled());
+		progressBar.setDisabled(true);
+		Assert.assertTrue(progressBar.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
@@ -193,5 +203,15 @@ public class ProgressBarTestCase extends TestCase {
 		Assert.assertNotNull(progressBar.value(5));
 		Assert.assertEquals(progressBar.value(5).render().toString(), 
 				"$('#anId').progressbar('value', 5);");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(progressBar.widget());
+		Assert.assertEquals(progressBar.widget().render().toString(), 
+				"$('#anId').progressbar('widget');");
 	}
 }

@@ -130,6 +130,27 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 		return new SliderAnimate(false);
 	}
 	
+	/**Disables (true) or enables (false) the slider. Can be set when 
+	 * initialising (first creating) the slider.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Slider setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
+	
 	/**Sets the maximum value of the slider.
 	 * @param max
 	 * @return instance of the current component
@@ -412,5 +433,19 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void values(AjaxRequestTarget ajaxRequestTarget, int index, int value) {
 		ajaxRequestTarget.appendJavascript(this.values(index, value).render().toString());
+	}
+	
+	/**Method to returns the .ui-slider  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(this).$().chain("slider", "'widget'");
+	}
+
+	/**Method to returns the .ui-slider element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

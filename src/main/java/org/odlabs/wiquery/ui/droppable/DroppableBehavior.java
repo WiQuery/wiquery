@@ -184,6 +184,27 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 		
 		return true;
 	}
+	
+	/**Disables (true) or enables (false) the droppable. Can be set when 
+	 * initialising (first creating) the droppable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setDisabled(boolean disabled) {
+		this.options.put("disabled", disabled);
+		return this;
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
+		}
+		
+		return false;
+	}
 
 	/**
 	 * If true, will prevent event propagation on nested droppables.
@@ -395,5 +416,19 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+	}
+	
+	/**Method to returns the .ui-droppable  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return new JsQuery(getComponent()).$().chain("droppable", "'widget'");
+	}
+
+	/**Method to returns the .ui-droppable  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

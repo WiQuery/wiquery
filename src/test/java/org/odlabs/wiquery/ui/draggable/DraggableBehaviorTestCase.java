@@ -363,6 +363,16 @@ public class DraggableBehaviorTestCase extends TestCase {
 		draggableBehavior.setAddClasses(false);
 		Assert.assertFalse(draggableBehavior.isAddClasses());
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		Assert.assertFalse(draggableBehavior.isDisabled());
+		draggableBehavior.setDisabled(true);
+		Assert.assertTrue(draggableBehavior.isDisabled());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#isRefreshPositions()}.
@@ -427,5 +437,15 @@ public class DraggableBehaviorTestCase extends TestCase {
 	public void testStatement() {
 		Assert.assertNotNull(draggableBehavior.statement());
 		Assert.assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#widget()}.
+	 */
+	@Test
+	public void testWidget() {
+		Assert.assertNotNull(draggableBehavior.widget());
+		Assert.assertEquals(draggableBehavior.widget().render().toString(), 
+				"$('#anId').draggable('widget');");
 	}
 }
