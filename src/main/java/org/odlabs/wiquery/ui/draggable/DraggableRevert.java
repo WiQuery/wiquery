@@ -34,6 +34,16 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @since 1.0
  */
 public class DraggableRevert implements IComplexOption {
+	/**
+	 * Valid revert
+	 */
+	public static final DraggableRevert VALID = new DraggableRevert(RevertEnum.VALID);
+	
+	/**
+	 * Invalid revert
+	 */
+	public static final DraggableRevert INVALID = new DraggableRevert(RevertEnum.INVALID);
+	
 	public enum RevertEnum {
 		VALID		(new LiteralOption("valid")),
 		INVALID 	(new LiteralOption("invalid"));

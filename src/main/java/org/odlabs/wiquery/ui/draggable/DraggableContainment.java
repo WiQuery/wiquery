@@ -38,6 +38,22 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  */
 public class DraggableContainment implements IComplexOption {
 	/**
+	 * Containment to parent
+	 */
+	public static final DraggableContainment PARENT = new DraggableContainment(ContainmentEnum.PARENT);
+	
+	/**
+	 * Containment to document
+	 */
+	public static final DraggableContainment DOCUMENT = new DraggableContainment(ContainmentEnum.DOCUMENT);
+	
+	/**
+	 * Containment to window
+	 */
+	public static final DraggableContainment WINDOW = new DraggableContainment(ContainmentEnum.WINDOW);
+	
+	
+	/**
 	 * Enumeration of possible values for the containment option
 	 * @author Julien
 	 *

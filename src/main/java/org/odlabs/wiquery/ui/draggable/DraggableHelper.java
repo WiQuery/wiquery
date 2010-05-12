@@ -35,6 +35,16 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @since 1.0
  */
 public class DraggableHelper implements IComplexOption {
+	/**
+	 * Clone helper
+	 */
+	public static final DraggableHelper CLONE = new DraggableHelper(HelperEnum.CLONE);
+	
+	/**
+	 * Original helper
+	 */
+	public static final DraggableHelper ORIGINAL = new DraggableHelper(HelperEnum.ORIGINAL);
+	
 	public enum HelperEnum {
 		CLONE		(new LiteralOption("clone")),
 		ORIGINAL 	(new LiteralOption("original"));
