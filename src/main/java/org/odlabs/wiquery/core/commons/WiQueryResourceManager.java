@@ -38,9 +38,11 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @author Lionel Armanet
  */
 public class WiQueryResourceManager implements Serializable {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 6492292431833226643L;
 
+	// Properties
 	/**
 	 * List of javascript resources to use
 	 */
@@ -52,27 +54,15 @@ public class WiQueryResourceManager implements Serializable {
 	private ArrayList<ResourceReference> cssResources;
 
 	/**
-	 * List of plugin dependencies
-	 */
-	// TODO DEPENDENCIES MANAGEMENT ?
-	// private ArrayList<WiQueryResourceManager> dependencies;
-	/**
 	 * Constructor.
 	 */
 	public WiQueryResourceManager() {
 		super();
 		this.javascriptResources = new ArrayList<ResourceReference>();
 		this.cssResources = new ArrayList<ResourceReference>();
-		// this.dependencies = new ArrayList<WiQueryResourceManager>();
 	}
 
 	public void initialize(IHeaderResponse response) {
-		// Register dependencies first
-		// TODO DEPENDECY MANAGEMENT
-		// for (int i = 0; i < this.dependencies.size(); i++)
-		// {
-		// dependencies.get(i).initialize(response);
-		// }
 		// Register all javascript
 		for (int i = 0; i < this.javascriptResources.size(); i++) {
 			response.renderJavascriptReference(this.javascriptResources.get(i));
@@ -118,4 +108,11 @@ public class WiQueryResourceManager implements Serializable {
 		this.cssResources.add(new ResourceReference(scope, path));
 	}
 
+	/**
+	 * Method to clear the resources
+	 */
+	protected void clearResources() {
+		this.javascriptResources.clear();
+		this.cssResources.clear();
+	}
 }

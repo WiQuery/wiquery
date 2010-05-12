@@ -24,10 +24,10 @@ package org.odlabs.wiquery.core.commons;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.IRequestTarget;
 import org.apache.wicket.MarkupContainer;
@@ -45,7 +45,6 @@ import org.odlabs.wiquery.core.commons.listener.JQueryUICoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 import org.odlabs.wiquery.core.commons.merge.WiQueryHeaderResponse;
 import org.odlabs.wiquery.core.commons.merge.WiQueryMergedJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.merge.WiQueryMergedResources;
 import org.odlabs.wiquery.core.commons.merge.WiQueryMergedStyleSheetResourceReference;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -128,18 +127,15 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		this.pluginRenderingListeners.add(new JQueryCoreRenderingListener());
 		this.pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
 		
+		WiQueryInstantiationListener instanciation = WiQueryInstantiationListener.get();
+		
 		// Listeners add by users
-		this.pluginRenderingListeners.addAll(WiQueryInstantiationListener.listeners);
-		
-		Application app = Application.get();
-		
-		if(app.getClass().isAnnotationPresent(WiQueryMergedResources.class)){
-			WiQueryMergedResources wqmr = app.getClass().getAnnotation(WiQueryMergedResources.class);
-			enableResourcesMerging = wqmr.enable();
-			
-		} else {
-			enableResourcesMerging = false;
+		for(Iterator<WiQueryPluginRenderingListener> iterator = instanciation.getListeners(); iterator.hasNext();){
+			this.pluginRenderingListeners.add(iterator.next());
 		}
+		
+		// Shall we merge ?
+		enableResourcesMerging = instanciation.isEnableResourcesMerging();
 		
 		if(enableResourcesMerging){
 			wiQueryHeaderResponse = new WiQueryHeaderResponse();
@@ -281,7 +277,8 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 					listener.onRender(plugin, manager, headerResponse);
 				}
 				plugin.contribute(manager);
-				manager.initialize(headerResponse);				
+				manager.initialize(headerResponse);
+				manager.clearResources();
 			}
 		}
 		

@@ -26,28 +26,33 @@ import java.io.Serializable;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
+import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 
 /**
  * $Id$
  * <p>
- * 	TODO insert comments here
+ * 	Implementation of the WiQueryPluginRenderingListener to render the jQuery bse framework
  * </p>
  * @author lionel
- * @since TODO indicate wickext version
+ * @since 1.0
  */
 public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListener, Serializable {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3644333357586234429L;
 
 	/**
 	 * Renders needed resources for any jQuery code (e.g. core libraries).
+	 * 
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener#onRender(org.odlabs.wiquery.core.commons.IWiQueryPlugin, org.odlabs.wiquery.core.commons.WiQueryResourceManager, org.apache.wicket.markup.html.IHeaderResponse)
 	 */
 	public void onRender(IWiQueryPlugin plugin,
 			WiQueryResourceManager resourceManager, IHeaderResponse response) {
-		response
-			.renderJavascriptReference(CoreJavaScriptResourceReference
-				.get());		
+		
+		if(WiQueryInstantiationListener.get().isAutoImportJQueryResource()){
+			response.renderJavascriptReference(CoreJavaScriptResourceReference.get());	
+		}
 	}
-	
 }

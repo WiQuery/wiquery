@@ -24,8 +24,11 @@ package org.odlabs.wiquery.core.commons;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
@@ -51,17 +54,73 @@ public class WiQueryInstantiationListener implements
 	/** Constant of serialization */
 	private static final long serialVersionUID = -7398777039788778234L;
 	
-	/** List of all {@link WiQueryPluginRenderingListener} */
-	protected static final List<WiQueryPluginRenderingListener> listeners = new ArrayList<WiQueryPluginRenderingListener>();
-
+	/** Singleton of {@link WiQueryInstantiationListener} object. */
+	private static WiQueryInstantiationListener current;
+	
+	/** Mutex */
+	private static Object mutex = new Object();
+	
+	// Properties
+	private final boolean autoImportJQueryResource;
+	private final boolean enableResourcesMerging;
+	private final List<WiQueryPluginRenderingListener> listeners;
+	
 	/**
-	 * Method adding a new {@link WiQueryPluginRenderingListener}
-	 * @param listener
+	 * Get {@link WiQueryInstantiationListener} for current thread.
+	 * 
+	 * @return The current thread's {@link WiQueryInstantiationListener}
 	 */
-	public void addWiQueryPluginRenderingListener(WiQueryPluginRenderingListener listener) {
-		listeners.add(listener);
+	public static WiQueryInstantiationListener get() {
+		if (current == null) {
+			throw new WicketRuntimeException(
+					"There is no WiQueryInstantiationListener attached to the application " + 
+					Thread.currentThread().getName());
+		}
+		
+		return current;
 	}
 	
+	/**
+	 * Default constructor
+	 */
+	public WiQueryInstantiationListener() {
+		super();
+		
+		synchronized (mutex) {
+			if(current != null){
+				throw new WicketRuntimeException("A WiQueryInstantiationListener is already instanciate");
+			}
+			
+			current = this;
+		}
+		
+		// try to read some options
+		Application app = Application.get();
+		
+		if(app.getClass().isAnnotationPresent(WiQueryOptions.class)){
+			WiQueryOptions options = app.getClass().getAnnotation(WiQueryOptions.class);
+			autoImportJQueryResource = options.autoImportJQueryResource();
+			enableResourcesMerging = options.enableResourcesMerging();
+			listeners = new ArrayList<WiQueryPluginRenderingListener>();
+			
+			if(options.listeners() != null && options.listeners().length > 0){
+				for(Class<? extends WiQueryPluginRenderingListener> plugin : options.listeners()) {
+					try {
+						listeners.add((WiQueryPluginRenderingListener) plugin.newInstance());
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+		} else {
+			autoImportJQueryResource = true;
+			enableResourcesMerging = false;
+			listeners = new ArrayList<WiQueryPluginRenderingListener>();
+		}
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * @see org.apache.wicket.application.IComponentInstantiationListener#onInstantiation(org.apache.wicket.Component)
@@ -76,4 +135,24 @@ public class WiQueryInstantiationListener implements
 		}
 	}
 
+	/**
+	 * @return the list of listener from the listeners option
+	 */
+	public ListIterator<WiQueryPluginRenderingListener> getListeners() {
+		return listeners.listIterator();
+	}
+	
+	/**
+	 * @return the state of the autoImportJQueryResource option
+	 */
+	public boolean isAutoImportJQueryResource() {
+		return autoImportJQueryResource;
+	}
+	
+	/**
+	 * @return the state of the enableResourcesMerging option
+	 */
+	public boolean isEnableResourcesMerging() {
+		return enableResourcesMerging;
+	}
 }
