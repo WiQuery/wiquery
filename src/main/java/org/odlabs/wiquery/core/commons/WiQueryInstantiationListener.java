@@ -22,10 +22,16 @@
 package org.odlabs.wiquery.core.commons;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.behavior.HeaderContributor;
+import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
  * $Id: WiQueryInstantiationListener.java 89 2009-06-02 21:42:53Z lionel.armanet
@@ -44,15 +50,77 @@ import org.apache.wicket.behavior.HeaderContributor;
  */
 public class WiQueryInstantiationListener implements
 		IComponentInstantiationListener, Serializable {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = -7398777039788778234L;
-
-	/*
-	 * (non-Javadoc)
+	
+	/** Singleton of {@link WiQueryInstantiationListener} object. */
+	private static WiQueryInstantiationListener current;
+	
+	/** Mutex */
+	private static Object mutex = new Object();
+	
+	// Properties
+	private final boolean autoImportJQueryResource;
+	private final List<WiQueryPluginRenderingListener> listeners;
+	
+	/**
+	 * Get {@link WiQueryInstantiationListener} for current thread.
 	 * 
-	 * @see
-	 * org.apache.wicket.application.IComponentInstantiationListener#onInstantiation
-	 * (org.apache.wicket.Component)
+	 * @return The current thread's {@link WiQueryInstantiationListener}
+	 */
+	public static WiQueryInstantiationListener get() {
+		if (current == null) {
+			throw new WicketRuntimeException(
+					"There is no WiQueryInstantiationListener attached to the application " + 
+					Thread.currentThread().getName());
+		}
+		
+		return current;
+	}
+	
+	/**
+	 * Default constructor
+	 */
+	public WiQueryInstantiationListener() {
+		super();
+		
+		synchronized (mutex) {
+			if(current != null){
+				throw new WicketRuntimeException("A WiQueryInstantiationListener is already instanciate");
+			}
+			
+			current = this;
+		}
+		
+		// try to read some options
+		Application app = Application.get();
+		
+		if(app.getClass().isAnnotationPresent(WiQueryOptions.class)){
+			WiQueryOptions options = app.getClass().getAnnotation(WiQueryOptions.class);
+			autoImportJQueryResource = options.autoImportJQueryResource();
+			listeners = new ArrayList<WiQueryPluginRenderingListener>();
+			
+			if(options.listeners() != null && options.listeners().length > 0){
+				for(Class<? extends WiQueryPluginRenderingListener> plugin : options.listeners()) {
+					try {
+						listeners.add((WiQueryPluginRenderingListener) plugin.newInstance());
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+		} else {
+			autoImportJQueryResource = true;
+			listeners = new ArrayList<WiQueryPluginRenderingListener>();
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.application.IComponentInstantiationListener#onInstantiation(org.apache.wicket.Component)
 	 */
 	public void onInstantiation(final Component component) {
 		// theme management
@@ -64,4 +132,17 @@ public class WiQueryInstantiationListener implements
 		}
 	}
 
+	/**
+	 * @return the list of listener from the listeners option
+	 */
+	public ListIterator<WiQueryPluginRenderingListener> getListeners() {
+		return listeners.listIterator();
+	}
+	
+	/**
+	 * @return the state of the autoImportJQueryResource option
+	 */
+	public boolean isAutoImportJQueryResource() {
+		return autoImportJQueryResource;
+	}
 }

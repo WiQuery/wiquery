@@ -24,6 +24,7 @@ package org.odlabs.wiquery.core.commons;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -105,8 +106,15 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	 */
 	public WiQueryCoreHeaderContributor() {
 		super();
+		
+		// Default listeners
 		this.pluginRenderingListeners.add(new JQueryCoreRenderingListener());
-		this.pluginRenderingListeners.add(new JQueryUICoreRenderingListener());			
+		this.pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
+		
+		// Listeners add by users
+		for(Iterator<WiQueryPluginRenderingListener> iterator = WiQueryInstantiationListener.get().getListeners(); iterator.hasNext();){
+			this.pluginRenderingListeners.add(iterator.next());
+		}
 	}
 
 	/**
@@ -234,7 +242,8 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 					listener.onRender(plugin, manager, response);
 				}
 				plugin.contribute(manager);
-				manager.initialize(response);				
+				manager.initialize(response);
+				manager.clearResources();
 			}
 		}
 
