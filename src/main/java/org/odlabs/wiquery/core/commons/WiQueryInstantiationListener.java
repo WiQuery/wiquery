@@ -55,7 +55,7 @@ public class WiQueryInstantiationListener implements
 	private static final long serialVersionUID = -7398777039788778234L;
 	
 	/** Singleton of {@link WiQueryInstantiationListener} object. */
-	private static WiQueryInstantiationListener current;
+	private static WiQueryInstantiationListener current = null;
 	
 	/** Mutex */
 	private static Object mutex = new Object();
@@ -86,14 +86,6 @@ public class WiQueryInstantiationListener implements
 	public WiQueryInstantiationListener() {
 		super();
 		
-		synchronized (mutex) {
-			if(current != null){
-				throw new WicketRuntimeException("A WiQueryInstantiationListener is already instanciate");
-			}
-			
-			current = this;
-		}
-		
 		// try to read some options
 		Application app = Application.get();
 		
@@ -118,6 +110,10 @@ public class WiQueryInstantiationListener implements
 			autoImportJQueryResource = true;
 			enableResourcesMerging = false;
 			listeners = new ArrayList<WiQueryPluginRenderingListener>();
+		}
+		
+		synchronized (mutex) {
+			current = this;
 		}
 	}
 
