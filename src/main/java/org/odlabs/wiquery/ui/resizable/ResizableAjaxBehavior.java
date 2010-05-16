@@ -25,6 +25,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
@@ -94,25 +95,6 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	@Override
 	protected void onBind() {
 		getComponent().add(resizableBehavior);
-		resizableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-			 * .wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-						+ "&" + RESIZED_HEIGHT + "='+" + ResizableBehavior.UI_SIZE + ".height+'"
-						+ "&" + RESIZED_WIDTH + "='+" + ResizableBehavior.UI_SIZE + ".width"
-						+", null,null, function() {return true;})");
-			}
-
-		});
 	}
 
 	/*
@@ -193,6 +175,35 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 */
 		private void setInnerStopEvent(JsScopeUiEvent stop) {
 			super.setStopEvent(stop);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#statement()
+		 */
+		@Override
+		public JsStatement statement() {
+			resizableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
+				private static final long serialVersionUID = 1L;
+
+				/*
+				 * (non-Javadoc)
+				 * 
+				 * @see
+				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+				 * .wiquery.core.javascript.JsScopeContext)
+				 */
+				@Override
+				protected void execute(JsScopeContext scopeContext) {
+					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
+							+ "&" + RESIZED_HEIGHT + "='+" + ResizableBehavior.UI_SIZE + ".height+'"
+							+ "&" + RESIZED_WIDTH + "='+" + ResizableBehavior.UI_SIZE + ".width"
+							+", null,null, function() {return true;})");
+				}
+
+			});
+			
+			return super.statement();
 		}
 	}
 }

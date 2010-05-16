@@ -25,6 +25,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.core.util.MarkupIdVisitor;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
@@ -92,24 +93,6 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	@Override
 	protected void onBind() {
 		getComponent().add(droppableBehavior);
-		droppableBehavior.setInnerDropEvent(new JsScopeUiEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-			 * .wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-						+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
-						+ "[0].id, null,null, function() {return true;})");
-			}
-
-		});
 	}
 
 	/*
@@ -189,6 +172,34 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 */
 		private void setInnerDropEvent(JsScopeUiEvent drop) {
 			super.setDropEvent(drop);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#statement()
+		 */
+		@Override
+		public JsStatement statement() {
+			droppableBehavior.setInnerDropEvent(new JsScopeUiEvent() {
+				private static final long serialVersionUID = 1L;
+
+				/*
+				 * (non-Javadoc)
+				 * 
+				 * @see
+				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+				 * .wiquery.core.javascript.JsScopeContext)
+				 */
+				@Override
+				protected void execute(JsScopeContext scopeContext) {
+					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
+							+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
+							+ "[0].id, null,null, function() {return true;})");
+				}
+
+			});
+			
+			return super.statement();
 		}
 	}
 }
