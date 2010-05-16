@@ -321,7 +321,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @param calculateWeek
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setOnSelectEvent(JsScope calculateWeek) {
+	public DatePicker<T> setCalculateWeek(JsScope calculateWeek) {
 		this.options.put("calculateWeek", calculateWeek);
 		return this;
 	}
