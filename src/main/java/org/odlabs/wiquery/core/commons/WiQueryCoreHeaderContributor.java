@@ -183,6 +183,11 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			
 			if(page != null){
 				final IBehavior iBehavior = (IBehavior) plugin;
+				
+				if(page.getBehaviors().contains(iBehavior)){
+					return true;
+				}
+				
 				Object result = page.visitChildren(new IVisitor<Component>() {
 					
 					/**
@@ -226,8 +231,11 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		JsStatement jsStatement = new JsStatement();
 		JsStatement tempStatement = null;
 		IRequestTarget target = RequestCycle.get().getRequestTarget();
+		IWiQueryPlugin plugin = null;
 		
-		for (IWiQueryPlugin plugin : this.plugins) {
+		for (Iterator<IWiQueryPlugin> iterator = this.plugins.iterator(); iterator.hasNext(); ) {
+			plugin = iterator.next();
+			
 			if(isPluginAttachedToTarget(plugin, target) && isPluginVisible(plugin, target)) {
 				tempStatement = plugin.statement();
 				
