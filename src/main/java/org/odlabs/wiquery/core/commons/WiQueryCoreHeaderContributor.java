@@ -155,7 +155,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		this.resourceManagers.put(wiqueryPlugin, resourceManager);
 		this.plugins.add(wiqueryPlugin);
 	}
-
+	
 	/**
 	 * Checks whether the given {@link IWiQueryPlugin} is attached to the
 	 * given target.
@@ -187,6 +187,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			// plugin wasn't added
 			return false;
 		}
+		
 		return true; 
 	}
 	
@@ -208,6 +209,11 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			
 			if(page != null){
 				final IBehavior iBehavior = (IBehavior) plugin;
+				
+				if(page.getBehaviors().contains(iBehavior)){
+					return true;
+				}
+				
 				Object result = page.visitChildren(new IVisitor<Component>() {
 					
 					/**
@@ -253,6 +259,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		WiQueryResourceManager manager = null;
 		IRequestTarget target = RequestCycle.get().getRequestTarget();
 		IHeaderResponse headerResponse = null;
+		IWiQueryPlugin plugin = null;
 		
 		if(enableResourcesMerging){
 			wiQueryHeaderResponse.setIHeaderResponse(response);
@@ -262,7 +269,9 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			headerResponse = response;
 		}
 		
-		for (IWiQueryPlugin plugin : this.plugins) {
+		for (Iterator<IWiQueryPlugin> iterator = this.plugins.iterator(); iterator.hasNext(); ) {
+			plugin = iterator.next();
+			
 			if(isPluginAttachedToTarget(plugin, target) && isPluginVisible(plugin, target)) {
 				tempStatement = plugin.statement();
 				
