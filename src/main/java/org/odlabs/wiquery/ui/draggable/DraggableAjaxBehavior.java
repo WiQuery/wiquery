@@ -89,7 +89,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		@Override
 		protected void execute(JsScopeContext scopeContext) {
 			scopeContext.append(javascript);
-		}		
+		}	
 	}
 	
 	/**
@@ -203,6 +203,86 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 			
 			return super.setStopEvent(drop);
 		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.draggable.DraggableBehavior#statement()
+		 */
+		@Override
+		public JsStatement statement() {
+			if(callbacks.contains(DraggableEvent.STOP)){
+				draggableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
+					private static final long serialVersionUID = 1L;
+		
+					/*
+					 * (non-Javadoc)
+					 * 
+					 * @see
+					 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+					 * .wiquery.core.javascript.JsScopeContext)
+					 */
+					@Override
+					protected void execute(JsScopeContext scopeContext) {
+						StringBuffer javascript = new StringBuffer();
+						javascript.append("var isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);");
+						
+						if(!enableAjaxOnInvalid){
+							// We must insert a test to detect the invalid state
+							javascript.append("if(!isInvalid){");
+						}
+						
+						javascript.append("wicketAjaxGet('" + getCallbackUrl(true));
+						javascript.append("&" + DRAG_TYPE + "=" + DraggableEvent.STOP.toString().toLowerCase());
+						javascript.append("&" + DRAG_STATUS + "='+isInvalid");
+						javascript.append(",null,null, function() {return true;})");
+						
+						if(!enableAjaxOnInvalid){
+							javascript.append("}");
+						}
+						
+						scopeContext.append(javascript);
+					}
+		
+				});
+			}
+			
+			if(callbacks.contains(DraggableEvent.START)){
+				draggableBehavior.setInnerStartEvent(new JsScopeUiEvent() {
+					private static final long serialVersionUID = 1L;
+					
+					 /* (non-Javadoc)
+					 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
+					 */
+					@Override
+					protected void execute(JsScopeContext scopeContext) {
+						scopeContext.append(dragCallback(DraggableEvent.START));
+					}
+				});
+			}
+			
+			if(callbacks.contains(DraggableEvent.DRAG)){
+				draggableBehavior.setInnerDragEvent(new JsScopeUiEvent() {
+					private static final long serialVersionUID = 1L;
+					
+					/* (non-Javadoc)
+					 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
+					 */
+					@Override
+					protected void execute(JsScopeContext scopeContext) {
+						scopeContext.append(dragCallback(DraggableEvent.DRAG));
+					}
+				});
+			}
+			
+			if(enableAjaxOnInvalid){
+				draggableBehavior.getInnerOptions().put(
+						"revert", 
+						new DraggableRevertScope(
+								"return $.ui.draggable._dragElementWasDropped(this, dropped);"));
+			}
+			
+			return super.statement();
+		}
 	}
 	
 	// Constants
@@ -314,76 +394,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	protected void onBind() {
 		getComponent().add(draggableBehavior);
 		
-		if(callbacks.contains(DraggableEvent.STOP)){
-			draggableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
-				private static final long serialVersionUID = 1L;
-	
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see
-				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-				 * .wiquery.core.javascript.JsScopeContext)
-				 */
-				@Override
-				protected void execute(JsScopeContext scopeContext) {
-					StringBuffer javascript = new StringBuffer();
-					javascript.append("var isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);");
-					
-					if(!enableAjaxOnInvalid){
-						// We must insert a test to detect the invalid state
-						javascript.append("if(!isInvalid){");
-					}
-					
-					javascript.append("wicketAjaxGet('" + getCallbackUrl(true));
-					javascript.append("&" + DRAG_TYPE + "=" + DraggableEvent.STOP.toString().toLowerCase());
-					javascript.append("&" + DRAG_STATUS + "='+isInvalid");
-					javascript.append(",null,null, function() {return true;})");
-					
-					if(!enableAjaxOnInvalid){
-						javascript.append("}");
-					}
-					
-					scopeContext.append(javascript);
-				}
-	
-			});
-		}
 		
-		if(callbacks.contains(DraggableEvent.START)){
-			draggableBehavior.setInnerStartEvent(new JsScopeUiEvent() {
-				private static final long serialVersionUID = 1L;
-				
-				 /* (non-Javadoc)
-				 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-				 */
-				@Override
-				protected void execute(JsScopeContext scopeContext) {
-					scopeContext.append(dragCallback(DraggableEvent.START));
-				}
-			});
-		}
-		
-		if(callbacks.contains(DraggableEvent.DRAG)){
-			draggableBehavior.setInnerDragEvent(new JsScopeUiEvent() {
-				private static final long serialVersionUID = 1L;
-				
-				/* (non-Javadoc)
-				 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-				 */
-				@Override
-				protected void execute(JsScopeContext scopeContext) {
-					scopeContext.append(dragCallback(DraggableEvent.DRAG));
-				}
-			});
-		}
-		
-		if(enableAjaxOnInvalid){
-			draggableBehavior.getInnerOptions().put(
-					"revert", 
-					new DraggableRevertScope(
-							"return $.ui.draggable._dragElementWasDropped(this, dropped);"));
-		}
 	}
 	
 	/**

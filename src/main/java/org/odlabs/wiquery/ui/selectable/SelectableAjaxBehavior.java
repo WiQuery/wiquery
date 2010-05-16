@@ -95,28 +95,6 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	@Override
 	protected void onBind() {
 		getComponent().add(selectableBehavior);
-		selectableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-			 * .wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append("var selected = new Array();"
-						+ "jQuery.each($('#" + getComponent().getMarkupId(true) +"')" +
-								".children(\"*[class*='ui-selected']\"), function(){" +
-								"selected.push($(this).attr('id'));});"
-						+ "wicketAjaxGet('" + getCallbackUrl(true)
-						+ "&" + SELECTED_ARRAY + "='+ jQuery.unique(selected).toString()"
-						+ ", null,null, function() {return true;})");
-			}
-
-		});
 	}
 
 	/*
@@ -215,6 +193,38 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 		 */
 		private void setInnerStopEvent(JsScopeUiEvent stop) {
 			super.setStopEvent(stop);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.selectable.SelectableBehavior#statement()
+		 */
+		@Override
+		public JsStatement statement() {
+			selectableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
+				private static final long serialVersionUID = 1L;
+
+				/*
+				 * (non-Javadoc)
+				 * 
+				 * @see
+				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+				 * .wiquery.core.javascript.JsScopeContext)
+				 */
+				@Override
+				protected void execute(JsScopeContext scopeContext) {
+					scopeContext.append("var selected = new Array();"
+							+ "jQuery.each($('#" + getComponent().getMarkupId(true) +"')" +
+									".children(\"*[class*='ui-selected']\"), function(){" +
+									"selected.push($(this).attr('id'));});"
+							+ "wicketAjaxGet('" + getCallbackUrl(true)
+							+ "&" + SELECTED_ARRAY + "='+ jQuery.unique(selected).toString()"
+							+ ", null,null, function() {return true;})");
+				}
+
+			});
+			
+			return super.statement();
 		}
 	}
 }

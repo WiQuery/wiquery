@@ -104,24 +104,6 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	@Override
 	protected void onBind() {
 		getComponent().add(droppableBehavior);
-		droppableBehavior.setInnerDropEvent(new JsScopeUiEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-			 * .wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-						+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
-						+ "[0].id, null,null, function() {return true;})");
-			}
-
-		});
 	}
 
 	/**
@@ -213,6 +195,34 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 		 */
 		private void setInnerDropEvent(JsScopeUiEvent drop) {
 			super.setDropEvent(drop);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#statement()
+		 */
+		@Override
+		public JsStatement statement() {
+			droppableBehavior.setInnerDropEvent(new JsScopeUiEvent() {
+				private static final long serialVersionUID = 1L;
+
+				/*
+				 * (non-Javadoc)
+				 * 
+				 * @see
+				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+				 * .wiquery.core.javascript.JsScopeContext)
+				 */
+				@Override
+				protected void execute(JsScopeContext scopeContext) {
+					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
+							+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
+							+ "[0].id, null,null, function() {return true;})");
+				}
+
+			});
+			
+			return super.statement();
 		}
 	}
 }

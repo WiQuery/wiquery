@@ -105,6 +105,35 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 			throw new UnsupportedOperationException(
 					"You can't call this method into the ResizableAjaxBehavior");
 		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#statement()
+		 */
+		@Override
+		public JsStatement statement() {
+			resizableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
+				private static final long serialVersionUID = 1L;
+
+				/*
+				 * (non-Javadoc)
+				 * 
+				 * @see
+				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+				 * .wiquery.core.javascript.JsScopeContext)
+				 */
+				@Override
+				protected void execute(JsScopeContext scopeContext) {
+					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
+							+ "&" + RESIZED_HEIGHT + "='+" + ResizableBehavior.UI_SIZE + ".height+'"
+							+ "&" + RESIZED_WIDTH + "='+" + ResizableBehavior.UI_SIZE + ".width"
+							+", null,null, function() {return true;})");
+				}
+
+			});
+			
+			return super.statement();
+		}
 	}
 
 	// Constants
@@ -154,25 +183,6 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	@Override
 	protected void onBind() {
 		getComponent().add(resizableBehavior);
-		resizableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-			 * .wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-						+ "&" + RESIZED_HEIGHT + "='+" + ResizableBehavior.UI_SIZE + ".height+'"
-						+ "&" + RESIZED_WIDTH + "='+" + ResizableBehavior.UI_SIZE + ".width"
-						+", null,null, function() {return true;})");
-			}
-
-		});
 	}
 	
 	/**

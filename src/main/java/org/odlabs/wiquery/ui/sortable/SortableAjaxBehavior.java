@@ -169,6 +169,84 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 			
 			return super.setUpdateEvent(update);
 		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see org.odlabs.wiquery.ui.sortable.SortableBehavior#statement()
+		 */
+		@Override
+		public JsStatement statement() {
+			if(callbacks.contains(SortedEvent.RECEIVE)){
+				sortableBehavior.setInnerReceiveEvent(new JsScopeUiEvent() {
+					private static final long serialVersionUID = 1L;
+		
+					/*
+					 * (non-Javadoc)
+					 * 
+					 * @see
+					 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+					 * .wiquery.core.javascript.JsScopeContext)
+					 */
+					@Override
+					protected void execute(JsScopeContext scopeContext) {				
+						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
+								+ "&" + SORTED_TYPE + "=" + SortedEvent.RECEIVE.toString().toLowerCase() 
+								+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
+								+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
+								+ "+'&" + SORTED_PARENT_ID + "='+ $(" + SortableBehavior.UI_SENDER + ").attr('id')" 
+								+ ", null,null, function() {return true;});");
+					}
+		
+				});
+			}
+			
+			if(callbacks.contains(SortedEvent.REMOVE)){
+				sortableBehavior.setInnerRemoveEvent(new JsScopeUiEvent() {
+					private static final long serialVersionUID = 1L;
+		
+					/*
+					 * (non-Javadoc)
+					 * 
+					 * @see
+					 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+					 * .wiquery.core.javascript.JsScopeContext)
+					 */
+					@Override
+					protected void execute(JsScopeContext scopeContext) {
+						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
+								+ "&" + SORTED_TYPE + "=" + SortedEvent.REMOVE.toString().toLowerCase() 
+								+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
+								+ ", null,null, function() {return true;})");
+					}
+		
+				});
+			}
+			
+			if(callbacks.contains(SortedEvent.UPDATE)){
+				sortableBehavior.setInnerUpdateEvent(new JsScopeUiEvent() {
+					private static final long serialVersionUID = 1L;
+		
+					/*
+					 * (non-Javadoc)
+					 * 
+					 * @see
+					 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
+					 * .wiquery.core.javascript.JsScopeContext)
+					 */
+					@Override
+					protected void execute(JsScopeContext scopeContext) {
+						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
+								+ "&" + SORTED_TYPE + "=" + SortedEvent.UPDATE.toString().toLowerCase() 
+								+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
+								+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
+								+ ", null,null, function() {return true;})");
+					}
+		
+				});
+			}
+			
+			return super.statement();
+		}
 	}
 	
 	/**
@@ -250,74 +328,6 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	@Override
 	protected void onBind() {
 		getComponent().add(sortableBehavior);
-		if(callbacks.contains(SortedEvent.RECEIVE)){
-			sortableBehavior.setInnerReceiveEvent(new JsScopeUiEvent() {
-				private static final long serialVersionUID = 1L;
-	
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see
-				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-				 * .wiquery.core.javascript.JsScopeContext)
-				 */
-				@Override
-				protected void execute(JsScopeContext scopeContext) {				
-					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-							+ "&" + SORTED_TYPE + "=" + SortedEvent.RECEIVE.toString().toLowerCase() 
-							+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
-							+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
-							+ "+'&" + SORTED_PARENT_ID + "='+ $(" + SortableBehavior.UI_SENDER + ").attr('id')" 
-							+ ", null,null, function() {return true;});");
-				}
-	
-			});
-		}
-		
-		if(callbacks.contains(SortedEvent.REMOVE)){
-			sortableBehavior.setInnerRemoveEvent(new JsScopeUiEvent() {
-				private static final long serialVersionUID = 1L;
-	
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see
-				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-				 * .wiquery.core.javascript.JsScopeContext)
-				 */
-				@Override
-				protected void execute(JsScopeContext scopeContext) {
-					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-							+ "&" + SORTED_TYPE + "=" + SortedEvent.REMOVE.toString().toLowerCase() 
-							+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
-							+ ", null,null, function() {return true;})");
-				}
-	
-			});
-		}
-		
-		if(callbacks.contains(SortedEvent.UPDATE)){
-			sortableBehavior.setInnerUpdateEvent(new JsScopeUiEvent() {
-				private static final long serialVersionUID = 1L;
-	
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see
-				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-				 * .wiquery.core.javascript.JsScopeContext)
-				 */
-				@Override
-				protected void execute(JsScopeContext scopeContext) {
-					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-							+ "&" + SORTED_TYPE + "=" + SortedEvent.UPDATE.toString().toLowerCase() 
-							+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
-							+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
-							+ ", null,null, function() {return true;})");
-				}
-	
-			});
-		}
 	}
 	
 	/**
