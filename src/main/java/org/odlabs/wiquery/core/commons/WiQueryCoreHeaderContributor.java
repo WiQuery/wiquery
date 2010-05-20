@@ -192,6 +192,49 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	}
 	
 	/**
+	 * Method testing if the plugin is still available
+	 * @param plugin
+	 * @param target
+	 * @return the state
+	 */
+	public boolean isPluginAvailable(IWiQueryPlugin plugin) {
+		if(plugin instanceof Component && ((Component) plugin).findParent(Page.class) == null){
+			return false;
+			
+		} else if(plugin instanceof IBehavior){
+			Page page = RequestCycle.get().getResponsePage();
+			
+			if(page != null){
+				final IBehavior iBehavior = (IBehavior) plugin;
+
+				if(page.getBehaviors().contains(iBehavior)){
+					return true;
+				}
+				
+				Object result = page.visitChildren(new IVisitor<Component>() {
+					
+					/**
+					 * {@inheritDoc}
+					 * @see org.apache.wicket.Component.IVisitor#component(org.apache.wicket.Component)
+					 */
+					public Object component(Component component) {
+						if(component.getBehaviors().contains(iBehavior)){
+							return component.findParent(Page.class) != null;
+						}
+						
+						return IVisitor.CONTINUE_TRAVERSAL;
+					}
+				});
+				
+				return Boolean.TRUE.equals(result);
+			}
+			
+		}
+		
+		return true;
+	}
+	
+	/**
 	 * Check if the plugin is visible
 	 * @param plugin Plugin to check
 	 * @param target The current request target
@@ -272,22 +315,29 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		for (Iterator<IWiQueryPlugin> iterator = this.plugins.iterator(); iterator.hasNext(); ) {
 			plugin = iterator.next();
 			
-			if(isPluginAttachedToTarget(plugin, target) && isPluginVisible(plugin, target)) {
-				tempStatement = plugin.statement();
-				
-				if(tempStatement != null){
-					jsStatement.append("\t" + tempStatement.render() + "\n");
+			if(isPluginAvailable(plugin)){
+				if(isPluginAttachedToTarget(plugin, target) && isPluginVisible(plugin, target)) {
+					tempStatement = plugin.statement();
+					
+					if(tempStatement != null){
+						jsStatement.append("\t" + tempStatement.render() + "\n");
+					}
+					
+					manager = resourceManagers.get(plugin);
+					
+					// calling listeners to compute specific stuff
+					for (WiQueryPluginRenderingListener listener : pluginRenderingListeners) {
+						listener.onRender(plugin, manager, headerResponse);
+					}
+					plugin.contribute(manager);
+					manager.initialize(headerResponse);
+					manager.clearResources();
+					
+				} else {
+					// We will remove it
+					resourceManagers.remove(plugin);
+					iterator.remove();
 				}
-				
-				manager = resourceManagers.get(plugin);
-				
-				// calling listeners to compute specific stuff
-				for (WiQueryPluginRenderingListener listener : pluginRenderingListeners) {
-					listener.onRender(plugin, manager, headerResponse);
-				}
-				plugin.contribute(manager);
-				manager.initialize(headerResponse);
-				manager.clearResources();
 			}
 		}
 		
