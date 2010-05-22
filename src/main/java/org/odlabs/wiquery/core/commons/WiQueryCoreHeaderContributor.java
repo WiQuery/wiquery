@@ -198,7 +198,10 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	 * @return the state
 	 */
 	public boolean isPluginAvailable(IWiQueryPlugin plugin) {
-		if(plugin instanceof Component && ((Component) plugin).findParent(Page.class) == null){
+		if(plugin instanceof Page) {
+			return true;
+			
+		} else 	if(plugin instanceof Component && ((Component) plugin).findParent(Page.class) == null){
 			return false;
 			
 		} else if(plugin instanceof IBehavior){
@@ -333,11 +336,11 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 					manager.initialize(headerResponse);
 					manager.clearResources();
 					
-				} else {
+				} /*else {
 					// We will remove it
 					resourceManagers.remove(plugin);
 					iterator.remove();
-				}
+				}*/
 			}
 		}
 		
