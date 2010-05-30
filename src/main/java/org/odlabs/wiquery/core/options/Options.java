@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.options;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -59,7 +59,7 @@ public class Options implements Serializable {
 	 * The internal structure is a map associating each option label with each
 	 * option value.
 	 */
-	protected Map<String, Object> options = new HashMap<String, Object>();
+	protected Map<String, Object> options = new LinkedHashMap<String, Object>();
 
 	/**
 	 * The {@link IOptionsRenderer} to use.
