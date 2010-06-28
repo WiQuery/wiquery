@@ -26,8 +26,8 @@ import java.io.Serializable;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.commons.WiQuerySettings;
 
 /**
  * $Id$
@@ -51,7 +51,7 @@ public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListen
 	public void onRender(IWiQueryPlugin plugin,
 			WiQueryResourceManager resourceManager, IHeaderResponse response) {
 		
-		if(WiQueryInstantiationListener.get().isAutoImportJQueryResource()){
+		if(WiQuerySettings.get().isAutoImportJQueryResource()){
 			response.renderJavascriptReference(CoreJavaScriptResourceReference.get());	
 		}
 	}

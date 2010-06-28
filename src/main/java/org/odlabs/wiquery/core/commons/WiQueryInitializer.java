@@ -21,42 +21,36 @@
  */
 package org.odlabs.wiquery.core.commons;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import org.apache.wicket.Application;
-import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
+import org.apache.wicket.IInitializer;
+import org.apache.wicket.MetaDataKey;
 
 /**
  * $Id$
- * <p>
- * Annotates a {@link Application} to be enable / disable and specify some options
- * </p>
  * 
+ * <p>
+ * 	{@link IInitializer} to retrieve settings for wiQuery
+ * </p>
+ *
  * @author Julien Roche
- * @since 1.0.2
+ * @since 1.1
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(value = ElementType.TYPE)
-@Inherited
-public @interface WiQueryOptions {
+public class WiQueryInitializer implements IInitializer {
 	/**
-	 * Shall we automatically import the jQuery resource via {@link CoreJavaScriptResourceReference}
-	 * @return the state
+	 * Meta data for {@link WiQueryInstantiationListener}. 
 	 */
-	boolean autoImportJQueryResource() default true;
+	protected static final MetaDataKey<WiQuerySettings> WIQUERY_INSTANCE_KEY = new MetaDataKey<WiQuerySettings>() {
+		private static final long serialVersionUID = 1L;
+	};
 	
 	/**
-	 * Shall we merged the javascript and stylesheet resources ?
-	 * @return the state
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.IInitializer#init(org.apache.wicket.Application)
 	 */
-	boolean enableResourcesMerging() default false;
-	
-	/**
-	 * List of listeners to use for the {@link WiQueryCoreHeaderContributor}
-	 */
-	Class<? extends WiQueryPluginRenderingListener>[] listeners() default {};
+	public void init(Application application) {
+		if(Application.get().getMetaData(WIQUERY_INSTANCE_KEY) == null) {
+			// No WiQueryInstantiationListener was defined
+			application.addComponentInstantiationListener(new WiQueryInstantiationListener());
+		}
+	}
 }
