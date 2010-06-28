@@ -22,17 +22,12 @@
 package org.odlabs.wiquery.core.commons;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.Component;
-import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.behavior.HeaderContributor;
-import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
  * $Id: WiQueryInstantiationListener.java 89 2009-06-02 21:42:53Z lionel.armanet
@@ -50,77 +45,28 @@ import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
  * @since 0.6
  */
 public class WiQueryInstantiationListener implements
-		IComponentInstantiationListener, Serializable {
+IComponentInstantiationListener, Serializable {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -7398777039788778234L;
-	
-	/** 
-	 * Meta data for {@link WiQueryInstantiationListener}. 
-	 */
-	private static final MetaDataKey<WiQueryInstantiationListener> WIQUERY_INSTANCE_KEY = new MetaDataKey<WiQueryInstantiationListener>() {
-		private static final long serialVersionUID = 1L;
-	};
-	
-	// Properties
-	private final boolean autoImportJQueryResource;
-	private final List<WiQueryPluginRenderingListener> listeners;
-	
-	/**
-	 * Get {@link WiQueryInstantiationListener} for current thread.
-	 * 
-	 * @return The current thread's {@link WiQueryInstantiationListener}
-	 */
-	public static WiQueryInstantiationListener get() {
-		WiQueryInstantiationListener instance = Application.get().getMetaData(WIQUERY_INSTANCE_KEY);
-		
-		if (instance == null) {
-			throw new WicketRuntimeException(
-					"There is no WiQueryInstantiationListener attached to the application " + 
-					Thread.currentThread().getName());
-		}
-		
-		return instance;
-	}
-	
+
 	/**
 	 * Default constructor
 	 */
 	public WiQueryInstantiationListener() {
 		super();
-		
-		// try to read some options
-		Application app = Application.get();
-		
-		if(app.getClass().isAnnotationPresent(WiQueryOptions.class)){
-			WiQueryOptions options = app.getClass().getAnnotation(WiQueryOptions.class);
-			autoImportJQueryResource = options.autoImportJQueryResource();
-			listeners = new ArrayList<WiQueryPluginRenderingListener>();
-			
-			if(options.listeners() != null && options.listeners().length > 0){
-				for(Class<? extends WiQueryPluginRenderingListener> plugin : options.listeners()) {
-					try {
-						listeners.add((WiQueryPluginRenderingListener) plugin.newInstance());
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			
-		} else {
-			autoImportJQueryResource = true;
-			listeners = new ArrayList<WiQueryPluginRenderingListener>();
-		}
-		
-		synchronized (WIQUERY_INSTANCE_KEY) {
-			if(Application.get().getMetaData(WIQUERY_INSTANCE_KEY) != null) {
+
+		synchronized(WiQueryInitializer.WIQUERY_INSTANCE_KEY) {
+			Application app = Application.get();
+
+			if(app.getMetaData(WiQueryInitializer.WIQUERY_INSTANCE_KEY) != null) {
 				throw new WicketRuntimeException(
 						"There is an existed WiQueryInstantiationListener attached to the application " + 
 						Thread.currentThread().getName());
 			}
-			
-			Application.get().setMetaData(WIQUERY_INSTANCE_KEY, this);
+
+			WiQuerySettings settings = app instanceof IWiQuerySettings ? ((IWiQuerySettings) app).getWiQuerySettings() : null;
+			app.setMetaData(WiQueryInitializer.WIQUERY_INSTANCE_KEY, settings == null ? new WiQuerySettings() : settings);
 		}
 	}
 
@@ -136,19 +82,5 @@ public class WiQueryInstantiationListener implements
 			wickeryHeaderContributor.addPlugin((IWiQueryPlugin) component);
 			component.add(new HeaderContributor(wickeryHeaderContributor));
 		}
-	}
-
-	/**
-	 * @return the list of listener from the listeners option
-	 */
-	public ListIterator<WiQueryPluginRenderingListener> getListeners() {
-		return listeners.listIterator();
-	}
-	
-	/**
-	 * @return the state of the autoImportJQueryResource option
-	 */
-	public boolean isAutoImportJQueryResource() {
-		return autoImportJQueryResource;
 	}
 }

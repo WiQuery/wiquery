@@ -111,8 +111,10 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 		this.pluginRenderingListeners.add(new JQueryCoreRenderingListener());
 		this.pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
 		
+		WiQuerySettings instanciation = WiQuerySettings.get();
+		
 		// Listeners add by users
-		for(Iterator<WiQueryPluginRenderingListener> iterator = WiQueryInstantiationListener.get().getListeners(); iterator.hasNext();){
+		for(Iterator<WiQueryPluginRenderingListener> iterator = instanciation.getListeners(); iterator.hasNext();){
 			this.pluginRenderingListeners.add(iterator.next());
 		}
 	}

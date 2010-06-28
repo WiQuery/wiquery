@@ -19,36 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.core.commons.listener;
+package org.odlabs.wiquery.core.commons;
 
-import java.io.Serializable;
-
-import org.apache.wicket.markup.html.IHeaderResponse;
-import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
-import org.odlabs.wiquery.core.commons.WiQuerySettings;
+import org.apache.wicket.Application;
 
 /**
  * $Id$
  * <p>
- * 	TODO insert comments here
+ * Interface for an {@link Application} to enable / disable or specify some options
  * </p>
- * @author lionel
- * @since TODO indicate wickext version
+ * 
+ * @author Julien Roche
+ * @since 1.0.2
  */
-public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListener, Serializable {
-
-	private static final long serialVersionUID = 3644333357586234429L;
-
+public interface IWiQuerySettings {
 	/**
-	 * Renders needed resources for any jQuery code (e.g. core libraries).
+	 * @return the settings for wiQuery
 	 */
-	public void onRender(IWiQueryPlugin plugin,
-			WiQueryResourceManager resourceManager, IHeaderResponse response) {
-		if(WiQuerySettings.get().isAutoImportJQueryResource()){
-			response.renderJavascriptReference(CoreJavaScriptResourceReference.get());	
-		}		
-	}
-	
+	WiQuerySettings getWiQuerySettings();
 }
