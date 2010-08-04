@@ -150,7 +150,7 @@ public class DatePickerLanguageResourceReference extends
 		 * @return the value
 		 */
 		public static DatePickerLanguages getDatePickerLanguages(Locale locale){
-			if(locale == null || locale.getLanguage().equalsIgnoreCase(Locale.ENGLISH.getCountry())){
+			if(locale == null || locale.getLanguage().equalsIgnoreCase(Locale.ENGLISH.getLanguage())){
 				return DatePickerLanguages.UNITED_KINGDOM;
 			}
 			
