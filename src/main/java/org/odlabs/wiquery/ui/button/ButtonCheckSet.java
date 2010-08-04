@@ -82,7 +82,18 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 			IModel<Collection<T>> model) {
 		super(id);
 		
-		checkGroup = new CheckGroup<T>("buttonCheckSetGroup", model);
+		checkGroup = new CheckGroup<T>("buttonCheckSetGroup", model){
+			private static final long serialVersionUID = 8265281439115476364L;
+
+			/**
+			 * {@inheritDoc}
+			 * @see org.apache.wicket.markup.html.form.CheckGroup#onSelectionChanged(java.util.Collection)
+			 */
+			@Override
+			protected void onSelectionChanged(final Collection<? extends T> newSelection) {
+				ButtonCheckSet.this.onSelectionChanged(newSelection);
+			}
+		};;
 		checkGroup.setOutputMarkupId(true);
 		checkGroup.setRenderBodyOnly(false);
 		add(checkGroup);
@@ -157,6 +168,21 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	protected Check<T> newCheck(String wicketId, IModel<T> model, CheckGroup<T> group) {
 		Check<T> check = new Check<T>(wicketId, model, group);
 		return check;
+	}
+	
+	/**
+	 * Template method that can be overridden by clients that implement IOnChangeListener to be
+	 * notified by onChange events of a select element. This method does nothing by default.
+	 * <p>
+	 * Called when a {@link Check} is clicked in a {@link CheckGroup} that wants to be notified of
+	 * this event. This method is to be implemented by clients that want to be notified of selection
+	 * events.
+	 * 
+	 * @param newSelection
+	 *            The new selection of the {@link CheckGroup}. NOTE this is the same as you would
+	 *            get by calling getModelObject() if the new selection were current
+	 */
+	protected void onSelectionChanged(final Collection<? extends T> newSelection){
 	}
 
 	/**
