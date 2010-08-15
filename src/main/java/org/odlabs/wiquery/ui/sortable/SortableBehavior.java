@@ -33,6 +33,7 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.sortable.SortableHelper.HelperEnum;
 
 /**
  * $Id$
@@ -290,9 +291,21 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	
 	/**
 	 * @return the helper option value
+	 * @deprecated will be changed in 1.2 to return a {@link SortableHelper}
 	 */
 	public String getHelper() {
 		return this.options.getLiteral("helper");
+	}
+	
+	/**
+	 * @return the helper option value
+	 */
+	public SortableHelper getHelperComplex() {
+		if(this.options.getComplexOption("helper") instanceof SortableHelper){
+			return (SortableHelper) this.options.getComplexOption("helper");
+		}
+		
+		return new SortableHelper(HelperEnum.ORIGINAL);
 	}
 	
 	/**
@@ -537,9 +550,22 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * values: 'original', 'clone'
 	 * @param helper
 	 * @return instance of the current behavior
+	 * @deprecated Will be removed in 1.2
 	 */
 	public SortableBehavior setHelper(String helper) {
 		this.options.putLiteral("helper", helper);
+		return this;
+	}
+	
+	/**Allows for a helper element to be used for dragging display. The supplied
+	 * function receives the event and the element being sorted, and should 
+	 * return a DOMElement to be used as a custom proxy helper. Possible 
+	 * values: 'original', 'clone'
+	 * @param helper
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setHelper(SortableHelper helper) {
+		this.options.put("helper", helper);
 		return this;
 	}
 	
