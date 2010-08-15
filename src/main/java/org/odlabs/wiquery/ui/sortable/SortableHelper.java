@@ -26,7 +26,7 @@ import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
 /**
- * $Id: SortableHelper.java
+ * $Id$
  * <p>
  * Bean for the helper option for the Sortable behavior
  * </p>
