@@ -255,7 +255,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append(dragCallback(DraggableEvent.START));
+						scopeContext.append(getCallbackScript(true, DraggableEvent.START.toString().toLowerCase()));
 					}
 				});
 			}
@@ -269,7 +269,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append(dragCallback(DraggableEvent.DRAG));
+						scopeContext.append(getCallbackScript(true, DraggableEvent.DRAG.toString().toLowerCase()));
 					}
 				});
 			}
@@ -370,15 +370,6 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	}
 
 	/**
-	 * @return the drag callback
-	 */
-	private String dragCallback(DraggableEvent event) {
-		return "wicketAjaxGet('" + getCallbackUrl(true)
-				+ "&" + DRAG_TYPE + "=" + event.toString().toLowerCase()
-				+ "',null,null, function() {return true;})";
-	}
-
-	/**
 	 * @return the standard draggable JavaScript behavior
 	 */
 	public DraggableBehavior getDraggableBehavior() {
@@ -393,8 +384,6 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	@Override
 	protected void onBind() {
 		getComponent().add(draggableBehavior);
-		
-		
 	}
 	
 	/**
@@ -514,5 +503,20 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 */
 	protected JsStatement statement() {
 		return draggableBehavior.statement();
+	}
+	
+	/**
+	 * 	We use standard AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes draggable behavior more compatible with standard Wicket's AJAX call-backs.
+	 *  
+	 * @param onlyTargetActivePage
+	 * @param dragType
+	 * @return
+	 */
+	protected CharSequence getCallbackScript(boolean onlyTargetActivePage, String dragType)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&" + DRAG_TYPE + "=" + dragType + "'");
 	}
 }
