@@ -259,9 +259,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-								+ "&" + DRAG_TYPE + "=" + DraggableEvent.STOP.toString().toLowerCase()
-								+ "',null,null, function() {return true;})");
+						scopeContext.append(getCallbackScript(true, DraggableEvent.STOP.toString().toLowerCase()));
 					}
 		
 				});
@@ -276,9 +274,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-								+ "&" + DRAG_TYPE + "=" + DraggableEvent.START.toString().toLowerCase()
-								+ "',null,null, function() {return true;})");
+						scopeContext.append(getCallbackScript(true, DraggableEvent.START.toString().toLowerCase()));
 					}
 				});
 			}
@@ -292,14 +288,27 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-								+ "&" + DRAG_TYPE + "=" + DraggableEvent.DRAG.toString().toLowerCase()
-								+ "',null,null, function() {return true;})");
+						scopeContext.append(getCallbackScript(true, DraggableEvent.DRAG.toString().toLowerCase()));
 					}
 				});
 			}
 			
 			return super.statement();
 		}
+	}
+	
+	/**
+	 * 	We use standard AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes draggable behavior more compatible with standard Wicket's AJAX call-backs.
+	 *  
+	 * @param onlyTargetActivePage
+	 * @param dragType
+	 * @return
+	 */
+	protected CharSequence getCallbackScript(boolean onlyTargetActivePage, String dragType)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&" + DRAG_TYPE + "=" + dragType + "'");
 	}
 }

@@ -192,14 +192,32 @@ public abstract class DroppableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				 */
 				@Override
 				protected void execute(JsScopeContext scopeContext) {
-					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-							+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
-							+ "[0].id, null,null, function() {return true;})");
+					// we delegate URL generation to outer behavior.
+					// that way all logic regarding AjaxCallDecorators will be added 
+					// by AbstractDefaultAjaxBehavior.generateCallbackScript method.
+					scopeContext.append(DroppableAjaxBehavior.this.getCallbackScript(true));
 				}
 
 			});
 			
 			return super.statement();
 		}
+	}
+	
+	/**
+	 * 	We override super method to add droppedId parameter to the URL. Otherwise we use standard 
+	 *  AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes droppable behavior more compatible with standard Wicket's AJAX call-backs.
+	 * 
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 */
+	@Override
+	protected CharSequence getCallbackScript(boolean onlyTargetActivePage)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
+				+ "[0].id");
 	}
 }
