@@ -26,7 +26,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.javascript.JsUtils;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
@@ -36,6 +35,7 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * HTML markup.
  * </p>
  * @author Julien Roche
+ * @author Ernesto Reinaldo Barreiro
  * @since 1.1
  */
 public abstract class ButtonAjax extends Button {
@@ -43,9 +43,26 @@ public abstract class ButtonAjax extends Button {
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -8600606996339679404L;
 	
-	// Properties
-	private AbstractDefaultAjaxBehavior ajaxBehavior;
+	public static abstract class CallableAbstractDefaultAjaxBehavior  extends AbstractDefaultAjaxBehavior {
+		
+		private static final long serialVersionUID = 1L;
 
+		public CallableAbstractDefaultAjaxBehavior() {
+		}
+		
+		@Override
+		public CharSequence getCallbackScript(boolean onlyTargetActivePage) {
+			return super.getCallbackScript(onlyTargetActivePage);
+		}
+	}
+	
+	// Properties
+	/*
+	 * Contextual behavior needed to implement onClick server call-back behavior.
+	 */
+	private CallableAbstractDefaultAjaxBehavior ajaxBehavior;
+
+	
 	/**
 	 * Constructor
 	 * @param id Wicket identifiant
@@ -78,7 +95,7 @@ public abstract class ButtonAjax extends Button {
 	 * Initialization
 	 */
 	protected void initialization() {
-		ajaxBehavior = new AbstractDefaultAjaxBehavior() {
+		ajaxBehavior = new CallableAbstractDefaultAjaxBehavior() {
 			private static final long serialVersionUID = 1L;
 
 			/**
@@ -88,7 +105,7 @@ public abstract class ButtonAjax extends Button {
 			@Override
 			protected void respond(AjaxRequestTarget target) {
 				onClick(target);
-			}
+			}	
 		};
 		add(ajaxBehavior);
 	}
@@ -122,10 +139,9 @@ public abstract class ButtonAjax extends Button {
 	 */
 	@Override
 	public JsStatement statement() {
-		setInnerClickEvent(JsScopeUiEvent.quickScope("wicketAjaxGet(" 
-				+ JsUtils.quotes(ajaxBehavior.getCallbackUrl(true))
-				+ ", null, null, function() {return true;});"));
-		
+		setInnerClickEvent(JsScopeUiEvent.quickScope(ajaxBehavior.getCallbackScript(true)));		
 		return super.statement();
 	}
+	
+	
 }

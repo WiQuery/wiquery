@@ -73,6 +73,7 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * 
  * @param <E> Type of component to find
  * @author Julien Roche
+ * @author Ernesto Reinaldo Barreiro
  * @since 1.0
  */
 public abstract class SortableAjaxBehavior<E extends Component> extends AbstractDefaultAjaxBehavior {
@@ -189,12 +190,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {				
-						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-								+ "&" + SORTED_TYPE + "=" + SortedEvent.RECEIVE.toString().toLowerCase() 
-								+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
-								+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
-								+ "+'&" + SORTED_PARENT_ID + "='+ $(" + SortableBehavior.UI_SENDER + ").attr('id')" 
-								+ ", null,null, function() {return true;});");
+						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptReceive(true));	
 					}
 		
 				});
@@ -213,10 +209,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-								+ "&" + SORTED_TYPE + "=" + SortedEvent.REMOVE.toString().toLowerCase() 
-								+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
-								+ ", null,null, function() {return true;})");
+						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptRemove(true));
 					}
 		
 				});
@@ -235,11 +228,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-								+ "&" + SORTED_TYPE + "=" + SortedEvent.UPDATE.toString().toLowerCase() 
-								+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
-								+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
-								+ ", null,null, function() {return true;})");
+						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptUpdate(true));
 					}
 		
 				});
@@ -247,6 +236,54 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 			
 			return super.statement();
 		}
+	}
+	
+	/**
+	 * 	We use standard AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes sortable AJAX behavior compatible with standard Wicket's AJAX call-backs.
+	 * 
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 */
+	protected CharSequence getCallbackScriptReceive(boolean onlyTargetActivePage)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&" + SORTED_TYPE + "=" + SortedEvent.RECEIVE.toString().toLowerCase() 
+				+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
+				+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
+				+ "+'&" + SORTED_PARENT_ID + "='+ $(" + SortableBehavior.UI_SENDER + ").attr('id')");
+	}
+	
+	/**
+	 * 	We use standard AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes sortable AJAX behavior compatible with standard Wicket's AJAX call-backs.
+	 * 
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 */
+	protected CharSequence getCallbackScriptRemove(boolean onlyTargetActivePage)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&" + SORTED_TYPE + "=" + SortedEvent.REMOVE.toString().toLowerCase() 
+				+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')");
+	}
+	
+	/**
+	 * 	We use standard AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes sortable AJAX behavior compatible with standard Wicket's AJAX call-backs.
+	 * 
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 */
+	protected CharSequence getCallbackScriptUpdate(boolean onlyTargetActivePage)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&" + SORTED_TYPE + "=" + SortedEvent.UPDATE.toString().toLowerCase() 
+				+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
+				+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')");
 	}
 	
 	/**

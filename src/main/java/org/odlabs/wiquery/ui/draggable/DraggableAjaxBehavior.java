@@ -53,6 +53,8 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * </p>
  * 
  * @author Tauren Mills
+ * @author Julien Roche
+ * @author Ernesto Reinaldo Barreiro
  * @since 1.0
  */
 public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior {
@@ -230,11 +232,8 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 							// We must insert a test to detect the invalid state
 							javascript.append("if(!isInvalid){");
 						}
-						
-						javascript.append("wicketAjaxGet('" + getCallbackUrl(true));
-						javascript.append("&" + DRAG_TYPE + "=" + DraggableEvent.STOP.toString().toLowerCase());
-						javascript.append("&" + DRAG_STATUS + "='+isInvalid");
-						javascript.append(",null,null, function() {return true;})");
+						// use parent machinery for building call-back URL.
+						javascript.append(getCallbackStopEventScript(true));
 						
 						if(!enableAjaxOnInvalid){
 							javascript.append("}");
@@ -503,6 +502,22 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 */
 	protected JsStatement statement() {
 		return draggableBehavior.statement();
+	}
+	
+	/**
+	 * 	We use standard AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes draggable behavior more compatible with standard Wicket's AJAX call-backs.
+	 *  
+	 * @param onlyTargetActivePage
+	 * @param dragType
+	 * @return
+	 */
+	protected CharSequence getCallbackStopEventScript(boolean onlyTargetActivePage)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&" + DRAG_TYPE + "=" + DraggableEvent.STOP.toString().toLowerCase()
+				+"&" + DRAG_STATUS + "='+isInvalid");
 	}
 	
 	/**

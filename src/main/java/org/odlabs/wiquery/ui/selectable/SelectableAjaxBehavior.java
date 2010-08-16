@@ -217,14 +217,28 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 							+ "jQuery.each($('#" + getComponent().getMarkupId(true) +"')" +
 									".children(\"*[class*='ui-selected']\"), function(){" +
 									"selected.push($(this).attr('id'));});"
-							+ "wicketAjaxGet('" + getCallbackUrl(true)
-							+ "&" + SELECTED_ARRAY + "='+ jQuery.unique(selected).toString()"
-							+ ", null,null, function() {return true;})");
+							+ SelectableAjaxBehavior.this.getCallbackScript(true));
 				}
 
 			});
 			
 			return super.statement();
 		}
+	}
+	
+	/**
+	 * 	We override super method to add the selected array to the URL. 
+	 * 	Otherwise we use standard AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes selectable AJAX behavior compatible with standard Wicket's AJAX call-backs.
+	 * 
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 */
+	@Override
+	protected CharSequence getCallbackScript(boolean onlyTargetActivePage)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&" + SELECTED_ARRAY + "='+ jQuery.unique(selected).toString()");
 	}
 }
