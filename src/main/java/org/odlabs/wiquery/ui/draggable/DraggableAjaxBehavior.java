@@ -28,6 +28,8 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * </p>
  * 
  * @author Tauren Mills
+ * @author Julien Roche
+ * @author Ernesto Reinaldo Barreiro
  * @since 1.0
  */
 public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior {

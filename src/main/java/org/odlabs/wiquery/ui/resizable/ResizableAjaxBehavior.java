@@ -64,7 +64,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	/**
 	 * Adding the standard resizable JavaScript behavior
 	 */
-	private InnerDroppableBehavior resizableBehavior;
+	private InnerResizableBehavior resizableBehavior;
 	
 	/** Height into the request */
 	private static final String RESIZED_HEIGHT = "resizedHeight";
@@ -77,7 +77,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 */
 	public ResizableAjaxBehavior() {
 		super();
-		resizableBehavior = new InnerDroppableBehavior();
+		resizableBehavior = new InnerResizableBehavior();
 	}
 
 	/**
@@ -145,7 +145,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @author Julien Roche
 	 * 
 	 */
-	private class InnerDroppableBehavior extends ResizableBehavior {
+	private class InnerResizableBehavior extends ResizableBehavior {
 		// Constants
 		/** Constant of serialization */
 		private static final long serialVersionUID = 5587258236214715234L;
@@ -195,15 +195,29 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				 */
 				@Override
 				protected void execute(JsScopeContext scopeContext) {
-					scopeContext.append("wicketAjaxGet('" + getCallbackUrl(true)
-							+ "&" + RESIZED_HEIGHT + "='+" + ResizableBehavior.UI_SIZE + ".height+'"
-							+ "&" + RESIZED_WIDTH + "='+" + ResizableBehavior.UI_SIZE + ".width"
-							+", null,null, function() {return true;})");
+					scopeContext.append(ResizableAjaxBehavior.this.getCallbackScript(true));
 				}
 
 			});
 			
 			return super.statement();
 		}
+	}
+	
+	/**
+	 * 	We override super method to add height and width parameters to the URL. 
+	 * 	Otherwise we use standard AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
+	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
+	 *  This makes resizable AJAX behavior compatible with standard Wicket's AJAX call-backs.
+	 * 
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 */
+	@Override
+	protected CharSequence getCallbackScript(boolean onlyTargetActivePage)
+	{
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+				+ "&" + RESIZED_HEIGHT + "='+" + ResizableBehavior.UI_SIZE + ".height+'"
+				+ "&" + RESIZED_WIDTH + "='+" + ResizableBehavior.UI_SIZE + ".width");
 	}
 }
