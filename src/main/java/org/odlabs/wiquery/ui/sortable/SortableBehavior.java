@@ -500,7 +500,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @return instance of the current behavior
 	 */
 	public SortableBehavior setAxis(AxisEnum axis) {
-		this.options.putLiteral("axis", axis.toString().toLowerCase());
+		this.options.putLiteral("axis", axis!= null? axis.toString().toLowerCase(): null);
 		return this;
 	}
 	
