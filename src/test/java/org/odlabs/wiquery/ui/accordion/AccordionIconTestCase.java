@@ -2,7 +2,6 @@ package org.odlabs.wiquery.ui.accordion;
 
 import junit.framework.TestCase;
 
-import org.odlabs.wiquery.core.options.LiteralOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;

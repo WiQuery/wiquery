@@ -2,8 +2,6 @@ package org.odlabs.wiquery.ui.dialog;
 
 import org.odlabs.wiquery.commons.WiqueryTestCase;
 import org.odlabs.wiquery.commons.WiqueryTestPage;
-import org.odlabs.wiquery.ui.core.DefaultJsScopeUiEvent;
-import org.odlabs.wiquery.ui.dialog.Dialog.WindowPosition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
