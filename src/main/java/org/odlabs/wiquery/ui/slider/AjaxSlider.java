@@ -159,7 +159,7 @@ public class AjaxSlider extends Slider {
 					.append(";")
 					// delegating call-back generation to AJAX behavior
 					// so that we don't miss 'decorator' related functionality.
-					.append(slider.sliderContext.generateCallbackScript("url"))
+					.append(slider.sliderContext.generateCallbackScript("wicketAjaxGet(url"))
 					.toString());
 			
 		}
