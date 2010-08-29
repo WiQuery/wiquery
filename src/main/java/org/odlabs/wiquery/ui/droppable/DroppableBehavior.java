@@ -80,12 +80,9 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	// Properties
 	private Options options = new Options();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org
-	 * .odlabs.wiquery.core.commons.WiQueryResourceManager)
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
@@ -95,9 +92,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 				.addJavaScriptResource(DroppableJavaScriptResourceReference.get());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override

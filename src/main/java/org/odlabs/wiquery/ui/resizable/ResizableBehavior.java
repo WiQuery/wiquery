@@ -72,7 +72,8 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	// Properties
 	private Options options = new Options();
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
@@ -83,7 +84,8 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override

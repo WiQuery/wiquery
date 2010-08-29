@@ -30,6 +30,7 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.core.util.MarkupIdVisitor;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.droppable.DroppableBehavior.ToleranceEnum;
 
 /**
  * $Id$
@@ -63,90 +64,6 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * @since 1.0
  */
 public abstract class DroppableAjaxBehavior<E extends Component> extends AbstractDefaultAjaxBehavior {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 2L;
-
-	/**
-	 * Adding the standard droppable JavaScript behavior
-	 */
-	private InnerDroppableBehavior droppableBehavior;
-
-	/**
-	 * Default constructor
-	 */
-	public DroppableAjaxBehavior() {
-		super();
-		droppableBehavior = new InnerDroppableBehavior();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 * Override this method for additional resources
-	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		// To override
-	}
-
-	/**
-	 * @return the standard droppable JavaScript behavior
-	 */
-	public DroppableBehavior getDroppableBehavior() {
-		return droppableBehavior;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
-	 */
-	@Override
-	protected void onBind() {
-		getComponent().add(droppableBehavior);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
-	 */
-	@Override
-	protected void respond(AjaxRequestTarget target) {
-		onDrop(target);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
-	 */
-	protected JsStatement statement() {
-		return droppableBehavior.statement();
-	}
-
-	/**
-	 * For framework internal use only.
-	 */
-	@SuppressWarnings("unchecked")
-	public final void onDrop(AjaxRequestTarget target) {
-		// getting dropped element id to retrieve the Wicket component
-		String input = this.getComponent().getRequest().getParameter(
-				"droppedId");
-		MarkupIdVisitor visitor = new MarkupIdVisitor(input);
-		this.getComponent().getPage().visitChildren(visitor);
-		onDrop((E) visitor.getFoundComponent(), target);
-	}
-
-	/**
-	 * onDrop is called back when the drop event has been fired.
-	 * 
-	 * @param droppedComponent
-	 *            the dropped {@link Component}
-	 * @param ajaxRequestTarget
-	 *            the Ajax target
-	 */
-	public abstract void onDrop(E droppedComponent,
-			AjaxRequestTarget ajaxRequestTarget);
-
 	/**
 	 * We override the behavior to deny the access of critical methods (example,
 	 * we don't want that the end user specify a drop event, because the
@@ -206,12 +123,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 			droppableBehavior.setInnerDropEvent(new JsScopeUiEvent() {
 				private static final long serialVersionUID = 1L;
 
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see
-				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-				 * .wiquery.core.javascript.JsScopeContext)
+				/**
+				 * {@inheritDoc}
+				 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 				 */
 				@Override
 				protected void execute(JsScopeContext scopeContext) {
@@ -226,7 +140,33 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 			return super.statement();
 		}
 	}
+
+	// Constants
+	/** Constant of serialization */
+	private static final long serialVersionUID = 2L;
+
+	/**
+	 * Adding the standard droppable JavaScript behavior
+	 */
+	private InnerDroppableBehavior droppableBehavior;
 	
+	/**
+	 * Default constructor
+	 */
+	public DroppableAjaxBehavior() {
+		super();
+		droppableBehavior = new InnerDroppableBehavior();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 * Override this method for additional resources
+	 */
+	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		// To override
+	}
+
 	/**
 	 * 	We override super method to add droppedId parameter to the URL. Otherwise we use standard 
 	 *  AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
@@ -242,5 +182,287 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
 				+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
 				+ "[0].id");
+	}
+
+	/**
+	 * @return the standard droppable JavaScript behavior
+	 */
+	public DroppableBehavior getDroppableBehavior() {
+		return droppableBehavior;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
+	 */
+	@Override
+	protected void onBind() {
+		getComponent().add(droppableBehavior);
+	}
+
+	/**
+	 * For framework internal use only.
+	 */
+	@SuppressWarnings("unchecked")
+	public final void onDrop(AjaxRequestTarget target) {
+		// getting dropped element id to retrieve the Wicket component
+		String input = this.getComponent().getRequest().getParameter(
+				"droppedId");
+		MarkupIdVisitor visitor = new MarkupIdVisitor(input);
+		this.getComponent().getPage().visitChildren(visitor);
+		onDrop((E) visitor.getFoundComponent(), target);
+	}
+
+	/**
+	 * onDrop is called back when the drop event has been fired.
+	 * 
+	 * @param droppedComponent
+	 *            the dropped {@link Component}
+	 * @param ajaxRequestTarget
+	 *            the Ajax target
+	 */
+	public abstract void onDrop(E droppedComponent,
+			AjaxRequestTarget ajaxRequestTarget);
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
+	 */
+	@Override
+	protected void respond(AjaxRequestTarget target) {
+		onDrop(target);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 */
+	protected JsStatement statement() {
+		return droppableBehavior.statement();
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	////							SHORTCUTS								////
+	////////////////////////////////////////////////////////////////////////////
+	/*---- Options section ---*/
+	/**
+	 * All draggables that match the selector will be accepted. If a function is
+	 * specified, the function will be called for each draggable on the page
+	 * (passed as the first argument to the function), to provide a custom
+	 * filter. The function should return true if the draggable should be
+	 * accepted.
+	 * 
+	 * @param accept
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setAccept(DroppableAccept accept) {
+		return droppableBehavior.setAccept(accept);
+	}
+
+	/**
+	 * @return the accept option
+	 */
+	public DroppableAccept getAccept() {
+		return droppableBehavior.getAccept();
+	}
+
+	/**
+	 * If specified, the class will be added to the droppable while an
+	 * acceptable draggable is being dragged.
+	 * 
+	 * @param activeClass
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setActiveClass(String activeClass) {
+		return droppableBehavior.setActiveClass(activeClass);
+	}
+
+	/**
+	 * @return the activeClass option
+	 */
+	public String getActiveClass() {
+		return droppableBehavior.getActiveClass();
+	}
+
+	/**
+	 * If true, will prevent event propagation on nested droppables.
+	 * 
+	 * @param addClasses
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setAddClasses(boolean addClasses) {
+		return droppableBehavior.setAddClasses(addClasses);
+	}
+
+	/**
+	 * @return the addClasses option
+	 */
+	public boolean isAddClasses() {
+		return droppableBehavior.isAddClasses();
+	}
+	
+	/**Disables (true) or enables (false) the droppable. Can be set when 
+	 * initialising (first creating) the droppable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setDisabled(boolean disabled) {
+		return droppableBehavior.setDisabled(disabled);
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		return droppableBehavior.isDisabled();
+	}
+
+	/**
+	 * If true, will prevent event propagation on nested droppables.
+	 * 
+	 * @param greedy
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setGreedy(boolean greedy) {
+		return droppableBehavior.setGreedy(greedy);
+	}
+
+	/**
+	 * @return the greedy option
+	 */
+	public boolean isGreedy() {
+		return droppableBehavior.isGreedy();
+	}
+
+	/**
+	 * If specified, the class will be added to the droppable while an
+	 * acceptable draggable is being hovered.
+	 * 
+	 * @param hoverClass
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setHoverClass(String hoverClass) {
+		return droppableBehavior.setHoverClass(hoverClass);
+	}
+
+	/**
+	 * @return the hoverClass option
+	 */
+	public String getHoverClass() {
+		return droppableBehavior.getHoverClass();
+	}
+
+	/**
+	 * Used to group sets of draggable and droppable items, in addition to
+	 * droppable's accept option. A draggable with the same scope value as a
+	 * droppable will be accepted.
+	 * 
+	 * @param scope
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setScope(String scope) {
+		return droppableBehavior.setScope(scope);
+	}
+
+	/**
+	 * @return the scope option
+	 */
+	public String getScope() {
+		return droppableBehavior.getScope();
+	}
+
+	/**
+	 * Set's the mode to use for testing whether a draggable is 'over' a
+	 * droppable. Possible values: 'fit', 'intersect', 'pointer', 'touch'.
+	 * <ul>
+	 * <li><b>fit</b>: draggable overlaps the droppable entirely</li>
+	 * <li><b>intersect</b>: draggable overlaps the droppable at least 50%</li>
+	 * <li><b>pointer</b>: mouse pointer overlaps the droppable</li>
+	 * <li><b>touch</b>: draggable overlaps the droppable any amount</li>
+	 * </ul>
+	 * 
+	 * @param tolerance
+	 * @return instance of the current behavior
+	 */
+	public DroppableBehavior setTolerance(ToleranceEnum tolerance) {
+		return droppableBehavior.setTolerance(tolerance);
+	}
+
+	/**
+	 * @return the tolerance option enum
+	 */
+	public ToleranceEnum getTolerance() {
+		return droppableBehavior.getTolerance();
+	}
+
+	/*---- Methods section ---*/
+
+	/**
+	 * Method to destroy the droppable This will return the element back to its
+	 * pre-init state.
+	 * 
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return droppableBehavior.destroy();
+	}
+
+	/**
+	 * Method to destroy the droppable within the ajax request
+	 * 
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		droppableBehavior.destroy(ajaxRequestTarget);
+	}
+
+	/**
+	 * Method to disable the droppable
+	 * 
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return droppableBehavior.disable();
+	}
+
+	/**
+	 * Method to disable the droppable within the ajax request
+	 * 
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		droppableBehavior.disable(ajaxRequestTarget);
+	}
+
+	/**
+	 * Method to enable the droppable
+	 * 
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return droppableBehavior.enable();
+	}
+
+	/**
+	 * Method to enable the droppable within the ajax request
+	 * 
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		droppableBehavior.enable(ajaxRequestTarget);
+	}
+	
+	/**Method to returns the .ui-droppable  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return droppableBehavior.widget();
+	}
+
+	/**Method to returns the .ui-droppable  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		droppableBehavior.widget(ajaxRequestTarget);
 	}
 }

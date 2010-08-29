@@ -34,8 +34,12 @@ import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.ICollectionItemOptions;
+import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.draggable.DraggableBehavior.AxisEnum;
+import org.odlabs.wiquery.ui.draggable.DraggableBehavior.SnapModeEnum;
 
 /**
  * <p>
@@ -85,7 +89,8 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 			this.javascript = javascript;
 		}
 
-		/* (non-Javadoc)
+		/**
+		 * {@inheritDoc}
 		 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 		 */
 		@Override
@@ -216,12 +221,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				draggableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
 					private static final long serialVersionUID = 1L;
 		
-					/*
-					 * (non-Javadoc)
-					 * 
-					 * @see
-					 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-					 * .wiquery.core.javascript.JsScopeContext)
+					/**
+					 * {@inheritDoc}
+					 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
@@ -263,7 +265,8 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				draggableBehavior.setInnerDragEvent(new JsScopeUiEvent() {
 					private static final long serialVersionUID = 1L;
 					
-					/* (non-Javadoc)
+					/**
+					 * {@inheritDoc}
 					 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 					 */
 					@Override
@@ -375,9 +378,8 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		return draggableBehavior;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
 	 */
 	@Override
@@ -533,5 +535,526 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	{
 		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
 				+ "&" + DRAG_TYPE + "=" + dragType + "'");
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	////							SHORTCUTS								////
+	////////////////////////////////////////////////////////////////////////////
+	/**If set to false, will prevent the ui-draggable class from being added. 
+	 * This may be desired as a performance optimization when calling .draggable() 
+	 * init on many hundreds of elements.
+	 * @param addClasses
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setAddClasses(boolean addClasses) {
+		return draggableBehavior.setAddClasses(addClasses);
+	}
+	
+	/**
+	 * @return the addClasses option
+	 */
+	public boolean isAddClasses() {
+		return draggableBehavior.isAddClasses();
+	}
+	
+	/**The element passed to or selected by the appendTo option will be used as 
+	 * the draggable helper's container during dragging. By default, the helper 
+	 * is appended to the same container as the draggable.
+	 * @param appendTo
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setAppendTo(String appendTo) {
+		return draggableBehavior.setAppendTo(appendTo);
+	}
+	
+	/**
+	 * @return the appendTo option value
+	 */
+	public String getAppendTo() {
+		return draggableBehavior.getAppendTo();
+	}
+	
+	/**Constrains dragging to either the horizontal (x) or vertical (y) axis. 
+	 * Possible values: 'x', 'y'.
+	 * @param axis
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setAxis(AxisEnum axis) {
+		return draggableBehavior.setAxis(axis);
+	}
+	
+	/**
+	 * @return the axis option value
+	 */
+	public AxisEnum getAxis() {
+		return draggableBehavior.getAxis();
+	}
+	
+	/** Set's the prevent selecting if you start on elements matching the selector
+	 * @param cancel Selector (default : ':input,option')
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setCancel(String cancel) {
+		return draggableBehavior.setCancel(cancel);
+	}
+	
+	/**
+	 * @return the cancel option value
+	 */
+	public String getCancel() {
+		return draggableBehavior.getCancel();
+	}
+	
+	/**Allows the draggable to be dropped onto the specified sortables. If this 
+	 * option is used (helper must be set to 'clone' in order to work flawlessly), 
+	 * a draggable can be dropped onto a sortable list and then becomes part of it. 
+	 * @param connectToSortable
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setConnectToSortable(String connectToSortable) {
+		return draggableBehavior.setConnectToSortable(connectToSortable);
+	}
+	
+	/**
+	 * @return the connectToSortable option value
+	 */
+	public String getConnectToSortable() {
+		return draggableBehavior.getConnectToSortable();
+	}
+	
+	/**Set's the constrains dragging to within the bounds of the specified element 
+	 * or region. Possible string values: 'parent', 'document', 'window', [x1, y1, x2, y2]
+	 * @param containment
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setContainment(DraggableContainment containment) {
+		return draggableBehavior.setContainment(containment);
+	}
+	
+	/**
+	 * @return the containment option
+	 */
+	public DraggableContainment getContainment() {
+		return draggableBehavior.getContainment();
+	}
+	
+	/**Set the css cursor during the drag operation.
+	 * @param cursor
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setCursor(String cursor) {
+		return draggableBehavior.setCursor(cursor);
+	}
+	
+	/**
+	 * @return the cursor option value
+	 */
+	public String getCursor() {
+		return draggableBehavior.getCursor();
+	}
+	
+	/**Moves the dragging helper so the cursor always appears to drag from the same 
+	 * position. Coordinates can be given as a hash using a combination of one or 
+	 * two keys: { top, left, right, bottom }.
+	 * @param cusorAt
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setCursorAt(ListItemOptions<DraggableCursorAt> cusorAt) {
+		return draggableBehavior.setCursorAt(cusorAt);
+	}
+	
+	/**
+	 * @return the cursorAt option value
+	 */
+	public ListItemOptions<DraggableCursorAt> getCursorAtComplex() {
+		return draggableBehavior.getCursorAtComplex();
+	}
+	
+	/**Time in milliseconds after mousedown until dragging should start. This 
+	 * option can be used to prevent unwanted drags when clicking on an element.
+	 * @param delay
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setDelay(int delay) {
+		return draggableBehavior.setDelay(delay);
+	}
+	
+	/**
+	 * @return the delay option value
+	 */
+	public int getDelay() {
+		return draggableBehavior.getDelay();
+	}
+	
+	/**Disables (true) or enables (false) the draggable. Can be set when 
+	 * initialising (first creating) the draggable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setDisabled(boolean disabled) {
+		return draggableBehavior.setDisabled(disabled);
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		return draggableBehavior.isDisabled();
+	}
+	
+	/** Set's the distance in pixels after mousedown the mouse must move before 
+	 * dragging should start. This option can be used to prevent unwanted drags 
+	 * when clicking on an element.
+	 * @param distance
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setDistance(int distance) {
+		return draggableBehavior.setDistance(distance);
+	}
+	
+	/**
+	 * @return the distance option value
+	 */
+	public int getDistance() {
+		return draggableBehavior.getDistance();
+	}
+	
+	/**Snaps the dragging helper to a grid, every x and y pixels. Array values: [x, y]
+	 * @param x
+	 * @param y
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setGrid(int x, int y) {
+		return draggableBehavior.setGrid(x, y);
+	}
+	
+	/**
+	 * @return the grid option value
+	 */
+	public ICollectionItemOptions getGrid() {
+		return draggableBehavior.getGrid();
+	}
+	
+	/**Restricts sort start click to the specified element.
+	 * @param handle
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setHandle(String handle) {
+		return draggableBehavior.setHandle(handle);
+	}
+	
+	/**
+	 * @return the handle option value
+	 */
+	public String getHandle() {
+		return draggableBehavior.getHandle();
+	}
+	
+	/**Allows for a helper element to be used for dragging display. Possible 
+	 * values: 'original', 'clone', Function. If a function is specified, it 
+	 * must return a DOMElement.
+	 * @param helper
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setHelper(DraggableHelper helper) {
+		return draggableBehavior.setHelper(helper);
+	}
+	
+	/**
+	 * @return the helper option
+	 */
+	public DraggableHelper getHelper() {
+		return draggableBehavior.getHelper();
+	}
+	
+	/**Prevent iframes from capturing the mousemove events during a drag. Useful 
+	 * in combination with cursorAt, or in any case, if the mouse cursor is not 
+	 * over the helper. If set to true, transparent overlays will be placed over 
+	 * all iframes on the page. If a selector is supplied, the matched iframes 
+	 * will have an overlay placed over them.
+	 * @param iframeFix
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setIframeFix(DraggableIframeFix iframeFix) {
+		return draggableBehavior.setIframeFix(iframeFix);
+	}
+	
+	/**
+	 * @return the iframeFix option
+	 */
+	public DraggableIframeFix getIframeFix() {
+		return draggableBehavior.getIframeFix();
+	}
+	
+	/**Set's the opacity for the helper while being dragged.
+	 * @param opacity
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setOpacity(float opacity) {
+		return draggableBehavior.setOpacity(opacity);
+	}
+	
+	/**
+	 * @return the opacity option
+	 */
+	public float getOpacity() {
+		return draggableBehavior.getOpacity();
+	}
+	
+	/**If set to true, all droppable positions are calculated on every mousemove. 
+	 * Caution: This solves issues on highly dynamic pages, but dramatically 
+	 * decreases performance.
+	 * @param refreshPositions
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setRefreshPositions(boolean refreshPositions) {
+		return draggableBehavior.setRefreshPositions(refreshPositions);
+	}
+	
+	/**
+	 * @return the refreshPositions option
+	 */
+	public boolean isRefreshPositions() {
+		return draggableBehavior.isRefreshPositions();
+	}
+	
+	/**If set to true, the element will return to its start position when dragging 
+	 * stops. Possible string values: 'valid', 'invalid'. If set to invalid, 
+	 * revert will only occur if the draggable has not been dropped on a droppable. 
+	 * For valid, it's the other way around.
+	 * @param revert
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setRevert(DraggableRevert revert) {
+		return draggableBehavior.setRevert(revert);
+	}
+	
+	/**
+	 * @return the revert option
+	 */
+	public DraggableRevert getRevert() {
+		return draggableBehavior.getRevert();
+	}
+	
+	/**Set's the duration of the revert animation, in milliseconds. Ignored if 
+	 * revert is false.
+	 * @param revertDuration
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setRevertDuration(int revertDuration) {
+		return draggableBehavior.setRevertDuration(revertDuration);
+	}
+	
+	/**
+	 * @return the revertDuration option
+	 */
+	public int getRevertDuration() {
+		return draggableBehavior.getRevertDuration();
+	}
+	
+	/**Used to group sets of draggable and droppable items, in addition to 
+	 * droppable's accept option. A draggable with the same scope value as a 
+	 * droppable will be accepted by the droppable.
+	 * @param scope
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setScope(String scope) {
+		return draggableBehavior.setScope(scope);
+	}
+	
+	/**
+	 * @return the scope option
+	 */
+	public String getScope() {
+		return draggableBehavior.getScope();
+	}
+	
+	/**If set to true, container auto-scrolls while dragging.
+	 * @param scroll
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setScroll(boolean scroll) {
+		return draggableBehavior.setScroll(scroll);
+	}
+	
+	/**
+	 * @return the scroll option
+	 */
+	public boolean isScroll() {
+		return draggableBehavior.isScroll();
+	}
+	
+	/**Set's the distance in pixels from the edge of the viewport after which the 
+	 * viewport should scroll. Distance is relative to pointer, not the draggable.
+	 * @param scrollSensitivity
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setScrollSensitivity(int scrollSensitivity) {
+		return draggableBehavior.setScrollSensitivity(scrollSensitivity);
+	}
+	
+	/**
+	 * @return the scrollSensitivity option
+	 */
+	public int getScrollSensitivity() {
+		return draggableBehavior.getScrollSensitivity();
+	}
+	
+	/**Set's speed at which the window should scroll once the mouse pointer gets 
+	 * within the scrollSensitivity distance.
+	 * @param scrollSpeed
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setScrollSpeed(int scrollSpeed) {
+		return draggableBehavior.setScrollSpeed(scrollSpeed);
+	}
+	
+	/**
+	 * @return the scrollSpeed option
+	 */
+	public int getScrollSpeed() {
+		return draggableBehavior.getScrollSpeed();
+	}
+	
+	/**If set to a selector or to true (equivalent to '.ui-draggable'), the 
+	 * draggable will snap to the edges of the selected elements when near an 
+	 * edge of the element.
+	 * @param snap
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setSnap(DraggableSnap snap) {
+		return draggableBehavior.setSnap(snap);
+	}
+	
+	/**
+	 * @return the snap option
+	 */
+	public DraggableSnap getSnap() {
+		return draggableBehavior.getSnap();
+	}
+
+	/**Sets the edges of snap elements the draggable will snap to. Ignored if 
+	 * snap is false. Possible values: 'inner', 'outer', 'both'
+	 * @param snapMode
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setSnapMode(SnapModeEnum snapMode) {
+		return draggableBehavior.setSnapMode(snapMode);
+	}
+
+	/**
+	 * Returns the snapMode option
+	 */
+	public SnapModeEnum getSnapMode() {
+		return draggableBehavior.getSnapMode();
+	}
+	
+	/**Set's distance in pixels from the snap element edges at which snapping 
+	 * should occur. Ignored if snap is false.
+	 * @param snapTolerance
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setSnapTolerance(int snapTolerance) {
+		return draggableBehavior.setSnapTolerance(snapTolerance);
+	}
+	
+	/**
+	 * @return the snapTolerance option
+	 */
+	public int getSnapTolerance() {
+		return draggableBehavior.getSnapTolerance();
+	}
+	
+	/**
+	 * Controls the z-Index of the defined group (key 'group' in the hash, 
+	 * accepts jQuery selector) automatically, always brings to front the dragged 
+	 * item. Very useful in things like window managers. Optionally, a 'min' key 
+	 * can be set, so the zIndex cannot go below that value.
+	 * @param stack
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setStack(String stack) {
+		return draggableBehavior.setStack(stack);
+	}
+	
+	/**
+	 * @returns the stack option
+	 */
+	public String getStack() {
+		return draggableBehavior.getStack();
+	}
+	
+	/**Set's the starting z-index
+	 * @param zIndex
+	 * @return instance of the current behavior
+	 */
+	public DraggableBehavior setZIndex(int zIndex) {
+		return draggableBehavior.setZIndex(zIndex);
+	}
+	
+	/**
+	 * @return the starting z-index
+	 */
+	public int getZIndex() {
+		return draggableBehavior.getZIndex();
+	}
+	
+	/*---- Methods section ---*/
+	
+	/**Method to destroy the draggable
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return draggableBehavior.destroy();
+	}
+
+	/**Method to destroy the draggable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		draggableBehavior.destroy(ajaxRequestTarget);
+	}
+	
+	/**Method to disable the draggable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return draggableBehavior.disable();
+	}
+
+	/**Method to disable the draggable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		draggableBehavior.disable(ajaxRequestTarget);
+	}
+	
+	/**Method to enable the draggable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return draggableBehavior.enable();
+	}
+
+	/**Method to enable the draggable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		draggableBehavior.enable(ajaxRequestTarget);
+	}
+	
+	/**Method to returns the .ui-draggable element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return draggableBehavior.widget();
+	}
+
+	/**Method to returns the .ui-draggable element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		draggableBehavior.widget(ajaxRequestTarget);
 	}
 }

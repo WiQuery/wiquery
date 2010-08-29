@@ -130,9 +130,8 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 		options = new Options();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
@@ -143,9 +142,8 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override
@@ -163,7 +161,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/*---- Options section ---*/
 	
-	/**f set to false, will prevent the ui-draggable class from being added. 
+	/**If set to false, will prevent the ui-draggable class from being added. 
 	 * This may be desired as a performance optimization when calling .draggable() 
 	 * init on many hundreds of elements.
 	 * @param addClasses

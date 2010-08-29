@@ -146,8 +146,9 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 		super();
 		 options = new Options();
 	}
-
-	/* (non-Javadoc)
+	
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
@@ -158,7 +159,8 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 				.addJavaScriptResource(SortableJavaScriptResourceReference.get());
 	}
 	
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override

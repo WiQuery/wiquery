@@ -27,6 +27,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
@@ -115,12 +116,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 			resizableBehavior.setInnerStopEvent(new JsScopeUiEvent() {
 				private static final long serialVersionUID = 1L;
 
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see
-				 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-				 * .wiquery.core.javascript.JsScopeContext)
+				/**
+				 * {@inheritDoc}
+				 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 				 */
 				@Override
 				protected void execute(JsScopeContext scopeContext) {					
@@ -172,9 +170,8 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		return resizableBehavior;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
 	 */
 	@Override
@@ -245,5 +242,377 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
 				+ "&" + RESIZED_HEIGHT + "='+" + ResizableBehavior.UI_SIZE + ".height+'"
 				+ "&" + RESIZED_WIDTH + "='+" + ResizableBehavior.UI_SIZE + ".width");
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	////							SHORTCUTS								////
+	////////////////////////////////////////////////////////////////////////////
+	
+	/**Resize these elements synchronous when resizing.
+	 * @param alsoResize
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setAlsoResize(ResizableAlsoResize alsoResize) {
+		return resizableBehavior.setAlsoResize(alsoResize);
+	}
+
+	/**
+	 * @return the alsoResize option
+	 */
+	public ResizableAlsoResize getAlsoResizeComplex() {
+		return resizableBehavior.getAlsoResizeComplex();
+	}
+
+	/**Animates to the final size after resizing.
+	 * @param animate
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setAnimate(boolean animate) {
+		return resizableBehavior.setAnimate(animate);
+	}
+
+	/**
+	 * @return the animate option
+	 */
+	public boolean isAnimate() {
+		return resizableBehavior.isAnimate();
+	}
+	
+	/**
+	 * Sets the duration time for animating, in milliseconds. 
+	 * Other possible values: 'slow', 'normal', 'fast'.
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setAnimateDuration(ResizableAnimeDuration animeDuration) {
+		return resizableBehavior.setAnimateDuration(animeDuration);
+	}
+	
+	/**
+	 * @return the animeDuration option
+	 */
+	public ResizableAnimeDuration getAnimateDuration() {
+		return resizableBehavior.getAnimateDuration();
+	}
+
+	/**Sets the easing effect for animating.
+	 * @param easing
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setAnimateEasing(String easing) {
+		return resizableBehavior.setAnimateEasing(easing);
+	}
+
+	/**
+	 * @return the animateEasing option
+	 */
+	public String getAnimateEasing() {
+		return resizableBehavior.getAnimateEasing();
+	}
+	
+	/**
+	 * If set to true, resizing is constrained by the original aspect ratio. 
+	 * Otherwise a custom aspect ratio can be specified, such as 9 / 16, or 0.5.
+	 * @param aspectRatio
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setAspectRatio(ResizableAspectRatio aspectRatio) {
+		return resizableBehavior.setAspectRatio(aspectRatio);
+	}
+	
+	/**
+	 * @return the aspectRatio option
+	 */
+	public ResizableAspectRatio getAspectRatio() {
+		return resizableBehavior.getAspectRatio();
+	}
+	
+	/**If set to true, automatically hides the handles except when the mouse 
+	 * hovers over the element.
+	 * @param autoHide
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setAutoHide(boolean autoHide) {
+		return resizableBehavior.setAutoHide(autoHide);
+	}
+	
+	/**
+	 * @return the autoHide option
+	 */
+	public boolean isAutoHide() {
+		return resizableBehavior.isAutoHide();
+	}
+	
+	/**Prevents resizing if you start on elements matching the selector.
+	 * @param cancel
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setCancel(String cancel) {
+		return resizableBehavior.setCancel(cancel);
+	}
+	
+	/**
+	 * @return the cancel option
+	 */
+	public String getCancel() {
+		return resizableBehavior.getCancel();
+	}
+	
+	/**
+	 * Sets the constrains resizing to within the bounds of the specified element. 
+	 * Possible values: 'parent', 'document', a DOMElement, or a Selector.
+	 * @param containment
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setContainment(ResizableContainment containment) {
+		return resizableBehavior.setContainment(containment);
+	}
+	
+	/**
+	 * @return the containment option
+	 */
+	public ResizableContainment getContainment() {
+		return resizableBehavior.getContainment();
+	}
+	
+	/**Sets the tolerance, in milliseconds, for when resizing should start. If 
+	 * specified, resizing will not start until after mouse is moved beyond duration. 
+	 * This can help prevent unintended resizing when clicking on an element.
+	 * @param delay
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setDelay(int delay) {
+		return resizableBehavior.setDelay(delay);
+	}
+	
+	/**
+	 * @return the distance option
+	 */
+	public int getDelay() {
+		return resizableBehavior.getDelay();
+	}
+	
+	/**Sets the tolerance, in pixels, for when resizing should start. If specified,
+	 * resizing will not start until after mouse is moved beyond distance. This 
+	 * can help prevent unintended resizing when clicking on an element.
+	 * @param distance
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setDistance(int distance) {
+		return resizableBehavior.setDistance(distance);
+	}
+	
+	/**
+	 * @return the distance option
+	 */
+	public int getDistance() {
+		return resizableBehavior.getDistance();
+	}
+	
+	/**Disables (true) or enables (false) the resizable. Can be set when 
+	 * initialising (first creating) the resizable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setDisabled(boolean disabled) {
+		return resizableBehavior.setDisabled(disabled);
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		return resizableBehavior.isDisabled();
+	}
+	
+	/**Set to true, a semi-transparent helper element is shown for resizing.
+	 * @param ghost
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setGhost(boolean ghost) {
+		return resizableBehavior.setGhost(ghost);
+	}
+	
+	/**
+	 * @return the ghost option
+	 */
+	public boolean isGhost() {
+		return resizableBehavior.isGhost();
+	}
+	
+	/**Snaps the resizing element to a grid, every x and y pixels. Array values: [x, y] 
+	 * Array values: [x, y]
+	 * @param x
+	 * @param y
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setGrid(int x, int y) {
+		return resizableBehavior.setGrid(x, y);
+	}
+	
+	/**
+	 * @return the grid option value
+	 */
+	public ICollectionItemOptions getGrid() {
+		return resizableBehavior.getGrid();
+	}
+	
+	/**
+	 * If specified as a string, should be a comma-split list of any of the following: 
+	 * 'n, e, s, w, ne, se, sw, nw, all'. 
+	 * The necessary handles will be auto-generated by the plugin.
+	 * 
+	 * If specified as an object, the following keys are supported: { n, e, s, w, ne, se, sw, nw }. 
+	 * The value of any specified should be a jQuery selector matching the child 
+	 * element of the resizable to use as that handle. If the handle is not a 
+	 * child of the resizable, you can pass in the DOMElement or a valid jQuery 
+	 * object directly.
+	 * @param handles
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setHandles(ResizableHandles handles) {
+		return resizableBehavior.setHandles(handles);
+	}
+	
+	/**
+	 * @return the handles option
+	 */
+	public ResizableHandles getHandles() {
+		return resizableBehavior.getHandles();
+	}
+	
+	/**Sets the css class that will be added to a proxy element to outline the 
+	 * resize during the drag of the resize handle. Once the resize is complete, 
+	 * the original element is sized.
+	 * @param helper
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setHelper(String helper) {
+		return resizableBehavior.setHelper(helper);
+	}
+	
+	/**
+	 * @return the helper option
+	 */
+	public String getHelper() {
+		return resizableBehavior.getHelper();
+	}
+	
+	/**
+	 * Sets the component's max height.
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setMaxHeight(int maxHeight) {
+		return resizableBehavior.setMaxHeight(maxHeight);
+	}
+
+	/**
+	 * Returns the component's max height.
+	 */
+	public int getMaxHeight() {
+		return resizableBehavior.getMaxHeight();
+	}
+
+	/**
+	 * Sets the window's max width.
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setMaxWidth(int maxWidth) {
+		return resizableBehavior.setMaxWidth(maxWidth);
+	}
+
+	/**
+	 * Returns the component's max width.
+	 */
+	public int getMaxWidth() {
+		return resizableBehavior.getMaxWidth();
+	}
+
+	/**
+	 * Sets the component's min height.
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setMinHeight(int minHeight) {
+		return resizableBehavior.setMinHeight(minHeight);
+	}
+
+	/**
+	 * Returns the component's min height.
+	 */
+	public int getMinHeight() {
+		return resizableBehavior.getMinHeight();
+	}
+
+	/**
+	 * Sets the component's min width.
+	 * @return instance of the current behavior
+	 */
+	public ResizableBehavior setMinWidth(int minWidth) {
+		return resizableBehavior.setMinWidth(minWidth);
+	}
+
+	/**
+	 * Returns the component's max width.
+	 */
+	public int getMinWidth() {
+		return resizableBehavior.getMinWidth();
+	}
+
+	/*---- Methods section ----*/	
+	
+	/**Method to destroy
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return resizableBehavior.destroy();
+	}
+
+	/**Method to destroy within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		resizableBehavior.destroy(ajaxRequestTarget);
+	}
+	
+	/**Method to disable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return resizableBehavior.disable();
+	}
+
+	/**Method to disable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		resizableBehavior.disable(ajaxRequestTarget);
+	}
+	
+	/**Method to enable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return resizableBehavior.enable();
+	}
+
+	/**Method to enable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		resizableBehavior.enable(ajaxRequestTarget);
+	}
+	
+	/**Method to returns the .ui-resizable  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return resizableBehavior.widget();
+	}
+
+	/**Method to returns the .ui-resizable  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		resizableBehavior.widget(ajaxRequestTarget);
 	}
 }

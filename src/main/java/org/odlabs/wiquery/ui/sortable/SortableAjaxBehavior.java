@@ -31,9 +31,13 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.core.util.MarkupIdVisitor;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.sortable.SortableBehavior.AxisEnum;
+import org.odlabs.wiquery.ui.sortable.SortableBehavior.CursorAtEnum;
+import org.odlabs.wiquery.ui.sortable.SortableBehavior.ToleranceEnum;
 
 /**
  * $Id: SortableAjaxBehavior
@@ -181,12 +185,9 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 				sortableBehavior.setInnerReceiveEvent(new JsScopeUiEvent() {
 					private static final long serialVersionUID = 1L;
 		
-					/*
-					 * (non-Javadoc)
-					 * 
-					 * @see
-					 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-					 * .wiquery.core.javascript.JsScopeContext)
+					/**
+					 * {@inheritDoc}
+					 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {				
@@ -200,12 +201,9 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 				sortableBehavior.setInnerRemoveEvent(new JsScopeUiEvent() {
 					private static final long serialVersionUID = 1L;
 		
-					/*
-					 * (non-Javadoc)
-					 * 
-					 * @see
-					 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-					 * .wiquery.core.javascript.JsScopeContext)
+					/**
+					 * {@inheritDoc}
+					 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
@@ -219,12 +217,9 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 				sortableBehavior.setInnerUpdateEvent(new JsScopeUiEvent() {
 					private static final long serialVersionUID = 1L;
 		
-					/*
-					 * (non-Javadoc)
-					 * 
-					 * @see
-					 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-					 * .wiquery.core.javascript.JsScopeContext)
+					/**
+					 * {@inheritDoc}
+					 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
@@ -357,9 +352,8 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 		return sortableBehavior;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
 	 */
 	@Override
@@ -457,5 +451,527 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 */
 	protected JsStatement statement() {
 		return sortableBehavior.statement();
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	////							SHORTCUTS								////
+	////////////////////////////////////////////////////////////////////////////
+	/*---- Options section ---*/
+	
+	/**
+	 * @return the appendTo option value
+	 */
+	public String getAppendTo() {
+		return sortableBehavior.getAppendTo();
+	}
+	
+	/**
+	 * @return the axis option value
+	 */
+	public AxisEnum getAxis() {
+		return sortableBehavior.getAxis();
+	}
+	
+	/**
+	 * @return the cancel option value
+	 */
+	public String getCancel() {
+		return sortableBehavior.getCancel();
+	}
+	
+	/**
+	 * @return the connectWith option value
+	 */
+	public String getConnectWith() {
+		return sortableBehavior.getConnectWith();
+	}
+	
+	/**
+	 * @return the containment option value
+	 */
+	public SortableContainment getContainmentComplex() {
+		return sortableBehavior.getContainmentComplex();
+	}
+	
+	/**
+	 * @return the cursor option value
+	 */
+	public String getCursor() {
+		return sortableBehavior.getCursor();
+	}
+	
+	/**
+	 * @return the cursorAt option value
+	 */
+	public CursorAtEnum getCursorAt() {
+		return sortableBehavior.getCursorAt();
+	}
+	
+	/**
+	 * @return the delay option value
+	 */
+	public int getDelay() {
+		return sortableBehavior.getDelay();
+	}
+	
+	/**
+	 * @return the distance option value
+	 */
+	public int getDistance() {
+		return sortableBehavior.getDistance();
+	}
+	
+	/**
+	 * @return the grid option value
+	 */
+	public ICollectionItemOptions getGrid() {
+		return sortableBehavior.getGrid();
+	}
+	
+	/**
+	 * @return the handle option value
+	 */
+	public String getHandle() {
+		return sortableBehavior.getHandle();
+	}
+	
+	/**
+	 * @return the helper option value
+	 */
+	public SortableHelper getHelperComplex() {
+		return sortableBehavior.getHelperComplex();
+	}
+	
+	/**
+	 * @return the items option value
+	 */
+	public String getItems() {
+		return sortableBehavior.getItems();
+	}
+	
+	/**
+	 * @return the opacity option value
+	 */
+	public float getOpacity() {
+		return sortableBehavior.getOpacity();
+	}
+	
+	/**
+	 * @return the placeHolder option value
+	 */
+	public String getPlaceHolder() {
+		return sortableBehavior.getPlaceHolder();
+	}
+	
+	/**
+	 * @return the revert option value
+	 */
+	public SortableRevert getRevert() {
+		return sortableBehavior.getRevert();
+	}
+	
+	/**
+	 * @return the scrollSensitivity option value
+	 */
+	public int getScrollSensitivity() {
+		return sortableBehavior.getScrollSensitivity();
+	}
+	
+	/**
+	 * @return the scrollSpeed option value
+	 */
+	public int getScrollSpeed() {
+		return sortableBehavior.getScrollSpeed();
+	}
+	
+	/**
+	 * @return the tolerance option value
+	 */
+	public ToleranceEnum getTolerance() {
+		return sortableBehavior.getTolerance();
+	}
+	
+	/**
+	 * @return the zIndex option value
+	 */
+	public int getZIndex() {
+		return sortableBehavior.getZIndex();
+		
+	}
+	
+	/**Disables (true) or enables (false) the sortable. Can be set when 
+	 * initialising (first creating) the sortable.
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setDisabled(boolean disabled) {
+		return sortableBehavior.setDisabled(disabled);
+	}
+	
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled() {
+		return sortableBehavior.isDisabled();
+	}
+	
+	/**
+	 * @return the dropOnEmpty option value
+	 */
+	public boolean isDropOnEmpty() {
+		return sortableBehavior.isDropOnEmpty();
+	}
+	
+	/**
+	 * @return the forceHelperSize option value
+	 */
+	public boolean isForceHelperSize() {
+		return sortableBehavior.isForceHelperSize();
+	}
+	
+	/**
+	 * @return the forcePlaceholderSize option value
+	 */
+	public boolean isForcePlaceholderSize() {
+		return sortableBehavior.isForcePlaceholderSize();
+	}
+	
+	/**
+	 * @return the scroll option value
+	 */
+	public boolean isScroll() {
+		return sortableBehavior.isScroll();
+	}
+	
+	/**Defines where the helper that moves with the mouse is being appended to 
+	 * during the drag (for example, to resolve overlap/zIndex issues).
+	 * @param appendTo
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setAppendTo(String appendTo) {
+		return sortableBehavior.setAppendTo(appendTo);
+	}
+	
+	/**If defined, the items can be dragged only horizontally or vertically. 
+	 * Possible values:'x', 'y'.
+	 * @param axis
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setAxis(AxisEnum axis) {
+		return sortableBehavior.setAxis(axis);
+	}
+	
+	/** Set's the prevent selecting if you start on elements matching the selector
+	 * @param cancel Selector (default : ':input,option')
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setCancel(String cancel) {
+		return sortableBehavior.setCancel(cancel);
+	}
+	
+	/**Set a jQuery selector with items that also have sortables applied. 
+	 * If used, the sortable is now connected to the other one-way, so you can 
+	 * drag from this sortable to the other.
+	 * @param connectWith Selector
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setConnectWith(String connectWith) {
+		return sortableBehavior.setConnectWith(connectWith);
+	}
+	
+	/**Constrains dragging to within the bounds of the specified element - 
+	 * can be a DOM element, 'parent', 'document', 'window', or a jQuery selector.
+	 * @param containment
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setContainment(SortableContainment containment) {
+		return sortableBehavior.setContainment(containment);
+	}
+	
+	/**Set the cursor that is being shown while sorting
+	 * @param cursor
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setCursor(String cursor) {
+		return sortableBehavior.setCursor(cursor);
+	}
+	
+	/**Moves the sorting element or helper so the cursor always appears to drag 
+	 * from the same position. Coordinates can be given as a hash using a 
+	 * combination of one or two keys: { top, left, right, bottom }
+	 * @param cusorAt
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setCursorAt(CursorAtEnum cusorAt) {
+		return sortableBehavior.setCursorAt(cusorAt);
+	}
+	
+	/** Set's the delay (in milliseconds) to define when the sorting should start
+	 * @param delay
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setDelay(int delay) {
+		return sortableBehavior.setDelay(delay);
+	}
+
+	/** Set's the tolerance in pixels
+	 * @param distance
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setDistance(int distance) {
+		return sortableBehavior.setDistance(distance);
+	}
+	
+	/**If empty allows for an item to be dropped from a linked selectable.
+	 * @param dropOnEmpty
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setDropOnEmpty(boolean dropOnEmpty) {
+		return sortableBehavior.setDropOnEmpty(dropOnEmpty);
+	}
+	
+	/**If true, forces the helper to have a size.
+	 * @param forceHelperSize
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setForceHelperSize(boolean forceHelperSize) {
+		return sortableBehavior.setForceHelperSize(forceHelperSize);
+	}
+	
+	/**If true, forces the placeholder to have a size.
+	 * @param forcePlaceholderSize
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setForcePlaceholderSize(boolean forcePlaceholderSize) {
+		return sortableBehavior.setForcePlaceholderSize(forcePlaceholderSize);
+	}
+	
+	/**Snaps the sorting element or helper to a grid, every x and y pixels. 
+	 * Array values: [x, y]
+	 * @param x
+	 * @param y
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setGrid(int x, int y) {
+		return sortableBehavior.setGrid(x, y);
+	}
+	
+	/**Restricts sort start click to the specified element.
+	 * @param handle
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setHandle(String handle) {
+		return sortableBehavior.setHandle(handle);
+	}
+	
+	/**Allows for a helper element to be used for dragging display. The supplied
+	 * function receives the event and the element being sorted, and should 
+	 * return a DOMElement to be used as a custom proxy helper. Possible 
+	 * values: 'original', 'clone'
+	 * @param helper
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setHelper(SortableHelper helper) {
+		return sortableBehavior.setHelper(helper);
+	}
+	
+	/**Specifies which items inside the element should be sortable.
+	 * @param items Cursor (default : '> *')
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setItems(String items) {
+		return sortableBehavior.setItems(items);
+	}
+	
+	/**Set the opacity of the helper while sorting. From 0.01 to 1
+	 * @param opacity
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setOpacity(float opacity) {
+		return sortableBehavior.setOpacity(opacity);
+	}
+	
+	/**Set's the class that gets applied to the otherwise white space.
+	 * @param placeholder
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setPlaceholder(String placeholder) {
+		return sortableBehavior.setPlaceholder(placeholder);
+	}
+	
+	/**If set to true, the item will be reverted to its new DOM position with 
+	 * a smooth animation.
+	 * @param revert
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setRevert(SortableRevert revert) {
+		return sortableBehavior.setRevert(revert);
+	}
+	
+	/**If set to true, the page scrolls when coming to an edge.
+	 * @param scroll
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setScroll(boolean scroll) {
+		return sortableBehavior.setScroll(scroll);
+	}
+
+	/**Defines how near the mouse must be to an edge to start scrolling.
+	 * @param scrollSensitivity
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setScrollSensitivity(int scrollSensitivity) {
+		return sortableBehavior.setScrollSensitivity(scrollSensitivity);
+	}
+	
+	/**The speed at which the window should scroll once the mouse pointer gets 
+	 * within the scrollSensitivity distance.
+	 * @param scrollSpeed
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setScrollSpeed(int scrollSpeed) {
+		return sortableBehavior.setScrollSpeed(scrollSpeed);
+	}
+
+	/** Set's the tolerance
+	 * <ul>
+	 * 	<li><b>intersect</b>: draggable overlaps the droppable at least 50%</li>
+	 * 	<li><b>pointer</b>: mouse pointer overlaps the droppable</li>
+	 * </ul>
+	 * @param tolerance
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setTolerance(ToleranceEnum tolerance) {
+		return sortableBehavior.setTolerance(tolerance);
+	}
+
+	/**Set's Z-index for element/helper while being sorted.
+	 * @param zIndex
+	 * @return instance of the current behavior
+	 */
+	public SortableBehavior setZIndex(int zIndex) {
+		return sortableBehavior.setZIndex(zIndex);
+	}
+	
+	/*---- Methods section ----*/
+	/**Method to cancel
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement cancel() {
+		return sortableBehavior.cancel();
+	}
+
+   /**Method to cancel within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void cancel(AjaxRequestTarget ajaxRequestTarget) {
+		sortableBehavior.cancel(ajaxRequestTarget);
+	}
+	
+	/**Method to destroy
+	 * This will return the element back to its pre-init state.
+	 * @return the associated JsStatement
+	 */
+	public JsStatement destroy() {
+		return sortableBehavior.destroy();
+	}
+	
+	/**Method to destroy within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+		sortableBehavior.destroy(ajaxRequestTarget);
+	}
+	
+	/**Method to disable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement disable() {
+		return sortableBehavior.disable();
+	}
+	
+	/**Method to disable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+		sortableBehavior.disable(ajaxRequestTarget);
+	}
+	
+	/**Method to enable
+	 * @return the associated JsStatement
+	 */
+	public JsStatement enable() {
+		return sortableBehavior.enable();
+	}
+	
+	/**Method to enable within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+		sortableBehavior.enable(ajaxRequestTarget);
+	}
+	
+	/**Method to refresh
+	 * @return the associated JsStatement
+	 */
+	public JsStatement refresh() {
+		return sortableBehavior.refresh();
+	}
+	
+	/**Method to refresh within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void refresh(AjaxRequestTarget ajaxRequestTarget) {
+		sortableBehavior.refresh(ajaxRequestTarget);
+	}
+	
+	/**Method to refresh positions
+	 * @return the associated JsStatement
+	 */
+	public JsStatement refreshPositions() {
+		return sortableBehavior.refreshPositions();
+	}
+	
+	/**Method to refresh positions within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void refreshPositions(AjaxRequestTarget ajaxRequestTarget) {
+		sortableBehavior.refreshPositions();
+	}
+	
+	/**Method to serialize (in default mode)
+	 * @return the associated JsStatement
+	 */
+	public JsStatement serialize() {
+		return sortableBehavior.serialize();
+	}
+	
+	/**Method to serialize (in default mode) within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void serialize(AjaxRequestTarget ajaxRequestTarget) {
+		sortableBehavior.serialize(ajaxRequestTarget);
+	}
+	
+	/**Method to serializes the sortable's item id's into an array of string
+	 * @return the associated JsStatement
+	 */
+	public JsStatement toArray() {
+		return sortableBehavior.toArray();
+	}
+	
+	/**Method to returns the .ui-sortable  element
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget() {
+		return sortableBehavior.widget();
+	}
+
+	/**Method to returns the .ui-sortable  element within the ajax request
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+		sortableBehavior.widget(ajaxRequestTarget);
 	}
 }
