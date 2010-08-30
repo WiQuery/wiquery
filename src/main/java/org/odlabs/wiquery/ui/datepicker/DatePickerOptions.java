@@ -468,7 +468,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return the maxDate option value
 	 */
 	public DateOption getMaxDate() {
-		IComplexOption maxDate = options.getListItemOptions("maxDate");
+		IComplexOption maxDate = options.getComplexOption("maxDate");
 		
 		if(maxDate != null && maxDate instanceof DateOption){
 			return (DateOption) maxDate;
@@ -491,7 +491,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return the minDate option value
 	 */
 	public DateOption getMinDate() {
-		IComplexOption minDate = options.getListItemOptions("minDate");
+		IComplexOption minDate = options.getComplexOption("minDate");
 		
 		if(minDate != null && minDate instanceof DateOption){
 			return (DateOption) minDate;

@@ -424,6 +424,7 @@ public class DatePickerTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetYearRange() {
+		datePicker.setYearRange(new DatePickerYearRange(new Short("-10"), new Short("10")));
 		Assert.assertNotNull(datePicker.getYearRange());
 		Assert.assertEquals(datePicker.getYearRange().getJavascriptOption().toString(), "'-10:+10'");
 		datePicker.setYearRange(new DatePickerYearRange(new Short("-20"), new Short("20")));

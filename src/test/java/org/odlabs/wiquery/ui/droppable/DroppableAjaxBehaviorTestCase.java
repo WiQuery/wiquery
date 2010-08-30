@@ -64,9 +64,12 @@ public class DroppableAjaxBehaviorTestCase extends TestCase {
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
 		
+		String ajaxCallResult = droppableAjaxBehavior.statement().render().toString();
+		String expectedResult = "$('#anId').droppable({drop: function(event, ui) {\n\t" +
+				"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&droppedId='+ui.draggable[0].id,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+"}});";
 		Assert.assertNotNull(droppableAjaxBehavior.getDroppableBehavior());
-		Assert.assertEquals(droppableAjaxBehavior.statement().render().toString(), 
-				"$('#anId').droppable({drop: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&droppedId='+ui.draggable[0].id, null,null, function() {return true;});\n}});");
+		Assert.assertEquals(ajaxCallResult, expectedResult);
 	}
 
 	private class InnerDroppableAjaxBehavior extends DroppableAjaxBehavior<Component> {

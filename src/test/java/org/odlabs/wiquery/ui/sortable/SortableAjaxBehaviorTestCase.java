@@ -63,10 +63,16 @@ public class SortableAjaxBehaviorTestCase extends TestCase {
 		
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
-		
+		String genrateAjaxStatment = sortableAjaxBehavior.statement().render().toString();
+		String expectedAjaxStatement = "$('#anId').sortable({receive: function(event, ui) {\n\t"
+			+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=receive&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id')+'&sortedParentId='+ $(ui.sender).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, remove: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=remove&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, update: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=update&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}});";
 		Assert.assertNotNull(sortableAjaxBehavior.getSortableBehavior());
-		Assert.assertEquals(sortableAjaxBehavior.statement().render().toString(), 
-				"$('#anId').sortable({receive: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=receive&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id')+'&sortedParentId='+ $(ui.sender).attr('id'), null,null, function() {return true;});\n}, remove: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=remove&sortedId='+ $(ui.item).attr('id'), null,null, function() {return true;});\n}, update: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=update&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id'), null,null, function() {return true;});\n}});");
+		Assert.assertEquals(genrateAjaxStatment, expectedAjaxStatement);
 	}
 
 	private class InnerSortableAjaxBehavior extends SortableAjaxBehavior<Component> {

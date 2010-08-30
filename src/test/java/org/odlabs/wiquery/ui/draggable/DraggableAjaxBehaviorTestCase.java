@@ -63,10 +63,18 @@ public class DraggableAjaxBehaviorTestCase extends TestCase {
 		
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
-		
+		String genrateAjaxStatment = draggableAjaxBehavior.statement().render().toString();
+		String expectedAjaxStatement = "$('#anId').draggable({stop: function(event, ui) {\n\t"+
+	"var isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=stop&dragStatus='+isInvalid,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, start: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=start',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, drag: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=drag',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, revert: function(dropped) {\n\t"+
+	"return $.ui.draggable._dragElementWasDropped(this, dropped);\n"+
+"}});";
 		Assert.assertNotNull(draggableAjaxBehavior.getDraggableBehavior());
-		Assert.assertEquals(draggableAjaxBehavior.statement().render().toString(), 
-				"$('#anId').draggable({stop: function(event, ui) {\n\tvar isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=stop&dragStatus='+isInvalid,null,null, function() {return true;});\n}, start: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=start',null,null, function() {return true;});\n}, drag: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=drag',null,null, function() {return true;});\n}, revert: function(dropped) {\n\treturn $.ui.draggable._dragElementWasDropped(this, dropped);\n}});");
+		Assert.assertEquals(genrateAjaxStatment, expectedAjaxStatement);
 	}
 
 	private class InnerDraggableAjaxBehavior extends DraggableAjaxBehavior {

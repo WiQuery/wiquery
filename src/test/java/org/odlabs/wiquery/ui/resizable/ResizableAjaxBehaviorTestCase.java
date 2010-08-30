@@ -63,9 +63,12 @@ public class ResizableAjaxBehaviorTestCase extends TestCase {
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
 		
+		String genrateAjaxStatment = resizableAjaxBehavior.statement().render().toString();
+		String expectedAjaxStatement = "$('#anId').resizable({stop: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&resizedHeight='+ui.size.height+'&resizedWidth='+ui.size.width,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}});";
 		Assert.assertNotNull(resizableAjaxBehavior.getResizableBehavior());
-		Assert.assertEquals(resizableAjaxBehavior.statement().render().toString(), 
-				"$('#anId').resizable({stop: function(event, ui) {\n\twicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&resizedHeight='+ui.size.height+'&resizedWidth='+ui.size.width, null,null, function() {return true;});\n}});");
+		Assert.assertEquals(genrateAjaxStatment, expectedAjaxStatement);
 	}
 
 	private class InnerResizableAjaxBehavior extends ResizableAjaxBehavior {

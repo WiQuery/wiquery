@@ -64,9 +64,12 @@ public class SelectableAjaxBehaviorTestCase extends TestCase {
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
 		
+		String genrateAjaxStatment = selectableAjaxBehavior.statement().render().toString();
+		String expectedAjaxStatement = "$('#anId').selectable({stop: function(event, ui) {\n\t"+
+	"var selected = new Array();jQuery.each($('#anId').children(\"*[class*='ui-selected']\"), function(){selected.push($(this).attr('id'));});var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&selectedArray='+ jQuery.unique(selected).toString(),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}});";
 		Assert.assertNotNull(selectableAjaxBehavior.getSelectableBehavior());
-		Assert.assertEquals(selectableAjaxBehavior.statement().render().toString(), 
-				"$('#anId').selectable({stop: function(event, ui) {\n\tvar selected = new Array();jQuery.each($('#anId').children(\"*[class*='ui-selected']\"), function(){selected.push($(this).attr('id'));});wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&selectedArray='+ jQuery.unique(selected).toString(), null,null, function() {return true;});\n}});");
+		Assert.assertEquals(genrateAjaxStatment, expectedAjaxStatement);
 	}
 
 	private class InnerSelectableAjaxBehavior extends SelectableAjaxBehavior {
