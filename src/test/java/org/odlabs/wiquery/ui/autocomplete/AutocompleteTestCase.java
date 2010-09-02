@@ -26,6 +26,7 @@ import junit.framework.TestCase;
 import org.apache.wicket.Page;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.position.PositionOptions;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -93,6 +94,16 @@ public class AutocompleteTestCase extends TestCase {
 		Assert.assertEquals(autocomplete.enable().render().toString(), 
 				"$('#anId').autocomplete('enable');");
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getAppendTo()}.
+	 */
+	@Test
+	public void testGetAppendTo() {
+		Assert.assertEquals(autocomplete.getAppendTo(), "body");
+		autocomplete.setAppendTo("html > div.myClasss");
+		Assert.assertEquals(autocomplete.getAppendTo(), "html > div.myClasss");
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getDelay()}.
@@ -112,6 +123,20 @@ public class AutocompleteTestCase extends TestCase {
 		Assert.assertEquals(autocomplete.getMinLength(), 1);
 		autocomplete.setMinLength(2);
 		Assert.assertEquals(autocomplete.getMinLength(), 2);
+	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getPosition()}.
+	 */
+	@Test
+	public void testGetPosition() {
+		Assert.assertNotNull(autocomplete.getPosition());
+		Assert.assertEquals(autocomplete.getPosition().getJavascriptOption().toString(), "{at: 'left bottom', collision: 'none', my: 'left top'}");
+		PositionOptions position = new PositionOptions();
+		position.setBgiframe(true);
+		autocomplete.setPosition(position);
+		Assert.assertNotNull(autocomplete.getPosition());
+		Assert.assertEquals(autocomplete.getPosition().getJavascriptOption().toString(), "{bgiframe: true}");
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 WiQuery team
+ * Copyright (c) 2010 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,68 +21,128 @@
  */
 package org.odlabs.wiquery.ui.position;
 
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
-import org.odlabs.wiquery.core.javascript.JsQuery;
-import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
-import org.odlabs.wiquery.ui.position.PositionOptions.Position;
 
 /**
  * $Id$
+ * 
  * <p>
- * 	Behavior using the position utilities
+ * 	Complex option to store the possible options for the position. This is used too
+ * for the option position into the Autocomplete component
  * </p>
- * 
- * Missing functionalities:
- * <ul>
- * 	<li>using</li>
- * </ul>
- * 
+ *
  * @author Julien Roche
  * @since 1.1
  */
-public class PositionBehavior extends WiQueryAbstractBehavior {
+public class PositionOptions implements IComplexOption {
+	/**
+	 * Enumeration of collision values
+	 * @author Julien Roche
+	 * @since 1.1
+	 *
+	 */
+	public enum Collision {
+		FIT,
+		FIT_FIT,
+		FIT_FLIP,
+		FIT_NONE,
+		FLIP,
+		FLIP_FIT,
+		FLIP_FLIP,
+		FLIP_NONE,
+		NONE,
+		NONE_FLIT,
+		NONE_FLIP,
+		NONE_NONE;
+		
+		/**
+		 * Method searching the collision value
+		 * @param value
+		 * @return
+		 */
+		public static Collision getCollision(String value) {
+			return valueOf(value.toUpperCase().replace(" ", "_"));
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return super.toString().toLowerCase().replace("_", " ");
+		}
+	}
+	
+	/**
+	 * Enumeration of position values
+	 * @author Julien Roche
+	 * @since 1.1
+	 *
+	 */
+	public enum Position {
+		BOTTOM,
+		CENTER,
+		CENTER_BOTTOM,
+		CENTER_CENTER,
+		CENTER_TOP,
+		LEFT,
+		LEFT_BOTTOM,
+		LEFT_CENTER,
+		LEFT_TOP,
+		RIGHT_BOTTOM,
+		RIGHT_CENTER,
+		RIGHT_TOP,
+		TOP;
+		
+		/**
+		 * Method searching the Position value
+		 * @param value
+		 * @return
+		 */
+		public static Position getPosition(String value) {
+			return valueOf(value.toUpperCase().replace(" ", "_"));
+		}
+
+		/**
+		 * {@inheritDoc}
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return super.toString().toLowerCase().replace("_", " ");
+		}
+	}
+	
 	// Constants
-	/**	Constant of serialization */
-	private static final long serialVersionUID = 5096222396743839504L;
+	/** Constant of serialization */
+	private static final long serialVersionUID = -4264198141649645314L;
 	
 	// Properties
-	private PositionOptions options;
+	private Options options;
 	
 	/**
 	 * Default constructor
 	 */
-	public PositionBehavior() {
+	public PositionOptions() {
 		super();
-		options = new PositionOptions();
+		options = new Options();
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
-	@Override
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		super.contribute(wiQueryResourceManager);
-		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
+	public CharSequence getJavascriptOption() {
+		return options.getJavaScriptOptions();
 	}
-	
-	/**Method retrieving the options of the component
+
+	/**Method retrieving the options
 	 * @return the options
 	 */
 	protected Options getOptions() {
-		return options.getOptions();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
-	 */
-	@Override
-	public JsStatement statement() {
-		return new JsQuery(getComponent()).$().chain("position", options.getJavascriptOption());
+		return options;
 	}
 	
 	/*---- Options section ---*/
@@ -96,8 +156,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @param at
 	 * @return the instance
 	 */
-	public PositionBehavior setAt(Position at) {
-		options.setAt(at);
+	public PositionOptions setAt(Position at) {
+		options.putLiteral("at", at.toString());
 		return this;
 	}
 	
@@ -105,7 +165,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @return the at option
 	 */
 	public Position getAt() {
-		return options.getAt();
+		String value = options.getLiteral("at");
+		return value == null ? null : Position.getPosition(value);
 	}
 	
 	/**
@@ -114,8 +175,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @param bgiframe
 	 * @return the instance
 	 */
-	public PositionBehavior setBgiframe(boolean bgiframe) {
-		options.setBgiframe(bgiframe);
+	public PositionOptions setBgiframe(boolean bgiframe) {
+		options.put("bgiframe", bgiframe);
 		return this;
 	}
 	
@@ -123,7 +184,11 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @return the bgiframe option
 	 */
 	public boolean isBgiframe() {
-		return options.isBgiframe();
+		if(options.containsKey("bgiframe")){
+			return options.getBoolean("bgiframe");
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -142,8 +207,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @param collision
 	 * @return the instance
 	 */
-	public PositionBehavior setCollision(Collision collision) {
-		options.setCollision(collision);
+	public PositionOptions setCollision(Collision collision) {
+		options.putLiteral("collision", collision.toString());
 		return this;
 	}
 	
@@ -151,7 +216,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @return the collision option
 	 */
 	public Collision getCollision() {
-		return options.getCollision();
+		String value = options.getLiteral("collision");
+		return value == null ? null : Collision.getCollision(value);
 	}
 	
 	/**
@@ -163,8 +229,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @param my
 	 * @return the instance
 	 */
-	public PositionBehavior setMy(Position my) {
-		options.setMy(my);
+	public PositionOptions setMy(Position my) {
+		options.putLiteral("my", my.toString());
 		return this;
 	}
 	
@@ -172,7 +238,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @return the my option
 	 */
 	public Position getMy() {
-		return options.getMy();
+		String value = options.getLiteral("my");
+		return value == null ? null : Position.getPosition(value);
 	}
 	
 	/**
@@ -181,8 +248,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @param of
 	 * @return the instance
 	 */
-	public PositionBehavior setOf(String of) {
-		options.setOf(of);
+	public PositionOptions setOf(String of) {
+		options.putLiteral("of", of);
 		return this;
 	}
 	
@@ -190,7 +257,7 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @return the of option
 	 */
 	public String getOf() {
-		return options.getOf();
+		return options.getLiteral("of");
 	}
 	
 	/**
@@ -199,8 +266,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @param offset
 	 * @return the instance
 	 */
-	public PositionBehavior setOffset(PositionOffset offset) {
-		options.setOffset(offset);
+	public PositionOptions setOffset(PositionOffset offset) {
+		options.put("offset", offset);
 		return this;
 	}
 	
@@ -208,7 +275,7 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @return the offset option
 	 */
 	public PositionOffset getOffset() {
-		return options.getOffset();
+		return (PositionOffset) options.getComplexOption("offset");
 	}
 	
 	/*---- Events section ---*/
@@ -220,8 +287,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @param by
 	 * @return the instance
 	 */
-	public PositionBehavior setBy(JsScopePositionEvent by) {
-		options.setBy(by);
+	public PositionOptions setBy(JsScopePositionEvent by) {
+		options.put("by", by);
 		return this;
 	}
 }

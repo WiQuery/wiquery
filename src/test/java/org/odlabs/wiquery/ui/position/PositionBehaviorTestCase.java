@@ -26,12 +26,11 @@ import junit.framework.TestCase;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.util.tester.WicketTester;
+import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
+import org.odlabs.wiquery.ui.position.PositionOptions.Position;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import org.odlabs.wiquery.ui.position.PositionBehavior.Collision;
-import org.odlabs.wiquery.ui.position.PositionBehavior.Position;
 
 /**
  * Test for {@link PositionBehavior}

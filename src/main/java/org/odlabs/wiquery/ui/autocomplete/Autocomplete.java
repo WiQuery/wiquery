@@ -34,6 +34,9 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionOptions;
+import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
+import org.odlabs.wiquery.ui.position.PositionOptions.Position;
 import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
@@ -99,6 +102,24 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	}
 	
 	/*---- Options section ---*/
+	/**The element passed to or selected by the appendTo option will be used as 
+	 * the container for the suggested values
+	 * @param appendTo
+	 * @return instance of the current component
+	 */
+	public Autocomplete<T> setAppendTo(String appendTo) {
+		this.options.putLiteral("appendTo", appendTo);
+		return this;
+	}
+	
+	/**
+	 * @return the appendTo option value
+	 */
+	public String getAppendTo() {
+		String appendTo = this.options.getLiteral("appendTo");
+		return appendTo == null ? "body" : appendTo;
+	}
+	
 	/** The delay in milliseconds the autocomplete waits after a keystroke to 
 	 * activate itself. A zero-delay makes sense for local data (more responsive), 
 	 * but can produce a lot of load for remote data, while being less responsive.
@@ -142,6 +163,33 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 		}
 		
 		return 1;
+	}
+	
+	/**
+	 * Position of the component of the suggested values with the input field
+	 * @param position
+	 * @return instance of the current component
+	 */
+	public Autocomplete<T> setPosition(PositionOptions position) {
+		this.options.put("position", position);
+		return this;
+	}
+	
+	/**
+	 * @return the position option value
+	 */
+	public PositionOptions getPosition() {
+		Object position = this.options.getComplexOption("position");
+		
+		if(position != null && position instanceof PositionOptions){
+			return (PositionOptions) position;
+		}
+		
+		PositionOptions pos = new PositionOptions();
+		pos.setAt(Position.LEFT_BOTTOM);
+		pos.setCollision(Collision.NONE);
+		pos.setMy(Position.LEFT_TOP);
+		return pos;
 	}
 	
 	/**

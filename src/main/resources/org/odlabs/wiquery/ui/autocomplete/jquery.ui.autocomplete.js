@@ -1,9 +1,9 @@
 /*
- * jQuery UI Autocomplete 1.8
+ * jQuery UI Autocomplete 1.8.4
  *
- * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT (MIT-LICENSE.txt)
- * and GPL (GPL-LICENSE.txt) licenses.
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
  *
  * http://docs.jquery.com/UI/Autocomplete
  *
@@ -12,12 +12,19 @@
  *	jquery.ui.widget.js
  *	jquery.ui.position.js
  */
-(function( $ ) {
+(function( $, undefined ) {
 
 $.widget( "ui.autocomplete", {
 	options: {
+		appendTo: "body",
+		delay: 300,
 		minLength: 1,
-		delay: 300
+		position: {
+			my: "left top",
+			at: "left bottom",
+			collision: "none"
+		},
+		source: null
 	},
 	_create: function() {
 		var self = this,
@@ -32,6 +39,10 @@ $.widget( "ui.autocomplete", {
 				"aria-haspopup": "true"
 			})
 			.bind( "keydown.autocomplete", function( event ) {
+				if ( self.options.disabled ) {
+					return;
+				}
+
 				var keyCode = $.ui.keyCode;
 				switch( event.keyCode ) {
 				case keyCode.PAGE_UP:
@@ -51,8 +62,9 @@ $.widget( "ui.autocomplete", {
 					event.preventDefault();
 					break;
 				case keyCode.ENTER:
+				case keyCode.NUMPAD_ENTER:
 					// when menu is open or has focus
-					if ( self.menu.active ) {
+					if ( self.menu.element.is( ":visible" ) ) {
 						event.preventDefault();
 					}
 					//passthrough - ENTER and TAB both select the current element
@@ -60,35 +72,43 @@ $.widget( "ui.autocomplete", {
 					if ( !self.menu.active ) {
 						return;
 					}
-					self.menu.select();
+					self.menu.select( event );
 					break;
 				case keyCode.ESCAPE:
 					self.element.val( self.term );
 					self.close( event );
 					break;
-				case keyCode.SHIFT:
-				case keyCode.CONTROL:
-				case 18:
-					// ignore metakeys (shift, ctrl, alt)
-					break;
 				default:
 					// keypress is triggered before the input value is changed
 					clearTimeout( self.searching );
 					self.searching = setTimeout(function() {
-						self.search( null, event );
+						// only search if the value has changed
+						if ( self.term != self.element.val() ) {
+							self.selectedItem = null;
+							self.search( null, event );
+						}
 					}, self.options.delay );
 					break;
 				}
 			})
 			.bind( "focus.autocomplete", function() {
+				if ( self.options.disabled ) {
+					return;
+				}
+
+				self.selectedItem = null;
 				self.previous = self.element.val();
 			})
 			.bind( "blur.autocomplete", function( event ) {
+				if ( self.options.disabled ) {
+					return;
+				}
+
 				clearTimeout( self.searching );
 				// clicks on the menu (or a button to trigger a search) will cause a blur event
-				// TODO try to implement this without a timeout, see clearTimeout in search()
 				self.closing = setTimeout(function() {
 					self.close( event );
+					self._change( event );
 				}, 150 );
 			});
 		this._initSource();
@@ -97,29 +117,63 @@ $.widget( "ui.autocomplete", {
 		};
 		this.menu = $( "<ul></ul>" )
 			.addClass( "ui-autocomplete" )
-			.appendTo( "body", doc )
+			.appendTo( $( this.options.appendTo || "body", doc )[0] )
+			// prevent the close-on-blur in case of a "slow" click on the menu (long mousedown)
+			.mousedown(function( event ) {
+				// clicking on the scrollbar causes focus to shift to the body
+				// but we can't detect a mouseup or a click immediately afterward
+				// so we have to track the next mousedown and close the menu if
+				// the user clicks somewhere outside of the autocomplete
+				var menuElement = self.menu.element[ 0 ];
+				if ( event.target === menuElement ) {
+					setTimeout(function() {
+						$( document ).one( 'mousedown', function( event ) {
+							if ( event.target !== self.element[ 0 ] &&
+								event.target !== menuElement &&
+								!$.ui.contains( menuElement, event.target ) ) {
+								self.close();
+							}
+						});
+					}, 1 );
+				}
+
+				// use another timeout to make sure the blur-event-handler on the input was already triggered
+				setTimeout(function() {
+					clearTimeout( self.closing );
+				}, 13);
+			})
 			.menu({
 				focus: function( event, ui ) {
 					var item = ui.item.data( "item.autocomplete" );
 					if ( false !== self._trigger( "focus", null, { item: item } ) ) {
-						// use value to match what will end up in the input
-						self.element.val( item.value );
+						// use value to match what will end up in the input, if it was a key event
+						if ( /^key/.test(event.originalEvent.type) ) {
+							self.element.val( item.value );
+						}
 					}
 				},
 				selected: function( event, ui ) {
-					var item = ui.item.data( "item.autocomplete" );
-					if ( false !== self._trigger( "select", event, { item: item } ) ) {
-						self.element.val( item.value );
-					}
-					self.close( event );
-					self.previous = self.element.val();
+					var item = ui.item.data( "item.autocomplete" ),
+						previous = self.previous;
+
 					// only trigger when focus was lost (click on menu)
 					if ( self.element[0] !== doc.activeElement ) {
 						self.element.focus();
+						self.previous = previous;
 					}
+
+					if ( false !== self._trigger( "select", event, { item: item } ) ) {
+						self.element.val( item.value );
+					}
+
+					self.close( event );
+					self.selectedItem = item;
 				},
 				blur: function( event, ui ) {
-					if ( self.menu.element.is(":visible") ) {
+					// don't set the value of the text field if it's already correct
+					// this prevents moving the cursor unnecessarily
+					if ( self.menu.element.is(":visible") &&
+						( self.element.val() !== self.term ) ) {
 						self.element.val( self.term );
 					}
 				}
@@ -136,7 +190,7 @@ $.widget( "ui.autocomplete", {
 
 	destroy: function() {
 		this.element
-			.removeClass( "ui-autocomplete-input ui-widget ui-widget-content" )
+			.removeClass( "ui-autocomplete-input" )
 			.removeAttr( "autocomplete" )
 			.removeAttr( "role" )
 			.removeAttr( "aria-autocomplete" )
@@ -145,10 +199,13 @@ $.widget( "ui.autocomplete", {
 		$.Widget.prototype.destroy.call( this );
 	},
 
-	_setOption: function( key ) {
+	_setOption: function( key, value ) {
 		$.Widget.prototype._setOption.apply( this, arguments );
 		if ( key === "source" ) {
 			this._initSource();
+		}
+		if ( key === "appendTo" ) {
+			this.menu.element.appendTo( $( value || "body", this.element[0].ownerDocument )[0] )
 		}
 	},
 
@@ -158,11 +215,7 @@ $.widget( "ui.autocomplete", {
 		if ( $.isArray(this.options.source) ) {
 			array = this.options.source;
 			this.source = function( request, response ) {
-				// escape regex characters
-				var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-				response( $.grep( array, function(value) {
-					return matcher.test( value.label || value.value || value );
-				}) );
+				response( $.ui.autocomplete.filter(array, request.term) );
 			};
 		} else if ( typeof this.options.source === "string" ) {
 			url = this.options.source;
@@ -215,8 +268,11 @@ $.widget( "ui.autocomplete", {
 			this.menu.element.hide();
 			this.menu.deactivate();
 		}
+	},
+	
+	_change: function( event ) {
 		if ( this.previous !== this.element.val() ) {
-			this._trigger( "change", event );
+			this._trigger( "change", event, { item: this.selectedItem } );
 		}
 	},
 
@@ -249,18 +305,15 @@ $.widget( "ui.autocomplete", {
 		// TODO refresh should check if the active item is still in the dom, removing the need for a manual deactivate
 		this.menu.deactivate();
 		this.menu.refresh();
-		this.menu.element.show().position({
-			my: "left top",
-			at: "left bottom",
-			of: this.element,
-			collision: "none"
-		});
+		this.menu.element.show().position( $.extend({
+			of: this.element
+		}, this.options.position ));
 
-		menuWidth = ul.width( "" ).width();
-		textWidth = this.element.width();
-		ul.width( Math.max( menuWidth, textWidth ) );
+		menuWidth = ul.width( "" ).outerWidth();
+		textWidth = this.element.outerWidth();
+		ul.outerWidth( Math.max( menuWidth, textWidth ) );
 	},
-	
+
 	_renderMenu: function( ul, items ) {
 		var self = this;
 		$.each( items, function( index, item ) {
@@ -271,7 +324,7 @@ $.widget( "ui.autocomplete", {
 	_renderItem: function( ul, item) {
 		return $( "<li></li>" )
 			.data( "item.autocomplete", item )
-			.append( "<a>" + item.label + "</a>" )
+			.append( $( "<a></a>" ).text( item.label ) )
 			.appendTo( ul );
 	},
 
@@ -286,7 +339,7 @@ $.widget( "ui.autocomplete", {
 			this.menu.deactivate();
 			return;
 		}
-		this.menu[ direction ]();
+		this.menu[ direction ]( event );
 	},
 
 	widget: function() {
@@ -296,7 +349,13 @@ $.widget( "ui.autocomplete", {
 
 $.extend( $.ui.autocomplete, {
 	escapeRegex: function( value ) {
-		return value.replace( /([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1" );
+		return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+	},
+	filter: function(array, term) {
+		var matcher = new RegExp( $.ui.autocomplete.escapeRegex(term), "i" );
+		return $.grep( array, function(value) {
+			return matcher.test( value.label || value.value || value );
+		});
 	}
 });
 
@@ -309,9 +368,9 @@ $.extend( $.ui.autocomplete, {
  * it for the next release. You're welcome to give it a try anyway and give us feedback,
  * as long as you're okay with migrating your code later on. We can help with that, too.
  *
- * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT (MIT-LICENSE.txt)
- * and GPL (GPL-LICENSE.txt) licenses.
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
  *
  * http://docs.jquery.com/UI/Menu
  *
@@ -330,10 +389,13 @@ $.widget("ui.menu", {
 				role: "listbox",
 				"aria-activedescendant": "ui-active-menuitem"
 			})
-			.click(function(e) {
+			.click(function( event ) {
+				if ( !$( event.target ).closest( ".ui-menu-item a" ).length ) {
+					return;
+				}
 				// temporary
-				e.preventDefault();
-				self.select();
+				event.preventDefault();
+				self.select( event );
 			});
 		this.refresh();
 	},
@@ -350,15 +412,15 @@ $.widget("ui.menu", {
 			.addClass("ui-corner-all")
 			.attr("tabindex", -1)
 			// mouseenter doesn't work with event delegation
-			.mouseenter(function() {
-				self.activate($(this).parent());
+			.mouseenter(function( event ) {
+				self.activate( event, $(this).parent() );
 			})
 			.mouseleave(function() {
 				self.deactivate();
 			});
 	},
 
-	activate: function(item) {
+	activate: function( event, item ) {
 		this.deactivate();
 		if (this.hasScroll()) {
 			var offset = item.offset().top - this.element.offset().top,
@@ -375,7 +437,7 @@ $.widget("ui.menu", {
 				.addClass("ui-state-hover")
 				.attr("id", "ui-active-menuitem")
 			.end();
-		this._trigger("focus", null, { item: item });
+		this._trigger("focus", event, { item: item });
 	},
 
 	deactivate: function() {
@@ -388,41 +450,41 @@ $.widget("ui.menu", {
 		this.active = null;
 	},
 
-	next: function() {
-		this.move("next", "li:first");
+	next: function(event) {
+		this.move("next", ".ui-menu-item:first", event);
 	},
 
-	previous: function() {
-		this.move("prev", "li:last");
+	previous: function(event) {
+		this.move("prev", ".ui-menu-item:last", event);
 	},
 
 	first: function() {
-		return this.active && !this.active.prev().length;
+		return this.active && !this.active.prevAll(".ui-menu-item").length;
 	},
 
 	last: function() {
-		return this.active && !this.active.next().length;
+		return this.active && !this.active.nextAll(".ui-menu-item").length;
 	},
 
-	move: function(direction, edge) {
+	move: function(direction, edge, event) {
 		if (!this.active) {
-			this.activate(this.element.children(edge));
+			this.activate(event, this.element.children(edge));
 			return;
 		}
-		var next = this.active[direction]();
+		var next = this.active[direction + "All"](".ui-menu-item").eq(0);
 		if (next.length) {
-			this.activate(next);
+			this.activate(event, next);
 		} else {
-			this.activate(this.element.children(edge));
+			this.activate(event, this.element.children(edge));
 		}
 	},
 
 	// TODO merge with previousPage
-	nextPage: function() {
+	nextPage: function(event) {
 		if (this.hasScroll()) {
 			// TODO merge with no-scroll-else
 			if (!this.active || this.last()) {
-				this.activate(this.element.children(":first"));
+				this.activate(event, this.element.children(":first"));
 				return;
 			}
 			var base = this.active.offset().top,
@@ -437,18 +499,18 @@ $.widget("ui.menu", {
 			if (!result.length) {
 				result = this.element.children(":last");
 			}
-			this.activate(result);
+			this.activate(event, result);
 		} else {
-			this.activate(this.element.children(!this.active || this.last() ? ":first" : ":last"));
+			this.activate(event, this.element.children(!this.active || this.last() ? ":first" : ":last"));
 		}
 	},
 
 	// TODO merge with nextPage
-	previousPage: function() {
+	previousPage: function(event) {
 		if (this.hasScroll()) {
 			// TODO merge with no-scroll-else
 			if (!this.active || this.first()) {
-				this.activate(this.element.children(":last"));
+				this.activate(event, this.element.children(":last"));
 				return;
 			}
 
@@ -464,9 +526,9 @@ $.widget("ui.menu", {
 			if (!result.length) {
 				result = this.element.children(":first");
 			}
-			this.activate(result);
+			this.activate(event, result);
 		} else {
-			this.activate(this.element.children(!this.active || this.first() ? ":last" : ":first"));
+			this.activate(event, this.element.children(!this.active || this.first() ? ":last" : ":first"));
 		}
 	},
 
@@ -474,8 +536,8 @@ $.widget("ui.menu", {
 		return this.element.height() < this.element.attr("scrollHeight");
 	},
 
-	select: function() {
-		this._trigger("selected", null, { item: this.active });
+	select: function( event ) {
+		this._trigger("selected", event, { item: this.active });
 	}
 });
 

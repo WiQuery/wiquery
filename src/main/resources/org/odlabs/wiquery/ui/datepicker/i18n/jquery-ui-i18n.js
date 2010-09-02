@@ -405,18 +405,18 @@ jQuery(function($){
 		yearSuffix: ''};
 	$.datepicker.setDefaults($.datepicker.regional['fo']);
 });
-/* Swiss-French initialisation for the jQuery UI date picker plugin. */
+﻿/* Swiss-French initialisation for the jQuery UI date picker plugin. */
 /* Written Martin Voelkle (martin.voelkle@e-tc.ch). */
 jQuery(function($){
 	$.datepicker.regional['fr-CH'] = {
 		closeText: 'Fermer',
-		prevText: '&#x3c;Pr�c',
+		prevText: '&#x3c;Préc',
 		nextText: 'Suiv&#x3e;',
 		currentText: 'Courant',
-		monthNames: ['Janvier','F�vrier','Mars','Avril','Mai','Juin',
-		'Juillet','Ao�t','Septembre','Octobre','Novembre','D�cembre'],
-		monthNamesShort: ['Jan','F�v','Mar','Avr','Mai','Jun',
-		'Jul','Ao�','Sep','Oct','Nov','D�c'],
+		monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+		'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+		monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
+		'Jul','Aoû','Sep','Oct','Nov','Déc'],
 		dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
 		dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
 		dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
@@ -773,11 +773,11 @@ jQuery(function($){
 		'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
 		monthNamesShort: ['Sty','Lu','Mar','Kw','Maj','Cze',
 		'Lip','Sie','Wrz','Pa','Lis','Gru'],
-		dayNames: ['Niedziela','Poniedzialek','Wtorek','Środa','Czwartek','Piątek','Sobota'],
+		dayNames: ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'],
 		dayNamesShort: ['Nie','Pn','Wt','Śr','Czw','Pt','So'],
 		dayNamesMin: ['N','Pn','Wt','Śr','Cz','Pt','So'],
 		weekHeader: 'Tydz',
-		dateFormat: 'yy-mm-dd',
+		dateFormat: 'dd.mm.yy',
 		firstDay: 1,
 		isRTL: false,
 		showMonthAfterYear: false,
@@ -796,9 +796,9 @@ jQuery(function($){
 		'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
 		monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun',
 		'Jul','Ago','Set','Out','Nov','Dez'],
-		dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado'],
-		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
-		dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+		dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','S&aacute;bado'],
+		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b'],
+		dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b'],
 		weekHeader: 'Sm',
 		dateFormat: 'dd/mm/yy',
 		firstDay: 0,
@@ -871,7 +871,7 @@ jQuery(function($){
 		dayNamesMin: ['Ne','Po','Ut','St','Št','Pia','So'],
 		weekHeader: 'Ty',
 		dateFormat: 'dd.mm.yy',
-		firstDay: 0,
+		firstDay: 1,
 		isRTL: false,
 		showMonthAfterYear: false,
 		yearSuffix: ''};
