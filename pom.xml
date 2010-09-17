@@ -1,0 +1,111 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Identification -->
+	<groupId>org.odlabs.wiquery</groupId>
+	<artifactId>wiquery</artifactId>
+	<packaging>jar</packaging>
+	<version>0.9</version>
+
+	<name>WiQuery project</name>
+
+	<build>
+		<plugins>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<projectNameTemplate>
+						[artifactId]-[version]
+					</projectNameTemplate>
+					<wtpmanifest>true</wtpmanifest>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpversion>2.0</wtpversion>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<source>1.5</source>
+				<target>1.5</target>
+			</configuration>
+			</plugin>
+			<plugin>
+			  	<groupId>org.apache.maven.plugins</groupId>
+			  	<artifactId>maven-source-plugin</artifactId>
+			  	<executions>
+				    <execution>
+			      	<id>attach-sources</id>
+			      	<goals>
+				        <goal>jar</goal>
+			      	</goals>
+			    	</execution>
+			  	</executions>
+			</plugin>
+			<plugin>
+			  	<groupId>org.apache.maven.plugins</groupId>
+			  	<artifactId>maven-javadoc-plugin</artifactId>
+			  	<executions>
+			    	<execution>
+			      	<id>attach-javadocs</id>
+			      	<goals>
+				        <goal>jar</goal>
+			      	</goals>
+			    	</execution>
+			  </executions>
+			</plugin>		
+		</plugins>
+	</build>
+	
+	
+	<dependencies>
+		<!-- System dependencies -->
+
+
+		<!-- External dependencies -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket</artifactId>				
+			<version>1.4-m3</version>
+		</dependency>
+			
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>5.5</version>
+			<classifier>jdk15</classifier>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.4.2</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+		
+
+
+</project>
