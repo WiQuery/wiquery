@@ -23,10 +23,7 @@ public abstract class WiQueryAbstractBehavior extends AbstractBehavior implement
 	@Override
 	public void bind(Component component) {
 		this.component = component;
-		WiQueryCoreHeaderContributor contributor 
-			= WiQueryCoreHeaderContributor.bindToRequestCycle();
-		contributor.addPlugin(this);
-		component.add(new HeaderContributor(contributor));
+		component.add(new HeaderContributor(new WiQueryCoreHeaderContributor()));
 		super.bind(component);
 	}
 

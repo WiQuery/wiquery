@@ -77,10 +77,7 @@ IComponentInstantiationListener, Serializable {
 	public void onInstantiation(final Component component) {
 		// theme management
 		if (component instanceof IWiQueryPlugin) {
-			WiQueryCoreHeaderContributor wickeryHeaderContributor = WiQueryCoreHeaderContributor.bindToRequestCycle();
-			// binding component as a plugin
-			wickeryHeaderContributor.addPlugin((IWiQueryPlugin) component);
-			component.add(new HeaderContributor(wickeryHeaderContributor));
+			component.add(new HeaderContributor(new WiQueryCoreHeaderContributor()));
 		}
 	}
 }
