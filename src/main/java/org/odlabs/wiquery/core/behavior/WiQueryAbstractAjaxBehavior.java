@@ -52,9 +52,7 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 	protected void onBind() {
 		super.onBind();
 		
-		WiQueryCoreHeaderContributor contributor = WiQueryCoreHeaderContributor.bindToRequestCycle();
-		contributor.addPlugin(this);
-		getComponent().add(new HeaderContributor(contributor));
+		getComponent().add(new HeaderContributor(new WiQueryCoreHeaderContributor()));
 	}
 
 	/**
