@@ -1,0 +1,162 @@
+- Modification EffectBehavior (to test)
+
+- Modification WickextAjaxEffectBehavior (to test)
+
+- WickextAjaxEffectBehavior becomes WiqueryAjaxEffectBehavior
+
+- Modification DraggaleAjaxBehavior and add wiquery-draggable.js
+
+- Issue 31 : SortableAjaxBehavior (use of :data(sortable-item) )
+
+- Issue 32 : Adding DraggableCursorAt & changes on DraggableBehavior
+
+- WiqueryGeneratedJavaScriptResourceReference : use the javascript compressor defines in
+the Wicket Application
+
+- Wiquery Merging resources process : package org.odlabs.wiquery.core.commons.merge 
+	 and modification of WiQueryCoreHeaderContributor
+	 
+- Modification JsStatement : shortcuts for AtributesHelper, CssHelper and ManipulatingHelper
+
+- Modification StateEvent (add missing states)
+
+- Add FormEvent (event RESET and SUBMIT)
+
+- Add an enumeration for the datepicker and modified DatePicker & DatePickerLanguageResourceReference
+
+- Modification of MouseEvent : add missing MouseEnter and MouseLeave
+
+- Add a new method in JsUtils
+
+- Add some new unit tests : JsUtilsTestCase, AttributesHelperTestCase, CssHelperTestCase, 
+ManipulatingHelperTestCase, TraversingHelperTestCase
+
+- Add EventHelper and EventHelperTestCase
+
+- Add new unit tests : JsQueryTestCase, JsStatementTestCase
+
+- Add DatePickerLanguageResourceReferenceTestCase
+
+- Add new methods in JsUtils, and now LiteralOption can use double quote, and LiteralOptionTestCase
+
+- Check, modify and fix the ui components and behaviors:
+	* SortableBehavior:
+		- containment ==> SortableContainment + SortableContainmentTestCase
+		- helper ==> SortableHelper + SortableHelperTestCase
+		- revert ==> SortableRevert + SortableReverTestCase
+		- some getter methods (change name ==> 'get' to 'is')
+		- serialize method
+	* SelectableBehavior
+		- return of the getTolerance method
+	* DroppableBehavior
+		- return of getAccept method, getTolerance
+	* ResizableBehavior
+		- also resize ==> ResizableAlsoResize + ResizableAlsoResizeTestCase
+		- return of getAnimateDuration
+	* DraggableBehavior
+		- return of getHelper method, getDraggableIframeFix, getRevert, getSnap, getSnapMode
+	* Accordion
+		- return of getAnimated method, getHeader, getIcons
+	* Slider
+		- animate ==> SliderAnimate + SliderAnimateTestCase
+		- return of getOrientation, getRange
+	* Dialog
+		- add the closeText option
+		- return of getDialogClass, getPosition
+	* DatePicker
+		- return of getAltField, getAltFormat, getAppendText, getButtonImage, getDayNames, getDayNamesMin, getDayNamesShort, getDuration, getMonthNames, getMonthNamesShort, getNumberOfMonths, getShortYearCutoff, getShowOn, getShowOtherMonths, getYearRange
+	* Tabs
+		- add JQueryCookieOption for the cookie option
+		- add JQueryAjaxOption for the ajaxOptions option
+		- fix setIdPrefix, setPanelTemplate, setSpinner, setTabTemplate
+		- return of getEvent 
+
+- Move to Wicket 1.4.5
+
+- Add unit test JQueryCookieOptionTestCase & JQueryAjaxOptionTestCase
+
+- Move to jQuery 1.4
+
+- Change WiqueryEventBehavior to use 'setOuptutMarkupId' on the bind method
+
+- Add SlideToggle effect
+
+- Change ThemeDecorator example and add Effect example
+
+- issue 36 : Change JQueryUICoreRenderingListener to insert the static method getDefaultTheme
+
+- Add a default constructor in sliding and fading effect
+
+- Add in JsScope & JsScopeUiEvent quickScope(JsStatement)
+
+- Fix a bug on Effect#statementArgs (count was never incremented)
+
+- Add unit test for the effects
+
+- Ascendant compatibility:
+	* SortableBehavior
+		- revert
+		- helper
+		- containment
+		- dropOnEmpty
+		- forceHelperSize
+		- forcePlaceholderSize
+	* SelectableBehavior
+		- none
+	* DroppableBehavior
+		- none
+	* ResizableBehavior
+		- alsoResize
+	* DraggableBehavior
+		- CursorAtEnum
+		- cursorAt
+	* Accordion
+		- none
+	* Slider
+		- none
+	* Dialog
+		- none
+	* DatePicker
+		- none
+	* Tabs
+		- none
+
+- Change the theme roller
+
+- Unit test:
+	* SelectableAjaxBehavior
+	* SelectableBehavior
+	* ResizableAjaxBehavior
+	* SortableAjaxBehaviorTest
+	* SortableBehavior
+	* DroppableAjaxBehavior
+	* DraggableAjaxBehavior
+	
+- move to jquery 1.4.1
+
+- add generics on sortable and droppable
+
+- fix issue 39 : wiquery-gen.js
+
+- add a base of DialogUtils
+
+- Add a new Annotation : WiQueryNotMerged
+
+- Move to jquery ui 1.8 rc1 and add button and autocomplete
+
+- Move to wicket 1.4.6
+
+- Add WiQueryAbstractAjaxBehavior
+
+- statement can return null
+
+- WiqueryHeaderContributor : we check if the component is visible or if the behavior is
+in a visible component
+
+- We can add WiQueryPluginRenderingListener
+
+- fix issue 38
+
+- add ButtonBehavior
+
+- add PositionBehavior
