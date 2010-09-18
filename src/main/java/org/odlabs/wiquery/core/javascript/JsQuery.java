@@ -30,6 +30,7 @@ import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQuerySettings;
 import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReference;
 
 /**
@@ -122,14 +123,15 @@ public class JsQuery implements Serializable, IHeaderContributor {
 		return statement = new JsStatement().document();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * {@inheritDoc}
 	 * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
 	 */
 	public void renderHead(IHeaderResponse response) {
-		response.renderJavascriptReference(CoreJavaScriptResourceReference
-				.get());
+		if(WiQuerySettings.get().isAutoImportJQueryResource()){
+			response.renderJavascriptReference(CoreJavaScriptResourceReference.get());
+		}
+		
 		IRequestTarget requestTarget = component.getRequestCycle()
 				.getRequestTarget();
 		if (requestTarget == null
@@ -175,8 +177,9 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 */
 	public void renderHead(IHeaderResponse response,
 			IRequestTarget requestTarget) {
-		response.renderJavascriptReference(
-				CoreJavaScriptResourceReference.get());
+		if(WiQuerySettings.get().isAutoImportJQueryResource()){
+			response.renderJavascriptReference(CoreJavaScriptResourceReference.get());
+		}
 		
 		String js = statement == null ? null : statement.render().toString();
 		
