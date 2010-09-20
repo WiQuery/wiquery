@@ -255,8 +255,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 * @param accept
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setAccept(DroppableAccept accept) {
-		return droppableBehavior.setAccept(accept);
+	public DroppableAjaxBehavior<E> setAccept(DroppableAccept accept) {
+		droppableBehavior.setAccept(accept);
+		return this;
 	}
 
 	/**
@@ -273,8 +274,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 * @param activeClass
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setActiveClass(String activeClass) {
-		return droppableBehavior.setActiveClass(activeClass);
+	public DroppableAjaxBehavior<E> setActiveClass(String activeClass) {
+		droppableBehavior.setActiveClass(activeClass);
+		return this;
 	}
 
 	/**
@@ -290,8 +292,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 * @param addClasses
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setAddClasses(boolean addClasses) {
-		return droppableBehavior.setAddClasses(addClasses);
+	public DroppableAjaxBehavior<E> setAddClasses(boolean addClasses) {
+		droppableBehavior.setAddClasses(addClasses);
+		return this;
 	}
 
 	/**
@@ -306,8 +309,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 * @param disabled
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setDisabled(boolean disabled) {
-		return droppableBehavior.setDisabled(disabled);
+	public DroppableAjaxBehavior<E> setDisabled(boolean disabled) {
+		droppableBehavior.setDisabled(disabled);
+		return this;
 	}
 	
 	/**
@@ -323,8 +327,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 * @param greedy
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setGreedy(boolean greedy) {
-		return droppableBehavior.setGreedy(greedy);
+	public DroppableAjaxBehavior<E> setGreedy(boolean greedy) {
+		droppableBehavior.setGreedy(greedy);
+		return this;
 	}
 
 	/**
@@ -341,8 +346,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 * @param hoverClass
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setHoverClass(String hoverClass) {
-		return droppableBehavior.setHoverClass(hoverClass);
+	public DroppableAjaxBehavior<E> setHoverClass(String hoverClass) {
+		droppableBehavior.setHoverClass(hoverClass);
+		return this;
 	}
 
 	/**
@@ -360,8 +366,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 * @param scope
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setScope(String scope) {
-		return droppableBehavior.setScope(scope);
+	public DroppableAjaxBehavior<E> setScope(String scope) {
+		droppableBehavior.setScope(scope);
+		return this;
 	}
 
 	/**
@@ -384,8 +391,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 * @param tolerance
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setTolerance(ToleranceEnum tolerance) {
-		return droppableBehavior.setTolerance(tolerance);
+	public DroppableAjaxBehavior<E> setTolerance(ToleranceEnum tolerance) {
+		droppableBehavior.setTolerance(tolerance);
+		return this;
 	}
 
 	/**

@@ -251,7 +251,8 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				draggableBehavior.setInnerStartEvent(new JsScopeUiEvent() {
 					private static final long serialVersionUID = 1L;
 					
-					 /* (non-Javadoc)
+					/**
+					 * {@inheritDoc}
 					 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 					 */
 					@Override
@@ -546,8 +547,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param addClasses
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setAddClasses(boolean addClasses) {
-		return draggableBehavior.setAddClasses(addClasses);
+	public DraggableAjaxBehavior setAddClasses(boolean addClasses) {
+		draggableBehavior.setAddClasses(addClasses);
+		return this;
 	}
 	
 	/**
@@ -563,8 +565,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param appendTo
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setAppendTo(String appendTo) {
-		return draggableBehavior.setAppendTo(appendTo);
+	public DraggableAjaxBehavior setAppendTo(String appendTo) {
+		draggableBehavior.setAppendTo(appendTo);
+		return this;
 	}
 	
 	/**
@@ -579,8 +582,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param axis
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setAxis(AxisEnum axis) {
-		return draggableBehavior.setAxis(axis);
+	public DraggableAjaxBehavior setAxis(AxisEnum axis) {
+		draggableBehavior.setAxis(axis);
+		return this;
 	}
 	
 	/**
@@ -594,8 +598,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param cancel Selector (default : ':input,option')
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setCancel(String cancel) {
-		return draggableBehavior.setCancel(cancel);
+	public DraggableAjaxBehavior setCancel(String cancel) {
+		draggableBehavior.setCancel(cancel);
+		return this;
 	}
 	
 	/**
@@ -611,8 +616,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param connectToSortable
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setConnectToSortable(String connectToSortable) {
-		return draggableBehavior.setConnectToSortable(connectToSortable);
+	public DraggableAjaxBehavior setConnectToSortable(String connectToSortable) {
+		draggableBehavior.setConnectToSortable(connectToSortable);
+		return this;
 	}
 	
 	/**
@@ -627,8 +633,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param containment
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setContainment(DraggableContainment containment) {
-		return draggableBehavior.setContainment(containment);
+	public DraggableAjaxBehavior setContainment(DraggableContainment containment) {
+		draggableBehavior.setContainment(containment);
+		return this;
 	}
 	
 	/**
@@ -642,8 +649,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param cursor
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setCursor(String cursor) {
-		return draggableBehavior.setCursor(cursor);
+	public DraggableAjaxBehavior setCursor(String cursor) {
+		draggableBehavior.setCursor(cursor);
+		return this;
 	}
 	
 	/**
@@ -659,8 +667,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param cusorAt
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setCursorAt(ListItemOptions<DraggableCursorAt> cusorAt) {
-		return draggableBehavior.setCursorAt(cusorAt);
+	public DraggableAjaxBehavior setCursorAt(ListItemOptions<DraggableCursorAt> cusorAt) {
+		draggableBehavior.setCursorAt(cusorAt);
+		return this;
 	}
 	
 	/**
@@ -675,8 +684,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param delay
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setDelay(int delay) {
-		return draggableBehavior.setDelay(delay);
+	public DraggableAjaxBehavior setDelay(int delay) {
+		draggableBehavior.setDelay(delay);
+		return this;
 	}
 	
 	/**
@@ -691,8 +701,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param disabled
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setDisabled(boolean disabled) {
-		return draggableBehavior.setDisabled(disabled);
+	public DraggableAjaxBehavior setDisabled(boolean disabled) {
+		draggableBehavior.setDisabled(disabled);
+		return this;
 	}
 	
 	/**
@@ -708,8 +719,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param distance
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setDistance(int distance) {
-		return draggableBehavior.setDistance(distance);
+	public DraggableAjaxBehavior setDistance(int distance) {
+		draggableBehavior.setDistance(distance);
+		return this;
 	}
 	
 	/**
@@ -724,8 +736,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param y
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setGrid(int x, int y) {
-		return draggableBehavior.setGrid(x, y);
+	public DraggableAjaxBehavior setGrid(int x, int y) {
+		draggableBehavior.setGrid(x, y);
+		return this;
 	}
 	
 	/**
@@ -739,8 +752,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param handle
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setHandle(String handle) {
-		return draggableBehavior.setHandle(handle);
+	public DraggableAjaxBehavior setHandle(String handle) {
+		draggableBehavior.setHandle(handle);
+		return this;
 	}
 	
 	/**
@@ -756,8 +770,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param helper
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setHelper(DraggableHelper helper) {
-		return draggableBehavior.setHelper(helper);
+	public DraggableAjaxBehavior setHelper(DraggableHelper helper) {
+		draggableBehavior.setHelper(helper);
+		return this;
 	}
 	
 	/**
@@ -775,8 +790,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param iframeFix
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setIframeFix(DraggableIframeFix iframeFix) {
-		return draggableBehavior.setIframeFix(iframeFix);
+	public DraggableAjaxBehavior setIframeFix(DraggableIframeFix iframeFix) {
+		draggableBehavior.setIframeFix(iframeFix);
+		return this;
 	}
 	
 	/**
@@ -790,8 +806,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param opacity
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setOpacity(float opacity) {
-		return draggableBehavior.setOpacity(opacity);
+	public DraggableAjaxBehavior setOpacity(float opacity) {
+		draggableBehavior.setOpacity(opacity);
+		return this;
 	}
 	
 	/**
@@ -807,8 +824,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param refreshPositions
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setRefreshPositions(boolean refreshPositions) {
-		return draggableBehavior.setRefreshPositions(refreshPositions);
+	public DraggableAjaxBehavior setRefreshPositions(boolean refreshPositions) {
+		draggableBehavior.setRefreshPositions(refreshPositions);
+		return this;
 	}
 	
 	/**
@@ -825,8 +843,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param revert
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setRevert(DraggableRevert revert) {
-		return draggableBehavior.setRevert(revert);
+	public DraggableAjaxBehavior setRevert(DraggableRevert revert) {
+		draggableBehavior.setRevert(revert);
+		return this;
 	}
 	
 	/**
@@ -841,8 +860,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param revertDuration
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setRevertDuration(int revertDuration) {
-		return draggableBehavior.setRevertDuration(revertDuration);
+	public DraggableAjaxBehavior setRevertDuration(int revertDuration) {
+		draggableBehavior.setRevertDuration(revertDuration);
+		return this;
 	}
 	
 	/**
@@ -858,8 +878,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param scope
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setScope(String scope) {
-		return draggableBehavior.setScope(scope);
+	public DraggableAjaxBehavior setScope(String scope) {
+		draggableBehavior.setScope(scope);
+		return this;
 	}
 	
 	/**
@@ -873,8 +894,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param scroll
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setScroll(boolean scroll) {
-		return draggableBehavior.setScroll(scroll);
+	public DraggableAjaxBehavior setScroll(boolean scroll) {
+		draggableBehavior.setScroll(scroll);
+		return this;
 	}
 	
 	/**
@@ -889,8 +911,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param scrollSensitivity
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setScrollSensitivity(int scrollSensitivity) {
-		return draggableBehavior.setScrollSensitivity(scrollSensitivity);
+	public DraggableAjaxBehavior setScrollSensitivity(int scrollSensitivity) {
+		draggableBehavior.setScrollSensitivity(scrollSensitivity);
+		return this;
 	}
 	
 	/**
@@ -905,8 +928,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param scrollSpeed
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setScrollSpeed(int scrollSpeed) {
-		return draggableBehavior.setScrollSpeed(scrollSpeed);
+	public DraggableAjaxBehavior setScrollSpeed(int scrollSpeed) {
+		draggableBehavior.setScrollSpeed(scrollSpeed);
+		return this;
 	}
 	
 	/**
@@ -922,8 +946,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param snap
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setSnap(DraggableSnap snap) {
-		return draggableBehavior.setSnap(snap);
+	public DraggableAjaxBehavior setSnap(DraggableSnap snap) {
+		draggableBehavior.setSnap(snap);
+		return this;
 	}
 	
 	/**
@@ -938,8 +963,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param snapMode
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setSnapMode(SnapModeEnum snapMode) {
-		return draggableBehavior.setSnapMode(snapMode);
+	public DraggableAjaxBehavior setSnapMode(SnapModeEnum snapMode) {
+		draggableBehavior.setSnapMode(snapMode);
+		return this;
 	}
 
 	/**
@@ -954,8 +980,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param snapTolerance
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setSnapTolerance(int snapTolerance) {
-		return draggableBehavior.setSnapTolerance(snapTolerance);
+	public DraggableAjaxBehavior setSnapTolerance(int snapTolerance) {
+		draggableBehavior.setSnapTolerance(snapTolerance);
+		return this;
 	}
 	
 	/**
@@ -973,8 +1000,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param stack
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setStack(String stack) {
-		return draggableBehavior.setStack(stack);
+	public DraggableAjaxBehavior setStack(String stack) {
+		draggableBehavior.setStack(stack);
+		return this;
 	}
 	
 	/**
@@ -988,8 +1016,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param zIndex
 	 * @return instance of the current behavior
 	 */
-	public DraggableBehavior setZIndex(int zIndex) {
-		return draggableBehavior.setZIndex(zIndex);
+	public DraggableAjaxBehavior setZIndex(int zIndex) {
+		draggableBehavior.setZIndex(zIndex);
+		return this;
 	}
 	
 	/**

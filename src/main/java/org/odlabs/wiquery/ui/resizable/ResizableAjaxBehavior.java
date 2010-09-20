@@ -252,8 +252,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param alsoResize
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAlsoResize(ResizableAlsoResize alsoResize) {
-		return resizableBehavior.setAlsoResize(alsoResize);
+	public ResizableAjaxBehavior setAlsoResize(ResizableAlsoResize alsoResize) {
+		resizableBehavior.setAlsoResize(alsoResize);
+		return this;
 	}
 
 	/**
@@ -267,8 +268,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param animate
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAnimate(boolean animate) {
-		return resizableBehavior.setAnimate(animate);
+	public ResizableAjaxBehavior setAnimate(boolean animate) {
+		resizableBehavior.setAnimate(animate);
+		return this;
 	}
 
 	/**
@@ -283,8 +285,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * Other possible values: 'slow', 'normal', 'fast'.
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAnimateDuration(ResizableAnimeDuration animeDuration) {
-		return resizableBehavior.setAnimateDuration(animeDuration);
+	public ResizableAjaxBehavior setAnimateDuration(ResizableAnimeDuration animeDuration) {
+		resizableBehavior.setAnimateDuration(animeDuration);
+		return this;
 	}
 	
 	/**
@@ -298,8 +301,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param easing
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAnimateEasing(String easing) {
-		return resizableBehavior.setAnimateEasing(easing);
+	public ResizableAjaxBehavior setAnimateEasing(String easing) {
+		resizableBehavior.setAnimateEasing(easing);
+		return this;
 	}
 
 	/**
@@ -315,8 +319,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param aspectRatio
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAspectRatio(ResizableAspectRatio aspectRatio) {
-		return resizableBehavior.setAspectRatio(aspectRatio);
+	public ResizableAjaxBehavior setAspectRatio(ResizableAspectRatio aspectRatio) {
+		resizableBehavior.setAspectRatio(aspectRatio);
+		return this;
 	}
 	
 	/**
@@ -331,8 +336,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param autoHide
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAutoHide(boolean autoHide) {
-		return resizableBehavior.setAutoHide(autoHide);
+	public ResizableAjaxBehavior setAutoHide(boolean autoHide) {
+		resizableBehavior.setAutoHide(autoHide);
+		return this;
 	}
 	
 	/**
@@ -346,8 +352,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param cancel
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setCancel(String cancel) {
-		return resizableBehavior.setCancel(cancel);
+	public ResizableAjaxBehavior setCancel(String cancel) {
+		resizableBehavior.setCancel(cancel);
+		return this;
 	}
 	
 	/**
@@ -363,8 +370,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param containment
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setContainment(ResizableContainment containment) {
-		return resizableBehavior.setContainment(containment);
+	public ResizableAjaxBehavior setContainment(ResizableContainment containment) {
+		resizableBehavior.setContainment(containment);
+		return this;
 	}
 	
 	/**
@@ -380,8 +388,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param delay
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setDelay(int delay) {
-		return resizableBehavior.setDelay(delay);
+	public ResizableAjaxBehavior setDelay(int delay) {
+		resizableBehavior.setDelay(delay);
+		return this;
 	}
 	
 	/**
@@ -397,8 +406,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param distance
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setDistance(int distance) {
-		return resizableBehavior.setDistance(distance);
+	public ResizableAjaxBehavior setDistance(int distance) {
+		resizableBehavior.setDistance(distance);
+		return this;
 	}
 	
 	/**
@@ -413,8 +423,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param disabled
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setDisabled(boolean disabled) {
-		return resizableBehavior.setDisabled(disabled);
+	public ResizableAjaxBehavior setDisabled(boolean disabled) {
+		resizableBehavior.setDisabled(disabled);
+		return this;
 	}
 	
 	/**
@@ -428,8 +439,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param ghost
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setGhost(boolean ghost) {
-		return resizableBehavior.setGhost(ghost);
+	public ResizableAjaxBehavior setGhost(boolean ghost) {
+		resizableBehavior.setGhost(ghost);
+		return this;
 	}
 	
 	/**
@@ -445,8 +457,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param y
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setGrid(int x, int y) {
-		return resizableBehavior.setGrid(x, y);
+	public ResizableAjaxBehavior setGrid(int x, int y) {
+		resizableBehavior.setGrid(x, y);
+		return this;
 	}
 	
 	/**
@@ -469,8 +482,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param handles
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setHandles(ResizableHandles handles) {
-		return resizableBehavior.setHandles(handles);
+	public ResizableAjaxBehavior setHandles(ResizableHandles handles) {
+		resizableBehavior.setHandles(handles);
+		return this;
 	}
 	
 	/**
@@ -486,8 +500,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param helper
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setHelper(String helper) {
-		return resizableBehavior.setHelper(helper);
+	public ResizableAjaxBehavior setHelper(String helper) {
+		resizableBehavior.setHelper(helper);
+		return this;
 	}
 	
 	/**
@@ -501,8 +516,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * Sets the component's max height.
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setMaxHeight(int maxHeight) {
-		return resizableBehavior.setMaxHeight(maxHeight);
+	public ResizableAjaxBehavior setMaxHeight(int maxHeight) {
+		resizableBehavior.setMaxHeight(maxHeight);
+		return this;
 	}
 
 	/**
@@ -516,8 +532,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * Sets the window's max width.
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setMaxWidth(int maxWidth) {
-		return resizableBehavior.setMaxWidth(maxWidth);
+	public ResizableAjaxBehavior setMaxWidth(int maxWidth) {
+		resizableBehavior.setMaxWidth(maxWidth);
+		return this;
 	}
 
 	/**
@@ -531,8 +548,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * Sets the component's min height.
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setMinHeight(int minHeight) {
-		return resizableBehavior.setMinHeight(minHeight);
+	public ResizableAjaxBehavior setMinHeight(int minHeight) {
+		resizableBehavior.setMinHeight(minHeight);
+		return this;
 	}
 
 	/**
@@ -546,8 +564,9 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * Sets the component's min width.
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setMinWidth(int minWidth) {
-		return resizableBehavior.setMinWidth(minWidth);
+	public ResizableAjaxBehavior setMinWidth(int minWidth) {
+		resizableBehavior.setMinWidth(minWidth);
+		return this;
 	}
 
 	/**

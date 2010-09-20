@@ -279,8 +279,9 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * @param autoRefresh
 	 * @return instance of the current behavior
 	 */
-	public SelectableBehavior setAutoRefresh(boolean autoRefresh) {
-		return selectableBehavior.setAutoRefresh(autoRefresh);
+	public SelectableAjaxBehavior setAutoRefresh(boolean autoRefresh) {
+		selectableBehavior.setAutoRefresh(autoRefresh);
+		return this;
 	}
 	
 	/**Disables (true) or enables (false) the selectable. Can be set when 
@@ -288,8 +289,9 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * @param disabled
 	 * @return instance of the current behavior
 	 */
-	public SelectableBehavior setDisabled(boolean disabled) {
-		return selectableBehavior.setDisabled(disabled);
+	public SelectableAjaxBehavior setDisabled(boolean disabled) {
+		selectableBehavior.setDisabled(disabled);
+		return this;
 	}
 	
 	/**
@@ -303,32 +305,36 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * @param cancel Selector (default : ':input,option')
 	 * @return instance of the current behavior
 	 */
-	public SelectableBehavior setCancel(String cancel) {
-		return selectableBehavior.setCancel(cancel);
+	public SelectableAjaxBehavior setCancel(String cancel) {
+		selectableBehavior.setCancel(cancel);
+		return this;
 	}
 
 	/** Set's the delay (in milliseconds) to define when the selecting should start
 	 * @param delay
 	 * @return instance of the current behavior
 	 */
-	public SelectableBehavior setDelay(int delay) {
-		return selectableBehavior.setDelay(delay);
+	public SelectableAjaxBehavior setDelay(int delay) {
+		selectableBehavior.setDelay(delay);
+		return this;
 	}
 
 	/** Set's the tolerance in pixels
 	 * @param distance
 	 * @return instance of the current behavior
 	 */
-	public SelectableBehavior setDistance(int distance) {
-		return selectableBehavior.setDistance(distance);
+	public SelectableAjaxBehavior setDistance(int distance) {
+		selectableBehavior.setDistance(distance);
+		return this;
 	}
 
 	/** Set's the matching child to be selectable
 	 * @param filter Selector (default : '*')
 	 * @return instance of the current behavior
 	 */
-	public SelectableBehavior setFilter(String filter) {
-		return selectableBehavior.setFilter(filter);
+	public SelectableAjaxBehavior setFilter(String filter) {
+		selectableBehavior.setFilter(filter);
+		return this;
 	}
 
 	/** Set's the tolerance
@@ -339,8 +345,9 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * @param tolerance
 	 * @return instance of the current behavior
 	 */
-	public SelectableBehavior setTolerance(ToleranceEnum tolerance) {
-		return selectableBehavior.setTolerance(tolerance);
+	public SelectableAjaxBehavior setTolerance(ToleranceEnum tolerance) {
+		selectableBehavior.setTolerance(tolerance);
+		return this;
 	}
 	
 	/*---- Methods section ----*/

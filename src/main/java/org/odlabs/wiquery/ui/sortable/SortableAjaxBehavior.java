@@ -604,8 +604,9 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param disabled
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setDisabled(boolean disabled) {
-		return sortableBehavior.setDisabled(disabled);
+	public SortableAjaxBehavior<E> setDisabled(boolean disabled) {
+		sortableBehavior.setDisabled(disabled);
+		return this;
 	}
 	
 	/**
@@ -648,8 +649,9 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param appendTo
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setAppendTo(String appendTo) {
-		return sortableBehavior.setAppendTo(appendTo);
+	public SortableAjaxBehavior<E>  setAppendTo(String appendTo) {
+		sortableBehavior.setAppendTo(appendTo);
+		return this;
 	}
 	
 	/**If defined, the items can be dragged only horizontally or vertically. 
@@ -657,16 +659,18 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param axis
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setAxis(AxisEnum axis) {
-		return sortableBehavior.setAxis(axis);
+	public SortableAjaxBehavior<E>  setAxis(AxisEnum axis) {
+		sortableBehavior.setAxis(axis);
+		return this;
 	}
 	
 	/** Set's the prevent selecting if you start on elements matching the selector
 	 * @param cancel Selector (default : ':input,option')
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setCancel(String cancel) {
-		return sortableBehavior.setCancel(cancel);
+	public SortableAjaxBehavior<E>  setCancel(String cancel) {
+		sortableBehavior.setCancel(cancel);
+		return this;
 	}
 	
 	/**Set a jQuery selector with items that also have sortables applied. 
@@ -675,8 +679,9 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param connectWith Selector
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setConnectWith(String connectWith) {
-		return sortableBehavior.setConnectWith(connectWith);
+	public SortableAjaxBehavior<E>  setConnectWith(String connectWith) {
+		sortableBehavior.setConnectWith(connectWith);
+		return this;
 	}
 	
 	/**Constrains dragging to within the bounds of the specified element - 
@@ -684,16 +689,18 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param containment
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setContainment(SortableContainment containment) {
-		return sortableBehavior.setContainment(containment);
+	public SortableAjaxBehavior<E>  setContainment(SortableContainment containment) {
+		sortableBehavior.setContainment(containment);
+		return this;
 	}
 	
 	/**Set the cursor that is being shown while sorting
 	 * @param cursor
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setCursor(String cursor) {
-		return sortableBehavior.setCursor(cursor);
+	public SortableAjaxBehavior<E>  setCursor(String cursor) {
+		sortableBehavior.setCursor(cursor);
+		return this;
 	}
 	
 	/**Moves the sorting element or helper so the cursor always appears to drag 
@@ -702,48 +709,54 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param cusorAt
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setCursorAt(CursorAtEnum cusorAt) {
-		return sortableBehavior.setCursorAt(cusorAt);
+	public SortableAjaxBehavior<E>  setCursorAt(CursorAtEnum cusorAt) {
+		sortableBehavior.setCursorAt(cusorAt);
+		return this;
 	}
 	
 	/** Set's the delay (in milliseconds) to define when the sorting should start
 	 * @param delay
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setDelay(int delay) {
-		return sortableBehavior.setDelay(delay);
+	public SortableAjaxBehavior<E>  setDelay(int delay) {
+		sortableBehavior.setDelay(delay);
+		return this;
 	}
 
 	/** Set's the tolerance in pixels
 	 * @param distance
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setDistance(int distance) {
-		return sortableBehavior.setDistance(distance);
+	public SortableAjaxBehavior<E>  setDistance(int distance) {
+		sortableBehavior.setDistance(distance);
+		return this;
 	}
 	
 	/**If empty allows for an item to be dropped from a linked selectable.
 	 * @param dropOnEmpty
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setDropOnEmpty(boolean dropOnEmpty) {
-		return sortableBehavior.setDropOnEmpty(dropOnEmpty);
+	public SortableAjaxBehavior<E>  setDropOnEmpty(boolean dropOnEmpty) {
+		sortableBehavior.setDropOnEmpty(dropOnEmpty);
+		return this;
 	}
 	
 	/**If true, forces the helper to have a size.
 	 * @param forceHelperSize
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setForceHelperSize(boolean forceHelperSize) {
-		return sortableBehavior.setForceHelperSize(forceHelperSize);
+	public SortableAjaxBehavior<E>  setForceHelperSize(boolean forceHelperSize) {
+		sortableBehavior.setForceHelperSize(forceHelperSize);
+		return this;
 	}
 	
 	/**If true, forces the placeholder to have a size.
 	 * @param forcePlaceholderSize
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setForcePlaceholderSize(boolean forcePlaceholderSize) {
-		return sortableBehavior.setForcePlaceholderSize(forcePlaceholderSize);
+	public SortableAjaxBehavior<E>  setForcePlaceholderSize(boolean forcePlaceholderSize) {
+		sortableBehavior.setForcePlaceholderSize(forcePlaceholderSize);
+		return this;
 	}
 	
 	/**Snaps the sorting element or helper to a grid, every x and y pixels. 
@@ -752,16 +765,18 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param y
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setGrid(int x, int y) {
-		return sortableBehavior.setGrid(x, y);
+	public SortableAjaxBehavior<E>  setGrid(int x, int y) {
+		sortableBehavior.setGrid(x, y);
+		return this;
 	}
 	
 	/**Restricts sort start click to the specified element.
 	 * @param handle
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setHandle(String handle) {
-		return sortableBehavior.setHandle(handle);
+	public SortableAjaxBehavior<E>  setHandle(String handle) {
+		sortableBehavior.setHandle(handle);
+		return this;
 	}
 	
 	/**Allows for a helper element to be used for dragging display. The supplied
@@ -771,32 +786,36 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param helper
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setHelper(SortableHelper helper) {
-		return sortableBehavior.setHelper(helper);
+	public SortableAjaxBehavior<E>  setHelper(SortableHelper helper) {
+		sortableBehavior.setHelper(helper);
+		return this;
 	}
 	
 	/**Specifies which items inside the element should be sortable.
 	 * @param items Cursor (default : '> *')
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setItems(String items) {
-		return sortableBehavior.setItems(items);
+	public SortableAjaxBehavior<E>  setItems(String items) {
+		sortableBehavior.setItems(items);
+		return this;
 	}
 	
 	/**Set the opacity of the helper while sorting. From 0.01 to 1
 	 * @param opacity
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setOpacity(float opacity) {
-		return sortableBehavior.setOpacity(opacity);
+	public SortableAjaxBehavior<E>  setOpacity(float opacity) {
+		sortableBehavior.setOpacity(opacity);
+		return this;
 	}
 	
 	/**Set's the class that gets applied to the otherwise white space.
 	 * @param placeholder
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setPlaceholder(String placeholder) {
-		return sortableBehavior.setPlaceholder(placeholder);
+	public SortableAjaxBehavior<E>  setPlaceholder(String placeholder) {
+		sortableBehavior.setPlaceholder(placeholder);
+		return this;
 	}
 	
 	/**If set to true, the item will be reverted to its new DOM position with 
@@ -804,24 +823,27 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param revert
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setRevert(SortableRevert revert) {
-		return sortableBehavior.setRevert(revert);
+	public SortableAjaxBehavior<E>  setRevert(SortableRevert revert) {
+		sortableBehavior.setRevert(revert);
+		return this;
 	}
 	
 	/**If set to true, the page scrolls when coming to an edge.
 	 * @param scroll
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setScroll(boolean scroll) {
-		return sortableBehavior.setScroll(scroll);
+	public SortableAjaxBehavior<E>  setScroll(boolean scroll) {
+		sortableBehavior.setScroll(scroll);
+		return this;
 	}
 
 	/**Defines how near the mouse must be to an edge to start scrolling.
 	 * @param scrollSensitivity
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setScrollSensitivity(int scrollSensitivity) {
-		return sortableBehavior.setScrollSensitivity(scrollSensitivity);
+	public SortableAjaxBehavior<E>  setScrollSensitivity(int scrollSensitivity) {
+		sortableBehavior.setScrollSensitivity(scrollSensitivity);
+		return this;
 	}
 	
 	/**The speed at which the window should scroll once the mouse pointer gets 
@@ -829,8 +851,9 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param scrollSpeed
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setScrollSpeed(int scrollSpeed) {
-		return sortableBehavior.setScrollSpeed(scrollSpeed);
+	public SortableAjaxBehavior<E>  setScrollSpeed(int scrollSpeed) {
+		sortableBehavior.setScrollSpeed(scrollSpeed);
+		return this;
 	}
 
 	/** Set's the tolerance
@@ -841,16 +864,18 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * @param tolerance
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setTolerance(ToleranceEnum tolerance) {
-		return sortableBehavior.setTolerance(tolerance);
+	public SortableAjaxBehavior<E>  setTolerance(ToleranceEnum tolerance) {
+		sortableBehavior.setTolerance(tolerance);
+		return this;
 	}
 
 	/**Set's Z-index for element/helper while being sorted.
 	 * @param zIndex
 	 * @return instance of the current behavior
 	 */
-	public SortableBehavior setZIndex(int zIndex) {
-		return sortableBehavior.setZIndex(zIndex);
+	public SortableAjaxBehavior<E>  setZIndex(int zIndex) {
+		sortableBehavior.setZIndex(zIndex);
+		return this;
 	}
 	
 	/*---- Methods section ----*/
