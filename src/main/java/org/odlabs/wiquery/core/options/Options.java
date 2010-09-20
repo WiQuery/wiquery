@@ -109,10 +109,11 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public boolean getBoolean(String key) {
+	public Boolean getBoolean(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Boolean);
-		return ((Boolean) this.options.get(key)).booleanValue();
+		if(object instanceof Boolean)
+			return ((Boolean) this.options.get(key)).booleanValue();
+		return null;
 	}
 
 	/**
@@ -125,11 +126,9 @@ public class Options implements Serializable {
 	 */
 	public IComplexOption getComplexOption(String key) {
 		Object object = this.options.get(key);
-		if (object == null) {
-			return null;
-		}
-		assert (object instanceof IComplexOption);
-		return (IComplexOption) object;
+		if(object instanceof IComplexOption)
+			return (IComplexOption) object;
+		return null;
 	}
 	
 	/**
@@ -140,10 +139,11 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public double getDouble(String key) {
+	public Double getDouble(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Double);
-		return ((Double) this.options.get(key)).doubleValue();
+		if(object instanceof Double)
+			return ((Double) this.options.get(key)).doubleValue();
+		return null;
 	}
 
 	/**
@@ -154,10 +154,11 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public float getFloat(String key) {
+	public Float getFloat(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Float);
-		return ((Float) this.options.get(key)).floatValue();
+		if(object instanceof Float)
+			return ((Float) this.options.get(key)).floatValue();
+		return null;
 	}
 
 	/**
@@ -168,10 +169,11 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public int getInt(String key) {
+	public Integer getInt(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Integer);
-		return ((Integer) object).intValue();
+		if(object instanceof Integer)
+			return ((Integer) object).intValue();
+		return null;
 	}
 
 	/**
@@ -219,12 +221,10 @@ public class Options implements Serializable {
 	 * @return the list
 	 */
 	public ICollectionItemOptions getListItemOptions(String key) {
-		Object object = this.options.get(key);
-		if (object == null) {
-			return null;
-		}
-		assert (object instanceof ICollectionItemOptions);
-		return (ICollectionItemOptions) object;
+		Object object = this.options.get(key);		
+		if(object instanceof ICollectionItemOptions)
+			return (ICollectionItemOptions) object;
+		return null;
 	}
 	
 	/**
@@ -236,12 +236,10 @@ public class Options implements Serializable {
 	 *            the option name.
 	 */
 	public String getLiteral(String key) {
-		Object object = this.options.get(key);
-		if (object == null) {
-			return null;
-		}
-		assert (object instanceof LiteralOption);
-		return ((LiteralOption) object).getLiteral();
+		Object object = this.options.get(key);		
+		if(object instanceof LiteralOption)
+			return ((LiteralOption) object).getLiteral();
+		return null;
 	}
 
 	/**
@@ -252,10 +250,11 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public short getShort(String key) {
+	public Short getShort(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Short);
-		return ((Short) object).shortValue();
+		if(object instanceof Short)
+			return ((Short) object).shortValue();
+		return null;
 	}
 
 	/**

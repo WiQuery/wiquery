@@ -76,7 +76,7 @@ public class OptionsTestCase extends TestCase{
 		options.put("keyInt", 1);
 		
 		Assert.assertFalse(options.isEmpty());
-		Assert.assertEquals(1, options.getInt("keyInt"));
+		Assert.assertEquals(1, options.getInt("keyInt").intValue());
 	}
 	
 	@Test
