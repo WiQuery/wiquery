@@ -93,7 +93,9 @@ public class Options implements Serializable {
 	 */
 	public String get(String key) {
 		Object object = options.get(key);
-		return object.toString();
+		if(object != null)
+			return object.toString();
+		return null;
 	}
 
 	/**
@@ -104,10 +106,11 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public int getInt(String key) {
+	public Integer getInt(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Integer);
-		return ((Integer) object).intValue();
+		if(object instanceof Integer)
+			return ((Integer) object).intValue();
+		return null;
 	}
 
 	/**
@@ -118,10 +121,12 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public short getShort(String key) {
+	public Short getShort(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Short);
-		return ((Short) object).shortValue();
+		if(object instanceof Short)
+			return ((Short) object).shortValue();
+		else 
+			return null;
 	}
 	
 	/**
@@ -132,10 +137,11 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public double getDouble(String key) {
+	public Double getDouble(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Double);
-		return ((Double) this.options.get(key)).doubleValue();
+		if(object instanceof Double)
+			return ((Double) this.options.get(key)).doubleValue();
+		return null;
 	}
 
 	/**
@@ -146,10 +152,11 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public float getFloat(String key) {
+	public Float getFloat(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Float);
-		return ((Float) this.options.get(key)).floatValue();
+		if(object instanceof Float)
+			return ((Float) this.options.get(key)).floatValue();
+		return null;
 	}
 
 	/**
@@ -160,10 +167,12 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public boolean getBoolean(String key) {
+	public Boolean getBoolean(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Boolean);
-		return ((Boolean) this.options.get(key)).booleanValue();
+		if(object instanceof Boolean)
+			return ((Boolean) this.options.get(key)).booleanValue();
+		else 
+			return null; 
 	}
 
 	/**
@@ -179,8 +188,9 @@ public class Options implements Serializable {
 		if (object == null) {
 			return null;
 		}
-		assert (object instanceof LiteralOption);
-		return ((LiteralOption) object).getLiteral();
+		if(object instanceof LiteralOption)
+			return ((LiteralOption) object).getLiteral();
+		return null;
 	}
 	
 	/**
