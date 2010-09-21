@@ -28,6 +28,7 @@ import java.util.ListIterator;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
@@ -65,6 +66,7 @@ public class WiQuerySettings implements Serializable {
 	// Properties
 	private boolean autoImportJQueryResource;
 	private List<WiQueryPluginRenderingListener> listeners;
+	private JavascriptResourceReference jQueryCoreResourceReference;
 	
 	/**
 	 * Default constructor
@@ -74,6 +76,7 @@ public class WiQuerySettings implements Serializable {
 		
 		autoImportJQueryResource = true;
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
+		jQueryCoreResourceReference = null;
 	}
 	
 	/**
@@ -100,10 +103,27 @@ public class WiQuerySettings implements Serializable {
 	}
 	
 	/**
-	 * Set the autoImportJQueryResource option
+	 * Set the autoImportJQueryResource option. If false, the jQuery core resource
+	 * will be not loaded
 	 * @param autoImportJQueryResource
 	 */
 	public void setAutoImportJQueryResource(boolean autoImportJQueryResource) {
 		this.autoImportJQueryResource = autoImportJQueryResource;
+	}
+
+	/**
+	 * @return the {@link JavascriptResourceReference} where we can find the jQuery core
+	 */
+	public JavascriptResourceReference getJQueryCoreResourceReference() {
+		return jQueryCoreResourceReference;
+	}
+	
+	/**
+	 * Set the jQuery core to use
+	 * @param jQueryCoreResourceReference
+	 */
+	public void setJQueryCoreResourceReference(
+			JavascriptResourceReference jQueryCoreResourceReference) {
+		this.jQueryCoreResourceReference = jQueryCoreResourceReference;
 	}
 }

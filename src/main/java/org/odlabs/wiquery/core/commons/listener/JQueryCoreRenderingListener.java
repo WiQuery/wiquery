@@ -24,6 +24,7 @@ package org.odlabs.wiquery.core.commons.listener;
 import java.io.Serializable;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
@@ -38,7 +39,8 @@ import org.odlabs.wiquery.core.commons.WiQuerySettings;
  * @since TODO indicate wickext version
  */
 public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListener, Serializable {
-
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3644333357586234429L;
 
 	/**
@@ -46,8 +48,11 @@ public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListen
 	 */
 	public void onRender(IWiQueryPlugin plugin,
 			WiQueryResourceManager resourceManager, IHeaderResponse response) {
-		if(WiQuerySettings.get().isAutoImportJQueryResource()){
-			response.renderJavascriptReference(CoreJavaScriptResourceReference.get());	
+		WiQuerySettings settings = WiQuerySettings.get();
+		
+		if(settings.isAutoImportJQueryResource()){
+			JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
+			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
 		}		
 	}
 	
