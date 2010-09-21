@@ -29,6 +29,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
 import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReference;
@@ -128,8 +129,11 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
 	 */
 	public void renderHead(IHeaderResponse response) {
-		if(WiQuerySettings.get().isAutoImportJQueryResource()){
-			response.renderJavascriptReference(CoreJavaScriptResourceReference.get());
+		WiQuerySettings settings = WiQuerySettings.get();
+		
+		if(settings.isAutoImportJQueryResource()){
+			JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
+			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
 		}
 		
 		IRequestTarget requestTarget = component.getRequestCycle()
@@ -177,8 +181,11 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 */
 	public void renderHead(IHeaderResponse response,
 			IRequestTarget requestTarget) {
-		if(WiQuerySettings.get().isAutoImportJQueryResource()){
-			response.renderJavascriptReference(CoreJavaScriptResourceReference.get());
+		WiQuerySettings settings = WiQuerySettings.get();
+		
+		if(settings.isAutoImportJQueryResource()){
+			JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
+			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
 		}
 		
 		String js = statement == null ? null : statement.render().toString();

@@ -28,6 +28,7 @@ import java.util.ListIterator;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
@@ -66,6 +67,7 @@ public class WiQuerySettings implements Serializable {
 	private boolean autoImportJQueryResource;
 	private boolean enableResourcesMerging;
 	private List<WiQueryPluginRenderingListener> listeners;
+	private JavascriptResourceReference jQueryCoreResourceReference;
 	
 	/**
 	 * Default constructor
@@ -75,6 +77,7 @@ public class WiQuerySettings implements Serializable {
 		
 		autoImportJQueryResource = true;
 		enableResourcesMerging = false;
+		jQueryCoreResourceReference = null;
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
 	}
 	
@@ -122,5 +125,22 @@ public class WiQuerySettings implements Serializable {
 	 */
 	public void setEnableResourcesMerging(boolean enableResourcesMerging) {
 		this.enableResourcesMerging = enableResourcesMerging;
+	}
+	
+
+	/**
+	 * @return the {@link JavascriptResourceReference} where we can find the jQuery core
+	 */
+	public JavascriptResourceReference getJQueryCoreResourceReference() {
+		return jQueryCoreResourceReference;
+	}
+	
+	/**
+	 * Set the jQuery core to use
+	 * @param jQueryCoreResourceReference
+	 */
+	public void setJQueryCoreResourceReference(
+			JavascriptResourceReference jQueryCoreResourceReference) {
+		this.jQueryCoreResourceReference = jQueryCoreResourceReference;
 	}
 }
