@@ -21,12 +21,14 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.model.IDetachable;
+import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.javascript.JsScope;
 
 /**
@@ -49,9 +51,11 @@ import org.odlabs.wiquery.core.javascript.JsScope;
  * </p>
  * 
  * @author Lionel Armanet
+ * @author Hielke Hoeve
+ * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class Options implements Serializable {
+public class Options implements IModel<Options> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -98,7 +102,12 @@ public class Options implements Serializable {
 	 */
 	public String get(String key) {
 		Object object = options.get(key);
-		return object == null ? null : object.toString();
+		if(object instanceof StringOption) {
+			return ((StringOption)object).getValue();
+		} else if(object   != null) {
+			return object.toString();
+		}
+		return null;
 	}
 
 	/**
@@ -111,8 +120,10 @@ public class Options implements Serializable {
 	 */
 	public Boolean getBoolean(String key) {
 		Object object = this.options.get(key);
-		if(object instanceof Boolean)
-			return ((Boolean) this.options.get(key)).booleanValue();
+		if(object instanceof BooleanOption) {
+			BooleanOption option = ((BooleanOption)object);
+			return option.getValue();
+		}
 		return null;
 	}
 
@@ -141,8 +152,10 @@ public class Options implements Serializable {
 	 */
 	public Double getDouble(String key) {
 		Object object = this.options.get(key);
-		if(object instanceof Double)
-			return ((Double) this.options.get(key)).doubleValue();
+		if(object instanceof DoubleOption) {
+			DoubleOption option = ((DoubleOption)object);
+			return option.getValue();
+		}
 		return null;
 	}
 
@@ -156,8 +169,10 @@ public class Options implements Serializable {
 	 */
 	public Float getFloat(String key) {
 		Object object = this.options.get(key);
-		if(object instanceof Float)
-			return ((Float) this.options.get(key)).floatValue();
+		if(object instanceof FloatOption) {
+			FloatOption option = ((FloatOption)object);
+			return option.getValue();
+		}
 		return null;
 	}
 
@@ -171,8 +186,10 @@ public class Options implements Serializable {
 	 */
 	public Integer getInt(String key) {
 		Object object = this.options.get(key);
-		if(object instanceof Integer)
-			return ((Integer) object).intValue();
+		if(object instanceof IntegerOption) {
+			IntegerOption option = ((IntegerOption)object);
+			return option.getValue();
+		}
 		return null;
 	}
 
@@ -201,7 +218,10 @@ public class Options implements Serializable {
 				// Case of an IComplexOption
 				sb.append(this.optionsRenderer.renderOption(key,
 						((IComplexOption)value).getJavascriptOption(), isLast));
-			} 
+			} else if (value instanceof ITypedOption<?>) {
+				// Case of an IComplexOption
+				sb.append(this.optionsRenderer.renderOption(key,((ITypedOption<?>)value).getJavascriptOption(), isLast));
+			}
 			else {
 				// Other cases
 				sb.append(this.optionsRenderer.renderOption(key, value,	isLast));
@@ -252,8 +272,10 @@ public class Options implements Serializable {
 	 */
 	public Short getShort(String key) {
 		Object object = this.options.get(key);
-		if(object instanceof Short)
-			return ((Short) object).shortValue();
+		if(object instanceof ShortOption) {
+			ShortOption option = ((ShortOption)object);
+			return option.getValue();
+		}
 		return null;
 	}
 
@@ -275,10 +297,25 @@ public class Options implements Serializable {
 	 *            the boolean value.
 	 */
 	public Options put(String key, boolean value) {
-		options.put(key, value);
+		options.put(key, new BooleanOption(value));
 		return this;
 	}
 
+	/**
+	 * <p>
+	 * Put an boolean value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the boolean value.
+	 */
+	public Options putBoolean(String key, IModel<Boolean> value) {
+		options.put(key, new BooleanOption(value));
+		return this;
+	}
+	
 	/**
 	 * <p>
 	 * Puts an double value for the given option name.
@@ -290,12 +327,51 @@ public class Options implements Serializable {
 	 *            the float double.
 	 */
 	public Options put(String key, double value) {
-		options.put(key, value);
+		options.put(key, new DoubleOption(value));
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * 	Puts an IModel &lt;Double&gt; value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the float value.
+	 */
+	public Options putDouble(String key, IModel<Double> value) {
+		options.put(key, new DoubleOption(value));
 		return this;
 	}
 	
+	/**
+	 * <p>
+	 * 	Puts an float value for the given option name.
+	 * </p>
+	 * 
+	 * @param key the option name
+	 * @param value The float value
+	 * @return
+	 */
 	public Options put(String key, float value) {
-		options.put(key, value);
+		options.put(key, new FloatOption(value));
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * 	Puts an IModel &lt;Double&gt; value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the float double.
+	 */
+	public Options putFloat(String key, IModel<Float> value) {
+		options.put(key, new FloatOption(value));
 		return this;
 	}
 	
@@ -309,7 +385,7 @@ public class Options implements Serializable {
 	 * @param value
 	 *            the IListItemOption list.
 	 */
-	public Options put(String key, ICollectionItemOptions value){
+	public Options put(String key, ICollectionItemOptions value) {
 		options.put(key, value);
 		return this;
 	}
@@ -324,7 +400,7 @@ public class Options implements Serializable {
 	 * @param value
 	 *            the IComplexOption.
 	 */
-	public Options put(String key, IComplexOption value){
+	public Options put(String key, IComplexOption value) {
 		options.put(key, value);
 		return this;
 	}
@@ -340,10 +416,25 @@ public class Options implements Serializable {
 	 *            the int value.
 	 */
 	public Options put(String key, int value) {
-		options.put(key, value);
+		options.put(key, new IntegerOption(value));
 		return this;
 	}
 
+	/**
+	 * <p>
+	 * Puts an int value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the int value.
+	 */
+	public Options putInteger(String key, IModel<Integer> value) {
+		options.put(key, new IntegerOption(value));
+		return this;
+	}
+	
 	/**
 	 * <p>
 	 * Puts a {@link JsScope} value for the given option name.
@@ -370,7 +461,22 @@ public class Options implements Serializable {
 	 *            the short value.
 	 */
 	public Options put(String key, short value) {
-		options.put(key, value);
+		options.put(key, new ShortOption(value));
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts an short value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the short value.
+	 */
+	public Options putShort(String key, IModel<Short> value) {
+		options.put(key, new ShortOption(value));
 		return this;
 	}
 	
@@ -385,7 +491,22 @@ public class Options implements Serializable {
 	 *            the {@link String} value.
 	 */
 	public Options put(String key, String value) {
-		options.put(key, value);
+		options.put(key, new StringOption(value));
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts a {@link String} value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link String} value.
+	 */
+	public Options putString(String key, IModel<String> value) {
+		options.put(key, new StringOption(value));
 		return this;
 	}
 	
@@ -393,8 +514,7 @@ public class Options implements Serializable {
 	 * <p>
 	 * Puts a {@link String} value as a JavaScript literal for the given name.
 	 * <p>
-	 * Note that the JavaScript resulting from this options will be
-	 * <code>'value'</code>
+	 * Note that the JavaScript resulting from this options will be <code>'value'</code>
 	 * </p>
 	 * </p>
 	 * 
@@ -404,6 +524,24 @@ public class Options implements Serializable {
 	 *            the {@link LiteralOption} value.
 	 */
 	public Options putLiteral(String key, String value) {
+		options.put(key, new LiteralOption(value));
+		return this;
+	}
+	
+	/**
+	 * <p>
+	 * Puts a {@link String} value as a JavaScript literal for the given name.
+	 * <p>
+	 * Note that the JavaScript resulting from this options will be <code>'value'</code>
+	 * </p>
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link LiteralOption} value.
+	 */
+	public Options putLiteral(String key, IModel<String> value) {
 		options.put(key, new LiteralOption(value));
 		return this;
 	}
@@ -425,6 +563,38 @@ public class Options implements Serializable {
 	 */
 	public void setRenderer(IOptionsRenderer optionsRenderer) {
 		this.optionsRenderer = optionsRenderer;
+	}
+
+	public Options getObject() {
+		return this;
+	}
+
+	public void setObject(Options object) {
+		throw new UnsupportedOperationException(
+				"The setObject() function is not supported for object Options.");
+	}
+
+	public void detach() {
+		onDetach(this.options);
+	}
+
+	@SuppressWarnings("unchecked")
+	private void onDetach(Object detachable) {
+		if (detachable instanceof Component)
+			((Component) detachable).detach();
+		else if (detachable instanceof IDetachable)
+			((IDetachable) detachable).detach();
+		else if (detachable instanceof Map<?, ?>) {
+			for (Map.Entry<?, ?> entry : ((Map<?, ?>) detachable).entrySet()) {
+				onDetach(entry.getKey());
+				onDetach(entry.getValue());
+			}
+		} else if (detachable instanceof Iterable<?>) {
+			Iterator<Object> iter = ((Iterable<Object>) detachable).iterator();
+			while (iter.hasNext()) {
+				onDetach(iter.next());
+			}
+		}
 	}
 
 }

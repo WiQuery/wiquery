@@ -21,7 +21,9 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import java.io.Serializable;
+import org.apache.wicket.model.IDetachable;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
@@ -38,9 +40,10 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * </p>
  * 
  * @author Lionel Armanet
+ * @author Ernesto Reinaldo Barreiro 
  * @since 0.5
  */
-public class LiteralOption implements Serializable, IListItemOption {
+public class LiteralOption implements IDetachable, IListItemOption {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 6999431516689050752L;
@@ -54,7 +57,7 @@ public class LiteralOption implements Serializable, IListItemOption {
 	/**
 	 * The wrapped {@link String}
 	 */
-	private String literal;
+	private IModel<String> literal;
 	
 	/**
 	 * <p>
@@ -78,6 +81,31 @@ public class LiteralOption implements Serializable, IListItemOption {
 	 * @param doubleQuote Must we insert double quote ?
 	 */
 	public LiteralOption(String literal, boolean doubleQuote) {
+		this(new Model<String>(literal), doubleQuote);
+	}
+	
+	/**
+	 * <p>
+	 * Builds a new instance of {@link LiteralOption}.
+	 * </p>
+	 * 
+	 * @param literal
+	 *            the wrapped {@link String}
+	 */
+	public LiteralOption(IModel<String> literal) {
+		this(literal, false);
+	}
+
+	/**
+	 * <p>
+	 * Builds a new instance of {@link LiteralOption}.
+	 * </p>
+	 * 
+	 * @param literal
+	 *            the wrapped {@link String}
+	 * @param doubleQuote Must we insert double quote ?
+	 */
+	public LiteralOption(IModel<String> literal, boolean doubleQuote) {
 		super();
 		this.literal = literal;
 		this.doubleQuote = doubleQuote;
@@ -95,7 +123,7 @@ public class LiteralOption implements Serializable, IListItemOption {
 	 * @return the wrapped {@link String}.
 	 */
 	public String getLiteral() {
-		return literal;
+		return literal!= null?literal.getObject():null;
 	}
 	
 	/**
@@ -104,6 +132,15 @@ public class LiteralOption implements Serializable, IListItemOption {
 	 */
 	@Override
 	public String toString() {
-		return doubleQuote ? JsUtils.doubleQuotes(literal) : JsUtils.quotes(literal);
+		return doubleQuote ? JsUtils.doubleQuotes(literal.getObject()) : JsUtils.quotes(literal.getObject());
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.model.IDetachable#detach()
+	 */
+	public void detach() {
+		if(literal != null)
+			literal.detach();
 	}
 }
