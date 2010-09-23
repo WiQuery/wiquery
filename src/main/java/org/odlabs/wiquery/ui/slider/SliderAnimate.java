@@ -34,7 +34,10 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @since 1.1
  */
 public class SliderAnimate implements IComplexOption {
-	public enum AnimateEnum {
+	/**
+	 * Helper enumeration.
+	 */
+	public static enum AnimateEnum {
 		FAST	(new LiteralOption("fast")),
 		NORMAL 	(new LiteralOption("normal")),
 		SLOW 	(new LiteralOption("slow"));
@@ -64,6 +67,11 @@ public class SliderAnimate implements IComplexOption {
 	private Boolean booleanParam;
 	private AnimateEnum animateEnumParam;
 	private Number numberParam;
+	
+	public static final SliderAnimate FAST = new SliderAnimate(AnimateEnum.FAST);
+	public static final SliderAnimate SLOW = new SliderAnimate(AnimateEnum.SLOW);
+	public static final SliderAnimate NORMAL = new SliderAnimate(AnimateEnum.NORMAL);
+	
 	
 	/**Constructor
 	 * @param animateEnumParam AnimateEnum parameter

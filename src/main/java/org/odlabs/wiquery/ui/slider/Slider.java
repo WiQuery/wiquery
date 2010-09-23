@@ -35,6 +35,7 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
+import org.odlabs.wiquery.ui.slider.SliderAnimate.AnimateEnum;
 import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
@@ -109,26 +110,80 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 	
 	/*---- Options section ---*/
+
 	
-	/**Whether to slide handle smoothly when user click outside handle on the bar.
+	/**
+	 * Whether to slide handle smoothly when user click outside handle on the bar. 
+	 * Sets the animate to true of false;
+	 * 
 	 * @param animate
 	 * @return instance of the current component
 	 */
-	public Slider setAnimate(SliderAnimate animate) {
-		this.options.put("animate", animate);
+	public Slider setAnimate(boolean animate) {
+		this.options.put("animate", new SliderAnimate(animate));
 		return this;
+	}
+	
+	/**
+	 * Whether to slide handle smoothly when user click outside handle on the bar. 
+	 * Sets the animate using enum constants.
+	 * @param animate
+	 * @return instance of the current component
+	 */
+	public Slider setAnimate(AnimateEnum animate) {
+		if(animate.equals(AnimateEnum.FAST))
+			this.options.put("animate", SliderAnimate.FAST);
+		else if(animate.equals(AnimateEnum.NORMAL))
+			this.options.put("animate", SliderAnimate.NORMAL);
+		else if(animate.equals(AnimateEnum.SLOW))
+			this.options.put("animate", SliderAnimate.SLOW);
+		else 
+			unsetAnimate();
+		return this;
+	}
+	
+	/**
+	 * Whether to slide handle smoothly when user click outside handle on the bar.
+	 * 
+	 * @param number A number bigger than 0.
+	 * @return instance of the current component
+	 */
+	public Slider setAnimate(Number number) {
+		if(number != null && number.doubleValue() > 0)
+			this.options.put("animate", new SliderAnimate(number));
+		return this;
+	}
+	
+	/**
+	 * Unsets the animate property.
+	 * 
+	 * @return instance of the current component
+	 */
+	public Slider unsetAnimate() {
+		this.options.removeOption("animate");
+		return this;
+	}
+	
+	/**
+	 * @return The current animate.
+	 */
+	public SliderAnimate getAnimate() {
+		if(this.options.getComplexOption("animate") instanceof SliderAnimate){
+			return (SliderAnimate) this.options.getComplexOption("animate");
+		}
+		
+		return null;
 	}
 	
 	/**
 	 * @return the animate option value
 	 */
-	public SliderAnimate isAnimate() {
+	public boolean isAnimate() {
 		if(this.options.getComplexOption("animate") instanceof SliderAnimate){
-			return (SliderAnimate) this.options.getComplexOption("animate");
-		}
-		
-		return new SliderAnimate(false);
-	}
+			return true;
+		}		
+		return false;
+	}	
 	
 	/**Disables (true) or enables (false) the slider. Can be set when 
 	 * initialising (first creating) the slider.

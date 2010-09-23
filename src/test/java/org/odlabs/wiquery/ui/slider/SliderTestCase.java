@@ -29,6 +29,7 @@ import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.slider.Slider.Orientation;
+import org.odlabs.wiquery.ui.slider.SliderAnimate.AnimateEnum;
 import org.odlabs.wiquery.ui.slider.SliderRange.RangeEnum;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.testng.Assert;
@@ -172,10 +173,28 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testIsAnimate() {
-		Assert.assertNotNull(slider.isAnimate());
-		Assert.assertEquals(slider.isAnimate().getJavascriptOption().toString(), "false");
-		slider.setAnimate(new SliderAnimate(true));
-		Assert.assertEquals(slider.isAnimate().getJavascriptOption().toString(), "true");
+		Assert.assertFalse(slider.isAnimate());
+		slider.setAnimate(true);
+		Assert.assertEquals(slider.isAnimate(), true);		
+		slider.setAnimate(1000);
+		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "1000");
+		slider.setAnimate(-1000);
+		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "1000");
+		slider.unsetAnimate();
+		Assert.assertFalse(slider.isAnimate());
+		
+		slider.setAnimate(AnimateEnum.FAST);
+		Assert.assertTrue(slider.isAnimate());
+		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "'fast'");
+		
+		slider.setAnimate(AnimateEnum.SLOW);
+		Assert.assertTrue(slider.isAnimate());
+		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "'slow'");
+		
+		slider.setAnimate(AnimateEnum.NORMAL);
+		Assert.assertTrue(slider.isAnimate());
+		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "'normal'");
+		
 	}
 	
 	/**
