@@ -122,7 +122,7 @@ public class ButtonTestCase extends TestCase {
 	 */
 	@Test
 	public void testIsDisabled() {
-		Assert.assertFalse(button.isDisabled());
+		Assert.assertNull(button.isDisabled());
 		button.setDisabled(true);
 		Assert.assertTrue(button.isDisabled());
 	}

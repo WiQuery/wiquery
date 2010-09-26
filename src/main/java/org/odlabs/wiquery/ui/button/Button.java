@@ -146,7 +146,7 @@ public class Button extends WebMarkupContainer implements
 	/**
 	 * @return the disabled option
 	 */
-	public boolean isDisabled() {
+	public Boolean isDisabled() {
 		return buttonBehavior.isDisabled();
 	}
 	

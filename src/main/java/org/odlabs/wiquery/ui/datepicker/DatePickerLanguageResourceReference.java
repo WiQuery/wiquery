@@ -74,6 +74,7 @@ public class DatePickerLanguageResourceReference extends
 		INDONESIAN			("id"),
 		ITALIAN				(Locale.ITALIAN),
 		JAPANESE			(Locale.JAPANESE),
+		KAZAKH				("kz"),
 		KOREAN				(Locale.KOREAN),
 		LATVIAN				("lv"),
 		LITHUANIAN			("lt"),

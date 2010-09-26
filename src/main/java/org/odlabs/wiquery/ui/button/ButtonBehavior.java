@@ -100,12 +100,12 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the disabled option
 	 */
-	public boolean isDisabled() {
+	public Boolean isDisabled() {
 		if(this.options.containsKey("disabled")){
 			return this.options.getBoolean("disabled");
 		}
 		
-		return false;
+		return null;
 	}
 	
 	/**
