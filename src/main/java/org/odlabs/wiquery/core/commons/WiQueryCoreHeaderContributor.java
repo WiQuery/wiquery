@@ -113,7 +113,7 @@ IHeaderContributor {
 			IVisitor<Component> visitor = new IVisitor<Component>() {
 
 				public Object component(Component component) {
-					if(component.isEnabledInHierarchy() && component.determineVisibility()){
+					if(component.determineVisibility()){
 						if(component instanceof IWiQueryPlugin){
 							plugins.add((IWiQueryPlugin) component);
 						}
@@ -148,7 +148,7 @@ IHeaderContributor {
 			else{
 				//is an ajax render
 				for(Component component : ajaxRequestTarget.getComponents()){
-					if(component.isEnabledInHierarchy() && component.determineVisibility()){
+					if(component.determineVisibility()){
 						if(component instanceof IWiQueryPlugin){
 							plugins.add((IWiQueryPlugin) component);
 						}
