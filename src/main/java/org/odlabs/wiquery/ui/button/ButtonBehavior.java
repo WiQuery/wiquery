@@ -21,7 +21,10 @@
  */
 package org.odlabs.wiquery.ui.button;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.ComponentTag;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -76,6 +79,28 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 		return options;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.behavior.AbstractBehavior#onComponentTag(org.apache.wicket.Component, org.apache.wicket.markup.ComponentTag)
+	 */
+	@Override
+	public void onComponentTag(Component component, ComponentTag tag) {
+		String tagname = tag.getName();
+		
+		if(!tagname.equalsIgnoreCase("input") 
+				&& !tagname.equalsIgnoreCase("button")
+				&& !tagname.equalsIgnoreCase("submit")
+				&& !tagname.equalsIgnoreCase("reset")
+				&& !tagname.equalsIgnoreCase("a")){
+			throw new WicketRuntimeException("Component " 
+					+ component.getId() 
+					+ " must be applied to a tag of type 'input', 'button' or 'a', not "
+					+ tag.toUserDebugString());
+		}
+		
+		super.onComponentTag(component, tag);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()

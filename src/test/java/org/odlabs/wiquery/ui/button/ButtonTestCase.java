@@ -24,135 +24,158 @@ package org.odlabs.wiquery.ui.button;
 import junit.framework.TestCase;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.util.tester.DummyHomePage;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.testng.Assert;
+import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
 
 /**
- * Test on {@link Button}
+ * Test on {@link ButtonBehavior}
  * @author Julien Roche
  *
  */
 public class ButtonTestCase extends TestCase {
 	// Properties
-	private Button button;
+	private ButtonBehavior buttonBehavior;
+	private WebMarkupContainer button;
+	private WicketTester wicketTester;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	public void setUp() throws Exception {
-		new WicketTester(new WiQueryWebApplication() {
+		wicketTester = new WicketTester(new WiQueryWebApplication() {
 			@Override
 			public Class<? extends Page> getHomePage() {
-				return null;
+				return ButtonPageFailedTest.class;
 			}
 		});
 		
-		button = new Button("anId");
+		button = new WebMarkupContainer("anId");
+		buttonBehavior = new ButtonBehavior();
+		button.add(buttonBehavior);
 		button.setMarkupId(button.getId());
+	}
+	
+	/**
+	 * Test the type of the element (for {@link ButtonBehavior#onComponentTag(org.apache.wicket.Component, org.apache.wicket.markup.ComponentTag)}
+	 */
+	@Test
+	public void testDomType() {
+		try{
+			wicketTester.startPage(ButtonPageFailedTest.class);
+			fail();
+			
+		} catch (Exception e) {
+			assertTrue(e instanceof WicketRuntimeException);
+			assertEquals("Component failedButton must be applied to a tag of type 'input', 'button' or 'a', not '<table wicket:id=\"failedButton\" id=\"failedButton1\">' (line 0, column 0)", e.getMessage());
+		}
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#destroy()}.
+	 * Test method for {@link ButtonBehavior#destroy()}.
 	 */
 	@Test
 	public void testDestroy() {
-		Assert.assertNotNull(button.destroy());
-		Assert.assertEquals(button.destroy().render().toString(), 
+		Assert.assertNotNull(buttonBehavior.destroy());
+		Assert.assertEquals(buttonBehavior.destroy().render().toString(), 
 				"$('#anId').button('destroy');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#disable()}.
+	 * Test method for {@link ButtonBehavior#disable()}.
 	 */
 	@Test
 	public void testDisable() {
-		Assert.assertNotNull(button.disable());
-		Assert.assertEquals(button.disable().render().toString(), 
+		Assert.assertNotNull(buttonBehavior.disable());
+		Assert.assertEquals(buttonBehavior.disable().render().toString(), 
 				"$('#anId').button('disable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#enable()}.
+	 * Test method for {@link ButtonBehavior#enable()}.
 	 */
 	@Test
 	public void testEnable() {
-		Assert.assertNotNull(button.enable());
-		Assert.assertEquals(button.enable().render().toString(), 
+		Assert.assertNotNull(buttonBehavior.enable());
+		Assert.assertEquals(buttonBehavior.enable().render().toString(), 
 				"$('#anId').button('enable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#getIcons()}.
+	 * Test method for {@link ButtonBehavior#getIcons()}.
 	 */
 	@Test
 	public void testGetIcons() {
-		Assert.assertNull(button.getIcons());
-		button.setIcons(new ButtonIcon("ui-icon-gear", "ui-icon-triangle-1-s"));
-		Assert.assertNotNull(button.getIcons());
-		Assert.assertEquals(button.getIcons().getJavascriptOption().toString(), 
+		Assert.assertNull(buttonBehavior.getIcons());
+		buttonBehavior.setIcons(new ButtonIcon("ui-icon-gear", "ui-icon-triangle-1-s"));
+		Assert.assertNotNull(buttonBehavior.getIcons());
+		Assert.assertEquals(buttonBehavior.getIcons().getJavascriptOption().toString(), 
 				"{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#getLabel()}.
+	 * Test method for {@link ButtonBehavior#getLabel()}.
 	 */
 	@Test
 	public void testGetLabel() {
-		Assert.assertNull(button.getLabel());
-		button.setLabel("a label");
-		Assert.assertNotNull(button.getLabel());
-		Assert.assertEquals(button.getLabel(), "a label");
+		Assert.assertNull(buttonBehavior.getLabel());
+		buttonBehavior.setLabel("a label");
+		Assert.assertNotNull(buttonBehavior.getLabel());
+		Assert.assertEquals(buttonBehavior.getLabel(), "a label");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#getOptions()}.
+	 * Test method for {@link ButtonBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions() {
-		Assert.assertNotNull(button.getOptions());
-		Assert.assertEquals(button.getOptions().getJavaScriptOptions().toString(), "{}");
-		button.setLabel("a label");
-		Assert.assertEquals(button.getOptions().getJavaScriptOptions().toString(), "{label: 'a label'}");
+		Assert.assertNotNull(buttonBehavior.getOptions());
+		Assert.assertEquals(buttonBehavior.getOptions().getJavaScriptOptions().toString(), "{}");
+		buttonBehavior.setLabel("a label");
+		Assert.assertEquals(buttonBehavior.getOptions().getJavaScriptOptions().toString(), "{label: 'a label'}");
 	}
 	
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#isDisabled()}.
+	 * Test method for {@link ButtonBehavior#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled() {
-		Assert.assertNull(button.isDisabled());
-		button.setDisabled(true);
-		Assert.assertTrue(button.isDisabled());
+		Assert.assertNull(buttonBehavior.isDisabled());
+		buttonBehavior.setDisabled(true);
+		Assert.assertTrue(buttonBehavior.isDisabled());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#isText()}.
+	 * Test method for {@link ButtonBehavior#isText()}.
 	 */
 	@Test
 	public void testIsText() {
-		Assert.assertTrue(button.isText());
-		button.setText(false);
-		Assert.assertFalse(button.isText());
+		Assert.assertTrue(buttonBehavior.isText());
+		buttonBehavior.setText(false);
+		Assert.assertFalse(buttonBehavior.isText());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#statement()}.
+	 * Test method for {@link ButtonBehavior#statement()}.
 	 */
 	@Test
 	public void testStatement() {
-		Assert.assertNotNull(button.statement());
-		Assert.assertEquals(button.statement().render().toString(), "$('#anId').button({});");
+		Assert.assertNotNull(buttonBehavior.statement());
+		Assert.assertEquals(buttonBehavior.statement().render().toString(), "$('#anId').button({});");
 	}
 	
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.button.Button#widget()}.
+	 * Test method for {@link ButtonBehavior#widget()}.
 	 */
 	@Test
 	public void testWidget() {
-		Assert.assertNotNull(button.widget());
-		Assert.assertEquals(button.widget().render().toString(), 
+		Assert.assertNotNull(buttonBehavior.widget());
+		Assert.assertEquals(buttonBehavior.widget().render().toString(), 
 				"$('#anId').button('widget');");
 	}
 }
