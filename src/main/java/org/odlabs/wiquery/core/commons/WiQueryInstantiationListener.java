@@ -23,11 +23,12 @@ package org.odlabs.wiquery.core.commons;
 
 import java.io.Serializable;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.Component;
-import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.application.IComponentInstantiationListener;
+import org.apache.wicket.application.IComponentOnBeforeRenderListener;
 import org.apache.wicket.behavior.HeaderContributor;
+import org.apache.wicket.behavior.IBehavior;
 
 /**
  * $Id: WiQueryInstantiationListener.java 89 2009-06-02 21:42:53Z lionel.armanet
@@ -40,45 +41,50 @@ import org.apache.wicket.behavior.HeaderContributor;
  * The added header contributor will generated the needed JavaScript code and
  * will import all needed resources (e.g. CSS/JavaScript files).
  * </p>
- *
+ * 
  * @author Lionel Armanet
+ * @author Hielke Hoeve
  * @since 0.6
  */
 public class WiQueryInstantiationListener implements
-		IComponentInstantiationListener, Serializable {
+IComponentInstantiationListener, Serializable,
+IComponentOnBeforeRenderListener {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -7398777039788778234L;
+
+	public static final MetaDataKey<Boolean> WI_QUERY_RENDERED = new MetaDataKey<Boolean>() {
+		private static final long serialVersionUID = 1L;
+	};
 
 	/**
 	 * Default constructor
 	 */
 	public WiQueryInstantiationListener() {
 		super();
-
-		synchronized(WiQueryInitializer.WIQUERY_INSTANCE_KEY) {
-			Application app = Application.get();
-
-			if(app.getMetaData(WiQueryInitializer.WIQUERY_INSTANCE_KEY) != null) {
-				throw new WicketRuntimeException(
-						"There is an existed WiQueryInstantiationListener attached to the application " +
-						Thread.currentThread().getName());
-			}
-
-			WiQuerySettings settings = app instanceof IWiQuerySettings ? ((IWiQuerySettings) app).getWiQuerySettings() : null;
-			app.setMetaData(WiQueryInitializer.WIQUERY_INSTANCE_KEY, settings == null ? new WiQuerySettings() : settings);
-		}
 	}
 
 	/**
 	 * {@inheritDoc}
+	 * 
 	 * @see org.apache.wicket.application.IComponentInstantiationListener#onInstantiation(org.apache.wicket.Component)
 	 */
 	public void onInstantiation(final Component component) {
-		// theme management
 		if (component instanceof IWiQueryPlugin) {
 			// binding component as a plugin
-			component.add(new HeaderContributor(new WiQueryCoreHeaderContributor()));
+			component.add(new HeaderContributor(new WiQueryCoreHeaderContributor(component)));
+		}
+	}
+
+	public void onBeforeRender(Component component) {
+		Boolean wiQueryRendered = component.getMetaData(WI_QUERY_RENDERED);
+		if (wiQueryRendered == null || !wiQueryRendered) {
+			for (IBehavior curBehavior : component.getBehaviors()) {
+				if (curBehavior instanceof IWiQueryPlugin) {
+					component.add(new HeaderContributor(new WiQueryCoreHeaderContributor(component)));
+					break;
+				}
+			}
 		}
 	}
 }

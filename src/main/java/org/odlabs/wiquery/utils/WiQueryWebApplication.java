@@ -36,24 +36,10 @@ import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
  * @see WiQueryInstantiationListener
  * @author Lionel Armanet
  * @since 0.5
+ * @deprecated - all that this once did is now handled in the WiQueryInitializer
  */
+@Deprecated
 public abstract class WiQueryWebApplication extends WebApplication  {
 
-	/**
-	 * The wiquery listener used to manage WiQuery components
-	 */
-	private WiQueryInstantiationListener wiqueryPluginInstantiationListener;
-
-	/**
-	 * Adds WiQuery's instantiation listener to this application.
-	 */
-	@Override
-	protected void init() {
-		// we add a component instantiation listener to create plugin managers
-		// each time a plugin is created
-		wiqueryPluginInstantiationListener = new WiQueryInstantiationListener();
-		addComponentInstantiationListener(wiqueryPluginInstantiationListener);
-		super.init();
-	}
 
 }
