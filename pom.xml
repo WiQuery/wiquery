@@ -8,12 +8,12 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.1-alpha</version>
+	<version>1.1-SNAPSHOT</version>
 
 	<name>WiQuery project</name>
 
 	<scm>
-		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wiquery-1.1-experiment/</developerConnection>
+		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/trunk/</developerConnection>
 	</scm>
 	
 	<distributionManagement>
@@ -98,7 +98,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wiquery-1.1-experiment</scmConnection>
+					<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/trunk</scmConnection>
 					<doCheck>false</doCheck>
 					<doUpdate>false</doUpdate>
 				</configuration>
