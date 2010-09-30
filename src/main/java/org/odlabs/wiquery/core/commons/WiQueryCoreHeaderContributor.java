@@ -114,7 +114,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	 */
 	public WiQueryCoreHeaderContributor(Component component) {
 		this.owner = component;
-		this.owner.setMetaData(WiQueryInstantiationListener.WI_QUERY_RENDERED, true);
+		this.owner.setMetaData(WiQueryRenderingListener.WI_QUERY_RENDERED, true);
 	}
 
 	/**

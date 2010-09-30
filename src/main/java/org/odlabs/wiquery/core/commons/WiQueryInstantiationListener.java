@@ -31,37 +31,25 @@ import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.IBehavior;
 
 /**
- * $Id: WiQueryInstantiationListener.java 89 2009-06-02 21:42:53Z lionel.armanet
- * $
  * <p>
- * Listens to WiQuery components instantiation and automatically binds a
- * {@link WiQueryCoreHeaderContributor} to these components.
- * </p>
- * <p>
- * The added header contributor will generated the needed JavaScript code and
- * will import all needed resources (e.g. CSS/JavaScript files).
+ * No longer required
  * </p>
  * 
  * @author Lionel Armanet
  * @author Hielke Hoeve
  * @since 0.6
  */
+@Deprecated
 public class WiQueryInstantiationListener implements
-IComponentInstantiationListener, Serializable,
-IComponentOnBeforeRenderListener {
+IComponentInstantiationListener, Serializable{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -7398777039788778234L;
-
-	public static final MetaDataKey<Boolean> WI_QUERY_RENDERED = new MetaDataKey<Boolean>() {
-		private static final long serialVersionUID = 1L;
-	};
 
 	/**
 	 * Default constructor
 	 */
 	public WiQueryInstantiationListener() {
-		super();
 	}
 
 	/**
@@ -70,21 +58,6 @@ IComponentOnBeforeRenderListener {
 	 * @see org.apache.wicket.application.IComponentInstantiationListener#onInstantiation(org.apache.wicket.Component)
 	 */
 	public void onInstantiation(final Component component) {
-		if (component instanceof IWiQueryPlugin) {
-			// binding component as a plugin
-			component.add(new HeaderContributor(new WiQueryCoreHeaderContributor(component)));
-		}
-	}
-
-	public void onBeforeRender(Component component) {
-		Boolean wiQueryRendered = component.getMetaData(WI_QUERY_RENDERED);
-		if (wiQueryRendered == null || !wiQueryRendered) {
-			for (IBehavior curBehavior : component.getBehaviors()) {
-				if (curBehavior instanceof IWiQueryPlugin) {
-					component.add(new HeaderContributor(new WiQueryCoreHeaderContributor(component)));
-					break;
-				}
-			}
-		}
+		//does nothing since this is to be removed
 	}
 }

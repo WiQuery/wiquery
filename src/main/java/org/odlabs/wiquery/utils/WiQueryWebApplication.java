@@ -26,11 +26,9 @@ import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
 
 /**
  * $Id$
+ * 
  * <p>
- * Utility class to ease {@link WiQueryInstantiationListener} integration.
- * Configures a simple default WiQuery application. If you want to tune
- * your wiQuery application or if don't want to use inheritance you should
- * prefer the use of {@link WiQueryInstantiationListener}.
+ * No longer required
  * </p>
  * 
  * @see WiQueryInstantiationListener
