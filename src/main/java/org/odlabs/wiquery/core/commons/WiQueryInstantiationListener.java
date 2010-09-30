@@ -24,11 +24,7 @@ package org.odlabs.wiquery.core.commons;
 import java.io.Serializable;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.application.IComponentInstantiationListener;
-import org.apache.wicket.application.IComponentOnBeforeRenderListener;
-import org.apache.wicket.behavior.HeaderContributor;
-import org.apache.wicket.behavior.IBehavior;
 
 /**
  * <p>
