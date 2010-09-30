@@ -26,34 +26,18 @@ import org.odlabs.wiquery.core.commons.WiQueryInstantiationListener;
 
 /**
  * $Id$
+ * 
  * <p>
- * Utility class to ease {@link WiQueryInstantiationListener} integration.
- * Configures a simple default WiQuery application. If you want to tune
- * your wiQuery application or if don't want to use inheritance you should
- * prefer the use of {@link WiQueryInstantiationListener}.
+ * No longer required
  * </p>
  * 
  * @see WiQueryInstantiationListener
  * @author Lionel Armanet
  * @since 0.5
+ * @deprecated - all that this once did is now handled in the WiQueryInitializer
  */
+@Deprecated
 public abstract class WiQueryWebApplication extends WebApplication  {
 
-	/**
-	 * The wiquery listener used to manage WiQuery components
-	 */
-	private WiQueryInstantiationListener wiqueryPluginInstantiationListener;
-
-	/**
-	 * Adds WiQuery's instantiation listener to this application.
-	 */
-	@Override
-	protected void init() {
-		// we add a component instantiation listener to create plugin managers
-		// each time a plugin is created
-		wiqueryPluginInstantiationListener = new WiQueryInstantiationListener();
-		addComponentInstantiationListener(wiqueryPluginInstantiationListener);
-		super.init();
-	}
 
 }

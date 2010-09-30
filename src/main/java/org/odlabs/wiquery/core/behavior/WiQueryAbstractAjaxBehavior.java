@@ -37,7 +37,7 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * 
  * @author Julien Roche
  * @since 1.1
- *
+ * 
  */
 public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBehavior implements IWiQueryPlugin {
 	// Constants
@@ -51,8 +51,6 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 	@Override
 	protected void onBind() {
 		super.onBind();
-		
-		getComponent().add(new HeaderContributor(new WiQueryCoreHeaderContributor()));
 	}
 
 	/**

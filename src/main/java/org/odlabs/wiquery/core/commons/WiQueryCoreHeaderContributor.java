@@ -27,8 +27,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.IRequestTarget;
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Page;
 import org.apache.wicket.RequestCycle;
@@ -57,12 +55,46 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * a "dom ready" statement. Otherwise (in Ajax contexts, the generated
  * JavaScript is directly append to the given {@link AjaxRequestTarget}.
  * </p>
- *
+ * 
+ * <p>
+ * You should not add this yourself but instead should let the {@link WiQueryInstantiationListener} handle this for you
+ * </p>
+ * 
  * @author Benoit Bouchez
  * @author Lionel Armanet
+ * @author Hielke Hoeve
+ * @author Emond Papegaaij
  */
 public class WiQueryCoreHeaderContributor implements Serializable,
-IHeaderContributor {
+		IHeaderContributor {
+	private static class WiQueryPluginCollector implements IVisitor<Component> {
+		private List<IWiQueryPlugin> plugins = new ArrayList<IWiQueryPlugin>();
+
+		private WiQueryPluginCollector() {
+		}
+
+		public List<IWiQueryPlugin> getPlugins() {
+			return plugins;
+		}
+
+		public Object component(Component component) {
+			if (component.determineVisibility()) {
+				if (component instanceof IWiQueryPlugin) {
+					plugins.add((IWiQueryPlugin) component);
+				}
+				for (IBehavior behavior : component.getBehaviors()) {
+					if (behavior instanceof IWiQueryPlugin
+							&& behavior.isEnabled(component)) {
+						plugins.add((IWiQueryPlugin) behavior);
+					}
+				}
+				return CONTINUE_TRAVERSAL;
+			} else {
+				return CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
+			}
+		}
+	}
+
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -347081993448442637L;
@@ -74,104 +106,46 @@ IHeaderContributor {
 		private static final long serialVersionUID = 1L;
 	};
 
+	private Component owner;
+
 	/**
 	 * Default constructor. Declares a standard configuration for listeners,
 	 * e.g. uses jQuery and jQuery UI listeners by default.
 	 */
-	public WiQueryCoreHeaderContributor() {
-		super();
+	public WiQueryCoreHeaderContributor(Component component) {
+		this.owner = component;
+		this.owner.setMetaData(WiQueryRenderingListener.WI_QUERY_RENDERED, true);
 	}
 
 	/**
 	 * Renders WiQuery's JavaScript code.
 	 */
 	public void renderHead(final IHeaderResponse response) {
+		AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
+		if (ajaxRequestTarget == null) {
+			renderResponse(response);
+		} else {
+			renderAjaxResponse(response, ajaxRequestTarget);
+		}
+	}
 
+	private void renderResponse(final IHeaderResponse response) {
 		Boolean rendered = RequestCycle.get().getMetaData(WIQUERY_KEY);
-		if(rendered == null || !rendered){
+		if (rendered == null || !rendered) {
+			WiQuerySettings settings = WiQuerySettings.get();
 
-			WiQuerySettings instanciation = WiQuerySettings.get();
+			final List<WiQueryPluginRenderingListener> pluginRenderingListeners = getRenderingListeners(settings);
 
-			final List<WiQueryPluginRenderingListener> pluginRenderingListeners = new ArrayList<WiQueryPluginRenderingListener>();
-
-			pluginRenderingListeners.add(new JQueryCoreRenderingListener());
-			pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
-			// Listeners add by users
-			for(Iterator<WiQueryPluginRenderingListener> iterator = instanciation.getListeners(); iterator.hasNext();){
-				pluginRenderingListeners.add(iterator.next());
-			}
-
-			// Shall we merge ?
-			boolean enableResourcesMerging = instanciation.isEnableResourcesMerging();
-
-			// the response is a unique statement containing all statements
-			// to call
-			JsQuery jsq = new JsQuery();
-			JsStatement jsStatement = new JsStatement();
-			JsStatement tempStatement = null;
-			IRequestTarget target = RequestCycle.get().getRequestTarget();
-			IHeaderResponse headerResponse = null;
-			IWiQueryPlugin plugin = null;
-
-			final List<IWiQueryPlugin> plugins = new ArrayList<IWiQueryPlugin>();
-			AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
-
-			IVisitor<Component> visitor = new IVisitor<Component>() {
-
-				public Object component(Component component) {
-					if(component.determineVisibility()){
-						if(component instanceof IWiQueryPlugin){
-							plugins.add((IWiQueryPlugin) component);
-						}
-						for(IBehavior behavior : component.getBehaviors()){
-							if(behavior instanceof IWiQueryPlugin && behavior.isEnabled(component)){
-								plugins.add((IWiQueryPlugin) behavior);
-							}
-						}
-						return CONTINUE_TRAVERSAL;
-					}
-					else{
-						return CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
-					}
-				}
-			};
-
-			if(ajaxRequestTarget == null){
-				//is a normal page render
-				Page page = RequestCycle.get().getResponsePage();
-				if(page != null){
-					page.visitChildren(visitor);
-					if(page instanceof IWiQueryPlugin){
-						plugins.add((IWiQueryPlugin) page);
-					}
-					for(IBehavior behavior : page.getBehaviors()){
-						if(behavior instanceof IWiQueryPlugin && behavior.isEnabled(page)){
-							plugins.add((IWiQueryPlugin) behavior);
-						}
-					}
-				}
-			}
-			else{
-				//is an ajax render
-				for(Component component : ajaxRequestTarget.getComponents()){
-					if(component.determineVisibility()){
-						if(component instanceof IWiQueryPlugin){
-							plugins.add((IWiQueryPlugin) component);
-						}
-						for(IBehavior behavior : component.getBehaviors()){
-							if(behavior instanceof IWiQueryPlugin && behavior.isEnabled(component)){
-								plugins.add((IWiQueryPlugin) behavior);
-							}
-						}
-					}
-					if(component instanceof MarkupContainer){
-						((MarkupContainer) component).visitChildren(visitor);
-					}
-				}
+			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
+			Page page = RequestCycle.get().getResponsePage();
+			if (page != null) {
+				page.visitChildren(visitor);
+				visitor.component(page);
 			}
 
 			WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
-			if(enableResourcesMerging){
+			IHeaderResponse headerResponse;
+			if (settings.isEnableResourcesMerging()) {
 				wiQueryHeaderResponse.setIHeaderResponse(response);
 				headerResponse = wiQueryHeaderResponse;
 			} else {
@@ -180,12 +154,11 @@ IHeaderContributor {
 
 			WiQueryResourceManager manager = new WiQueryResourceManager();
 
-			for (Iterator<IWiQueryPlugin> iterator = plugins.iterator(); iterator.hasNext(); ) {
-				plugin = iterator.next();
+			JsStatement jsStatement = new JsStatement();
+			for (IWiQueryPlugin plugin : visitor.getPlugins()) {
+				JsStatement tempStatement = plugin.statement();
 
-				tempStatement = plugin.statement();
-
-				if(tempStatement != null){
+				if (tempStatement != null) {
 					jsStatement.append("\t" + tempStatement.render() + "\n");
 				}
 
@@ -198,34 +171,108 @@ IHeaderContributor {
 
 			manager.initialize(headerResponse);
 
-			if(enableResourcesMerging){
-				// Merging of stylesheet resources
-				if(!wiQueryHeaderResponse.getStylesheet().isEmpty()){
-					response.renderCSSReference(
-							new WiQueryMergedStyleSheetResourceReference(wiQueryHeaderResponse));
-				}
+			mergeResources(response, settings, wiQueryHeaderResponse);
 
-				// Insertion of non mergeable stylesheet
-				for(ResourceReference ref : wiQueryHeaderResponse.getStylesheetUnmergeable()){
-					response.renderCSSReference(ref);
-				}
-
-				// Merging of javascript resources
-				if(!wiQueryHeaderResponse.getJavascript().isEmpty()){
-					response.renderJavascriptReference(
-							new WiQueryMergedJavaScriptResourceReference(wiQueryHeaderResponse));
-				}
-
-				// Insertion of non mergeable javascript
-				for(ResourceReference ref : wiQueryHeaderResponse.getJavascriptUnmergeable()){
-					response.renderJavascriptReference(ref);
-				}
-			}
-
+			JsQuery jsq = new JsQuery();
 			jsq.setStatement(jsStatement);
-			jsq.renderHead(response, target);
+			jsq.renderHead(response, RequestCycle.get().getRequestTarget());
 			RequestCycle.get().setMetaData(WIQUERY_KEY, Boolean.TRUE);
 		}
 	}
 
+	private void renderAjaxResponse(IHeaderResponse response,
+			AjaxRequestTarget ajaxRequestTarget) {
+		WiQuerySettings settings = WiQuerySettings.get();
+
+		final List<WiQueryPluginRenderingListener> pluginRenderingListeners = getRenderingListeners(settings);
+
+		IHeaderResponse headerResponse;
+		WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
+		if (settings.isEnableResourcesMerging()) {
+			wiQueryHeaderResponse.setIHeaderResponse(response);
+			headerResponse = wiQueryHeaderResponse;
+		} else {
+			headerResponse = response;
+		}
+
+		WiQueryResourceManager manager = new WiQueryResourceManager();
+
+		if (owner.determineVisibility()) {
+			if (owner instanceof IWiQueryPlugin) {
+				renderPlugin(response, ajaxRequestTarget, (IWiQueryPlugin) owner, pluginRenderingListeners,	manager, headerResponse);
+			}
+			for (IBehavior behavior : owner.getBehaviors()) {
+				if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(owner)) {
+					renderPlugin(response, ajaxRequestTarget, (IWiQueryPlugin) behavior, pluginRenderingListeners, manager, headerResponse);
+				}
+			}
+		}
+
+		manager.initialize(headerResponse);
+
+		mergeResources(response, settings, wiQueryHeaderResponse);
+	}
+
+	private void renderPlugin(
+			IHeaderResponse response,
+			AjaxRequestTarget ajaxRequestTarget,
+			IWiQueryPlugin plugin,
+			final List<WiQueryPluginRenderingListener> pluginRenderingListeners,
+			WiQueryResourceManager manager, IHeaderResponse headerResponse) {
+		JsStatement statement = plugin.statement();
+		if (statement != null) {
+			JsQuery jsq = new JsQuery();
+			jsq.setStatement(statement.append("\n"));
+			jsq.renderHead(response, ajaxRequestTarget);
+		}
+		for (WiQueryPluginRenderingListener listener : pluginRenderingListeners) {
+			listener.onRender(plugin, manager, headerResponse);
+		}
+		plugin.contribute(manager);
+	}
+
+	private List<WiQueryPluginRenderingListener> getRenderingListeners(
+			WiQuerySettings instanciation) {
+		final List<WiQueryPluginRenderingListener> pluginRenderingListeners = new ArrayList<WiQueryPluginRenderingListener>();
+		pluginRenderingListeners.add(new JQueryCoreRenderingListener());
+		pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
+		// Listeners add by users
+		for (Iterator<WiQueryPluginRenderingListener> iterator = instanciation
+				.getListeners(); iterator.hasNext();) {
+			pluginRenderingListeners.add(iterator.next());
+		}
+		return pluginRenderingListeners;
+	}
+
+	private void mergeResources(final IHeaderResponse response,
+			WiQuerySettings settings,
+			WiQueryHeaderResponse wiQueryHeaderResponse) {
+		if (settings.isEnableResourcesMerging()) {
+			// Merging of stylesheet resources
+			if (!wiQueryHeaderResponse.getStylesheet().isEmpty()) {
+				response
+						.renderCSSReference(new WiQueryMergedStyleSheetResourceReference(
+								wiQueryHeaderResponse));
+			}
+
+			// Insertion of non mergeable stylesheet
+			for (ResourceReference ref : wiQueryHeaderResponse
+					.getStylesheetUnmergeable()) {
+				response.renderCSSReference(ref);
+			}
+
+			// Merging of javascript resources
+			if (!wiQueryHeaderResponse.getJavascript().isEmpty()) {
+				response
+						.renderJavascriptReference(new WiQueryMergedJavaScriptResourceReference(
+								wiQueryHeaderResponse));
+			}
+
+			// Insertion of non mergeable javascript
+			for (ResourceReference ref : wiQueryHeaderResponse
+					.getJavascriptUnmergeable()) {
+				response.renderJavascriptReference(ref);
+			}
+		}
+	}
 }
