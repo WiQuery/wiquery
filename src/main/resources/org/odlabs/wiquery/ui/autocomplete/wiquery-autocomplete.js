@@ -29,38 +29,39 @@
 	 * @param ui UI object
 	 * @param hiddenId Identifiant of the hidden field
 	 */
-	$.ui.autocomplete.wiquery.closeEvent = function(ui, hiddenId) {
-		var val = $(ui).attr("value");
-		var data = $(ui).data('autocomplete.selected');
-
-		if(val == undefined || val.length <= 0){
-			$(ui).data('autocomplete.selected', null);
-
-		} else if(data == undefined) {
-		  	var find = null;
-		  	var source = $(ui).autocomplete('option', 'source');
-
-		  	$.each(source, function(index, value) {
-		  		if(value.label == val){
-		  			find = value;
-		  			return false;
-		  		}
-		  	});
-
-		  	$(ui).data('autocomplete.selected', find);
+	$.ui.autocomplete.wiquery.changeEvent = function(event, ui, hiddenId, updateUrl) {
+		if(ui.item){
+			$('#' + hiddenId).val(ui.item.valueId);
+			$(event.target).val(ui.item.label);
 		}
-		
-		data = $(ui).data('autocomplete.selected');
-		$('#' + hiddenId).attr('value', data == undefined ? '' : data.valueId);
-	};
+		else{
+			var val = $(event.target).val();
+			var data;
 	
-	/**
-	 * Method setting the Wicket model id into the hidden field, on the select event
-	 * @param ui UI object
-	 * @param hiddenId Identifiant of the hidden field
-	 */
-	$.ui.autocomplete.wiquery.selectEvent = function(ui, hiddenId) {
-		$('#' + hiddenId).attr('value', ui.item.valueId);
-		$(ui).data('autocomplete.selected', ui.item);
+			if(val == undefined || val.length <= 0){
+				data = null;
+	
+			} else {
+			  	var find = null;
+			  	var source = $(event.target).autocomplete('option', 'source');
+			  	
+			  	var matcher = new RegExp( "^" + val + "$", "i" );
+	
+			  	$.each(source, function(index, value) {
+			  		if(value.label !== undefined && value.label !== null && value.label.match( matcher )){
+			  			find = value;
+			  			$(event.target).val(value.label);
+			  			return false;
+			  		}
+			  	});
+	
+			  	data = find;
+			}
+			$('#' + hiddenId).val(data == undefined ? '' : data.valueId);
+		}
+		if(updateUrl){
+			var update = $(event.target).serialize() +"&"+ $('#'+hiddenId).serialize();
+			var wcall = wicketAjaxPost(updateUrl, update);
+		}
 	};
 })(jQuery);
