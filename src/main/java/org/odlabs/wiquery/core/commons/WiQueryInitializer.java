@@ -49,6 +49,8 @@ public class WiQueryInitializer implements IInitializer {
 	 */
 	public void init(Application application) {
 		application.addPostComponentOnBeforeRenderListener(new WiQueryRenderingListener());
-		application.setMetaData(WIQUERY_INSTANCE_KEY, new WiQuerySettings());
+		//check for IWiQuerySettings on the application
+		WiQuerySettings settings = application instanceof IWiQuerySettings ? ((IWiQuerySettings) application).getWiQuerySettings() : null;
+		application.setMetaData(WIQUERY_INSTANCE_KEY, settings == null ? new WiQuerySettings() : settings);
 	}
 }
