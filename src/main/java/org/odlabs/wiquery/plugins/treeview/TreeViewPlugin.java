@@ -83,8 +83,7 @@ public class TreeViewPlugin extends WebMarkupContainer implements IWiQueryPlugin
 	{
 		wiQueryResourceManager.addCssResource(
 				TreeViewPlugin.class, "jtreeview/jquery.treeview.css");
-		wiQueryResourceManager.addJavaScriptResource(
-				TreeViewPlugin.class, "jtreeview/jquery.treeview.min.js");
+		wiQueryResourceManager.addJavaScriptResource(TreeViewJavaScriptResourceReference.get());
 	}
 
 }

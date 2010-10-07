@@ -33,6 +33,7 @@ import org.apache.wicket.IClusterable;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.Resource;
 import org.apache.wicket.ResourceReference;
+import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
@@ -55,7 +56,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class WiQueryMergedStyleSheetResourceReference extends
-	ResourceReference implements IClusterable {
+	CompressedResourceReference implements IClusterable {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 6038498199511603297L;

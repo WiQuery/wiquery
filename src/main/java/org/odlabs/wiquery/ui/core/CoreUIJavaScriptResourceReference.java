@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.core;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id: CoreUIJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
@@ -34,7 +34,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 0.5
  */
 public class CoreUIJavaScriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 
 	private static final long serialVersionUID = 4585057795574929263L;
 
@@ -48,7 +48,7 @@ public class CoreUIJavaScriptResourceReference extends
 	 * Builds a new instance of {@link CoreUIJavaScriptResourceReference}.
 	 */
 	private CoreUIJavaScriptResourceReference() {
-		super(CoreUIJavaScriptResourceReference.class, "jquery.ui.core.min.js");
+		super(CoreUIJavaScriptResourceReference.class, "jquery.ui.core.js");
 	}
 
 }

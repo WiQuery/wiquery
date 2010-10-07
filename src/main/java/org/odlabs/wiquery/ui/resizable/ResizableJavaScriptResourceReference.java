@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.resizable;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id: ResizableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
@@ -35,7 +35,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 0.5
  */
 public class ResizableJavaScriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3423205998397680042L;
@@ -49,7 +49,7 @@ public class ResizableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link ResizableJavaScriptResourceReference}.
 	 */
 	private ResizableJavaScriptResourceReference() {
-		super(ResizableJavaScriptResourceReference.class, "jquery.ui.resizable.min.js");
+		super(ResizableJavaScriptResourceReference.class, "jquery.ui.resizable.js");
 	}
 
 	/**

@@ -146,7 +146,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	public static final JavascriptResourceReference WIQUERY_AUTOCOMPLETE_JS = 
 		new JavascriptResourceReference(
 				AutocompleteAjaxComponent.class, 
-				"wiquery-autocomplete.min.js");
+				"wiquery-autocomplete.js");
 	
 	// Wicket components
 	private final Autocomplete<String> autocompleteField;

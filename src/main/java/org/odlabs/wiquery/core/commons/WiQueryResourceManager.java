@@ -78,23 +78,27 @@ public class WiQueryResourceManager implements Serializable {
 	 * Adds the given {@link JavascriptResourceReference} as a JavaScript file
 	 * to import for the underlying component.
 	 */
-	public void addJavaScriptResource(JavascriptResourceReference reference) {
+	public void addJavaScriptResource(ResourceReference reference) {
 		this.javascriptResources.add(reference);
 	}
 
 	/**
 	 * Adds the given file as a JavaScript file to import for the underlying
-	 * component.
+	 * component. Always provide the normal (non-minimized) version, wiquery
+	 * will reference to the minimized version when
+	 * {@link WiQuerySettings#isCompressedJavascript()} is true.
 	 * 
 	 * @see ResourceReference
+	 * @see WiQuerySettings#isCompressedJavascript()
 	 */
 	public void addJavaScriptResource(Class<?> scope, String path) {
-		this.javascriptResources.add(new JavascriptResourceReference(scope, path));
+		this.javascriptResources.add(new JavascriptResourceReference(
+				scope, path));
 	}
-	
+
 	/**
-	 * Adds the given {@link ResourceReference} as a Css file
-	 * to import for the underlying component.
+	 * Adds the given {@link ResourceReference} as a Css file to import for the
+	 * underlying component.
 	 */
 	public void addCssResource(ResourceReference reference) {
 		this.cssResources.add(reference);

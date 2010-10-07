@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -32,7 +32,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 1.0
  */
 public class AccordionJavaScriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
@@ -44,7 +44,7 @@ public class AccordionJavaScriptResourceReference extends
 	 * Builds a new instance of {@link AccordionJavaScriptResourceReference}.
 	 */
 	private AccordionJavaScriptResourceReference() {
-		super(AccordionJavaScriptResourceReference.class, "jquery.ui.accordion.min.js");
+		super(AccordionJavaScriptResourceReference.class, "jquery.ui.accordion.js");
 	}
 
 	/**

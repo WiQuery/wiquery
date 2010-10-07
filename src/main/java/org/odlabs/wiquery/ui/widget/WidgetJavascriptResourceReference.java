@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.widget;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -32,7 +32,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 1.1
  */
 public class WidgetJavascriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
@@ -44,7 +44,7 @@ public class WidgetJavascriptResourceReference extends
 	 * Builds a new instance of {@link WidgetJavascriptResourceReference}.
 	 */
 	private WidgetJavascriptResourceReference() {
-		super(WidgetJavascriptResourceReference.class, "jquery.ui.widget.min.js");
+		super(WidgetJavascriptResourceReference.class, "jquery.ui.widget.js");
 	}
 
 	/**

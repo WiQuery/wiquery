@@ -24,7 +24,7 @@ package org.odlabs.wiquery.ui.datepicker;
 import java.util.Locale;
 
 import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id: DatePickerLanguageResourceReference.java 81 2009-05-28 20:05:12Z
@@ -38,7 +38,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 0.6
  */
 public class DatePickerLanguageResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	/**
 	 * Enumeration of possibles alternatives languages for the DatePicker
 	 * (Default locale for the DatePicker : EN)
@@ -230,7 +230,7 @@ public class DatePickerLanguageResourceReference extends
 				}
 			}
 			
-			js.append(".min.js");
+			js.append(".js");
 			
 			return js;
 		}

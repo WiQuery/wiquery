@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -32,7 +32,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 1.1
  */
 public class AutocompleteJavascriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
@@ -44,7 +44,7 @@ public class AutocompleteJavascriptResourceReference extends
 	 * Builds a new instance of {@link AutocompleteJavascriptResourceReference}.
 	 */
 	private AutocompleteJavascriptResourceReference() {
-		super(AutocompleteJavascriptResourceReference.class, "jquery.ui.autocomplete.min.js");
+		super(AutocompleteJavascriptResourceReference.class, "jquery.ui.autocomplete.js");
 	}
 
 	/**

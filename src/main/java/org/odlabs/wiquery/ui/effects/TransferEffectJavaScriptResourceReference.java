@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class TransferEffectJavaScriptResourceReference extends JavascriptResourceReference {
+public class TransferEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -6460737051632029822L;
@@ -45,7 +45,7 @@ public class TransferEffectJavaScriptResourceReference extends JavascriptResourc
 	 * Default constructor
 	 */
 	private TransferEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.transfer.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.transfer.js");
 	}
 
 	/**

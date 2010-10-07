@@ -198,7 +198,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 				}
 			}
 			
-			buffer.append(".min.js");
+			buffer.append(".js");
 			
 			return new JavascriptResourceReference(DialogUtilsBehavior.class, "i18n/" + buffer);
 		}
@@ -273,7 +273,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 	public static final JavascriptResourceReference WIQUERY_DIALOG_JS = 
 		new JavascriptResourceReference(
 				DialogUtilsBehavior.class, 
-				"wiquery-dialog.min.js");
+				"wiquery-dialog.js");
 	
 	/**
 	 * {@inheritDoc}

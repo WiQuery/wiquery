@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.dialog;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -32,7 +32,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 1.0
  */
 public class DialogJavaScriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
@@ -44,7 +44,7 @@ public class DialogJavaScriptResourceReference extends
 	 * Builds a new instance of {@link DialogJavaScriptResourceReference}.
 	 */
 	private DialogJavaScriptResourceReference() {
-		super(DialogJavaScriptResourceReference.class, "jquery.ui.dialog.min.js");
+		super(DialogJavaScriptResourceReference.class, "jquery.ui.dialog.js");
 	}
 
 	/**

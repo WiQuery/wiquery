@@ -28,6 +28,8 @@ import java.util.ListIterator;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.javascript.IJavascriptCompressor;
+import org.apache.wicket.javascript.NoOpJavascriptCompressor;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
@@ -68,17 +70,23 @@ public class WiQuerySettings implements Serializable {
 	private boolean enableResourcesMerging;
 	private List<WiQueryPluginRenderingListener> listeners;
 	private JavascriptResourceReference jQueryCoreResourceReference;
-	
+	private boolean minifiedJavascript;
+
 	/**
 	 * Default constructor
 	 */
 	public WiQuerySettings() {
 		super();
-		
-		autoImportJQueryResource = true;
-		enableResourcesMerging = false;
-		jQueryCoreResourceReference = null;
+
+		setAutoImportJQueryResource(true);
+		setEnableResourcesMerging(false);
+		setJQueryCoreResourceReference(null);
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
+
+		IJavascriptCompressor compressor = Application.get()
+				.getResourceSettings().getJavascriptCompressor();
+		setMinifiedJavascript(compressor != null
+				&& !(compressor instanceof NoOpJavascriptCompressor));
 	}
 	
 	/**
@@ -110,7 +118,31 @@ public class WiQuerySettings implements Serializable {
 	public boolean isEnableResourcesMerging() {
 		return enableResourcesMerging;
 	}
-	
+
+	/**
+	 * When true wiquery delivers minimized versions js files, when false
+	 * wiquery delivers normal (non-minimized) versions. The default value
+	 * depends on whether an {@link IJavascriptCompressor} is used or not.
+	 * 
+	 * <p>
+	 * Always provide the normal (non-minimized) version, wiquery will reference
+	 * to the minimized version when
+	 * {@link WiQuerySettings#isCompressedJavascript()} is true.
+	 * </p>
+	 * <p>
+	 * The filename format for the 2 versions is:
+	 * <ul>
+	 * <li>Normal version: <i>foo.js</i></li>
+	 * <li>Minimized version: <i>foo.min.js</i></li>
+	 * </ul>
+	 * </p>
+	 * 
+	 * @return the state of the minifiedJavascript option.
+	 */
+	public boolean isMinifiedJavascript() {
+		return minifiedJavascript;
+	}
+
 	/**
 	 * Set the autoImportJQueryResource option
 	 * @param autoImportJQueryResource
@@ -142,5 +174,15 @@ public class WiQuerySettings implements Serializable {
 	public void setJQueryCoreResourceReference(
 			JavascriptResourceReference jQueryCoreResourceReference) {
 		this.jQueryCoreResourceReference = jQueryCoreResourceReference;
+	}
+
+	/**
+	 * Sets the minifiedJavascript option
+	 * 
+	 * @param minifiedJavascript
+	 * @see #isMinifiedJavascript()
+	 */
+	public void setMinifiedJavascript(boolean minifiedJavascript) {
+		this.minifiedJavascript = minifiedJavascript;
 	}
 }
