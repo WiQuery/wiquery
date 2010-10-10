@@ -1,5 +1,6 @@
 package org.odlabs.wiquery.core.ajax;
 
+import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
@@ -13,7 +14,7 @@ import org.odlabs.wiquery.core.options.Options;
  * @author Julien Roche
  * @since 1.0
  */
-public class JQueryAjaxOption extends Object implements IComplexOption {
+public class JQueryAjaxOption extends Object implements IComplexOption, IModel<JQueryAjaxOption> {
 	/**
 	 * Enumeration of Ajax type
 	 * @author Julien Roche
@@ -441,5 +442,25 @@ public class JQueryAjaxOption extends Object implements IComplexOption {
 	public JQueryAjaxOption setXhrEvent(JsScope xhr) {
 		this.options.put("xhr", xhr);
 		return this;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.model.IModel#getObject()
+	 */
+	public JQueryAjaxOption getObject() {
+		return this;
+	}
+
+	/**
+	 * 
+	 */
+	public void setObject(JQueryAjaxOption object) {
+		throw new UnsupportedOperationException(
+		"The setObject() function is not supported for object JQueryAjaxOption.");
+	}
+
+	public void detach() {
+		options.detach();
 	}
 }
