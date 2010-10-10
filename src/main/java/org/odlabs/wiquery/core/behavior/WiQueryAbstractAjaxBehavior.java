@@ -22,9 +22,7 @@
 package org.odlabs.wiquery.core.behavior;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
-import org.apache.wicket.behavior.HeaderContributor;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryCoreHeaderContributor;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
