@@ -1,12 +1,12 @@
 package org.odlabs.wiquery.ui.commons;
 
+import junit.framework.TestCase;
+
 import org.apache.wicket.Page;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.ui.dialog.Dialog;
-import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.testng.annotations.Test;
-
-import junit.framework.TestCase;
 
 public class WiQueryUIPluginTestCase extends TestCase {
 	/**
@@ -15,7 +15,7 @@ public class WiQueryUIPluginTestCase extends TestCase {
 	@Test
 	public void testInheritance() {
 		@SuppressWarnings("unused")
-		WicketTester wicketTester = new WicketTester(new WiQueryWebApplication() {
+		WicketTester wicketTester = new WicketTester(new WebApplication() {
 			@Override
 			public Class<? extends Page> getHomePage() {
 				return null;

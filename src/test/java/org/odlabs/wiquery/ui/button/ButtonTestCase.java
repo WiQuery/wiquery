@@ -26,11 +26,9 @@ import junit.framework.TestCase;
 import org.apache.wicket.Page;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.util.tester.DummyHomePage;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
-import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.testng.Assert;
-import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
 
 /**
@@ -48,7 +46,7 @@ public class ButtonTestCase extends TestCase {
 	 * @throws java.lang.Exception
 	 */
 	public void setUp() throws Exception {
-		wicketTester = new WicketTester(new WiQueryWebApplication() {
+		wicketTester = new WicketTester(new WebApplication() {
 			@Override
 			public Class<? extends Page> getHomePage() {
 				return ButtonPageFailedTest.class;

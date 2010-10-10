@@ -25,10 +25,10 @@ import junit.framework.TestCase;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
 import org.odlabs.wiquery.ui.position.PositionOptions.Position;
-import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -45,7 +45,7 @@ public class PositionBehaviorTestCase extends TestCase {
 	 * @throws java.lang.Exception
 	 */
 	public void setUp() throws Exception {
-		new WicketTester(new WiQueryWebApplication() {
+		new WicketTester(new WebApplication() {
 			@Override
 			public Class<? extends Page> getHomePage() {
 				return null;

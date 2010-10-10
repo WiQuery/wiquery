@@ -25,8 +25,8 @@ import junit.framework.TestCase;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
-import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -64,7 +64,7 @@ public class JsQueryTestCase extends TestCase {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		new WicketTester(new WiQueryWebApplication() {
+		new WicketTester(new WebApplication() {
 			@Override
 			public Class<? extends Page> getHomePage() {
 				return null;

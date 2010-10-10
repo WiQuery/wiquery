@@ -24,12 +24,12 @@ package org.odlabs.wiquery.ui.dialog;
 import junit.framework.TestCase;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.dialog.Dialog.WindowPosition;
-import org.odlabs.wiquery.utils.WiQueryWebApplication;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -46,7 +46,7 @@ public class DialogTestCase extends TestCase {
 	 * @throws java.lang.Exception
 	 */
 	public void setUp() throws Exception {
-		new WicketTester(new WiQueryWebApplication() {
+		new WicketTester(new WebApplication() {
 			@Override
 			public Class<? extends Page> getHomePage() {
 				return null;
