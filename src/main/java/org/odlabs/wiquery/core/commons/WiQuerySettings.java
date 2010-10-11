@@ -31,15 +31,16 @@ import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.javascript.IJavascriptCompressor;
 import org.apache.wicket.javascript.NoOpJavascriptCompressor;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
  * $Id$
  * 
  * <p>
- * 	Bean to get the wiQuery settings
+ * Bean to get the wiQuery settings
  * </p>
- *
+ * 
  * @author Julien Roche
  * @since 1.1
  */
@@ -47,21 +48,22 @@ public class WiQuerySettings implements Serializable {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 4047364411001306905L;
-	
+
 	/**
 	 * Get {@link WiQuerySettings} for current thread.
 	 * 
 	 * @return The settings
 	 */
 	public static WiQuerySettings get() {
-		WiQuerySettings instance = Application.get().getMetaData(WiQueryInitializer.WIQUERY_INSTANCE_KEY);
-		
+		WiQuerySettings instance = Application.get().getMetaData(
+				WiQueryInitializer.WIQUERY_INSTANCE_KEY);
+
 		if (instance == null) {
 			throw new WicketRuntimeException(
-					"There is no WiQueryInstantiationListener attached to the application " + 
-					Thread.currentThread().getName());
+					"There is no WiQueryInstantiationListener attached to the application "
+							+ Thread.currentThread().getName());
 		}
-		
+
 		return instance;
 	}
 
@@ -70,7 +72,7 @@ public class WiQuerySettings implements Serializable {
 	private boolean enableResourcesMerging;
 	private List<WiQueryPluginRenderingListener> listeners;
 	private JavascriptResourceReference jQueryCoreResourceReference;
-	private boolean minifiedJavascript;
+	private boolean minifiedResources;
 
 	/**
 	 * Default constructor
@@ -85,12 +87,13 @@ public class WiQuerySettings implements Serializable {
 
 		IJavascriptCompressor compressor = Application.get()
 				.getResourceSettings().getJavascriptCompressor();
-		setMinifiedJavascript(compressor != null
+		setMinifiedResources(compressor != null
 				&& !(compressor instanceof NoOpJavascriptCompressor));
 	}
-	
+
 	/**
 	 * Method adding a {@link WiQueryPluginRenderingListener}
+	 * 
 	 * @param listener
 	 * @return the state
 	 */
@@ -111,7 +114,7 @@ public class WiQuerySettings implements Serializable {
 	public boolean isAutoImportJQueryResource() {
 		return autoImportJQueryResource;
 	}
-	
+
 	/**
 	 * @return the state of the enableResourcesMerging option
 	 */
@@ -120,10 +123,14 @@ public class WiQuerySettings implements Serializable {
 	}
 
 	/**
+	 * <p>
 	 * When true wiquery delivers minimized versions js/css files, when false
 	 * wiquery delivers normal (non-minimized) versions. The default value
 	 * depends on whether an {@link IJavascriptCompressor} is used or not.
-	 * 
+	 * </p>
+	 * <p>
+	 * This setting also enables the {@link WiQueryYUICompressedStyleSheetResource} to be used.
+	 * </p>
 	 * <p>
 	 * Always provide the normal (non-minimized) version, wiquery will reference
 	 * to the minimized version when
@@ -137,38 +144,41 @@ public class WiQuerySettings implements Serializable {
 	 * </ul>
 	 * </p>
 	 * 
-	 * @return the state of the minifiedJavascript option.
+	 * @return the state of the minifiedResources option.
 	 */
-	public boolean isMinifiedJavascript() {
-		return minifiedJavascript;
+	public boolean isMinifiedResources() {
+		return minifiedResources;
 	}
 
 	/**
 	 * Set the autoImportJQueryResource option
+	 * 
 	 * @param autoImportJQueryResource
 	 */
 	public void setAutoImportJQueryResource(boolean autoImportJQueryResource) {
 		this.autoImportJQueryResource = autoImportJQueryResource;
 	}
-	
+
 	/**
 	 * Set the enableResourcesMerging option
+	 * 
 	 * @param enableResourcesMerging
 	 */
 	public void setEnableResourcesMerging(boolean enableResourcesMerging) {
 		this.enableResourcesMerging = enableResourcesMerging;
 	}
-	
 
 	/**
-	 * @return the {@link JavascriptResourceReference} where we can find the jQuery core
+	 * @return the {@link JavascriptResourceReference} where we can find the
+	 *         jQuery core
 	 */
 	public JavascriptResourceReference getJQueryCoreResourceReference() {
 		return jQueryCoreResourceReference;
 	}
-	
+
 	/**
 	 * Set the jQuery core to use
+	 * 
 	 * @param jQueryCoreResourceReference
 	 */
 	public void setJQueryCoreResourceReference(
@@ -177,12 +187,12 @@ public class WiQuerySettings implements Serializable {
 	}
 
 	/**
-	 * Sets the minifiedJavascript option
+	 * Sets the minifiedResources option
 	 * 
-	 * @param minifiedJavascript
-	 * @see #isMinifiedJavascript()
+	 * @param minifiedResources
+	 * @see #isMinifiedResources()
 	 */
-	public void setMinifiedJavascript(boolean minifiedJavascript) {
-		this.minifiedJavascript = minifiedJavascript;
+	public void setMinifiedResources(boolean minifiedResources) {
+		this.minifiedResources = minifiedResources;
 	}
 }

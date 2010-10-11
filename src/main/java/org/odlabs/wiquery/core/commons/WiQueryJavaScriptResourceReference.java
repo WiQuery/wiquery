@@ -46,6 +46,6 @@ public class WiQueryJavaScriptResourceReference extends
 	}
 
 	public static boolean isMinifiedJavascript() {
-		return WiQuerySettings.get().isMinifiedJavascript();
+		return WiQuerySettings.get().isMinifiedResources();
 	}
 }

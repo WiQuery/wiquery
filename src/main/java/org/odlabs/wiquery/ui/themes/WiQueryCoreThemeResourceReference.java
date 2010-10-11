@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.themes;
 
-import org.apache.wicket.markup.html.resources.CompressedResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
 
 /**
  * $Id: WiQueryCoreThemeResourceReference.java 85 2009-05-28 23:07:56Z
@@ -33,7 +33,7 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class WiQueryCoreThemeResourceReference extends CompressedResourceReference {
+public class WiQueryCoreThemeResourceReference extends WiQueryYUICompressedStyleSheetResourceReference {
 
 	private static final long serialVersionUID = 6795863553105608280L;
 
@@ -41,5 +41,4 @@ public class WiQueryCoreThemeResourceReference extends CompressedResourceReferen
 		super(WiQueryCoreThemeResourceReference.class, theme
 				+ "/jquery-ui-1.8.5.custom.css");
 	}
-
 }
