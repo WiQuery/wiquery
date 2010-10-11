@@ -120,7 +120,7 @@ public class WiQuerySettings implements Serializable {
 	}
 
 	/**
-	 * When true wiquery delivers minimized versions js files, when false
+	 * When true wiquery delivers minimized versions js/css files, when false
 	 * wiquery delivers normal (non-minimized) versions. The default value
 	 * depends on whether an {@link IJavascriptCompressor} is used or not.
 	 * 
@@ -132,8 +132,8 @@ public class WiQuerySettings implements Serializable {
 	 * <p>
 	 * The filename format for the 2 versions is:
 	 * <ul>
-	 * <li>Normal version: <i>foo.js</i></li>
-	 * <li>Minimized version: <i>foo.min.js</i></li>
+	 * <li>Normal version: <i>foo.js</i> / <i>foo.css</i></li>
+	 * <li>Minimized version: <i>foo.min.js</i> / <i>foo.min.css</i></li>
 	 * </ul>
 	 * </p>
 	 * 

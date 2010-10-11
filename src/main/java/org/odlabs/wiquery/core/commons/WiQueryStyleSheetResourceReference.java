@@ -30,17 +30,17 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
  * 
  * @author Hielke Hoeve
  */
-public class WiQueryJavaScriptResourceReference extends
+public class WiQueryStyleSheetResourceReference extends
 		CompressedResourceReference {
 	private static final long serialVersionUID = 1L;
 
-	public WiQueryJavaScriptResourceReference(Class<?> scope, String name) {
+	public WiQueryStyleSheetResourceReference(Class<?> scope, String name) {
 		super(scope, processName(name), null, null);
 	}
 
 	private static String processName(String name) {
 		if (isMinifiedJavascript())
-			return name.substring(0, name.length() - 2) + "min.js";
+			return name.substring(0, name.length() - 3) + "min.css";
 
 		return name;
 	}
