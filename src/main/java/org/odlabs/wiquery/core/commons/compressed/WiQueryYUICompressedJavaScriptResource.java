@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.CompressedPackageResource;
+import org.apache.wicket.markup.html.JavascriptPackageResource;
 import org.apache.wicket.util.io.ByteArrayOutputStream;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.ResourceStreamNotFoundException;
@@ -29,7 +30,7 @@ import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
  * @since 1.0
  */
 public class WiQueryYUICompressedJavaScriptResource extends
-		CompressedPackageResource {
+		JavascriptPackageResource {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
@@ -117,19 +118,29 @@ public class WiQueryYUICompressedJavaScriptResource extends
 		super(scope, path, locale, style);
 	}
 
-	//TODO uncomment once the YUI Compressor dependency is working correctly.
-//	@Override
-//	protected IResourceStream getPackageResourceStream() {
-//		return new YUICompressedResourceStream() {
-//			private static final long serialVersionUID = 1L;
-//
-//			@Override
-//			protected IResourceStream getOriginalResourceStream() {
-//				return WiQueryYUICompressedJavaScriptResource.super
-//						.getPackageResourceStream();
-//			}
-//		};
-//	}
+	/**
+	 * TODO uncomment once the YUI Compressor dependency is working correctly.
+	 * Once enabled make sure that we subclass {@link CompressedPackageResource}
+	 * and no longer subclass {@link JavascriptPackageResource}.
+	 * 
+	 * @param scope
+	 * @param name
+	 * @param locale
+	 * @param style
+	 * @return
+	 */
+	// @Override
+	// protected IResourceStream getPackageResourceStream() {
+	// return new YUICompressedResourceStream() {
+	// private static final long serialVersionUID = 1L;
+	//
+	// @Override
+	// protected IResourceStream getOriginalResourceStream() {
+	// return WiQueryYUICompressedJavaScriptResource.super
+	// .getPackageResourceStream();
+	// }
+	// };
+	// }
 
 	public static WiQueryYUICompressedJavaScriptResource newPackageResource(
 			Class<?> scope, String name, Locale locale, String style) {
