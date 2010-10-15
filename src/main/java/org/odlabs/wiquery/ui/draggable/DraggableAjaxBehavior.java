@@ -296,7 +296,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	public static final JavascriptResourceReference wiQueryDraggableJs = 
 		new JavascriptResourceReference(
 				DraggableJavaScriptResourceReference.class, 
-				"wiquery-draggable.min.js");
+				"wiquery-draggable.js");
 
 	/** Drag type into the request */
 	protected static final String DRAG_TYPE = "dragType";

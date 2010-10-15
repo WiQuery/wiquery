@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class ShakeEffectJavaScriptResourceReference extends JavascriptResourceReference {
+public class ShakeEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -1202143038814716047L;
@@ -45,7 +45,7 @@ public class ShakeEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Default constructor
 	 */
 	private ShakeEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.shake.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.shake.js");
 	}
 
 	/**

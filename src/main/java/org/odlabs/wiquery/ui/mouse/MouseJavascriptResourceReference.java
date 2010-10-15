@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.mouse;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -32,7 +32,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 1.1
  */
 public class MouseJavascriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
@@ -44,7 +44,7 @@ public class MouseJavascriptResourceReference extends
 	 * Builds a new instance of {@link MouseJavascriptResourceReference}.
 	 */
 	private MouseJavascriptResourceReference() {
-		super(MouseJavascriptResourceReference.class, "jquery.ui.mouse.min.js");
+		super(MouseJavascriptResourceReference.class, "jquery.ui.mouse.js");
 	}
 
 	/**

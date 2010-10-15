@@ -43,10 +43,10 @@ public class DatePickerLanguageResourceReferenceTestCase extends TestCase {
 		
 		Assert.assertEquals(
 				DatePickerLanguages.getJsFileName(DatePickerLanguages.FRENCH).toString(),
-				"i18n/jquery.ui.datepicker-fr.min.js");
+				"i18n/jquery.ui.datepicker-fr.js");
 		
 		Assert.assertEquals(
 				DatePickerLanguages.getJsFileName(DatePickerLanguages.SERBIA).toString(),
-				"i18n/jquery.ui.datepicker-sr-SR.min.js");
+				"i18n/jquery.ui.datepicker-sr-SR.js");
 	}
 }

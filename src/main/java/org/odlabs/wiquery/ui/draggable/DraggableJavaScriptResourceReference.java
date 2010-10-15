@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.draggable;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id: DraggableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
@@ -34,7 +34,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 0.5
  */
 public class DraggableJavaScriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3704373328245392716L;
@@ -48,7 +48,7 @@ public class DraggableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link DraggableJavaScriptResourceReference}.
 	 */
 	private DraggableJavaScriptResourceReference() {
-		super(DraggableJavaScriptResourceReference.class, "jquery.ui.draggable.min.js");
+		super(DraggableJavaScriptResourceReference.class, "jquery.ui.draggable.js");
 	}
 
 	/**

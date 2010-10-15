@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class FoldEffectJavaScriptResourceReference extends JavascriptResourceReference {
+public class FoldEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 4691925978528852666L;
@@ -45,7 +45,7 @@ public class FoldEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Default constructor
 	 */
 	private FoldEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.fold.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.fold.js");
 	}
 
 	/**

@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class PulsateEffectJavaScriptResourceReference extends JavascriptResourceReference {
+public class PulsateEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -5550806128536330878L;
@@ -45,7 +45,7 @@ public class PulsateEffectJavaScriptResourceReference extends JavascriptResource
 	 * Default constructor
 	 */
 	private PulsateEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.pulsate.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.pulsate.js");
 	}
 
 	/**

@@ -26,11 +26,13 @@ import java.util.ArrayList;
 
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedJavaScriptResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
 
 /**
- * $Id$
+ * $Id: WiQueryResourceManager.java 445 2010-10-07 10:40:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
  * Manages {@link ResourceReference} declared by components.
  * </p>
@@ -78,7 +80,7 @@ public class WiQueryResourceManager implements Serializable {
 	 * Adds the given {@link JavascriptResourceReference} as a JavaScript file
 	 * to import for the underlying component.
 	 */
-	public void addJavaScriptResource(JavascriptResourceReference reference) {
+	public void addJavaScriptResource(ResourceReference reference) {
 		this.javascriptResources.add(reference);
 	}
 
@@ -89,12 +91,14 @@ public class WiQueryResourceManager implements Serializable {
 	 * @see ResourceReference
 	 */
 	public void addJavaScriptResource(Class<?> scope, String path) {
-		this.javascriptResources.add(new JavascriptResourceReference(scope, path));
+		this.javascriptResources
+				.add(new WiQueryYUICompressedJavaScriptResourceReference(scope,
+						path));
 	}
-	
+
 	/**
-	 * Adds the given {@link ResourceReference} as a Css file
-	 * to import for the underlying component.
+	 * Adds the given {@link ResourceReference} as a Css file to import for the
+	 * underlying component.
 	 */
 	public void addCssResource(ResourceReference reference) {
 		this.cssResources.add(reference);
@@ -106,7 +110,9 @@ public class WiQueryResourceManager implements Serializable {
 	 * @see ResourceReference
 	 */
 	public void addCssResource(Class<?> scope, String path) {
-		this.cssResources.add(new CompressedResourceReference(scope, path));
+		this.cssResources
+				.add(new WiQueryYUICompressedStyleSheetResourceReference(scope,
+						path));
 	}
 
 	/**

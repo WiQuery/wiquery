@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.droppable;
 
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id: DroppableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
@@ -36,7 +36,7 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
  * @since 0.5
  */
 public class DroppableJavaScriptResourceReference extends
-		JavascriptResourceReference {
+		WiQueryJavaScriptResourceReference {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3704373328245392715L;
@@ -50,7 +50,7 @@ public class DroppableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link DroppableJavaScriptResourceReference}.
 	 */
 	private DroppableJavaScriptResourceReference() {
-		super(DroppableJavaScriptResourceReference.class, "jquery.ui.droppable.min.js");
+		super(DroppableJavaScriptResourceReference.class, "jquery.ui.droppable.js");
 	}
 
 	/**

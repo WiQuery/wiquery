@@ -191,29 +191,24 @@ public class JsQuery implements Serializable, IHeaderContributor {
 		String js = statement == null ? null : statement.render().toString();
 		
 		if (js != null && js.trim().length() > 0) {
-			if (requestTarget == null
-					|| !(requestTarget instanceof AjaxRequestTarget)) {
+			if (AjaxRequestTarget.get() == null) {
 				// appending component statement
 				// on dom ready, the code is executed.
 				JsStatement onreadyStatement = new JsStatement();
 				onreadyStatement.document().ready(JsScope.quickScope(js));
-//				response.renderJavascriptReference(
-//						new WiqueryGeneratedJavaScriptResourceReference(
-//								onreadyStatement.render()));
-				// We don't use WiqueryGeneratedJavaScriptResourceReference because :
-				// 1) it could cause some memory leak with the SharedApplication
-				// 2) with ajax update, we will have the execution of the first generation of the page
-				// and next the new generation
-				response.renderJavascript(
-						WiqueryGeneratedJavaScriptResourceReference.wiqueryGeneratedJavascriptCode(
-								onreadyStatement.render()), 
-						"wiquery-gen" + System.currentTimeMillis());
-			
+
+				/*
+				 * use {@link WiqueryGeneratedJavaScriptResourceReference} to
+				 * compress, minimize, etc the given javascript, then
+				 * immediately retrieve it.
+				 */
+				response.renderJavascriptReference(
+						new WiqueryGeneratedJavaScriptResourceReference(onreadyStatement.render()));
+
 			} else {
 				AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
 				ajaxRequestTarget.appendJavascript(js);
 			}
 		}
 	}
-
 }
