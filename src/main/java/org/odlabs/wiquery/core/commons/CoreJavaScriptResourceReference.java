@@ -55,9 +55,9 @@ public class CoreJavaScriptResourceReference extends
 		// returns a full version when application isn't in production mode
 		Application application = Application.get();
 		if (Application.DEVELOPMENT.equals(application.getConfigurationType())) {
-			return "jquery/jquery-1.4.2.js";	
+			return "jquery/jquery-1.4.3.js";	
 		} else {
-			return "jquery/jquery-1.4.2.min.js";			
+			return "jquery/jquery-1.4.3.min.js";			
 		}
 	}
 
