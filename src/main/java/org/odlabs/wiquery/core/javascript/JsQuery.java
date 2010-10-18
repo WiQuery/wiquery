@@ -25,6 +25,7 @@ import java.io.Serializable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.IRequestTarget;
+import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.IHeaderContributor;
@@ -136,8 +137,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
 		}
 		
-		IRequestTarget requestTarget = component.getRequestCycle()
-				.getRequestTarget();
+		IRequestTarget requestTarget = (component != null ? component.getRequestCycle() : RequestCycle.get()).getRequestTarget();
 		if (requestTarget == null
 				|| !(requestTarget instanceof AjaxRequestTarget)) {
 			// appending component statement
