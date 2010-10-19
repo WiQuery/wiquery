@@ -28,6 +28,7 @@ import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
+import org.odlabs.wiquery.ui.themes.UiIcon;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -111,6 +112,11 @@ public class ButtonTestCase extends TestCase {
 	public void testGetIcons() {
 		Assert.assertNull(buttonBehavior.getIcons());
 		buttonBehavior.setIcons(new ButtonIcon("ui-icon-gear", "ui-icon-triangle-1-s"));
+		Assert.assertNotNull(buttonBehavior.getIcons());
+		Assert.assertEquals(buttonBehavior.getIcons().getJavascriptOption().toString(), 
+				"{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}");
+		
+		buttonBehavior.setIcons(UiIcon.GEAR, UiIcon.TRIANGLE_1_SOUTH);
 		Assert.assertNotNull(buttonBehavior.getIcons());
 		Assert.assertEquals(buttonBehavior.getIcons().getJavascriptOption().toString(), 
 				"{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}");

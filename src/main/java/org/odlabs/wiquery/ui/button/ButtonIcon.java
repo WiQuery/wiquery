@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.button;
 
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
+import org.odlabs.wiquery.ui.themes.UiIcon;
 
 /**
  * $Id$
@@ -31,6 +32,7 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * </p>
  * 
  * @author Julien Roche
+ * @author Ernesto Reinaldo
  * @since 1.1
  */
 public class ButtonIcon  extends Object implements IComplexOption {
@@ -52,6 +54,21 @@ public class ButtonIcon  extends Object implements IComplexOption {
 		this.secondary = secondary;
 	}
 
+	/**
+	 * Constructor accepting enumeration.
+	 * 
+	 * @param primary
+	 * @param secondary
+	 */
+	public ButtonIcon(UiIcon primary, UiIcon secondary) {
+		super();
+		if(primary == null) 
+			throw new IllegalArgumentException("Primary UI icon should be non-null");
+		this.primary = primary.getCssClass();
+		if(secondary != null)
+			this.secondary = secondary.getCssClass();
+	}
+	
 	/**Method retrieving the class for the primary icon
 	 * @return the class for the primary icon
 	 */

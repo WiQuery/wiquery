@@ -31,6 +31,7 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
+import org.odlabs.wiquery.ui.themes.UiIcon;
 import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
@@ -43,6 +44,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
  * <p>The click event is not a part of the jQuery UI framework</p>
  * 
  * @author Julien Roche
+ * @author Ernesto Reinaldo
  * @since 1.1
  */
 @WiQueryUIPlugin
@@ -150,8 +152,7 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 	public boolean isText() {
 		if(options.containsKey("text")){
 			return options.getBoolean("text");
-		}
-		
+		}		
 		return true;
 	}
 	
@@ -167,6 +168,23 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 	 */
 	public ButtonBehavior setIcons(ButtonIcon icons) {
 		options.put("icons", icons);
+		return this;
+	}
+	
+	/**
+	 * * Icons to display, with or without text (see text option). The primary icon 
+	 * is displayed on the left of the label text, the secondary on the right. 
+	 * Value for the primary and secondary properties must be a classname (String), 
+	 * eg. "ui-icon-gear". For using only a primary icon: icons: {primary:'ui-icon-locked'}. 
+	 * For using both primary and secondary icon: 
+	 * icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'}
+	 * 
+	 * @param primary The primary icon (should be non-null)
+	 * @param secondary The secondary icon (might be null).
+	 * @return
+	 */
+	public ButtonBehavior setIcons(UiIcon primary, UiIcon secondary) {
+		options.put("icons", new ButtonIcon(primary, secondary));
 		return this;
 	}
 	
