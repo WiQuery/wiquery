@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2009 WiQuery team
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
@@ -45,9 +46,9 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -3377109382248062940L;
-	
+
 	// Properties
-	private final IModel<List<? extends T>> list;
+	private final IModel<? extends List<? extends T>> list;
 
 	/**
 	 * Constructor
@@ -55,11 +56,22 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	 * @param model Model of the default value
 	 * @param list List of possibles values
 	 */
-	public AutocompleteComponent(String id, final IModel<T> model, final IModel<List<? extends T>> list) {
+	public AutocompleteComponent(String id, final IModel<T> model, final IModel<? extends List<? extends T>> list) {
 		super(id, model);
 		this.list = list;
 	}
-	
+
+	/**
+	 * Constructor
+	 * @param id Wicket identifiant
+	 * @param model Model of the default value
+	 * @param list List of possibles values
+	 */
+	public AutocompleteComponent(String id, final IModel<T> model, final IModel<? extends List<? extends T>> list, IChoiceRenderer<? super T> choiceRenderer) {
+		super(id, model, choiceRenderer);
+		this.list = list;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.ui.autocomplete.AbstractAutocompleteComponent#onBeforeRenderAutocomplete(org.odlabs.wiquery.ui.autocomplete.Autocomplete)
@@ -67,34 +79,47 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	@Override
 	protected void onBeforeRenderAutocomplete(Autocomplete<?> autocomplete) {
 		StringWriter sw = new StringWriter();
-		getMapIdToModel().clear();
-		
+
 		try {
 			JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
-			
+
 			List<Object> json = new ArrayList<Object>();
 			T defaultValue = AutocompleteComponent.this.getModelObject();
 			AutocompleteJson value = null;
 			Integer index = 0;
-			
+
 			for(T obj : AutocompleteComponent.this.list.getObject()){
 				index++;
 				value = newAutocompleteJson(index, obj);
 				json.add(value);
-				getMapIdToModel().put(value.getValueId(), obj);
-				
+
 				if(obj.equals(defaultValue)){
 					autocomplete.setDefaultModelObject(value.getLabel());
 					getAutocompleteHidden().setModelObject(value.getValueId());
 				}
 			}
-			
+
 			new ObjectMapper().writeValue(gen, json);
-			
+
 		} catch (IOException e) {
 			throw new WicketRuntimeException(e);
 		}
-		
+
 		autocomplete.getOptions().put("source", sw.toString());
 	}
+
+
+	@Override
+	protected List<? extends T> getChoices() {
+		return list.getObject();
+	}
+
+	@Override
+	protected void onDetach() {
+		super.onDetach();
+		if(list != null){
+			list.detach();
+		}
+	}
+
 }

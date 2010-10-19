@@ -218,7 +218,8 @@ public abstract class ThemeUiHelper {
 		GRIP_SOLID_VERTICAL							("grip-solid-vertical"),
 		GRIP_SOLID_HORIZONTAL						("grip-solid-horizontal"),
 		GRIPSMALL_DIAGONAL_SE						("gripsmall-diagonal-se"),
-		GRIP_DIAGONAL_SE							("grip-diagonal-se");
+		GRIP_DIAGONAL_SE							("grip-diagonal-se"),
+		INFO										("info");
 		
 		//--------
 		// Properties
