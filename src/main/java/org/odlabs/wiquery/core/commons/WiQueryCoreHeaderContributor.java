@@ -105,6 +105,9 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private static final MetaDataKey<Boolean> WIQUERY_KEY = new MetaDataKey<Boolean>() {
 		private static final long serialVersionUID = 1L;
 	};
+	private static final MetaDataKey<Long> WIQUERY_PAGE_KEY = new MetaDataKey<Long>() {
+		private static final long serialVersionUID = 1L;
+	};
 
 	private Component owner;
 
@@ -130,14 +133,23 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	}
 
 	private void renderResponse(final IHeaderResponse response) {
-		Boolean rendered = RequestCycle.get().getMetaData(WIQUERY_KEY);
+		Page page = RequestCycle.get().getResponsePage();
+		Boolean rendered;
+		if (page == null) {
+			rendered = RequestCycle.get().getMetaData(WIQUERY_KEY);
+		} else {
+			Long renderTime = page.getMetaData(WIQUERY_PAGE_KEY);
+			rendered = renderTime != null
+					&& renderTime.equals(RequestCycle.get().getStartTime());
+			page.setMetaData(WIQUERY_PAGE_KEY, RequestCycle.get().getStartTime());
+		}
+		RequestCycle.get().setMetaData(WIQUERY_KEY, Boolean.TRUE);
 		if (rendered == null || !rendered) {
 			WiQuerySettings settings = WiQuerySettings.get();
 
 			final List<WiQueryPluginRenderingListener> pluginRenderingListeners = getRenderingListeners(settings);
 
 			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
-			Page page = RequestCycle.get().getResponsePage();
 			if (page != null) {
 				page.visitChildren(visitor);
 				visitor.component(page);
@@ -176,7 +188,6 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			JsQuery jsq = new JsQuery();
 			jsq.setStatement(jsStatement);
 			jsq.renderHead(response, RequestCycle.get().getRequestTarget());
-			RequestCycle.get().setMetaData(WIQUERY_KEY, Boolean.TRUE);
 		}
 	}
 
