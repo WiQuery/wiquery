@@ -33,6 +33,7 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.themes.UiIcon;
 import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
@@ -388,7 +389,32 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return instance of the current component
 	 */
 	public Accordion setIcons(AccordionIcon icons) {	
-		this.options.put("icons", icons);
+		if(icons != null)
+			this.options.put("icons", icons);
+		else 
+			this.options.removeOption("icons");
+		return this;
+	}
+	
+	/**
+	 * Icons to use for headers. 
+	 * 
+	 * @param header
+	 * @param headerSelected
+	 * @return instance of the current component
+	 */
+	public Accordion setIcons(UiIcon header, UiIcon  headerSelected) {	
+		setIcons(new AccordionIcon(header, headerSelected));
+		return this;
+	}
+	
+	/**
+	 * Allows to hide the icons.
+	 * 
+	 * @return instance of the current component
+	 */
+	public Accordion hideIcons() {	
+		setIcons(new AccordionIcon(false));
 		return this;
 	}
 	
