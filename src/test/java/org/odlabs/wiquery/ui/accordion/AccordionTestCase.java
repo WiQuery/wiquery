@@ -21,12 +21,11 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
-import junit.framework.TestCase;
-
-import org.apache.wicket.Page;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.DummyPanelPage;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.odlabs.wiquery.core.options.LiteralOption;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.accordion.Accordion.AccordionTriggerEvent;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.testng.Assert;
@@ -34,138 +33,155 @@ import org.testng.annotations.Test;
 
 /**
  * Test on {@link Accordion}
+ * 
  * @author Julien Roche
- *
+ * 
  */
-public class AccordionTestCase extends TestCase {
+public class AccordionTestCase extends WiQueryTestCase {
 	// Properties
 	private Accordion accordion;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-		
+	public void setUp() {
+		super.setUp();
+
 		accordion = new Accordion("anId");
 		accordion.setMarkupId(accordion.getId());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#activate(int)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#activate(int)}.
 	 */
 	@Test
 	public void testActivateInt() {
 		Assert.assertNotNull(accordion.activate(5));
-		Assert.assertEquals(accordion.activate(5).render().toString(), 
+		Assert.assertEquals(accordion.activate(5).render().toString(),
 				"$('#anId').accordion('activate', 5);");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#destroy()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#destroy()}.
 	 */
 	@Test
 	public void testDestroy() {
 		Assert.assertNotNull(accordion.destroy());
-		Assert.assertEquals(accordion.destroy().render().toString(), 
+		Assert.assertEquals(accordion.destroy().render().toString(),
 				"$('#anId').accordion('destroy');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#disable()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#disable()}.
 	 */
 	@Test
 	public void testDisable() {
 		Assert.assertNotNull(accordion.disable());
-		Assert.assertEquals(accordion.disable().render().toString(), 
+		Assert.assertEquals(accordion.disable().render().toString(),
 				"$('#anId').accordion('disable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#enable()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#enable()}.
 	 */
 	@Test
 	public void testEnable() {
 		Assert.assertNotNull(accordion.enable());
-		Assert.assertEquals(accordion.enable().render().toString(), 
+		Assert.assertEquals(accordion.enable().render().toString(),
 				"$('#anId').accordion('enable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getActive()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#getActive()}.
 	 */
 	@Test
 	public void testGetActive() {
 		Assert.assertNull(accordion.getActive());
 		accordion.setActive(new AccordionActive(true));
 		Assert.assertNotNull(accordion.getActive());
-		Assert.assertEquals(accordion.getActive().getJavascriptOption().toString(), "true");
+		Assert.assertEquals(accordion.getActive().getJavascriptOption()
+				.toString(), "true");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getAnimated()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#getAnimated()}.
 	 */
 	@Test
 	public void testGetAnimationEffect() {
 		Assert.assertNotNull(accordion.getAnimated());
-		Assert.assertEquals(accordion.getAnimated().getJavascriptOption().toString(), "'slide'");
+		Assert.assertEquals(accordion.getAnimated().getJavascriptOption()
+				.toString(), "'slide'");
 		accordion.setAnimated(new AccordionAnimated(true));
-		Assert.assertEquals(accordion.getAnimated().getJavascriptOption().toString(), "true");
+		Assert.assertEquals(accordion.getAnimated().getJavascriptOption()
+				.toString(), "true");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getEvent()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#getEvent()}.
 	 */
 	@Test
 	public void testGetEvent() {
 		Assert.assertNotNull(accordion.getEvent());
 		Assert.assertEquals(accordion.getEvent(), AccordionTriggerEvent.CLICK);
 		accordion.setEvent(AccordionTriggerEvent.MOUSEOVER);
-		Assert.assertEquals(accordion.getEvent(), AccordionTriggerEvent.MOUSEOVER);
+		Assert.assertEquals(accordion.getEvent(),
+				AccordionTriggerEvent.MOUSEOVER);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getHeader()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#getHeader()}.
 	 */
 	@Test
 	public void testGetHeader() {
 		Assert.assertNotNull(accordion.getHeader());
-		Assert.assertEquals(accordion.getHeader().getJavascriptOption(), "'> li> :first-child, > :not(li):even'");
+		Assert.assertEquals(accordion.getHeader().getJavascriptOption(),
+				"'> li> :first-child, > :not(li):even'");
 		accordion.setHeader(new AccordionHeader(new LiteralOption("> li")));
-		Assert.assertEquals(accordion.getHeader().getJavascriptOption(), "'> li'");
+		Assert.assertEquals(accordion.getHeader().getJavascriptOption(),
+				"'> li'");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getIcons()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#getIcons()}.
 	 */
 	@Test
 	public void testGetIcons() {
 		Assert.assertNotNull(accordion.getIcons());
-		Assert.assertEquals(accordion.getIcons().getJavascriptOption().toString(), 
-				"{'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s'}");
-		accordion.setIcons(new AccordionIcon("ui-icon-triangle-1-s", "ui-icon-triangle-1-e"));
-		Assert.assertEquals(accordion.getIcons().getJavascriptOption().toString(), 
-		"{'header': 'ui-icon-triangle-1-s', 'headerSelected': 'ui-icon-triangle-1-e'}");
+		Assert
+				.assertEquals(accordion.getIcons().getJavascriptOption()
+						.toString(),
+						"{'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s'}");
+		accordion.setIcons(new AccordionIcon("ui-icon-triangle-1-s",
+				"ui-icon-triangle-1-e"));
+		Assert
+				.assertEquals(accordion.getIcons().getJavascriptOption()
+						.toString(),
+						"{'header': 'ui-icon-triangle-1-s', 'headerSelected': 'ui-icon-triangle-1-e'}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getOptions()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions() {
 		Assert.assertNotNull(accordion.getOptions());
-		Assert.assertEquals(accordion.getOptions().getJavaScriptOptions().toString(), "{}");
+		Assert.assertEquals(accordion.getOptions().getJavaScriptOptions()
+				.toString(), "{}");
 		accordion.setAutoHeight(true);
-		Assert.assertEquals(accordion.getOptions().getJavaScriptOptions().toString(), "{autoHeight: true}");
+		Assert.assertEquals(accordion.getOptions().getJavaScriptOptions()
+				.toString(), "{autoHeight: true}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isAutoHeight()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#isAutoHeight()}.
 	 */
 	@Test
 	public void testIsAutoHeight() {
@@ -175,7 +191,8 @@ public class AccordionTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isClearStyle()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#isClearStyle()}.
 	 */
 	@Test
 	public void testIsClearStyle() {
@@ -185,7 +202,8 @@ public class AccordionTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isCollapsible()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#isCollapsible()}.
 	 */
 	@Test
 	public void testIsCollapsible() {
@@ -193,9 +211,10 @@ public class AccordionTestCase extends TestCase {
 		accordion.setCollapsible(true);
 		Assert.assertTrue(accordion.isCollapsible());
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isDisabled()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled() {
@@ -205,7 +224,8 @@ public class AccordionTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isFillSpace()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#isFillSpace()}.
 	 */
 	@Test
 	public void testIsFillSpace() {
@@ -215,7 +235,8 @@ public class AccordionTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isNavigation()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#isNavigation()}.
 	 */
 	@Test
 	public void testIsNavigation() {
@@ -225,45 +246,76 @@ public class AccordionTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetChangeEvent() {
-		Assert.assertEquals(accordion.statement().render().toString(), 
-			"$('#anId').accordion({});");
+		Assert.assertEquals(accordion.statement().render().toString(),
+				"$('#anId').accordion({});");
 		accordion.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(accordion.statement().render().toString(), 
-			"$('#anId').accordion({change: function(event, ui) {\n\talert('event');\n}});");
+		Assert
+				.assertEquals(accordion.statement().render().toString(),
+						"$('#anId').accordion({change: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#setChangeStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#setChangeStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetChangeStartEvent() {
-		Assert.assertEquals(accordion.statement().render().toString(), 
-			"$('#anId').accordion({});");
-		accordion.setChangeStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(accordion.statement().render().toString(), 
-			"$('#anId').accordion({changestart: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(accordion.statement().render().toString(),
+				"$('#anId').accordion({});");
+		accordion.setChangeStartEvent(JsScopeUiEvent
+				.quickScope("alert('event');"));
+		Assert
+				.assertEquals(
+						accordion.statement().render().toString(),
+						"$('#anId').accordion({changestart: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#statement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#statement()}.
 	 */
 	@Test
 	public void testStatement() {
 		Assert.assertNotNull(accordion.statement());
-		Assert.assertEquals(accordion.statement().render().toString(), "$('#anId').accordion({});");
+		Assert.assertEquals(accordion.statement().render().toString(),
+				"$('#anId').accordion({});");
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#widget()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#widget()}.
 	 */
 	@Test
 	public void testWidget() {
 		Assert.assertNotNull(accordion.widget());
-		Assert.assertEquals(accordion.widget().render().toString(), 
+		Assert.assertEquals(accordion.widget().render().toString(),
 				"$('#anId').accordion('widget');");
+	}
+	
+	/**
+	 * Test method for the complete component.
+	 * TODO create an accordion that is serverside testable.
+	 */
+	@Test
+	public void testAccordionOnPage()
+	{
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new AccordionTestPanel(panelId);
+				panel.add(accordion);
+				return panel;
+			}
+		});
+		
+		tester.assertComponent(DummyPanelPage.TEST_PANEL_ID+":anId", Accordion.class);
 	}
 }
