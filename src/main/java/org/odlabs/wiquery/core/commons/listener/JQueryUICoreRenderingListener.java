@@ -29,16 +29,19 @@ import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.commons.WiQuerySettings;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.themes.IThemableApplication;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
 /**
- * $Id$
+ * $Id: JQueryUICoreRenderingListener.java 412 2010-09-17 21:23:25Z
+ * lionel.armanet $
  * <p>
- * 	Listens to wiquery plugins rendering and imports resources for UI components
+ * Listens to wiquery plugins rendering and imports resources for UI components
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 1.0-m2
  */
@@ -47,13 +50,13 @@ public class JQueryUICoreRenderingListener implements
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -6556629662991246699L;
-	
+
 	/**
 	 * The default theme.
 	 */
 	private static final ResourceReference DEFAULT_THEME = new WiQueryCoreThemeResourceReference(
 			"fusion");
-	
+
 	/**
 	 * @return the default theme
 	 */
@@ -63,23 +66,30 @@ public class JQueryUICoreRenderingListener implements
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener#onRender(org.odlabs.wiquery.core.commons.IWiQueryPlugin, org.odlabs.wiquery.core.commons.WiQueryResourceManager, org.apache.wicket.markup.html.IHeaderResponse)
+	 * 
+	 * @see org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener#onRender(org.odlabs.wiquery.core.commons.IWiQueryPlugin,
+	 *      org.odlabs.wiquery.core.commons.WiQueryResourceManager,
+	 *      org.apache.wicket.markup.html.IHeaderResponse)
 	 */
 	public void onRender(IWiQueryPlugin plugin,
 			WiQueryResourceManager resourceManager, IHeaderResponse response) {
-		if (plugin.getClass().isAnnotationPresent(WiQueryUIPlugin.class)) {
-			Application application = Application.get();
-			if (application instanceof IThemableApplication) {
-				// if application is themable, imports the given theme
-				response.renderCSSReference(((IThemableApplication)application).getTheme(Session.get()));
-			} else {				
-				// application is not themed, imports default theme
-				response.renderCSSReference(DEFAULT_THEME);
+		if (WiQuerySettings.get().isAutoImportJQueryUIResource()) {
+			if (plugin.getClass().isAnnotationPresent(WiQueryUIPlugin.class)) {
+				Application application = Application.get();
+				if (application instanceof IThemableApplication) {
+					// if application is themable, imports the given theme
+					response
+							.renderCSSReference(((IThemableApplication) application)
+									.getTheme(Session.get()));
+				} else {
+					// application is not themed, imports default theme
+					response.renderCSSReference(DEFAULT_THEME);
+				}
+				response
+						.renderJavascriptReference(CoreUIJavaScriptResourceReference
+								.get());
 			}
-			response
-					.renderJavascriptReference(CoreUIJavaScriptResourceReference
-							.get());
 		}
 	}
-	
+
 }

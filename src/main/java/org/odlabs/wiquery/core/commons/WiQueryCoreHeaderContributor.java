@@ -178,16 +178,23 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 				for (WiQueryPluginRenderingListener listener : pluginRenderingListeners) {
 					listener.onRender(plugin, manager, headerResponse);
 				}
+					
 				plugin.contribute(manager);
 			}
 
-			manager.initialize(headerResponse);
+			initializeResourceManager( headerResponse, manager );
 
 			mergeResources(response, settings, wiQueryHeaderResponse);
 
 			JsQuery jsq = new JsQuery();
 			jsq.setStatement(jsStatement);
 			jsq.renderHead(response, RequestCycle.get().getRequestTarget());
+		}
+	}
+
+	private void initializeResourceManager( IHeaderResponse headerResponse, WiQueryResourceManager manager ) {
+		if(WiQuerySettings.get().isEnableWiqueryResourceManagement()){
+		manager.initialize(headerResponse);
 		}
 	}
 
@@ -218,8 +225,8 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 				}
 			}
 		}
-
-		manager.initialize(headerResponse);
+		
+		initializeResourceManager( wiQueryHeaderResponse, manager );
 
 		mergeResources(response, settings, wiQueryHeaderResponse);
 	}

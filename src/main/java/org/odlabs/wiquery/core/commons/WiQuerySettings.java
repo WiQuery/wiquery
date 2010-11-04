@@ -73,13 +73,16 @@ public class WiQuerySettings implements Serializable {
 	private List<WiQueryPluginRenderingListener> listeners;
 	private JavascriptResourceReference jQueryCoreResourceReference;
 	private boolean minifiedResources;
+	private boolean autoImportJQueryUIResource;
+	private boolean enableWiqueryResourceManagement;
 
 	/**
 	 * Default constructor
 	 */
 	public WiQuerySettings() {
 		super();
-
+		this.autoImportJQueryUIResource = true;
+		this.enableWiqueryResourceManagement = true;
 		setAutoImportJQueryResource(true);
 		setEnableResourcesMerging(false);
 		setJQueryCoreResourceReference(null);
@@ -129,7 +132,8 @@ public class WiQuerySettings implements Serializable {
 	 * depends on whether an {@link IJavascriptCompressor} is used or not.
 	 * </p>
 	 * <p>
-	 * This setting also enables the {@link WiQueryYUICompressedStyleSheetResource} to be used.
+	 * This setting also enables the
+	 * {@link WiQueryYUICompressedStyleSheetResource} to be used.
 	 * </p>
 	 * <p>
 	 * Always provide the normal (non-minimized) version, wiquery will reference
@@ -195,4 +199,59 @@ public class WiQuerySettings implements Serializable {
 	public void setMinifiedResources(boolean minifiedResources) {
 		this.minifiedResources = minifiedResources;
 	}
+
+	public boolean isAutoImportJQueryUIResource() {
+		return autoImportJQueryUIResource;
+	}
+
+	/**
+	 * If set to <code>false</code>, no jQueryUI resources are contributed by
+	 * the framework, which means the user is responsible to add required
+	 * resources (javascript and css files) for jQueryUI to work. Useful if one
+	 * wants to manage resources globally or use a CDN network to load
+	 * resources.
+	 * <p/>
+	 * <b>Warning:</b> If version does not match to the version contributed by
+	 * the framework, functionality may be harmed!
+	 * 
+	 * @param autoImportJQueryUIResource
+	 *            <code>true</code> to let the framework import required
+	 *            resources. <code>false</code> to disable automatic resources
+	 *            contribution by the framework.
+	 * @see #setEnableWiqueryResourceManagement(boolean)
+	 */
+	public void setAutoImportJQueryUIResource(boolean autoImportJQueryUIResource) {
+		this.autoImportJQueryUIResource = autoImportJQueryUIResource;
+	}
+
+	public boolean isEnableWiqueryResourceManagement() {
+		return enableWiqueryResourceManagement;
+	}
+
+	/**
+	 * If set to <code>false</code>, <b>all</b> resource contributions by
+	 * Wiquery are disabled. No jQuery or jQueryUI resource are contributed by
+	 * the framework, nor any resources from plugins. Useful if one wants to
+	 * manage resources globally or use a CDN network to load resources.
+	 * <p/>
+	 * <b>Warning:</b> By setting this to <code>false</code> the frameworks
+	 * functionality (or parts of it) is not guaranteed anymore! Activate only
+	 * if you know what you do and import required resources manually.
+	 * <p/>
+	 * Sets internally {@link #setAutoImportJQueryResource(boolean)} and
+	 * {@link #setAutoImportJQueryUIResource(boolean)} to the given value.
+	 * 
+	 * @param enableWiqueryResourceManagement
+	 *            <code>false</code> disables all resources contributions by the
+	 *            framework. <code>true</code> enables it (default).
+	 * @see #setAutoImportJQueryResource(boolean)
+	 * @see #setAutoImportJQueryUIResource(boolean)
+	 */
+	public void setEnableWiqueryResourceManagement(
+			boolean enableWiqueryResourceManagement) {
+		this.autoImportJQueryUIResource = enableWiqueryResourceManagement;
+		this.autoImportJQueryResource = enableWiqueryResourceManagement;
+		this.enableWiqueryResourceManagement = enableWiqueryResourceManagement;
+	}
+
 }
