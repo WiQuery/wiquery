@@ -44,7 +44,8 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
- * $Id$
+ * $Id: WiQueryCoreHeaderContributor.java 431 2010-09-27 09:20:20Z
+ * richardjohnwilkinson@gmail.com $
  * <p>
  * Handles core JavaScript generation process of WiQuery.
  * </p>
@@ -59,7 +60,7 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Richard Wilkinson
  */
 public class WiQueryCoreHeaderContributor implements Serializable,
-IHeaderContributor {
+		IHeaderContributor {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -347081993448442637L;
@@ -85,7 +86,7 @@ IHeaderContributor {
 	public void renderHead(final IHeaderResponse response) {
 
 		Boolean rendered = RequestCycle.get().getMetaData(WIQUERY_KEY);
-		if(rendered == null || !rendered){
+		if (rendered == null || !rendered) {
 
 			WiQuerySettings instanciation = WiQuerySettings.get();
 
@@ -94,10 +95,10 @@ IHeaderContributor {
 			pluginRenderingListeners.add(new JQueryCoreRenderingListener());
 			pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
 			// Listeners add by users
-			for(Iterator<WiQueryPluginRenderingListener> iterator = instanciation.getListeners(); iterator.hasNext();){
+			for (Iterator<WiQueryPluginRenderingListener> iterator = instanciation
+					.getListeners(); iterator.hasNext();) {
 				pluginRenderingListeners.add(iterator.next());
 			}
-
 
 			// the response is a unique statement containing all statements
 			// to call
@@ -113,66 +114,67 @@ IHeaderContributor {
 			IVisitor<Component> visitor = new IVisitor<Component>() {
 
 				public Object component(Component component) {
-					if(component.determineVisibility()){
-						if(component instanceof IWiQueryPlugin){
+					if (component.determineVisibility()) {
+						if (component instanceof IWiQueryPlugin) {
 							plugins.add((IWiQueryPlugin) component);
 						}
-						for(IBehavior behavior : component.getBehaviors()){
-							if(behavior instanceof IWiQueryPlugin && behavior.isEnabled(component)){
+						for (IBehavior behavior : component.getBehaviors()) {
+							if (behavior instanceof IWiQueryPlugin
+									&& behavior.isEnabled(component)) {
 								plugins.add((IWiQueryPlugin) behavior);
 							}
 						}
 						return CONTINUE_TRAVERSAL;
-					}
-					else{
+					} else {
 						return CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
 					}
 				}
 			};
 
-			if(ajaxRequestTarget == null){
-				//is a normal page render
+			if (ajaxRequestTarget == null) {
+				// is a normal page render
 				Page page = RequestCycle.get().getResponsePage();
-				if(page != null){
+				if (page != null) {
 					page.visitChildren(visitor);
-					if(page instanceof IWiQueryPlugin){
+					if (page instanceof IWiQueryPlugin) {
 						plugins.add((IWiQueryPlugin) page);
 					}
-					for(IBehavior behavior : page.getBehaviors()){
-						if(behavior instanceof IWiQueryPlugin && behavior.isEnabled(page)){
+					for (IBehavior behavior : page.getBehaviors()) {
+						if (behavior instanceof IWiQueryPlugin
+								&& behavior.isEnabled(page)) {
 							plugins.add((IWiQueryPlugin) behavior);
 						}
 					}
 				}
-			}
-			else{
-				//is an ajax render
-				for(Component component : ajaxRequestTarget.getComponents()){
-					if(component.determineVisibility()){
-						if(component instanceof IWiQueryPlugin){
+			} else {
+				// is an ajax render
+				for (Component component : ajaxRequestTarget.getComponents()) {
+					if (component.determineVisibility()) {
+						if (component instanceof IWiQueryPlugin) {
 							plugins.add((IWiQueryPlugin) component);
 						}
-						for(IBehavior behavior : component.getBehaviors()){
-							if(behavior instanceof IWiQueryPlugin && behavior.isEnabled(component)){
+						for (IBehavior behavior : component.getBehaviors()) {
+							if (behavior instanceof IWiQueryPlugin
+									&& behavior.isEnabled(component)) {
 								plugins.add((IWiQueryPlugin) behavior);
 							}
 						}
 					}
-					if(component instanceof MarkupContainer){
+					if (component instanceof MarkupContainer) {
 						((MarkupContainer) component).visitChildren(visitor);
 					}
 				}
 			}
 
-
 			WiQueryResourceManager manager = new WiQueryResourceManager();
 
-			for (Iterator<IWiQueryPlugin> iterator = plugins.iterator(); iterator.hasNext(); ) {
+			for (Iterator<IWiQueryPlugin> iterator = plugins.iterator(); iterator
+					.hasNext();) {
 				plugin = iterator.next();
 
 				tempStatement = plugin.statement();
 
-				if(tempStatement != null){
+				if (tempStatement != null) {
 					jsStatement.append("\t" + tempStatement.render() + "\n");
 				}
 
@@ -183,8 +185,7 @@ IHeaderContributor {
 				plugin.contribute(manager);
 			}
 
-			manager.initialize(response);
-
+			initializeResourceManager(response, manager);
 
 			jsq.setStatement(jsStatement);
 			jsq.renderHead(response, target);
@@ -192,4 +193,10 @@ IHeaderContributor {
 		}
 	}
 
+	private void initializeResourceManager(IHeaderResponse headerResponse,
+			WiQueryResourceManager manager) {
+		if (WiQuerySettings.get().isEnableWiqueryResourceManagement()) {
+			manager.initialize(headerResponse);
+		}
+	}
 }
