@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.dialog;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -94,6 +95,16 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		this.setPosition(WindowPosition.CENTER);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.Component#onInitialize()
+	 */
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		setDefaultModel(options);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
@@ -456,6 +467,19 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return instance of the current component
 	 */
 	public Dialog setTitle(String title) {
+		options.putLiteral("title", title);
+		return this;
+	}
+	
+	/**
+	 * Sets the window's title.
+	 * <p>
+	 * <strong>Note:</strong> the title can be automatically sets when the HTML
+	 * <code>title</code> attribute is set.
+	 * </p>
+	 * @return instance of the current component
+	 */
+	public Dialog setTitle(IModel<String> title) {
 		options.putLiteral("title", title);
 		return this;
 	}

@@ -43,7 +43,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @author Ernesto Reinaldo Barreiro 
  * @since 0.5
  */
-public class LiteralOption implements IDetachable, IListItemOption {
+public class LiteralOption implements IDetachable, IListItemOption, IModelOption<String> {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 6999431516689050752L;
@@ -124,6 +124,22 @@ public class LiteralOption implements IDetachable, IListItemOption {
 	 */
 	public String getLiteral() {
 		return literal!= null?literal.getObject():null;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IModelOption#getModel()
+	 */
+	public IModel<String> getModel() {
+		return literal;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IModelOption#setModel(org.apache.wicket.model.IModel)
+	 */
+	public void setModel(IModel<String> model) {
+		this.literal = model;
 	}
 	
 	/**

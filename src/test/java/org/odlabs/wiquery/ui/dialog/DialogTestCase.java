@@ -24,6 +24,7 @@ package org.odlabs.wiquery.ui.dialog;
 import junit.framework.TestCase;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.core.javascript.JsScope;
@@ -42,11 +43,12 @@ public class DialogTestCase extends TestCase {
 	// Properties
 	private Dialog dialog;
 
+	private WicketTester tester;
 	/**
 	 * @throws java.lang.Exception
 	 */
 	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
+		tester = new WicketTester(new WebApplication() {
 			@Override
 			public Class<? extends Page> getHomePage() {
 				return null;
@@ -238,6 +240,12 @@ public class DialogTestCase extends TestCase {
 		Assert.assertEquals(dialog.getTitle(), "");
 		dialog.setTitle("a title");
 		Assert.assertEquals(dialog.getTitle(), "a title");
+		
+		dialog.setTitle(new Model<String>("a title2"));
+		Assert.assertEquals(dialog.getTitle(), "a title2");
+		
+		DialogTestPage page = (DialogTestPage)tester.startPage(DialogTestPage.class);
+		Assert.assertEquals(page.getDialog().getTitle(), "This is a title");
 	}
 
 	/**

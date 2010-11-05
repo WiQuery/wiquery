@@ -42,7 +42,7 @@ import org.apache.wicket.model.Model;
  * @author Ernesto Reinaldo Barreiro 
  * @since 0.5
  */
-public class StringOption implements IDetachable, ITypedOption<String> {
+public class StringOption implements IDetachable, ITypedOption<String>, IModelOption<String> {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 6999431516689050752L;
@@ -104,6 +104,22 @@ public class StringOption implements IDetachable, ITypedOption<String> {
 			value.detach();
 		}
 	} 
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IModelOption#getModel()
+	 */
+	public IModel<String> getModel() {
+		return value;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IModelOption#setModel(org.apache.wicket.model.IModel)
+	 */
+	public void setModel(IModel<String> model) {
+		this.value = model;
+	}
 	
 	/*
 	 * (non-Javadoc)

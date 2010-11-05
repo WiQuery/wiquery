@@ -27,8 +27,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IDetachable;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.IWrapModel;
 import org.odlabs.wiquery.core.javascript.JsScope;
 
 /**
@@ -55,7 +57,7 @@ import org.odlabs.wiquery.core.javascript.JsScope;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class Options implements IModel<Options> {
+public class Options implements IModel<Options>, IComponentAssignedModel<Options>, IWrapModel<Options>  {
 
 	private static final long serialVersionUID = 1L;
 
@@ -219,7 +221,7 @@ public class Options implements IModel<Options> {
 				sb.append(this.optionsRenderer.renderOption(key,
 						((IComplexOption)value).getJavascriptOption(), isLast));
 			} else if (value instanceof ITypedOption<?>) {
-				// Case of an IComplexOption
+				// Case of an ITypedOption
 				sb.append(this.optionsRenderer.renderOption(key,((ITypedOption<?>)value).getJavascriptOption(), isLast));
 			}
 			else {
@@ -595,6 +597,59 @@ public class Options implements IModel<Options> {
 				onDetach(iter.next());
 			}
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.model.IComponentAssignedModel#wrapOnAssignment(org.apache.wicket.Component)
+	 */
+	public IWrapModel<Options> wrapOnAssignment(Component component) {
+		onWrap(this, component);
+		return this;
+	}
+	
+	/*
+	 * 
+	 * Returns a wrapped model or null 
+	 */
+	@SuppressWarnings("unchecked")
+	private Object onWrap(Object object, Component component) {
+		if (object instanceof Options) {
+			Options options = (Options)object;
+			Map<String, Object> temp = new LinkedHashMap<String, Object>();
+			for (Map.Entry<String, Object> entry : options.options.entrySet()) {
+				String key = entry.getKey();
+				Object value = entry.getValue();
+				// try to wrap the value.
+				Object wrapped = onWrap(value, component);
+				if(wrapped != null) {
+					// if value has been wrapped the we add it.
+					temp.put(key, wrapped);
+				} else {
+					temp.put(key, value);
+				}
+			}
+			this.options = temp;
+		} else if(object instanceof IComponentAssignedModel<?>) {
+			IComponentAssignedModel<?> assignedModel = (IComponentAssignedModel<?>)object;
+			return assignedModel.wrapOnAssignment(component);
+		} else if(object instanceof IModelOption<?>) {
+			IModelOption<?> modelOption = (IModelOption<?>)object;
+			Object wrapped = onWrap(modelOption.getModel(), component);
+			if(wrapped != null) {
+				// if inner model has been wrapped
+				// then reset model
+				modelOption.setModel((IModel)wrapped);
+				return modelOption;
+			}
+			
+		}
+		return null;	 
+	}
+	
+
+	public IModel<?> getWrappedModel() {
+		return this;
 	}
 
 }

@@ -6,8 +6,12 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +50,20 @@ public class OptionsTestCase extends TestCase{
 		public boolean isDetached() {
 			return detached;
 		}
+	}
+	
+	private WicketTester wicketTester;
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	public void setUp() throws Exception {
+		wicketTester = new WicketTester(new WebApplication() {
+			@Override
+			public Class<? extends Page> getHomePage() {
+				return OptionsTestPage.class;
+			}
+		});
 	}
 	
 	@Test
@@ -110,6 +128,27 @@ public class OptionsTestCase extends TestCase{
 		
 	}
 	
+	@Test
+	public void testOptionsWrappedModels() {
+		// this method test the use of wrapped models in options
+		Options options = new Options();
+		// put an IComponentAssignedModel 
+		options.putString("test", new ResourceModel("key"));
+		options.putString("test1", new Model<String>("Test1"));		
+		options.put("test2", false);
+		OptionsTestPanel panel = new OptionsTestPanel("panel", options);
+		OptionsTestPage page = new OptionsTestPage(panel, options);
+		page = (OptionsTestPage)wicketTester.startPage(page);
+		String expectedResult = "Test";
+		// result should has been read from resources.
+		String result = page.getOptions().get("test");
+		log.info("result="+result);
+		log.info("expectedResult="+expectedResult);
+		assertEquals(expectedResult, result);
+		assertEquals("Test1",  page.getOptions().get("test1"));		
+		assertEquals(false,  page.getOptions().getBoolean("test2").booleanValue());		
+		wicketTester.assertNoErrorMessage();
+	}
 	
 	@Test
 	public void testGetFloat() {
