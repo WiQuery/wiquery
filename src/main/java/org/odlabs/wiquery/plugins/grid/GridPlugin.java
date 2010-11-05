@@ -63,7 +63,7 @@ public class GridPlugin extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addCssResource(
-				GridPlugin.class, "flexigrid/css/flexigrid/flexigrid.css");
+				GridPlugin.class, "flexigrid/flexigrid.css");
 		wiQueryResourceManager.addJavaScriptResource(
 				GridPlugin.class, "flexigrid/flexigrid.js");
 	}

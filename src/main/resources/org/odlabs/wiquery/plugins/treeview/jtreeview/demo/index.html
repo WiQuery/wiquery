@@ -3,7 +3,7 @@
 <head>
 
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
-	<title>jQuery treeView</title>
+	<title>jQuery treeview</title>
 	
 	<link rel="stylesheet" href="../jquery.treeview.css" />
 	<link rel="stylesheet" href="screen.css" />
@@ -27,10 +27,37 @@
 		<li><a href="large.html">Large Tree Demo</a></li>
 		<li><a href="prerendered.html">Prerendered Large Tree Demo</a></li>
 		<li><a href="async.html">Async Tree Demo</a></li>
+		<li><a href="edit.html">Editable Tree Demo</a></li>
 		<li><a href="simple.html">Simple Tree Demo, famfamfam theme (no lines)</a></li>
 	</ul>
+	
+	<h4>Sample 1 - default</h4>
+	<ul id="browser" class="filetree">
+		<li><span class="folder">Folder 1</span>
+			<ul>
+				<li><span class="file">Item 1.1</span></li>
+			</ul>
+		</li>
+		<li><span class="folder">Folder 2</span>
+			<ul>
+				<li><span class="folder">Subfolder 2.1</span>
+					<ul id="folder21">
+						<li><span class="file">File 2.1.1</span></li>
+						<li><span class="file">File 2.1.2</span></li>
+					</ul>
+				</li>
+				<li><span class="file">File 2.2</span></li>
+			</ul>
+		</li>
+		<li class="closed"><span class="folder">Folder 3 (closed at start)</span>
+			<ul>
+				<li><span class="file">File 3.1</span></li>
+			</ul>
+		</li>
+		<li><span class="file">File 4</span></li>
+	</ul>
 		
-	<h4>Sample 0 - navigation</h4>
+	<h4>Sample 2 - Navigation</h4>
 	
 	<ul id="navigation">
 		<li><a href="?1">Item 1</a>
@@ -127,36 +154,7 @@
 		</li>
 	</ul>
 	
-	
-	<h4>Sample 1 - default</h4>
-	<ul id="browser" class="filetree">
-		<li><span class="folder">Folder 1</span>
-			<ul>
-				<li><span class="file">Item 1.1</span></li>
-			</ul>
-		</li>
-		<li><span class="folder">Folder 2</span>
-			<ul>
-				<li><span class="folder">Subfolder 2.1</span>
-					<ul id="folder21">
-						<li><span class="file">File 2.1.1</span></li>
-						<li><span class="file">File 2.1.2</span></li>
-					</ul>
-				</li>
-				<li><span class="file">File 2.2</span></li>
-			</ul>
-		</li>
-		<li class="closed"><span class="folder">Folder 3 (closed at start)</span>
-			<ul>
-				<li><span class="file">File 3.1</span></li>
-			</ul>
-		</li>
-		<li><span class="file">File 4</span></li>
-	</ul>
-	
-	<button id="add">Add!</button>
-	
-	<h4>Sample 2 - fast animations, all branches collapsed at first, red theme, cookie-based persistance</h4>
+	<h4>Sample 3 - fast animations, all branches collapsed at first, red theme, cookie-based persistance</h4>
 	<ul id="red" class="treeview-red">
 	<li><span>Item 1</span>
 		<ul>
@@ -253,7 +251,7 @@
 	</li>
 	</ul>
 	
-	<h4>Sample 3 - two trees with one tree control, black and gray theme, cookie-based persistance</h4>
+	<h4>Sample 4 - two trees with one tree control, black and gray theme, cookie-based persistance</h4>
 	<div id="treecontrol">
 		<a title="Collapse the entire tree below" href="#"><img src="../images/minus.gif" /> Collapse All</a>
 		<a title="Expand the entire tree below" href="#"><img src="../images/plus.gif" /> Expand All</a>

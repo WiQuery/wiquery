@@ -1,11 +1,7 @@
-/* Copyright (c) 2006 Brandon Aaron (http://brandonaaron.net)
- * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) 
- * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+/*! Copyright (c) 2010 Brandon Aaron (http://brandonaaron.net)
+ * Licensed under the MIT License (LICENSE.txt).
  *
- * $LastChangedDate: 2007-07-21 18:44:59 -0500 (Sat, 21 Jul 2007) $
- * $Rev: 2446 $
- *
- * Version 2.1.1
+ * Version 2.1.2
  */
 
 (function($){
@@ -69,32 +65,34 @@
  * @cat Plugins/bgiframe
  * @author Brandon Aaron (brandon.aaron@gmail.com || http://brandonaaron.net)
  */
-$.fn.bgIframe = $.fn.bgiframe = function(s) {
-	// This is only for IE6
-	if ( $.browser.msie && /6.0/.test(navigator.userAgent) ) {
-		s = $.extend({
-			top     : 'auto', // auto == .currentStyle.borderTopWidth
-			left    : 'auto', // auto == .currentStyle.borderLeftWidth
-			width   : 'auto', // auto == offsetWidth
-			height  : 'auto', // auto == offsetHeight
-			opacity : true,
-			src     : 'javascript:false;'
-		}, s || {});
-		var prop = function(n){return n&&n.constructor==Number?n+'px':n;},
-		    html = '<iframe class="bgiframe"frameborder="0"tabindex="-1"src="'+s.src+'"'+
-		               'style="display:block;position:absolute;z-index:-1;'+
-			               (s.opacity !== false?'filter:Alpha(Opacity=\'0\');':'')+
-					       'top:'+(s.top=='auto'?'expression(((parseInt(this.parentNode.currentStyle.borderTopWidth)||0)*-1)+\'px\')':prop(s.top))+';'+
-					       'left:'+(s.left=='auto'?'expression(((parseInt(this.parentNode.currentStyle.borderLeftWidth)||0)*-1)+\'px\')':prop(s.left))+';'+
-					       'width:'+(s.width=='auto'?'expression(this.parentNode.offsetWidth+\'px\')':prop(s.width))+';'+
-					       'height:'+(s.height=='auto'?'expression(this.parentNode.offsetHeight+\'px\')':prop(s.height))+';'+
-					'"/>';
-		return this.each(function() {
-			if ( $('> iframe.bgiframe', this).length == 0 )
-				this.insertBefore( document.createElement(html), this.firstChild );
-		});
-	}
-	return this;
-};
+$.fn.bgIframe = $.fn.bgiframe = ($.browser.msie && /msie 6\.0/i.test(navigator.userAgent) ? function(s) {
+    s = $.extend({
+        top     : 'auto', // auto == .currentStyle.borderTopWidth
+        left    : 'auto', // auto == .currentStyle.borderLeftWidth
+        width   : 'auto', // auto == offsetWidth
+        height  : 'auto', // auto == offsetHeight
+        opacity : true,
+        src     : 'javascript:false;'
+    }, s);
+    var html = '<iframe class="bgiframe"frameborder="0"tabindex="-1"src="'+s.src+'"'+
+                   'style="display:block;position:absolute;z-index:-1;'+
+                       (s.opacity !== false?'filter:Alpha(Opacity=\'0\');':'')+
+                       'top:'+(s.top=='auto'?'expression(((parseInt(this.parentNode.currentStyle.borderTopWidth)||0)*-1)+\'px\')':prop(s.top))+';'+
+                       'left:'+(s.left=='auto'?'expression(((parseInt(this.parentNode.currentStyle.borderLeftWidth)||0)*-1)+\'px\')':prop(s.left))+';'+
+                       'width:'+(s.width=='auto'?'expression(this.parentNode.offsetWidth+\'px\')':prop(s.width))+';'+
+                       'height:'+(s.height=='auto'?'expression(this.parentNode.offsetHeight+\'px\')':prop(s.height))+';'+
+                '"/>';
+    return this.each(function() {
+        if ( $(this).children('iframe.bgiframe').length === 0 )
+            this.insertBefore( document.createElement(html), this.firstChild );
+    });
+} : function() { return this; });
+
+// old alias
+$.fn.bgIframe = $.fn.bgiframe;
+
+function prop(n) {
+    return n && n.constructor === Number ? n + 'px' : n;
+}
 
 })(jQuery);

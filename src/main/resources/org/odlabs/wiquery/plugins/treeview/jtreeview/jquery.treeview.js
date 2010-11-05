@@ -1,5 +1,5 @@
 /*
- * Treeview 1.4 - jQuery plugin to hide and show branches of a tree
+ * Treeview 1.5pre - jQuery plugin to hide and show branches of a tree
  * 
  * http://bassistance.de/jquery-plugins/jquery-plugin-treeview/
  * http://docs.jquery.com/Plugins/Treeview
@@ -10,12 +10,13 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  *
- * Revision: $Id: jquery.treeview.js 4684 2008-02-07 19:08:06Z joern.zaefferer $
+ * Revision: $Id: jquery.treeview.js 5759 2008-07-01 07:50:28Z joern.zaefferer $
  *
  */
 
 ;(function($) {
 
+	// TODO rewrite as a widget, removing all the extra plugins
 	$.extend($.fn, {
 		swapClass: function(c1, c2) {
 			var c1Elements = this.filter('.' + c1);
@@ -63,8 +64,11 @@
 			return this.filter(":has(>ul)");
 		},
 		applyClasses: function(settings, toggler) {
-			this.filter(":has(>ul):not(:has(>a))").find(">span").click(function(event) {
-				toggler.apply($(this).next());
+			// TODO use event delegation
+			this.filter(":has(>ul):not(:has(>a))").find(">span").unbind("click.treeview").bind("click.treeview", function(event) {
+				// don't handle click events on children, eg. checkboxes
+				if ( this == event.target )
+					toggler.apply($(this).next());
 			}).add( $("a", this) ).hoverClass();
 			
 			if (!settings.prerendered) {
@@ -78,14 +82,17 @@
 						.addClass(CLASSES.collapsable)
 						.replaceClass(CLASSES.last, CLASSES.lastCollapsable);
 						
-	            // create hitarea
-				this.prepend("<div class=\"" + CLASSES.hitarea + "\"/>").find("div." + CLASSES.hitarea).each(function() {
+	            // create hitarea if not present
+				var hitarea = this.find("div." + CLASSES.hitarea);
+				if (!hitarea.length)
+					hitarea = this.prepend("<div class=\"" + CLASSES.hitarea + "\"/>").find("div." + CLASSES.hitarea);
+				hitarea.removeClass().addClass(CLASSES.hitarea).each(function() {
 					var classes = "";
 					$.each($(this).parent().attr("class").split(" "), function() {
 						classes += this + "-hitarea ";
 					});
 					$(this).addClass( classes );
-				});
+				})
 			}
 			
 			// apply event to hitarea
@@ -96,10 +103,6 @@
 			settings = $.extend({
 				cookieId: "treeview"
 			}, settings);
-			
-			if (settings.add) {
-				return this.trigger("add", [settings.add]);
-			}
 			
 			if ( settings.toggle ) {
 				var callback = settings.toggle;
@@ -160,6 +163,7 @@
 						.heightHide( settings.animated, settings.toggle );
 				}
 			}
+			this.data("toggler", toggler);
 			
 			function serialize() {
 				function binary(arg) {
@@ -169,7 +173,7 @@
 				branches.each(function(i, e) {
 					data[i] = $(e).is(":has(>ul:visible)") ? 1 : 0;
 				});
-				$.cookie(settings.cookieId, data.join("") );
+				$.cookie(settings.cookieId, data.join(""), settings.cookieOptions );
 			}
 			
 			function deserialize() {
@@ -200,9 +204,21 @@
 				deserialize();
 				break;
 			case "location":
-				var current = this.find("a").filter(function() { return this.href.toLowerCase() == location.href.toLowerCase(); });
+				var current = this.find("a").filter(function() {
+					return this.href.toLowerCase() == location.href.toLowerCase();
+				});
 				if ( current.length ) {
-					current.addClass("selected").parents("ul, li").add( current.next() ).show();
+					// TODO update the open/closed classes
+					var items = current.addClass("selected").parents("ul, li").add( current.next() ).show();
+					if (settings.prerendered) {
+						// if prerendered is on, replicate the basic class swapping
+						items.filter("li")
+							.swapClass( CLASSES.collapsable, CLASSES.expandable )
+							.swapClass( CLASSES.lastCollapsable, CLASSES.lastExpandable )
+							.find(">.hitarea")
+								.swapClass( CLASSES.collapsableHitarea, CLASSES.expandableHitarea )
+								.swapClass( CLASSES.lastCollapsableHitarea, CLASSES.lastExpandableHitarea );
+					}
 				}
 				break;
 			}
@@ -215,22 +231,14 @@
 				$(settings.control).show();
 			}
 			
-			return this.bind("add", function(event, branches) {
-				$(branches).prev()
-					.removeClass(CLASSES.last)
-					.removeClass(CLASSES.lastCollapsable)
-					.removeClass(CLASSES.lastExpandable)
-				.find(">.hitarea")
-					.removeClass(CLASSES.lastCollapsableHitarea)
-					.removeClass(CLASSES.lastExpandableHitarea);
-				$(branches).find("li").andSelf().prepareBranches(settings).applyClasses(settings, toggler);
-			});
+			return this;
 		}
 	});
 	
 	// classes used by the plugin
 	// need to be styled via external stylesheet, see first example
-	var CLASSES = $.fn.treeview.classes = {
+	$.treeview = {};
+	var CLASSES = ($.treeview.classes = {
 		open: "open",
 		closed: "closed",
 		expandable: "expandable",
@@ -243,9 +251,6 @@
 		lastExpandable: "lastExpandable",
 		last: "last",
 		hitarea: "hitarea"
-	};
-	
-	// provide backwards compability
-	$.fn.Treeview = $.fn.treeview;
+	});
 	
 })(jQuery);
