@@ -29,7 +29,7 @@ import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheet
  * <p>
  * Defines the default WiQuery theme.
  * </p>
- * 
+ *
  * @author Lionel Armanet
  * @since 1.0
  */
@@ -39,6 +39,6 @@ public class WiQueryCoreThemeResourceReference extends WiQueryYUICompressedStyle
 
 	public WiQueryCoreThemeResourceReference(String theme) {
 		super(WiQueryCoreThemeResourceReference.class, theme
-				+ "/jquery-ui-1.8.5.custom.css");
+				+ "/jquery-ui-1.8.6.custom.css");
 	}
 }
