@@ -73,7 +73,14 @@ public class WiQueryMergedStyleSheetResourceReference extends
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(WiQueryMergedStyleSheetResourceReference.class);
 	
-	private static String getCssUrl(String url, String baseUrl) {
+	/**
+	 * Convert local URL for the merging stylesheet( the url will be broken, so
+	 * we have to rewrite it !!)
+	 * @param url
+	 * @param baseUrl
+	 * @return
+	 */
+	protected static String getCssUrl(String url, String baseUrl) {
 		String cleaned = url.replace(" ", "").replace("'", "").replace("\"", "");
 		cleaned = cleaned.substring(4); // remove '('
 		cleaned = cleaned.substring(0, cleaned.length() - 1); // remove ')'
