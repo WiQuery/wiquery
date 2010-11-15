@@ -61,7 +61,7 @@ public class WiQueryYUICompressedJavaScriptResourceReference extends
 	protected Resource newResource() {
 		PackageResource packageResource;
 		
-		if (WiQuerySettings.get().isMinifiedResources())
+		if (!WiQuerySettings.get().isMinifiedResources())
 			packageResource = WiQueryYUICompressedJavaScriptResource
 					.newPackageResource(getScope(), getName(), getLocale(),
 							getStyle());

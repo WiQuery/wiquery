@@ -60,7 +60,7 @@ public class WiQueryYUICompressedStyleSheetResourceReference extends
 	protected Resource newResource() {
 		PackageResource packageResource;
 		
-		if(WiQuerySettings.get().isMinifiedResources())
+		if(!WiQuerySettings.get().isMinifiedResources())
 			packageResource = WiQueryYUICompressedStyleSheetResource
 				.newPackageResource(getScope(), getName(), getLocale(),
 						getStyle());

@@ -30,7 +30,7 @@ import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
  * @since 1.0
  */
 public class WiQueryYUICompressedJavaScriptResource extends
-		JavascriptPackageResource {
+		CompressedPackageResource {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
@@ -97,7 +97,7 @@ public class WiQueryYUICompressedJavaScriptResource extends
 				ByteArrayOutputStream outstream = new ByteArrayOutputStream();
 				OutputStreamWriter writer = new OutputStreamWriter(outstream,
 						"UTF-8");
-				compressor.compress(writer, -1, false, false, true, true);
+				compressor.compress(writer, -1, false, false, true, false);
 				writer.flush();
 
 				return outstream.toByteArray();
@@ -129,18 +129,18 @@ public class WiQueryYUICompressedJavaScriptResource extends
 	 * @param style
 	 * @return
 	 */
-	// @Override
-	// protected IResourceStream getPackageResourceStream() {
-	// return new YUICompressedResourceStream() {
-	// private static final long serialVersionUID = 1L;
-	//
-	// @Override
-	// protected IResourceStream getOriginalResourceStream() {
-	// return WiQueryYUICompressedJavaScriptResource.super
-	// .getPackageResourceStream();
-	// }
-	// };
-	// }
+	@Override
+	protected IResourceStream getPackageResourceStream() {
+		return new YUICompressedResourceStream() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected IResourceStream getOriginalResourceStream() {
+				return WiQueryYUICompressedJavaScriptResource.super
+						.getPackageResourceStream();
+			}
+		};
+	}
 
 	public static WiQueryYUICompressedJavaScriptResource newPackageResource(
 			Class<?> scope, String name, Locale locale, String style) {
