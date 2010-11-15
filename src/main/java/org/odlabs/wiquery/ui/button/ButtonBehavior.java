@@ -25,6 +25,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -62,6 +63,18 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 	public ButtonBehavior() {
 		super();
 		options = new Options();
+	}
+	
+	@Override
+	public void bind(Component component) {
+		options.setOwner(component);
+		super.bind(component);
+	}
+	
+	@Override
+	public void detach(Component component) {
+		super.detach(component);
+		options.detach();
 	}
 	
 	/**
@@ -204,6 +217,19 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 	 * @return the button
 	 */
 	public ButtonBehavior setLabel(String label) {
+		options.putLiteral("label", label);
+		return this;
+	}
+	
+	/**
+	 * Text to show on the button. When not specified (null), the element's html 
+	 * content is used, or its value attribute when it's an input element of type 
+	 * submit or reset; or the html content of the associated label element if 
+	 * its an input of type radio or checkbox
+	 * @param label
+	 * @return the button
+	 */
+	public ButtonBehavior setLabel(IModel<String> label) {
 		options.putLiteral("label", label);
 		return this;
 	}

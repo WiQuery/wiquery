@@ -81,9 +81,19 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Slider(String id, Number min, Number max) {
 		super(id);
-		options = new Options();
+		options = new Options(this);
 		setMin(min);
 		setMax(max);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.Component#detachModel()
+	 */
+	@Override
+	protected void detachModel() {
+		super.detachModel();
+		options.detach();		
 	}
 
 	/* (non-Javadoc)

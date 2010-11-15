@@ -21,8 +21,7 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
-import java.io.Serializable;
-
+import org.apache.wicket.Component;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
@@ -43,18 +42,15 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
  */
-public class DatePickerOptions implements Serializable {
+public class DatePickerOptions extends Options {
 	
 	private static final long serialVersionUID = 1L;
-	
-	// Properties
-	private Options options;
 	
 	/**
 	 * Constructor
 	 */
-	public DatePickerOptions() {
-		options = new Options();
+	public DatePickerOptions(Component owner) {
+		super(owner);
 	}
 	
 
@@ -68,14 +64,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setAltField(String altField) {
-		this.options.putLiteral("altField", altField);
+		putLiteral("altField", altField);
 	}
 	
 	/**
 	 * @return the altField option value
 	 */
 	public String getAltField() {
-		String altField = this.options.getLiteral("altField");
+		String altField = getLiteral("altField");
 		return altField == null ? "" : altField;
 	}
 	
@@ -107,14 +103,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setAltFormat(String altFormat) {
-		this.options.putLiteral("altFormat", altFormat);
+		putLiteral("altFormat", altFormat);
 	}
 	
 	/**
 	 * @return the altFormat option value
 	 */
 	public String getAltFormat() {
-		String altFormat = this.options.getLiteral("altFormat");
+		String altFormat = getLiteral("altFormat");
 		return altFormat == null ? "" : altFormat;
 	}
 	
@@ -123,14 +119,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setAppendText(String appendText) {
-		this.options.putLiteral("appendText", appendText);
+		putLiteral("appendText", appendText);
 	}
 	
 	/**
 	 * @return the appendText option value
 	 */
 	public String getAppendText() {
-		String appendText = this.options.getLiteral("appendText");
+		String appendText = getLiteral("appendText");
 		return appendText == null ? "" : appendText;
 	}
 	
@@ -140,15 +136,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setAutoSize(boolean autoSize) {
-		options.put("autoSize", autoSize);
+		put("autoSize", autoSize);
 	}
 
 	/**
 	 * @return the autoSize option
 	 */
 	public boolean isAutoSize() {
-		if(this.options.containsKey("autoSize")){
-			return options.getBoolean("autoSize");
+		if(containsKey("autoSize")){
+			return getBoolean("autoSize");
 		}
 		
 		return false;
@@ -160,14 +156,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setButtonImage(String buttonImage) {
-		this.options.putLiteral("buttonImage", buttonImage);
+		putLiteral("buttonImage", buttonImage);
 	}
 	
 	/**
 	 * @return the buttonImage option value
 	 */
 	public String getButtonImage() {
-		String buttonImage = this.options.getLiteral("buttonImage");
+		String buttonImage = getLiteral("buttonImage");
 		return buttonImage == null ? "" : buttonImage;
 	}
 	
@@ -177,15 +173,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setButtonImageOnly(boolean buttonImageOnly) {
-		options.put("buttonImageOnly", buttonImageOnly);
+		put("buttonImageOnly", buttonImageOnly);
 	}
 
 	/**
 	 * @return the buttonImageOnly option value
 	 */
 	public boolean isButtonImageOnly() {
-		if(this.options.containsKey("buttonImageOnly")){
-			return options.getBoolean("buttonImageOnly");
+		if(containsKey("buttonImageOnly")){
+			return getBoolean("buttonImageOnly");
 		}
 		
 		return false;
@@ -197,14 +193,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setButtonText(String buttonText) {
-		this.options.putLiteral("buttonText", buttonText);
+		putLiteral("buttonText", buttonText);
 	}
 	
 	/**
 	 * @return the buttonText option value
 	 */
 	public String getButtonText() {
-		String buttonText = this.options.getLiteral("buttonText");
+		String buttonText = getLiteral("buttonText");
 		return buttonText == null ? "..." : buttonText;
 	}
 	
@@ -218,7 +214,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setCalculateWeek(JsScope calculateWeek) {
-		this.options.put("calculateWeek", calculateWeek);
+		put("calculateWeek", calculateWeek);
 	}
 
 	/**
@@ -226,7 +222,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setChangeMonth(boolean changeMonth) {
-		options.put("changeMonth", changeMonth);
+		put("changeMonth", changeMonth);
 	}
 
 	/**
@@ -234,8 +230,8 @@ public class DatePickerOptions implements Serializable {
 	 * returns false otherwise.
 	 */
 	public boolean isChangeMonth() {
-		if(this.options.containsKey("changeMonth")){
-			return options.getBoolean("changeMonth");
+		if(containsKey("changeMonth")){
+			return getBoolean("changeMonth");
 		}
 		
 		return false;
@@ -247,14 +243,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setWeekHeader(String weekHeader) {
-		this.options.putLiteral("weekHeader", weekHeader);
+		putLiteral("weekHeader", weekHeader);
 	}
 	
 	/**
 	 * @return the weekHeader option value
 	 */
 	public String getWeekHeader() {
-		String weekHeader = this.options.getLiteral("weekHeader");
+		String weekHeader = getLiteral("weekHeader");
 		return weekHeader == null ? "WK" : weekHeader;
 	}
 
@@ -267,14 +263,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setYearRange(DatePickerYearRange yearRange) {
-		options.put("yearRange", yearRange);
+		put("yearRange", yearRange);
 	}
 	
 	/**
 	 * @return the year range valu option
 	 */
 	public DatePickerYearRange getYearRange() {
-		IComplexOption yearRange = this.options.getComplexOption("yearRange");
+		IComplexOption yearRange = getComplexOption("yearRange");
 		if(yearRange != null && yearRange instanceof DatePickerYearRange){
 			return (DatePickerYearRange)yearRange;
 		}
@@ -288,14 +284,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setYearSuffix(String yearSuffix) {
-		this.options.putLiteral("yearSuffix", yearSuffix);
+		putLiteral("yearSuffix", yearSuffix);
 	}
 	
 	/**
 	 * @return the yearSuffix option value
 	 */
 	public String getYearSuffix() {
-		String yearSuffix = this.options.getLiteral("yearSuffix");
+		String yearSuffix = getLiteral("yearSuffix");
 		return yearSuffix == null ? "" : yearSuffix;
 	}
 
@@ -304,7 +300,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setChangeYear(boolean changeYear) {
-		options.put("changeYear", changeYear);
+		put("changeYear", changeYear);
 	}
 
 	/**
@@ -312,8 +308,8 @@ public class DatePickerOptions implements Serializable {
 	 * returns false otherwise.
 	 */
 	public boolean isChangeYear() {
-		if(this.options.containsKey("changeYear")){
-			return options.getBoolean("changeYear");
+		if(containsKey("changeYear")){
+			return getBoolean("changeYear");
 		}
 		
 		return false;
@@ -325,14 +321,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setCloseText(String closeText) {
-		this.options.putLiteral("closeText", closeText);
+		putLiteral("closeText", closeText);
 	}
 	
 	/**
 	 * @return the closeText option value
 	 */
 	public String getCloseText() {
-		String closeText = this.options.getLiteral("closeText");
+		String closeText = getLiteral("closeText");
 		return closeText == null ? "Done" : closeText;
 	}
 	
@@ -341,15 +337,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setConstrainInput(boolean constrainInput) {
-		options.put("constrainInput", constrainInput);
+		put("constrainInput", constrainInput);
 	}
 
 	/**
 	 * @return the buttonImageOnly option value
 	 */
 	public boolean isConstrainInput() {
-		if(this.options.containsKey("constrainInput")){
-			return options.getBoolean("constrainInput");
+		if(containsKey("constrainInput")){
+			return getBoolean("constrainInput");
 		}
 		
 		return true;
@@ -362,14 +358,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setCurrentText(String currentText) {
-		this.options.putLiteral("currentText", currentText);
+		putLiteral("currentText", currentText);
 	}
 	
 	/**
 	 * @return the currentText option value
 	 */
 	public String getCurrentText() {
-		String currentText = this.options.getLiteral("currentText");
+		String currentText = getLiteral("currentText");
 		return currentText == null ? "Today" : currentText;
 	}
 
@@ -380,15 +376,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setFirstDay(short firstDay) {
-		options.put("firstDay", firstDay);
+		put("firstDay", firstDay);
 	}
 
 	/**
 	 * Returns the calendar's starting day.
 	 */
 	public short getFirstDay() {
-		if(this.options.containsKey("firstDay")){
-			return options.getShort("firstDay");
+		if(containsKey("firstDay")){
+			return getShort("firstDay");
 		}
 		
 		return 0;
@@ -399,15 +395,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setGotoCurrent(boolean gotoCurrent) {
-		options.put("gotoCurrent", gotoCurrent);
+		put("gotoCurrent", gotoCurrent);
 	}
 
 	/**
 	 * @return the gotoCurrent option value
 	 */
 	public boolean isGotoCurrent() {
-		if(this.options.containsKey("gotoCurrent")){
-			return options.getBoolean("gotoCurrent");
+		if(containsKey("gotoCurrent")){
+			return getBoolean("gotoCurrent");
 		}
 		
 		return false;
@@ -420,15 +416,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setHideIfNoPrevNext(boolean hideIfNoPrevNext) {
-		options.put("hideIfNoPrevNext", hideIfNoPrevNext);
+		put("hideIfNoPrevNext", hideIfNoPrevNext);
 	}
 
 	/**
 	 * @return the hideIfNoPrevNext option value
 	 */
 	public boolean isHideIfNoPrevNext() {
-		if(this.options.containsKey("hideIfNoPrevNext")){
-			return options.getBoolean("hideIfNoPrevNext");
+		if(containsKey("hideIfNoPrevNext")){
+			return getBoolean("hideIfNoPrevNext");
 		}
 		
 		return false;
@@ -440,15 +436,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setIsRTL(boolean isRTL) {
-		options.put("isRTL", isRTL);
+		put("isRTL", isRTL);
 	}
 
 	/**
 	 * @return the isRTL option value
 	 */
 	public boolean isIsRTL() {
-		if(this.options.containsKey("isRTL")){
-			return options.getBoolean("isRTL");
+		if(containsKey("isRTL")){
+			return getBoolean("isRTL");
 		}
 		
 		return false;
@@ -461,14 +457,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setMaxDate(DateOption maxDate) {
-		options.put("maxDate", maxDate);
+		put("maxDate", maxDate);
 	}
 
 	/**
 	 * @return the maxDate option value
 	 */
 	public DateOption getMaxDate() {
-		IComplexOption maxDate = options.getComplexOption("maxDate");
+		IComplexOption maxDate = getComplexOption("maxDate");
 		
 		if(maxDate != null && maxDate instanceof DateOption){
 			return (DateOption) maxDate;
@@ -484,14 +480,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setMinDate(DateOption minDate) {
-		options.put("minDate", minDate);
+		put("minDate", minDate);
 	}
 
 	/**
 	 * @return the minDate option value
 	 */
 	public DateOption getMinDate() {
-		IComplexOption minDate = options.getComplexOption("minDate");
+		IComplexOption minDate = getComplexOption("minDate");
 		
 		if(minDate != null && minDate instanceof DateOption){
 			return (DateOption) minDate;
@@ -507,14 +503,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setMonthNames(ArrayOfMonthNames monthNames) {
-		options.put("monthNames", monthNames);
+		put("monthNames", monthNames);
 	}
 
 	/**
 	 * @return the monthNames option value
 	 */
 	public ArrayOfMonthNames getMonthNames() {
-		IComplexOption monthNames = options.getComplexOption("monthNames");
+		IComplexOption monthNames = getComplexOption("monthNames");
 		
 		if(monthNames != null && monthNames instanceof ArrayOfMonthNames){
 			return (ArrayOfMonthNames) monthNames;
@@ -530,14 +526,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setMonthNamesShort(ArrayOfMonthNames monthNamesShort) {
-		options.put("monthNamesShort", monthNamesShort);
+		put("monthNamesShort", monthNamesShort);
 	}
 
 	/**
 	 * @return the monthNames option value
 	 */
 	public ArrayOfMonthNames getMonthNamesShort() {
-		IComplexOption monthNamesShort = options.getComplexOption("monthNamesShort");
+		IComplexOption monthNamesShort = getComplexOption("monthNamesShort");
 		
 		if(monthNamesShort != null && monthNamesShort instanceof ArrayOfMonthNames){
 			return (ArrayOfMonthNames) monthNamesShort;
@@ -554,15 +550,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setNavigationAsDateFormat(boolean navigationAsDateFormat) {
-		options.put("navigationAsDateFormat", navigationAsDateFormat);
+		put("navigationAsDateFormat", navigationAsDateFormat);
 	}
 
 	/**
 	 * @return the navigationAsDateFormat option value
 	 */
 	public boolean isNavigationAsDateFormat() {
-		if(this.options.containsKey("navigationAsDateFormat")){
-			return options.getBoolean("navigationAsDateFormat");
+		if(containsKey("navigationAsDateFormat")){
+			return getBoolean("navigationAsDateFormat");
 		}
 		
 		return false;
@@ -575,14 +571,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setNextText(String nextText) {
-		this.options.putLiteral("nextText", nextText);
+		putLiteral("nextText", nextText);
 	}
 	
 	/**
 	 * @return the nextText option value
 	 */
 	public String getNextText() {
-		String nextText = this.options.getLiteral("nextText");
+		String nextText = getLiteral("nextText");
 		return nextText == null ? "Next" : nextText;
 	}
 
@@ -591,7 +587,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShowOtherMonths(boolean showOtherMonths) {
-		options.put("showOtherMonths", showOtherMonths);
+		put("showOtherMonths", showOtherMonths);
 	}
 
 	/**
@@ -599,15 +595,15 @@ public class DatePickerOptions implements Serializable {
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
 	public boolean getShowOtherMonths() {
-		return options.getBoolean("showOtherMonths");
+		return getBoolean("showOtherMonths");
 	}
 	
 	/**
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
 	public boolean isShowOtherMonths() {
-		if(this.options.containsKey("showOtherMonths")){
-			return options.getBoolean("showOtherMonths");
+		if(containsKey("showOtherMonths")){
+			return getBoolean("showOtherMonths");
 		}
 		
 		return false;
@@ -618,14 +614,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths) {
-		options.put("numberOfMonths", numberOfMonths);
+		put("numberOfMonths", numberOfMonths);
 	}
 
 	/**
 	 * Returns the number of months displayed on the date picker.
 	 */
 	public DatePickerNumberOfMonths getNumberOfMonths() {
-		IComplexOption numberOfMonths = options.getComplexOption("numberOfMonths");
+		IComplexOption numberOfMonths = getComplexOption("numberOfMonths");
 		
 		if(numberOfMonths != null && numberOfMonths instanceof DatePickerNumberOfMonths){
 			return (DatePickerNumberOfMonths) numberOfMonths;
@@ -641,14 +637,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setPrevText(String prevText) {
-		this.options.putLiteral("prevText", prevText);
+		putLiteral("prevText", prevText);
 	}
 	
 	/**
 	 * @return the prevText option value
 	 */
 	public String getPrevText() {
-		String prevText = this.options.getLiteral("prevText");
+		String prevText = getLiteral("prevText");
 		return prevText == null ? "Prev" : prevText;
 	}
 	
@@ -658,15 +654,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current behavior
 	 */
 	public void setSelectOtherMonths(boolean selectOtherMonths) {
-		this.options.put("selectOtherMonths", selectOtherMonths);
+		put("selectOtherMonths", selectOtherMonths);
 	}
 	
 	/**
 	 * @return the selectOtherMonths option
 	 */
 	public boolean isSelectOtherMonths() {
-		if(this.options.containsKey("selectOtherMonths")){
-			return this.options.getBoolean("selectOtherMonths");
+		if(containsKey("selectOtherMonths")){
+			return getBoolean("selectOtherMonths");
 		}
 		
 		return false;
@@ -677,14 +673,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff) {
-		options.put("shortYearCutoff", shortYearCutoff);
+		put("shortYearCutoff", shortYearCutoff);
 	}
 
 	/**
 	 * Returns the shortYearCutoff option value.
 	 */
 	public DatePickerShortYearCutOff getShortYearCutoff() {
-		IComplexOption shortYearCutoff = options.getComplexOption("shortYearCutoff");
+		IComplexOption shortYearCutoff = getComplexOption("shortYearCutoff");
 		
 		if(shortYearCutoff != null && shortYearCutoff instanceof DatePickerShortYearCutOff){
 			return (DatePickerShortYearCutOff) shortYearCutoff;
@@ -700,14 +696,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShowAnim(String showAnim) {
-		this.options.putLiteral("showAnim", showAnim);
+		putLiteral("showAnim", showAnim);
 	}
 	
 	/**
 	 * @return the showAnim option value
 	 */
 	public String getShowAnim() {
-		String showAnim = this.options.getLiteral("showAnim");
+		String showAnim = getLiteral("showAnim");
 		return showAnim == null ? "show" : showAnim;
 	}
 	
@@ -716,15 +712,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShowButtonPanel(boolean showButtonPanel) {
-		options.put("showButtonPanel", showButtonPanel);
+		put("showButtonPanel", showButtonPanel);
 	}
 
 	/**
 	 * @return the showButtonPanel option value
 	 */
 	public boolean isShowButtonPanel() {
-		if(this.options.containsKey("showButtonPanel")){
-			return options.getBoolean("showButtonPanel");
+		if(containsKey("showButtonPanel")){
+			return getBoolean("showButtonPanel");
 		}
 		
 		return false;
@@ -736,15 +732,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShowCurrentAtPos(short showCurrentAtPos) {
-		options.put("showCurrentAtPos", showCurrentAtPos);
+		put("showCurrentAtPos", showCurrentAtPos);
 	}
 
 	/**
 	 * @return the showCurrentAtPos option value
 	 */
 	public short getShowCurrentAtPos() {
-		if(this.options.containsKey("showCurrentAtPos")){
-			return options.getShort("showCurrentAtPos");
+		if(containsKey("showCurrentAtPos")){
+			return getShort("showCurrentAtPos");
 		}
 		
 		return 0;
@@ -755,15 +751,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShowMonthAfterYear(boolean showMonthAfterYear) {
-		options.put("showMonthAfterYear", showMonthAfterYear);
+		put("showMonthAfterYear", showMonthAfterYear);
 	}
 
 	/**
 	 * @return the showMonthAfterYear option value
 	 */
 	public boolean isShowMonthAfterYear() {
-		if(this.options.containsKey("showMonthAfterYear")){
-			return options.getBoolean("showMonthAfterYear");
+		if(containsKey("showMonthAfterYear")){
+			return getBoolean("showMonthAfterYear");
 		}
 		
 		return false;
@@ -776,14 +772,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShowOn(ShowOnEnum showOn) {
-		options.putLiteral("showOn", showOn.name().toLowerCase());
+		putLiteral("showOn", showOn.name().toLowerCase());
 	}
 
 	/**
 	 * @return the showOn option value
 	 */
 	public ShowOnEnum getShowOn() {
-		String literal = options.getLiteral("showOn");
+		String literal = getLiteral("showOn");
 		return literal == null ? ShowOnEnum.FOCUS : ShowOnEnum.valueOf(literal.toUpperCase());
 	}
 	
@@ -793,7 +789,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShowOptions(ListItemOptions<LiteralOption> showOptions) {
-		options.put("showOptions", showOptions);
+		put("showOptions", showOptions);
 	}
 
 	/**
@@ -801,7 +797,7 @@ public class DatePickerOptions implements Serializable {
 	 */
 	@SuppressWarnings("unchecked")
 	public ListItemOptions<LiteralOption> getShowOptions() {
-		ICollectionItemOptions showOptions = options.getListItemOptions("showOptions");
+		ICollectionItemOptions showOptions = getListItemOptions("showOptions");
 		
 		if(showOptions != null && showOptions instanceof ListItemOptions){
 			return (ListItemOptions<LiteralOption>) showOptions;
@@ -817,15 +813,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setShowWeek(boolean showWeek) {
-		options.put("showWeek", showWeek);
+		put("showWeek", showWeek);
 	}
 
 	/**
 	 * @return the showWeek option
 	 */
 	public boolean isShowWeek() {
-		if(this.options.containsKey("showWeek")){
-			return options.getBoolean("showWeek");
+		if(containsKey("showWeek")){
+			return getBoolean("showWeek");
 		}
 		
 		return false;
@@ -836,7 +832,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setStepMonths(short stepMonths) {
-		options.put("stepMonths", stepMonths);
+		put("stepMonths", stepMonths);
 	}
 
 	/**
@@ -844,8 +840,8 @@ public class DatePickerOptions implements Serializable {
 	 * hit.
 	 */
 	public short getStepMonths() {
-		if(this.options.containsKey("stepMonths")){
-			return options.getShort("stepMonths");
+		if(containsKey("stepMonths")){
+			return getShort("stepMonths");
 		}
 		
 		return 1;
@@ -876,14 +872,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setDateFormat(String dateFormat) {
-		options.putLiteral("dateFormat", dateFormat);
+		putLiteral("dateFormat", dateFormat);
 	}
 
 	/**
 	 * Returns the ISO date format to use.
 	 */
 	public String getDateFormat() {
-		String dateFormat = options.getLiteral("dateFormat");
+		String dateFormat = getLiteral("dateFormat");
 		return dateFormat == null ? "mm/dd/yy" : dateFormat;
 	}
 	
@@ -895,14 +891,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setDayNames(ArrayOfDayNames dayNames) {
-		options.put("dayNames", dayNames);
+		put("dayNames", dayNames);
 	}
 
 	/**
 	 * @return the dayNames option value
 	 */
 	public ArrayOfDayNames getDayNames() {
-		IComplexOption dayNames = options.getComplexOption("dayNames");
+		IComplexOption dayNames = getComplexOption("dayNames");
 		
 		if(dayNames != null && dayNames instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNames;
@@ -919,14 +915,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setDayNamesMin(ArrayOfDayNames dayNamesMin) {
-		options.put("dayNamesMin", dayNamesMin);
+		put("dayNamesMin", dayNamesMin);
 	}
 
 	/**
 	 * @return the dayNamesMin option value
 	 */
 	public ArrayOfDayNames getDayNamesMin() {
-		IComplexOption dayNamesMin = options.getComplexOption("dayNamesMin");
+		IComplexOption dayNamesMin = getComplexOption("dayNamesMin");
 		
 		if(dayNamesMin != null && dayNamesMin instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNamesMin;
@@ -942,14 +938,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setDayNamesShort(ArrayOfDayNames dayNamesShort) {
-		options.put("dayNamesShort", dayNamesShort);
+		put("dayNamesShort", dayNamesShort);
 	}
 
 	/**
 	 * @return the dayNamesShort option value
 	 */
 	public ArrayOfDayNames getDayNamesShort() {
-		IComplexOption dayNamesShort = options.getComplexOption("dayNamesShort");
+		IComplexOption dayNamesShort = getComplexOption("dayNamesShort");
 		
 		if(dayNamesShort != null && dayNamesShort instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNamesShort;
@@ -966,14 +962,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setDefaultDate(DateOption defaultDate) {
-		options.put("defaultDate", defaultDate);
+		put("defaultDate", defaultDate);
 	}
 
 	/**
 	 * @return the defaultDate option value
 	 */
 	public DateOption getDefaultDate() {
-		IComplexOption defaultDate = options.getComplexOption("defaultDate");
+		IComplexOption defaultDate = getComplexOption("defaultDate");
 		
 		if(defaultDate != null && defaultDate instanceof DateOption){
 			return (DateOption) defaultDate;
@@ -988,15 +984,15 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current behavior
 	 */
 	public void setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
+		put("disabled", disabled);
 	}
 	
 	/**
 	 * @return the disabled option
 	 */
 	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
+		if(containsKey("disabled")){
+			return getBoolean("disabled");
 		}
 		
 		return false;
@@ -1009,14 +1005,14 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setDuration(DatePickerDuration duration) {
-		options.put("duration", duration);
+		put("duration", duration);
 	}
 
 	/**
 	 * @return the duration option value
 	 */
 	public DatePickerDuration getDuration() {
-		IComplexOption duration = options.getComplexOption("duration");
+		IComplexOption duration = getComplexOption("duration");
 		
 		if(duration != null && duration instanceof DatePickerDuration){
 			return (DatePickerDuration) duration;
@@ -1032,7 +1028,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setBeforeShowEvent(JsScopeUiEvent beforeShow) {
-		this.options.put("beforeShow", beforeShow);
+		put("beforeShow", beforeShow);
 	}
 	
 	/**The function takes a date as a parameter and must return an array with [0] 
@@ -1044,7 +1040,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setBeforeShowDayEvent(JsScopeUiDatePickerEvent beforeShowDay) {
-		this.options.put("beforeShowDay", beforeShowDay);
+		put("beforeShowDay", beforeShowDay);
 	}
 	
 	/**Allows you to define your own event when the datepicker moves to a new 
@@ -1055,7 +1051,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setOnChangeMonthYearEvent(JsScopeUiDatePickerOnChangeEvent onChangeMonthYear) {
-		this.options.put("onChangeMonthYear", onChangeMonthYear);
+		put("onChangeMonthYear", onChangeMonthYear);
 	}
 	
 	/**Allows you to define your own event when the datepicker is closed, whether 
@@ -1066,7 +1062,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setOnCloseEvent(JsScopeUiDatePickerDateTextEvent onClose) {
-		this.options.put("onClose", onClose);		
+		put("onClose", onClose);		
 	}
 	
 	/**Allows you to define your own event when the datepicker is selected. The 
@@ -1076,11 +1072,11 @@ public class DatePickerOptions implements Serializable {
 	 * @return instance of the current component
 	 */
 	public void setOnSelectEvent(JsScopeUiDatePickerDateTextEvent onSelect) {
-		this.options.put("onSelect", onSelect);		
+		put("onSelect", onSelect);		
 	}
 
 
 	public Options getOptions() {
-		return options;
+		return this;
 	}
 }

@@ -2,6 +2,7 @@ package org.odlabs.wiquery.ui.autocomplete;
 
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.Response;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -67,7 +68,15 @@ public abstract class AutocompleteBehavior<T, E> extends AbstractDefaultAjaxBeha
 	 */
 	@Override
 	protected void onBind() {
+		options.setOwner(getComponent());
 		options.putLiteral("url", this.getCallbackUrl().toString());
+	}
+
+	
+	@Override
+	public void detach(Component component) {
+		super.detach(component);
+		options.detach();
 	}
 
 	/* (non-Javadoc)

@@ -28,11 +28,11 @@ import org.apache.wicket.model.IModel;
 /**
  * $Id: $
  * <p>
- * Wraps a {@link Double} to be generated as a JavaScript string.
+ * Wraps a {@link Long} to be generated as a JavaScript string.
  * <p>
  * Example:
  * <p>
- * The {@link Double} <code>1</code> should be rendered as <code>1</code>
+ * The {@link Long} <code>1</code> should be rendered as <code>1</code>
  * </p>
  * </p> </p>
  * 
@@ -40,38 +40,38 @@ import org.apache.wicket.model.IModel;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class DoubleOption extends AbstractOption<Double> {
+public class LongOption extends AbstractOption<Long> {
 	private static final long serialVersionUID = -5938430089917100476L;
 
 	/**
-	 * Builds a new instance of {@link DoubleOption}.
+	 * Builds a new instance of {@link LongOption}.
 	 * 
 	 * @param literal
-	 *            the wrapped {@link Double}
+	 *            the wrapped {@link Long}
 	 */
-	public DoubleOption(Double value) {
+	public LongOption(Long value) {
 		super(value);
 	}
 
 	/**
-	 * Builds a new instance of {@link DoubleOption}.
+	 * Builds a new instance of {@link LongOption}.
 	 * 
 	 * @param literal
-	 *            the wrapped {@link Double}
+	 *            the wrapped {@link Long}
 	 */
-	public DoubleOption(IModel<Double> value) {
+	public LongOption(IModel<Long> value) {
 		super(value);
 	}
 
 	@Override
 	public String toString() {
-		Double value = getValue();
-		return value != null ? Double.toString(value) : null;
+		Long value = getValue();
+		return value != null ? Long.toString(value) : null;
 	}
 
-	public IModelOption<Double> wrapOnAssignment(Component component) {
+	public IModelOption<Long> wrapOnAssignment(Component component) {
 		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new DoubleOption(((IComponentAssignedModel<Double>) getModel())
+			return new LongOption(((IComponentAssignedModel<Long>) getModel())
 					.wrapOnAssignment(component));
 		return this;
 	}

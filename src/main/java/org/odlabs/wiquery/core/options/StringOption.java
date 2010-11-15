@@ -21,9 +21,9 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import org.apache.wicket.model.IDetachable;
+import org.apache.wicket.Component;
+import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 
 /**
  * $Id: $
@@ -32,103 +32,46 @@ import org.apache.wicket.model.Model;
  * <p>
  * Example:
  * <p>
- * The {@link String} <code>hi there!</code> should be rendered as
- * <code>hi there!</code>
+ * The {@link String} <code>true</code> should be rendered as <code>true</code>
  * </p>
- * </p>
- * </p>
+ * </p> </p>
  * 
  * @author Lionel Armanet
- * @author Ernesto Reinaldo Barreiro 
+ * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class StringOption implements IDetachable, ITypedOption<String>, IModelOption<String> {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 6999431516689050752L;
-	
+public class StringOption extends AbstractOption<String> {
+	private static final long serialVersionUID = -5938430089917100476L;
+
 	/**
-	 * The wrapped {@link String}
-	 */
-	private IModel<String> value;
-	
-	/**
-	 * <p>
 	 * Builds a new instance of {@link StringOption}.
-	 * </p>
 	 * 
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
 	public StringOption(String value) {
-		this(new Model<String>(value));
+		super(value);
 	}
-	
+
 	/**
-	 * <p>
 	 * Builds a new instance of {@link StringOption}.
-	 * </p>
 	 * 
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
 	public StringOption(IModel<String> value) {
-		this.value = value;
+		super(value);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
-		return toString();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		String value = this.value.getObject();
-		return value != null?this.value.getObject(): null;
+		return getValue();
 	}
-	
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.model.IDetachable#detach()
-	 */
-	public void detach() {
-		if(value != null) {
-			value.detach();
-		}
-	} 
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IModelOption#getModel()
-	 */
-	public IModel<String> getModel() {
-		return value;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IModelOption#setModel(org.apache.wicket.model.IModel)
-	 */
-	public void setModel(IModel<String> model) {
-		this.value = model;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.ITypedOption#getValue()
-	 */
-	public String getValue() {
-		if(value != null) {
-			return value.getObject();
-		}
-		return null;
+
+	public IModelOption<String> wrapOnAssignment(Component component) {
+		if (getModel() instanceof IComponentAssignedModel<?>)
+			return new StringOption(((IComponentAssignedModel<String>) getModel())
+					.wrapOnAssignment(component));
+		return this;
 	}
 }

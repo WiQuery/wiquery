@@ -89,7 +89,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Dialog(String id) {
 		super(id);
-		options = new Options();
+		options = new Options(this);
 		// default settings
 		this.setAutoOpen(false);
 		this.setPosition(WindowPosition.CENTER);
@@ -97,12 +97,12 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apache.wicket.Component#onInitialize()
+	 * @see org.apache.wicket.Component#detachModel()
 	 */
 	@Override
-	protected void onInitialize() {
-		super.onInitialize();
-		setDefaultModel(options);
+	protected void detachModel() {
+		super.detachModel();
+		options.detach();		
 	}
 	
 	/**

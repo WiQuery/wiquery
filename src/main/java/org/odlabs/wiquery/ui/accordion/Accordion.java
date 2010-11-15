@@ -71,7 +71,17 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 
 	public Accordion(String id) {
 		super(id);
-		options = new Options();
+		options = new Options(this);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.Component#detachModel()
+	 */
+	@Override
+	protected void detachModel() {
+		super.detachModel();
+		options.detach();		
 	}
 
 	/* (non-Javadoc)

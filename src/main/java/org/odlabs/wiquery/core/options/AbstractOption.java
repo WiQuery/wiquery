@@ -21,58 +21,74 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.model.IComponentAssignedModel;
+import java.io.Serializable;
+
+import org.apache.wicket.model.IDetachable;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 /**
- * $Id: $
- * <p>
- * Wraps a {@link Double} to be generated as a JavaScript string.
- * <p>
- * Example:
- * <p>
- * The {@link Double} <code>1</code> should be rendered as <code>1</code>
- * </p>
- * </p> </p>
+ * Wraps a value to be generated as a JavaScript string.
  * 
- * @author Lionel Armanet
- * @author Ernesto Reinaldo Barreiro
- * @since 0.5
+ * @author Emond Papegaaij
+ * @since 1.2
  */
-public class DoubleOption extends AbstractOption<Double> {
-	private static final long serialVersionUID = -5938430089917100476L;
+public abstract class AbstractOption<T extends Serializable> implements IDetachable, ITypedOption<T>,
+		IModelOption<T> {
+	private static final long serialVersionUID = 1L;
+
+	private IModel<T> value;
 
 	/**
-	 * Builds a new instance of {@link DoubleOption}.
+	 * Builds a new instance of {@link AbstractOption}.
 	 * 
 	 * @param literal
-	 *            the wrapped {@link Double}
+	 *            the wrapped value
 	 */
-	public DoubleOption(Double value) {
-		super(value);
+	public AbstractOption(T value) {
+		this(new Model<T>(value));
 	}
 
 	/**
-	 * Builds a new instance of {@link DoubleOption}.
+	 * Builds a new instance of {@link AbstractOption}.
 	 * 
 	 * @param literal
-	 *            the wrapped {@link Double}
+	 *            the wrapped value
 	 */
-	public DoubleOption(IModel<Double> value) {
-		super(value);
+	public AbstractOption(IModel<T> value) {
+		this.value = value;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
+	 */
+	public CharSequence getJavascriptOption() {
+		return toString();
 	}
 
 	@Override
-	public String toString() {
-		Double value = getValue();
-		return value != null ? Double.toString(value) : null;
+	abstract public String toString();
+
+	public void detach() {
+		if (value != null) {
+			value.detach();
+		}
 	}
 
-	public IModelOption<Double> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new DoubleOption(((IComponentAssignedModel<Double>) getModel())
-					.wrapOnAssignment(component));
-		return this;
+	public IModel<T> getModel() {
+		return value;
+	}
+
+	public void setModel(IModel<T> model) {
+		this.value = model;
+	}
+
+	public T getValue() {
+		if (value != null) {
+			return value.getObject();
+		}
+		return null;
 	}
 }

@@ -3,6 +3,7 @@
  */
 package org.odlabs.wiquery.core.options;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
 
 /**
@@ -18,4 +19,8 @@ public interface IModelOption<B> {
 	IModel<B> getModel();
 	
 	void setModel(IModel<B> model);
+	
+	B getValue();
+	
+	IModelOption<B> wrapOnAssignment(Component component);
 }

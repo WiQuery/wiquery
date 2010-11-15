@@ -95,7 +95,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public DatePicker(String id, Class<T> type) {
 		super(id, type);
-		options = new DatePickerOptions();
+		options = new DatePickerOptions(this);
 	}
 
 	/**Constructor
@@ -105,7 +105,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public DatePicker(String id, IModel<T> model, Class<T> type) {
 		super(id, model, type);
-		options = new DatePickerOptions();
+		options = new DatePickerOptions(this);
 	}
 
 	/**Constructor
@@ -114,7 +114,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public DatePicker(String id, IModel<T> model) {
 		super(id, model);
-		options = new DatePickerOptions();
+		options = new DatePickerOptions(this);
 	}
 
 	/**Constructor
@@ -122,9 +122,19 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public DatePicker(String id) {
 		super(id);
-		options = new DatePickerOptions();
+		options = new DatePickerOptions(this);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.Component#detachModel()
+	 */
+	@Override
+	protected void detachModel() {
+		super.detachModel();
+		options.detach();		
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */

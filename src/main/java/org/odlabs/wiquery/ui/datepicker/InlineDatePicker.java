@@ -68,9 +68,18 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public InlineDatePicker(String id) {
 		super(id);
 		setOutputMarkupId(true);
-		options = new DatePickerOptions();
+		options = new DatePickerOptions(this);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.Component#detachModel()
+	 */
+	@Override
+	protected void detachModel() {
+		super.detachModel();
+		options.detach();		
+	}
 
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)

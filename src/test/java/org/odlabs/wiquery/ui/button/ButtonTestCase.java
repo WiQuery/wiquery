@@ -130,9 +130,25 @@ public class ButtonTestCase extends TestCase {
 		Assert.assertNull(buttonBehavior.getLabel());
 		buttonBehavior.setLabel("a label");
 		Assert.assertNotNull(buttonBehavior.getLabel());
-		Assert.assertEquals(buttonBehavior.getLabel(), "a label");
+		Assert.assertEquals(buttonBehavior.getLabel(), "a label");		
 	}
 
+	/**
+	 * The method for {@link ButtonBehavior#setLabel(org.apache.wicket.model.IModel)}.
+	 */
+	@Test
+	public void testSetLabelModel() {
+		//Options is added before bind.
+		ButtonTestPage page = (ButtonTestPage)wicketTester.startPage(new ButtonTestPage(true));
+		Assert.assertNotNull(page.getBehavior().getLabel());
+		Assert.assertEquals(page.getBehavior().getLabel(), "This is a link");
+		
+		page = (ButtonTestPage)wicketTester.startPage(new ButtonTestPage(false));
+		Assert.assertNotNull(page.getBehavior().getLabel());
+		Assert.assertEquals(page.getBehavior().getLabel(), "This is a link");
+	}
+	
+	
 	/**
 	 * Test method for {@link ButtonBehavior#getOptions()}.
 	 */

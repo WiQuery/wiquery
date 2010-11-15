@@ -131,22 +131,22 @@ public class OptionsTestCase extends TestCase{
 	@Test
 	public void testOptionsWrappedModels() {
 		// this method test the use of wrapped models in options
-		Options options = new Options();
+		OptionsTestPanel panel = new OptionsTestPanel("panel");
+		Options options = panel.getOptions();
 		// put an IComponentAssignedModel 
 		options.putString("test", new ResourceModel("key"));
 		options.putString("test1", new Model<String>("Test1"));		
 		options.put("test2", false);
-		OptionsTestPanel panel = new OptionsTestPanel("panel", options);
-		OptionsTestPage page = new OptionsTestPage(panel, options);
+		OptionsTestPage page = new OptionsTestPage(panel);
 		page = (OptionsTestPage)wicketTester.startPage(page);
 		String expectedResult = "Test";
 		// result should has been read from resources.
-		String result = page.getOptions().get("test");
+		String result = options.get("test");
 		log.info("result="+result);
 		log.info("expectedResult="+expectedResult);
 		assertEquals(expectedResult, result);
-		assertEquals("Test1",  page.getOptions().get("test1"));		
-		assertEquals(false,  page.getOptions().getBoolean("test2").booleanValue());		
+		assertEquals("Test1",  options.get("test1"));		
+		assertEquals(false,  options.getBoolean("test2").booleanValue());		
 		wicketTester.assertNoErrorMessage();
 	}
 	

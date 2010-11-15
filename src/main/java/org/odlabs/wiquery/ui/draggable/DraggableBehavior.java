@@ -21,6 +21,7 @@
  */
 package org.odlabs.wiquery.ui.draggable;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
@@ -128,6 +129,18 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	public DraggableBehavior() {
 		super();
 		options = new Options();
+	}
+	
+	@Override
+	public void detach(Component component) {
+		super.detach(component);
+		options.detach();
+	}
+	
+	@Override
+	public void bind(Component component) {
+		options.setOwner(component);
+		super.bind(component);
 	}
 
 	/**

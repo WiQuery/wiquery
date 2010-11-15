@@ -27,10 +27,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IDetachable;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.IWrapModel;
 import org.odlabs.wiquery.core.javascript.JsScope;
 
 /**
@@ -57,15 +55,17 @@ import org.odlabs.wiquery.core.javascript.JsScope;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class Options implements IModel<Options>, IComponentAssignedModel<Options>, IWrapModel<Options>  {
+public class Options implements IModel<Options> {
 
 	private static final long serialVersionUID = 1L;
+
+	private Component owner;
 
 	/**
 	 * The internal structure is a map associating each option label with each
 	 * option value.
 	 */
-	protected Map<String, Object> options = new LinkedHashMap<String, Object>();
+	private Map<String, Object> options = new LinkedHashMap<String, Object>();
 
 	/**
 	 * The {@link IOptionsRenderer} to use.
@@ -73,13 +73,27 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	private IOptionsRenderer optionsRenderer;
 
 	/**
-	 * <p>
-	 * Build a new empty {@link Options} instance.
-	 * </p>
+	 * Build a new empty {@link Options} instance that does not bind to a
+	 * component. This does not allow the usage of IComponentAssignedModels as
+	 * option values.
 	 */
 	public Options() {
-		super();
+		this(null);
+	}
+
+	/**
+	 * Build a new empty {@link Options} instance that binds to a component
+	 */
+	public Options(Component owner) {
+		this.owner = owner;
 		this.optionsRenderer = DefaultOptionsRenderer.get();
+	}
+
+	public void setOwner(Component owner) {
+		if (this.owner != null && this.owner != owner)
+			throw new IllegalArgumentException(
+					"Cannot use the same Options for multiple components");
+		this.owner = owner;
 	}
 
 	/**
@@ -103,13 +117,10 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the option name.
 	 */
 	public String get(String key) {
-		Object object = options.get(key);
-		if(object instanceof StringOption) {
-			return ((StringOption)object).getValue();
-		} else if(object   != null) {
-			return object.toString();
-		}
-		return null;
+		String ret = getValueFromOptions(key, StringOption.class);
+		if (ret == null && options.containsKey(ret))
+			ret = options.get(key).toString();
+		return ret;
 	}
 
 	/**
@@ -121,12 +132,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the option name.
 	 */
 	public Boolean getBoolean(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof BooleanOption) {
-			BooleanOption option = ((BooleanOption)object);
-			return option.getValue();
-		}
-		return null;
+		return getValueFromOptions(key, BooleanOption.class);
 	}
 
 	/**
@@ -134,16 +140,17 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 * Returns the given option value.
 	 * </p>
 	 * 
-	 * @param key the option name.
+	 * @param key
+	 *            the option name.
 	 * @return the complex option
 	 */
 	public IComplexOption getComplexOption(String key) {
 		Object object = this.options.get(key);
-		if(object instanceof IComplexOption)
+		if (object instanceof IComplexOption)
 			return (IComplexOption) object;
 		return null;
 	}
-	
+
 	/**
 	 * <p>
 	 * Returns the given option value.
@@ -153,12 +160,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the option name.
 	 */
 	public Double getDouble(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof DoubleOption) {
-			DoubleOption option = ((DoubleOption)object);
-			return option.getValue();
-		}
-		return null;
+		return getValueFromOptions(key, DoubleOption.class);
 	}
 
 	/**
@@ -170,12 +172,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the option name.
 	 */
 	public Float getFloat(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof FloatOption) {
-			FloatOption option = ((FloatOption)object);
-			return option.getValue();
-		}
-		return null;
+		return getValueFromOptions(key, FloatOption.class);
 	}
 
 	/**
@@ -187,12 +184,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the option name.
 	 */
 	public Integer getInt(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof IntegerOption) {
-			IntegerOption option = ((IntegerOption)object);
-			return option.getValue();
-		}
-		return null;
+		return getValueFromOptions(key, IntegerOption.class);
 	}
 
 	/**
@@ -205,50 +197,57 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 		for (Entry<String, Object> entry : options.entrySet()) {
 			String key = entry.getKey();
 			Object value = entry.getValue();
+			if (value instanceof IModelOption<?>)
+				value = ((IModelOption<?>) value).wrapOnAssignment(owner);
 			boolean isLast = !(count < options.size() - 1);
 			if (value instanceof JsScope) {
 				// Case of a JsScope
 				sb.append(this.optionsRenderer.renderOption(key,
 						((JsScope) value).render(), isLast));
-			} 
-			else if (value instanceof ICollectionItemOptions) {
+			} else if (value instanceof ICollectionItemOptions) {
 				// Case of an ICollectionItemOptions
 				sb.append(this.optionsRenderer.renderOption(key,
-						((ICollectionItemOptions)value).getJavascriptOption(), isLast));
-			} 
-			else if (value instanceof IComplexOption) {
+						((ICollectionItemOptions) value).getJavascriptOption(),
+						isLast));
+			} else if (value instanceof IComplexOption) {
 				// Case of an IComplexOption
-				sb.append(this.optionsRenderer.renderOption(key,
-						((IComplexOption)value).getJavascriptOption(), isLast));
+				sb
+						.append(this.optionsRenderer.renderOption(key,
+								((IComplexOption) value).getJavascriptOption(),
+								isLast));
 			} else if (value instanceof ITypedOption<?>) {
 				// Case of an ITypedOption
-				sb.append(this.optionsRenderer.renderOption(key,((ITypedOption<?>)value).getJavascriptOption(), isLast));
-			}
-			else {
+				sb.append(this.optionsRenderer
+						.renderOption(key, ((ITypedOption<?>) value)
+								.getJavascriptOption(), isLast));
+			} else {
 				// Other cases
-				sb.append(this.optionsRenderer.renderOption(key, value,	isLast));
+				sb
+						.append(this.optionsRenderer.renderOption(key, value,
+								isLast));
 			}
 			count++;
 		}
 		this.optionsRenderer.renderAfter(sb);
 		return sb;
 	}
-	
+
 	/**
 	 * <p>
 	 * Returns the given option value.
 	 * </p>
 	 * 
-	 * @param key the option name.
+	 * @param key
+	 *            the option name.
 	 * @return the list
 	 */
 	public ICollectionItemOptions getListItemOptions(String key) {
-		Object object = this.options.get(key);		
-		if(object instanceof ICollectionItemOptions)
+		Object object = this.options.get(key);
+		if (object instanceof ICollectionItemOptions)
 			return (ICollectionItemOptions) object;
 		return null;
 	}
-	
+
 	/**
 	 * <p>
 	 * Returns the given option value.
@@ -258,10 +257,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the option name.
 	 */
 	public String getLiteral(String key) {
-		Object object = this.options.get(key);		
-		if(object instanceof LiteralOption)
-			return ((LiteralOption) object).getLiteral();
-		return null;
+		return getValueFromOptions(key, LiteralOption.class);
 	}
 
 	/**
@@ -273,12 +269,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the option name.
 	 */
 	public Short getShort(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof ShortOption) {
-			ShortOption option = ((ShortOption)object);
-			return option.getValue();
-		}
-		return null;
+		return getValueFromOptions(key, ShortOption.class);
 	}
 
 	/**
@@ -286,6 +277,20 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 */
 	public boolean isEmpty() {
 		return this.options.isEmpty();
+	}
+
+	private <T, O extends IModelOption<T>> T getValueFromOptions(String key,
+			Class<O> optionClass) {
+		Object object = this.options.get(key);
+		if (optionClass.isInstance(object)) {
+			O option = optionClass.cast(object);
+			return option.wrapOnAssignment(owner).getValue();
+		}
+		return null;
+	}
+
+	private void putOption(String key, IModelOption<?> option) {
+		options.put(key, option);
 	}
 
 	/**
@@ -299,7 +304,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the boolean value.
 	 */
 	public Options put(String key, boolean value) {
-		options.put(key, new BooleanOption(value));
+		putOption(key, new BooleanOption(value));
 		return this;
 	}
 
@@ -314,10 +319,10 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the boolean value.
 	 */
 	public Options putBoolean(String key, IModel<Boolean> value) {
-		options.put(key, new BooleanOption(value));
+		putOption(key, new BooleanOption(value));
 		return this;
 	}
-	
+
 	/**
 	 * <p>
 	 * Puts an double value for the given option name.
@@ -329,13 +334,13 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the float double.
 	 */
 	public Options put(String key, double value) {
-		options.put(key, new DoubleOption(value));
+		putOption(key, new DoubleOption(value));
 		return this;
 	}
 
 	/**
 	 * <p>
-	 * 	Puts an IModel &lt;Double&gt; value for the given option name.
+	 * Puts an IModel &lt;Double&gt; value for the given option name.
 	 * </p>
 	 * 
 	 * @param key
@@ -344,27 +349,29 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the float value.
 	 */
 	public Options putDouble(String key, IModel<Double> value) {
-		options.put(key, new DoubleOption(value));
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * 	Puts an float value for the given option name.
-	 * </p>
-	 * 
-	 * @param key the option name
-	 * @param value The float value
-	 * @return
-	 */
-	public Options put(String key, float value) {
-		options.put(key, new FloatOption(value));
+		putOption(key, new DoubleOption(value));
 		return this;
 	}
 
 	/**
 	 * <p>
-	 * 	Puts an IModel &lt;Double&gt; value for the given option name.
+	 * Puts an float value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name
+	 * @param value
+	 *            The float value
+	 * @return
+	 */
+	public Options put(String key, float value) {
+		putOption(key, new FloatOption(value));
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts an IModel &lt;Double&gt; value for the given option name.
 	 * </p>
 	 * 
 	 * @param key
@@ -373,10 +380,10 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the float double.
 	 */
 	public Options putFloat(String key, IModel<Float> value) {
-		options.put(key, new FloatOption(value));
+		putOption(key, new FloatOption(value));
 		return this;
 	}
-	
+
 	/**
 	 * <p>
 	 * Puts a list of IListItemOption value for the given option name.
@@ -418,7 +425,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the int value.
 	 */
 	public Options put(String key, int value) {
-		options.put(key, new IntegerOption(value));
+		putOption(key, new IntegerOption(value));
 		return this;
 	}
 
@@ -433,10 +440,10 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the int value.
 	 */
 	public Options putInteger(String key, IModel<Integer> value) {
-		options.put(key, new IntegerOption(value));
+		putOption(key, new IntegerOption(value));
 		return this;
 	}
-	
+
 	/**
 	 * <p>
 	 * Puts a {@link JsScope} value for the given option name.
@@ -463,7 +470,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the short value.
 	 */
 	public Options put(String key, short value) {
-		options.put(key, new ShortOption(value));
+		putOption(key, new ShortOption(value));
 		return this;
 	}
 
@@ -478,10 +485,10 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the short value.
 	 */
 	public Options putShort(String key, IModel<Short> value) {
-		options.put(key, new ShortOption(value));
+		putOption(key, new ShortOption(value));
 		return this;
 	}
-	
+
 	/**
 	 * <p>
 	 * Puts a {@link String} value for the given option name.
@@ -493,7 +500,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the {@link String} value.
 	 */
 	public Options put(String key, String value) {
-		options.put(key, new StringOption(value));
+		putOption(key, new StringOption(value));
 		return this;
 	}
 
@@ -508,10 +515,40 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the {@link String} value.
 	 */
 	public Options putString(String key, IModel<String> value) {
-		options.put(key, new StringOption(value));
+		putOption(key, new StringOption(value));
 		return this;
 	}
-	
+
+	/**
+	 * <p>
+	 * Puts a {@link Long} value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link Long} value.
+	 */
+	public Options put(String key, long value) {
+		putOption(key, new LongOption(value));
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts a {@link Long} value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link Long} value.
+	 */
+	public Options putLong(String key, IModel<Long> value) {
+		putOption(key, new LongOption(value));
+		return this;
+	}
+
 	/**
 	 * <p>
 	 * Puts a {@link String} value as a JavaScript literal for the given name.
@@ -526,10 +563,10 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the {@link LiteralOption} value.
 	 */
 	public Options putLiteral(String key, String value) {
-		options.put(key, new LiteralOption(value));
+		putOption(key, new LiteralOption(value));
 		return this;
 	}
-	
+
 	/**
 	 * <p>
 	 * Puts a {@link String} value as a JavaScript literal for the given name.
@@ -544,7 +581,7 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 	 *            the {@link LiteralOption} value.
 	 */
 	public Options putLiteral(String key, IModel<String> value) {
-		options.put(key, new LiteralOption(value));
+		putOption(key, new LiteralOption(value));
 		return this;
 	}
 
@@ -598,58 +635,4 @@ public class Options implements IModel<Options>, IComponentAssignedModel<Options
 			}
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.model.IComponentAssignedModel#wrapOnAssignment(org.apache.wicket.Component)
-	 */
-	public IWrapModel<Options> wrapOnAssignment(Component component) {
-		onWrap(this, component);
-		return this;
-	}
-	
-	/*
-	 * 
-	 * Returns a wrapped model or null 
-	 */
-	@SuppressWarnings("unchecked")
-	private Object onWrap(Object object, Component component) {
-		if (object instanceof Options) {
-			Options options = (Options)object;
-			Map<String, Object> temp = new LinkedHashMap<String, Object>();
-			for (Map.Entry<String, Object> entry : options.options.entrySet()) {
-				String key = entry.getKey();
-				Object value = entry.getValue();
-				// try to wrap the value.
-				Object wrapped = onWrap(value, component);
-				if(wrapped != null) {
-					// if value has been wrapped the we add it.
-					temp.put(key, wrapped);
-				} else {
-					temp.put(key, value);
-				}
-			}
-			this.options = temp;
-		} else if(object instanceof IComponentAssignedModel<?>) {
-			IComponentAssignedModel<?> assignedModel = (IComponentAssignedModel<?>)object;
-			return assignedModel.wrapOnAssignment(component);
-		} else if(object instanceof IModelOption<?>) {
-			IModelOption<?> modelOption = (IModelOption<?>)object;
-			Object wrapped = onWrap(modelOption.getModel(), component);
-			if(wrapped != null) {
-				// if inner model has been wrapped
-				// then reset model
-				modelOption.setModel((IModel)wrapped);
-				return modelOption;
-			}
-			
-		}
-		return null;	 
-	}
-	
-
-	public IModel<?> getWrappedModel() {
-		return this;
-	}
-
 }
