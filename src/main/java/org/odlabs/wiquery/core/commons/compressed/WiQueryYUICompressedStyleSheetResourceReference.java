@@ -59,16 +59,15 @@ public class WiQueryYUICompressedStyleSheetResourceReference extends
 	@Override
 	protected Resource newResource() {
 		PackageResource packageResource;
-		
-		if(!WiQuerySettings.get().isMinifiedResources())
+
+		if (WiQuerySettings.get().isMinifiedResources())
 			packageResource = WiQueryYUICompressedStyleSheetResource
-				.newPackageResource(getScope(), getName(), getLocale(),
-						getStyle());
+					.newPackageResource(getScope(), getName(), getLocale(),
+							getStyle());
 		else
-			packageResource = CompressedPackageResource
-			.newPackageResource(getScope(), getName(), getLocale(),
-					getStyle());
-		
+			packageResource = CompressedPackageResource.newPackageResource(
+					getScope(), getName(), getLocale(), getStyle());
+
 		if (packageResource != null) {
 			locale = packageResource.getLocale();
 		} else {

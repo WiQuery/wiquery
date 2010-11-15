@@ -26,7 +26,6 @@ import java.util.Locale;
 import org.apache.wicket.Resource;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.CompressedPackageResource;
-import org.apache.wicket.markup.html.JavascriptPackageResource;
 import org.apache.wicket.markup.html.PackageResource;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
 
@@ -60,13 +59,13 @@ public class WiQueryYUICompressedJavaScriptResourceReference extends
 	@Override
 	protected Resource newResource() {
 		PackageResource packageResource;
-		
-		if (!WiQuerySettings.get().isMinifiedResources())
+
+		if (WiQuerySettings.get().isMinifiedResources())
 			packageResource = WiQueryYUICompressedJavaScriptResource
 					.newPackageResource(getScope(), getName(), getLocale(),
 							getStyle());
 		else
-			packageResource = JavascriptPackageResource.newPackageResource(
+			packageResource = CompressedPackageResource.newPackageResource(
 					getScope(), getName(), getLocale(), getStyle());
 
 		if (packageResource != null) {
