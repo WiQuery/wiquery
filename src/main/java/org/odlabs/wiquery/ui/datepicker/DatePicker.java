@@ -882,7 +882,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @return instance of the current component
 	 */
 	public DatePicker<T> setBeforeShowEvent(JsScopeUiEvent beforeShow) {
-		this.setBeforeShowEvent(beforeShow);
+		this.options.setBeforeShowEvent(beforeShow);
 		return this;
 	}
 	
