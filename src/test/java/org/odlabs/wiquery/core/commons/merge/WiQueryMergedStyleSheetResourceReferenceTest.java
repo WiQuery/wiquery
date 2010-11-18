@@ -46,30 +46,121 @@ public class WiQueryMergedStyleSheetResourceReferenceTest extends TestCase {
 		
 		Assert.assertEquals(
 				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(img.png)", baseUrl), 
-				"url(http://localhost/test/img.png)");
+				"url(\"http://localhost/test/img.png\")");
 		
 		Assert.assertEquals(
 				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(./img.png)", baseUrl), 
-				"url(http://localhost/test/./img.png)");
+				"url(\"http://localhost/test/./img.png\")");
 		
 		Assert.assertEquals(
 				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(../img.png)", baseUrl), 
-				"url(http://localhost/test/../img.png)");
+				"url(\"http://localhost/test/../img.png\")");
 		
 		Assert.assertEquals(
 				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(http://www.a.com/img.png)", baseUrl), 
-				"url(http://www.a.com/img.png)");
+				"url(\"http://www.a.com/img.png\")");
 		
 		Assert.assertEquals(
 				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(https://www.a.com/img.png)", baseUrl), 
-				"url(https://www.a.com/img.png)");
+				"url(\"https://www.a.com/img.png\")");
 		
 		Assert.assertEquals(
 				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(ftp://www.a.com/img.png)", baseUrl), 
-				"url(ftp://www.a.com/img.png)");
+				"url(\"ftp://www.a.com/img.png\")");
 		
 		Assert.assertEquals(
 				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(file://img.png)", baseUrl), 
-				"url(file://img.png)");
+				"url(\"file://img.png\")");
+		
+		
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url('img.png')", baseUrl), 
+				"url(\"http://localhost/test/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url('./img.png')", baseUrl), 
+				"url(\"http://localhost/test/./img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url('../img.png')", baseUrl), 
+				"url(\"http://localhost/test/../img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url('http://www.a.com/img.png')", baseUrl), 
+				"url(\"http://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url('https://www.a.com/img.png')", baseUrl), 
+				"url(\"https://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url('ftp://www.a.com/img.png')", baseUrl), 
+				"url(\"ftp://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url('file://img.png')", baseUrl), 
+				"url(\"file://img.png\")");
+		
+		
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(\"img.png\")", baseUrl), 
+				"url(\"http://localhost/test/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(\"./img.png\")", baseUrl), 
+				"url(\"http://localhost/test/./img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(\"../img.png\")", baseUrl), 
+				"url(\"http://localhost/test/../img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(\"http://www.a.com/img.png\")", baseUrl), 
+				"url(\"http://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(\"https://www.a.com/img.png\")", baseUrl), 
+				"url(\"https://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(\"ftp://www.a.com/img.png\")", baseUrl), 
+				"url(\"ftp://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url(\"file://img.png\")", baseUrl), 
+				"url(\"file://img.png\")");
+		
+		
+		
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("   url(   \"   img.png   \"   )   ", baseUrl), 
+				"url(\"http://localhost/test/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("   url(   \"./img.png\"   )  ", baseUrl), 
+				"url(\"http://localhost/test/./img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl(" url( \"../img.png\"  )  ", baseUrl), 
+				"url(\"http://localhost/test/../img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl(" url( \"http://www.a.com/img.png\"  )", baseUrl), 
+				"url(\"http://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("  url   (\"https://www.a.com/img.png\"  )  ", baseUrl), 
+				"url(\"https://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("   url (\"ftp://www.a.com/img.png\")", baseUrl), 
+				"url(\"ftp://www.a.com/img.png\")");
+		
+		Assert.assertEquals(
+				WiQueryMergedStyleSheetResourceReference.getCssUrl("url     (\"file://img.png\")", baseUrl), 
+				"url(\"file://img.png\")");
 	}
 }
