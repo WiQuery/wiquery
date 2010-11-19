@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.javascript.helper.CssHelper;
 import org.odlabs.wiquery.core.options.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
+import org.junit.Assert;
 
 /**
  * Test {@link JsStatement}

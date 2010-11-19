@@ -32,8 +32,8 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.slider.Slider.Orientation;
 import org.odlabs.wiquery.ui.slider.SliderAnimate.AnimateEnum;
 import org.odlabs.wiquery.ui.slider.SliderRange.RangeEnum;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**Test on {@link Slider}
  * @author Julien Roche

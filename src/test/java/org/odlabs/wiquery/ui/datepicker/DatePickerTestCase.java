@@ -35,8 +35,8 @@ import org.odlabs.wiquery.ui.datepicker.DatePickerDuration.DurationEnum;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test on {@link DatePicker}

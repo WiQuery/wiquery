@@ -33,8 +33,8 @@ import org.odlabs.wiquery.ui.sortable.SortableBehavior.CursorAtEnum;
 import org.odlabs.wiquery.ui.sortable.SortableBehavior.ToleranceEnum;
 import org.odlabs.wiquery.ui.sortable.SortableContainment.ElementEnum;
 import org.odlabs.wiquery.ui.sortable.SortableHelper.HelperEnum;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test {@link SortableBehavior}
@@ -239,9 +239,9 @@ public class SortableBehaviorTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetOpacity() {
-		Assert.assertEquals(sortableBehavior.getOpacity(), 0F);
+		Assert.assertEquals((Object)sortableBehavior.getOpacity(), 0F);
 		sortableBehavior.setOpacity(1F);
-		Assert.assertEquals(sortableBehavior.getOpacity(), 1F);
+		Assert.assertEquals((Object)sortableBehavior.getOpacity(), 1F);
 	}
 
 	/**

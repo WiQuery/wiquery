@@ -5,8 +5,8 @@ import junit.framework.TestCase;
 import org.odlabs.wiquery.ui.draggable.DraggableContainment.ContainmentEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class DraggableContainmentTestCase extends TestCase{
 	protected static final Logger log = LoggerFactory.getLogger(

@@ -21,8 +21,8 @@
  */
 package org.odlabs.wiquery.core.commons.merge;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import junit.framework.TestCase;
 

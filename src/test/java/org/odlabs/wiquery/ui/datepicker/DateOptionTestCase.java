@@ -6,8 +6,8 @@ import junit.framework.TestCase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class DateOptionTestCase extends TestCase{
 	protected static final Logger log = LoggerFactory.getLogger(

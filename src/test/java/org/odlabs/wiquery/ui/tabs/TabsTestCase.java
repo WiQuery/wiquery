@@ -36,8 +36,8 @@ import org.odlabs.wiquery.core.options.IListItemOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test on {@link Tabs}

@@ -25,7 +25,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.odlabs.wiquery.core.ajax.JQueryAjaxOption.AjaxType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * Test on {@link JQueryAjaxOption}

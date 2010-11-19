@@ -35,8 +35,8 @@ import org.odlabs.wiquery.ui.draggable.DraggableBehavior.SnapModeEnum;
 import org.odlabs.wiquery.ui.draggable.DraggableContainment.ContainmentEnum;
 import org.odlabs.wiquery.ui.draggable.DraggableHelper.HelperEnum;
 import org.odlabs.wiquery.ui.draggable.DraggableRevert.RevertEnum;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test on {@link DraggableBehavior}
@@ -236,9 +236,9 @@ public class DraggableBehaviorTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetOpacity() {
-		Assert.assertEquals(draggableBehavior.getOpacity(), 0F);
+		Assert.assertEquals((Object)draggableBehavior.getOpacity(), 0F);
 		draggableBehavior.setOpacity(5F);
-		Assert.assertEquals(draggableBehavior.getOpacity(), 5F);
+		Assert.assertEquals((Object)draggableBehavior.getOpacity(), 5F);
 	}
 
 	/**

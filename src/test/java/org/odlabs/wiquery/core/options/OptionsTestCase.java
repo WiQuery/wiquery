@@ -15,8 +15,8 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Unit test on the {@link ListItemOptions}
@@ -156,7 +156,7 @@ public class OptionsTestCase extends TestCase{
 		options.put("keyFloat", 1F);
 		
 		Assert.assertFalse(options.isEmpty());
-		Assert.assertEquals(1F, options.getFloat("keyFloat"));
+		Assert.assertEquals((Object) 1F, (Object) options.getFloat("keyFloat"));
 	}
 	
 	@Test

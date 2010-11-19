@@ -6,7 +6,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.ui.dialog.Dialog;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class WiQueryUIPluginTestCase extends TestCase {
 	/**

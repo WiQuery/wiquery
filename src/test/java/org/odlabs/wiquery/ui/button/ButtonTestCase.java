@@ -29,8 +29,8 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.ui.themes.UiIcon;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test on {@link ButtonBehavior}

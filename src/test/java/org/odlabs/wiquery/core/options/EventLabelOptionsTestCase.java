@@ -4,8 +4,8 @@ import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.options.EventLabelOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import junit.framework.TestCase;
 

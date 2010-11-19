@@ -13,7 +13,7 @@ import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
-import org.testng.annotations.Test;
+import org.junit.Test;
 /**
  * Tests {@link WiQuerySettings}.
  * @author Arthur Hupka

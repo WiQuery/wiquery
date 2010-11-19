@@ -24,8 +24,8 @@ package org.odlabs.wiquery.core.effects.sliding;
 import junit.framework.TestCase;
 
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**

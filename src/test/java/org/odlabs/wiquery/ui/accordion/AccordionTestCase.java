@@ -28,8 +28,8 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.accordion.Accordion.AccordionTriggerEvent;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test on {@link Accordion}

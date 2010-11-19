@@ -25,8 +25,8 @@ import junit.framework.TestCase;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.odlabs.wiquery.ui.datepicker.DateOption;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test on {@link JQueryCookieOption}

@@ -29,7 +29,7 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
+import org.junit.Assert;
 
 /**
  * Test {@link JsQuery}

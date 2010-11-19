@@ -30,8 +30,8 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.resizable.ResizableContainment.ElementEnum;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test on {@link ResizableBehavior}

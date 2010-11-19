@@ -6,8 +6,8 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.ui.draggable.DraggableHelper.HelperEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class DraggableHelperTestCase extends TestCase{
 	protected static final Logger log = LoggerFactory.getLogger(

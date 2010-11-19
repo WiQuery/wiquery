@@ -24,8 +24,8 @@ package org.odlabs.wiquery.core.effects;
 import junit.framework.TestCase;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test on {@link EffectTest}

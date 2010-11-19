@@ -23,8 +23,8 @@ package org.odlabs.wiquery.core.effects.basic;
 
 import junit.framework.TestCase;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 
