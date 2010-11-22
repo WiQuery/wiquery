@@ -1,28 +1,30 @@
 package org.odlabs.wiquery.ui.datepicker;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
-public class DatePickerYearRangeTestCase extends TestCase{
-	protected static final Logger log = LoggerFactory.getLogger(
-			DatePickerYearRangeTestCase.class);
+public class DatePickerYearRangeTestCase extends WiQueryTestCase {
+	protected static final Logger log = LoggerFactory
+			.getLogger(DatePickerYearRangeTestCase.class);
 
 	@Test
 	public void testGetJavaScriptOption() {
-		DatePickerYearRange yearRAnge = new DatePickerYearRange(new Short("-10"), new Short("10"));
-		
+		DatePickerYearRange yearRAnge = new DatePickerYearRange(
+				new Short("-10"), new Short("10"));
+
 		// Short params
 		String expectedJavascript = "'-10:+10'";
 		String generatedJavascript = yearRAnge.getJavascriptOption().toString();
-		
+
 		log.info(expectedJavascript);
-		log.info(generatedJavascript);		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-		
+		log.info(generatedJavascript);
+		assertEquals(generatedJavascript, expectedJavascript);
+
 		// IllegalParameters param
 		yearRAnge.setYearFrom(new Short("16"));
 		try {

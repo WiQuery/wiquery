@@ -21,264 +21,306 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.wicket.Page;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Before;
+import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.position.PositionOptions;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Test of {@link Autocomplete}
+ * 
  * @author Julien Roche
- *
  */
-public class AutocompleteTestCase extends TestCase {
+public class AutocompleteTestCase extends WiQueryTestCase {
 	// Properties
 	private Autocomplete<String> autocomplete;
-	
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-		
+
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
+
 		autocomplete = new Autocomplete<String>("anId");
 		autocomplete.setMarkupId(autocomplete.getId());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#close()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#close()}.
 	 */
 	@Test
 	public void testClose() {
-		Assert.assertNotNull(autocomplete.close());
-		Assert.assertEquals(autocomplete.close().render().toString(), 
+		assertNotNull(autocomplete.close());
+		assertEquals(autocomplete.close().render().toString(),
 				"$('#anId').autocomplete('close');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#destroy()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#destroy()}.
 	 */
 	@Test
 	public void testDestroy() {
-		Assert.assertNotNull(autocomplete.destroy());
-		Assert.assertEquals(autocomplete.destroy().render().toString(), 
+		assertNotNull(autocomplete.destroy());
+		assertEquals(autocomplete.destroy().render().toString(),
 				"$('#anId').autocomplete('destroy');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#disable()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#disable()}.
 	 */
 	@Test
 	public void testDisable() {
-		Assert.assertNotNull(autocomplete.disable());
-		Assert.assertEquals(autocomplete.disable().render().toString(), 
+		assertNotNull(autocomplete.disable());
+		assertEquals(autocomplete.disable().render().toString(),
 				"$('#anId').autocomplete('disable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#enable()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#enable()}.
 	 */
 	@Test
 	public void testEnable() {
-		Assert.assertNotNull(autocomplete.enable());
-		Assert.assertEquals(autocomplete.enable().render().toString(), 
+		assertNotNull(autocomplete.enable());
+		assertEquals(autocomplete.enable().render().toString(),
 				"$('#anId').autocomplete('enable');");
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getAppendTo()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getAppendTo()}.
 	 */
 	@Test
 	public void testGetAppendTo() {
-		Assert.assertEquals(autocomplete.getAppendTo(), "body");
+		assertEquals(autocomplete.getAppendTo(), "body");
 		autocomplete.setAppendTo("html > div.myClasss");
-		Assert.assertEquals(autocomplete.getAppendTo(), "html > div.myClasss");
+		assertEquals(autocomplete.getAppendTo(), "html > div.myClasss");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getDelay()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getDelay()}.
 	 */
 	@Test
 	public void testGetDelay() {
-		Assert.assertEquals(autocomplete.getDelay(), 300);
+		assertEquals(autocomplete.getDelay(), 300);
 		autocomplete.setDelay(500);
-		Assert.assertEquals(autocomplete.getDelay(), 500);
+		assertEquals(autocomplete.getDelay(), 500);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getMinLength()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getMinLength()}.
 	 */
 	@Test
 	public void testGetMinLength() {
-		Assert.assertEquals(autocomplete.getMinLength(), 1);
+		assertEquals(autocomplete.getMinLength(), 1);
 		autocomplete.setMinLength(2);
-		Assert.assertEquals(autocomplete.getMinLength(), 2);
+		assertEquals(autocomplete.getMinLength(), 2);
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getPosition()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getPosition()}.
 	 */
 	@Test
 	public void testGetPosition() {
-		Assert.assertNotNull(autocomplete.getPosition());
-		Assert.assertEquals(autocomplete.getPosition().getJavascriptOption().toString(), "{at: 'left bottom', collision: 'none', my: 'left top'}");
+		assertNotNull(autocomplete.getPosition());
+		assertEquals(autocomplete.getPosition().getJavascriptOption()
+				.toString(),
+				"{at: 'left bottom', collision: 'none', my: 'left top'}");
 		PositionOptions position = new PositionOptions();
 		position.setBgiframe(true);
 		autocomplete.setPosition(position);
-		Assert.assertNotNull(autocomplete.getPosition());
-		Assert.assertEquals(autocomplete.getPosition().getJavascriptOption().toString(), "{bgiframe: true}");
+		assertNotNull(autocomplete.getPosition());
+		assertEquals(autocomplete.getPosition().getJavascriptOption()
+				.toString(), "{bgiframe: true}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getOptions()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions() {
-		Assert.assertNotNull(autocomplete.getOptions());
-		Assert.assertEquals(autocomplete.getOptions().getJavaScriptOptions().toString(), "{}");
+		assertNotNull(autocomplete.getOptions());
+		assertEquals(autocomplete.getOptions().getJavaScriptOptions()
+				.toString(), "{}");
 		autocomplete.setDelay(5);
-		Assert.assertEquals(autocomplete.getOptions().getJavaScriptOptions().toString(), "{delay: 5}");
+		assertEquals(autocomplete.getOptions().getJavaScriptOptions()
+				.toString(), "{delay: 5}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getSource()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#getSource()}.
 	 */
 	@Test
 	public void testGetSource() {
-		Assert.assertNull(autocomplete.getSource());
-		autocomplete.setSource(new AutocompleteSource("http://localhost:8080/url.jsp"));
-		Assert.assertNotNull(autocomplete.getSource());
-		Assert.assertEquals(autocomplete.getSource().getJavascriptOption().toString(), "'http://localhost:8080/url.jsp'");
-	}
-	
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#isDisabled()}.
-	 */
-	@Test
-	public void testIsDisabled() {
-		Assert.assertFalse(autocomplete.isDisabled());
-		autocomplete.setDisabled(true);
-		Assert.assertTrue(autocomplete.isDisabled());
+		assertNull(autocomplete.getSource());
+		autocomplete.setSource(new AutocompleteSource(
+				"http://localhost:8080/url.jsp"));
+		assertNotNull(autocomplete.getSource());
+		assertEquals(autocomplete.getSource().getJavascriptOption().toString(),
+				"'http://localhost:8080/url.jsp'");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#search()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#isDisabled()}.
+	 */
+	@Test
+	public void testIsDisabled() {
+		assertFalse(autocomplete.isDisabled());
+		autocomplete.setDisabled(true);
+		assertTrue(autocomplete.isDisabled());
+	}
+
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#search()}.
 	 */
 	@Test
 	public void testSearch() {
-		Assert.assertNotNull(autocomplete.search());
-		Assert.assertEquals(autocomplete.search().render().toString(), 
+		assertNotNull(autocomplete.search());
+		assertEquals(autocomplete.search().render().toString(),
 				"$('#anId').autocomplete('search');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#search(java.lang.String)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#search(java.lang.String)}
+	 * .
 	 */
 	@Test
 	public void testSearchString() {
-		Assert.assertNotNull(autocomplete.search());
-		Assert.assertEquals(autocomplete.search("a").render().toString(), 
+		assertNotNull(autocomplete.search());
+		assertEquals(autocomplete.search("a").render().toString(),
 				"$('#anId').autocomplete('search', 'a');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetChangeEvent() {
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({});");
-		autocomplete.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({change: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({});");
+		autocomplete.setChangeEvent(JsScopeUiEvent
+				.quickScope("alert('event');"));
+		assertEquals(
+				autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({change: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setCloseEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setCloseEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetCloseEvent() {
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({});");
-		autocomplete.setCloseEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({close: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({});");
+		autocomplete
+				.setCloseEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(
+				autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({close: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setFocusEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setFocusEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetFocusEvent() {
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({});");
-		autocomplete.setFocusEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({focus: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({});");
+		autocomplete
+				.setFocusEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(
+				autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({focus: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for {@link
+	 * org.odlabs.wiquery.ui.autocomplete.Autocomplete#(org.odlabs.wiquery.ui.
+	 * core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetOpenEvent() {
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({});");
+		assertEquals(autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({});");
 		autocomplete.setOpenEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({open: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({open: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setSearchEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setSearchEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetSearchEvent() {
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({});");
-		autocomplete.setSearchEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({search: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({});");
+		autocomplete.setSearchEvent(JsScopeUiEvent
+				.quickScope("alert('event');"));
+		assertEquals(
+				autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({search: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setSelectEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setSelectEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetSelectEvent() {
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({});");
-		autocomplete.setSelectEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(autocomplete.statement().render().toString(), 
-			"$('#anId').autocomplete({select: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({});");
+		autocomplete.setSelectEvent(JsScopeUiEvent
+				.quickScope("alert('event');"));
+		assertEquals(
+				autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({select: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#statement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#statement()}.
 	 */
 	@Test
 	public void testStatement() {
-		Assert.assertNotNull(autocomplete.statement());
-		Assert.assertEquals(autocomplete.statement().render().toString(), "$('#anId').autocomplete({});");
+		assertNotNull(autocomplete.statement());
+		assertEquals(autocomplete.statement().render().toString(),
+				"$('#anId').autocomplete({});");
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#widget()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#widget()}.
 	 */
 	@Test
 	public void testWidget() {
-		Assert.assertNotNull(autocomplete.widget());
-		Assert.assertEquals(autocomplete.widget().render().toString(), 
+		assertNotNull(autocomplete.widget());
+		assertEquals(autocomplete.widget().render().toString(),
 				"$('#anId').autocomplete('widget');");
 	}
 }

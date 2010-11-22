@@ -21,148 +21,177 @@
  */
 package org.odlabs.wiquery.core.jqueryplugins;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.apache.wicket.WicketRuntimeException;
-import org.odlabs.wiquery.ui.datepicker.DateOption;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.datepicker.DateOption;
 
 /**
  * Test on {@link JQueryCookieOption}
+ * 
  * @author Julien Roche
- *
  */
-public class JQueryCookieOptionTestCase extends TestCase {
+public class JQueryCookieOptionTestCase extends WiQueryTestCase {
 	// Properties
 	private JQueryCookieOption jQueryCookieOption;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Override
-	public void setUp() throws Exception {
+	@Before
+	public void setUp() {
+		super.setUp();
+		
 		jQueryCookieOption = new JQueryCookieOption("a cookie name");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#deleteCookie()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#deleteCookie()}
+	 * .
 	 */
 	@Test
 	public void testDeleteCookie() {
-		Assert.assertNotNull(jQueryCookieOption.deleteCookie());
-		Assert.assertEquals(jQueryCookieOption.deleteCookie().render().toString(), 
+		assertNotNull(jQueryCookieOption.deleteCookie());
+		assertEquals(jQueryCookieOption.deleteCookie().render().toString(),
 				"$.cookie('a cookie name', null, {});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getCookie()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getCookie()}
+	 * .
 	 */
 	@Test
 	public void testGetCookie() {
-		Assert.assertNotNull(jQueryCookieOption.getCookie());
-		Assert.assertEquals(jQueryCookieOption.getCookie().render().toString(), 
+		assertNotNull(jQueryCookieOption.getCookie());
+		assertEquals(jQueryCookieOption.getCookie().render().toString(),
 				"$.cookie('a cookie name');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getDomain()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getDomain()}
+	 * .
 	 */
 	@Test
 	public void testGetDomain() {
-		Assert.assertNull(jQueryCookieOption.getDomain());
+		assertNull(jQueryCookieOption.getDomain());
 		jQueryCookieOption.setDomain("server.domain.net");
-		Assert.assertNotNull(jQueryCookieOption.getDomain());
-		Assert.assertEquals(jQueryCookieOption.getDomain(), "server.domain.net");
+		assertNotNull(jQueryCookieOption.getDomain());
+		assertEquals(jQueryCookieOption.getDomain(), "server.domain.net");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getExpires()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getExpires()}
+	 * .
 	 */
 	@Test
 	public void testGetExpires() {
-		Assert.assertNull(jQueryCookieOption.getExpires());
+		assertNull(jQueryCookieOption.getExpires());
 		jQueryCookieOption.setExpires(new DateOption("19/05/1982"));
-		Assert.assertNotNull(jQueryCookieOption.getExpires());
-		Assert.assertTrue(jQueryCookieOption.getExpires() instanceof DateOption);
-		Assert.assertEquals(jQueryCookieOption.getExpires().getJavascriptOption(), 
+		assertNotNull(jQueryCookieOption.getExpires());
+		assertTrue(jQueryCookieOption.getExpires() instanceof DateOption);
+		assertEquals(jQueryCookieOption.getExpires().getJavascriptOption(),
 				"'19/05/1982'");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getJavascriptOption()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getJavascriptOption()}
+	 * .
 	 */
 	@Test
 	public void testGetJavascriptOption() {
-		Assert.assertEquals(jQueryCookieOption.getJavascriptOption().toString(), "{}");
+		assertEquals(jQueryCookieOption.getJavascriptOption().toString(), "{}");
 		jQueryCookieOption.setPath("http://server.domain.net");
-		Assert.assertEquals(jQueryCookieOption.getJavascriptOption().toString(), "{path: 'http://server.domain.net'}");
+		assertEquals(jQueryCookieOption.getJavascriptOption().toString(),
+				"{path: 'http://server.domain.net'}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getName()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getName()}
+	 * .
 	 */
 	@Test
 	public void testGetName() {
-		Assert.assertNotNull(jQueryCookieOption.getName());
-		Assert.assertEquals(jQueryCookieOption.getName(), "a cookie name");
+		assertNotNull(jQueryCookieOption.getName());
+		assertEquals(jQueryCookieOption.getName(), "a cookie name");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getPath()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getPath()}
+	 * .
 	 */
 	@Test
 	public void testGetPath() {
-		Assert.assertNull(jQueryCookieOption.getPath());
+		assertNull(jQueryCookieOption.getPath());
 		jQueryCookieOption.setPath("http://server.domain.net");
-		Assert.assertNotNull(jQueryCookieOption.getPath());
-		Assert.assertEquals(jQueryCookieOption.getPath(), "http://server.domain.net");
+		assertNotNull(jQueryCookieOption.getPath());
+		assertEquals(jQueryCookieOption.getPath(), "http://server.domain.net");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getValue()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#getValue()}
+	 * .
 	 */
 	@Test
 	public void testGetValue() {
-		Assert.assertNull(jQueryCookieOption.getValue());
+		assertNull(jQueryCookieOption.getValue());
 		jQueryCookieOption.setValue("a value");
-		Assert.assertNotNull(jQueryCookieOption.getValue());
-		Assert.assertEquals(jQueryCookieOption.getValue(), "a value");
+		assertNotNull(jQueryCookieOption.getValue());
+		assertEquals(jQueryCookieOption.getValue(), "a value");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#isSecure()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#isSecure()}
+	 * .
 	 */
 	@Test
 	public void testIsSecure() {
-		Assert.assertFalse(jQueryCookieOption.isSecure());
+		assertFalse(jQueryCookieOption.isSecure());
 		jQueryCookieOption.setSecure(true);
-		Assert.assertTrue(jQueryCookieOption.isSecure());
+		assertTrue(jQueryCookieOption.isSecure());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#JQueryCookieOption(java.lang.String)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#JQueryCookieOption(java.lang.String)}
+	 * .
 	 */
 	@Test
 	public void testJQueryCookieOption() {
-		try{
+		try {
 			new JQueryCookieOption(null);
-			Assert.fail();
-			
-		} catch(WicketRuntimeException e){
-			Assert.assertTrue(true);
-			Assert.assertEquals("name cannot be null or empty", e.getMessage());
+			fail();
+
+		} catch (WicketRuntimeException e) {
+			assertTrue(true);
+			assertEquals("name cannot be null or empty", e.getMessage());
 		}
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#setCookie()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption#setCookie()}
+	 * .
 	 */
 	@Test
 	public void testSetCookie() {
 		jQueryCookieOption.setValue("a value");
-		Assert.assertNotNull(jQueryCookieOption.setCookie());
-		Assert.assertEquals(jQueryCookieOption.setCookie().render().toString(), 
+		assertNotNull(jQueryCookieOption.setCookie());
+		assertEquals(jQueryCookieOption.setCookie().render().toString(),
 				"$.cookie('a cookie name', 'a value', {});");
 	}
 }

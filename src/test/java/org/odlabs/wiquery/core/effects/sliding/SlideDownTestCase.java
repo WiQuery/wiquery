@@ -21,25 +21,25 @@
  */
 package org.odlabs.wiquery.core.effects.sliding;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.junit.Assert;
 import org.junit.Test;
-
+import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
  * Test on {@link SlideDown}
+ * 
  * @author Julien Roche
- *
  */
-public class SlideDownTestCase extends TestCase {
+public class SlideDownTestCase extends WiQueryTestCase {
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		Assert.assertEquals(new JsStatement().$(null, "#aComponent").chain(new SlideDown()).render().toString(), 
+		assertEquals(new JsStatement().$(null, "#aComponent").chain(
+				new SlideDown()).render().toString(),
 				"$('#aComponent').slideDown();");
 	}
 }

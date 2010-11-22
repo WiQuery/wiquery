@@ -21,134 +21,145 @@
  */
 package org.odlabs.wiquery.ui.position;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Before;
+import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
 import org.odlabs.wiquery.ui.position.PositionOptions.Position;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Test for {@link PositionBehavior}
+ * 
  * @author Julien Roche
- *
  */
-public class PositionBehaviorTestCase extends TestCase {
+public class PositionBehaviorTestCase extends WiQueryTestCase {
 	// Properties
 	private PositionBehavior positionBehavior;
-	
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-		
+
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
+
 		positionBehavior = new PositionBehavior();
-		
+
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		component.add(positionBehavior);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#getAt()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#getAt()}.
 	 */
 	@Test
 	public void testGetAt() {
-		Assert.assertNull(positionBehavior.getAt());
+		assertNull(positionBehavior.getAt());
 		positionBehavior.setAt(Position.CENTER_TOP);
-		Assert.assertEquals(positionBehavior.getAt(), Position.CENTER_TOP);
+		assertEquals(positionBehavior.getAt(), Position.CENTER_TOP);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#getCollision()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#getCollision()}.
 	 */
 	@Test
 	public void testGetCollision() {
-		Assert.assertNull(positionBehavior.getCollision());
+		assertNull(positionBehavior.getCollision());
 		positionBehavior.setCollision(Collision.FIT_NONE);
-		Assert.assertEquals(positionBehavior.getCollision(), Collision.FIT_NONE);
+		assertEquals(positionBehavior.getCollision(), Collision.FIT_NONE);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#getMy()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#getMy()}.
 	 */
 	@Test
 	public void testGetMy() {
-		Assert.assertNull(positionBehavior.getMy());
+		assertNull(positionBehavior.getMy());
 		positionBehavior.setMy(Position.CENTER_TOP);
-		Assert.assertEquals(positionBehavior.getMy(), Position.CENTER_TOP);
+		assertEquals(positionBehavior.getMy(), Position.CENTER_TOP);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#getOf()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#getOf()}.
 	 */
 	@Test
 	public void testGetOf() {
-		Assert.assertNull(positionBehavior.getOf());
+		assertNull(positionBehavior.getOf());
 		positionBehavior.setOf("#anElement");
-		Assert.assertEquals(positionBehavior.getOf(), "#anElement");
+		assertEquals(positionBehavior.getOf(), "#anElement");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#getOffset()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#getOffset()}.
 	 */
 	@Test
 	public void testGetOffset() {
-		Assert.assertNull(positionBehavior.getOffset());
+		assertNull(positionBehavior.getOffset());
 		positionBehavior.setOffset(new PositionOffset(5));
-		Assert.assertNotNull(positionBehavior.getOffset());
-		Assert.assertEquals(positionBehavior.getOffset().getJavascriptOption().toString(), "'5 5'");
+		assertNotNull(positionBehavior.getOffset());
+		assertEquals(positionBehavior.getOffset().getJavascriptOption()
+				.toString(), "'5 5'");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#getOptions()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions() {
-		Assert.assertNotNull(positionBehavior.getOptions());
-		Assert.assertEquals(positionBehavior.getOptions().getJavaScriptOptions().toString(), "{}");
+		assertNotNull(positionBehavior.getOptions());
+		assertEquals(positionBehavior.getOptions().getJavaScriptOptions()
+				.toString(), "{}");
 		positionBehavior.setBgiframe(false);
-		Assert.assertEquals(positionBehavior.getOptions().getJavaScriptOptions().toString(), "{bgiframe: false}");
+		assertEquals(positionBehavior.getOptions().getJavaScriptOptions()
+				.toString(), "{bgiframe: false}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#isBgiframe()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#isBgiframe()}.
 	 */
 	@Test
 	public void testIsBgiframe() {
-		Assert.assertTrue(positionBehavior.isBgiframe());
+		assertTrue(positionBehavior.isBgiframe());
 		positionBehavior.setBgiframe(false);
-		Assert.assertFalse(positionBehavior.isBgiframe());
+		assertFalse(positionBehavior.isBgiframe());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#setBy(org.odlabs.wiquery.ui.position.JsScopePositionEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#setBy(org.odlabs.wiquery.ui.position.JsScopePositionEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetBy() {
-		Assert.assertEquals(positionBehavior.statement().render().toString(),
-			"$('#anId').position({});");
-		positionBehavior.setBy(JsScopePositionEvent.quickScope("alert('event');"));
-		Assert.assertEquals(positionBehavior.statement().render().toString(), 
-			"$('#anId').position({by: function(params) {\n\talert('event');\n}});");
+		assertEquals(positionBehavior.statement().render().toString(),
+				"$('#anId').position({});");
+		positionBehavior.setBy(JsScopePositionEvent
+				.quickScope("alert('event');"));
+		assertEquals(positionBehavior.statement().render().toString(),
+				"$('#anId').position({by: function(params) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#statement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#statement()}.
 	 */
 	@Test
 	public void testStatement() {
-		Assert.assertNotNull(positionBehavior.statement());
-		Assert.assertEquals(positionBehavior.statement().render().toString(), "$('#anId').position({});");
+		assertNotNull(positionBehavior.statement());
+		assertEquals(positionBehavior.statement().render().toString(),
+				"$('#anId').position({});");
 	}
 }

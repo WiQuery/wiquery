@@ -21,25 +21,24 @@
  */
 package org.odlabs.wiquery.core.effects.basic;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
  * Test on {@link Hide}
+ * 
  * @author Julien Roche
- *
  */
-public class HideTestCase extends TestCase {
+public class HideTestCase extends WiQueryTestCase {
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		Assert.assertEquals(new JsStatement().$(null, "#aComponent").chain(new Hide()).render().toString(), 
-				"$('#aComponent').hide();");
+		assertEquals(new JsStatement().$(null, "#aComponent").chain(new Hide())
+				.render().toString(), "$('#aComponent').hide();");
 	}
 }

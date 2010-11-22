@@ -1,23 +1,23 @@
 package org.odlabs.wiquery.core.javascript.helper;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Unit test on the {@link TraversingHelper}
+ * 
  * @author Julien Roche
- *
  */
-public class TraversingHelperTestCase extends TestCase {
+public class TraversingHelperTestCase extends WiQueryTestCase {
 
-	protected static final Logger log = LoggerFactory.getLogger(
-			TraversingHelperTestCase.class);
-	
+	protected static final Logger log = LoggerFactory
+			.getLogger(TraversingHelperTestCase.class);
+
 	/**
 	 * Test {@link TraversingHelper#add(String)}
 	 */
@@ -26,13 +26,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').add('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.add("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#children(String)}
 	 */
@@ -41,13 +41,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').children('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.children("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#contents(String)}
 	 */
@@ -56,13 +56,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').contents('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.contents("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#eq(int)}
 	 */
@@ -71,13 +71,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').eq(1);";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.eq(1)).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#filter(String)}
 	 */
@@ -86,13 +86,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').filter('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.filter("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#find(String)}
 	 */
@@ -101,13 +101,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').find('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.find("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#next(String)}
 	 */
@@ -116,13 +116,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').next('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.next("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#nextAll(String)}
 	 */
@@ -131,13 +131,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').nextAll('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.nextAll("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#not(String)}
 	 */
@@ -146,13 +146,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').not('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.not("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#parent(String)}
 	 */
@@ -161,13 +161,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').parent('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.parent("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#parents(String)}
 	 */
@@ -176,13 +176,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').parents('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.parents("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#prev(String)}
 	 */
@@ -191,13 +191,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').prev('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.prev("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#prevAll(String)}
 	 */
@@ -206,13 +206,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').prevAll('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.prevAll("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#siblings(String)}
 	 */
@@ -221,13 +221,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').siblings('span');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.siblings("span")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#slice(int)}
 	 */
@@ -236,13 +236,13 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').slice(1);";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.slice(1)).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link TraversingHelper#slice(int, int)}
 	 */
@@ -251,10 +251,10 @@ public class TraversingHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').slice(1, 3);";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				TraversingHelper.slice(1, 3)).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
 }

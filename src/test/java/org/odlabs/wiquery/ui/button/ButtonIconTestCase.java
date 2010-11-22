@@ -21,49 +21,53 @@
  */
 package org.odlabs.wiquery.ui.button;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.themes.UiIcon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Test on {@link ButtonIcon}
+ * 
  * @author Julien Roche
- *
  */
-public class ButtonIconTestCase extends TestCase{
-	protected static final Logger log = LoggerFactory.getLogger(
-			ButtonIconTestCase.class);
+public class ButtonIconTestCase extends WiQueryTestCase {
+	protected static final Logger log = LoggerFactory
+			.getLogger(ButtonIconTestCase.class);
 
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
 	public void testGetJavaScriptOption() {
-		ButtonIcon buttonIcon = new ButtonIcon("ui-icon-gear", "ui-icon-triangle-1-s");
-		
+		ButtonIcon buttonIcon = new ButtonIcon("ui-icon-gear",
+				"ui-icon-triangle-1-s");
+
 		String expectedJavascript = "{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}";
-		String generatedJavascript = buttonIcon.getJavascriptOption().toString();
-		
+		String generatedJavascript = buttonIcon.getJavascriptOption()
+				.toString();
+
 		log.info(expectedJavascript);
-		log.info(generatedJavascript);		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+		log.info(generatedJavascript);
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
 	public void testGetJavaScriptOptionEnum() {
-		ButtonIcon buttonIcon = new ButtonIcon(UiIcon.GEAR, UiIcon.TRIANGLE_1_SOUTH);		
+		ButtonIcon buttonIcon = new ButtonIcon(UiIcon.GEAR,
+				UiIcon.TRIANGLE_1_SOUTH);
 		String expectedJavascript = "{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}";
-		String generatedJavascript = buttonIcon.getJavascriptOption().toString();
-		
+		String generatedJavascript = buttonIcon.getJavascriptOption()
+				.toString();
+
 		log.info(expectedJavascript);
-		log.info(generatedJavascript);		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+		log.info(generatedJavascript);
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
 }

@@ -21,195 +21,218 @@
  */
 package org.odlabs.wiquery.core.ajax;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import org.odlabs.wiquery.core.ajax.JQueryAjaxOption.AjaxType;
+import org.junit.Before;
 import org.junit.Test;
+import org.odlabs.wiquery.core.ajax.JQueryAjaxOption.AjaxType;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
  * Test on {@link JQueryAjaxOption}
+ * 
  * @author Julien Roche
- *
  */
-public class JQueryAjaxOptionTestCase extends TestCase {
+public class JQueryAjaxOptionTestCase extends WiQueryTestCase {
 	// Properties
 	private JQueryAjaxOption jQueryAjaxOption;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Override
-	public void setUp() throws Exception {
+	@Before
+	public void setUp() {
+		super.setUp();
 		jQueryAjaxOption = new JQueryAjaxOption();
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getContentType()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getContentType()}.
 	 */
 	@Test
 	public void testGetContentType() {
-		Assert.assertEquals(jQueryAjaxOption.getContentType(), "application/x-www-form-urlencoded");
+		assertEquals(jQueryAjaxOption.getContentType(),
+				"application/x-www-form-urlencoded");
 		jQueryAjaxOption.setContentType("text/css");
-		Assert.assertNotNull(jQueryAjaxOption.getContentType());
-		Assert.assertEquals("text/css", jQueryAjaxOption.getContentType());
+		assertNotNull(jQueryAjaxOption.getContentType());
+		assertEquals("text/css", jQueryAjaxOption.getContentType());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getData()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getData()}.
 	 */
 	@Test
 	public void testGetData() {
-		Assert.assertNull(jQueryAjaxOption.getData());
+		assertNull(jQueryAjaxOption.getData());
 		jQueryAjaxOption.setData("{foo:['bar1', 'bar2']}");
-		Assert.assertNotNull(jQueryAjaxOption.getData());
-		Assert.assertEquals("{foo:['bar1', 'bar2']}", jQueryAjaxOption.getData());
+		assertNotNull(jQueryAjaxOption.getData());
+		assertEquals("{foo:['bar1', 'bar2']}", jQueryAjaxOption.getData());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getDataType()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getDataType()}.
 	 */
 	@Test
 	public void testGetDataType() {
-		Assert.assertNull(jQueryAjaxOption.getDataType());
+		assertNull(jQueryAjaxOption.getDataType());
 		jQueryAjaxOption.setDataType("xml");
-		Assert.assertNotNull(jQueryAjaxOption.getDataType());
-		Assert.assertEquals("xml", jQueryAjaxOption.getDataType());
+		assertNotNull(jQueryAjaxOption.getDataType());
+		assertEquals("xml", jQueryAjaxOption.getDataType());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getJavascriptOption()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getJavascriptOption()}
+	 * .
 	 */
 	@Test
 	public void testGetJavascriptOption() {
-		Assert.assertEquals("{}", jQueryAjaxOption.getJavascriptOption().toString());
+		assertEquals("{}", jQueryAjaxOption.getJavascriptOption().toString());
 		jQueryAjaxOption.setDataType("xml");
-		Assert.assertEquals("{dataType: 'xml'}", jQueryAjaxOption.getJavascriptOption().toString());
+		assertEquals("{dataType: 'xml'}", jQueryAjaxOption
+				.getJavascriptOption().toString());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getJsonp()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getJsonp()}.
 	 */
 	@Test
 	public void testGetJsonp() {
-		Assert.assertNull(jQueryAjaxOption.getJsonp());
+		assertNull(jQueryAjaxOption.getJsonp());
 		jQueryAjaxOption.setJsonp("{jsonp:'onJsonPLoad'}");
-		Assert.assertNotNull(jQueryAjaxOption.getJsonp());
-		Assert.assertEquals(jQueryAjaxOption.getJsonp(), "{jsonp:'onJsonPLoad'}");
+		assertNotNull(jQueryAjaxOption.getJsonp());
+		assertEquals(jQueryAjaxOption.getJsonp(), "{jsonp:'onJsonPLoad'}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getPassword()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getPassword()}.
 	 */
 	@Test
 	public void testGetPassword() {
-		Assert.assertNull(jQueryAjaxOption.getPassword());
+		assertNull(jQueryAjaxOption.getPassword());
 		jQueryAjaxOption.setPassword("a password");
-		Assert.assertNotNull(jQueryAjaxOption.getPassword());
-		Assert.assertEquals(jQueryAjaxOption.getPassword(), "a password");
-	}
-	
-	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getScriptCharset()}.
-	 */
-	@Test
-	public void testGetScriptCharset() {
-		Assert.assertNull(jQueryAjaxOption.getScriptCharset());
-		jQueryAjaxOption.setScriptCharset("text/html");
-		Assert.assertNotNull(jQueryAjaxOption.getScriptCharset());
-		Assert.assertEquals(jQueryAjaxOption.getScriptCharset(), "text/html");
-	}
-	
-	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getTimeout()}.
-	 */
-	@Test
-	public void testGetTimeout() {
-		Assert.assertEquals(jQueryAjaxOption.getTimeout(), 0);
-		jQueryAjaxOption.setTimeout(15);
-		Assert.assertNotNull(jQueryAjaxOption.getTimeout());
-		Assert.assertEquals(jQueryAjaxOption.getTimeout(), 15);
-	}
-	
-	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getType}.
-	 */
-	@Test
-	public void testGetType() {
-		Assert.assertEquals(jQueryAjaxOption.getType(), AjaxType.GET);
-		jQueryAjaxOption.setType(AjaxType.POST);
-		Assert.assertEquals(jQueryAjaxOption.getType(), AjaxType.POST);
-	}
-	
-	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getUrl()}.
-	 */
-	@Test
-	public void testGetUrl() {
-		Assert.assertNull(jQueryAjaxOption.getUrl());
-		jQueryAjaxOption.setUrl("http://an.url");
-		Assert.assertNotNull(jQueryAjaxOption.getUrl());
-		Assert.assertEquals(jQueryAjaxOption.getUrl(), "http://an.url");
+		assertNotNull(jQueryAjaxOption.getPassword());
+		assertEquals(jQueryAjaxOption.getPassword(), "a password");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getUsername()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getScriptCharset()}.
+	 */
+	@Test
+	public void testGetScriptCharset() {
+		assertNull(jQueryAjaxOption.getScriptCharset());
+		jQueryAjaxOption.setScriptCharset("text/html");
+		assertNotNull(jQueryAjaxOption.getScriptCharset());
+		assertEquals(jQueryAjaxOption.getScriptCharset(), "text/html");
+	}
+
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getTimeout()}.
+	 */
+	@Test
+	public void testGetTimeout() {
+		assertEquals(jQueryAjaxOption.getTimeout(), 0);
+		jQueryAjaxOption.setTimeout(15);
+		assertNotNull(jQueryAjaxOption.getTimeout());
+		assertEquals(jQueryAjaxOption.getTimeout(), 15);
+	}
+
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getType}.
+	 */
+	@Test
+	public void testGetType() {
+		assertEquals(jQueryAjaxOption.getType(), AjaxType.GET);
+		jQueryAjaxOption.setType(AjaxType.POST);
+		assertEquals(jQueryAjaxOption.getType(), AjaxType.POST);
+	}
+
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getUrl()}.
+	 */
+	@Test
+	public void testGetUrl() {
+		assertNull(jQueryAjaxOption.getUrl());
+		jQueryAjaxOption.setUrl("http://an.url");
+		assertNotNull(jQueryAjaxOption.getUrl());
+		assertEquals(jQueryAjaxOption.getUrl(), "http://an.url");
+	}
+
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#getUsername()}.
 	 */
 	@Test
 	public void testGetUsername() {
-		Assert.assertNull(jQueryAjaxOption.getUsername());
+		assertNull(jQueryAjaxOption.getUsername());
 		jQueryAjaxOption.setUsername("user");
-		Assert.assertNotNull(jQueryAjaxOption.getUsername());
-		Assert.assertEquals(jQueryAjaxOption.getUsername(), "user");
+		assertNotNull(jQueryAjaxOption.getUsername());
+		assertEquals(jQueryAjaxOption.getUsername(), "user");
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isAsync()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isAsync()}.
 	 */
 	@Test
 	public void testIsAsync() {
-		Assert.assertTrue(jQueryAjaxOption.isAsync());
+		assertTrue(jQueryAjaxOption.isAsync());
 		jQueryAjaxOption.setAsync(false);
-		Assert.assertFalse(jQueryAjaxOption.isAsync());
+		assertFalse(jQueryAjaxOption.isAsync());
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isCache()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isCache()}.
 	 */
 	@Test
 	public void testIsCache() {
-		Assert.assertTrue(jQueryAjaxOption.isCache());
+		assertTrue(jQueryAjaxOption.isCache());
 		jQueryAjaxOption.setCache(false);
-		Assert.assertFalse(jQueryAjaxOption.isCache());
+		assertFalse(jQueryAjaxOption.isCache());
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isGlobal()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isGlobal()}.
 	 */
 	@Test
 	public void testIsGlobal() {
-		Assert.assertTrue(jQueryAjaxOption.isGlobal());
+		assertTrue(jQueryAjaxOption.isGlobal());
 		jQueryAjaxOption.setGlobal(false);
-		Assert.assertFalse(jQueryAjaxOption.isGlobal());
+		assertFalse(jQueryAjaxOption.isGlobal());
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isIfModified()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isIfModified()}.
 	 */
 	@Test
 	public void testIsIfModified() {
-		Assert.assertTrue(jQueryAjaxOption.isIfModified());
+		assertTrue(jQueryAjaxOption.isIfModified());
 		jQueryAjaxOption.setIfModified(false);
-		Assert.assertFalse(jQueryAjaxOption.isIfModified());
+		assertFalse(jQueryAjaxOption.isIfModified());
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isProcessData()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.ajax.JQueryAjaxOption#isProcessData()}.
 	 */
 	@Test
 	public void testIsProcessData() {
-		Assert.assertTrue(jQueryAjaxOption.isProcessData());
+		assertTrue(jQueryAjaxOption.isProcessData());
 		jQueryAjaxOption.setProcessData(false);
-		Assert.assertFalse(jQueryAjaxOption.isProcessData());
+		assertFalse(jQueryAjaxOption.isProcessData());
 	}
 }

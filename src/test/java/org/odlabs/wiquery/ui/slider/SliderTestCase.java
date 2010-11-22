@@ -21,39 +21,36 @@
  */
 package org.odlabs.wiquery.ui.slider;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.wicket.Page;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Before;
+import org.junit.Test;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.slider.Slider.Orientation;
 import org.odlabs.wiquery.ui.slider.SliderAnimate.AnimateEnum;
 import org.odlabs.wiquery.ui.slider.SliderRange.RangeEnum;
-import org.junit.Assert;
-import org.junit.Test;
 
-/**Test on {@link Slider}
+/**
+ * Test on {@link Slider}
+ * 
  * @author Julien Roche
- *
  */
-public class SliderTestCase extends TestCase {
+public class SliderTestCase extends WiQueryTestCase {
 	// Properties
 	private Slider slider;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-		
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
+
 		slider = new Slider("anId", 5, 10);
 		slider.setMarkupId(slider.getId());
 	}
@@ -63,8 +60,8 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testDestroy() {
-		Assert.assertNotNull(slider.destroy());
-		Assert.assertEquals(slider.destroy().render().toString(), 
+		assertNotNull(slider.destroy());
+		assertEquals(slider.destroy().render().toString(),
 				"$('#anId').slider('destroy');");
 	}
 
@@ -73,8 +70,8 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testDisable() {
-		Assert.assertNotNull(slider.disable());
-		Assert.assertEquals(slider.disable().render().toString(), 
+		assertNotNull(slider.disable());
+		assertEquals(slider.disable().render().toString(),
 				"$('#anId').slider('disable');");
 	}
 
@@ -83,8 +80,8 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testEnable() {
-		Assert.assertNotNull(slider.enable());
-		Assert.assertEquals(slider.enable().render().toString(), 
+		assertNotNull(slider.enable());
+		assertEquals(slider.enable().render().toString(),
 				"$('#anId').slider('enable');");
 	}
 
@@ -93,7 +90,7 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetMax() {
-		Assert.assertEquals(slider.getMax().intValue(), 10);
+		assertEquals(slider.getMax().intValue(), 10);
 	}
 
 	/**
@@ -101,7 +98,7 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetMin() {
-		Assert.assertEquals(slider.getMin().intValue(), 5);
+		assertEquals(slider.getMin().intValue(), 5);
 	}
 
 	/**
@@ -109,19 +106,21 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetOptions() {
-		Assert.assertNotNull(slider.getOptions());
-		Assert.assertEquals(slider.getOptions().getJavaScriptOptions().toString(), "{min: 5.0, max: 10.0}");
+		assertNotNull(slider.getOptions());
+		assertEquals(slider.getOptions().getJavaScriptOptions().toString(),
+				"{min: 5.0, max: 10.0}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#getOrientation()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.slider.Slider#getOrientation()}.
 	 */
 	@Test
 	public void testGetOrientation() {
-		Assert.assertNotNull(slider.getOrientation());
-		Assert.assertEquals(slider.getOrientation(), Orientation.HORIZONTAL);
+		assertNotNull(slider.getOrientation());
+		assertEquals(slider.getOrientation(), Orientation.HORIZONTAL);
 		slider.setOrientation(Orientation.VERTICAL);
-		Assert.assertEquals(slider.getOrientation(), Orientation.VERTICAL);
+		assertEquals(slider.getOrientation(), Orientation.VERTICAL);
 	}
 
 	/**
@@ -129,10 +128,12 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetRange() {
-		Assert.assertNotNull(slider.getRange());
-		Assert.assertEquals(slider.getRange().getJavascriptOption().toString(), "false");
+		assertNotNull(slider.getRange());
+		assertEquals(slider.getRange().getJavascriptOption().toString(),
+				"false");
 		slider.setRange(new SliderRange(RangeEnum.MAX));
-		Assert.assertEquals(slider.getRange().getJavascriptOption().toString(), "'max'");
+		assertEquals(slider.getRange().getJavascriptOption().toString(),
+				"'max'");
 	}
 
 	/**
@@ -140,9 +141,9 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetStep() {
-		Assert.assertEquals(slider.getStep(), 1);
+		assertEquals(slider.getStep(), 1);
 		slider.setStep(5);
-		Assert.assertEquals(slider.getStep(), 5);
+		assertEquals(slider.getStep(), 5);
 	}
 
 	/**
@@ -150,9 +151,9 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetValue() {
-		Assert.assertEquals(slider.getValue(), 0);
+		assertEquals(slider.getValue(), 0);
 		slider.setValue(5);
-		Assert.assertEquals(slider.getValue(), 5);
+		assertEquals(slider.getValue(), 5);
 	}
 
 	/**
@@ -160,12 +161,12 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testGetValues() {
-		Assert.assertNull(slider.getValues());
+		assertNull(slider.getValues());
 		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
 		array.add(new IntegerItemOptions(5));
 		slider.setValues(array);
-		Assert.assertNotNull(slider.getValues());
-		Assert.assertEquals(slider.getValues().getJavascriptOption().toString(), "[5]");
+		assertNotNull(slider.getValues());
+		assertEquals(slider.getValues().getJavascriptOption().toString(), "[5]");
 	}
 
 	/**
@@ -173,82 +174,94 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testIsAnimate() {
-		Assert.assertFalse(slider.isAnimate());
+		assertFalse(slider.isAnimate());
 		slider.setAnimate(true);
-		Assert.assertEquals(slider.isAnimate(), true);		
+		assertEquals(slider.isAnimate(), true);
 		slider.setAnimate(1000);
-		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "1000");
+		assertEquals(slider.getAnimate().getJavascriptOption(), "1000");
 		slider.setAnimate(-1000);
-		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "1000");
+		assertEquals(slider.getAnimate().getJavascriptOption(), "1000");
 		slider.unsetAnimate();
-		Assert.assertFalse(slider.isAnimate());
-		
+		assertFalse(slider.isAnimate());
+
 		slider.setAnimate(AnimateEnum.FAST);
-		Assert.assertTrue(slider.isAnimate());
-		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "'fast'");
-		
+		assertTrue(slider.isAnimate());
+		assertEquals(slider.getAnimate().getJavascriptOption(), "'fast'");
+
 		slider.setAnimate(AnimateEnum.SLOW);
-		Assert.assertTrue(slider.isAnimate());
-		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "'slow'");
-		
+		assertTrue(slider.isAnimate());
+		assertEquals(slider.getAnimate().getJavascriptOption(), "'slow'");
+
 		slider.setAnimate(AnimateEnum.NORMAL);
-		Assert.assertTrue(slider.isAnimate());
-		Assert.assertEquals(slider.getAnimate().getJavascriptOption(), "'normal'");
-		
+		assertTrue(slider.isAnimate());
+		assertEquals(slider.getAnimate().getJavascriptOption(), "'normal'");
+
 	}
-	
+
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled() {
-		Assert.assertFalse(slider.isDisabled());
+		assertFalse(slider.isDisabled());
 		slider.setDisabled(true);
-		Assert.assertTrue(slider.isDisabled());
+		assertTrue(slider.isDisabled());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.slider.Slider#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetChangeEvent() {
-		Assert.assertEquals(slider.statement().render().toString(), 
-			"$('#anId').slider({min: 5.0, max: 10.0});");
+		assertEquals(slider.statement().render().toString(),
+				"$('#anId').slider({min: 5.0, max: 10.0});");
 		slider.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertTrue(slider.statement().render().toString().contains("change: function(event, ui) {\n\talert('event');\n}")); 
+		assertTrue(slider.statement().render().toString().contains(
+				"change: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#setSlideEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.slider.Slider#setSlideEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetSlideEvent() {
-		Assert.assertEquals(slider.statement().render().toString(), 
-			"$('#anId').slider({min: 5.0, max: 10.0});");
+		assertEquals(slider.statement().render().toString(),
+				"$('#anId').slider({min: 5.0, max: 10.0});");
 		slider.setSlideEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertTrue(slider.statement().render().toString().contains("slide: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(slider.statement().render().toString().contains(
+				"slide: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.slider.Slider#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetStartEvent() {
-		Assert.assertEquals(slider.statement().render().toString(), 
-			"$('#anId').slider({min: 5.0, max: 10.0});");
+		assertEquals(slider.statement().render().toString(),
+				"$('#anId').slider({min: 5.0, max: 10.0});");
 		slider.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertTrue(slider.statement().render().toString().contains("start: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(slider.statement().render().toString().contains(
+				"start: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.slider.Slider#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetStopEvent() {
-		Assert.assertEquals(slider.statement().render().toString(), 
-			"$('#anId').slider({min: 5.0, max: 10.0});");
+		assertEquals(slider.statement().render().toString(),
+				"$('#anId').slider({min: 5.0, max: 10.0});");
 		slider.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertTrue(slider.statement().render().toString().contains("stop: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(slider.statement().render().toString().contains(
+				"stop: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -256,8 +269,8 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testStatement() {
-		Assert.assertNotNull(slider.statement());
-		Assert.assertEquals(slider.statement().render().toString(), 
+		assertNotNull(slider.statement());
+		assertEquals(slider.statement().render().toString(),
 				"$('#anId').slider({min: 5.0, max: 10.0});");
 	}
 
@@ -266,28 +279,29 @@ public class SliderTestCase extends TestCase {
 	 */
 	@Test
 	public void testValueInt() {
-		Assert.assertNotNull(slider.value(6));
-		Assert.assertEquals(slider.value(6).render().toString(), 
+		assertNotNull(slider.value(6));
+		assertEquals(slider.value(6).render().toString(),
 				"$('#anId').slider('value', 6);");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#values(int, int)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.slider.Slider#values(int, int)}.
 	 */
 	@Test
 	public void testValuesIntInt() {
-		Assert.assertNotNull(slider.values(6, 8));
-		Assert.assertEquals(slider.values(6, 8).render().toString(), 
+		assertNotNull(slider.values(6, 8));
+		assertEquals(slider.values(6, 8).render().toString(),
 				"$('#anId').slider('values', 6, 8);");
 	}
-	
+
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#widget()}.
 	 */
 	@Test
 	public void testWidget() {
-		Assert.assertNotNull(slider.widget());
-		Assert.assertEquals(slider.widget().render().toString(), 
+		assertNotNull(slider.widget());
+		assertEquals(slider.widget().render().toString(),
 				"$('#anId').slider('widget');");
 	}
 }

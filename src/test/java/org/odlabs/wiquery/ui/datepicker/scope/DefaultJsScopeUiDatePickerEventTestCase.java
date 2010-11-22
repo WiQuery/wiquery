@@ -1,21 +1,21 @@
 package org.odlabs.wiquery.ui.datepicker.scope;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Unit test on the {@link JsScopeUiDatePickerEvent}
+ * 
  * @author Julien Roche
- *
  */
-public class DefaultJsScopeUiDatePickerEventTestCase extends TestCase {
+public class DefaultJsScopeUiDatePickerEventTestCase extends WiQueryTestCase {
 
-	protected static final Logger log = LoggerFactory.getLogger(
-			DefaultJsScopeUiDatePickerEventTestCase.class);
+	protected static final Logger log = LoggerFactory
+			.getLogger(DefaultJsScopeUiDatePickerEventTestCase.class);
 
 	/**
 	 * Check the syntax
@@ -23,20 +23,21 @@ public class DefaultJsScopeUiDatePickerEventTestCase extends TestCase {
 	@Test
 	public void testJsScopeSyntax() {
 		String expectedJavascript = "function(date) {\n\talert('test');\n}";
-		JsScopeUiDatePickerEvent scopeUiEvent = new DefaultJsScopeUiDatePickerEvent("alert('test');");
+		JsScopeUiDatePickerEvent scopeUiEvent = new DefaultJsScopeUiDatePickerEvent(
+				"alert('test');");
 		String generatedJavascript = scopeUiEvent.render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-		
+
+		assertEquals(generatedJavascript, expectedJavascript);
+
 		// Second generation
 		generatedJavascript = scopeUiEvent.render().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 }

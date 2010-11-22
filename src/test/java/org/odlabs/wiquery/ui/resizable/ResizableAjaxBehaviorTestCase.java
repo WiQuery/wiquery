@@ -21,37 +21,26 @@
  */
 package org.odlabs.wiquery.ui.resizable;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Assert;
 import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
  * Test on {@link ResizableAjaxBehavior}
+ * 
  * @author Julien Roche
- *
  */
-public class ResizableAjaxBehaviorTestCase extends TestCase {
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-	}
+public class ResizableAjaxBehaviorTestCase extends WiQueryTestCase {
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableAjaxBehavior#statement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableAjaxBehavior#statement()}
+	 * .
 	 */
 	@Test
 	public void testStatement() {
@@ -59,16 +48,17 @@ public class ResizableAjaxBehaviorTestCase extends TestCase {
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		component.add(resizableAjaxBehavior);
-		
+
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
-		
-		String genrateAjaxStatment = resizableAjaxBehavior.statement().render().toString();
-		String expectedAjaxStatement = "$('#anId').resizable({stop: function(event, ui) {\n\t"+
-	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&resizedHeight='+ui.size.height+'&resizedWidth='+ui.size.width,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
-"}});";
-		Assert.assertNotNull(resizableAjaxBehavior.getResizableBehavior());
-		Assert.assertEquals(genrateAjaxStatment, expectedAjaxStatement);
+
+		String genrateAjaxStatment = resizableAjaxBehavior.statement().render()
+				.toString();
+		String expectedAjaxStatement = "$('#anId').resizable({stop: function(event, ui) {\n\t"
+				+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&resizedHeight='+ui.size.height+'&resizedWidth='+ui.size.width,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "}});";
+		assertNotNull(resizableAjaxBehavior.getResizableBehavior());
+		assertEquals(genrateAjaxStatment, expectedAjaxStatement);
 	}
 
 	private class InnerResizableAjaxBehavior extends ResizableAjaxBehavior {
@@ -76,15 +66,17 @@ public class ResizableAjaxBehaviorTestCase extends TestCase {
 
 		/**
 		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.resizable.ResizableAjaxBehavior#onResize(int, int, org.apache.wicket.ajax.AjaxRequestTarget)
+		 * 
+		 * @see org.odlabs.wiquery.ui.resizable.ResizableAjaxBehavior#onResize(int,
+		 *      int, org.apache.wicket.ajax.AjaxRequestTarget)
 		 */
 		@Override
 		public void onResize(int height, int width,
 				AjaxRequestTarget ajaxRequestTarget) {
-		}	
+		}
 	}
-	
+
 	private class InnerPage extends WebPage {
-		
+
 	}
 }

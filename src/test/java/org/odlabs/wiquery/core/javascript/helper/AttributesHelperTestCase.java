@@ -1,24 +1,24 @@
 package org.odlabs.wiquery.core.javascript.helper;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Unit test on the {@link AttributesHelper}
+ * 
  * @author Julien Roche
- *
  */
-public class AttributesHelperTestCase extends TestCase {
+public class AttributesHelperTestCase extends WiQueryTestCase {
 
-	protected static final Logger log = LoggerFactory.getLogger(
-			AttributesHelperTestCase.class);
-	
+	protected static final Logger log = LoggerFactory
+			.getLogger(AttributesHelperTestCase.class);
+
 	/**
 	 * Test {@link AttributesHelper#addClass(String)}
 	 */
@@ -27,13 +27,13 @@ public class AttributesHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').addClass('myClass');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				AttributesHelper.addClass("myClass")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link AttributesHelper#attr(String, String)}
 	 */
@@ -42,28 +42,31 @@ public class AttributesHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').attr('title', 'a title');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				AttributesHelper.attr("title", "a title")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
-	 * Test {@link AttributesHelper#attr(String, org.odlabs.wiquery.core.javascript.JsScope)}
+	 * Test
+	 * {@link AttributesHelper#attr(String, org.odlabs.wiquery.core.javascript.JsScope)}
 	 */
 	@Test
 	public void testAttrScope() {
 		String expectedJavascript = "$('div').attr('click', function() {\n\talert('click done');\n});";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
-				AttributesHelper.attr("click", JsScope.quickScope("alert('click done');"))).render().toString();
-		
+				AttributesHelper.attr("click", JsScope
+						.quickScope("alert('click done');"))).render()
+				.toString();
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link AttributesHelper#html(CharSequence)}
 	 */
@@ -72,13 +75,13 @@ public class AttributesHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').html('some text');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				AttributesHelper.html("some text")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link AttributesHelper#removeAttr(String)}
 	 */
@@ -87,13 +90,13 @@ public class AttributesHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').removeAttr('title');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				AttributesHelper.removeAttr("title")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link AttributesHelper#removeClass(String)}
 	 */
@@ -102,13 +105,13 @@ public class AttributesHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').removeClass('myClass');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				AttributesHelper.removeClass("myClass")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 	/**
 	 * Test {@link AttributesHelper#toggleClass(String)}
 	 */
@@ -117,10 +120,10 @@ public class AttributesHelperTestCase extends TestCase {
 		String expectedJavascript = "$('div').toggleClass('myClass');";
 		String generatedJavascript = new JsStatement().$(null, "div").chain(
 				AttributesHelper.toggleClass("myClass")).render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
 }

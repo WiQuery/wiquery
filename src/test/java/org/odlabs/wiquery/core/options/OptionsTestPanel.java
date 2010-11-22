@@ -7,7 +7,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 /**
  * @author Ernesto Reinaldo Barreiro
- *
  */
 public class OptionsTestPanel extends Panel {
 

@@ -1,37 +1,38 @@
 package org.odlabs.wiquery.ui.draggable;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
-public class DraggableIframeFixTestCase extends TestCase{
-	protected static final Logger log = LoggerFactory.getLogger(
-			DraggableIframeFixTestCase.class);
+public class DraggableIframeFixTestCase extends WiQueryTestCase {
+	protected static final Logger log = LoggerFactory
+			.getLogger(DraggableIframeFixTestCase.class);
 
 	@Test
 	public void testGetJavaScriptOption() {
-		DraggableIframeFix iframeFix  = new DraggableIframeFix(true);
-		
+		DraggableIframeFix iframeFix = new DraggableIframeFix(true);
+
 		// Boolean param
 		String expectedJavascript = "true";
 		String generatedJavascript = iframeFix.getJavascriptOption().toString();
-		
+
 		log.info(expectedJavascript);
-		log.info(generatedJavascript);		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-		
+		log.info(generatedJavascript);
+		assertEquals(generatedJavascript, expectedJavascript);
+
 		// Selector param
 		iframeFix.setSelectorParam("ul");
 		expectedJavascript = "'ul'";
 		generatedJavascript = iframeFix.getJavascriptOption().toString();
-		
+
 		log.info(expectedJavascript);
-		log.info(generatedJavascript);		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-		
+		log.info(generatedJavascript);
+		assertEquals(generatedJavascript, expectedJavascript);
+
 		// Null param
 		iframeFix.setSelectorParam(null);
 		try {
@@ -39,7 +40,9 @@ public class DraggableIframeFixTestCase extends TestCase{
 			assertTrue(false);
 		} catch (Exception e) {
 			// We have an expected error
-			assertEquals("The DraggableIframeFix must have one not null parameter", e.getMessage());
+			assertEquals(
+					"The DraggableIframeFix must have one not null parameter",
+					e.getMessage());
 		}
 	}
 }

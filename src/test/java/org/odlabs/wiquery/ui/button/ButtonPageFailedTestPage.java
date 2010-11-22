@@ -26,16 +26,15 @@ import org.apache.wicket.markup.html.WebPage;
 
 /**
  * $Id$
- * 
  * <p>
- * 	Dummy page to test the onComponent of the ButtonBehavior
+ * Dummy page to test the onComponent of the ButtonBehavior
  * </p>
- *
+ * 
  * @author Julien Roche
  * @since 1.1
  */
-public class ButtonPageFailedTest extends WebPage {
-	public ButtonPageFailedTest() {
+public class ButtonPageFailedTestPage extends WebPage {
+	public ButtonPageFailedTestPage() {
 		super();
 		add(new WebMarkupContainer("failedButton").add(new ButtonBehavior()));
 	}

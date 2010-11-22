@@ -21,73 +21,77 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Test on {@link AutocompleteSource}
+ * 
  * @author Julien Roche
- *
  */
-public class AutocompleteSourceTestCase extends TestCase{
-	protected static final Logger log = LoggerFactory.getLogger(
-			AutocompleteSourceTestCase.class);
+public class AutocompleteSourceTestCase extends WiQueryTestCase {
+	protected static final Logger log = LoggerFactory
+			.getLogger(AutocompleteSourceTestCase.class);
 
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
 	public void testGetJavaScriptOption() {
-		AutocompleteSource source = new AutocompleteSource("http://localhost:8080/url.jsp");
-		
+		AutocompleteSource source = new AutocompleteSource(
+				"http://localhost:8080/url.jsp");
+
 		// String param
 		String expectedJavascript = "'http://localhost:8080/url.jsp'";
 		String generatedJavascript = source.getJavascriptOption().toString();
-		
+
 		log.info(expectedJavascript);
-		log.info(generatedJavascript);		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-		
+		log.info(generatedJavascript);
+		assertEquals(generatedJavascript, expectedJavascript);
+
 		// Scope
 		source.setJsScope(JsScope.quickScope("return ['a', 'b', 'c'];"));
 		expectedJavascript = "function() {\n\treturn ['a', 'b', 'c'];\n}";
 		generatedJavascript = source.getJavascriptOption().toString();
-		
+
 		log.info(expectedJavascript);
-		log.info(generatedJavascript);		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-		
+		log.info(generatedJavascript);
+		assertEquals(generatedJavascript, expectedJavascript);
+
 		// Array
 		ArrayItemOptions<LiteralOption> array = new ArrayItemOptions<LiteralOption>();
 		array.add(new LiteralOption("a"));
 		array.add(new LiteralOption("b"));
 		array.add(new LiteralOption("c"));
-		
+
 		source.setArray(array);
 		expectedJavascript = "['a','b','c']";
 		generatedJavascript = source.getJavascriptOption().toString();
-		
+
 		log.info(expectedJavascript);
-		log.info(generatedJavascript);		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-		
+		log.info(generatedJavascript);
+		assertEquals(generatedJavascript, expectedJavascript);
+
 		// Null param
 		source.setString(null);
-		
+
 		try {
 			generatedJavascript = source.getJavascriptOption().toString();
 			assertTrue(false);
-			
+
 		} catch (Exception e) {
 			// We have an expected error
-			assertEquals("The AutocompleteSource must have one not null parameter", e.getMessage());
+			assertEquals(
+					"The AutocompleteSource must have one not null parameter",
+					e.getMessage());
 		}
 	}
 }

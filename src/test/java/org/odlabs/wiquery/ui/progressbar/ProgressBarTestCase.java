@@ -21,197 +21,215 @@
  */
 package org.odlabs.wiquery.ui.progressbar;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.wicket.Page;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
  * Test on {@link ProgressBar}
+ * 
  * @author Julien Roche
- *
  */
-public class ProgressBarTestCase extends TestCase {
+public class ProgressBarTestCase extends WiQueryTestCase {
 	// Properties
 	private ProgressBar progressBar;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-		
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
+
 		progressBar = new ProgressBar("anId");
 		progressBar.setMarkupId(progressBar.getId());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#decrement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#decrement()}.
 	 */
 	@Test
 	public void testDecrement() {
-		Assert.assertNotNull(progressBar.decrement());
-		Assert.assertEquals(progressBar.decrement().render().toString(), 
+		assertNotNull(progressBar.decrement());
+		assertEquals(progressBar.decrement().render().toString(),
 				"$('#anId').progressbar('value', $('#anId').progressbar('value') - 1);");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#decrement(int)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#decrement(int)}.
 	 */
 	@Test
 	public void testDecrementInt() {
-		Assert.assertNotNull(progressBar.decrement(5));
-		Assert.assertEquals(progressBar.decrement(5).render().toString(), 
+		assertNotNull(progressBar.decrement(5));
+		assertEquals(progressBar.decrement(5).render().toString(),
 				"$('#anId').progressbar('value', $('#anId').progressbar('value') - 5);");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#destroy()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#destroy()}.
 	 */
 	@Test
 	public void testDestroy() {
-		Assert.assertNotNull(progressBar.destroy());
-		Assert.assertEquals(progressBar.destroy().render().toString(), 
+		assertNotNull(progressBar.destroy());
+		assertEquals(progressBar.destroy().render().toString(),
 				"$('#anId').progressbar('destroy');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#disable()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#disable()}.
 	 */
 	@Test
 	public void testDisable() {
-		Assert.assertNotNull(progressBar.disable());
-		Assert.assertEquals(progressBar.disable().render().toString(), 
+		assertNotNull(progressBar.disable());
+		assertEquals(progressBar.disable().render().toString(),
 				"$('#anId').progressbar('disable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#enable()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#enable()}.
 	 */
 	@Test
 	public void testEnable() {
-		Assert.assertNotNull(progressBar.enable());
-		Assert.assertEquals(progressBar.enable().render().toString(), 
+		assertNotNull(progressBar.enable());
+		assertEquals(progressBar.enable().render().toString(),
 				"$('#anId').progressbar('enable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#getOptions()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions() {
-		Assert.assertNotNull(progressBar.getOptions());
-		Assert.assertEquals(progressBar.getOptions().getJavaScriptOptions().toString(), "");
+		assertNotNull(progressBar.getOptions());
+		assertEquals(
+				progressBar.getOptions().getJavaScriptOptions().toString(), "");
 		progressBar.setValue(5);
-		Assert.assertEquals(progressBar.getOptions().getJavaScriptOptions().toString(), "$('#anId').progressbar('option', 'value', 5);");
+		assertEquals(
+				progressBar.getOptions().getJavaScriptOptions().toString(),
+				"$('#anId').progressbar('option', 'value', 5);");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#getValue()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#getValue()}.
 	 */
 	@Test
 	public void testGetValue() {
-		Assert.assertEquals(progressBar.getValue(), 0);
+		assertEquals(progressBar.getValue(), 0);
 		progressBar.setValue(5);
-		Assert.assertEquals(progressBar.getValue(), 5);
+		assertEquals(progressBar.getValue(), 5);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#increment()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#increment()}.
 	 */
 	@Test
 	public void testIncrement() {
-		Assert.assertNotNull(progressBar.increment());
-		Assert.assertEquals(progressBar.increment().render().toString(), 
+		assertNotNull(progressBar.increment());
+		assertEquals(progressBar.increment().render().toString(),
 				"$('#anId').progressbar('value', $('#anId').progressbar('value') + 1);");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#increment(int)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#increment(int)}.
 	 */
 	@Test
 	public void testIncrementInt() {
-		Assert.assertNotNull(progressBar.increment(5));
-		Assert.assertEquals(progressBar.increment(5).render().toString(), 
+		assertNotNull(progressBar.increment(5));
+		assertEquals(progressBar.increment(5).render().toString(),
 				"$('#anId').progressbar('value', $('#anId').progressbar('value') + 5);");
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#isDisabled()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled() {
-		Assert.assertFalse(progressBar.isDisabled());
+		assertFalse(progressBar.isDisabled());
 		progressBar.setDisabled(true);
-		Assert.assertTrue(progressBar.isDisabled());
+		assertTrue(progressBar.isDisabled());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetChangeEvent() {
-		Assert.assertEquals(progressBar.statement().render().toString(), 
-			"$('#anId').progressbar();");
-		progressBar.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(progressBar.statement().render().toString(), 
-			"$('#anId').progressbar();$('#anId').progressbar('option', 'change', function(event, ui) {\n\talert('event');\n});");
+		assertEquals(progressBar.statement().render().toString(),
+				"$('#anId').progressbar();");
+		progressBar
+				.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(
+				progressBar.statement().render().toString(),
+				"$('#anId').progressbar();$('#anId').progressbar('option', 'change', function(event, ui) {\n\talert('event');\n});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#statement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#statement()}.
 	 */
 	@Test
 	public void testStatement() {
-		Assert.assertNotNull(progressBar.statement());
-		Assert.assertEquals(progressBar.statement().render().toString(), "$('#anId').progressbar();");
+		assertNotNull(progressBar.statement());
+		assertEquals(progressBar.statement().render().toString(),
+				"$('#anId').progressbar();");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#update()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#update()}.
 	 */
 	@Test
 	public void testUpdate() {
-		Assert.assertNotNull(progressBar.update());
-		Assert.assertEquals(progressBar.update().render().toString(), "");
+		assertNotNull(progressBar.update());
+		assertEquals(progressBar.update().render().toString(), "");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#value()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#value()}.
 	 */
 	@Test
 	public void testValue() {
-		Assert.assertNotNull(progressBar.value());
-		Assert.assertEquals(progressBar.value().render().toString(), 
+		assertNotNull(progressBar.value());
+		assertEquals(progressBar.value().render().toString(),
 				"$('#anId').progressbar('value');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#value(int)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#value(int)}.
 	 */
 	@Test
 	public void testValueInt() {
-		Assert.assertNotNull(progressBar.value(5));
-		Assert.assertEquals(progressBar.value(5).render().toString(), 
+		assertNotNull(progressBar.value(5));
+		assertEquals(progressBar.value(5).render().toString(),
 				"$('#anId').progressbar('value', 5);");
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#widget()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#widget()}.
 	 */
 	@Test
 	public void testWidget() {
-		Assert.assertNotNull(progressBar.widget());
-		Assert.assertEquals(progressBar.widget().render().toString(), 
+		assertNotNull(progressBar.widget());
+		assertEquals(progressBar.widget().render().toString(),
 				"$('#anId').progressbar('widget');");
 	}
 }

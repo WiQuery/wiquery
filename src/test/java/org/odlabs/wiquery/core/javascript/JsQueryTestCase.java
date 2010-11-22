@@ -21,55 +21,47 @@
  */
 package org.odlabs.wiquery.core.javascript;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Before;
+import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
 
 /**
  * Test {@link JsQuery}
+ * 
  * @author Julien Roche
- *
  */
-public class JsQueryTestCase extends TestCase {
+public class JsQueryTestCase extends WiQueryTestCase {
 	// Constants
 	/** Logger */
-	protected static final Logger log = LoggerFactory.getLogger(
-			JsQueryTestCase.class);
-	
+	protected static final Logger log = LoggerFactory
+			.getLogger(JsQueryTestCase.class);
+
 	// Properties
 	private JsQuery jsQuery;
-	
+
 	/**
 	 * Log and assert javascript
+	 * 
 	 * @param expectedJavascript
 	 * @param generatedJavascript
 	 */
-	private void assertAndLog(CharSequence expectedJavascript, 
+	private void assertAndLog(CharSequence expectedJavascript,
 			CharSequence generatedJavascript) {
 		log.info(expectedJavascript.toString());
 		log.info(generatedJavascript.toString());
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	protected void setUp() throws Exception {
+
+	@Override
+	@Before
+	public void setUp() {
 		super.setUp();
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		jsQuery = new JsQuery(component);
@@ -78,20 +70,25 @@ public class JsQueryTestCase extends TestCase {
 	/**
 	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsQuery#$()}.
 	 */
+	@Test
 	public void test$() {
 		assertAndLog("$('#anId');", jsQuery.$().render());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsQuery#$(java.lang.String)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.javascript.JsQuery#$(java.lang.String)}.
 	 */
+	@Test
 	public void test$String() {
 		assertAndLog("$('#anId span');", jsQuery.$("span").render());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsQuery#document()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.javascript.JsQuery#document()}.
 	 */
+	@Test
 	public void testDocument() {
 		assertAndLog("$(document);", jsQuery.document().render());
 	}

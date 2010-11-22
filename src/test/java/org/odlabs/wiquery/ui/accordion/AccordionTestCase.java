@@ -21,26 +21,33 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.DummyPanelPage;
 import org.apache.wicket.util.tester.TestPanelSource;
+import org.junit.Before;
+import org.junit.Test;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.accordion.Accordion.AccordionTriggerEvent;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Test on {@link Accordion}
  * 
  * @author Julien Roche
- * 
  */
 public class AccordionTestCase extends WiQueryTestCase {
 	// Properties
 	private Accordion accordion;
 
+	@Override
+	@Before
 	public void setUp() {
 		super.setUp();
 
@@ -54,8 +61,8 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testActivateInt() {
-		Assert.assertNotNull(accordion.activate(5));
-		Assert.assertEquals(accordion.activate(5).render().toString(),
+		assertNotNull(accordion.activate(5));
+		assertEquals(accordion.activate(5).render().toString(),
 				"$('#anId').accordion('activate', 5);");
 	}
 
@@ -65,8 +72,8 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testDestroy() {
-		Assert.assertNotNull(accordion.destroy());
-		Assert.assertEquals(accordion.destroy().render().toString(),
+		assertNotNull(accordion.destroy());
+		assertEquals(accordion.destroy().render().toString(),
 				"$('#anId').accordion('destroy');");
 	}
 
@@ -76,8 +83,8 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testDisable() {
-		Assert.assertNotNull(accordion.disable());
-		Assert.assertEquals(accordion.disable().render().toString(),
+		assertNotNull(accordion.disable());
+		assertEquals(accordion.disable().render().toString(),
 				"$('#anId').accordion('disable');");
 	}
 
@@ -87,8 +94,8 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testEnable() {
-		Assert.assertNotNull(accordion.enable());
-		Assert.assertEquals(accordion.enable().render().toString(),
+		assertNotNull(accordion.enable());
+		assertEquals(accordion.enable().render().toString(),
 				"$('#anId').accordion('enable');");
 	}
 
@@ -98,11 +105,11 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetActive() {
-		Assert.assertNull(accordion.getActive());
+		assertNull(accordion.getActive());
 		accordion.setActive(new AccordionActive(true));
-		Assert.assertNotNull(accordion.getActive());
-		Assert.assertEquals(accordion.getActive().getJavascriptOption()
-				.toString(), "true");
+		assertNotNull(accordion.getActive());
+		assertEquals(accordion.getActive().getJavascriptOption().toString(),
+				"true");
 	}
 
 	/**
@@ -111,12 +118,12 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetAnimationEffect() {
-		Assert.assertNotNull(accordion.getAnimated());
-		Assert.assertEquals(accordion.getAnimated().getJavascriptOption()
-				.toString(), "'slide'");
+		assertNotNull(accordion.getAnimated());
+		assertEquals(accordion.getAnimated().getJavascriptOption().toString(),
+				"'slide'");
 		accordion.setAnimated(new AccordionAnimated(true));
-		Assert.assertEquals(accordion.getAnimated().getJavascriptOption()
-				.toString(), "true");
+		assertEquals(accordion.getAnimated().getJavascriptOption().toString(),
+				"true");
 	}
 
 	/**
@@ -125,11 +132,10 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetEvent() {
-		Assert.assertNotNull(accordion.getEvent());
-		Assert.assertEquals(accordion.getEvent(), AccordionTriggerEvent.CLICK);
+		assertNotNull(accordion.getEvent());
+		assertEquals(accordion.getEvent(), AccordionTriggerEvent.CLICK);
 		accordion.setEvent(AccordionTriggerEvent.MOUSEOVER);
-		Assert.assertEquals(accordion.getEvent(),
-				AccordionTriggerEvent.MOUSEOVER);
+		assertEquals(accordion.getEvent(), AccordionTriggerEvent.MOUSEOVER);
 	}
 
 	/**
@@ -138,12 +144,11 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetHeader() {
-		Assert.assertNotNull(accordion.getHeader());
-		Assert.assertEquals(accordion.getHeader().getJavascriptOption(),
+		assertNotNull(accordion.getHeader());
+		assertEquals(accordion.getHeader().getJavascriptOption(),
 				"'> li> :first-child, > :not(li):even'");
 		accordion.setHeader(new AccordionHeader(new LiteralOption("> li")));
-		Assert.assertEquals(accordion.getHeader().getJavascriptOption(),
-				"'> li'");
+		assertEquals(accordion.getHeader().getJavascriptOption(), "'> li'");
 	}
 
 	/**
@@ -152,17 +157,15 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetIcons() {
-		Assert.assertNotNull(accordion.getIcons());
-		Assert
-				.assertEquals(accordion.getIcons().getJavascriptOption()
-						.toString(),
-						"{'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s'}");
+		assertNotNull(accordion.getIcons());
+
+		assertEquals(accordion.getIcons().getJavascriptOption().toString(),
+				"{'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s'}");
 		accordion.setIcons(new AccordionIcon("ui-icon-triangle-1-s",
 				"ui-icon-triangle-1-e"));
-		Assert
-				.assertEquals(accordion.getIcons().getJavascriptOption()
-						.toString(),
-						"{'header': 'ui-icon-triangle-1-s', 'headerSelected': 'ui-icon-triangle-1-e'}");
+
+		assertEquals(accordion.getIcons().getJavascriptOption().toString(),
+				"{'header': 'ui-icon-triangle-1-s', 'headerSelected': 'ui-icon-triangle-1-e'}");
 	}
 
 	/**
@@ -171,12 +174,12 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetOptions() {
-		Assert.assertNotNull(accordion.getOptions());
-		Assert.assertEquals(accordion.getOptions().getJavaScriptOptions()
-				.toString(), "{}");
+		assertNotNull(accordion.getOptions());
+		assertEquals(accordion.getOptions().getJavaScriptOptions().toString(),
+				"{}");
 		accordion.setAutoHeight(true);
-		Assert.assertEquals(accordion.getOptions().getJavaScriptOptions()
-				.toString(), "{autoHeight: true}");
+		assertEquals(accordion.getOptions().getJavaScriptOptions().toString(),
+				"{autoHeight: true}");
 	}
 
 	/**
@@ -185,9 +188,9 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testIsAutoHeight() {
-		Assert.assertTrue(accordion.isAutoHeight());
+		assertTrue(accordion.isAutoHeight());
 		accordion.setAutoHeight(false);
-		Assert.assertFalse(accordion.isAutoHeight());
+		assertFalse(accordion.isAutoHeight());
 	}
 
 	/**
@@ -196,9 +199,9 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testIsClearStyle() {
-		Assert.assertFalse(accordion.isClearStyle());
+		assertFalse(accordion.isClearStyle());
 		accordion.setClearStyle(true);
-		Assert.assertTrue(accordion.isClearStyle());
+		assertTrue(accordion.isClearStyle());
 	}
 
 	/**
@@ -207,9 +210,9 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testIsCollapsible() {
-		Assert.assertFalse(accordion.isCollapsible());
+		assertFalse(accordion.isCollapsible());
 		accordion.setCollapsible(true);
-		Assert.assertTrue(accordion.isCollapsible());
+		assertTrue(accordion.isCollapsible());
 	}
 
 	/**
@@ -218,9 +221,9 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testIsDisabled() {
-		Assert.assertFalse(accordion.isDisabled());
+		assertFalse(accordion.isDisabled());
 		accordion.setDisabled(true);
-		Assert.assertTrue(accordion.isDisabled());
+		assertTrue(accordion.isDisabled());
 	}
 
 	/**
@@ -229,9 +232,9 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testIsFillSpace() {
-		Assert.assertFalse(accordion.isFillSpace());
+		assertFalse(accordion.isFillSpace());
 		accordion.setFillSpace(true);
-		Assert.assertTrue(accordion.isFillSpace());
+		assertTrue(accordion.isFillSpace());
 	}
 
 	/**
@@ -240,9 +243,9 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testIsNavigation() {
-		Assert.assertFalse(accordion.isNavigation());
+		assertFalse(accordion.isNavigation());
 		accordion.setNavigation(true);
-		Assert.assertTrue(accordion.isNavigation());
+		assertTrue(accordion.isNavigation());
 	}
 
 	/**
@@ -252,12 +255,12 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testSetChangeEvent() {
-		Assert.assertEquals(accordion.statement().render().toString(),
+		assertEquals(accordion.statement().render().toString(),
 				"$('#anId').accordion({});");
 		accordion.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert
-				.assertEquals(accordion.statement().render().toString(),
-						"$('#anId').accordion({change: function(event, ui) {\n\talert('event');\n}});");
+
+		assertEquals(accordion.statement().render().toString(),
+				"$('#anId').accordion({change: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -267,14 +270,14 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testSetChangeStartEvent() {
-		Assert.assertEquals(accordion.statement().render().toString(),
+		assertEquals(accordion.statement().render().toString(),
 				"$('#anId').accordion({});");
 		accordion.setChangeStartEvent(JsScopeUiEvent
 				.quickScope("alert('event');"));
-		Assert
-				.assertEquals(
-						accordion.statement().render().toString(),
-						"$('#anId').accordion({changestart: function(event, ui) {\n\talert('event');\n}});");
+
+		assertEquals(
+				accordion.statement().render().toString(),
+				"$('#anId').accordion({changestart: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -283,8 +286,8 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testStatement() {
-		Assert.assertNotNull(accordion.statement());
-		Assert.assertEquals(accordion.statement().render().toString(),
+		assertNotNull(accordion.statement());
+		assertEquals(accordion.statement().render().toString(),
 				"$('#anId').accordion({});");
 	}
 
@@ -294,18 +297,17 @@ public class AccordionTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testWidget() {
-		Assert.assertNotNull(accordion.widget());
-		Assert.assertEquals(accordion.widget().render().toString(),
+		assertNotNull(accordion.widget());
+		assertEquals(accordion.widget().render().toString(),
 				"$('#anId').accordion('widget');");
 	}
-	
+
 	/**
-	 * Test method for the complete component.
-	 * TODO create an accordion that is serverside testable.
+	 * Test method for the complete component. TODO create an accordion that is
+	 * serverside testable.
 	 */
 	@Test
-	public void testAccordionOnPage()
-	{
+	public void testAccordionOnPage() {
 		tester.startPanel(new TestPanelSource() {
 			private static final long serialVersionUID = 1L;
 
@@ -315,7 +317,8 @@ public class AccordionTestCase extends WiQueryTestCase {
 				return panel;
 			}
 		});
-		
-		tester.assertComponent(DummyPanelPage.TEST_PANEL_ID+":anId", Accordion.class);
+
+		tester.assertComponent(DummyPanelPage.TEST_PANEL_ID + ":anId",
+				Accordion.class);
 	}
 }

@@ -21,25 +21,24 @@
  */
 package org.odlabs.wiquery.core.effects.basic;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
  * Test on {@link Toggle}
+ * 
  * @author Julien Roche
- *
  */
-public class ToggleTestCase extends TestCase {
+public class ToggleTestCase extends WiQueryTestCase {
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		Assert.assertEquals(new JsStatement().$(null, "#aComponent").chain(new Toggle()).render().toString(), 
-				"$('#aComponent').toggle();");
+		assertEquals(new JsStatement().$(null, "#aComponent").chain(
+				new Toggle()).render().toString(), "$('#aComponent').toggle();");
 	}
 }

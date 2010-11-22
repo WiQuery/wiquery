@@ -21,337 +21,383 @@
  */
 package org.odlabs.wiquery.ui.resizable;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Before;
+import org.junit.Test;
 import org.odlabs.wiquery.core.options.LiteralOption;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.resizable.ResizableContainment.ElementEnum;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Test on {@link ResizableBehavior}
+ * 
  * @author Julien Roche
- *
  */
-public class ResizableBehaviorTestCase extends TestCase {
+public class ResizableBehaviorTestCase extends WiQueryTestCase {
 	// Properties
 	private ResizableBehavior resizableBehavior;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-		
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
+
 		resizableBehavior = new ResizableBehavior();
-		
+
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		component.add(resizableBehavior);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#destroy()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#destroy()}.
 	 */
 	@Test
 	public void testDestroy() {
-		Assert.assertNotNull(resizableBehavior.destroy());
-		Assert.assertEquals(resizableBehavior.destroy().render().toString(), 
+		assertNotNull(resizableBehavior.destroy());
+		assertEquals(resizableBehavior.destroy().render().toString(),
 				"$('#anId').resizable('destroy');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#disable()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#disable()}.
 	 */
 	@Test
 	public void testDisable() {
-		Assert.assertNotNull(resizableBehavior.disable());
-		Assert.assertEquals(resizableBehavior.disable().render().toString(), 
+		assertNotNull(resizableBehavior.disable());
+		assertEquals(resizableBehavior.disable().render().toString(),
 				"$('#anId').resizable('disable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#enable()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#enable()}.
 	 */
 	@Test
 	public void testEnable() {
-		Assert.assertNotNull(resizableBehavior.enable());
-		Assert.assertEquals(resizableBehavior.enable().render().toString(), 
+		assertNotNull(resizableBehavior.enable());
+		assertEquals(resizableBehavior.enable().render().toString(),
 				"$('#anId').resizable('enable');");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAlsoResizeComplex()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAlsoResizeComplex()}
+	 * .
 	 */
 	@Test
 	public void testGetAlsoResizeComplex() {
-		Assert.assertNull(resizableBehavior.getAlsoResizeComplex());
-		resizableBehavior.setAlsoResize(new ResizableAlsoResize(new LiteralOption("div")));
-		Assert.assertNotNull(resizableBehavior.getAlsoResizeComplex());
-		Assert.assertEquals(resizableBehavior.getAlsoResizeComplex().getJavascriptOption().toString(), 
-				"'div'");
+		assertNull(resizableBehavior.getAlsoResizeComplex());
+		resizableBehavior.setAlsoResize(new ResizableAlsoResize(
+				new LiteralOption("div")));
+		assertNotNull(resizableBehavior.getAlsoResizeComplex());
+		assertEquals(resizableBehavior.getAlsoResizeComplex()
+				.getJavascriptOption().toString(), "'div'");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAnimateEasing()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAnimateEasing()}
+	 * .
 	 */
 	@Test
 	public void testGetAnimateEasing() {
-		Assert.assertEquals(resizableBehavior.getAnimateEasing(), "swing");
+		assertEquals(resizableBehavior.getAnimateEasing(), "swing");
 		resizableBehavior.setAnimateEasing("slide");
-		Assert.assertEquals(resizableBehavior.getAnimateEasing(), "slide");
+		assertEquals(resizableBehavior.getAnimateEasing(), "slide");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAnimateDuration()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAnimateDuration()}
+	 * .
 	 */
 	@Test
 	public void testGetAnimateDuration() {
-		Assert.assertNotNull(resizableBehavior.getAnimateDuration());
-		Assert.assertEquals(resizableBehavior.getAnimateDuration().getJavascriptOption().toString(), 
-				"'slow'");
+		assertNotNull(resizableBehavior.getAnimateDuration());
+		assertEquals(resizableBehavior.getAnimateDuration()
+				.getJavascriptOption().toString(), "'slow'");
 		resizableBehavior.setAnimateDuration(new ResizableAnimeDuration(1000));
-		Assert.assertEquals(resizableBehavior.getAnimateDuration().getJavascriptOption().toString(), 
-			"1000");
+		assertEquals(resizableBehavior.getAnimateDuration()
+				.getJavascriptOption().toString(), "1000");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAspectRatio()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getAspectRatio()}
+	 * .
 	 */
 	@Test
 	public void testGetAspectRatio() {
-		Assert.assertNull(resizableBehavior.getAspectRatio());
+		assertNull(resizableBehavior.getAspectRatio());
 		resizableBehavior.setAspectRatio(new ResizableAspectRatio(true));
-		Assert.assertNotNull(resizableBehavior.getAspectRatio());
-		Assert.assertEquals(resizableBehavior.getAspectRatio().getJavascriptOption().toString(), "true");
+		assertNotNull(resizableBehavior.getAspectRatio());
+		assertEquals(resizableBehavior.getAspectRatio().getJavascriptOption()
+				.toString(), "true");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getCancel()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getCancel()}.
 	 */
 	@Test
 	public void testGetCancel() {
-		Assert.assertEquals(resizableBehavior.getCancel(), "input,option");
+		assertEquals(resizableBehavior.getCancel(), "input,option");
 		resizableBehavior.setCancel("input");
-		Assert.assertEquals(resizableBehavior.getCancel(), "input");
+		assertEquals(resizableBehavior.getCancel(), "input");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getContainment()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getContainment()}
+	 * .
 	 */
 	@Test
 	public void testGetContainment() {
-		Assert.assertNull(resizableBehavior.getContainment());
-		resizableBehavior.setContainment(new ResizableContainment(ElementEnum.PARENT));
-		Assert.assertNotNull(resizableBehavior.getContainment());
-		Assert.assertEquals(resizableBehavior.getContainment().getJavascriptOption().toString(), "'parent'");
+		assertNull(resizableBehavior.getContainment());
+		resizableBehavior.setContainment(new ResizableContainment(
+				ElementEnum.PARENT));
+		assertNotNull(resizableBehavior.getContainment());
+		assertEquals(resizableBehavior.getContainment().getJavascriptOption()
+				.toString(), "'parent'");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getDelay()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getDelay()}.
 	 */
 	@Test
 	public void testGetDelay() {
-		Assert.assertEquals(resizableBehavior.getDelay(), 0);
+		assertEquals(resizableBehavior.getDelay(), 0);
 		resizableBehavior.setDelay(5);
-		Assert.assertEquals(resizableBehavior.getDelay(), 5);
+		assertEquals(resizableBehavior.getDelay(), 5);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getDistance()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getDistance()}.
 	 */
 	@Test
 	public void testGetDistance() {
-		Assert.assertEquals(resizableBehavior.getDistance(), 1);
+		assertEquals(resizableBehavior.getDistance(), 1);
 		resizableBehavior.setDistance(5);
-		Assert.assertEquals(resizableBehavior.getDistance(), 5);
+		assertEquals(resizableBehavior.getDistance(), 5);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getGrid()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getGrid()}.
 	 */
 	@Test
 	public void testGetGrid() {
-		Assert.assertNull(resizableBehavior.getGrid());
+		assertNull(resizableBehavior.getGrid());
 		resizableBehavior.setGrid(5, 6);
-		Assert.assertNotNull(resizableBehavior.getGrid());
-		Assert.assertEquals(resizableBehavior.getGrid().getJavascriptOption().toString(), "[5,6]");
+		assertNotNull(resizableBehavior.getGrid());
+		assertEquals(resizableBehavior.getGrid().getJavascriptOption()
+				.toString(), "[5,6]");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getHandles()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getHandles()}.
 	 */
 	@Test
 	public void testGetHandles() {
-		Assert.assertNotNull(resizableBehavior.getHandles());
-		Assert.assertEquals(resizableBehavior.getHandles().getJavascriptOption().toString(), "'e,s,se'");
-		resizableBehavior.setHandles(new ResizableHandles(new LiteralOption("e,s")));
-		Assert.assertEquals(resizableBehavior.getHandles().getJavascriptOption().toString(), "'e,s'");
+		assertNotNull(resizableBehavior.getHandles());
+		assertEquals(resizableBehavior.getHandles().getJavascriptOption()
+				.toString(), "'e,s,se'");
+		resizableBehavior.setHandles(new ResizableHandles(new LiteralOption(
+				"e,s")));
+		assertEquals(resizableBehavior.getHandles().getJavascriptOption()
+				.toString(), "'e,s'");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getHelper()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getHelper()}.
 	 */
 	@Test
 	public void testGetHelper() {
-		Assert.assertNull(resizableBehavior.getHelper());
+		assertNull(resizableBehavior.getHelper());
 		resizableBehavior.setHelper(".aClass");
-		Assert.assertEquals(resizableBehavior.getHelper(), ".aClass");
+		assertEquals(resizableBehavior.getHelper(), ".aClass");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getMaxHeight()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getMaxHeight()}.
 	 */
 	@Test
 	public void testGetMaxHeight() {
-		Assert.assertEquals(resizableBehavior.getMaxHeight(), 0);
+		assertEquals(resizableBehavior.getMaxHeight(), 0);
 		resizableBehavior.setMaxHeight(100);
-		Assert.assertEquals(resizableBehavior.getMaxHeight(), 100);
+		assertEquals(resizableBehavior.getMaxHeight(), 100);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getMaxWidth()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getMaxWidth()}.
 	 */
 	@Test
 	public void testGetMaxWidth() {
-		Assert.assertEquals(resizableBehavior.getMaxWidth(), 0);
+		assertEquals(resizableBehavior.getMaxWidth(), 0);
 		resizableBehavior.setMaxWidth(100);
-		Assert.assertEquals(resizableBehavior.getMaxWidth(), 100);
+		assertEquals(resizableBehavior.getMaxWidth(), 100);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getMinHeight()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getMinHeight()}.
 	 */
 	@Test
 	public void testGetMinHeight() {
-		Assert.assertEquals(resizableBehavior.getMinHeight(), 10);
+		assertEquals(resizableBehavior.getMinHeight(), 10);
 		resizableBehavior.setMinHeight(100);
-		Assert.assertEquals(resizableBehavior.getMinHeight(), 100);
+		assertEquals(resizableBehavior.getMinHeight(), 100);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getMinWidth()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getMinWidth()}.
 	 */
 	@Test
 	public void testGetMinWidth() {
-		Assert.assertEquals(resizableBehavior.getMinWidth(), 10);
+		assertEquals(resizableBehavior.getMinWidth(), 10);
 		resizableBehavior.setMinWidth(100);
-		Assert.assertEquals(resizableBehavior.getMinWidth(), 100);
+		assertEquals(resizableBehavior.getMinWidth(), 100);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getOptions()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions() {
-		Assert.assertNotNull(resizableBehavior.getOptions());
-		Assert.assertEquals(resizableBehavior.getOptions().getJavaScriptOptions().toString(), "{}");
+		assertNotNull(resizableBehavior.getOptions());
+		assertEquals(resizableBehavior.getOptions().getJavaScriptOptions()
+				.toString(), "{}");
 		resizableBehavior.setAnimate(true);
-		Assert.assertEquals(resizableBehavior.getOptions().getJavaScriptOptions().toString(), "{animate: true}");
+		assertEquals(resizableBehavior.getOptions().getJavaScriptOptions()
+				.toString(), "{animate: true}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isAnimate()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isAnimate()}.
 	 */
 	@Test
 	public void testIsAnimate() {
-		Assert.assertFalse(resizableBehavior.isAnimate());
+		assertFalse(resizableBehavior.isAnimate());
 		resizableBehavior.setAnimate(true);
-		Assert.assertTrue(resizableBehavior.isAnimate());
+		assertTrue(resizableBehavior.isAnimate());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isAutoHide()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isAutoHide()}.
 	 */
 	@Test
 	public void testIsAutoHide() {
-		Assert.assertFalse(resizableBehavior.isAutoHide());
+		assertFalse(resizableBehavior.isAutoHide());
 		resizableBehavior.setAutoHide(true);
-		Assert.assertTrue(resizableBehavior.isAutoHide());
+		assertTrue(resizableBehavior.isAutoHide());
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isDisabled()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled() {
-		Assert.assertFalse(resizableBehavior.isDisabled());
+		assertFalse(resizableBehavior.isDisabled());
 		resizableBehavior.setDisabled(true);
-		Assert.assertTrue(resizableBehavior.isDisabled());
+		assertTrue(resizableBehavior.isDisabled());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isGhost()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#isGhost()}.
 	 */
 	@Test
 	public void testIsGhost() {
-		Assert.assertFalse(resizableBehavior.isGhost());
+		assertFalse(resizableBehavior.isGhost());
 		resizableBehavior.setGhost(true);
-		Assert.assertTrue(resizableBehavior.isGhost());
+		assertTrue(resizableBehavior.isGhost());
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setResizeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setResizeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetResizeEvent() {
-		Assert.assertEquals(resizableBehavior.statement().render().toString(), 
-			"$('#anId').resizable({});");
-		resizableBehavior.setResizeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(resizableBehavior.statement().render().toString(), 
-			"$('#anId').resizable({resize: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(resizableBehavior.statement().render().toString(),
+				"$('#anId').resizable({});");
+		resizableBehavior.setResizeEvent(JsScopeUiEvent
+				.quickScope("alert('event');"));
+		assertEquals(resizableBehavior.statement().render().toString(),
+				"$('#anId').resizable({resize: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetStartEvent() {
-		Assert.assertEquals(resizableBehavior.statement().render().toString(), 
-			"$('#anId').resizable({});");
-		resizableBehavior.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(resizableBehavior.statement().render().toString(), 
-			"$('#anId').resizable({start: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(resizableBehavior.statement().render().toString(),
+				"$('#anId').resizable({});");
+		resizableBehavior.setStartEvent(JsScopeUiEvent
+				.quickScope("alert('event');"));
+		assertEquals(resizableBehavior.statement().render().toString(),
+				"$('#anId').resizable({start: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
 	public void testSetStopEvent() {
-		Assert.assertEquals(resizableBehavior.statement().render().toString(), 
-			"$('#anId').resizable({});");
-		resizableBehavior.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		Assert.assertEquals(resizableBehavior.statement().render().toString(), 
-			"$('#anId').resizable({stop: function(event, ui) {\n\talert('event');\n}});");
+		assertEquals(resizableBehavior.statement().render().toString(),
+				"$('#anId').resizable({});");
+		resizableBehavior.setStopEvent(JsScopeUiEvent
+				.quickScope("alert('event');"));
+		assertEquals(resizableBehavior.statement().render().toString(),
+				"$('#anId').resizable({stop: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#statement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#statement()}.
 	 */
 	@Test
 	public void testStatement() {
-		Assert.assertNotNull(resizableBehavior.statement());
-		Assert.assertEquals(resizableBehavior.statement().render().toString(), "$('#anId').resizable({});");
+		assertNotNull(resizableBehavior.statement());
+		assertEquals(resizableBehavior.statement().render().toString(),
+				"$('#anId').resizable({});");
 	}
-	
+
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#widget()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#widget()}.
 	 */
 	@Test
 	public void testWidget() {
-		Assert.assertNotNull(resizableBehavior.widget());
-		Assert.assertEquals(resizableBehavior.widget().render().toString(), 
+		assertNotNull(resizableBehavior.widget());
+		assertEquals(resizableBehavior.widget().render().toString(),
 				"$('#anId').resizable('widget');");
 	}
 }

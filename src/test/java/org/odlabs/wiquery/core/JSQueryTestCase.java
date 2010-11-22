@@ -1,20 +1,20 @@
 package org.odlabs.wiquery.core;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
-public class JSQueryTestCase extends TestCase {
+public class JSQueryTestCase extends WiQueryTestCase {
 
-	protected static final Logger log = LoggerFactory.getLogger(
-			JSQueryTestCase.class);
+	protected static final Logger log = LoggerFactory
+			.getLogger(JSQueryTestCase.class);
 
 	@Test
 	public void testJSQuerySyntax() {
@@ -24,8 +24,8 @@ public class JSQueryTestCase extends TestCase {
 		String generated = jst.render().toString();
 		log.info(expected);
 		log.info(generated);
-		Assert.assertEquals(generated, expected);
-		
+		assertEquals(generated, expected);
+
 		jsq = new JsQuery();
 		expected = "$('.sample').ready(function() {\n\talert('foo');\n\talert('bar');\n});";
 		jst = jsq.$(".sample").ready(new JsScope() {
@@ -36,34 +36,32 @@ public class JSQueryTestCase extends TestCase {
 				scopeContext.append("alert('foo')");
 				scopeContext.append("alert('bar')");
 			}
-		
+
 		});
 		generated = jst.render().toString();
 		log.info(expected);
 		log.info(generated);
-		Assert.assertEquals(generated, expected);
+		assertEquals(generated, expected);
 
-		expected = "$('.sample').each(function() {\n" +
-			"\t$(this).css('foo');\n" +
-			"\t$(this).css('bar');\n" +
-			"});";
-		
+		expected = "$('.sample').each(function() {\n"
+				+ "\t$(this).css('foo');\n" + "\t$(this).css('bar');\n" + "});";
+
 		jsq = new JsQuery();
 		jst = jsq.$(".sample").each(new JsScope() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			protected void execute(JsScopeContext scopeContext) {
 				scopeContext.self().chain("css", "'foo'");
 				scopeContext.self().chain("css", "'bar'");
 			}
-		
+
 		});
 		generated = jst.render().toString();
 		log.info(expected);
 		log.info(generated);
-		Assert.assertEquals(generated, expected);
-		
+		assertEquals(generated, expected);
+
 		// statements chaining
 		jsq = new JsQuery();
 		jsq.$(".foo").chain("css", "bar");

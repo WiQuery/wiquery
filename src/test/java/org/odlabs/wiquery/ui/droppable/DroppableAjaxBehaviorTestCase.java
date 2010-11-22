@@ -21,38 +21,27 @@
  */
 package org.odlabs.wiquery.ui.droppable;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Assert;
 import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
  * Test on {@link DroppableAjaxBehavior}
+ * 
  * @author Julien Roche
- *
  */
-public class DroppableAjaxBehaviorTestCase extends TestCase {
+public class DroppableAjaxBehaviorTestCase extends WiQueryTestCase {
+	
 	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.droppable.DroppableAjaxBehavior#statement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.droppable.DroppableAjaxBehavior#statement()}
+	 * .
 	 */
 	@Test
 	public void testStatement() {
@@ -60,32 +49,36 @@ public class DroppableAjaxBehaviorTestCase extends TestCase {
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		component.add(droppableAjaxBehavior);
-		
+
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
-		
-		String ajaxCallResult = droppableAjaxBehavior.statement().render().toString();
-		String expectedResult = "$('#anId').droppable({drop: function(event, ui) {\n\t" +
-				"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&droppedId='+ui.draggable[0].id,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
-				+"}});";
-		Assert.assertNotNull(droppableAjaxBehavior.getDroppableBehavior());
-		Assert.assertEquals(ajaxCallResult, expectedResult);
+
+		String ajaxCallResult = droppableAjaxBehavior.statement().render()
+				.toString();
+		String expectedResult = "$('#anId').droppable({drop: function(event, ui) {\n\t"
+				+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&droppedId='+ui.draggable[0].id,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "}});";
+		assertNotNull(droppableAjaxBehavior.getDroppableBehavior());
+		assertEquals(ajaxCallResult, expectedResult);
 	}
 
-	private class InnerDroppableAjaxBehavior extends DroppableAjaxBehavior<Component> {
+	private class InnerDroppableAjaxBehavior extends
+			DroppableAjaxBehavior<Component> {
 		private static final long serialVersionUID = 1L;
 
 		/**
 		 * {@inheritDoc}
-		 * @see org.odlabs.wiquery.ui.droppable.DroppableAjaxBehavior#onDrop(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
+		 * 
+		 * @see org.odlabs.wiquery.ui.droppable.DroppableAjaxBehavior#onDrop(org.apache.wicket.Component,
+		 *      org.apache.wicket.ajax.AjaxRequestTarget)
 		 */
 		@Override
 		public void onDrop(Component droppedComponent,
 				AjaxRequestTarget ajaxRequestTarget) {
-		}	
+		}
 	}
-	
+
 	private class InnerPage extends WebPage {
-		
+
 	}
 }

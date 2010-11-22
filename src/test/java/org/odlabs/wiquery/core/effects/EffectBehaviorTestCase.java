@@ -21,41 +21,32 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.util.tester.WicketTester;
-import org.odlabs.wiquery.core.effects.basic.Hide;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-
+import org.odlabs.wiquery.core.effects.basic.Hide;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
  * Test on {@link EffectBehavior}
+ * 
  * @author Julien Roche
- *
  */
-public class EffectBehaviorTestCase extends TestCase {
+public class EffectBehaviorTestCase extends WiQueryTestCase {
 	// Properties
 	private Component component;
 	private EffectBehavior effectBehavior;
-	
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-		new WicketTester(new WebApplication() {
-			@Override
-			public Class<? extends Page> getHomePage() {
-				return null;
-			}
-		});
-		
+
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
+
 		effectBehavior = new EffectBehavior(new Hide());
-		
+
 		component = new WebMarkupContainer("aComponent");
 		component.setMarkupId(component.getId());
 		component.setOutputMarkupId(true);
@@ -63,10 +54,12 @@ public class EffectBehaviorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.core.effects.EffectBehavior#statement()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.core.effects.EffectBehavior#statement()}.
 	 */
 	@Test
 	public void testStatement() {
-		Assert.assertEquals(effectBehavior.statement().render().toString(), "$('#aComponent').hide();");
+		assertEquals(effectBehavior.statement().render().toString(),
+				"$('#aComponent').hide();");
 	}
 }

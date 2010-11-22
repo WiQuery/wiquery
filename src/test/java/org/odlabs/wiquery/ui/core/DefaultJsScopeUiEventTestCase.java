@@ -1,21 +1,21 @@
 package org.odlabs.wiquery.ui.core;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Unit test on the {@link DefaultJsScopeUiEvent}
+ * 
  * @author Julien Roche
- *
  */
-public class DefaultJsScopeUiEventTestCase extends TestCase {
+public class DefaultJsScopeUiEventTestCase extends WiQueryTestCase {
 
-	protected static final Logger log = LoggerFactory.getLogger(
-			DefaultJsScopeUiEventTestCase.class);
+	protected static final Logger log = LoggerFactory
+			.getLogger(DefaultJsScopeUiEventTestCase.class);
 
 	/**
 	 * Check the syntax
@@ -23,20 +23,21 @@ public class DefaultJsScopeUiEventTestCase extends TestCase {
 	@Test
 	public void testJsScopeSyntax() {
 		String expectedJavascript = "function(event, ui) {\n\talert('test');\n}";
-		JsScopeUiEvent scopeUiEvent = new DefaultJsScopeUiEvent("alert('test');");
+		JsScopeUiEvent scopeUiEvent = new DefaultJsScopeUiEvent(
+				"alert('test');");
 		String generatedJavascript = scopeUiEvent.render().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
-		
+
+		assertEquals(generatedJavascript, expectedJavascript);
+
 		// Second generation
 		generatedJavascript = scopeUiEvent.render().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		
-		Assert.assertEquals(generatedJavascript, expectedJavascript);
+
+		assertEquals(generatedJavascript, expectedJavascript);
 	}
-	
+
 }
