@@ -56,7 +56,6 @@ package org.mozilla.javascript;
 
 public class Token1
 {
-
     // debug flags
     public static final boolean printTrees = false;
     static final boolean printICode = false;
@@ -262,9 +261,9 @@ public class Token1
 
     public static String name(final int token)
     {
-        if (!printNames) {
-            return String.valueOf(token);
-        }
+//        if (!printNames) {
+//            return String.valueOf(token);
+//        }
         switch (token) {
           case ERROR:           return "ERROR";
           case EOF:             return "EOF";

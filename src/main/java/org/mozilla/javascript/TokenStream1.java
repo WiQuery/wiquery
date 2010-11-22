@@ -701,26 +701,6 @@ class TokenStream1
                         } else if (c == '/') {
                             if (lookForSlash) {
                                 sb.delete(sb.length()-2, sb.length());
-                                final String s1 = sb.toString();
-                                final String s2 = s1.trim();
-                                /*
-                                if (s1.startsWith("!")) {
-                                    // Remove the leading '!' ** EDIT actually don't remove it:
-                                    // http://yuilibrary.com/projects/yuicompressor/ticket/2528008
-                                    // this.string = s1.substring(1);
-                                    this.string = s1;
-                                    return Token.KEEPCOMMENT;
-                                } else if (s2.startsWith("@cc_on") ||
-                                           s2.startsWith("@if")    ||
-                                           s2.startsWith("@elif")  ||
-                                           s2.startsWith("@else")  ||
-                                           s2.startsWith("@end")) {
-                                    this.string = s1;
-                                    return Token.CONDCOMMENT;
-                                } else {
-                                    continue retry;
-                                }
-                                */
                                 continue retry;
                             }
                         } else {
