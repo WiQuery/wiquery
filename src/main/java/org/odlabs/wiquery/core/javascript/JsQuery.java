@@ -181,13 +181,6 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 */
 	public void renderHead(IHeaderResponse response,
 			IRequestTarget requestTarget) {
-		WiQuerySettings settings = WiQuerySettings.get();
-		
-		if(settings.isAutoImportJQueryResource()){
-			JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
-			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
-		}
-		
 		String js = statement == null ? null : statement.render().toString();
 		
 		if (js != null && js.trim().length() > 0) {
