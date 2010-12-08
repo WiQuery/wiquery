@@ -64,28 +64,37 @@ public class SortableContainment implements IComplexOption {
 	// Properties
 	private ElementEnum elementEnumParam;
 	private String objectParam;
+	private LiteralOption selector;
 	
 	/**Constructor
 	 * @param elementEnumParam elementEnum parameter
 	 */
 	public SortableContainment(ElementEnum elementEnumParam) {
-		this(elementEnumParam, null);
+		this(elementEnumParam, null, null);
 	}
 
 	/**Constructor
 	 * @param objectParam object parameter (Element or Selector)
 	 */
 	public SortableContainment(String objectParam) {
-		this(null, objectParam);
+		this(null, objectParam, null);
+	}
+	
+	/**Constructor
+	 * @param selector Selector
+	 */
+	public SortableContainment(LiteralOption selector) {
+		this(null, null, selector);
 	}
 	
 	/**Constructor
 	 * @param elementEnumParam elementEnul parameter
 	 * @param objectParam object parameter
+	 * @param selector Selector
 	 */
-	private SortableContainment(ElementEnum elementEnumParam, String objectParam) {
+	private SortableContainment(ElementEnum elementEnumParam, String objectParam, LiteralOption selector) {
 		super();
-		setParam(elementEnumParam, objectParam);
+		setParam(elementEnumParam, objectParam, selector);
 	}
 	
 	/**
@@ -103,11 +112,18 @@ public class SortableContainment implements IComplexOption {
 	}
 	
 	/**
+	 * @return the Selector
+	 */
+	public LiteralOption getSelector() {
+		return selector;
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
-		if(objectParam == null && elementEnumParam == null){
+		if(objectParam == null && elementEnumParam == null && selector == null){
 			throw new IllegalArgumentException("The SortableContainment must have one not null parameter");
 		}
 		
@@ -118,6 +134,9 @@ public class SortableContainment implements IComplexOption {
 		}
 		else if(elementEnumParam != null){
 			sequence = elementEnumParam.toString();
+		}
+		else if(selector != null){
+			sequence = selector.getJavascriptOption();
 		}
 		else{
 			throw new IllegalArgumentException("The SortableContainment must have one not null parameter");
@@ -130,22 +149,31 @@ public class SortableContainment implements IComplexOption {
 	 * @param literalParam the literal to set
 	 */
 	public void setElementEnumParam(ElementEnum elementEnumParam) {
-		setParam(elementEnumParam, null);
+		setParam(elementEnumParam, null, null);
 	}
 	
 	/**Set's the object (Element or Selector) parameter
 	 * @param objectParam the literal to set
 	 */
 	public void setElementOrSelectorParam(String objectParam) {
-		setParam(null, objectParam);
+		setParam(null, objectParam, null);
+	}
+	
+	/**Set's the Selector
+	 * @param selector Selector
+	 */
+	public void setSelector(LiteralOption selector) {
+		setParam(null, null, selector);
 	}
 	
 	/**Method setting the right parameter
 	 * @param elementEnumParam elementEnum parameter
 	 * @param objectParam object parameter
+	 * @param selector Selector
 	 */
-	private void setParam(ElementEnum elementEnumParam, String objectParam) {
+	private void setParam(ElementEnum elementEnumParam, String objectParam, LiteralOption selector) {
 		this.elementEnumParam = elementEnumParam;
 		this.objectParam = objectParam;
+		this.selector = selector;
 	}
 }

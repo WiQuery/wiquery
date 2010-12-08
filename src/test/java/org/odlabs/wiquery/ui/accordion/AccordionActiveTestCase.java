@@ -45,7 +45,7 @@ public class AccordionActiveTestCase extends WiQueryTestCase {
 		assertEquals(generatedJavascript, expectedJavascript);
 
 		// Selector or element param
-		accordionActive.setSelectorOrElementParam(new LiteralOption("div"));
+		accordionActive.setSelector(new LiteralOption("div"));
 		expectedJavascript = "'div'";
 		generatedJavascript = accordionActive.getJavascriptOption().toString();
 

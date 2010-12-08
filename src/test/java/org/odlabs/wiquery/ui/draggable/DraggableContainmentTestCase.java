@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.draggable.DraggableContainment.ContainmentEnum;
 import org.slf4j.Logger;
@@ -26,6 +27,11 @@ public class DraggableContainmentTestCase extends WiQueryTestCase {
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
+		
+		// Selector param
+		containment.setSelector(new LiteralOption("#anId"));
+		expectedJavascript = "'#anId'";
+		generatedJavascript = containment.getJavascriptOption().toString();
 
 		// Literal param
 		containment.setStringParam("'#anId'");

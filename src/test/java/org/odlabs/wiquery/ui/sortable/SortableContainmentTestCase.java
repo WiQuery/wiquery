@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,12 @@ public class SortableContainmentTestCase extends WiQueryTestCase {
 		// Literal param
 		String expectedJavascript = "'#test'";
 		String generatedJavascript = containment.getJavascriptOption()
+				.toString();
+		
+		// Selector param
+		containment.setSelector(new LiteralOption("#test"));
+		expectedJavascript = "'#test'";
+		generatedJavascript = containment.getJavascriptOption()
 				.toString();
 
 		log.info(expectedJavascript);
