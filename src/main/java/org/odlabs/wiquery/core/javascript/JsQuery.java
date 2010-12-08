@@ -22,11 +22,14 @@
 package org.odlabs.wiquery.core.javascript;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.IRequestTarget;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse;
+import org.apache.wicket.ajax.AjaxRequestTarget.IListener;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
@@ -149,7 +152,25 @@ public class JsQuery implements Serializable, IHeaderContributor {
 					+ onreadyStatement.render() + "</script>");
 		} else {
 			AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
-			ajaxRequestTarget.appendJavascript(statement.render().toString());
+			ajaxRequestTarget.addListener(new IListener() {
+
+				/**
+				 * {@inheritDoc}
+				 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onAfterRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse)
+				 */
+				public void onAfterRespond(Map<String, Component> map,
+						IJavascriptResponse response) {
+					response.addJavascript(statement.render().toString());
+				}
+
+				/**
+				 * {@inheritDoc}
+				 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onBeforeRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget)
+				 */
+				public void onBeforeRespond(Map<String, Component> map, AjaxRequestTarget target) {
+					// Do nothing
+				}
+			});
 		}
 	}
 
@@ -181,7 +202,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 */
 	public void renderHead(IHeaderResponse response,
 			IRequestTarget requestTarget) {
-		String js = statement == null ? null : statement.render().toString();
+		final String js = statement == null ? null : statement.render().toString();
 		
 		if (js != null && js.trim().length() > 0) {
 			if (AjaxRequestTarget.get() == null) {
@@ -200,7 +221,25 @@ public class JsQuery implements Serializable, IHeaderContributor {
 
 			} else {
 				AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
-				ajaxRequestTarget.appendJavascript(js);
+				ajaxRequestTarget.addListener(new IListener() {
+
+					/**
+					 * {@inheritDoc}
+					 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onAfterRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse)
+					 */
+					public void onAfterRespond(Map<String, Component> map,
+							IJavascriptResponse response) {
+						response.addJavascript(js);
+					}
+
+					/**
+					 * {@inheritDoc}
+					 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onBeforeRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget)
+					 */
+					public void onBeforeRespond(Map<String, Component> map, AjaxRequestTarget target) {
+						// Do nothing
+					}
+				});
 			}
 		}
 	}
