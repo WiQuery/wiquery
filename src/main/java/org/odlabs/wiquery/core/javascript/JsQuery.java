@@ -36,6 +36,7 @@ import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
+import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResource;
 import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReference;
 
 /**
@@ -151,26 +152,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 			response.renderString("<script type=\"text/javascript\">"
 					+ onreadyStatement.render() + "</script>");
 		} else {
-			AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
-			ajaxRequestTarget.addListener(new IListener() {
-
-				/**
-				 * {@inheritDoc}
-				 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onAfterRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse)
-				 */
-				public void onAfterRespond(Map<String, Component> map,
-						IJavascriptResponse response) {
-					response.addJavascript(statement.render().toString());
-				}
-
-				/**
-				 * {@inheritDoc}
-				 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onBeforeRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget)
-				 */
-				public void onBeforeRespond(Map<String, Component> map, AjaxRequestTarget target) {
-					// Do nothing
-				}
-			});
+			addAjaxJavascript(requestTarget, statement.render().toString());
 		}
 	}
 
@@ -202,10 +184,28 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 */
 	public void renderHead(IHeaderResponse response,
 			IRequestTarget requestTarget) {
+		WiQuerySettings settings = WiQuerySettings.get();
 		final String js = statement == null ? null : statement.render().toString();
 		
 		if (js != null && js.trim().length() > 0) {
-			if (AjaxRequestTarget.get() == null) {
+			if (settings.isEmbedGeneratedStatements()) {
+                if (settings.isAutoImportJQueryResource()) {
+                    JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
+                    response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);
+                }
+
+                if (requestTarget == null || !(requestTarget instanceof AjaxRequestTarget)) {
+                    // appending component statement
+                    // on dom ready, the code is executed.
+                    JsStatement onreadyStatement = new JsStatement();
+                    onreadyStatement.document().ready(JsScope.quickScope(js));
+                    response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen" + System.currentTimeMillis());
+
+                } else {
+                	addAjaxJavascript(requestTarget, js);
+                }
+
+            } else if (AjaxRequestTarget.get() == null) {
 				// appending component statement
 				// on dom ready, the code is executed.
 				JsStatement onreadyStatement = new JsStatement();
@@ -220,27 +220,35 @@ public class JsQuery implements Serializable, IHeaderContributor {
 						new WiqueryGeneratedJavaScriptResourceReference(onreadyStatement.render()));
 
 			} else {
-				AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
-				ajaxRequestTarget.addListener(new IListener() {
-
-					/**
-					 * {@inheritDoc}
-					 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onAfterRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse)
-					 */
-					public void onAfterRespond(Map<String, Component> map,
-							IJavascriptResponse response) {
-						response.addJavascript(js);
-					}
-
-					/**
-					 * {@inheritDoc}
-					 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onBeforeRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget)
-					 */
-					public void onBeforeRespond(Map<String, Component> map, AjaxRequestTarget target) {
-						// Do nothing
-					}
-				});
+				addAjaxJavascript(requestTarget, js);
 			}
 		}
+	}
+	
+	/**
+	 * Private method to add javascript into the ajax request pool
+	 * @param js
+	 */
+	private void addAjaxJavascript(IRequestTarget requestTarget, final String js){
+		AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
+		ajaxRequestTarget.addListener(new IListener() {
+
+			/**
+			 * {@inheritDoc}
+			 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onAfterRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse)
+			 */
+			public void onAfterRespond(Map<String, Component> map,
+					IJavascriptResponse response) {
+				response.addJavascript(js);
+			}
+
+			/**
+			 * {@inheritDoc}
+			 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onBeforeRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget)
+			 */
+			public void onBeforeRespond(Map<String, Component> map, AjaxRequestTarget target) {
+				// Do nothing
+			}
+		});
 	}
 }

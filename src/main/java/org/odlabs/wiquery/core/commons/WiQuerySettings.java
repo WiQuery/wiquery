@@ -75,17 +75,22 @@ public class WiQuerySettings implements Serializable {
 	private boolean minifiedResources;
 	private boolean autoImportJQueryUIResource;
 	private boolean enableWiqueryResourceManagement;
+	private boolean embedGeneratedStatements;
 
 	/**
 	 * Default constructor
 	 */
 	public WiQuerySettings() {
 		super();
+		
 		this.autoImportJQueryUIResource = true;
 		this.enableWiqueryResourceManagement = true;
+		this.embedGeneratedStatements = false;
+		
 		setAutoImportJQueryResource(true);
 		setEnableResourcesMerging(false);
 		setJQueryCoreResourceReference(null);
+		
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
 
 		IJavascriptCompressor compressor = Application.get()
@@ -124,6 +129,13 @@ public class WiQuerySettings implements Serializable {
 	public boolean isEnableResourcesMerging() {
 		return enableResourcesMerging;
 	}
+	
+	/**
+	 * @return the state of the embedGeneratedStatements option
+	 */
+    public boolean isEmbedGeneratedStatements() {
+        return embedGeneratedStatements;
+    }
 
 	/**
 	 * <p>
@@ -171,6 +183,16 @@ public class WiQuerySettings implements Serializable {
 	public void setEnableResourcesMerging(boolean enableResourcesMerging) {
 		this.enableResourcesMerging = enableResourcesMerging;
 	}
+
+	/**
+	 * If set to <code>false</code> (default), the generated JavaScript statements will be
+	 * loaded using a dynamic resource named xxxxxxxx-wiquery-gen.js. To embed the code in your
+	 * HTML page, set this option to <code>true</code>. 
+	 * @param embedGeneratedStatements
+	 */
+    public void setEmbedGeneratedStatements(boolean embedGeneratedStatements) {
+        this.embedGeneratedStatements = embedGeneratedStatements;
+    }
 
 	/**
 	 * @return the {@link JavascriptResourceReference} where we can find the

@@ -56,15 +56,19 @@ public class WiqueryGeneratedJavaScriptResource extends
 	 * @return an interpolated string which represents this
 	 */
 	private String getWiQueryGeneratedJavaScriptCode() {
-		PackagedTextTemplate jstemplate = new PackagedTextTemplate(
-				WiqueryGeneratedJavaScriptResourceReference.class,
-				"wiquery-gen.js");
+		return wiqueryGeneratedJavascriptCode(javaScriptCode);
+	}
+	
+	public static String wiqueryGeneratedJavascriptCode(CharSequence javaScriptCode) {
+        PackagedTextTemplate jstemplate = new PackagedTextTemplate(
+                WiqueryGeneratedJavaScriptResourceReference.class,
+                "wiquery-gen.js");
 
-		Map<String, Object> genJs = new HashMap<String, Object>();
-		genJs.put("wiqueryoutput", javaScriptCode);
-		jstemplate.interpolate(genJs);
+        Map<String, Object> genJs = new HashMap<String, Object>();
+        genJs.put("wiqueryoutput", javaScriptCode);
+        jstemplate.interpolate(genJs);
 
-		return jstemplate.asString();
+        return jstemplate.asString();
 	}
 
 	public static WiqueryGeneratedJavaScriptResource newPackageResource(
