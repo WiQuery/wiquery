@@ -21,11 +21,16 @@
  */
 package org.odlabs.wiquery.tester;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
+import org.apache.wicket.behavior.HeaderContributor;
+import org.apache.wicket.behavior.IBehavior;
+import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
@@ -35,6 +40,7 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.util.tester.ITestPageSource;
 import org.apache.wicket.util.tester.TestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
+import org.odlabs.wiquery.core.commons.WiQueryCoreHeaderContributor;
 import org.odlabs.wiquery.tester.matchers.ComponentMatcher;
 import org.odlabs.wiquery.tester.matchers.ComponentTypeMatcher;
 
@@ -154,5 +160,44 @@ public class WiQueryTester extends WicketTester {
 		assertComponent(path, ListView.class);
 		ListView<?> rv = (ListView<?>) renderedPage.get(path);
 		return rv;
+	}
+
+	public List<IHeaderContributor> getHeaderContributors() {
+		Page renderedPage = getLastRenderedPage();
+		final List<IHeaderContributor> contributors = new ArrayList<IHeaderContributor>();
+
+		renderedPage.visitChildren(new IVisitor<Component>() {
+			public Object component(Component component) {
+				for (IBehavior behavior : component.getBehaviors())
+					if (behavior instanceof HeaderContributor
+							|| behavior instanceof WiQueryCoreHeaderContributor)
+						contributors.add((IHeaderContributor) behavior);
+
+				return Component.IVisitor.CONTINUE_TRAVERSAL;
+			}
+		});
+		
+		return contributors;
+	}
+	
+	public WiQueryCoreHeaderContributor getWiQueryCoreHeaderContributor() {
+		
+		List<IHeaderContributor> contributors = getHeaderContributors();
+		
+		for(IHeaderContributor contributor : contributors)
+		{
+			if(contributor instanceof WiQueryCoreHeaderContributor)
+				return (WiQueryCoreHeaderContributor) contributor;
+			else if(contributor instanceof HeaderContributor)
+			{
+				for(IHeaderContributor innercontributor : ((HeaderContributor)contributor).getHeaderContributors())
+				{
+					if(innercontributor instanceof WiQueryCoreHeaderContributor)
+						return (WiQueryCoreHeaderContributor) innercontributor;
+				}
+			}
+		}
+		
+		return null;
 	}
 }

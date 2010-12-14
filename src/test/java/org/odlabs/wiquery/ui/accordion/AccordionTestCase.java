@@ -320,5 +320,15 @@ public class AccordionTestCase extends WiQueryTestCase {
 
 		tester.assertComponent(DummyPanelPage.TEST_PANEL_ID + ":anId",
 				Accordion.class);
+
+		String documentString = tester.getServletResponse().getDocument();
+
+		assertTrue(documentString.contains("CoreJavaScriptResourceReference"));
+		assertTrue(documentString.contains("WiQueryCoreThemeResourceReference"));
+		assertTrue(documentString.contains("CoreUIJavaScriptResourceReference"));
+		
+		assertTrue(documentString.contains("WidgetJavascriptResourceReference"));
+		assertTrue(documentString.contains("AccordionJavaScriptResourceReference"));
+		assertTrue(documentString.contains("WiqueryGeneratedJavaScriptResourceReference"));
 	}
 }
