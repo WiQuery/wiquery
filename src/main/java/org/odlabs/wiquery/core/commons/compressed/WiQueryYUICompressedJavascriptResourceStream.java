@@ -19,18 +19,17 @@ import org.slf4j.LoggerFactory;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
- * $Id: WiQueryYUICompressedJavascriptResourceStream.java 559 2010-11-17
- * 22:56:57Z roche.jul@gmail.com $
- * <p>
- * Stream to compress the Javascript with YUI Compressor. Used in
- * {@link WiQueryYUICompressedJavaScriptResource}
- * </p>
+ * $Id$
  * 
+ * <p>
+ * 	Stream to compress the Javascript with YUI Compressor. Used in {@link WiQueryYUICompressedJavaScriptResource}
+ * </p>
+ *
  * @author Hielke Hoeve
  * @since 1.1.2
  */
 public abstract class WiQueryYUICompressedJavascriptResourceStream implements
-		IResourceStream {
+IResourceStream {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
@@ -48,7 +47,6 @@ public abstract class WiQueryYUICompressedJavascriptResourceStream implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
 	 * @see org.apache.wicket.util.resource.IResourceStream#close()
 	 */
 	public void close() throws IOException {
@@ -59,7 +57,6 @@ public abstract class WiQueryYUICompressedJavascriptResourceStream implements
 	 */
 	private byte[] getCompressedContent() {
 		IResourceStream stream = getOriginalResourceStream();
-		ByteArrayOutputStream outstream = new ByteArrayOutputStream();
 
 		try {
 			byte ret[];
@@ -71,40 +68,19 @@ public abstract class WiQueryYUICompressedJavascriptResourceStream implements
 					}
 				}
 			}
+			JavaScriptCompressor compressor;
 
-			JavaScriptCompressor compressor = new JavaScriptCompressor(
-					new InputStreamReader(stream.getInputStream()), null);
+			compressor = new JavaScriptCompressor(new InputStreamReader(
+					stream.getInputStream()), null);
+			ByteArrayOutputStream outstream = new ByteArrayOutputStream();
 			OutputStreamWriter writer = new OutputStreamWriter(outstream,
 					"UTF-8");
 			compressor.compress(writer, -1, false, false, true, false);
 			writer.flush();
 
-			ret = outstream.toByteArray();
-			timeStamp = stream.lastModifiedTime();
-			cache = new SoftReference<byte[]>(ret);
-
-			writer.close();
-			outstream.close();
-			stream.close();
-
-			return ret;
-
+			return outstream.toByteArray();
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
-
-			try {
-				outstream.close();
-				stream.close();
-			} catch (IOException e1) {
-				log.error(e1.getMessage(), e1);
-				
-				try {
-					stream.close();
-				} catch (IOException e2) {
-					log.error(e2.getMessage(), e2);
-				}
-			}
-
 			throw new WicketRuntimeException(e);
 		} catch (ResourceStreamNotFoundException e) {
 			log.error(e.getMessage(), e);
@@ -114,7 +90,6 @@ public abstract class WiQueryYUICompressedJavascriptResourceStream implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
 	 * @see org.apache.wicket.util.resource.IResourceStream#getContentType()
 	 */
 	public String getContentType() {
@@ -123,16 +98,15 @@ public abstract class WiQueryYUICompressedJavascriptResourceStream implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
 	 * @see org.apache.wicket.util.resource.IResourceStream#getInputStream()
 	 */
-	public InputStream getInputStream() throws ResourceStreamNotFoundException {
+	public InputStream getInputStream()
+			throws ResourceStreamNotFoundException {
 		return new ByteArrayInputStream(getCompressedContent());
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * 
 	 * @see org.apache.wicket.util.resource.IResourceStream#getLocale()
 	 */
 	public Locale getLocale() {
@@ -146,7 +120,6 @@ public abstract class WiQueryYUICompressedJavascriptResourceStream implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
 	 * @see org.apache.wicket.util.watch.IModifiable#lastModifiedTime()
 	 */
 	public Time lastModifiedTime() {
@@ -155,7 +128,6 @@ public abstract class WiQueryYUICompressedJavascriptResourceStream implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
 	 * @see org.apache.wicket.util.resource.IResourceStream#length()
 	 */
 	public long length() {
@@ -164,7 +136,6 @@ public abstract class WiQueryYUICompressedJavascriptResourceStream implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
 	 * @see org.apache.wicket.util.resource.IResourceStream#setLocale(java.util.Locale)
 	 */
 	public void setLocale(Locale locale) {
