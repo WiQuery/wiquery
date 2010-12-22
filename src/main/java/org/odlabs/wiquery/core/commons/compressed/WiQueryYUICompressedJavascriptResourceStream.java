@@ -1,20 +1,15 @@
 package org.odlabs.wiquery.core.commons.compressed;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.ref.SoftReference;
-import java.util.Locale;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.util.io.ByteArrayOutputStream;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.ResourceStreamNotFoundException;
-import org.apache.wicket.util.time.Time;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mozilla.javascript.ErrorReporter;
+import org.mozilla.javascript.EvaluatorException;
 
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
@@ -26,119 +21,66 @@ import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
  * </p>
  *
  * @author Hielke Hoeve
+ * @author Pepijn de Geus <pepijn@service2media.com>
  * @since 1.1.2
  */
-public abstract class WiQueryYUICompressedJavascriptResourceStream implements
-IResourceStream {
-	// Constants
-	/** Constant of serialization */
+public abstract class WiQueryYUICompressedJavascriptResourceStream extends WiQueryYUICompressedResourceStream {
+    
 	private static final long serialVersionUID = 1L;
+	
+	/** Wrapper to let JavaScript parser report his errors, avoids nullpointers */
+    private static final ErrorReporter logWrap = new ErrorReporter() {
+        public void error(String arg0, String arg1, int arg2, String arg3, int arg4) {
+            log.error(arg0);
+        }
 
-	/** Logger */
-	private static final Logger log = LoggerFactory
-			.getLogger(WiQueryYUICompressedJavascriptResourceStream.class);
+        public EvaluatorException runtimeError(String arg0, String arg1, int arg2, String arg3, int arg4) {
+            return new EvaluatorException(arg0, arg1, arg2, arg3, arg4);
+        }
 
-	/** Cache for compressed data */
-	private transient SoftReference<byte[]> cache = new SoftReference<byte[]>(
-			null);
+        public void warning(String arg0, String arg1, int arg2, String arg3, int arg4) {
+            log.warn(arg0);
+        }
+    };
 
-	/** Timestamp of the cache */
-	private Time timeStamp = null;
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.util.resource.IResourceStream#close()
-	 */
-	public void close() throws IOException {
-	}
-
-	/**
-	 * @return
-	 */
-	private byte[] getCompressedContent() {
-		IResourceStream stream = getOriginalResourceStream();
-
+	@Override
+	protected byte[] getCompressedContent(IResourceStream stream) {
+		OutputStreamWriter writer = null;
+		ByteArrayOutputStream outstream = null;
+		byte[] res;
+		
 		try {
-			byte ret[];
-			if (cache != null) {
-				ret = cache.get();
-				if (ret != null && timeStamp != null) {
-					if (timeStamp.equals(stream.lastModifiedTime())) {
-						return ret;
-					}
-				}
-			}
-			JavaScriptCompressor compressor;
+		    JavaScriptCompressor compressor = new JavaScriptCompressor(new InputStreamReader(stream.getInputStream()), logWrap);
+			outstream = new ByteArrayOutputStream();
 
-			compressor = new JavaScriptCompressor(new InputStreamReader(
-					stream.getInputStream()), null);
-			ByteArrayOutputStream outstream = new ByteArrayOutputStream();
-			OutputStreamWriter writer = new OutputStreamWriter(outstream,
-					"UTF-8");
-			compressor.compress(writer, -1, false, false, true, false);
+			writer = new OutputStreamWriter(outstream, "UTF-8");
+			compressor.compress(writer, -1, true, false, false, false);
 			writer.flush();
 
-			return outstream.toByteArray();
+			res = outstream.toByteArray();
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 			throw new WicketRuntimeException(e);
 		} catch (ResourceStreamNotFoundException e) {
 			log.error(e.getMessage(), e);
 			throw new WicketRuntimeException(e);
+		} finally {
+		    try {
+                stream.close();
+            } catch (IOException e) {}
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {}
+		    }
+            if (outstream != null) {
+                try {
+                    outstream.close();
+                } catch (IOException e) {}
+            }
 		}
+		
+		return res;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.util.resource.IResourceStream#getContentType()
-	 */
-	public String getContentType() {
-		return getOriginalResourceStream().getContentType();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.util.resource.IResourceStream#getInputStream()
-	 */
-	public InputStream getInputStream()
-			throws ResourceStreamNotFoundException {
-		return new ByteArrayInputStream(getCompressedContent());
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.util.resource.IResourceStream#getLocale()
-	 */
-	public Locale getLocale() {
-		return getOriginalResourceStream().getLocale();
-	}
-
-	/**
-	 * @return the {@link IResourceStream} to use
-	 */
-	protected abstract IResourceStream getOriginalResourceStream();
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.util.watch.IModifiable#lastModifiedTime()
-	 */
-	public Time lastModifiedTime() {
-		return getOriginalResourceStream().lastModifiedTime();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.util.resource.IResourceStream#length()
-	 */
-	public long length() {
-		return getCompressedContent().length;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.util.resource.IResourceStream#setLocale(java.util.Locale)
-	 */
-	public void setLocale(Locale locale) {
-		getOriginalResourceStream().setLocale(locale);
-	}
 }

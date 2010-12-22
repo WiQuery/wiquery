@@ -1,5 +1,6 @@
 package org.odlabs.wiquery.core.commons.compressed;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import org.apache.wicket.markup.html.CompressedPackageResource;
@@ -14,13 +15,12 @@ import org.apache.wicket.util.resource.IResourceStream;
  * </p>
  * 
  * @author Hielke Hoeve
+ * @author Pepijn de Geus <pepijn@service2media.com>
  * @since 1.1
  */
-public class WiQueryYUICompressedStyleSheetResource extends
-		CompressedPackageResource {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 1L;
+public class WiQueryYUICompressedStyleSheetResource extends CompressedPackageResource {
+
+    private static final long serialVersionUID = 1L;
 
 	/**
 	 * Hidden constructor.
@@ -35,26 +35,54 @@ public class WiQueryYUICompressedStyleSheetResource extends
 	 * @param style
 	 *            The style of the resource
 	 */
-	protected WiQueryYUICompressedStyleSheetResource(Class<?> scope,
-			String path, Locale locale, String style) {
+	protected WiQueryYUICompressedStyleSheetResource(Class<?> scope, String path, Locale locale, String style) {
 		super(scope, path, locale, style);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.markup.html.CompressedPackageResource#getPackageResourceStream()
-	 */
+	
 	@Override
-	protected IResourceStream getPackageResourceStream() {
-		return new WiQueryYUICompressedStyleSheetResourceStream() {
-			private static final long serialVersionUID = 1L;
+    protected IResourceStream newResourceStream() {
+        return new CompressingResourceStream() {
+            private static final long serialVersionUID = 1L;
 
-			@Override
-			protected IResourceStream getOriginalResourceStream() {
-				return WiQueryYUICompressedStyleSheetResource.super.getPackageResourceStream();
-			}
-		};
-	}
+            private transient IResourceStream orgStream;
+            
+            @Override
+            public void close() throws IOException {
+                if (orgStream != null) {
+                    orgStream.close();
+                }
+            }
+            
+            /**
+             * @see org.apache.wicket.markup.html.CompressedPackageResource.CompressingResourceStream#getOriginalResourceStream()
+             */
+            @Override
+            protected IResourceStream getOriginalResourceStream() {
+                if (orgStream == null) {
+                    orgStream = new WiQueryYUICompressedStyleSheetResourceStream() {
+                        private static final long serialVersionUID = 1L;
+    
+                        private transient IResourceStream s;
+                        
+                        /**
+                         * {@inheritDoc}
+                         * @see org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedJavascriptResourceStream#getOriginalResourceStream()
+                         */
+                        @Override
+                        protected IResourceStream getOriginalResourceStream() {
+                            if (s == null) {
+                                s = WiQueryYUICompressedStyleSheetResource.super.getPackageResourceStream();
+                            }
+                            return s;
+                        }
+                        
+                    };
+                }
+                
+                return orgStream;
+            }
+        };
+    }
 
 	/**
 	 * Get a {@link WiQueryYUICompressedStyleSheetResource}
@@ -64,9 +92,8 @@ public class WiQueryYUICompressedStyleSheetResource extends
 	 * @param style
 	 * @return
 	 */
-	public static WiQueryYUICompressedStyleSheetResource newPackageResource(
-			Class<?> scope, String name, Locale locale, String style) {
-		return new WiQueryYUICompressedStyleSheetResource(scope, name, locale,
-				style);
+	public static WiQueryYUICompressedStyleSheetResource newPackageResource(Class<?> scope, String name, Locale locale, String style) {
+		return new WiQueryYUICompressedStyleSheetResource(scope, name, locale, style);
 	}
+	
 }
