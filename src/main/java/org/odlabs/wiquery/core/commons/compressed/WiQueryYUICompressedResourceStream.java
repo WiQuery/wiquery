@@ -28,8 +28,8 @@ public abstract class WiQueryYUICompressedResourceStream implements IResourceStr
     /** Cache for compressed data */
     private transient SoftReference<byte[]> cache;
     
-    private transient ByteArrayInputStream stream;
-    private transient IResourceStream originalStream;
+    private ThreadLocal<ByteArrayInputStream> stream = new ThreadLocal<ByteArrayInputStream>();
+    private ThreadLocal<IResourceStream> originalStream = new ThreadLocal<IResourceStream>();
 
     /** Timestamp of the cache */
     private Time timeStamp = null;
@@ -65,10 +65,12 @@ public abstract class WiQueryYUICompressedResourceStream implements IResourceStr
      * @return The {@link IResourceStream} to compress data for.
      */
     private IResourceStream innerGetOriginalResourceStream() {
-        if (originalStream == null) {
-            originalStream = getOriginalResourceStream();
+        IResourceStream res = originalStream.get();
+        if (res == null) {
+            res = getOriginalResourceStream();
+            originalStream.set(res);
         }
-        return originalStream;
+        return res;
     }
     
     /**
@@ -91,20 +93,26 @@ public abstract class WiQueryYUICompressedResourceStream implements IResourceStr
     public void close() throws IOException {
         IOException ex = null;
         
-        try {
-            if (originalStream != null) originalStream.close();
-        } catch (IOException e) {
-            ex = e;
+        IResourceStream inStream = originalStream.get();
+        if (inStream != null) {
+            try {
+                inStream.close();
+            } catch (IOException e) {
+                ex = e;
+            }
+            originalStream.remove();
         }
-        originalStream = null;
         
-        try {
-            if (stream != null) stream.close();
-        } catch (IOException e) {
-            ex = e;
+        ByteArrayInputStream outStream = stream.get();
+        if (outStream != null) {
+            try {
+                outStream.close();
+            } catch (IOException e) {
+                ex = e;
+            }
+            stream.remove();
         }
 
-        stream = null;
         if (ex != null) throw ex;
     }
 
@@ -113,10 +121,12 @@ public abstract class WiQueryYUICompressedResourceStream implements IResourceStr
      * @see org.apache.wicket.util.resource.IResourceStream#getInputStream()
      */
     public InputStream getInputStream() throws ResourceStreamNotFoundException {
-        if (stream == null) {
-            stream = new ByteArrayInputStream(innerGetCompressedContent());
+        ByteArrayInputStream res = stream.get();
+        if (res == null) {
+            res = new ByteArrayInputStream(innerGetCompressedContent());
+            stream.set(res);
         }
-        return stream;
+        return res;
     }
     
     /**
