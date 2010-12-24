@@ -28,39 +28,43 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.apache.wicket.RequestCycle;
-import org.apache.wicket.ResourceReference;
-import org.apache.wicket.Response;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.internal.HeaderResponse;
+import org.apache.wicket.request.Response;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.ResourceReference;
+import org.odlabs.wiquery.core.commons.WiQueryUtil;
 
 /**
  * Custom {@link HeaderResponse} to collect the needed resources
  * 
  * @author Julien Roche
- *
  */
-public class WiQueryHeaderResponse extends HeaderResponse implements Serializable {
+public class WiQueryHeaderResponse extends HeaderResponse implements
+		Serializable {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Method calculating the names for the merged resources (for the browser's cache)
+	 * Method calculating the names for the merged resources (for the browser's
+	 * cache)
+	 * 
 	 * @param resources
 	 * @return the name
 	 */
-	public static CharSequence getMergedResourceName(Collection<ResourceReference> resources) {
+	public static CharSequence getMergedResourceName(
+			Collection<ResourceReference> resources) {
 		StringBuffer buffer = new StringBuffer();
-		
-		for(ResourceReference r : resources) {
+
+		for (ResourceReference r : resources) {
 			buffer.append(r.getClass().getSimpleName() + "_");
 			buffer.append(r.getName().replace("/", ":"));
 		}
-		
+
 		return buffer;
 	}
+
 	// Properties
 	private final Set<ResourceReference> javascript;
 	private final Set<ResourceReference> stylesheet;
@@ -68,16 +72,17 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 	private final Set<ResourceReference> stylesheetUnmergeable;
 	private final Set<Object> objects;
 	private transient IHeaderResponse iHeaderResponse;
-	
+
 	/**
 	 * Default constructor
 	 */
 	public WiQueryHeaderResponse() {
 		this(null);
 	}
-	
+
 	/**
 	 * Constructor
+	 * 
 	 * @param iHeaderResponse
 	 */
 	public WiQueryHeaderResponse(IHeaderResponse iHeaderResponse) {
@@ -109,13 +114,14 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 
 	/**
 	 * {@inheritDoc}
+	 * 
 	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#getRealResponse()
 	 */
 	@Override
 	protected Response getRealResponse() {
 		return null;
 	}
-	
+
 	/**
 	 * @return the stylesheets from wiQuery framework and plugins
 	 */
@@ -129,132 +135,149 @@ public class WiQueryHeaderResponse extends HeaderResponse implements Serializabl
 
 	/**
 	 * Method return true if the resource can be merged
+	 * 
 	 * @param resource
 	 * @return the state
 	 */
 	protected Boolean isMergeable(ResourceReference resource) {
 		return !resource.getClass().isAnnotationPresent(WiQueryNotMerged.class);
 	}
-	
+
 	/**
 	 * Mark the {@link ResourceReference}
+	 * 
 	 * @param object
 	 */
 	private void markResourceReference(Object object) {
 		iHeaderResponse.markRendered(object);
-		//markRendered(object);
+		// markRendered(object);
 		objects.add(object);
 	}
 
 	/**
 	 * {@inheritDoc}
+	 * 
 	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#renderCSSReference(org.apache.wicket.ResourceReference)
 	 */
 	@Override
 	public void renderCSSReference(ResourceReference reference) {
-		Object object = Arrays.asList(new Object[] { "css", RequestCycle.get().urlFor(reference), null });
-		
-		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
-			
-			if(isMergeable(reference)){
+		Object object = Arrays.asList(new Object[] { "css",
+				RequestCycle.get().urlFor(reference, null), null });
+
+		if (iHeaderResponse != null && !iHeaderResponse.wasRendered(object)
+				&& !wasInternalRendered(object)) {
+
+			if (isMergeable(reference)) {
 				stylesheet.add(reference);
-				
+
 			} else {
 				stylesheetUnmergeable.add(reference);
 			}
-			
+
 			markResourceReference(object);
 		}
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#renderCSSReference(org.apache.wicket.ResourceReference, java.lang.String)
+	 * 
+	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#renderCSSReference(org.apache.wicket.ResourceReference,
+	 *      java.lang.String)
 	 */
 	@Override
 	public void renderCSSReference(ResourceReference reference, String media) {
-		Object object = Arrays.asList(new Object[] { "css", RequestCycle.get().urlFor(reference), media });
-		
-		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
-			
-			if(isMergeable(reference)){
+		Object object = Arrays.asList(new Object[] { "css",
+				RequestCycle.get().urlFor(reference, null), media });
+
+		if (iHeaderResponse != null && !iHeaderResponse.wasRendered(object)
+				&& !wasInternalRendered(object)) {
+
+			if (isMergeable(reference)) {
 				stylesheet.add(reference);
-				
+
 			} else {
 				stylesheetUnmergeable.add(reference);
 			}
-			
+
 			markResourceReference(object);
 		}
 	}
 
 	/**
 	 * {@inheritDoc}
+	 * 
 	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#renderJavascriptReference(org.apache.wicket.ResourceReference)
 	 */
 	@Override
 	public void renderJavascriptReference(ResourceReference reference) {
-		Object object = Arrays.asList(new Object[] { "javascript", RequestCycle.get().urlFor(reference) });
-		
-		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
-			
-			if(isMergeable(reference)){
+		Object object = Arrays.asList(new Object[] { "javascript",
+				RequestCycle.get().urlFor(reference, null) });
+
+		if (iHeaderResponse != null && !iHeaderResponse.wasRendered(object)
+				&& !wasInternalRendered(object)) {
+
+			if (isMergeable(reference)) {
 				javascript.add(reference);
-				
+
 			} else {
 				javascriptUnmergeable.add(reference);
 			}
-			
+
 			markResourceReference(object);
 		}
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#renderJavascriptReference(org.apache.wicket.ResourceReference, java.lang.String)
+	 * 
+	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#renderJavascriptReference(org.apache.wicket.ResourceReference,
+	 *      java.lang.String)
 	 */
 	@Override
 	public void renderJavascriptReference(ResourceReference reference, String id) {
-		Object object = Arrays.asList(new Object[] { "javascript", RequestCycle.get().urlFor(reference) });
-		
-		if(iHeaderResponse != null && !iHeaderResponse.wasRendered(object) && !wasInternalRendered(object)){
-			
-			if(isMergeable(reference)){
+		Object object = Arrays.asList(new Object[] { "javascript",
+				RequestCycle.get().urlFor(reference, null) });
+
+		if (iHeaderResponse != null && !iHeaderResponse.wasRendered(object)
+				&& !wasInternalRendered(object)) {
+
+			if (isMergeable(reference)) {
 				javascript.add(reference);
-				
+
 			} else {
 				javascriptUnmergeable.add(reference);
 			}
-			
+
 			markResourceReference(object);
 		}
 	}
 
 	/**
 	 * Method to change the header response
+	 * 
 	 * @param iHeaderResponse
 	 */
 	public void setIHeaderResponse(IHeaderResponse iHeaderResponse) {
 		this.iHeaderResponse = iHeaderResponse;
-		
-		if(iHeaderResponse != null){
-			if(RequestCycle.get().getRequestTarget() instanceof AjaxRequestTarget){
-				for(Object obj : objects){
+
+		if (iHeaderResponse != null) {
+			if (WiQueryUtil.isCurrentRequestAjax()) {
+				for (Object obj : objects) {
 					iHeaderResponse.markRendered(obj);
 				}
-				
+
 			} else {
 				objects.clear(); // We have reloaded the page
 			}
 		}
-		
+
 		javascript.clear(); // Flush javascript resources already loaded
 		stylesheet.clear(); // Flush CSS resources already loaded
-		
+
 		javascriptUnmergeable.clear();
 		stylesheetUnmergeable.clear();
 	}
-	
+
 	/**
 	 * @see org.apache.wicket.markup.html.IHeaderResponse#wasRendered(java.lang.Object)
 	 */

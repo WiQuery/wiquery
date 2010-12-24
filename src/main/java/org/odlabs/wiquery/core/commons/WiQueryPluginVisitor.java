@@ -24,7 +24,8 @@ package org.odlabs.wiquery.core.commons;
 import java.io.Serializable;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Component.IVisitor;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 
 /**
  * $Id$
@@ -34,7 +35,7 @@ import org.apache.wicket.Component.IVisitor;
  * @author Lionel Armanet
  * @since 1.0-m2
  */
-public class WiQueryPluginVisitor implements IVisitor<Component>, Serializable {
+public class WiQueryPluginVisitor implements IVisitor<Component, Boolean>, Serializable {
 
 	private static final long serialVersionUID = -4147296857772880048L;
 	
@@ -45,14 +46,12 @@ public class WiQueryPluginVisitor implements IVisitor<Component>, Serializable {
 		this.wiQueryPlugin = wiQueryPlugin;
 	}
 
-	public Object component(Component component) {
+	public void component(Component component, IVisit<Boolean> visit) {
 		if (component.getBehaviors().contains(this.wiQueryPlugin)) {
-			return Boolean.TRUE;
+			visit.stop(Boolean.TRUE);
 		}
 		if (component.equals(this.wiQueryPlugin)) {
-			return Boolean.TRUE;
+			visit.stop(Boolean.TRUE);
 		}
-		return IVisitor.CONTINUE_TRAVERSAL;
 	}
-	
 }

@@ -23,11 +23,12 @@ package org.odlabs.wiquery.ui.dialog.util;
 
 import java.util.Locale;
 
-import org.apache.wicket.RequestCycle;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Session;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.JavascriptResourceReference;
+import org.apache.wicket.request.resource.SharedResourceReference;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
@@ -183,7 +184,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		 * @param language
 		 * @return the resource
 		 */
-		public static JavascriptResourceReference getDialogUtilsResource(DialogUtilsLanguages language) {
+		public static WiQueryJavaScriptResourceReference getDialogUtilsResource(DialogUtilsLanguages language) {
 			Locale locale = language.getLocale();
 			
 			StringBuffer buffer = new StringBuffer();
@@ -200,7 +201,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 			
 			buffer.append(".js");
 			
-			return new JavascriptResourceReference(DialogUtilsBehavior.class, "i18n/" + buffer);
+			return new WiQueryJavaScriptResourceReference(DialogUtilsBehavior.class, "i18n/" + buffer);
 		}
 		
 		// Properties
@@ -254,24 +255,24 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 	private static final long serialVersionUID = 2337318416689834710L;
 	
 	/** Cancel image */
-	private static final ResourceReference CANCEL_IMG = 
-		new ResourceReference(DialogUtilsBehavior.class, "cancel.png");
+	private static final SharedResourceReference CANCEL_IMG = 
+		new SharedResourceReference(DialogUtilsBehavior.class, "cancel.png");
 	
 	/** Question image */
-	private static final ResourceReference QUESTION_IMG = 
-		new ResourceReference(DialogUtilsBehavior.class, "questionmark.png");
+	private static final SharedResourceReference QUESTION_IMG = 
+		new SharedResourceReference(DialogUtilsBehavior.class, "questionmark.png");
 	
 	/** Wait image */
-	private static final ResourceReference WAIT_IMG = 
-		new ResourceReference(DialogUtilsBehavior.class, "wait.gif");
+	private static final SharedResourceReference WAIT_IMG = 
+		new SharedResourceReference(DialogUtilsBehavior.class, "wait.gif");
 	
 	/** Warning image */
-	private static final ResourceReference WARNING_IMG = 
-		new ResourceReference(DialogUtilsBehavior.class, "warning.png");
+	private static final SharedResourceReference WARNING_IMG = 
+		new SharedResourceReference(DialogUtilsBehavior.class, "warning.png");
 	
 	/** Constant of wiQuery Dialog resource */
-	public static final JavascriptResourceReference WIQUERY_DIALOG_JS = 
-		new JavascriptResourceReference(
+	public static final WiQueryJavaScriptResourceReference WIQUERY_DIALOG_JS = 
+		new WiQueryJavaScriptResourceReference(
 				DialogUtilsBehavior.class, 
 				"wiquery-dialog.js");
 	
@@ -311,7 +312,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
 				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
-		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(CANCEL_IMG)) + ")");
+		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(CANCEL_IMG, null)) + ")");
 		
 		return statement;
 	}
@@ -336,7 +337,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
 				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
-		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(QUESTION_IMG)) + ")");
+		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(QUESTION_IMG, null)) + ")");
 		
 		return statement;
 	}
@@ -380,7 +381,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		statement.append(id.toString() + ", ");
 		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
 				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
-		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(WAIT_IMG)) + ")");
+		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(WAIT_IMG, null)) + ")");
 		
 		WaitDialogStatements wait = new WaitDialogStatements();
 		wait.setOpen(statement);
@@ -402,7 +403,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
 				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
-		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(WARNING_IMG)) + ")");
+		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(WARNING_IMG, null)) + ")");
 		
 		return statement;
 	}

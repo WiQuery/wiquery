@@ -183,10 +183,10 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * For framework internal use only.
 	 */
 	public final void onResize(AjaxRequestTarget target) {
-		int height = Integer.parseInt(this.getComponent().getRequest().getParameter(
-				RESIZED_HEIGHT));
-		int width = Integer.parseInt(this.getComponent().getRequest().getParameter(
-				RESIZED_WIDTH));
+		int height = this.getComponent().getRequest().getQueryParameters().getParameterValue(
+				RESIZED_HEIGHT).toInt();
+		int width = this.getComponent().getRequest().getQueryParameters().getParameterValue(
+				RESIZED_WIDTH).toInt();
 		onResize(height, width, target);
 	}
 
@@ -234,12 +234,12 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 *  This makes resizable AJAX behavior compatible with standard Wicket's AJAX call-backs.
 	 * 
 	 * (non-Javadoc)
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
 	@Override
-	protected CharSequence getCallbackScript(boolean onlyTargetActivePage)
+	protected CharSequence getCallbackScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() 
 				+ "&" + RESIZED_HEIGHT + "='+" + ResizableBehavior.UI_SIZE + ".height+'"
 				+ "&" + RESIZED_WIDTH + "='+" + ResizableBehavior.UI_SIZE + ".width");
 	}

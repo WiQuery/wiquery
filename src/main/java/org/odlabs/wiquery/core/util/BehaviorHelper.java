@@ -11,7 +11,7 @@ import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 public class BehaviorHelper {
 
 	public static boolean hasBehavior(Component component, Class<? extends AbstractBehavior> clazz) {
-		List<IBehavior> behaviors = component.getBehaviors();
+		List<? extends IBehavior> behaviors = component.getBehaviors();
 		for (IBehavior behavior : behaviors) {
 			if(behavior.getClass().equals(clazz)) {
 				return true;
@@ -22,7 +22,7 @@ public class BehaviorHelper {
 	
 	public static List<WiQueryAbstractBehavior> getWiQueryBehaviors(Component component) {
 		List<WiQueryAbstractBehavior> wqb = new ArrayList<WiQueryAbstractBehavior>();
-		List<IBehavior> behaviors = component.getBehaviors();
+		List<? extends IBehavior> behaviors = component.getBehaviors();
 		for (IBehavior behavior : behaviors) {
 			if (behavior instanceof WiQueryAbstractBehavior) {
 				wqb.add((WiQueryAbstractBehavior) behavior);

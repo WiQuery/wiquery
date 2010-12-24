@@ -28,21 +28,21 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.IClusterable;
-import org.apache.wicket.RequestCycle;
-import org.apache.wicket.Resource;
-import org.apache.wicket.ResourceReference;
-import org.apache.wicket.protocol.http.WebRequest;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.template.PackagedTextTemplate;
 import org.apache.wicket.util.time.Time;
+import org.odlabs.wiquery.core.commons.SubclassablePackageResource;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceStream;
+import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedStyleSheetResource;
+import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedStyleSheetResourceStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class WiQueryMergedStyleSheetResourceReference extends
-WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
+PackageResourceReference implements IClusterable {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 6038498199511603297L;
@@ -106,9 +106,6 @@ WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
 	private PackagedTextTemplate csstemplate;
 	private WiQueryHeaderResponse wiQueryHeaderResponse;
 	
-	/**
-	 * Default constructor
-	 */
 	public WiQueryMergedStyleSheetResourceReference(WiQueryHeaderResponse wiQueryHeaderResponse) {
 		super(WiQueryMergedStyleSheetResourceReference.class, 
 				TEMPLATE_NAME + "_" + 
@@ -130,43 +127,35 @@ WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
 		return csstemplate.lastModifiedTime();
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.ResourceReference#newResource()
-	 */
 	@Override
-	protected Resource newResource() {
-		return new Resource() {
-			private static final long serialVersionUID = 1L;
-
-			/**
-			 * {@inheritDoc}
-			 * @see org.apache.wicket.Resource#getResourceStream()
-			 */
-			public IResourceStream getResourceStream() {
-				IResourceStream stream = null;
-				
-				if(WiQuerySettings.get().isMinifiedResources()){
-					stream = new WiQueryYUICompressedStyleSheetResourceStream() {
+	public IResource getResource() {
+		if(WiQuerySettings.get().isMinifiedResources()){
+			return new WiQueryYUICompressedStyleSheetResource(getScope(), getName(),
+					getLocale(), getStyle(), getVariation()) {
+				private static final long serialVersionUID = 1L;
+	
+				@Override
+				protected IResourceStream getResourceStream() {
+					return new WiQueryYUICompressedStyleSheetResourceStream() {
 						private static final long serialVersionUID = 1L;
 
-						/**
-						 * {@inheritDoc}
-						 * @see org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource.YUICompressedResourceStream#getOriginalResourceStream()
-						 */
 						@Override
 						protected IResourceStream getOriginalResourceStream() {
 							return newResourceStream();
 						}
 					};
-					
-				} else {
-					stream = newResourceStream();
 				}
-				
-				return stream;
-			}
-		};
+			};
+		}else{
+			return new SubclassablePackageResource(getScope(), getName(),
+					getLocale(), getStyle(), getVariation()) {
+				private static final long serialVersionUID = 1L;
+	
+				public IResourceStream getResourceStream() {
+					return newResourceStream();
+				}
+			};
+		}
 	}
 	
 	private IResourceStream newResourceStream() {
@@ -177,14 +166,12 @@ WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
 		String match;
 		StringBuffer buffer = new StringBuffer();
 		
-		HttpServletRequest request = ((WebRequest)RequestCycle.get().getRequest()).getHttpServletRequest();
+		HttpServletRequest request = ((HttpServletRequest) RequestCycle.get().getRequest());
 		String baseHost = request.getRequestURL().toString();
 		baseHost = baseHost.substring(0, baseHost.indexOf(request.getRequestURI()))
 			+ request.getContextPath() + "/resources/";
 		
 		for(ResourceReference ref : wiQueryHeaderResponse.getStylesheet()){
-			// We bind the resources into the SharedResources
-			ref.bind(Application.get());
 			
 			// We insert the javascript code into the template
 			try {

@@ -26,10 +26,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.apache.wicket.request.Request;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -235,7 +235,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 							javascript.append("if(!isInvalid){");
 						}
 						// use parent machinery for building call-back URL.
-						javascript.append(getCallbackStopEventScript(true));
+						javascript.append(getCallbackStopEventScript());
 						
 						if(!enableAjaxOnInvalid){
 							javascript.append("}");
@@ -257,7 +257,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append(getCallbackScript(true, DraggableEvent.START.toString().toLowerCase()));
+						scopeContext.append(getCallbackScript(DraggableEvent.START.toString().toLowerCase()));
 					}
 				});
 			}
@@ -272,7 +272,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {
-						scopeContext.append(getCallbackScript(true, DraggableEvent.DRAG.toString().toLowerCase()));
+						scopeContext.append(getCallbackScript(DraggableEvent.DRAG.toString().toLowerCase()));
 					}
 				});
 			}
@@ -293,8 +293,8 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	private static final long serialVersionUID = 3L;
 	
 	/** ResourceReference for the wiQuery Draggable javascript */
-	public static final JavascriptResourceReference wiQueryDraggableJs = 
-		new JavascriptResourceReference(
+	public static final WiQueryJavaScriptResourceReference wiQueryDraggableJs = 
+		new WiQueryJavaScriptResourceReference(
 				DraggableJavaScriptResourceReference.class, 
 				"wiquery-draggable.js");
 
@@ -394,7 +394,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	public final void onDrag(AjaxRequestTarget target) {
 		Request request = this.getComponent().getRequest();
 		DraggableEvent dragEvent =  DraggableEvent.valueOf(
-				request.getParameter(DRAG_TYPE).toUpperCase());
+				request.getQueryParameters().getParameterValue(DRAG_TYPE).toString().toUpperCase());
 		
 		switch(dragEvent){
 			case DRAG:
@@ -408,7 +408,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 			case STOP:
 				onStop(getComponent(), target);
 				
-				if(Boolean.valueOf(request.getParameter(DRAG_STATUS)) 
+				if(Boolean.valueOf(request.getQueryParameters().getParameterValue(DRAG_STATUS).toString()) 
 						&& enableAjaxOnInvalid){
 					onInvalid(getComponent(), target);
 					
@@ -516,9 +516,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param dragType
 	 * @return
 	 */
-	protected CharSequence getCallbackStopEventScript(boolean onlyTargetActivePage)
+	protected CharSequence getCallbackStopEventScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() 
 				+ "&" + DRAG_TYPE + "=" + DraggableEvent.STOP.toString().toLowerCase()
 				+"&" + DRAG_STATUS + "='+isInvalid");
 	}
@@ -532,9 +532,9 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * @param dragType
 	 * @return
 	 */
-	protected CharSequence getCallbackScript(boolean onlyTargetActivePage, String dragType)
+	protected CharSequence getCallbackScript(String dragType)
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() 
 				+ "&" + DRAG_TYPE + "=" + dragType + "'");
 	}
 	

@@ -25,17 +25,17 @@ import java.io.Serializable;
 import java.util.Map;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.IRequestTarget;
-import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse;
 import org.apache.wicket.ajax.AjaxRequestTarget.IListener;
-import org.apache.wicket.behavior.HeaderContributor;
+import org.apache.wicket.behavior.AbstractBehavior;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.apache.wicket.request.IRequestHandler;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
+import org.odlabs.wiquery.core.commons.WiQueryUtil;
 import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResource;
 import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReference;
 
@@ -68,7 +68,7 @@ import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReferen
  * @author Lionel Armanet
  * @since 0.7
  */
-public class JsQuery implements Serializable, IHeaderContributor {
+public class JsQuery extends AbstractBehavior implements Serializable {
 
 	private static final long serialVersionUID = -5351600688981395614L;
 
@@ -137,13 +137,11 @@ public class JsQuery implements Serializable, IHeaderContributor {
 		WiQuerySettings settings = WiQuerySettings.get();
 		
 		if(settings.isAutoImportJQueryResource()){
-			JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
+			ResourceReference ref = settings.getJQueryCoreResourceReference();
 			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
 		}
 		
-		IRequestTarget requestTarget = (component != null ? component.getRequestCycle() : RequestCycle.get()).getRequestTarget();
-		if (requestTarget == null
-				|| !(requestTarget instanceof AjaxRequestTarget)) {
+		if (!WiQueryUtil.isCurrentRequestAjax()) {
 			// appending component statement
 			// on dom ready, the code is executed.
 			JsStatement onreadyStatement = new JsStatement();
@@ -152,7 +150,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 			response.renderString("<script type=\"text/javascript\">"
 					+ onreadyStatement.render() + "</script>");
 		} else {
-			addAjaxJavascript(requestTarget, statement.render().toString());
+			addAjaxJavascript(AjaxRequestTarget.get(), statement.render().toString());
 		}
 	}
 
@@ -162,7 +160,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 */
 	public void contribute(Component component) {
 		this.component = component;
-		component.add(new HeaderContributor(this));
+		component.add(this);
 	}
 
 	/**
@@ -183,18 +181,18 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
 	public void renderHead(IHeaderResponse response,
-			IRequestTarget requestTarget) {
+			IRequestHandler requestHandler) {
 		WiQuerySettings settings = WiQuerySettings.get();
 		final String js = statement == null ? null : statement.render().toString();
 		
 		if (js != null && js.trim().length() > 0) {
 			if (settings.isEmbedGeneratedStatements()) {
                 if (settings.isAutoImportJQueryResource()) {
-                    JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
+                	ResourceReference ref = settings.getJQueryCoreResourceReference();
                     response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);
                 }
 
-                if (requestTarget == null || !(requestTarget instanceof AjaxRequestTarget)) {
+                if (!WiQueryUtil.isCurrentRequestAjax()) {
                     // appending component statement
                     // on dom ready, the code is executed.
                     JsStatement onreadyStatement = new JsStatement();
@@ -202,7 +200,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
                     response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen" + System.currentTimeMillis());
 
                 } else {
-                	addAjaxJavascript(requestTarget, js);
+                	addAjaxJavascript(requestHandler, js);
                 }
 
             } else if (AjaxRequestTarget.get() == null) {
@@ -220,7 +218,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 						new WiqueryGeneratedJavaScriptResourceReference(onreadyStatement.render()));
 
 			} else {
-				addAjaxJavascript(requestTarget, js);
+				addAjaxJavascript(requestHandler, js);
 			}
 		}
 	}
@@ -229,8 +227,8 @@ public class JsQuery implements Serializable, IHeaderContributor {
 	 * Private method to add javascript into the ajax request pool
 	 * @param js
 	 */
-	private void addAjaxJavascript(IRequestTarget requestTarget, final String js){
-		AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
+	private void addAjaxJavascript(IRequestHandler requestHandler, final String js){
+		AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestHandler;
 		ajaxRequestTarget.addListener(new IListener() {
 
 			/**

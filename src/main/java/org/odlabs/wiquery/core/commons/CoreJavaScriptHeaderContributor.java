@@ -21,9 +21,9 @@
  */
 package org.odlabs.wiquery.core.commons;
 
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.request.resource.ResourceReference;
 
 /**
  * $Id: CoreJavaScriptHeaderContributor.java 81 2009-05-28 20:05:12Z
@@ -42,15 +42,8 @@ public class CoreJavaScriptHeaderContributor implements IHeaderContributor {
 
 	private static final long serialVersionUID = -6914698941241719406L;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
-	 */
 	public void renderHead(IHeaderResponse response) {
-		// just simply renders the reference
-		response.renderJavascriptReference(CoreJavaScriptResourceReference
+		response.renderJavaScriptReference(CoreJavaScriptResourceReference
 				.get());
 	}
-
 }

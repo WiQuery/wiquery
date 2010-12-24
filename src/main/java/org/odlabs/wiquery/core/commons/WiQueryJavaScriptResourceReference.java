@@ -1,7 +1,7 @@
 package org.odlabs.wiquery.core.commons;
 
-import org.apache.wicket.ResourceReference;
-import org.apache.wicket.markup.html.resources.CompressedResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 
 /**
  * <p>
@@ -9,12 +9,10 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
  * resources needs to fetch the normal (non-minimized) version or the minimized
  * version.
  * </p>
- * 
  * <p>
  * Note that this ResourceReference only loads files and does not minify on the
  * fly.
  * </p>
- * 
  * <p>
  * Always provide the normal (non-minimized) version, wiquery will reference to
  * the minimized version when {@link WiQuerySettings#isCompressedJavascript()}
@@ -31,11 +29,11 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
  * @author Hielke Hoeve
  */
 public class WiQueryJavaScriptResourceReference extends
-		CompressedResourceReference {
+		PackageResourceReference {
 	private static final long serialVersionUID = 1L;
 
 	public WiQueryJavaScriptResourceReference(Class<?> scope, String name) {
-		super(scope, processName(name), null, null);
+		super(scope, processName(name), null, null, null);
 	}
 
 	private static String processName(String name) {

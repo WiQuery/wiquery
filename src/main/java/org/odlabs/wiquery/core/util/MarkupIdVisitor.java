@@ -2,7 +2,8 @@ package org.odlabs.wiquery.core.util;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.Component.IVisitor;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 
 /**
  * $Id$
@@ -13,7 +14,7 @@ import org.apache.wicket.Component.IVisitor;
  * @author Julien Roche
  * @since 1.0
  */
-public class MarkupIdVisitor implements IVisitor<Component> {
+public class MarkupIdVisitor implements IVisitor<Component, Void> {
 	// Properties
 	private String id;
 	private Component foundComponent;
@@ -28,15 +29,14 @@ public class MarkupIdVisitor implements IVisitor<Component> {
 	/* (non-Javadoc)
 	 * @see org.apache.wicket.Component.IVisitor#component(org.apache.wicket.Component)
 	 */
-	public Object component(Component component) {
+	public void component(Component component, IVisit<Void> visit) {
 		if (component.getMarkupId().equals(this.id)) {
 			this.foundComponent = component;
-			return IVisitor.STOP_TRAVERSAL;
+			visit.stop();
 		}
 		if (component instanceof MarkupContainer) {
-			return ((MarkupContainer) component).visitChildren(this);
+			((MarkupContainer) component).visitChildren(Component.class, this);
 		}
-		return IVisitor.CONTINUE_TRAVERSAL;
 	}
 
 	/**

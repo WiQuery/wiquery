@@ -1,5 +1,4 @@
 /*
- * Copyright (c) 2009 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -191,7 +190,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 					 */
 					@Override
 					protected void execute(JsScopeContext scopeContext) {				
-						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptReceive(true));	
+						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptReceive());	
 					}
 		
 				});
@@ -239,11 +238,11 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 *  This makes sortable AJAX behavior compatible with standard Wicket's AJAX call-backs.
 	 * 
 	 * (non-Javadoc)
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
-	protected CharSequence getCallbackScriptReceive(boolean onlyTargetActivePage)
+	protected CharSequence getCallbackScriptReceive()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() 
 				+ "&" + SORTED_TYPE + "=" + SortedEvent.RECEIVE.toString().toLowerCase() 
 				+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
 				+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" 
@@ -256,11 +255,11 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 *  This makes sortable AJAX behavior compatible with standard Wicket's AJAX call-backs.
 	 * 
 	 * (non-Javadoc)
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
 	protected CharSequence getCallbackScriptRemove(boolean onlyTargetActivePage)
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() 
 				+ "&" + SORTED_TYPE + "=" + SortedEvent.REMOVE.toString().toLowerCase() 
 				+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')");
 	}
@@ -271,11 +270,11 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 *  This makes sortable AJAX behavior compatible with standard Wicket's AJAX call-backs.
 	 * 
 	 * (non-Javadoc)
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
 	protected CharSequence getCallbackScriptUpdate(boolean onlyTargetActivePage)
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() 
 				+ "&" + SORTED_TYPE + "=" + SortedEvent.UPDATE.toString().toLowerCase() 
 				+ "&" + SORTED_INDEX + "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
 				+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')");
@@ -391,15 +390,15 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	@SuppressWarnings("unchecked")
 	public final void onSort(AjaxRequestTarget target) {
 		// getting sorted element id to retrieve the Wicket component
-		String input = this.getComponent().getRequest().getParameter(
-				SORTED_ID);
+		String input = this.getComponent().getRequest().getQueryParameters().getParameterValue(
+				SORTED_ID).toString();
 		
-		String indexStr = this.getComponent().getRequest().getParameter(
-				SORTED_INDEX);
+		String indexStr = this.getComponent().getRequest().getQueryParameters().getParameterValue(
+				SORTED_INDEX).toString();
 		int index = indexStr == null ? -1 : Integer.valueOf(indexStr);
 		
-		SortedEvent sortedEvent =  SortedEvent.valueOf(this.getComponent().getRequest().getParameter(
-				SORTED_TYPE).toUpperCase());
+		SortedEvent sortedEvent =  SortedEvent.valueOf(this.getComponent().getRequest().getQueryParameters().getParameterValue(
+				SORTED_TYPE).toString().toUpperCase());
 			
 		MarkupIdVisitor visitor = new MarkupIdVisitor(input);
 		this.getComponent().getPage().visitChildren(visitor);
@@ -407,8 +406,8 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 		
 		switch(sortedEvent){
 		case RECEIVE:
-			String parent = this.getComponent().getRequest().getParameter(
-					SORTED_PARENT_ID);
+			String parent = this.getComponent().getRequest().getQueryParameters().getParameterValue(
+					SORTED_PARENT_ID).toString();
 			MarkupIdVisitor visitorParent = new MarkupIdVisitor(parent);
 			this.getComponent().getPage().visitChildren(visitorParent);
 			

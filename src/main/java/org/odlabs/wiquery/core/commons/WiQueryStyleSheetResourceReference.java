@@ -1,7 +1,7 @@
 package org.odlabs.wiquery.core.commons;
 
-import org.apache.wicket.ResourceReference;
-import org.apache.wicket.markup.html.resources.CompressedResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 
 /**
  * <p>
@@ -31,11 +31,11 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
  * @author Hielke Hoeve
  */
 public class WiQueryStyleSheetResourceReference extends
-		CompressedResourceReference {
+		PackageResourceReference {
 	private static final long serialVersionUID = 1L;
 
 	public WiQueryStyleSheetResourceReference(Class<?> scope, String name) {
-		super(scope, processName(name), null, null);
+		super(scope, processName(name), null, null, null);
 	}
 
 	private static String processName(String name) {

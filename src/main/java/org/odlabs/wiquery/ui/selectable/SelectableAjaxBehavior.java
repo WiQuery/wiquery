@@ -154,12 +154,12 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 *  This makes selectable AJAX behavior compatible with standard Wicket's AJAX call-backs.
 	 * 
 	 * (non-Javadoc)
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
 	@Override
-	protected CharSequence getCallbackScript(boolean onlyTargetActivePage)
+	protected CharSequence getCallbackScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() 
 				+ "&" + SELECTED_ARRAY + "='+ jQuery.unique(selected).toString()");
 	}
 
@@ -183,7 +183,7 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * For framework internal use only.
 	 */
 	public final void onSelection(AjaxRequestTarget target) {
-		String selected = this.getComponent().getRequest().getParameter(SELECTED_ARRAY);
+		String selected = this.getComponent().getRequest().getQueryParameters().getParameterValue(SELECTED_ARRAY).toString();
 		
 		StringTokenizer tokenized = new StringTokenizer(selected, ",");
 		Component[] components = new Component[tokenized.countTokens()];

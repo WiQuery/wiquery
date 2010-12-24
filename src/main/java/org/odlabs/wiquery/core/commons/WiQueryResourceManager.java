@@ -24,11 +24,11 @@ package org.odlabs.wiquery.core.commons;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
+import org.apache.wicket.request.resource.JavascriptResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedJavaScriptResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedStyleSheetResourceReference;
 
 /**
  * $Id: WiQueryResourceManager.java 445 2010-10-07 10:40:32Z

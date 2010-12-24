@@ -26,12 +26,12 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.RequestCycle;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.behavior.AbstractAjaxBehavior;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.request.target.basic.StringRequestTarget;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.handler.TextRequestHandler;
 import org.apache.wicket.util.string.Strings;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
@@ -64,7 +64,7 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 		 * @see org.apache.wicket.behavior.IBehaviorListener#onRequest()
 		 */
 		public void onRequest() {
-			term = this.getComponent().getRequest().getParameter("term");
+			term = this.getComponent().getRequest().getQueryParameters().getParameterValue("term").toString();
 
 			if(!Strings.isEmpty(term)){
 				StringWriter sw = new StringWriter();
@@ -87,8 +87,8 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 					throw new WicketRuntimeException(e);
 				}
 
-				RequestCycle.get().setRequestTarget(
-						new StringRequestTarget("application/json", "utf-8", sw.toString()));
+				RequestCycle.get().scheduleRequestHandlerAfterCurrent(
+						new TextRequestHandler("application/json", "utf-8", sw.toString()));
 			}
 		}
 	}

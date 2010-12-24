@@ -30,11 +30,11 @@ import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.util.string.Strings;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
@@ -133,7 +133,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 			js.append("$.ui.autocomplete.wiquery.changeEvent(event, ui,")
 				.append(JsUtils.quotes(autocompleteHidden.getMarkupId()));
 			if(isAutoUpdate()){
-				js.append(",'").append(updateAjax.getCallbackUrl(true)).append("'");
+				js.append(",'").append(updateAjax.getCallbackUrl()).append("'");
 			}
 			js.append(");");
 			super.setChangeEvent(JsScopeUiEvent.quickScope(js.toString()));
@@ -148,8 +148,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	private static final long serialVersionUID = -3377109382248062940L;
 
 	/** Constant of wiQuery Autocomplete resource */
-	public static final JavascriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
-		new JavascriptResourceReference(
+	public static final WiQueryJavaScriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
+		new WiQueryJavaScriptResourceReference(
 				AutocompleteAjaxComponent.class,
 		"wiquery-autocomplete.js");
 

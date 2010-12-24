@@ -29,13 +29,14 @@ import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Page;
-import org.apache.wicket.RequestCycle;
-import org.apache.wicket.ResourceReference;
-import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.behavior.IBehavior;
-import org.apache.wicket.markup.html.IHeaderContributor;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
+import org.apache.wicket.util.visit.Visit;
 import org.odlabs.wiquery.core.commons.listener.JQueryCoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.JQueryUICoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
@@ -65,9 +66,9 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Hielke Hoeve
  * @author Emond Papegaaij
  */
-public class WiQueryCoreHeaderContributor implements Serializable,
-		IHeaderContributor {
-	private static class WiQueryPluginCollector implements IVisitor<Component> {
+public class WiQueryCoreHeaderContributor extends Behavior implements Serializable
+		 {
+	private static class WiQueryPluginCollector implements IVisitor<Component, Void> {
 		private List<IWiQueryPlugin> plugins = new ArrayList<IWiQueryPlugin>();
 
 		private WiQueryPluginCollector() {
@@ -77,20 +78,19 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			return plugins;
 		}
 
-		public Object component(Component component) {
+		public void component(Component component, IVisit<Void> visit) {
 			if (component.determineVisibility()) {
 				if (component instanceof IWiQueryPlugin) {
 					plugins.add((IWiQueryPlugin) component);
 				}
-				for (IBehavior behavior : component.getBehaviors()) {
+				for (Behavior behavior : component.getBehaviors()) {
 					if (behavior instanceof IWiQueryPlugin
 							&& behavior.isEnabled(component)) {
 						plugins.add((IWiQueryPlugin) behavior);
 					}
 				}
-				return CONTINUE_TRAVERSAL;
 			} else {
-				return CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
+				visit.dontGoDeeper();
 			}
 		}
 	}
@@ -133,7 +133,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	}
 
 	private void renderResponse(final IHeaderResponse response) {
-		Page page = RequestCycle.get().getResponsePage();
+		Page page = WiQueryUtil.getCurrentPage();
 		Boolean rendered;
 		if (page == null) {
 			rendered = RequestCycle.get().getMetaData(WIQUERY_KEY);
@@ -152,7 +152,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
 			if (page != null) {
 				page.visitChildren(visitor);
-				visitor.component(page);
+				visitor.component(page, new Visit<Void>());
 			}
 
 			WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
@@ -188,7 +188,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 
 			JsQuery jsq = new JsQuery();
 			jsq.setStatement(jsStatement);
-			jsq.renderHead(response, RequestCycle.get().getRequestTarget());
+			jsq.renderHead(response, RequestCycle.get().getActiveRequestHandler());
 		}
 	}
 
@@ -219,7 +219,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			if (owner instanceof IWiQueryPlugin) {
 				renderPlugin(response, ajaxRequestTarget, (IWiQueryPlugin) owner, pluginRenderingListeners,	manager, headerResponse);
 			}
-			for (IBehavior behavior : owner.getBehaviors()) {
+			for (Behavior behavior : owner.getBehaviors()) {
 				if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(owner)) {
 					renderPlugin(response, ajaxRequestTarget, (IWiQueryPlugin) behavior, pluginRenderingListeners, manager, headerResponse);
 				}
@@ -282,14 +282,13 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			// Merging of javascript resources
 			if (!wiQueryHeaderResponse.getJavascript().isEmpty()) {
 				response
-						.renderJavascriptReference(new WiQueryMergedJavaScriptResourceReference(
-								wiQueryHeaderResponse));
+						.renderJavaScriptReference(new WiQueryMergedJavaScriptResourceReference(wiQueryHeaderResponse));
 			}
 
 			// Insertion of non mergeable javascript
 			for (ResourceReference ref : wiQueryHeaderResponse
 					.getJavascriptUnmergeable()) {
-				response.renderJavascriptReference(ref);
+				response.renderJavaScriptReference(ref);
 			}
 		}
 	}

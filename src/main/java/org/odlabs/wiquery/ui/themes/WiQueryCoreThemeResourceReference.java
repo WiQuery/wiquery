@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.themes;
 
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedStyleSheetResourceReference;
 
 /**
  * $Id: WiQueryCoreThemeResourceReference.java 85 2009-05-28 23:07:56Z

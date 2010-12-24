@@ -22,11 +22,11 @@
 package org.odlabs.wiquery.core.commons;
 
 import org.apache.wicket.IClusterable;
-import org.apache.wicket.Resource;
-import org.apache.wicket.markup.html.PackageResource;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
-import org.apache.wicket.util.template.PackagedTextTemplate;
+import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.request.resource.JavascriptResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.util.time.Time;
+import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedJavaScriptResourceReference;
 
 /**
  * $Id: WiqueryGeneratedJavaScriptResourceReference.java 412 2010-09-17
@@ -41,51 +41,34 @@ import org.apache.wicket.util.time.Time;
  * @since 1.0
  */
 public class WiqueryGeneratedJavaScriptResourceReference extends
-		JavascriptResourceReference implements IClusterable {
-	// Constants
-	/** Constant of serialization */
+		WiQueryYUICompressedJavaScriptResourceReference implements IClusterable {
+
 	private static final long serialVersionUID = 1L;
 
-	/** Template's name */
 	public static final String TEMPLATE_NAME = "wiquery-gen.js";
 
-	// Properties
 	private CharSequence javaScriptCode;
 
 	public WiqueryGeneratedJavaScriptResourceReference(
 			CharSequence javaScriptCode) {
 		super(WiqueryGeneratedJavaScriptResourceReference.class, System
-				.currentTimeMillis()
-				+ TEMPLATE_NAME);
+				.currentTimeMillis() + TEMPLATE_NAME);
 		this.javaScriptCode = javaScriptCode;
 	}
 
 	/**
 	 * Creates a new custom Resource, which does exactly the same as
-	 * {@link JavascriptResourceReference} except that it gets the actual
+	 * {@link PackageResourceReference} except that it gets the actual
 	 * javascript from a variable.
 	 */
 	@Override
-	protected Resource newResource() {
-		PackageResource packageResource = WiqueryGeneratedJavaScriptResource
-				.newPackageResource(getScope(), getName(), getLocale(),
-						getStyle(), javaScriptCode);
-
-		if (packageResource != null) {
-			locale = packageResource.getLocale();
-		} else {
-			throw new IllegalArgumentException("package resource [scope="
-					+ getScope() + ",name=" + getName() + ",locale="
-					+ getLocale() + "style=" + getStyle() + "] not found");
-		}
-		return packageResource;
+	public IResource getResource() {
+		return new WiqueryGeneratedJavaScriptResource(getScope(), getName(),
+				getLocale(), getStyle(), getVariation(), javaScriptCode);
 	}
 
 	/**
-	 * Returns the last modified time of the {@link PackagedTextTemplate}
-	 * itself.
-	 * 
-	 * @return the last modified time of the {@link PackagedTextTemplate} itself
+	 * @return null as this resource constantly changes
 	 */
 	public Time lastModifiedTime() {
 		return null;

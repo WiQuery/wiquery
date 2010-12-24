@@ -174,12 +174,12 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	 *  This makes droppable behavior more compatible with standard Wicket's AJAX call-backs.
 	 * 
 	 * (non-Javadoc)
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript(boolean)
+	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
 	@Override
-	protected CharSequence getCallbackScript(boolean onlyTargetActivePage)
+	protected CharSequence getCallbackScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl(onlyTargetActivePage) 
+		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() 
 				+ "&droppedId='+" + DroppableBehavior.UI_DRAGGABLE
 				+ "[0].id");
 	}
@@ -206,8 +206,8 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	@SuppressWarnings("unchecked")
 	public final void onDrop(AjaxRequestTarget target) {
 		// getting dropped element id to retrieve the Wicket component
-		String input = this.getComponent().getRequest().getParameter(
-				"droppedId");
+		String input = this.getComponent().getRequest().getQueryParameters().getParameterValue(
+				"droppedId").toString();
 		MarkupIdVisitor visitor = new MarkupIdVisitor(input);
 		this.getComponent().getPage().visitChildren(visitor);
 		onDrop((E) visitor.getFoundComponent(), target);

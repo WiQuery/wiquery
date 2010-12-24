@@ -25,7 +25,7 @@ import java.util.StringTokenizer;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.protocol.http.WebRequestCycle;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
@@ -152,7 +152,7 @@ public class AjaxSlider extends Slider {
 			scopeContext.append(
 					new StringBuffer()
 					.append("var values = $(this).slider('values');")
-					.append("var url = '").append(slider.sliderContext.getCallbackUrl(true))
+					.append("var url = '").append(slider.sliderContext.getCallbackUrl())
 					.append("&").append(SLIDER_EVENT).append("=").append(event.name())
 					.append("&").append(SLIDER_VALUE).append("=").append("'+").append(Slider.UI_VALUE)
 					.append("+'&").append(SLIDER_VALUES).append("=").append("'+").append("values")
@@ -189,12 +189,12 @@ public class AjaxSlider extends Slider {
 
 			@Override
 			protected void respond(AjaxRequestTarget target) {
-				String sliderEvent = WebRequestCycle.get().getRequest().getParameter(SLIDER_EVENT);			
+				String sliderEvent = RequestCycle.get().getRequest().getQueryParameters().getParameterValue(SLIDER_EVENT).toString();			
 				// if we have an event execute it.
 				if(!isEmpty(sliderEvent)) {
 					// calculate the value			
-					int value = parseInteger(WebRequestCycle.get().getRequest().getParameter(SLIDER_VALUE), getMin().intValue());
-					int[] values = processValues(WebRequestCycle.get().getRequest().getParameter(SLIDER_VALUES));
+					int value = parseInteger(RequestCycle.get().getRequest().getQueryParameters().getParameterValue(SLIDER_VALUE).toString(), getMin().intValue());
+					int[] values = processValues(RequestCycle.get().getRequest().getQueryParameters().getParameterValue(SLIDER_VALUES).toString());
 					ISliderAjaxEvent ajaxEvent = ajaxEvents.get(SliderAjaxEvent.valueOf(sliderEvent));
 					if(ajaxEvent != null) {
 						ajaxEvent.onEvent(target, AjaxSlider.this, value, values);

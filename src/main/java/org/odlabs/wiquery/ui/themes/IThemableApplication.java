@@ -1,7 +1,7 @@
 package org.odlabs.wiquery.ui.themes;
 
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Session;
+import org.apache.wicket.request.resource.ResourceReference;
 
 /**
  * Allows to mark your WEB application as a provider of,

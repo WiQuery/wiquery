@@ -24,7 +24,7 @@ package org.odlabs.wiquery.core.commons.listener;
 import java.io.Serializable;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
@@ -54,7 +54,7 @@ public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListen
 		WiQuerySettings settings = WiQuerySettings.get();
 		
 		if(settings.isAutoImportJQueryResource()){
-			JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
+			ResourceReference ref = settings.getJQueryCoreResourceReference();
 			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
 		}
 	}

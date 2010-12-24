@@ -26,63 +26,65 @@ import java.util.Map;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.IClusterable;
-import org.apache.wicket.Resource;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.javascript.IJavascriptCompressor;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.request.resource.JavascriptResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.template.PackagedTextTemplate;
 import org.apache.wicket.util.time.Time;
+import org.odlabs.wiquery.core.commons.SubclassablePackageResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * $Id$
- * 
+ * $Id: WiQueryMergedJavaScriptResourceReference.java 412 2010-09-17 21:23:25Z
+ * lionel.armanet $
  * <p>
- * Merged many {@link JavascriptResourceReference} into one {@link IResourceStream}
+ * Merged many {@link JavascriptResourceReference} into one
+ * {@link IResourceStream}
  * </p>
  * 
  * @author Julien Roche
  * @since 1.1
- *
  */
 public class WiQueryMergedJavaScriptResourceReference extends
-	JavascriptResourceReference implements IClusterable {
+		PackageResourceReference implements IClusterable {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 6038498199511603297L;
-	
+
 	/** Name of the template for our ResourceReference */
 	private static final String TEMPLATE_NAME = "wiquery-merged.js";
-	
+
 	/** Content-type */
 	private static final String CONTENT_TYPE = "text/javascript";
-	
+
 	/** Logger */
-	private static final Logger LOGGER = LoggerFactory.getLogger(WiQueryMergedJavaScriptResourceReference.class);
-	
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(WiQueryMergedJavaScriptResourceReference.class);
+
 	// Properties
 	private PackagedTextTemplate jstemplate;
 	private WiQueryHeaderResponse wiQueryHeaderResponse;
-	
-	/**
-	 * Default constructor
-	 */
-	public WiQueryMergedJavaScriptResourceReference(WiQueryHeaderResponse wiQueryHeaderResponse) {
-		super(WiQueryMergedJavaScriptResourceReference.class, 
-				TEMPLATE_NAME + "_" + 
-				WiQueryHeaderResponse.getMergedResourceName(wiQueryHeaderResponse.getJavascript()));
-		
+
+	public WiQueryMergedJavaScriptResourceReference(
+			WiQueryHeaderResponse wiQueryHeaderResponse) {
+		super(WiQueryMergedJavaScriptResourceReference.class, TEMPLATE_NAME
+				+ "_"
+				+ WiQueryHeaderResponse
+						.getMergedResourceName(wiQueryHeaderResponse
+								.getJavascript()));
+
 		this.wiQueryHeaderResponse = wiQueryHeaderResponse;
 		jstemplate = new PackagedTextTemplate(
-				WiQueryMergedJavaScriptResourceReference.class, 
-				TEMPLATE_NAME);
+				WiQueryMergedJavaScriptResourceReference.class, TEMPLATE_NAME);
 	}
-	
+
 	/**
 	 * Returns the last modified time of the {@link PackagedTextTemplate}
 	 * itself.
@@ -92,57 +94,53 @@ public class WiQueryMergedJavaScriptResourceReference extends
 	public Time lastModifiedTime() {
 		return jstemplate.lastModifiedTime();
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
+
 	@Override
-	protected Resource newResource() {
-		return new Resource() {
+	public IResource getResource() {
+		return new SubclassablePackageResource(getScope(), getName(),
+				getLocale(), getStyle(), getVariation()) {
+
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 */
 			public IResourceStream getResourceStream() {
 				String temp;
 				Application application = Application.get();
 				StringBuffer buffer = new StringBuffer();
 				IJavascriptCompressor compressor = application
-					.getResourceSettings()
-					.getJavascriptCompressor();
-				
-				for(ResourceReference ref : wiQueryHeaderResponse.getJavascript()){
-					// We bind the resources into the SharedResources
-					ref.bind(Application.get());
-					
+						.getResourceSettings().getJavascriptCompressor();
+
+				for (ResourceReference ref : wiQueryHeaderResponse
+						.getJavascript()) {
+
 					// We insert the javascript code into the template
 					try {
-						temp = Streams.readString(
-								getClass().getResourceAsStream(
-										"/" + Packages.absolutePath(
-												ref.getScope(),	"") 
+						temp = Streams.readString(getClass()
+								.getResourceAsStream(
+										"/"
+												+ Packages.absolutePath(
+														ref.getScope(), "")
 												+ "/" + ref.getName()));
 					} catch (Exception e) {
 						temp = null;
 						e.printStackTrace();
 						LOGGER.error("error in merged processing", e);
 					}
-					
-					if(compressor != null && temp != null){
+
+					if (compressor != null && temp != null) {
 						temp = compressor.compress(temp);
 					}
-					
-					if(temp != null){
+
+					if (temp != null) {
 						buffer.append(temp).append("\r\n");
 					}
 				}
-				
+
 				Map<String, Object> genJs = new HashMap<String, Object>();
 				genJs.put("wiqueryresources", buffer);
 				jstemplate.interpolate(genJs);
-				
-				return new StringResourceStream(jstemplate.asString(), CONTENT_TYPE);
+
+				return new StringResourceStream(jstemplate.asString(),
+						CONTENT_TYPE);
 			}
 		};
 	}
