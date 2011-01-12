@@ -329,6 +329,5 @@ public class AccordionTestCase extends WiQueryTestCase {
 		
 		assertTrue(documentString.contains("WidgetJavascriptResourceReference"));
 		assertTrue(documentString.contains("AccordionJavaScriptResourceReference"));
-		assertTrue(documentString.contains("WiqueryGeneratedJavaScriptResourceReference"));
 	}
 }
