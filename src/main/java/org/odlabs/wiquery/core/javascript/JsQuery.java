@@ -37,7 +37,6 @@ import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
 import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResource;
-import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -188,6 +187,9 @@ public class JsQuery implements Serializable, IHeaderContributor {
 		final String js = statement == null ? null : statement.render().toString();
 		
 		if (js != null && js.trim().length() > 0) {
+			JsStatement onreadyStatement = new JsStatement();
+			onreadyStatement.document().ready(JsScope.quickScope(js));
+			
 			if (settings.isEmbedGeneratedStatements()) {
                 if (settings.isAutoImportJQueryResource()) {
                     JavascriptResourceReference ref = settings.getJQueryCoreResourceReference();
@@ -197,27 +199,19 @@ public class JsQuery implements Serializable, IHeaderContributor {
                 if (requestTarget == null || !(requestTarget instanceof AjaxRequestTarget)) {
                     // appending component statement
                     // on dom ready, the code is executed.
-                    JsStatement onreadyStatement = new JsStatement();
-                    onreadyStatement.document().ready(JsScope.quickScope(js));
-                    response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen" + System.currentTimeMillis());
+                    response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), System.currentTimeMillis()+"wiquery-gen");
 
                 } else {
                 	addAjaxJavascript(requestTarget, js);
                 }
 
             } else if (AjaxRequestTarget.get() == null) {
-				// appending component statement
-				// on dom ready, the code is executed.
-				JsStatement onreadyStatement = new JsStatement();
-				onreadyStatement.document().ready(JsScope.quickScope(js));
-
 				/*
 				 * use {@link WiqueryGeneratedJavaScriptResourceReference} to
 				 * compress, minimize, etc the given javascript, then
 				 * immediately retrieve it.
 				 */
-				response.renderJavascriptReference(
-						new WiqueryGeneratedJavaScriptResourceReference(onreadyStatement.render()));
+            	response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), System.currentTimeMillis()+"wiquery-gen");
 
 			} else {
 				addAjaxJavascript(requestTarget, js);
