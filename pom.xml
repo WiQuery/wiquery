@@ -8,7 +8,7 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 
 	<name>WiQuery project</name>
 
@@ -23,7 +23,7 @@
 			<url>svn:https://wiquery.googlecode.com/svn/repo</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<repositories>
 		<repository>
 			<id>maven repo 1</id>
@@ -35,11 +35,11 @@
 			<name>Java.net Repository for Maven</name>
 			<url>http://download.java.net/maven/2/</url>
 		</repository>
-		<repository> 
-                <id>maven.atlassian.com</id> 
-                <name>maven.atlassian.com</name> 
-                <url>https://maven.atlassian.com/3rdparty</url> 
-        </repository>
+		<repository>
+			<id>maven.atlassian.com</id>
+			<name>maven.atlassian.com</name>
+			<url>https://maven.atlassian.com/3rdparty</url>
+		</repository>
 	</repositories>
 
 	<properties>
@@ -134,6 +134,12 @@
 
 	<dependencies>
 		<!-- System dependencies -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- External dependencies -->
 		<dependency>
@@ -171,10 +177,10 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
