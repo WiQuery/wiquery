@@ -49,7 +49,7 @@ public class WiqueryGeneratedJavaScriptResource extends
 	 */
 	@Override
 	protected IResourceStream getPackageResourceStream() {
-		return new StringResourceStream(getWiQueryGeneratedJavaScriptCode());
+		return new StringResourceStream(getWiQueryGeneratedJavaScriptCode(), "text/javascript");
 	}
 
 	/**
