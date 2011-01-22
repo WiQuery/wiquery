@@ -35,17 +35,23 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  */
 public class DatePickerYearRange extends Object implements IComplexOption {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
+
 	// Properties
-	private short yearFrom;
-	private short yearTo;
-	
+	private Short yearFrom;
+	private Short yearTo;
+	private Short relativeYearFrom;
+	private Short relativeYearTo;
+	private Boolean yearRelativeToToday;
+
 	/**
-	 * Constructor
-	 * @param yearFrom the range's start
-	 * @param yearTo the range's end
+	 * Constructor which sets absolute yearFrom and yearTo, eg: 2000 and 2020.
+	 * 
+	 * @param yearFrom
+	 *            the range's start
+	 * @param yearTo
+	 *            the range's end
 	 */
 	public DatePickerYearRange(short yearFrom, short yearTo) {
 		super();
@@ -53,45 +59,65 @@ public class DatePickerYearRange extends Object implements IComplexOption {
 		this.yearTo = yearTo;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Constructor which sets relative yearFrom and yearTo, eh: -10 and 10.
+	 * 
+	 * @param yearFrom
+	 *            the range's start
+	 * @param yearTo
+	 *            the range's end
+	 * @param yearRelativeToToday
+	 *            determines whether to count from today's year or the currently
+	 *            selected year.
+	 */
+	public DatePickerYearRange(short yearFrom, short yearTo,
+			boolean yearRelativeToToday) {
+		super();
+		this.yearFrom = yearFrom;
+		this.yearTo = yearTo;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
-		if (yearFrom > yearTo) {
+		if ((yearFrom != null && yearTo != null && yearFrom > yearTo)
+				|| (relativeYearFrom != null && relativeYearTo != null && relativeYearFrom > relativeYearTo)) {
 			throw new IllegalArgumentException("Invalid year range");
 		}
-		
-		String yearFromStr = (this.yearFrom > 0 ? "+" : "") + Short.toString(this.yearFrom);
-		String yearToStr = (this.yearTo > 0 ? "+" : "") + Short.toString(this.yearTo);
-		
+
+		String yearFromStr = "";
+		String yearToStr = "";
+
+		if (yearFrom != null && yearTo != null) {
+			yearFromStr = Short.toString(this.yearFrom);
+			yearToStr = Short.toString(this.yearTo);
+		} else if (relativeYearFrom != null && relativeYearTo != null) {
+			if (!yearRelativeToToday) {
+				yearFromStr = "c";
+				yearToStr = "c";
+			}
+
+			yearFromStr += (this.relativeYearFrom > 0 ? "+" : "-")
+					+ Short.toString(this.relativeYearFrom);
+			yearToStr += (this.relativeYearTo > 0 ? "+" : "-")
+					+ Short.toString(this.relativeYearTo);
+		}
+
 		return new LiteralOption(yearFromStr + ":" + yearToStr).toString();
 	}
-	
-	/**
-	 * @return the yearFrom
-	 */
-	public short getYearFrom() {
-		return yearFrom;
-	}
 
-	/**
-	 * @return the yearTo
-	 */
-	public short getYearTo() {
-		return yearTo;
-	}
-
-	/**
-	 * @param yearFrom the yearFrom to set
-	 */
-	public void setYearFrom(short yearFrom) {
+	public void setAbsoluteRange(short yearFrom, short yearTo) {
 		this.yearFrom = yearFrom;
+		this.yearTo = yearTo;
 	}
 
-	/**
-	 * @param yearTo the yearTo to set
-	 */
-	public void setYearTo(short yearTo) {
+	public void setRelativeRange(short yearFrom, short yearTo,
+			boolean yearRelativeToToday) {
+		this.yearFrom = yearFrom;
 		this.yearTo = yearTo;
+		this.yearRelativeToToday = yearRelativeToToday;
 	}
 }
