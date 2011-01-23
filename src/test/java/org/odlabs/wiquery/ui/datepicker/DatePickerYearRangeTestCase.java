@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.ui.datepicker;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -24,15 +23,5 @@ public class DatePickerYearRangeTestCase extends WiQueryTestCase {
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-
-		// IllegalParameters param
-		yearRAnge.setYearFrom(new Short("16"));
-		try {
-			generatedJavascript = yearRAnge.getJavascriptOption().toString();
-			assertTrue(false);
-		} catch (Exception e) {
-			// We have an expected error
-			assertEquals("Invalid year range", e.getMessage());
-		}
 	}
 }
