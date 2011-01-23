@@ -477,12 +477,12 @@ public class DatePickerTestCase extends WiQueryTestCase {
 		assertNotNull(datePicker.getYearRange());
 		assertEquals(
 				datePicker.getYearRange().getJavascriptOption().toString(),
-				"'-10:+10'");
+				"'-10:10'");
 		datePicker.setYearRange(new DatePickerYearRange(new Short("-20"),
 				new Short("20")));
 		assertEquals(
 				datePicker.getYearRange().getJavascriptOption().toString(),
-				"'-20:+20'");
+				"'-20:20'");
 	}
 
 	/**

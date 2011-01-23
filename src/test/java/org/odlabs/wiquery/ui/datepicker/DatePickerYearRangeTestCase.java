@@ -17,7 +17,7 @@ public class DatePickerYearRangeTestCase extends WiQueryTestCase {
 				new Short("-10"), new Short("10"));
 
 		// Short params
-		String expectedJavascript = "'-10:+10'";
+		String expectedJavascript = "'-10:10'";
 		String generatedJavascript = yearRAnge.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
