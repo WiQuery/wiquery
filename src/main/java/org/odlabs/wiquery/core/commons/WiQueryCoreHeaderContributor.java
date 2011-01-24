@@ -108,6 +108,9 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private static final MetaDataKey<Long> WIQUERY_PAGE_KEY = new MetaDataKey<Long>() {
 		private static final long serialVersionUID = 1L;
 	};
+	private static final MetaDataKey<WiQueryHeaderResponse> WIQUERY_MERGER = new MetaDataKey<WiQueryHeaderResponse>() {
+		private static final long serialVersionUID = 1L;
+	};
 
 	private Component owner;
 
@@ -155,12 +158,22 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 				visitor.component(page);
 			}
 
-			WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
+			WiQueryHeaderResponse wiQueryHeaderResponse;
 			IHeaderResponse headerResponse;
-			if (settings.isEnableResourcesMerging()) {
-				wiQueryHeaderResponse.setIHeaderResponse(response);
+			if (settings.isEnableResourcesMerging() && page != null) {
+				wiQueryHeaderResponse = page.getMetaData(WIQUERY_MERGER);
+				
+				if(wiQueryHeaderResponse == null){
+					wiQueryHeaderResponse = new WiQueryHeaderResponse();
+					page.setMetaData(WIQUERY_MERGER, wiQueryHeaderResponse);
+				}
+				
+				wiQueryHeaderResponse.setIHeaderResponse(response); // Preserved already used
+				// references
 				headerResponse = wiQueryHeaderResponse;
+				
 			} else {
+				wiQueryHeaderResponse = null;
 				headerResponse = response;
 			}
 
@@ -204,12 +217,24 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 
 		final List<WiQueryPluginRenderingListener> pluginRenderingListeners = getRenderingListeners(settings);
 
+		WiQueryHeaderResponse wiQueryHeaderResponse;
 		IHeaderResponse headerResponse;
-		WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
 		if (settings.isEnableResourcesMerging()) {
-			wiQueryHeaderResponse.setIHeaderResponse(response);
-			headerResponse = wiQueryHeaderResponse;
+			Page page = RequestCycle.get().getResponsePage();
+			
+			if(page == null || page.getMetaData(WIQUERY_MERGER) == null){
+				wiQueryHeaderResponse = null;
+				headerResponse = response;
+				
+			} else {
+				wiQueryHeaderResponse = page.getMetaData(WIQUERY_MERGER);
+				wiQueryHeaderResponse.setIHeaderResponse(response); // Preserved already used
+				// references
+				headerResponse = wiQueryHeaderResponse;
+			}
+			
 		} else {
+			wiQueryHeaderResponse = null;
 			headerResponse = response;
 		}
 
@@ -265,7 +290,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private void mergeResources(final IHeaderResponse response,
 			WiQuerySettings settings,
 			WiQueryHeaderResponse wiQueryHeaderResponse) {
-		if (settings.isEnableResourcesMerging()) {
+		if (settings.isEnableResourcesMerging() && wiQueryHeaderResponse != null) {
 			// Merging of stylesheet resources
 			if (!wiQueryHeaderResponse.getStylesheet().isEmpty()) {
 				response
