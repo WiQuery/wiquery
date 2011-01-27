@@ -33,9 +33,6 @@ public class MarkupIdVisitor implements IVisitor<Component> {
 			this.foundComponent = component;
 			return IVisitor.STOP_TRAVERSAL;
 		}
-		if (component instanceof MarkupContainer) {
-			return ((MarkupContainer) component).visitChildren(this);
-		}
 		return IVisitor.CONTINUE_TRAVERSAL;
 	}
 
