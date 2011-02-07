@@ -199,7 +199,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
                 if (requestTarget == null || !(requestTarget instanceof AjaxRequestTarget)) {
                     // appending component statement
                     // on dom ready, the code is executed.
-                    response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), System.currentTimeMillis()+"wiquery-gen");
+                    response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen-"+System.currentTimeMillis());
 
                 } else {
                 	addAjaxJavascript(requestTarget, js);
@@ -211,7 +211,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 				 * compress, minimize, etc the given javascript, then
 				 * immediately retrieve it.
 				 */
-            	response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), System.currentTimeMillis()+"wiquery-gen");
+            	response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen-"+System.currentTimeMillis());
 
 			} else {
 				addAjaxJavascript(requestTarget, js);
