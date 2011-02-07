@@ -39,6 +39,6 @@ public class WiQueryCoreThemeResourceReference extends WiQueryYUICompressedStyle
 
 	public WiQueryCoreThemeResourceReference(String theme) {
 		super(WiQueryCoreThemeResourceReference.class, theme
-				+ "/jquery-ui-1.9.custom.css");
+				+ "/jquery-ui-1.8.9.custom.css");
 	}
 }
