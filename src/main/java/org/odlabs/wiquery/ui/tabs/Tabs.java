@@ -126,8 +126,9 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * Additional Ajax options to consider when loading tab content (see $.ajax).
 	 * @param ajaxOptions
 	 */
-	public void setAjaxOptions(JQueryAjaxOption ajaxOptions) {
+	public Tabs setAjaxOptions(JQueryAjaxOption ajaxOptions) {
 		this.options.put("ajaxOptions", ajaxOptions);
+		return this;
 	}
 	
 	/**
@@ -156,8 +157,9 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @param cookie
 	 */
-	public void setCookie(JQueryCookieOption cookie) {
+	public Tabs setCookie(JQueryCookieOption cookie) {
 		this.options.put("cookie", cookie);
+		return this;
 	}
 	
 	/**

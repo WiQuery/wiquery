@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.core.util;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Component.IVisitor;
 
 /**

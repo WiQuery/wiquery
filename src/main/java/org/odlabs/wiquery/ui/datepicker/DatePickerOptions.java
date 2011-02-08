@@ -275,7 +275,7 @@ public class DatePickerOptions extends Options {
 			return (DatePickerYearRange)yearRange;
 		}
 		
-		return null;
+		return new DatePickerYearRange(new Short("-10"), new Short("10"), false);
 	}
 	
 	/**Additional text to display after the year in the month headers. This 
