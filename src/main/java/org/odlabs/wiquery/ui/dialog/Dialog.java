@@ -30,6 +30,7 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
+import org.odlabs.wiquery.ui.button.ButtonJavascriptResourceReference;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
@@ -114,10 +115,9 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
-		wiQueryResourceManager
-				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
-		wiQueryResourceManager
-				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 	}
 
 	/*
