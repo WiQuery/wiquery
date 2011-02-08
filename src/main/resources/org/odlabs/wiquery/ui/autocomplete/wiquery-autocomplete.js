@@ -48,7 +48,7 @@
 			  	var matcher = new RegExp( "^" + val + "$", "i" );
 	
 			  	$.each(source, function(index, value) {
-			  		if(value.label !== undefined && value.label !== null && value.label.match( matcher )){
+			  		if(value && value.label && value.label.match( matcher )){
 			  			find = value;
 			  			$(event.target).val(value.label);
 			  			return false;
