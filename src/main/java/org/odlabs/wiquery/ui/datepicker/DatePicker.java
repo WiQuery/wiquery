@@ -21,6 +21,8 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
+import java.util.Locale;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
@@ -142,9 +144,10 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
 		
-		wiQueryResourceManager
-			.addJavaScriptResource(new DatePickerLanguageResourceReference(
-				getLocale())); // If locale is null or there is no translation, we will have the english version
+		// If locale is null or current locale is US: no translation is needed.
+		Locale locale = getLocale();
+		if (locale != null && !getLocale().equals(Locale.US))
+			wiQueryResourceManager.addJavaScriptResource(new DatePickerLanguageResourceReference(getLocale()));
 	}
 
 	/* (non-Javadoc)

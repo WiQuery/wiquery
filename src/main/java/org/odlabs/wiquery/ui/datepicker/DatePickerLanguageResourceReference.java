@@ -103,7 +103,7 @@ public class DatePickerLanguageResourceReference extends
 		THAI				("th"),
 		TRADITIONAL_CHINESE	(Locale.TRADITIONAL_CHINESE),
 		TURKISH				("tr"),
-		UNITED_KINGDOM		(Locale.UK), // Default locale
+		UNITED_KINGDOM		(Locale.UK),
 		UKRAINIAN			("uk"),
 		VIETNAMESE			("vi");
 		
@@ -158,9 +158,8 @@ public class DatePickerLanguageResourceReference extends
 		 * @return the value
 		 */
 		public static DatePickerLanguages getDatePickerLanguages(Locale locale){
-			if(locale == null || locale.getLanguage().equalsIgnoreCase(Locale.ENGLISH.getLanguage())){
-				return DatePickerLanguages.UNITED_KINGDOM;
-			}
+			if(locale == null)
+				return null;
 			
 			Locale tmpLocale = null;
 			String language = locale.getLanguage();
