@@ -21,6 +21,13 @@
  */
 package org.odlabs.wiquery.core.javascript;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.odlabs.wiquery.core.events.EventLabel;
 
 /**
@@ -94,6 +101,20 @@ public class JsUtils {
 			output += " " + eventLabel.getEventLabel();
 		}
 		return output + "'";
+	}
+	
+	/**
+	 * Method using the jackson API to generate a json representation of your
+	 * Java object
+	 * @param jsonObject A serializable object
+	 * @return the json representation as a string
+	 * @throws IOException Exeption during the process
+	 */
+	public static String json(Serializable jsonObject) throws IOException {
+		StringWriter sw = new StringWriter();
+		JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
+		new ObjectMapper().writeValue(gen, jsonObject);
+		return sw.toString();
 	}
 	
 	/**

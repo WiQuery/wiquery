@@ -2,6 +2,11 @@ package org.odlabs.wiquery.core.javascript;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+import java.io.Serializable;
+
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -101,6 +106,26 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 
 		assertEquals(generatedJavascript, expectedJavascript);
 	}
+	
+	/**
+	 * Test
+	 * {@link JsUtils#json(java.io.Serializable)}
+	 */
+	@Test
+	public void testJson() {
+		try {
+			String expectedJavascript = "{\"anId\":\"aLiteralValue\",\"aValue\":42,\"bools\":[true,false,true]}";
+			String generatedJavascript = JsUtils.json(new JSonObject("aLiteralValue", 42, true, false, true));
+
+			log.info(expectedJavascript);
+			log.info(generatedJavascript);
+			
+			assertEquals(generatedJavascript, expectedJavascript);
+			
+		} catch (IOException e) {
+			Assert.fail(e.getMessage());
+		}
+	}
 
 	/**
 	 * Test {@link JsUtils#quotes(CharSequence)} and
@@ -139,5 +164,43 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 		log.info(generatedJavascript);
 
 		assertEquals(generatedJavascript, expectedJavascript);
+	}
+	
+	protected class JSonObject implements Serializable {
+		private static final long serialVersionUID = 1L;
+		
+		private String anId;
+		private int aValue;
+		private boolean[] bools;
+		
+		public JSonObject(String anId, int aValue, boolean... bools) {
+			this.anId = anId;
+			this.aValue = aValue;
+			this.bools = bools;
+		}
+		
+		public String getAnId() {
+			return anId;
+		}
+
+		public void setAnId(String anId) {
+			this.anId = anId;
+		}
+
+		public int getaValue() {
+			return aValue;
+		}
+
+		public void setaValue(int aValue) {
+			this.aValue = aValue;
+		}
+
+		public boolean[] getBools() {
+			return bools;
+		}
+
+		public void setBools(boolean[] bools) {
+			this.bools = bools;
+		}
 	}
 }
