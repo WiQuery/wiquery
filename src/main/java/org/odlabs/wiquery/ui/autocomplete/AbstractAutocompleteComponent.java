@@ -263,16 +263,17 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	protected final void convertInput() {
 		String valueId = autocompleteHidden.getConvertedInput();
 		String input = autocompleteField.getConvertedInput();
+		final T object = this.getModelObject();
+		final IChoiceRenderer<? super T> renderer = getChoiceRenderer();
 
 		if(valueId == null && Strings.isEmpty(input)){
 			setConvertedInput(null);
 
 		} else if(valueId == null){
 			setConvertedInput(getValueOnSearchFail(input));
-
-		} else {
+			
+		} else if (object == null || input.compareTo((String) renderer.getDisplayValue(object)) != 0) {
 			final List<? extends T> choices = getChoices();
-			final IChoiceRenderer<? super T> renderer = getChoiceRenderer();
 			boolean found = false;
 			for (int index = 0; index < choices.size(); index++)
 			{
@@ -296,6 +297,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 					setConvertedInput(getValueOnSearchFail(input));
 				}
 			}
+		} else {
+			setConvertedInput(object);
 		}
 	}
 	
