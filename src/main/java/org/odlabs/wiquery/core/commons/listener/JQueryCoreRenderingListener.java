@@ -55,7 +55,7 @@ public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListen
 		
 		if(settings.isAutoImportJQueryResource()){
 			ResourceReference ref = settings.getJQueryCoreResourceReference();
-			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
+			response.renderJavaScriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
 		}
 	}
 }

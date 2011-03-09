@@ -361,7 +361,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void close(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.close().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.close().render().toString());
 	}
 	
 	/**Method to destroy the autocomplete
@@ -376,7 +376,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 	
 	/**Method to disable the autocomplete
@@ -390,7 +390,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 	
 	/**Method to enable the autocomplete
@@ -404,7 +404,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 	
 	/**Method to search the autocomplete
@@ -418,7 +418,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void search(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.search().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.search().render().toString());
 	}
 	
 	/**Method to search the autocomplete
@@ -434,7 +434,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @param value String
 	 */
 	public void search(AjaxRequestTarget ajaxRequestTarget, String value) {
-		ajaxRequestTarget.appendJavascript(this.search(value).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.search(value).render().toString());
 	}
 	
 	/**Method to returns the .ui-autocomplete  element
@@ -448,6 +448,6 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 }

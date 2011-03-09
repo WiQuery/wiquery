@@ -28,10 +28,10 @@ import java.util.ListIterator;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.javascript.IJavascriptCompressor;
-import org.apache.wicket.javascript.NoOpJavascriptCompressor;
+import org.apache.wicket.javascript.IJavaScriptCompressor;
+import org.apache.wicket.javascript.NoOpJavaScriptCompressor;
 import org.apache.wicket.request.resource.ResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedStyleSheetResource;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
@@ -92,10 +92,10 @@ public class WiQuerySettings implements Serializable {
 
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
 
-		IJavascriptCompressor compressor = Application.get()
-				.getResourceSettings().getJavascriptCompressor();
+		IJavaScriptCompressor compressor = Application.get()
+				.getResourceSettings().getJavaScriptCompressor();
 		setMinifiedResources(compressor != null
-				&& !(compressor instanceof NoOpJavascriptCompressor));
+				&& !(compressor instanceof NoOpJavaScriptCompressor));
 	}
 
 	/**

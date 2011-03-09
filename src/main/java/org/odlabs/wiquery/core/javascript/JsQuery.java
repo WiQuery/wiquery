@@ -26,9 +26,9 @@ import java.util.Map;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse;
+import org.apache.wicket.ajax.AjaxRequestTarget.IJavaScriptResponse;
 import org.apache.wicket.ajax.AjaxRequestTarget.IListener;
-import org.apache.wicket.behavior.AbstractBehavior;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.IRequestHandler;
@@ -68,7 +68,7 @@ import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReferen
  * @author Lionel Armanet
  * @since 0.7
  */
-public class JsQuery extends AbstractBehavior implements Serializable {
+public class JsQuery extends Behavior implements IHeaderContributor, Serializable {
 
 	private static final long serialVersionUID = -5351600688981395614L;
 
@@ -138,7 +138,7 @@ public class JsQuery extends AbstractBehavior implements Serializable {
 		
 		if(settings.isAutoImportJQueryResource()){
 			ResourceReference ref = settings.getJQueryCoreResourceReference();
-			response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
+			response.renderJavaScriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
 		}
 		
 		if (!WiQueryUtil.isCurrentRequestAjax()) {
@@ -189,7 +189,7 @@ public class JsQuery extends AbstractBehavior implements Serializable {
 			if (settings.isEmbedGeneratedStatements()) {
                 if (settings.isAutoImportJQueryResource()) {
                 	ResourceReference ref = settings.getJQueryCoreResourceReference();
-                    response.renderJavascriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);
+                    response.renderJavaScriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);
                 }
 
                 if (!WiQueryUtil.isCurrentRequestAjax()) {
@@ -197,7 +197,7 @@ public class JsQuery extends AbstractBehavior implements Serializable {
                     // on dom ready, the code is executed.
                     JsStatement onreadyStatement = new JsStatement();
                     onreadyStatement.document().ready(JsScope.quickScope(js));
-                    response.renderJavascript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen" + System.currentTimeMillis());
+                    response.renderJavaScript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen" + System.currentTimeMillis());
 
                 } else {
                 	addAjaxJavascript(requestHandler, js);
@@ -214,7 +214,7 @@ public class JsQuery extends AbstractBehavior implements Serializable {
 				 * compress, minimize, etc the given javascript, then
 				 * immediately retrieve it.
 				 */
-				response.renderJavascriptReference(
+				response.renderJavaScriptReference(
 						new WiqueryGeneratedJavaScriptResourceReference(onreadyStatement.render()));
 
 			} else {
@@ -236,8 +236,8 @@ public class JsQuery extends AbstractBehavior implements Serializable {
 			 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onAfterRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse)
 			 */
 			public void onAfterRespond(Map<String, Component> map,
-					IJavascriptResponse response) {
-				response.addJavascript(js);
+					IJavaScriptResponse response) {
+				response.addJavaScript(js);
 			}
 
 			/**

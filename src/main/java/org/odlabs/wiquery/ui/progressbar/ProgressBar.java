@@ -174,7 +174,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 	
 	/**Method to disable the progressBar
@@ -188,7 +188,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 	
 	/**Method to enable the progressBar
@@ -202,7 +202,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 	
 	/**Method to get the current value of the progressBar
@@ -225,7 +225,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param value
 	 */
 	public void value(AjaxRequestTarget ajaxRequestTarget, int value) {
-		ajaxRequestTarget.appendJavascript(this.value(value).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.value(value).render().toString());
 	}
 	
 	/*---- wiQuery Methods section ---*/
@@ -256,7 +256,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void increment(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.increment().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.increment().render().toString());
 	}
 	
 	/**Method to increment the value of the progressBar within the ajax request
@@ -264,7 +264,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param increment The increment to add to the current value
 	 */
 	public void increment(AjaxRequestTarget ajaxRequestTarget, int increment) {
-		ajaxRequestTarget.appendJavascript(this.increment(increment).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.increment(increment).render().toString());
 	}
 	
 	/**Method to decrement the value of the progressBar
@@ -293,7 +293,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void decrement(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.decrement().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.decrement().render().toString());
 	}
 	
 	/**Method to decrement the value of the progressBar within the ajax request
@@ -301,7 +301,7 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param decrement The decrement to add to the current value
 	 */
 	public void decrement(AjaxRequestTarget ajaxRequestTarget, int decrement) {
-		ajaxRequestTarget.appendJavascript(this.decrement(decrement).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.decrement(decrement).render().toString());
 	}
 	
 	/**Method to returns the .ui-progressbar  element
@@ -315,6 +315,6 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 }

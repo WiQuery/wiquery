@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AbstractBehavior;
-import org.apache.wicket.behavior.IBehavior;
+import org.apache.wicket.behavior.Behavior;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 
 public class BehaviorHelper {
 
 	public static boolean hasBehavior(Component component, Class<? extends AbstractBehavior> clazz) {
-		List<? extends IBehavior> behaviors = component.getBehaviors();
-		for (IBehavior behavior : behaviors) {
+		List<? extends Behavior> behaviors = component.getBehaviors();
+		for (Behavior behavior : behaviors) {
 			if(behavior.getClass().equals(clazz)) {
 				return true;
 			}
@@ -22,8 +22,8 @@ public class BehaviorHelper {
 	
 	public static List<WiQueryAbstractBehavior> getWiQueryBehaviors(Component component) {
 		List<WiQueryAbstractBehavior> wqb = new ArrayList<WiQueryAbstractBehavior>();
-		List<? extends IBehavior> behaviors = component.getBehaviors();
-		for (IBehavior behavior : behaviors) {
+		List<? extends Behavior> behaviors = component.getBehaviors();
+		for (Behavior behavior : behaviors) {
 			if (behavior instanceof WiQueryAbstractBehavior) {
 				wqb.add((WiQueryAbstractBehavior) behavior);
 			}

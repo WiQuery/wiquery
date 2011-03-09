@@ -902,7 +902,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void cancel(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.cancel().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.cancel().render().toString());
 	}
 	
 	/**Method to destroy
@@ -917,7 +917,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 	
 	/**Method to disable
@@ -931,7 +931,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 	
 	/**Method to enable
@@ -945,7 +945,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 	
 	/**Method to refresh
@@ -959,7 +959,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void refresh(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.refresh().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.refresh().render().toString());
 	}
 	
 	/**Method to refresh positions
@@ -973,7 +973,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void refreshPositions(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.refreshPositions().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.refreshPositions().render().toString());
 	}
 	
 	/**Method to serialize (in default mode)
@@ -987,7 +987,7 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void serialize(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.serialize().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.serialize().render().toString());
 	}
 	
 	/**Method to serializes the sortable's item id's into an array of string
@@ -1008,6 +1008,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 }

@@ -25,7 +25,6 @@ import java.util.Locale;
 
 import org.apache.wicket.Session;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.request.resource.JavascriptResourceReference;
 import org.apache.wicket.request.resource.SharedResourceReference;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;

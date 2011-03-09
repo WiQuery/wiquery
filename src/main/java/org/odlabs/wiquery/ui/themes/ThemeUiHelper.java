@@ -321,7 +321,7 @@ public abstract class ThemeUiHelper {
 	 * @param ajaxRequestTarget Ajax transaction
 	 */
 	public static void hover(Component component, AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(hover(component).render().toString());
+		ajaxRequestTarget.appendJavaScript(hover(component).render().toString());
 	}
 	
 	/**

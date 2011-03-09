@@ -86,7 +86,7 @@ public class JQueryUICoreRenderingListener implements
 					response.renderCSSReference(DEFAULT_THEME);
 				}
 				response
-						.renderJavascriptReference(CoreUIJavaScriptResourceReference
+						.renderJavaScriptReference(CoreUIJavaScriptResourceReference
 								.get());
 			}
 		}

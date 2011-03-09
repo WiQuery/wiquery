@@ -25,10 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 import org.odlabs.wiquery.tester.matchers.ComponentMatcher;
 
 public class CollectingVisitor<X extends Component> implements
-		Component.IVisitor<Component> {
+		IVisitor<Component, Void> {
 	private ComponentMatcher matcher;
 
 	private boolean findFirst = false;
@@ -49,12 +51,11 @@ public class CollectingVisitor<X extends Component> implements
 	}
 
 	@SuppressWarnings("unchecked")
-	public Object component(Component component) {
+	public void component(Component component, IVisit<Void> visit) {
 		if (matcher.matches(component)) {
 			matchedComponents.add((X) component);
-			return findFirst ? Component.IVisitor.STOP_TRAVERSAL
-					: Component.IVisitor.CONTINUE_TRAVERSAL;
+			if(findFirst)
+				visit.stop();
 		}
-		return Component.IVisitor.CONTINUE_TRAVERSAL;
 	}
 }

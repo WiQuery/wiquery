@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.wicket.IClusterable;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.request.resource.PackageResource;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.io.Streams;
@@ -39,10 +40,9 @@ import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.template.PackagedTextTemplate;
 import org.apache.wicket.util.time.Time;
-import org.odlabs.wiquery.core.commons.SubclassablePackageResource;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
-import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedStyleSheetResource;
-import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedStyleSheetResourceStream;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,7 +147,7 @@ PackageResourceReference implements IClusterable {
 				}
 			};
 		}else{
-			return new SubclassablePackageResource(getScope(), getName(),
+			return new PackageResource(getScope(), getName(),
 					getLocale(), getStyle(), getVariation()) {
 				private static final long serialVersionUID = 1L;
 	

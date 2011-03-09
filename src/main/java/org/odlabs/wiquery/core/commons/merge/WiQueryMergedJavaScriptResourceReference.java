@@ -26,9 +26,9 @@ import java.util.Map;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.IClusterable;
-import org.apache.wicket.javascript.IJavascriptCompressor;
+import org.apache.wicket.javascript.IJavaScriptCompressor;
 import org.apache.wicket.request.resource.IResource;
-import org.apache.wicket.request.resource.JavascriptResourceReference;
+import org.apache.wicket.request.resource.PackageResource;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.io.Streams;
@@ -37,7 +37,6 @@ import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.template.PackagedTextTemplate;
 import org.apache.wicket.util.time.Time;
-import org.odlabs.wiquery.core.commons.SubclassablePackageResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,7 +96,7 @@ public class WiQueryMergedJavaScriptResourceReference extends
 
 	@Override
 	public IResource getResource() {
-		return new SubclassablePackageResource(getScope(), getName(),
+		return new PackageResource(getScope(), getName(),
 				getLocale(), getStyle(), getVariation()) {
 
 			private static final long serialVersionUID = 1L;
@@ -106,8 +105,8 @@ public class WiQueryMergedJavaScriptResourceReference extends
 				String temp;
 				Application application = Application.get();
 				StringBuffer buffer = new StringBuffer();
-				IJavascriptCompressor compressor = application
-						.getResourceSettings().getJavascriptCompressor();
+				IJavaScriptCompressor compressor = application
+						.getResourceSettings().getJavaScriptCompressor();
 
 				for (ResourceReference ref : wiQueryHeaderResponse
 						.getJavascript()) {

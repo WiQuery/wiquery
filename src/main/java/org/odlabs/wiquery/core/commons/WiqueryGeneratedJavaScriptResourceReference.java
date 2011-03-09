@@ -23,10 +23,9 @@ package org.odlabs.wiquery.core.commons;
 
 import org.apache.wicket.IClusterable;
 import org.apache.wicket.request.resource.IResource;
-import org.apache.wicket.request.resource.JavascriptResourceReference;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.util.time.Time;
-import org.odlabs.wiquery.core.commons.compressed.old.WiQueryYUICompressedJavaScriptResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedJavaScriptResourceReference;
 
 /**
  * $Id: WiqueryGeneratedJavaScriptResourceReference.java 412 2010-09-17

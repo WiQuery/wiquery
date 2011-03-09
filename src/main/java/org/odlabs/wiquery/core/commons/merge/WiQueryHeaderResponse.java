@@ -209,7 +209,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements
 	 * @see org.apache.wicket.markup.html.internal.HeaderResponse#renderJavascriptReference(org.apache.wicket.ResourceReference)
 	 */
 	@Override
-	public void renderJavascriptReference(ResourceReference reference) {
+	public void renderJavaScriptReference(ResourceReference reference) {
 		Object object = Arrays.asList(new Object[] { "javascript",
 				RequestCycle.get().urlFor(reference, null) });
 
@@ -234,7 +234,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements
 	 *      java.lang.String)
 	 */
 	@Override
-	public void renderJavascriptReference(ResourceReference reference, String id) {
+	public void renderJavaScriptReference(ResourceReference reference, String id) {
 		Object object = Arrays.asList(new Object[] { "javascript",
 				RequestCycle.get().urlFor(reference, null) });
 

@@ -420,7 +420,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 	
 	/**Method to disable the slider
@@ -434,7 +434,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 	
 	/**Method to enable the slider
@@ -448,7 +448,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 	
 	/**Method to set the current value of the slider
@@ -464,7 +464,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param value
 	 */
 	public void value(AjaxRequestTarget ajaxRequestTarget, int value) {
-		ajaxRequestTarget.appendJavascript(this.value(value).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.value(value).render().toString());
 	}
 	
 	/**Method to get the values of the slider.
@@ -478,7 +478,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void values(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.values().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.values().render().toString());
 	}
 	
 	/**Method to set the values of the slider. For multiple handle or range sliders.
@@ -497,7 +497,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param value
 	 */
 	public void values(AjaxRequestTarget ajaxRequestTarget, int index, int value) {
-		ajaxRequestTarget.appendJavascript(this.values(index, value).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.values(index, value).render().toString());
 	}
 	
 	/**Method to returns the .ui-slider  element
@@ -511,6 +511,6 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 }

@@ -25,11 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
-import org.apache.wicket.behavior.HeaderContributor;
-import org.apache.wicket.behavior.IBehavior;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -40,6 +38,8 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.util.tester.ITestPageSource;
 import org.apache.wicket.util.tester.TestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 import org.odlabs.wiquery.core.commons.WiQueryCoreHeaderContributor;
 import org.odlabs.wiquery.tester.matchers.ComponentMatcher;
 import org.odlabs.wiquery.tester.matchers.ComponentTypeMatcher;
@@ -80,7 +80,7 @@ public class WiQueryTester extends WicketTester {
 	 * Sets the value on the input control.
 	 */
 	public void setValue(FormComponent<?> input, String value) {
-		getServletRequest().setParameter(input.getInputName(), value);
+		getLastRequest().setParameter(input.getInputName(), value);
 	}
 
 	/**
@@ -166,14 +166,13 @@ public class WiQueryTester extends WicketTester {
 		Page renderedPage = getLastRenderedPage();
 		final List<IHeaderContributor> contributors = new ArrayList<IHeaderContributor>();
 
-		renderedPage.visitChildren(new IVisitor<Component>() {
-			public Object component(Component component) {
-				for (IBehavior behavior : component.getBehaviors())
-					if (behavior instanceof HeaderContributor
+		renderedPage.visitChildren(new IVisitor<Component, Void>() {
+			public void component(Component component, IVisit<Void> visit) {
+				for (Behavior behavior : component.getBehaviors())
+					if (behavior instanceof IHeaderContributor
 							|| behavior instanceof WiQueryCoreHeaderContributor)
 						contributors.add((IHeaderContributor) behavior);
 
-				return Component.IVisitor.CONTINUE_TRAVERSAL;
 			}
 		});
 		
@@ -188,14 +187,6 @@ public class WiQueryTester extends WicketTester {
 		{
 			if(contributor instanceof WiQueryCoreHeaderContributor)
 				return (WiQueryCoreHeaderContributor) contributor;
-			else if(contributor instanceof HeaderContributor)
-			{
-				for(IHeaderContributor innercontributor : ((HeaderContributor)contributor).getHeaderContributors())
-				{
-					if(innercontributor instanceof WiQueryCoreHeaderContributor)
-						return (WiQueryCoreHeaderContributor) innercontributor;
-				}
-			}
 		}
 		
 		return null;

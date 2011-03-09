@@ -24,27 +24,11 @@
 		</repository>
 	</distributionManagement>
 	
-	<repositories>
-		<repository>
-			<id>maven repo 1</id>
-			<name>Maven Repository Manager</name>
-			<url>http://repo1.maven.org/maven2/</url>
-		</repository>
-		<repository>
-			<id>maven2-repository.dev.java.net</id>
-			<name>Java.net Repository for Maven</name>
-			<url>http://download.java.net/maven/2/</url>
-		</repository>
-		<repository> 
-                <id>maven.atlassian.com</id> 
-                <name>maven.atlassian.com</name> 
-                <url>https://maven.atlassian.com/3rdparty</url> 
-        </repository>
-	</repositories>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>1.5-SNAPSHOT</wicket.version>
+		<wicket.version>1.5-rc2</wicket.version>
 		<jackson.version>1.6.1</jackson.version>
 		<log4j.version>1.2.16</log4j.version>
 		<slf4j.version>1.6.1</slf4j.version>
@@ -99,6 +83,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9-SNAPSHOT</version>
 				<configuration>
 					<projectNameTemplate>
 						[artifactId]-[version]
@@ -113,14 +98,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3</version>
+				<inherited>true</inherited>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
+					<encoding>UTF-8</encoding>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -133,6 +124,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+				<inherited>true</inherited>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -145,6 +141,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.0-beta-4</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
@@ -162,6 +159,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
 					<finalName>${project.artifactId}-${project.version}-r${buildNumber}-d${timestamp}</finalName>
 				</configuration>
@@ -187,7 +185,17 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket</artifactId>
+			<artifactId>wicket-core</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-request</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-util</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
 		<dependency>

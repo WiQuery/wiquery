@@ -25,10 +25,10 @@ import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.javascript.JsUtils;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.datepicker.DateOption;
-import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
  * $Id: JQueryCookieOption
@@ -202,7 +202,7 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 * @param ajaxRequestTarget
 	 */
 	public void deleteCookie(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.deleteCookie().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.deleteCookie().render().toString());
 	}
 	
 	/**Method to retrieve the cookie
@@ -226,6 +226,6 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 * @param ajaxRequestTarget
 	 */
 	public void setCookie(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.setCookie().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.setCookie().render().toString());
 	}
 }

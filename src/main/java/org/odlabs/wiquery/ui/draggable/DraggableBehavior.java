@@ -829,7 +829,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 	
 	/**Method to disable the draggable
@@ -843,7 +843,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 	
 	/**Method to enable the draggable
@@ -857,7 +857,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 	
 	/**Method to returns the .ui-draggable element
@@ -871,6 +871,6 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @param ajaxRequestTarget
 	 */
 	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 }

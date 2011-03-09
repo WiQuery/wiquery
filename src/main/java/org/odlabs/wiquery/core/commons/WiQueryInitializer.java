@@ -74,6 +74,10 @@ public class WiQueryInitializer implements IInitializer {
 		retrieveAndCallInitializers(application, settings);
 	}
 
+	public void destroy(Application application) {
+		//noop
+	}
+
 	private IWiQueryInitializer getIWiQueryInitializer(String className) {
 		if (className == null) {
 			return null;

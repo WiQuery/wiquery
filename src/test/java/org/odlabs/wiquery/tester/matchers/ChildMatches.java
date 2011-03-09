@@ -2,7 +2,8 @@ package org.odlabs.wiquery.tester.matchers;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.Component.IVisitor;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 
 /**
  * Matcher die controleert of een kind van het huidige component voldoet aan de
@@ -27,12 +28,12 @@ public class ChildMatches implements ComponentMatcher {
 		return false;
 	}
 
-	class ChildMatchingVisitor implements IVisitor<Component> {
+	class ChildMatchingVisitor implements IVisitor<Component, Void> {
 		boolean matches = false;
 
-		public Object component(Component child) {
-			matches = childMatcher.matches(child);
-			return matches ? STOP_TRAVERSAL : CONTINUE_TRAVERSAL;
+		public void component(Component child, IVisit<Void> visit) {
+			if(childMatcher.matches(child))
+				visit.stop();
 		}
 	}
 
