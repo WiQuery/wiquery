@@ -204,7 +204,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 					String displayValue = "";
 					if (objectClass != null && objectClass != String.class)
 					{
-						final IConverter converter = getConverter(objectClass);
+						final IConverter<T> converter = getConverter(objectClass);
 	
 						displayValue = converter.convertToString(objectValue, getLocale());
 					}
@@ -328,16 +328,17 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	 * @param obj
 	 * @return a new instance of {@link AutocompleteJson}
 	 */
+	@SuppressWarnings("unchecked")
 	protected AutocompleteJson newAutocompleteJson(int id, T obj) {
 
 		boolean thisOneSelected = obj.equals(getModelObject());
-		Object objectValue = getChoiceRenderer().getDisplayValue(obj);
-		Class<?> objectClass = (objectValue == null ? null : objectValue.getClass());
+		T objectValue = (T) getChoiceRenderer().getDisplayValue(obj);
+		Class<T> objectClass = (Class<T>)(objectValue == null ? null : objectValue.getClass());
 
 		String displayValue = "";
 		if (objectClass != null && objectClass != String.class)
 		{
-			final IConverter converter = getConverter(objectClass);
+			final IConverter<T> converter = getConverter(objectClass);
 			displayValue = converter.convertToString(objectValue, getLocale());
 		}
 		else if (objectValue != null)

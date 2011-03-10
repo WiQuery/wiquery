@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.behavior.AbstractBehavior;
 import org.apache.wicket.behavior.Behavior;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 
 public class BehaviorHelper {
 
-	public static boolean hasBehavior(Component component, Class<? extends AbstractBehavior> clazz) {
+	public static boolean hasBehavior(Component component, Class<? extends Behavior> clazz) {
 		List<? extends Behavior> behaviors = component.getBehaviors();
 		for (Behavior behavior : behaviors) {
 			if(behavior.getClass().equals(clazz)) {

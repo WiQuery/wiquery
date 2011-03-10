@@ -1,13 +1,13 @@
 package org.odlabs.wiquery.core.behavior;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.behavior.AbstractBehavior;
+import org.apache.wicket.behavior.Behavior;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 // abstract entry point for all wiquery behaviors
-public abstract class WiQueryAbstractBehavior extends AbstractBehavior implements IWiQueryPlugin {
+public abstract class WiQueryAbstractBehavior extends Behavior implements IWiQueryPlugin {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 6498661892490365888L;
@@ -42,5 +42,6 @@ public abstract class WiQueryAbstractBehavior extends AbstractBehavior implement
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
 	 */
 	public abstract JsStatement statement();
+	
 	
 }
