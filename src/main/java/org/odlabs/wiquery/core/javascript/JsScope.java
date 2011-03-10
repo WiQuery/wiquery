@@ -23,6 +23,8 @@ package org.odlabs.wiquery.core.javascript;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
 /**
  * $Id$
  * <p>
@@ -139,6 +141,7 @@ public abstract class JsScope implements Serializable {
 	/**
 	 * Renders the scope.
 	 */
+	@JsonValue
 	public CharSequence render() {
 		if(statement == null){
 			statement = new StringBuilder();

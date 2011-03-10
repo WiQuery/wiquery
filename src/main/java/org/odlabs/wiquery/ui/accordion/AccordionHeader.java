@@ -21,6 +21,7 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
+import org.codehaus.jackson.annotate.JsonValue;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
@@ -79,9 +80,7 @@ public class AccordionHeader implements IComplexOption {
 		return objectParam;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
+	@JsonValue
 	public CharSequence getJavascriptOption() {
 		if(objectParam == null && literalParam == null){
 			throw new IllegalArgumentException("The AccordionHeader must have one not null parameter");
