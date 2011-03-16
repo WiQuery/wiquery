@@ -123,7 +123,8 @@ public class WiQueryCoreHeaderContributor extends Behavior implements Serializab
 	/**
 	 * Renders WiQuery's JavaScript code.
 	 */
-	public void renderHead(final IHeaderResponse response) {
+	@Override
+	public void renderHead(Component component, IHeaderResponse response) {
 		AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
 		if (ajaxRequestTarget == null) {
 			renderResponse(response);

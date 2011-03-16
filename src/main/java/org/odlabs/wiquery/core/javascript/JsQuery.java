@@ -37,7 +37,6 @@ import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
 import org.odlabs.wiquery.core.commons.WiQueryUtil;
 import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResource;
-import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -214,8 +213,7 @@ public class JsQuery extends Behavior implements IHeaderContributor, Serializabl
 				 * compress, minimize, etc the given javascript, then
 				 * immediately retrieve it.
 				 */
-				response.renderJavaScriptReference(
-						new WiqueryGeneratedJavaScriptResourceReference(onreadyStatement.render()));
+            	response.renderJavaScript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen-"+System.currentTimeMillis());
 
 			} else {
 				addAjaxJavascript(requestHandler, js);
