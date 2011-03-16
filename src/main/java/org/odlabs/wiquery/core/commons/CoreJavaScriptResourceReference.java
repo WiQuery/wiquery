@@ -52,7 +52,7 @@ public class CoreJavaScriptResourceReference extends
 	 * Builds a new instance of {@link CoreJavaScriptResourceReference}.
 	 */
 	private CoreJavaScriptResourceReference() {
-		super(CoreJavaScriptResourceReference.class, "jquery/jquery-1.5.js");
+		super(CoreJavaScriptResourceReference.class, "jquery/jquery-1.5.1.js");
 	}
 
 }
