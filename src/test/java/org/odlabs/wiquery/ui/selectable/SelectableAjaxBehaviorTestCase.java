@@ -56,7 +56,7 @@ public class SelectableAjaxBehaviorTestCase extends WiQueryTestCase {
 		String genrateAjaxStatment = selectableAjaxBehavior.statement()
 				.render().toString();
 		String expectedAjaxStatement = "$('#anId').selectable({stop: function(event, ui) {\n\t"
-				+ "var selected = new Array();jQuery.each($('#anId').children(\"*[class*='ui-selected']\"), function(){selected.push($(this).attr('id'));});var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&selectedArray='+ jQuery.unique(selected).toString(),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var selected = new Array();jQuery.each($('#anId').find(\".ui-selectee.ui-selected\"), function(){selected.push($(this).attr('id'));});var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&selectedArray='+ jQuery.unique(selected).toString(),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}});";
 		assertNotNull(selectableAjaxBehavior.getSelectableBehavior());
 		assertEquals(genrateAjaxStatment, expectedAjaxStatement);
