@@ -116,7 +116,7 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 				protected void execute(JsScopeContext scopeContext) {
 					scopeContext.append("var selected = new Array();"
 							+ "jQuery.each($('#" + getComponent().getMarkupId(true) +"')" +
-									".children(\"*[class*='ui-selected']\"), function(){" +
+									".find(\".ui-selectee.ui-selected\"), function(){" +
 									"selected.push($(this).attr('id'));});"
 							+ SelectableAjaxBehavior.this.getCallbackScript(true));
 				}
