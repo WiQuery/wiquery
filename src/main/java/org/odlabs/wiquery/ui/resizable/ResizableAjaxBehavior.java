@@ -183,10 +183,10 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * For framework internal use only.
 	 */
 	public final void onResize(AjaxRequestTarget target) {
-		int height = this.getComponent().getRequest().getQueryParameters().getParameterValue(
-				RESIZED_HEIGHT).toInt();
-		int width = this.getComponent().getRequest().getQueryParameters().getParameterValue(
-				RESIZED_WIDTH).toInt();
+		int height = (int) this.getComponent().getRequest().getQueryParameters().getParameterValue(
+				RESIZED_HEIGHT).toDouble();
+		int width = (int) this.getComponent().getRequest().getQueryParameters().getParameterValue(
+				RESIZED_WIDTH).toDouble();
 		onResize(height, width, target);
 	}
 
