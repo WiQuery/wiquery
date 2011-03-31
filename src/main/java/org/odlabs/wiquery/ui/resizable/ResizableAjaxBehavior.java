@@ -22,6 +22,7 @@
 package org.odlabs.wiquery.ui.resizable;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
@@ -183,10 +184,10 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	 * For framework internal use only.
 	 */
 	public final void onResize(AjaxRequestTarget target) {
-		int height = Integer.parseInt(this.getComponent().getRequest().getParameter(
-				RESIZED_HEIGHT));
-		int width = Integer.parseInt(this.getComponent().getRequest().getParameter(
-				RESIZED_WIDTH));
+		Request request = this.getComponent().getRequest();
+		int height = Math.round(Float.parseFloat(request.getParameter(RESIZED_HEIGHT)));
+		int width = Math.round(Float.parseFloat(request.getParameter(RESIZED_WIDTH)));
+		
 		onResize(height, width, target);
 	}
 
