@@ -25,10 +25,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.effects.basic.Hide;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
 
 /**
  * Test on {@link EffectBehavior}
@@ -47,10 +50,19 @@ public class EffectBehaviorTestCase extends WiQueryTestCase {
 
 		effectBehavior = new EffectBehavior(new Hide());
 
-		component = new WebMarkupContainer("aComponent");
-		component.setMarkupId(component.getId());
-		component.setOutputMarkupId(true);
-		component.add(effectBehavior);
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				component = new WebMarkupContainer("anId");
+				component.setMarkupId(component.getId());
+				component.setOutputMarkupId(true);
+				component.add(effectBehavior);
+				panel.add(component);
+				return panel;
+			}
+		});
 	}
 
 	/**
@@ -60,6 +72,6 @@ public class EffectBehaviorTestCase extends WiQueryTestCase {
 	@Test
 	public void testStatement() {
 		assertEquals(effectBehavior.statement().render().toString(),
-				"$('#aComponent').hide();");
+				"$('#anId').hide();");
 	}
 }

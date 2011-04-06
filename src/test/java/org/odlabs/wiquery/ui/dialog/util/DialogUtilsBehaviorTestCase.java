@@ -75,7 +75,7 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
 		assertEquals(
 				dialogUtilsBehavior.errorDialog("a message").render()
 						.toString(),
-				"$.ui.dialog.wiquery.errorDialog(2, 'fr', \"a message\", 'resources/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/cancel.png');");
+				"$.ui.dialog.wiquery.errorDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/cancel.png');");
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
 		assertEquals(
 				dialogUtilsBehavior.questionDialog("a message").render()
 						.toString(),
-				"$.ui.dialog.wiquery.questionDialog(2, 'fr', \"a message\", 'resources/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/questionmark.png');");
+				"$.ui.dialog.wiquery.questionDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/questionmark.png');");
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
 				"$('#dialog2').dialog('close');");
 		assertEquals(
 				st.getOpen().render().toString(),
-				"$.ui.dialog.wiquery.waitDialog(2, 'fr', 'resources/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/wait.gif');");
+				"$.ui.dialog.wiquery.waitDialog(2, 'fr', 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/wait.gif');");
 	}
 
 	/**
@@ -136,6 +136,6 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
 		assertEquals(
 				dialogUtilsBehavior.warningDialog("a message").render()
 						.toString(),
-				"$.ui.dialog.wiquery.warningDialog(2, 'fr', \"a message\", 'resources/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/warning.png');");
+				"$.ui.dialog.wiquery.warningDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/warning.png');");
 	}
 }

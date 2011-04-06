@@ -27,12 +27,16 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.dialog.Dialog.WindowPosition;
 
@@ -50,8 +54,17 @@ public class DialogTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		dialog = new Dialog("anId");
-		dialog.setMarkupId(dialog.getId());
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				dialog = new Dialog("anId");
+				dialog.setMarkupId(dialog.getId());
+				panel.add(dialog);
+				return panel;
+			}
+		});
 	}
 
 	/**

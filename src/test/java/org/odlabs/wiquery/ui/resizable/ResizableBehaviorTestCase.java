@@ -28,10 +28,14 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
+import org.odlabs.wiquery.ui.button.ButtonBehavior;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.resizable.ResizableContainment.ElementEnum;
 
@@ -51,9 +55,18 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase {
 
 		resizableBehavior = new ResizableBehavior();
 
-		WebMarkupContainer component = new WebMarkupContainer("anId");
-		component.setMarkupId("anId");
-		component.add(resizableBehavior);
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				WebMarkupContainer component = new WebMarkupContainer("anId");
+				component.setMarkupId("anId");
+				component.add(resizableBehavior);
+				panel.add(component);
+				return panel;
+			}
+		});
 	}
 
 	/**

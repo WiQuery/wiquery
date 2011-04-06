@@ -28,6 +28,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 
@@ -44,6 +45,7 @@ public class DroppableAjaxBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
+	@Ignore("This testcase tests if the wicket team decides to change the AJAX JS or not")
 	public void testStatement() {
 		InnerDroppableAjaxBehavior droppableAjaxBehavior = new InnerDroppableAjaxBehavior();
 		WebMarkupContainer component = new WebMarkupContainer("anId");

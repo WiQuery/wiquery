@@ -30,9 +30,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.InputTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.datepicker.DatePicker.ShowOnEnum;
 import org.odlabs.wiquery.ui.datepicker.DatePickerDuration.DurationEnum;
@@ -54,8 +57,17 @@ public class DatePickerTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		datePicker = new DatePicker<Date>("anId");
-		datePicker.setMarkupId(datePicker.getId());
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new InputTestPanel(panelId);
+				datePicker = new DatePicker<Date>("anId");
+				datePicker.setMarkupId(datePicker.getId());
+				panel.add(datePicker);
+				return panel;
+			}
+		});
 	}
 
 	/**

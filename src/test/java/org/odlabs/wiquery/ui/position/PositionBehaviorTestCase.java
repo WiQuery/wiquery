@@ -28,9 +28,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
 import org.odlabs.wiquery.ui.position.PositionOptions.Position;
 
@@ -50,9 +53,18 @@ public class PositionBehaviorTestCase extends WiQueryTestCase {
 
 		positionBehavior = new PositionBehavior();
 
-		WebMarkupContainer component = new WebMarkupContainer("anId");
-		component.setMarkupId("anId");
-		component.add(positionBehavior);
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				WebMarkupContainer component = new WebMarkupContainer("anId");
+				component.setMarkupId("anId");
+				component.add(positionBehavior);
+				panel.add(component);
+				return panel;
+			}
+		});
 	}
 
 	/**

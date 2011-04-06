@@ -24,11 +24,14 @@ package org.odlabs.wiquery.core.javascript;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.helper.CssHelper;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,8 +84,17 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test public void test$Component() {
-		WebMarkupContainer component = new WebMarkupContainer("anId");
-		component.setMarkupId("anId");
+		final WebMarkupContainer component = new WebMarkupContainer("anId");
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				component.setMarkupId("anId");
+				panel.add(component);
+				return panel;
+			}
+		});
 		assertAndLog("$('#anId');", jsStatement.$(component).render());
 	}
 
@@ -95,8 +107,17 @@ public class JsStatementTestCase extends WiQueryTestCase {
 		assertAndLog("$('span');", jsStatement.$(null, "span").render());
 		jsStatement = new JsStatement();
 
-		WebMarkupContainer component = new WebMarkupContainer("anId");
-		component.setMarkupId("anId");
+		final WebMarkupContainer component = new WebMarkupContainer("anId");
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				component.setMarkupId("anId");
+				panel.add(component);
+				return panel;
+			}
+		});
 		assertAndLog("$('#anId span');", jsStatement.$(component, "span")
 				.render());
 	}

@@ -27,11 +27,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.slider.Slider.Orientation;
 import org.odlabs.wiquery.ui.slider.SliderAnimate.AnimateEnum;
@@ -51,8 +54,17 @@ public class SliderTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		slider = new Slider("anId", 5, 10);
-		slider.setMarkupId(slider.getId());
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				slider = new Slider("anId", 5, 10);
+				slider.setMarkupId(slider.getId());
+				panel.add(slider);
+				return panel;
+			}
+		});
 	}
 
 	/**

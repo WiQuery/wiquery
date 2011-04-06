@@ -30,9 +30,14 @@ import static org.junit.Assert.fail;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
+import org.odlabs.wiquery.ui.InputTestPanel;
+import org.odlabs.wiquery.ui.slider.Slider;
 import org.odlabs.wiquery.ui.themes.UiIcon;
 
 /**
@@ -50,10 +55,19 @@ public class ButtonTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		button = new WebMarkupContainer("anId");
-		buttonBehavior = new ButtonBehavior();
-		button.add(buttonBehavior);
-		button.setMarkupId(button.getId());
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new InputTestPanel(panelId);
+				button = new WebMarkupContainer("anId");
+				buttonBehavior = new ButtonBehavior();
+				button.add(buttonBehavior);
+				button.setMarkupId(button.getId());
+				panel.add(button);
+				return panel;
+			}
+		});
 	}
 
 	/**
@@ -69,7 +83,7 @@ public class ButtonTestCase extends WiQueryTestCase {
 		} catch (Exception e) {
 			assertTrue(e instanceof WicketRuntimeException);
 			assertEquals(
-					"Component failedButton must be applied to a tag of type 'input', 'button' or 'a', not '<table wicket:id=\"failedButton\" id=\"failedButton1\">' (line 0, column 0)",
+					"Component failedButton must be applied to a tag of type 'input', 'button' or 'a', not  '<table wicket:id=\"failedButton\" id=\"failedButton1\">' (line 0, column 0)",
 					e.getMessage());
 		}
 	}

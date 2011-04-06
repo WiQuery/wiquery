@@ -27,9 +27,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.selectable.SelectableBehavior.ToleranceEnum;
 
@@ -48,10 +51,19 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 		super.setUp();
 
 		selectableBehavior = new SelectableBehavior();
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
 
-		WebMarkupContainer component = new WebMarkupContainer("anId");
-		component.setMarkupId("anId");
-		component.add(selectableBehavior);
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				WebMarkupContainer component = new WebMarkupContainer("anId");
+				component.setMarkupId("anId");
+				component.add(selectableBehavior);
+				panel.add(component);
+				return panel;
+			}
+		});
+
 	}
 
 	/**

@@ -28,6 +28,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
@@ -39,6 +41,7 @@ import org.odlabs.wiquery.core.options.IListItemOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
@@ -55,8 +58,17 @@ public class TabsTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		tabs = new Tabs("anId");
-		tabs.setMarkupId(tabs.getId());
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				tabs = new Tabs("anId");
+				tabs.setMarkupId(tabs.getId());
+				panel.add(tabs);
+				return panel;
+			}
+		});
 	}
 
 	/**
@@ -76,11 +88,20 @@ public class TabsTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testAddIntStringComponent() {
-		WebMarkupContainer container = new WebMarkupContainer("tabToAdd");
+		final WebMarkupContainer container = new WebMarkupContainer("anId");
 		container.setMarkupId(container.getId());
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				panel.add(container);
+				return panel;
+			}
+		});
 		assertNotNull(tabs.add(5, "a title", container));
 		assertEquals(tabs.add(5, "a title", container).render().toString(),
-				"$('#anId').tabs('add', '#tabToAdd', 'a title', 5);");
+				"$('#anId').tabs('add', '#anId', 'a title', 5);");
 	}
 
 	/**
@@ -90,11 +111,20 @@ public class TabsTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testAddStringComponent() {
-		WebMarkupContainer container = new WebMarkupContainer("tabToAdd");
+		final WebMarkupContainer container = new WebMarkupContainer("anId");
 		container.setMarkupId(container.getId());
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new DivTestPanel(panelId);
+				panel.add(container);
+				return panel;
+			}
+		});
 		assertNotNull(tabs.add("a title", container));
 		assertEquals(tabs.add("a title", container).render().toString(),
-				"$('#anId').tabs('add', '#tabToAdd', 'a title');");
+				"$('#anId').tabs('add', '#anId', 'a title');");
 	}
 
 	/**

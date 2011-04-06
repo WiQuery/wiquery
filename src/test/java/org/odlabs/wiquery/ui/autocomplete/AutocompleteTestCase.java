@@ -27,9 +27,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.InputTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.position.PositionOptions;
 
@@ -47,8 +50,17 @@ public class AutocompleteTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		autocomplete = new Autocomplete<String>("anId");
-		autocomplete.setMarkupId(autocomplete.getId());
+		tester.startPanel(new TestPanelSource() {
+			private static final long serialVersionUID = 1L;
+
+			public Panel getTestPanel(String panelId) {
+				Panel panel = new InputTestPanel(panelId);
+				autocomplete = new Autocomplete<String>("anId");
+				autocomplete.setMarkupId(autocomplete.getId());
+				panel.add(autocomplete);
+				return panel;
+			}
+		});
 	}
 
 	/**
