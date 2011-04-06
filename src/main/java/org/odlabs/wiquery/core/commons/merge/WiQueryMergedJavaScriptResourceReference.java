@@ -35,7 +35,7 @@ import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
-import org.apache.wicket.util.template.PackagedTextTemplate;
+import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.time.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +68,7 @@ public class WiQueryMergedJavaScriptResourceReference extends
 			.getLogger(WiQueryMergedJavaScriptResourceReference.class);
 
 	// Properties
-	private PackagedTextTemplate jstemplate;
+	private PackageTextTemplate jstemplate;
 	private WiQueryHeaderResponse wiQueryHeaderResponse;
 
 	public WiQueryMergedJavaScriptResourceReference(
@@ -80,7 +80,7 @@ public class WiQueryMergedJavaScriptResourceReference extends
 								.getJavascript()));
 
 		this.wiQueryHeaderResponse = wiQueryHeaderResponse;
-		jstemplate = new PackagedTextTemplate(
+		jstemplate = new PackageTextTemplate(
 				WiQueryMergedJavaScriptResourceReference.class, TEMPLATE_NAME);
 	}
 

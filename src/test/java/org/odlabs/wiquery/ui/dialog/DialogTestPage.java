@@ -11,6 +11,10 @@ import org.apache.wicket.model.ResourceModel;
  */
 public class DialogTestPage extends WebPage {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Dialog dialog;
 
 	/**

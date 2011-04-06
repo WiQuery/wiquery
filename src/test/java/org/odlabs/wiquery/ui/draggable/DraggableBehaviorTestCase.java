@@ -29,13 +29,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.TestPanelSource;
+import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
-import org.odlabs.wiquery.ui.button.ButtonBehavior;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.AxisEnum;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.CursorAtEnum;
@@ -60,7 +59,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 
 		draggableBehavior = new DraggableBehavior();
 
-		tester.startPanel(new TestPanelSource() {
+		tester.startPanel(new ITestPanelSource() {
 			private static final long serialVersionUID = 1L;
 
 			public Panel getTestPanel(String panelId) {

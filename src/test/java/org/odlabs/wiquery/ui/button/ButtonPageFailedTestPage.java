@@ -34,6 +34,11 @@ import org.apache.wicket.markup.html.WebPage;
  * @since 1.1
  */
 public class ButtonPageFailedTestPage extends WebPage {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ButtonPageFailedTestPage() {
 		super();
 		add(new WebMarkupContainer("failedButton").add(new ButtonBehavior()));

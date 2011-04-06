@@ -132,7 +132,7 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 					// we delegate URL generation to outer behavior.
 					// that way all logic regarding AjaxCallDecorators will be added 
 					// by AbstractDefaultAjaxBehavior.generateCallbackScript method.
-					scopeContext.append(DroppableAjaxBehavior.this.getCallbackScript(true));
+					scopeContext.append(DroppableAjaxBehavior.this.getCallbackScript());
 				}
 
 			});

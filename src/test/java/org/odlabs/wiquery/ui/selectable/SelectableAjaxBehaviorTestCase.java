@@ -83,5 +83,10 @@ public class SelectableAjaxBehaviorTestCase extends WiQueryTestCase {
 
 	private class InnerPage extends WebPage {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 	}
 }

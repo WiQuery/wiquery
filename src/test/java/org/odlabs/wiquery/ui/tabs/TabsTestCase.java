@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.TestPanelSource;
+import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
@@ -58,7 +58,7 @@ public class TabsTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		tester.startPanel(new TestPanelSource() {
+		tester.startPanel(new ITestPanelSource() {
 			private static final long serialVersionUID = 1L;
 
 			public Panel getTestPanel(String panelId) {
@@ -90,7 +90,7 @@ public class TabsTestCase extends WiQueryTestCase {
 	public void testAddIntStringComponent() {
 		final WebMarkupContainer container = new WebMarkupContainer("anId");
 		container.setMarkupId(container.getId());
-		tester.startPanel(new TestPanelSource() {
+		tester.startPanel(new ITestPanelSource() {
 			private static final long serialVersionUID = 1L;
 
 			public Panel getTestPanel(String panelId) {
@@ -113,7 +113,7 @@ public class TabsTestCase extends WiQueryTestCase {
 	public void testAddStringComponent() {
 		final WebMarkupContainer container = new WebMarkupContainer("anId");
 		container.setMarkupId(container.getId());
-		tester.startPanel(new TestPanelSource() {
+		tester.startPanel(new ITestPanelSource() {
 			private static final long serialVersionUID = 1L;
 
 			public Panel getTestPanel(String panelId) {

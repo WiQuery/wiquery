@@ -25,12 +25,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.TestPanelSource;
+import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
-import org.odlabs.wiquery.ui.button.ButtonBehavior;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +66,7 @@ public class JsQueryTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		tester.startPanel(new TestPanelSource() {
+		tester.startPanel(new ITestPanelSource() {
 			private static final long serialVersionUID = 1L;
 
 			public Panel getTestPanel(String panelId) {

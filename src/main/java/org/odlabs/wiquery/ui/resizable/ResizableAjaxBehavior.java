@@ -122,7 +122,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 				 */
 				@Override
 				protected void execute(JsScopeContext scopeContext) {					
-					scopeContext.append(ResizableAjaxBehavior.this.getCallbackScript(true));
+					scopeContext.append(ResizableAjaxBehavior.this.getCallbackScript());
 				}
 
 			});

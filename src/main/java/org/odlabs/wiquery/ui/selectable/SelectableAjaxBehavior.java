@@ -118,7 +118,7 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 							+ "jQuery.each($('#" + getComponent().getMarkupId(true) +"')" +
 									".find(\".ui-selectee.ui-selected\"), function(){" +
 									"selected.push($(this).attr('id'));});"
-							+ SelectableAjaxBehavior.this.getCallbackScript(true));
+							+ SelectableAjaxBehavior.this.getCallbackScript());
 				}
 
 			});

@@ -31,13 +31,11 @@ import static org.junit.Assert.fail;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.TestPanelSource;
+import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
-import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.InputTestPanel;
-import org.odlabs.wiquery.ui.slider.Slider;
 import org.odlabs.wiquery.ui.themes.UiIcon;
 
 /**
@@ -55,7 +53,7 @@ public class ButtonTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-		tester.startPanel(new TestPanelSource() {
+		tester.startPanel(new ITestPanelSource() {
 			private static final long serialVersionUID = 1L;
 
 			public Panel getTestPanel(String panelId) {

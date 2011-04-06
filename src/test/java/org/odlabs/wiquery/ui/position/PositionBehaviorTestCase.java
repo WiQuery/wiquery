@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.TestPanelSource;
+import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -53,7 +53,7 @@ public class PositionBehaviorTestCase extends WiQueryTestCase {
 
 		positionBehavior = new PositionBehavior();
 
-		tester.startPanel(new TestPanelSource() {
+		tester.startPanel(new ITestPanelSource() {
 			private static final long serialVersionUID = 1L;
 
 			public Panel getTestPanel(String panelId) {

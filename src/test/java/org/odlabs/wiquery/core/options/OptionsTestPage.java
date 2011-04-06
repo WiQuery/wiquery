@@ -10,6 +10,11 @@ import org.apache.wicket.markup.html.WebPage;
  */
 public class OptionsTestPage extends WebPage {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public OptionsTestPage(OptionsTestPanel panel) {
 		add(panel);
 	}

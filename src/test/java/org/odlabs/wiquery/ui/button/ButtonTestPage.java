@@ -12,6 +12,10 @@ import org.apache.wicket.model.ResourceModel;
  */
 public class ButtonTestPage extends WebPage {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ButtonBehavior behavior;
 
 	/**

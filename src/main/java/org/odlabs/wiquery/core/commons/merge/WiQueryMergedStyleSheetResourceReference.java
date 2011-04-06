@@ -38,7 +38,7 @@ import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
-import org.apache.wicket.util.template.PackagedTextTemplate;
+import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.time.Time;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
 import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource;
@@ -103,7 +103,7 @@ PackageResourceReference implements IClusterable {
 	}
 	
 	// Properties
-	private PackagedTextTemplate csstemplate;
+	private PackageTextTemplate csstemplate;
 	private WiQueryHeaderResponse wiQueryHeaderResponse;
 	
 	public WiQueryMergedStyleSheetResourceReference(WiQueryHeaderResponse wiQueryHeaderResponse) {
@@ -112,16 +112,16 @@ PackageResourceReference implements IClusterable {
 				WiQueryHeaderResponse.getMergedResourceName(wiQueryHeaderResponse.getStylesheet()));
 		
 		this.wiQueryHeaderResponse = wiQueryHeaderResponse;
-		csstemplate = new PackagedTextTemplate(
+		csstemplate = new PackageTextTemplate(
 				WiQueryMergedStyleSheetResourceReference.class, 
 				TEMPLATE_NAME);
 	}
 	
 	/**
-	 * Returns the last modified time of the {@link PackagedTextTemplate}
+	 * Returns the last modified time of the {@link PackageTextTemplate}
 	 * itself.
 	 * 
-	 * @return the last modified time of the {@link PackagedTextTemplate} itself
+	 * @return the last modified time of the {@link PackageTextTemplate} itself
 	 */
 	public Time lastModifiedTime() {
 		return csstemplate.lastModifiedTime();

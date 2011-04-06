@@ -3,7 +3,7 @@ package org.odlabs.wiquery.core.commons;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.wicket.util.template.PackagedTextTemplate;
+import org.apache.wicket.util.template.PackageTextTemplate;
 
 /**
  * <p>
@@ -17,7 +17,7 @@ public class WiqueryGeneratedJavaScriptResource {
 	private static final long serialVersionUID = 1L;
 
 	public static String wiqueryGeneratedJavascriptCode(CharSequence javaScriptCode) {
-        PackagedTextTemplate jstemplate = new PackagedTextTemplate(
+		PackageTextTemplate jstemplate = new PackageTextTemplate(
                 WiqueryGeneratedJavaScriptResource.class,
                 "wiquery-gen.js");
 
