@@ -105,26 +105,11 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#statementArgs()
 	 */
 	public CharSequence[] statementArgs() {
-		int size = this.parameters.size();
-		boolean effectIsSet = this.effectCallback() != null;
-		
-		if(effectIsSet) {
-			size++;
+		List<CharSequence> ret = new ArrayList<CharSequence>(this.parameters);
+		if (this.effectCallback() != null) {
+			ret.add(this.effectCallback().render());
 		}
-		
-		CharSequence[] args = new CharSequence[size];
-		int count = 0;
-		
-		for (CharSequence charSequence : this.parameters) {
-			args[count] = charSequence;
-			count++;
-		}
-		
-		if(effectIsSet) {
-			args[count] = this.effectCallback().render();
-		}
-		
-		return args;
+		return ret.toArray(new CharSequence[ret.size()]);
 	}
 
 	/**
