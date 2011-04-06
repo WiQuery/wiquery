@@ -1,5 +1,5 @@
 /*
- * jQuery UI Datepicker 1.8.10
+ * jQuery UI Datepicker 1.8.11
  *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -12,7 +12,7 @@
  */
 (function( $, undefined ) {
 
-$.extend($.ui, { datepicker: { version: "1.8.10" } });
+$.extend($.ui, { datepicker: { version: "1.8.11" } });
 
 var PROP_NAME = 'datepicker';
 var dpuuid = new Date().getTime();
@@ -444,7 +444,14 @@ $.extend(Datepicker.prototype, {
 				this._hideDatepicker();
 			}
 			var date = this._getDateDatepicker(target, true);
+			var minDate = this._getMinMaxDate(inst, 'min');
+			var maxDate = this._getMinMaxDate(inst, 'max');
 			extendRemove(inst.settings, settings);
+			// reformat the old minDate/maxDate values if dateFormat changes and a new minDate/maxDate isn't provided
+			if (minDate !== null && settings['dateFormat'] !== undefined && settings['minDate'] === undefined)
+				inst.settings.minDate = this._formatDate(inst, minDate);
+			if (maxDate !== null && settings['dateFormat'] !== undefined && settings['maxDate'] === undefined)
+				inst.settings.maxDate = this._formatDate(inst, maxDate);
 			this._attachments($(target), inst);
 			this._autoSize(inst);
 			this._setDateDatepicker(target, date);
@@ -1757,7 +1764,7 @@ $.fn.datepicker = function(options){
 $.datepicker = new Datepicker(); // singleton instance
 $.datepicker.initialized = false;
 $.datepicker.uuid = new Date().getTime();
-$.datepicker.version = "1.8.10";
+$.datepicker.version = "1.8.11";
 
 // Workaround for #4055
 // Add another global to avoid noConflict issues with inline event handlers
