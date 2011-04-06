@@ -5,7 +5,7 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.5-M1</version>
 	<name>WiQuery project</name>
 
 	<scm>
