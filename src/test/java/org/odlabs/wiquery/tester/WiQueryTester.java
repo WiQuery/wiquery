@@ -38,7 +38,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.util.tester.ITestPageSource;
-import org.apache.wicket.util.tester.TestPanelSource;
+import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.core.commons.WiQueryCoreHeaderContributor;
 import org.odlabs.wiquery.tester.matchers.ComponentMatcher;
@@ -104,7 +104,7 @@ public class WiQueryTester extends WicketTester {
 	 *            <code>Panel</code> instances
 	 * @return a rendered <code>Panel</code>
 	 */
-	public Panel startFormPanel(final TestPanelSource factory) {
+	public Panel startFormPanel(final ITestPanelSource factory) {
 		FormTestPage page = (FormTestPage) startPage(new ITestPageSource() {
 			private static final long serialVersionUID = 1L;
 

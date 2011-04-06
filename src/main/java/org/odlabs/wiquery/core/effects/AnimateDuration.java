@@ -24,8 +24,8 @@ package org.odlabs.wiquery.core.effects;
 import java.io.Serializable;
 
 import org.apache.wicket.WicketRuntimeException;
-import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.javascript.JsUtils;
+import org.odlabs.wiquery.core.options.IComplexOption;
 
 /**
  * $Id$

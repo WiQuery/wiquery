@@ -25,14 +25,14 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.util.tester.DummyPanelPage;
-import org.apache.wicket.util.tester.TestPanelSource;
+import org.apache.wicket.util.tester.ITestPanelSource;
 
 public class FormTestPage extends WebPage {
 	private Form<Void> form;
 
 	private WebMarkupContainer panel;
 
-	public FormTestPage(TestPanelSource panelFactory) {
+	public FormTestPage(ITestPanelSource panelFactory) {
 		form = new Form<Void>("form");
 		add(form);
 		panel = panelFactory.getTestPanel(DummyPanelPage.TEST_PANEL_ID);

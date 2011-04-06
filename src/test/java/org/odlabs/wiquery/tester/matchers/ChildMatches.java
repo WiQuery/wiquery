@@ -1,8 +1,8 @@
 package org.odlabs.wiquery.tester.matchers;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Component.IVisitor;
+import org.apache.wicket.MarkupContainer;
 
 /**
  * Matcher die controleert of een kind van het huidige component voldoet aan de

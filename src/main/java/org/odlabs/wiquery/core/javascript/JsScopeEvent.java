@@ -21,9 +21,6 @@
  */
 package org.odlabs.wiquery.core.javascript;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
-import org.odlabs.wiquery.core.javascript.JsScopeContext;
-import org.odlabs.wiquery.core.javascript.JsStatement;
 
 
 /**

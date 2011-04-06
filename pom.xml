@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
-
-	<!-- Identification -->
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
 	<version>1.2-SNAPSHOT</version>
-
 	<name>WiQuery project</name>
 
 	<scm>
@@ -24,32 +20,14 @@
 		</repository>
 	</distributionManagement>
 
-	<repositories>
-		<repository>
-			<id>maven repo 1</id>
-			<name>Maven Repository Manager</name>
-			<url>http://repo1.maven.org/maven2/</url>
-		</repository>
-		<repository>
-			<id>maven2-repository.dev.java.net</id>
-			<name>Java.net Repository for Maven</name>
-			<url>http://download.java.net/maven/2/</url>
-		</repository>
-		<repository>
-			<id>maven.atlassian.com</id>
-			<name>maven.atlassian.com</name>
-			<url>https://maven.atlassian.com/3rdparty</url>
-		</repository>
-	</repositories>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>1.4.15</wicket.version>
-		<jackson.version>1.6.1</jackson.version>
-		<log4j.version>1.2.16</log4j.version>
+		<wicket.version>[1.4.0,1.4.20]</wicket.version>
+		<jackson.version>[1.6.1,1.7.4]</jackson.version>
+		<log4j.version>[1.2,1.2.16]</log4j.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<junit.version>4.8.2</junit.version>
 		<rhino.version>1.7R2</rhino.version>
+		<junit.version>4.8.2</junit.version>
 	</properties>
 
 	<build>
@@ -101,6 +79,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9-SNAPSHOT</version>
 				<configuration>
 					<projectNameTemplate>
 						[artifactId]-[version]
@@ -115,14 +94,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3</version>
+				<inherited>true</inherited>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
+					<encoding>UTF-8</encoding>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -135,6 +120,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+				<inherited>true</inherited>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -147,6 +137,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.0-beta-4</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
@@ -164,8 +155,48 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
 					<finalName>${project.artifactId}-${project.version}-r${buildNumber}-d${timestamp}</finalName>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.1.0</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<supportedProjectTypes>
+						<supportedProjectType>jar</supportedProjectType>
+					</supportedProjectTypes>
+					<instructions>
+						<Import-Package>
+                            !org.odlabs.wiquery*,
+                            !com.yahoo.platform.yui.compressor*,
+                            !org.mozilla.javascript*,
+                            org.codehaus.jackson*;version="${jackson.version}",
+                            org.apache.wicket*;version="${wicket.version}",
+                            org.slf4j*version="${slf4j.version}",
+                            *
+						</Import-Package>
+						<Export-Package>
+                            org.odlabs.wiquery*,
+                            com.yahoo.platform.yui.compressor*,
+                            org.mozilla.javascript*
+						</Export-Package>
+					</instructions>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -188,6 +219,16 @@
 		</dependency>
 
 		<!-- External dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -214,17 +255,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
