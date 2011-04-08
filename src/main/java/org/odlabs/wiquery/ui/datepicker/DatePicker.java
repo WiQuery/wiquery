@@ -146,7 +146,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 		
 		// If locale is null or current locale is US: no translation is needed.
 		Locale locale = getLocale();
-		if (locale != null && !getLocale().equals(Locale.US))
+		if (locale != null && !getLocale().equals(Locale.US) && !getLocale().equals(Locale.ENGLISH))
 			wiQueryResourceManager.addJavaScriptResource(new DatePickerLanguageResourceReference(getLocale()));
 	}
 
