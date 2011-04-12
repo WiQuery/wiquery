@@ -170,7 +170,7 @@ WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
 	}
 	
 	private IResourceStream newResourceStream() {
-		String temp;
+		String temp = null;
 		String cssUrl;
 		String name;
 		String old;
@@ -189,11 +189,14 @@ WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
 			// We insert the javascript code into the template
 			try {
 				
-				temp = Streams.readString(
-						getClass().getResourceAsStream(
+				IResourceStream resource =
+						Application.get().getResourceSettings().getResourceStreamLocator().locate(
+						getClass(),
 								"/" + Packages.absolutePath(
 										ref.getScope(),	"") 
-										+ "/" + ref.getName()));
+										+ "/" + ref.getName());
+				if(resource!=null)						
+					temp = Streams.readString(resource.getInputStream());
 				
 				// Replace of url in the css file (regexp: url\(.*?\) )
 				name = ref.getName();

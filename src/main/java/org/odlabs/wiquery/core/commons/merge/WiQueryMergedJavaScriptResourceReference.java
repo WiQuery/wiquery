@@ -105,7 +105,7 @@ public class WiQueryMergedJavaScriptResourceReference extends
 			 * {@inheritDoc}
 			 */
 			public IResourceStream getResourceStream() {
-				String temp;
+				String temp = null;
 				Application application = Application.get();
 				StringBuffer buffer = new StringBuffer();
 				IJavascriptCompressor compressor = application
@@ -118,11 +118,14 @@ public class WiQueryMergedJavaScriptResourceReference extends
 					
 					// We insert the javascript code into the template
 					try {
-						temp = Streams.readString(
-								getClass().getResourceAsStream(
-										"/" + Packages.absolutePath(
-												ref.getScope(),	"") 
-												+ "/" + ref.getName()));
+						IResourceStream resource =
+							Application.get().getResourceSettings().getResourceStreamLocator().locate(
+							getClass(),
+								"/" + Packages.absolutePath(
+										ref.getScope(),	"") 
+										+ "/" + ref.getName());
+						if(resource!=null)						
+							temp = Streams.readString(resource.getInputStream());
 					} catch (Exception e) {
 						temp = null;
 						e.printStackTrace();
