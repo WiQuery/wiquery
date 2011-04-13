@@ -87,12 +87,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
 		
-		Locale locale = getLocale();
-		if(locale != null && !Locale.ENGLISH.getLanguage().equals(locale.getLanguage())){ // #issue 24
-			wiQueryResourceManager
-					.addJavaScriptResource(new DatePickerLanguageResourceReference(
-							locale));
-		}
+		DatePickerLanguageResourceReference dpl = DatePickerLanguageResourceReference.get(getLocale());
+		if(dpl !=null)
+			wiQueryResourceManager.addJavaScriptResource(dpl);
 	}
 
 	/* (non-Javadoc)

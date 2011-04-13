@@ -48,8 +48,10 @@ public class DatePickerLanguageResourceReference extends
 	public enum DatePickerLanguages {
 		AFRIKAANS			("af"),
 		ALBANIAN			("sq"),
+		ALGERIAN			("ar", "DZ"),
 		ARABIC				("ar"),
 		ARMENIAN			("hy"),
+		AUSTRALIAN			("en", "AU"),
 		AZERBAIJANI			("az"),
 		BOSNIAN				("bs"),
 		BRAZILIAN			("pt", "BR"),
@@ -66,6 +68,7 @@ public class DatePickerLanguageResourceReference extends
 		FAROESE				("fo"),
 		FINNISH				("fi"),
 		FRENCH				(Locale.FRENCH),
+		GALICIAN			("gl"),
 		GERMAN				(Locale.GERMAN),
 		GREEK				("el"),
 		HEBREW				("he"),
@@ -77,11 +80,15 @@ public class DatePickerLanguageResourceReference extends
 		KAZAKH				("kz"),
 		KOREAN				(Locale.KOREAN),
 		LATVIAN				("lv"),
+		MALAYALAM			("ml"),
 		LITHUANIAN			("lt"),
 		MALAYSIAN			("ms"),
+		NEW_ZEALAND			("en", "NZ"),
 		NORVEGIAN			("no"),
 		PERSIAN				("fa"),
 		POLISH				("pl"),
+		PORTUGUESE			("pt"),
+		ROMANSH				("rm"),
 		ROMANIAN			("ro"),
 		RUSSIAN				("ru"),
 		SERBIA				("sr", "SR"),
@@ -96,7 +103,7 @@ public class DatePickerLanguageResourceReference extends
 		THAI				("th"),
 		TRADITIONAL_CHINESE	(Locale.TRADITIONAL_CHINESE),
 		TURKISH				("tr"),
-		UNITED_KINGDOM		(Locale.UK), // Default locale
+		UNITED_KINGDOM		(Locale.UK),
 		UKRAINIAN			("uk"),
 		VIETNAMESE			("vi");
 		
@@ -151,9 +158,8 @@ public class DatePickerLanguageResourceReference extends
 		 * @return the value
 		 */
 		public static DatePickerLanguages getDatePickerLanguages(Locale locale){
-			if(locale == null || locale.getLanguage().equalsIgnoreCase(Locale.ENGLISH.getLanguage())){
-				return DatePickerLanguages.UNITED_KINGDOM;
-			}
+			if(locale == null)
+				return null;
 			
 			Locale tmpLocale = null;
 			String language = locale.getLanguage();
@@ -209,7 +215,7 @@ public class DatePickerLanguageResourceReference extends
 		 * @param dpl Language to use
 		 * @return the filename
 		 */
-		public static CharSequence getJsFileName(DatePickerLanguages dpl) {
+		public static String getJsFileName(DatePickerLanguages dpl) {
 			if(dpl == null){
 				return null;
 			}
@@ -232,7 +238,7 @@ public class DatePickerLanguageResourceReference extends
 			
 			js.append(".js");
 			
-			return js;
+			return js.toString();
 		}
 	}
 	
@@ -240,12 +246,25 @@ public class DatePickerLanguageResourceReference extends
 	/** Constant of serialization */
 	private static final long serialVersionUID = 5955164494361831059L;
 
+	
+	protected DatePickerLanguageResourceReference(Locale locale, String filename) {
+		super(DatePickerLanguageResourceReference.class, filename);
+	}
+	
 	/**
-	 * Constructor
-	 * @param locale Locale
+	 * @param locale
+	 *            providing an unknown locale will return null, because Locale US, EN and EN_US are
+	 *            already included in the datepicker js file.
+	 * @return an DatePickerLanguageResourceReference if the locale is known within our DatePickerLanguages class.
 	 */
-	public DatePickerLanguageResourceReference(Locale locale) {
-		super(DatePickerLanguageResourceReference.class, getJsFilename(locale));
+	public static DatePickerLanguageResourceReference get(Locale locale)
+	{
+		DatePickerLanguages dpl = DatePickerLanguages.getDatePickerLanguages(locale);
+		
+		if(dpl != null)
+			return new DatePickerLanguageResourceReference(locale, DatePickerLanguages.getJsFileName(dpl));
+		
+		return null;
 	}
 
 	/**
