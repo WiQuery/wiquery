@@ -3,7 +3,7 @@ package org.odlabs.wiquery.core.commons.compressed;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.apache.wicket.javascript.IJavascriptCompressor;
+import org.apache.wicket.javascript.IJavaScriptCompressor;
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
  * 
  * @author Vincent Heet
  */
-public class YUIJavaScriptCompressor implements IJavascriptCompressor
+public class YUIJavaScriptCompressor implements IJavaScriptCompressor
 {
 	private static final Logger log = LoggerFactory.getLogger(YUIJavaScriptCompressor.class);
 
