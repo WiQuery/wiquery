@@ -31,6 +31,7 @@ import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
+import org.odlabs.wiquery.ui.button.ButtonJavascriptResourceReference;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.dialog.Dialog;
 import org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference;
@@ -286,12 +287,10 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
-		
 		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
-		wiQueryResourceManager
-				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
-		wiQueryResourceManager
-				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
+		wiQueryResourceManager.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 		
 		wiQueryResourceManager.addJavaScriptResource(WIQUERY_DIALOG_JS);
 		wiQueryResourceManager.addJavaScriptResource(
