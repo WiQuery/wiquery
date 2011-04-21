@@ -201,8 +201,7 @@ WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
 				// Replace of url in the css file (regexp: url\(.*?\) )
 				name = ref.getName();
 				cssUrl = baseHost + ref.getScope().getName() + "/"
-					+ (name.indexOf("/") < 0 ? "" : name.substring(0, name.lastIndexOf("/")))
-					+ "/";
+					+ (name.indexOf("/") < 0 ? "" : name.substring(0, name.lastIndexOf("/") + 1));
 				
 				Pattern p = Pattern.compile(REGEX);
 				Matcher m = p.matcher(temp); // get a matcher object
