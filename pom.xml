@@ -81,9 +81,7 @@
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9-SNAPSHOT</version>
 				<configuration>
-					<projectNameTemplate>
-						[artifactId]-[version]
-					</projectNameTemplate>
+					<projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
 					<wtpmanifest>true</wtpmanifest>
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>1.5</wtpversion>
