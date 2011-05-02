@@ -22,7 +22,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>[1.5-RC1,1.5-RC3]</wicket.version>
+		<wicket.version>1.5-SNAPSHOT</wicket.version>
 		<jackson.version>[1.6.1,1.7.4]</jackson.version>
 		<log4j.version>[1.2,1.2.16]</log4j.version>
 		<slf4j.version>1.6.1</slf4j.version>
