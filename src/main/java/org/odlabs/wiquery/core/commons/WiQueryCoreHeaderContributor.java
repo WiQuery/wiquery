@@ -127,23 +127,17 @@ public class WiQueryCoreHeaderContributor extends Behavior implements Serializab
 	public void renderHead(Component component, IHeaderResponse response) {
 		AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
 		if (ajaxRequestTarget == null) {
-			renderResponse(response);
+			renderResponse(response, component.getPage());
 		} else {
 			renderAjaxResponse(response, ajaxRequestTarget);
 		}
 	}
 
-	private void renderResponse(final IHeaderResponse response) {
-		Page page = WiQueryUtil.getCurrentPage();
-		Boolean rendered;
-		if (page == null) {
-			rendered = RequestCycle.get().getMetaData(WIQUERY_KEY);
-		} else {
-			Long renderTime = page.getMetaData(WIQUERY_PAGE_KEY);
-			rendered = renderTime != null
-					&& renderTime.equals(RequestCycle.get().getStartTime());
-			page.setMetaData(WIQUERY_PAGE_KEY, RequestCycle.get().getStartTime());
-		}
+	private void renderResponse(final IHeaderResponse response, Page page) {
+		Long renderTime = page.getMetaData(WIQUERY_PAGE_KEY);
+		Boolean rendered = renderTime != null
+				&& renderTime.equals(RequestCycle.get().getStartTime());
+		page.setMetaData(WIQUERY_PAGE_KEY, RequestCycle.get().getStartTime());
 		RequestCycle.get().setMetaData(WIQUERY_KEY, Boolean.TRUE);
 		if (rendered == null || !rendered) {
 			WiQuerySettings settings = WiQuerySettings.get();
