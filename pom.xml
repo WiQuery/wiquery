@@ -31,7 +31,6 @@
 	</properties>
 
 	<modules>
-		<module>wiquery-jquery</module>
 		<module>wiquery-core</module>
 		<module>wiquery-jquery-ui</module>
 	</modules>
@@ -39,11 +38,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- WiQuery dependencies -->
-			<dependency>
-				<groupId>org.odlabs.wiquery</groupId>
-				<artifactId>wiquery-jquery</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>org.odlabs.wiquery</groupId>
 				<artifactId>wiquery-core</artifactId>

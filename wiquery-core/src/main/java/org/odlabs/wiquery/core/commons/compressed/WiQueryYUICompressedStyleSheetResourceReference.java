@@ -23,9 +23,8 @@ package org.odlabs.wiquery.core.commons.compressed;
 
 import java.util.Locale;
 
-import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.Application;
 import org.apache.wicket.request.resource.PackageResourceReference;
-import org.odlabs.wiquery.core.commons.WiQuerySettings;
 
 /**
  * <p>
@@ -35,6 +34,9 @@ import org.odlabs.wiquery.core.commons.WiQuerySettings;
  * 
  * @author Hielke Hoeve
  * @since 1.1
+ * @deprecated This reference is deprecated as users can now set
+ *             {@link Application#getResourceSettings()
+ *             #setJavaScriptCompressor(IJavaScriptCompressor)}
  */
 public class WiQueryYUICompressedStyleSheetResourceReference extends
 		PackageResourceReference {
@@ -42,26 +44,20 @@ public class WiQueryYUICompressedStyleSheetResourceReference extends
 	private static final long serialVersionUID = 1L;
 
 	public WiQueryYUICompressedStyleSheetResourceReference(Class<?> scope,
-			String name) {
-		super(scope, name);
-	}
-
-	public WiQueryYUICompressedStyleSheetResourceReference(Class<?> scope,
 			String name, Locale locale, String style, String variation) {
 		super(scope, name, locale, style, variation);
 	}
 
-	@Override
-	public IResource getResource() {
-		if (!isMinifiedResources())
-			return super.getResource();
-
-		return new WiQueryYUICompressedStyleSheetResource(getScope(),
-				getName(), getLocale(), getStyle(), getVariation());
+	public WiQueryYUICompressedStyleSheetResourceReference(Class<?> scope,
+			String name) {
+		super(scope, name);
 	}
-	
-	protected boolean isMinifiedResources()
-	{
-		return WiQuerySettings.get().isMinifiedResources();
+
+	public WiQueryYUICompressedStyleSheetResourceReference(Key key) {
+		super(key);
+	}
+
+	public WiQueryYUICompressedStyleSheetResourceReference(String name) {
+		super(name);
 	}
 }

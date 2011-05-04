@@ -1,4 +1,4 @@
-package org.odlabs.wiquery.core.commons.compressed;
+package org.odlabs.wiquery.core.commons;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
- * Wicket Javascript Compressor implementation which compresses Javascript using the YUI Compressor.
+ * <p>Wicket Javascript Compressor implementation which compresses Javascript using the YUI Compressor.</p>
+ * 
+ * <p>To use this class use: {@code Application.getResourceSettings().setJavaScriptCompressor(new YUIJavaScriptCompressor());}</p>
  * 
  * @author Vincent Heet
  */

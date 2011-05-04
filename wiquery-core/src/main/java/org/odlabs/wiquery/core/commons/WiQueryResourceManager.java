@@ -26,8 +26,6 @@ import java.util.ArrayList;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.resource.ResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
 
 /**
  * $Id: WiQueryResourceManager.java 445 2010-10-07 10:40:32Z
@@ -91,7 +89,7 @@ public class WiQueryResourceManager implements Serializable {
 	 */
 	public void addJavaScriptResource(Class<?> scope, String path) {
 		this.javascriptResources
-				.add(new WiQueryYUICompressedJavaScriptResourceReference(scope,
+				.add(new WiQueryJavaScriptResourceReference(scope,
 						path));
 	}
 
@@ -110,7 +108,7 @@ public class WiQueryResourceManager implements Serializable {
 	 */
 	public void addCssResource(Class<?> scope, String path) {
 		this.cssResources
-				.add(new WiQueryYUICompressedStyleSheetResourceReference(scope,
+				.add(new WiQueryJavaScriptResourceReference(scope,
 						path));
 	}
 

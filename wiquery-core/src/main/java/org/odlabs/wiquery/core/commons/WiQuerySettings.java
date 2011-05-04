@@ -31,7 +31,6 @@ import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.javascript.IJavaScriptCompressor;
 import org.apache.wicket.javascript.NoOpJavaScriptCompressor;
 import org.apache.wicket.request.resource.ResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**

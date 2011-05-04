@@ -24,13 +24,10 @@ package org.odlabs.wiquery.core.commons.merge;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.IClusterable;
-import org.apache.wicket.javascript.IJavaScriptCompressor;
 import org.apache.wicket.request.resource.IResource;
-import org.apache.wicket.request.resource.PackageResource;
-import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.request.resource.ResourceStreamResource;
 import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
 import org.apache.wicket.util.resource.IResourceStream;
@@ -50,8 +47,8 @@ import org.slf4j.LoggerFactory;
  * @author Julien Roche
  * @since 1.1
  */
-public class WiQueryMergedJavaScriptResourceReference extends
-		PackageResourceReference implements IClusterable {
+public class WiQueryMergedJavaScriptResourceReference extends ResourceReference
+		implements IClusterable {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 6038498199511603297L;
@@ -95,51 +92,36 @@ public class WiQueryMergedJavaScriptResourceReference extends
 
 	@Override
 	public IResource getResource() {
-		return new PackageResource(getScope(), getName(),
-				getLocale(), getStyle(), getVariation()) {
+		return new ResourceStreamResource(newResourceStream());
+	}
 
-			private static final long serialVersionUID = 1L;
+	private IResourceStream newResourceStream() {
+		String temp;
+		StringBuffer buffer = new StringBuffer();
 
-			public IResourceStream getResourceStream() {
-				String temp;
-				Application application = Application.get();
-				StringBuffer buffer = new StringBuffer();
-				IJavaScriptCompressor compressor = application
-						.getResourceSettings().getJavaScriptCompressor();
+		for (ResourceReference ref : wiQueryHeaderResponse.getJavascript()) {
 
-				for (ResourceReference ref : wiQueryHeaderResponse
-						.getJavascript()) {
-
-					// We insert the javascript code into the template
-					try {
-						temp = Streams.readString(getClass()
-								.getResourceAsStream(
-										"/"
-												+ Packages.absolutePath(
-														ref.getScope(), "")
-												+ "/" + ref.getName()));
-					} catch (Exception e) {
-						temp = null;
-						e.printStackTrace();
-						LOGGER.error("error in merged processing", e);
-					}
-
-					if (compressor != null && temp != null) {
-						temp = compressor.compress(temp);
-					}
-
-					if (temp != null) {
-						buffer.append(temp).append("\r\n");
-					}
-				}
-
-				Map<String, Object> genJs = new HashMap<String, Object>();
-				genJs.put("wiqueryresources", buffer);
-				jstemplate.interpolate(genJs);
-
-				return new StringResourceStream(jstemplate.asString(),
-						CONTENT_TYPE);
+			// We insert the javascript code into the template
+			try {
+				temp = Streams.readString(getClass().getResourceAsStream(
+						"/" + Packages.absolutePath(ref.getScope(), "") + "/"
+								+ ref.getName()));
+			} catch (Exception e) {
+				temp = null;
+				e.printStackTrace();
+				LOGGER.error("error in merged processing", e);
 			}
-		};
+
+			if (temp != null) {
+				buffer.append(temp).append("\r\n");
+			}
+		}
+
+		Map<String, Object> genJs = new HashMap<String, Object>();
+		genJs.put("wiqueryresources", buffer);
+		jstemplate.interpolate(genJs);
+
+		return new StringResourceStream(jstemplate.asString(), CONTENT_TYPE);
+
 	}
 }

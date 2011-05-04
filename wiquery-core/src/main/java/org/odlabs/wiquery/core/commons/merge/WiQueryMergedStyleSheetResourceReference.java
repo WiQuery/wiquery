@@ -31,69 +31,69 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.wicket.IClusterable;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.IResource;
-import org.apache.wicket.request.resource.PackageResource;
-import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.request.resource.ResourceStreamResource;
 import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.time.Time;
-import org.odlabs.wiquery.core.commons.WiQuerySettings;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * $Id$
+ * $Id: WiQueryMergedStyleSheetResourceReference.java 752 2011-04-06 14:19:21Z
+ * hielke.hoeve@gmail.com $
  * 
  * <p>
- * Merged many stylesheet {@link ResourceReference} into one {@link IResourceStream}
+ * Merged many stylesheet {@link ResourceReference} into one
+ * {@link IResourceStream}
  * </p>
  * 
  * @author Julien Roche
  * @since 1.1
- *
+ * 
  */
 public class WiQueryMergedStyleSheetResourceReference extends
-PackageResourceReference implements IClusterable {
+		ResourceReference implements IClusterable {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 6038498199511603297L;
-	
+
 	/** Name of the template for our ResourceReference */
 	private static final String TEMPLATE_NAME = "wiquery-merged.css";
-	
+
 	/** Content-type */
 	private static final String CONTENT_TYPE = "text/css";
-	
+
 	/** Regular expression to find the url */
 	private static final String REGEX = "url\\(.*?\\)";
-	
+
 	/** Logger */
-	private static final Logger LOGGER = LoggerFactory.getLogger(WiQueryMergedStyleSheetResourceReference.class);
-	
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(WiQueryMergedStyleSheetResourceReference.class);
+
 	/**
 	 * Convert local URL for the merging stylesheet( the url will be broken, so
 	 * we have to rewrite it !!)
+	 * 
 	 * @param url
 	 * @param baseUrl
 	 * @return
 	 */
 	protected static String getCssUrl(String url, String baseUrl) {
-		String cleaned = url.replace(" ", "").replace("'", "").replace("\"", "");
+		String cleaned = url.replace(" ", "").replace("'", "")
+				.replace("\"", "");
 		cleaned = cleaned.substring(4); // remove '('
 		cleaned = cleaned.substring(0, cleaned.length() - 1); // remove ')'
-		
-		if(cleaned.startsWith("http:") 
-				|| cleaned.startsWith("https:")
-				|| cleaned.startsWith("ftp:")
-				|| cleaned.startsWith("file:")){
-			return "url(\"" + cleaned + "\")"; // Quotes are important for the merging process
+
+		if (cleaned.startsWith("http:") || cleaned.startsWith("https:")
+				|| cleaned.startsWith("ftp:") || cleaned.startsWith("file:")) {
+			return "url(\"" + cleaned + "\")"; // Quotes are important for the
+												// merging process
 		}
-		
+
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("url(\"");
 		buffer.append(baseUrl);
@@ -101,63 +101,38 @@ PackageResourceReference implements IClusterable {
 		buffer.append("\")");
 		return buffer.toString();
 	}
-	
+
 	// Properties
 	private PackageTextTemplate csstemplate;
 	private WiQueryHeaderResponse wiQueryHeaderResponse;
-	
-	public WiQueryMergedStyleSheetResourceReference(WiQueryHeaderResponse wiQueryHeaderResponse) {
-		super(WiQueryMergedStyleSheetResourceReference.class, 
-				TEMPLATE_NAME + "_" + 
-				WiQueryHeaderResponse.getMergedResourceName(wiQueryHeaderResponse.getStylesheet()));
-		
+
+	public WiQueryMergedStyleSheetResourceReference(
+			WiQueryHeaderResponse wiQueryHeaderResponse) {
+		super(WiQueryMergedStyleSheetResourceReference.class, TEMPLATE_NAME
+				+ "_"
+				+ WiQueryHeaderResponse
+						.getMergedResourceName(wiQueryHeaderResponse
+								.getStylesheet()));
+
 		this.wiQueryHeaderResponse = wiQueryHeaderResponse;
 		csstemplate = new PackageTextTemplate(
-				WiQueryMergedStyleSheetResourceReference.class, 
-				TEMPLATE_NAME);
+				WiQueryMergedStyleSheetResourceReference.class, TEMPLATE_NAME);
 	}
-	
+
 	/**
-	 * Returns the last modified time of the {@link PackageTextTemplate}
-	 * itself.
+	 * Returns the last modified time of the {@link PackageTextTemplate} itself.
 	 * 
 	 * @return the last modified time of the {@link PackageTextTemplate} itself
 	 */
 	public Time lastModifiedTime() {
 		return csstemplate.lastModifiedTime();
 	}
-	
+
 	@Override
 	public IResource getResource() {
-		if(WiQuerySettings.get().isMinifiedResources()){
-			return new WiQueryYUICompressedStyleSheetResource(getScope(), getName(),
-					getLocale(), getStyle(), getVariation()) {
-				private static final long serialVersionUID = 1L;
-	
-				@Override
-				protected IResourceStream getResourceStream() {
-					return new WiQueryYUICompressedStyleSheetResourceStream() {
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						protected IResourceStream getOriginalResourceStream() {
-							return newResourceStream();
-						}
-					};
-				}
-			};
-		}else{
-			return new PackageResource(getScope(), getName(),
-					getLocale(), getStyle(), getVariation()) {
-				private static final long serialVersionUID = 1L;
-	
-				public IResourceStream getResourceStream() {
-					return newResourceStream();
-				}
-			};
-		}
+			return new ResourceStreamResource(newResourceStream());
 	}
-	
+
 	private IResourceStream newResourceStream() {
 		String temp;
 		String cssUrl;
@@ -165,57 +140,59 @@ PackageResourceReference implements IClusterable {
 		String old;
 		String match;
 		StringBuffer buffer = new StringBuffer();
-		
-		HttpServletRequest request = ((HttpServletRequest) RequestCycle.get().getRequest());
+
+		HttpServletRequest request = ((HttpServletRequest) RequestCycle.get()
+				.getRequest());
 		String baseHost = request.getRequestURL().toString();
-		baseHost = baseHost.substring(0, baseHost.indexOf(request.getRequestURI()))
-			+ request.getContextPath() + "/resources/";
-		
-		for(ResourceReference ref : wiQueryHeaderResponse.getStylesheet()){
-			
+		baseHost = baseHost.substring(0,
+				baseHost.indexOf(request.getRequestURI()))
+				+ request.getContextPath() + "/resources/";
+
+		for (ResourceReference ref : wiQueryHeaderResponse.getStylesheet()) {
+
 			// We insert the javascript code into the template
 			try {
-				
-				temp = Streams.readString(
-						getClass().getResourceAsStream(
-								"/" + Packages.absolutePath(
-										ref.getScope(),	"") 
-										+ "/" + ref.getName()));
-				
+
+				temp = Streams.readString(getClass().getResourceAsStream(
+						"/" + Packages.absolutePath(ref.getScope(), "") + "/"
+								+ ref.getName()));
+
 				// Replace of url in the css file (regexp: url\(.*?\) )
 				name = ref.getName();
-				cssUrl = baseHost + ref.getScope().getName() + "/"
-					+ (name.indexOf("/") < 0 ? "" : name.substring(0, name.lastIndexOf("/")))
-					+ "/";
-				
+				cssUrl = baseHost
+						+ ref.getScope().getName()
+						+ "/"
+						+ (name.indexOf("/") < 0 ? "" : name.substring(0,
+								name.lastIndexOf("/"))) + "/";
+
 				Pattern p = Pattern.compile(REGEX);
 				Matcher m = p.matcher(temp); // get a matcher object
 				int count = 0;
-				while(m.find()) {
+				while (m.find()) {
 					count++;
 					match = m.group();
 					old = getCssUrl(match, cssUrl);
-					
-					if(!old.equals(match)){
+
+					if (!old.equals(match)) {
 						temp = temp.replace(match, old);
 					}
 				}
-				
+
 			} catch (Exception e) {
 				temp = null;
 				e.printStackTrace();
 				LOGGER.error("error in merged processing", e);
 			}
-			
-			if(temp != null){
+
+			if (temp != null) {
 				buffer.append(temp).append("\r\n");
 			}
 		}
-		
-		Map<String, Object> genCss= new HashMap<String, Object>();
+
+		Map<String, Object> genCss = new HashMap<String, Object>();
 		genCss.put("wiqueryresources", buffer);
 		csstemplate.interpolate(genCss);
-		
+
 		return new StringResourceStream(csstemplate.asString(), CONTENT_TYPE);
 	}
 }
