@@ -13,13 +13,13 @@ import org.apache.wicket.behavior.Behavior;
  * @author Hielke Hoeve
  *
  */
-class WiQueryRenderingListener implements IComponentOnBeforeRenderListener {
+public class WiQueryRenderingListener implements IComponentOnBeforeRenderListener {
 
 	public static final MetaDataKey<Boolean> WI_QUERY_RENDERED = new MetaDataKey<Boolean>() {
 		private static final long serialVersionUID = 1L;
 	};
 	
-	WiQueryRenderingListener() {
+	public WiQueryRenderingListener() {
 	}
 	
 	public void onBeforeRender(Component component) {

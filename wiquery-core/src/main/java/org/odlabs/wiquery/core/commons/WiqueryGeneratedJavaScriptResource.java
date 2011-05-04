@@ -7,7 +7,7 @@ import org.apache.wicket.util.template.PackageTextTemplate;
 
 /**
  * <p>
- * Uses the {@link PackagedTextTemplate} to make a generated resource.
+ * Uses the {@link PackageTextTemplate} to make a generated resource.
  * </p>
  * 
  * @author Hielke Hoeve

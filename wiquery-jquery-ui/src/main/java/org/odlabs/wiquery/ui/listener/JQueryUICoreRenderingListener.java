@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.core.commons.listener;
+package org.odlabs.wiquery.ui.listener;
 
 import java.io.Serializable;
 
@@ -30,6 +30,7 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
+import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.themes.IThemableApplication;

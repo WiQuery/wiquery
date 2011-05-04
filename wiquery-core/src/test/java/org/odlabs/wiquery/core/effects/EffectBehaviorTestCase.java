@@ -29,9 +29,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
+import org.odlabs.wiquery.core.commons.DivTestPanel;
 import org.odlabs.wiquery.core.effects.basic.Hide;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
-import org.odlabs.wiquery.ui.DivTestPanel;
 
 /**
  * Test on {@link EffectBehavior}

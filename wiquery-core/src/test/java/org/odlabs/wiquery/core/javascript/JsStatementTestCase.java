@@ -28,10 +28,10 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
+import org.odlabs.wiquery.core.commons.DivTestPanel;
 import org.odlabs.wiquery.core.javascript.helper.CssHelper;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
-import org.odlabs.wiquery.ui.DivTestPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

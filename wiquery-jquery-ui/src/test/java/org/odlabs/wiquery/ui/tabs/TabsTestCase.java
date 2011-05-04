@@ -34,7 +34,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
 import org.odlabs.wiquery.core.events.MouseEvent;
-import org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.EventLabelOptions;
 import org.odlabs.wiquery.core.options.IListItemOption;

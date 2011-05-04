@@ -30,7 +30,6 @@ import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.EventLabelOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;

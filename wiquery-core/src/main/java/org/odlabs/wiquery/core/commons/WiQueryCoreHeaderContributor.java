@@ -23,7 +23,6 @@ package org.odlabs.wiquery.core.commons;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.wicket.Component;
@@ -37,8 +36,6 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.apache.wicket.util.visit.Visit;
-import org.odlabs.wiquery.core.commons.listener.JQueryCoreRenderingListener;
-import org.odlabs.wiquery.core.commons.listener.JQueryUICoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 import org.odlabs.wiquery.core.commons.merge.WiQueryHeaderResponse;
 import org.odlabs.wiquery.core.commons.merge.WiQueryMergedJavaScriptResourceReference;
@@ -142,7 +139,7 @@ public class WiQueryCoreHeaderContributor extends Behavior implements Serializab
 		if (rendered == null || !rendered) {
 			WiQuerySettings settings = WiQuerySettings.get();
 
-			final List<WiQueryPluginRenderingListener> pluginRenderingListeners = getRenderingListeners(settings);
+			final List<WiQueryPluginRenderingListener> pluginRenderingListeners = settings.getListeners();
 
 			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
 			if (page != null) {
@@ -197,7 +194,7 @@ public class WiQueryCoreHeaderContributor extends Behavior implements Serializab
 			AjaxRequestTarget ajaxRequestTarget) {
 		WiQuerySettings settings = WiQuerySettings.get();
 
-		final List<WiQueryPluginRenderingListener> pluginRenderingListeners = getRenderingListeners(settings);
+		final List<WiQueryPluginRenderingListener> pluginRenderingListeners = settings.getListeners();
 
 		IHeaderResponse headerResponse;
 		WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
@@ -242,19 +239,6 @@ public class WiQueryCoreHeaderContributor extends Behavior implements Serializab
 			listener.onRender(plugin, manager, headerResponse);
 		}
 		plugin.contribute(manager);
-	}
-
-	private List<WiQueryPluginRenderingListener> getRenderingListeners(
-			WiQuerySettings instanciation) {
-		final List<WiQueryPluginRenderingListener> pluginRenderingListeners = new ArrayList<WiQueryPluginRenderingListener>();
-		pluginRenderingListeners.add(new JQueryCoreRenderingListener());
-		pluginRenderingListeners.add(new JQueryUICoreRenderingListener());
-		// Listeners add by users
-		for (Iterator<WiQueryPluginRenderingListener> iterator = instanciation
-				.getListeners(); iterator.hasNext();) {
-			pluginRenderingListeners.add(iterator.next());
-		}
-		return pluginRenderingListeners;
 	}
 
 	private void mergeResources(final IHeaderResponse response,

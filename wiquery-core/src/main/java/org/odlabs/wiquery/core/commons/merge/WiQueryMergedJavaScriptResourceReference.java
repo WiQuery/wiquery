@@ -44,8 +44,7 @@ import org.slf4j.LoggerFactory;
  * $Id: WiQueryMergedJavaScriptResourceReference.java 412 2010-09-17 21:23:25Z
  * lionel.armanet $
  * <p>
- * Merged many {@link JavascriptResourceReference} into one
- * {@link IResourceStream}
+ * Merged many {@link ResourceReference} into one {@link IResourceStream}
  * </p>
  * 
  * @author Julien Roche

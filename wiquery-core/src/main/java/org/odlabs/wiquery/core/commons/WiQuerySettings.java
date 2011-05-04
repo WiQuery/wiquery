@@ -23,8 +23,8 @@ package org.odlabs.wiquery.core.commons;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
@@ -69,6 +69,7 @@ public class WiQuerySettings implements Serializable {
 	// Properties
 	private boolean autoImportJQueryResource;
 	private boolean enableResourcesMerging;
+	private List<IWiQueryInitializer> initializers;
 	private List<WiQueryPluginRenderingListener> listeners;
 	private ResourceReference jQueryCoreResourceReference;
 	private boolean minifiedResources;
@@ -90,8 +91,9 @@ public class WiQuerySettings implements Serializable {
 		setEnableResourcesMerging(false);
 		setJQueryCoreResourceReference(null);
 
+		initializers = new ArrayList<IWiQueryInitializer>();
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
-
+		
 		IJavaScriptCompressor compressor = Application.get()
 				.getResourceSettings().getJavaScriptCompressor();
 		setMinifiedResources(compressor != null
@@ -111,8 +113,25 @@ public class WiQuerySettings implements Serializable {
 	/**
 	 * @return the list of listener from the listeners option
 	 */
-	public ListIterator<WiQueryPluginRenderingListener> getListeners() {
-		return listeners.listIterator();
+	public List<WiQueryPluginRenderingListener> getListeners() {
+		return Collections.unmodifiableList(listeners);
+	}
+	
+	/**
+	 * Method adding a {@link WiQueryPluginRenderingListener}
+	 * 
+	 * @param initializer
+	 * @return the state
+	 */
+	public boolean addInitializer(IWiQueryInitializer initializer) {
+		return initializers.add(initializer);
+	}
+
+	/**
+	 * @return the list of initializer from the initializers option
+	 */
+	public List<IWiQueryInitializer> getInitializers() {
+		return Collections.unmodifiableList(initializers);
 	}
 
 	/**

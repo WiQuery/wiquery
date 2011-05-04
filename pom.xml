@@ -5,7 +5,7 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>${wiquery.version}</version>
+	<version>1.5-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
 
 	<scm>
@@ -22,8 +22,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wiquery.version>1.5-SNAPSHOT</wiquery.version>
-
 		<wicket.version>1.5-SNAPSHOT</wicket.version>
 		<jackson.version>[1.6.1,1.7.4]</jackson.version>
 		<log4j.version>[1.2,1.2.16]</log4j.version>
@@ -39,13 +37,29 @@
 	</modules>
 
 	<dependencyManagement>
-		<!-- System dependencies -->
 		<dependencies>
+			<!-- WiQuery dependencies -->
+			<dependency>
+				<groupId>org.odlabs.wiquery</groupId>
+				<artifactId>wiquery-jquery</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.odlabs.wiquery</groupId>
+				<artifactId>wiquery-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.odlabs.wiquery</groupId>
+				<artifactId>wiquery-jquery-ui</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		
+			<!-- System dependencies -->
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
 				<version>2.5</version>
-				<scope>provided</scope>
 			</dependency>
 
 			<!-- External dependencies -->
@@ -95,7 +109,6 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
-				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -189,7 +202,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.7</version>
@@ -205,7 +218,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
