@@ -38,6 +38,7 @@
 				<directory>src/main/java</directory>
 				<filtering>false</filtering>
 				<excludes>
+					<exclude>**/*.java</exclude>
 					<exclude>**/.svn/**</exclude>
 				</excludes>
 				<includes>
@@ -48,6 +49,7 @@
 				<directory>src/main/resources</directory>
 				<filtering>false</filtering>
 				<excludes>
+					<exclude>**/*.java</exclude>
 					<exclude>**/.svn/**</exclude>
 				</excludes>
 				<includes>
@@ -57,8 +59,9 @@
 		</resources>
 		<testResources>
 			<testResource>
-				<directory>src/test/java</directory>
+				<directory>${basedir}/src/test/java</directory>
 				<excludes>
+					<exclude>**/*.java</exclude>
 					<exclude>**/.svn/**</exclude>
 				</excludes>
 				<includes>
@@ -66,8 +69,9 @@
 				</includes>
 			</testResource>
 			<testResource>
-				<directory>src/test/resources</directory>
+				<directory>${basedir}/src/test/resources</directory>
 				<excludes>
+					<exclude>**/*.java</exclude>
 					<exclude>**/.svn/**</exclude>
 				</excludes>
 				<includes>
