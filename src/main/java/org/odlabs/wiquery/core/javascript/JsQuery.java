@@ -128,11 +128,7 @@ public class JsQuery extends Behavior implements IHeaderContributor, Serializabl
 		return statement = new JsStatement().document();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
-	 */
-	public void renderHead(IHeaderResponse response) {
+	public void renderHead(Component component, IHeaderResponse response) {
 		WiQuerySettings settings = WiQuerySettings.get();
 		
 		if(settings.isAutoImportJQueryResource()){
