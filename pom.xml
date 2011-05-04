@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.odlabs.wiquery</groupId>
-	<artifactId>wiquery</artifactId>
-	<packaging>jar</packaging>
-	<version>1.5-SNAPSHOT</version>
-	<name>WiQuery project</name>
+	<artifactId>wiquery-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>${wiquery.version}</version>
+	<name>WiQuery Parent</name>
 
 	<scm>
 		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wicket-1.5</developerConnection>
@@ -22,6 +22,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<wiquery.version>1.5-SNAPSHOT</wiquery.version>
+
 		<wicket.version>1.5-SNAPSHOT</wicket.version>
 		<jackson.version>[1.6.1,1.7.4]</jackson.version>
 		<log4j.version>[1.2,1.2.16]</log4j.version>
@@ -29,6 +31,74 @@
 		<rhino.version>1.7R2</rhino.version>
 		<junit.version>4.8.2</junit.version>
 	</properties>
+
+	<modules>
+		<module>wiquery-jquery</module>
+		<module>wiquery-core</module>
+		<module>wiquery-jquery-ui</module>
+	</modules>
+
+	<dependencyManagement>
+		<!-- System dependencies -->
+		<dependencies>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- External dependencies -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-core</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-request</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-util</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>rhino</groupId>
+				<artifactId>js</artifactId>
+				<version>${rhino.version}</version>
+			</dependency>
+
+			<!-- Test dependencies -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -185,18 +255,18 @@
 					</supportedProjectTypes>
 					<instructions>
 						<Import-Package>
-                            !org.odlabs.wiquery*,
-                            !com.yahoo.platform.yui.compressor*,
-                            !org.mozilla.javascript*,
-                            org.codehaus.jackson*;version="${jackson.version}",
-                            org.apache.wicket*;version="${wicket.version}",
-                            org.slf4j*version="${slf4j.version}",
-                            *
+							!org.odlabs.wiquery*,
+							!com.yahoo.platform.yui.compressor*,
+							!org.mozilla.javascript*,
+							org.codehaus.jackson*;version="${jackson.version}",
+							org.apache.wicket*;version="${wicket.version}",
+							org.slf4j*version="${slf4j.version}",
+							*
 						</Import-Package>
 						<Export-Package>
-                            org.odlabs.wiquery*,
-                            com.yahoo.platform.yui.compressor*,
-                            org.mozilla.javascript*
+							org.odlabs.wiquery*,
+							com.yahoo.platform.yui.compressor*,
+							org.mozilla.javascript*
 						</Export-Package>
 					</instructions>
 				</configuration>
@@ -210,64 +280,4 @@
 			</extension>
 		</extensions>
 	</build>
-
-	<dependencies>
-		<!-- System dependencies -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- External dependencies -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-core</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-request</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-util</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>rhino</groupId>
-			<artifactId>js</artifactId>
-			<version>${rhino.version}</version>
-		</dependency>
-
-		<!-- Test dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 </project>
