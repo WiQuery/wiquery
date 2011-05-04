@@ -21,7 +21,6 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
-import org.codehaus.jackson.annotate.JsonValue;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.ui.themes.UiIcon;
@@ -97,7 +96,9 @@ public class AccordionIcon  extends Object implements IComplexOption {
 		return headerSelectedClass;
 	}
 	
-	@JsonValue
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
+	 */
 	public CharSequence getJavascriptOption() {
 		if(wantIcons != null) 
 			return wantIcons.toString();

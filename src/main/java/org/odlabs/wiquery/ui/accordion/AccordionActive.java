@@ -21,7 +21,6 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
-import org.codehaus.jackson.annotate.JsonValue;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
@@ -114,7 +113,9 @@ public class AccordionActive implements IComplexOption {
 		return selector;
 	}
 	
-	@JsonValue
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
+	 */
 	public CharSequence getJavascriptOption() {
 		if(booleanParam == null && intParam == null && jQueryParam == null &&
 				selector == null){

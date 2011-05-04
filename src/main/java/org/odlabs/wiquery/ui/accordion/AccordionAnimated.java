@@ -21,7 +21,6 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
-import org.codehaus.jackson.annotate.JsonValue;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
@@ -80,8 +79,9 @@ public class AccordionAnimated implements IComplexOption {
 		return effectParam;
 	}
 	
-	
-	@JsonValue
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
+	 */
 	public CharSequence getJavascriptOption() {
 		if(booleanParam == null && effectParam == null){
 			throw new IllegalArgumentException("The AccordionAnimated must have one not null parameter");
