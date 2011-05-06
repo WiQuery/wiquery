@@ -58,14 +58,14 @@ public class WiQueryStyleSheetResourceReference extends
 		String name = super.getName();
 		String minifiedName = name.substring(0, name.length() - 3) + "min.css";
 		if (minified == null)
-			minified = isMinifiedStyleSheet()
+			minified = isMinifiedStyleSheetResources()
 					&& exists(getScope(), minifiedName);
 		if (minified)
 			return minifiedName;
 		return name;
 	}
 
-	public static boolean isMinifiedStyleSheet() {
-		return WiQuerySettings.get().isMinifiedResources();
+	public static boolean isMinifiedStyleSheetResources() {
+		return WiQuerySettings.get().isMinifiedStyleSheetResources();
 	}
 }

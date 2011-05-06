@@ -56,14 +56,14 @@ public class WiQueryJavaScriptResourceReference extends
 		String name = super.getName();
 		String minifiedName = name.substring(0, name.length() - 2) + "min.js";
 		if (minified == null)
-			minified = isMinifiedJavascript()
+			minified = isMinifiedJavaScriptResources()
 					&& exists(getScope(), minifiedName);
 		if (minified)
 			return minifiedName;
 		return name;
 	}
 
-	public static boolean isMinifiedJavascript() {
-		return WiQuerySettings.get().isMinifiedResources();
+	public static boolean isMinifiedJavaScriptResources() {
+		return WiQuerySettings.get().isMinifiedJavaScriptResources();
 	}
 }

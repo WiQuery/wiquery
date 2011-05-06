@@ -28,9 +28,9 @@ import java.util.List;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.javascript.IJavaScriptCompressor;
-import org.apache.wicket.javascript.NoOpJavaScriptCompressor;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.resource.ITextResourceCompressor;
+import org.apache.wicket.resource.NoOpTextCompressor;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
@@ -71,14 +71,12 @@ public class WiQuerySettings implements Serializable {
 	private List<IWiQueryInitializer> initializers;
 	private List<WiQueryPluginRenderingListener> listeners;
 	private ResourceReference jQueryCoreResourceReference;
-	private boolean minifiedResources;
+	private boolean minifiedJavaScriptResources;
+	private boolean minifiedStyleSheetResources;
 	private boolean autoImportJQueryUIResource;
 	private boolean enableWiqueryResourceManagement;
 	private boolean embedGeneratedStatements;
 
-	/**
-	 * Default constructor
-	 */
 	public WiQuerySettings() {
 		super();
 
@@ -92,111 +90,162 @@ public class WiQuerySettings implements Serializable {
 
 		initializers = new ArrayList<IWiQueryInitializer>();
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
-		
-		IJavaScriptCompressor compressor = Application.get()
+
+		ITextResourceCompressor compressor = Application.get()
 				.getResourceSettings().getJavaScriptCompressor();
-		setMinifiedResources(compressor != null
-				&& !(compressor instanceof NoOpJavaScriptCompressor));
+		setMinifiedJavaScriptResources(compressor != null
+				&& !(compressor instanceof NoOpTextCompressor));
+
+		compressor = Application.get().getResourceSettings().getCssCompressor();
+		setMinifiedStyleSheetResources(compressor != null
+				&& !(compressor instanceof NoOpTextCompressor));
 	}
 
-	/**
-	 * Method adding a {@link WiQueryPluginRenderingListener}
-	 * 
-	 * @param listener
-	 * @return the state
-	 */
 	public boolean addListener(WiQueryPluginRenderingListener listener) {
 		return listeners.add(listener);
 	}
 
-	/**
-	 * @return the list of listener from the listeners option
-	 */
 	public List<WiQueryPluginRenderingListener> getListeners() {
 		return Collections.unmodifiableList(listeners);
 	}
-	
-	/**
-	 * Method adding a {@link WiQueryPluginRenderingListener}
-	 * 
-	 * @param initializer
-	 * @return the state
-	 */
+
 	public boolean addInitializer(IWiQueryInitializer initializer) {
 		return initializers.add(initializer);
 	}
 
-	/**
-	 * @return the list of initializer from the initializers option
-	 */
 	public List<IWiQueryInitializer> getInitializers() {
 		return Collections.unmodifiableList(initializers);
 	}
 
-	/**
-	 * @return the state of the autoImportJQueryResource option
-	 */
 	public boolean isAutoImportJQueryResource() {
 		return autoImportJQueryResource;
 	}
 
-	/**
-	 * @return the state of the enableResourcesMerging option
-	 */
 	public boolean isEnableResourcesMerging() {
 		return enableResourcesMerging;
 	}
 
-	/**
-	 * @return the state of the embedGeneratedStatements option
-	 */
 	public boolean isEmbedGeneratedStatements() {
 		return embedGeneratedStatements;
 	}
 
 	/**
 	 * <p>
-	 * When true wiquery delivers minimized versions js/css files, when false
+	 * This function is deprecated because in Wicket 1.5 JS and CSS compression
+	 * is separated. This function will enable/disable both at once.
+	 * </p>
+	 * 
+	 * @return the state of the minifiedResources option.
+	 * @deprecated use {@link #isMinifiedJavaScriptResources()} and
+	 *             {@link #isMinifiedStyleSheetResources()}.
+	 * @see use {@link #isMinifiedJavaScriptResources()} and
+	 *      {@link #isMinifiedStyleSheetResources()}.
+	 */
+	@Deprecated
+	public boolean isMinifiedResources() {
+		return minifiedJavaScriptResources;
+	}
+
+	/**
+	 * Sets the minifiedResources option
+	 * 
+	 * @param minifiedResources
+	 * @see #isMinifiedResources()
+	 * @deprecated use {@link #isMinifiedJavaScriptResources()} and
+	 *             {@link #isMinifiedStyleSheetResources()}.
+	 */
+	@Deprecated
+	public void setMinifiedResources(boolean minifiedResources) {
+		this.minifiedJavaScriptResources = minifiedResources;
+		this.minifiedStyleSheetResources = minifiedResources;
+	}
+
+	/**
+	 * <p>
+	 * When true wiquery delivers minimized versions js files, when false
 	 * wiquery delivers normal (non-minimized) versions. The default value
-	 * depends on whether an {@link IJavascriptCompressor} is used or not.
+	 * depends on whether an {@link IJavaScriptCompressor} is used or not.
 	 * </p>
 	 * <p>
-	 * This setting also enables the
-	 * {@link WiQueryYUICompressedStyleSheetResource} to be used.
+	 * This setting WILL NOT enable the YUICompressor, you can set this yourself
+	 * using Application.getResourceSettings().setJavaScriptCompressor(new
+	 * YUIJavaScriptCompressor()); in a {@link IWiQueryInitializer}..
 	 * </p>
 	 * <p>
 	 * Always provide the normal (non-minimized) version, wiquery will reference
 	 * to the minimized version when
-	 * {@link WiQuerySettings#isCompressedJavascript()} is true.
+	 * {@link WiQuerySettings#isMinifiedJavaScriptResources()} is true.
 	 * </p>
 	 * <p>
 	 * The filename format for the 2 versions is:
 	 * <ul>
-	 * <li>Normal version: <i>foo.js</i> / <i>foo.css</i></li>
-	 * <li>Minimized version: <i>foo.min.js</i> / <i>foo.min.css</i></li>
+	 * <li>Normal version: <i>foo.js</i></li>
+	 * <li>Minimized version: <i>foo.min.js</i></li>
 	 * </ul>
 	 * </p>
 	 * 
 	 * @return the state of the minifiedResources option.
 	 */
-	public boolean isMinifiedResources() {
-		return minifiedResources;
+	public boolean isMinifiedJavaScriptResources() {
+		return minifiedJavaScriptResources;
 	}
 
 	/**
-	 * Set the autoImportJQueryResource option
+	 * Sets the minifiedJavaScriptResources option
 	 * 
-	 * @param autoImportJQueryResource
+	 * @param minifiedJavaScriptResources
+	 * @see #isMinifiedJavaScriptResources()
 	 */
+	public void setMinifiedJavaScriptResources(
+			boolean minifiedJavaScriptResources) {
+		this.minifiedJavaScriptResources = minifiedJavaScriptResources;
+	}
+
+	/**
+	 * <p>
+	 * When true wiquery delivers minimized versions css files, when false
+	 * wiquery delivers normal (non-minimized) versions. The default value
+	 * depends on whether an {@link ICSSCompressor} is used or not.
+	 * </p>
+	 * <p>
+	 * This setting WILL NOT enable the YUICompressor, you can set this yourself
+	 * using Application.getResourceSettings().setCssCompressor(new
+	 * YUIStyleSheetCompressor()); in a {@link IWiQueryInitializer}.
+	 * </p>
+	 * <p>
+	 * Always provide the normal (non-minimized) version, wiquery will reference
+	 * to the minimized version when
+	 * {@link WiQuerySettings#isMinifiedStyleSheetResources()} is true.
+	 * </p>
+	 * <p>
+	 * The filename format for the 2 versions is:
+	 * <ul>
+	 * <li>Normal version: <i>foo.css</i></li>
+	 * <li>Minimized version: <i>foo.min.css</i></li>
+	 * </ul>
+	 * </p>
+	 * 
+	 * @return the state of the minifiedResources option.
+	 */
+	public boolean isMinifiedStyleSheetResources() {
+		return minifiedStyleSheetResources;
+	}
+
+	/**
+	 * Sets the minifiedStyleSheetResources option
+	 * 
+	 * @param minifiedStyleSheetResources
+	 * @see #isMinifiedStyleSheetResources()
+	 */
+	public void setMinifiedStyleSheetResources(
+			boolean minifiedStyleSheetResources) {
+		this.minifiedStyleSheetResources = minifiedStyleSheetResources;
+	}
+
 	public void setAutoImportJQueryResource(boolean autoImportJQueryResource) {
 		this.autoImportJQueryResource = autoImportJQueryResource;
 	}
 
-	/**
-	 * Set the enableResourcesMerging option
-	 * 
-	 * @param enableResourcesMerging
-	 */
 	public void setEnableResourcesMerging(boolean enableResourcesMerging) {
 		this.enableResourcesMerging = enableResourcesMerging;
 	}
@@ -213,31 +262,13 @@ public class WiQuerySettings implements Serializable {
 		this.embedGeneratedStatements = embedGeneratedStatements;
 	}
 
-	/**
-	 * @return the {@link ResourceReference} where we can find the jQuery core
-	 */
 	public ResourceReference getJQueryCoreResourceReference() {
 		return jQueryCoreResourceReference;
 	}
 
-	/**
-	 * Set the jQuery core to use
-	 * 
-	 * @param jQueryCoreResourceReference
-	 */
 	public void setJQueryCoreResourceReference(
 			ResourceReference jQueryCoreResourceReference) {
 		this.jQueryCoreResourceReference = jQueryCoreResourceReference;
-	}
-
-	/**
-	 * Sets the minifiedResources option
-	 * 
-	 * @param minifiedResources
-	 * @see #isMinifiedResources()
-	 */
-	public void setMinifiedResources(boolean minifiedResources) {
-		this.minifiedResources = minifiedResources;
 	}
 
 	public boolean isAutoImportJQueryUIResource() {

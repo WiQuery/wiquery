@@ -21,8 +21,6 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
-import java.util.Locale;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
