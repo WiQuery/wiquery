@@ -1,13 +1,13 @@
 /*
  * YUI Compressor
+ * http://developer.yahoo.com/yui/compressor/
  * Author: Julien Lecomte -  http://www.julienlecomte.net/
- * Author: Isaac Schlueter - http://foohack.com/ 
+ * Author: Isaac Schlueter - http://foohack.com/
  * Author: Stoyan Stefanov - http://phpied.com/
- * Copyright (c) 2009 Yahoo! Inc.  All rights reserved.
+ * Copyright (c) 2011 Yahoo! Inc.  All rights reserved.
  * The copyrights embodied in the content of this file are licensed
  * by Yahoo! Inc. under the BSD (revised) open source license.
  */
-
 package com.yahoo.platform.yui.compressor;
 
 import java.io.IOException;

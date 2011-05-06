@@ -1,7 +1,11 @@
 package org.odlabs.wiquery.core.commons;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.util.lang.Packages;
+import org.apache.wicket.util.resource.IResourceStream;
+import org.apache.wicket.util.resource.locator.IResourceStreamLocator;
 
 /**
  * <p>
@@ -34,18 +38,34 @@ public class WiQueryStyleSheetResourceReference extends
 		PackageResourceReference {
 	private static final long serialVersionUID = 1L;
 
+	private Boolean minified = null;
+
 	public WiQueryStyleSheetResourceReference(Class<?> scope, String name) {
-		super(scope, processName(name), null, null, null);
+		super(scope, name, null, null, null);
 	}
 
-	private static String processName(String name) {
-		if (isMinifiedJavascript())
-			return name.substring(0, name.length() - 3) + "min.css";
+	private boolean exists(Class<?> scope, String name) {
+		IResourceStreamLocator locator = Application.get()
+				.getResourceSettings().getResourceStreamLocator();
+		String absolutePath = Packages.absolutePath(scope, name);
+		IResourceStream stream = locator.locate(scope, absolutePath,
+				getStyle(), getVariation(), getLocale(), null, true);
+		return stream != null;
+	}
 
+	@Override
+	public String getName() {
+		String name = super.getName();
+		String minifiedName = name.substring(0, name.length() - 3) + "min.css";
+		if (minified == null)
+			minified = isMinifiedStyleSheet()
+					&& exists(getScope(), minifiedName);
+		if (minified)
+			return minifiedName;
 		return name;
 	}
 
-	public static boolean isMinifiedJavascript() {
+	public static boolean isMinifiedStyleSheet() {
 		return WiQuerySettings.get().isMinifiedResources();
 	}
 }

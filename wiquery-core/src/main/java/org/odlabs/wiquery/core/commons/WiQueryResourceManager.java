@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
 /**
@@ -83,14 +84,14 @@ public class WiQueryResourceManager implements Serializable {
 
 	/**
 	 * Adds the given file as a JavaScript file to import for the underlying
-	 * component.
+	 * component. This will automatically be the minified variant if available
+	 * and when a javascriptcompressor is set.
 	 * 
 	 * @see ResourceReference
 	 */
 	public void addJavaScriptResource(Class<?> scope, String path) {
-		this.javascriptResources
-				.add(new WiQueryJavaScriptResourceReference(scope,
-						path));
+		this.javascriptResources.add(new WiQueryJavaScriptResourceReference(
+				scope, path));
 	}
 
 	/**
@@ -107,9 +108,7 @@ public class WiQueryResourceManager implements Serializable {
 	 * @see ResourceReference
 	 */
 	public void addCssResource(Class<?> scope, String path) {
-		this.cssResources
-				.add(new WiQueryJavaScriptResourceReference(scope,
-						path));
+		this.cssResources.add(new PackageResourceReference(scope, path));
 	}
 
 	/**
