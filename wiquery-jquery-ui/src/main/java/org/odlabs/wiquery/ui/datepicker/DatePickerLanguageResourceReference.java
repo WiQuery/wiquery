@@ -43,25 +43,74 @@ public class DatePickerLanguageResourceReference extends
 	 * (Default locale for the DatePicker : EN)
 	 * 
 	 * @author Julien Roche
-	 * 
+	 * @note Hielke Hoeve: ordered languages by order of appearance on the file
+	 *       system. There are 3 countries whom have had their ISO code changed.
+	 *       Java has an ugly fix to fix this which we are stuck with... We copied the resource files to reflect both country codes, while Java only uses one of them...
 	 */
 	public enum DatePickerLanguages {
-		AFRIKAANS("af"), ALBANIAN("sq"), ALGERIAN("ar", "DZ"), ARABIC("ar"), ARMENIAN(
-				"hy"), AUSTRALIAN("en", "AU"), AZERBAIJANI("az"), BOSNIAN("bs"), BRAZILIAN(
-				"pt", "BR"), BULGARIAN("bg"), CATALAN("ca"), CHINESE("zh", "HK"), CROATIAN(
-				"hr"), CZECH("cs"), DANISH("da"), DUTCH("nl"), ESPERANTO("eo"), ESTONIAN(
-				"et"), EUSKARAKO("eu"), FAROESE("fo"), FINNISH("fi"), FRENCH(
-				Locale.FRENCH), GALICIAN("gl"), GERMAN(Locale.GERMAN), GREEK(
-				"el"), HEBREW("he"), HUNGARIAN("hu"), ICELANDIC("is"), INDONESIAN(
-				"id"), ITALIAN(Locale.ITALIAN), JAPANESE(Locale.JAPANESE), KAZAKH(
-				"kz"), KOREAN(Locale.KOREAN), LATVIAN("lv"), MALAYALAM("ml"), LITHUANIAN(
-				"lt"), MALAYSIAN("ms"), NEW_ZEALAND("en", "NZ"), NORVEGIAN("no"), PERSIAN(
-				"fa"), POLISH("pl"), PORTUGUESE("pt"), ROMANSH("rm"), ROMANIAN(
-				"ro"), RUSSIAN("ru"), SERBIA("sr", "SR"), SERBIAN("sr"), SIMPLIFIED_CHINESE(
-				Locale.SIMPLIFIED_CHINESE), SLOVAK("sk"), SLOVENIAN("sl"), SPANISH(
-				"es"), SWEDISH("sv"), SWISS("fr", "CH"), TAMIL("ta"), THAI("th"), TRADITIONAL_CHINESE(
-				Locale.TRADITIONAL_CHINESE), TURKISH("tr"), UNITED_KINGDOM(
-				Locale.UK), UKRAINIAN("uk"), VIETNAMESE("vi");
+		AFRIKAANS			("af"),
+		ALGERIAN			("ar", "DZ"),
+		ARABIC				("ar"),
+		AZERBAIJANI			("az"),
+		BULGARIAN			("bg"),
+		BOSNIAN				("bs"),
+		CATALAN				("ca"),
+		CZECH				("cs"),
+		DANISH				("da"),
+		GERMAN				(Locale.GERMAN),
+		GREEK				("el"),
+		AUSTRALIAN			("en", "AU"),
+		UNITED_KINGDOM		(Locale.UK),
+		NEW_ZEALAND			("en", "NZ"),
+		ESPERANTO			("eo"),
+		SPANISH				("es"),
+		ESTONIAN			("et"),
+		EUSKARAKO			("eu"),
+		PERSIAN				("fa"),
+		FINNISH				("fi"),
+		FAROESE				("fo"),
+		SWISS				("fr", "CH"),
+		FRENCH				(Locale.FRENCH),
+		GALICIAN			("gl"),
+		HEBREW				("he"),
+		//HEBREW_OLD			("iw"),
+		CROATIAN			("hr"),
+		HUNGARIAN			("hu"),
+		ARMENIAN			("hy"),
+		INDONESIAN			("id"),
+		//INDONESIAN_OLD		("in"),
+		ICELANDIC			("is"),
+		ITALIAN				(Locale.ITALIAN),
+		JAPANESE			(Locale.JAPANESE),
+		KOREAN				(Locale.KOREAN),
+		KAZAKH				("kz"),
+		LITHUANIAN			("lt"),
+		LATVIAN				("lv"),
+		MALAYALAM			("ml"),
+		MALAYSIAN			("ms"),
+		DUTCH				("nl"),
+		NORVEGIAN			("no"),
+		POLISH				("pl"),
+		BRAZILIAN			("pt", "BR"),
+		PORTUGUESE			("pt"),
+		ROMANSH				("rm"),
+		ROMANIAN			("ro"),
+		RUSSIAN				("ru"),
+		SLOVAK				("sk"),
+		SLOVENIAN			("sl"),
+		ALBANIAN			("sq"),
+		SERBIA				("sr", "SR"),
+		SERBIAN				("sr"),
+		SWEDISH				("sv"),
+		TAMIL				("ta"),
+		THAI				("th"),
+		TAJIKISTAN			("tj"),
+		TURKISH				("tr"),
+		UKRAINIAN			("uk"),
+		VIETNAMESE			("vi"),
+		SIMPLIFIED_CHINESE	(Locale.SIMPLIFIED_CHINESE),
+		CHINESE				("zh", "HK"),
+		TRADITIONAL_CHINESE	(Locale.TRADITIONAL_CHINESE);
 
 		// Properties
 		private final Locale locale;
