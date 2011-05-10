@@ -1,71 +1,12 @@
 /*! Copyright (c) 2010 Brandon Aaron (http://brandonaaron.net)
  * Licensed under the MIT License (LICENSE.txt).
  *
- * Version 2.1.2
+ * Version 2.1.3-pre
  */
 
 (function($){
 
-/**
- * The bgiframe is chainable and applies the iframe hack to get 
- * around zIndex issues in IE6. It will only apply itself in IE6 
- * and adds a class to the iframe called 'bgiframe'. The iframe
- * is appeneded as the first child of the matched element(s) 
- * with a tabIndex and zIndex of -1.
- * 
- * By default the plugin will take borders, sized with pixel units,
- * into account. If a different unit is used for the border's width,
- * then you will need to use the top and left settings as explained below.
- *
- * NOTICE: This plugin has been reported to cause perfromance problems
- * when used on elements that change properties (like width, height and
- * opacity) a lot in IE6. Most of these problems have been caused by 
- * the expressions used to calculate the elements width, height and 
- * borders. Some have reported it is due to the opacity filter. All 
- * these settings can be changed if needed as explained below.
- *
- * @example $('div').bgiframe();
- * @before <div><p>Paragraph</p></div>
- * @result <div><iframe class="bgiframe".../><p>Paragraph</p></div>
- *
- * @param Map settings Optional settings to configure the iframe.
- * @option String|Number top The iframe must be offset to the top
- * 		by the width of the top border. This should be a negative 
- *      number representing the border-top-width. If a number is 
- * 		is used here, pixels will be assumed. Otherwise, be sure
- *		to specify a unit. An expression could also be used. 
- * 		By default the value is "auto" which will use an expression 
- * 		to get the border-top-width if it is in pixels.
- * @option String|Number left The iframe must be offset to the left
- * 		by the width of the left border. This should be a negative 
- *      number representing the border-left-width. If a number is 
- * 		is used here, pixels will be assumed. Otherwise, be sure
- *		to specify a unit. An expression could also be used. 
- * 		By default the value is "auto" which will use an expression 
- * 		to get the border-left-width if it is in pixels.
- * @option String|Number width This is the width of the iframe. If
- *		a number is used here, pixels will be assume. Otherwise, be sure
- * 		to specify a unit. An experssion could also be used.
- *		By default the value is "auto" which will use an experssion
- * 		to get the offsetWidth.
- * @option String|Number height This is the height of the iframe. If
- *		a number is used here, pixels will be assume. Otherwise, be sure
- * 		to specify a unit. An experssion could also be used.
- *		By default the value is "auto" which will use an experssion
- * 		to get the offsetHeight.
- * @option Boolean opacity This is a boolean representing whether or not
- * 		to use opacity. If set to true, the opacity of 0 is applied. If
- *		set to false, the opacity filter is not applied. Default: true.
- * @option String src This setting is provided so that one could change 
- *		the src of the iframe to whatever they need.
- *		Default: "javascript:false;"
- *
- * @name bgiframe
- * @type jQuery
- * @cat Plugins/bgiframe
- * @author Brandon Aaron (brandon.aaron@gmail.com || http://brandonaaron.net)
- */
-$.fn.bgIframe = $.fn.bgiframe = ($.browser.msie && /msie 6\.0/i.test(navigator.userAgent) ? function(s) {
+$.fn.bgiframe = ($.browser.msie && /msie 6\.0/i.test(navigator.userAgent) ? function(s) {
     s = $.extend({
         top     : 'auto', // auto == .currentStyle.borderTopWidth
         left    : 'auto', // auto == .currentStyle.borderLeftWidth
