@@ -128,27 +128,6 @@ public class JsQuery extends Behavior implements IHeaderContributor, Serializabl
 		return statement = new JsStatement().document();
 	}
 
-	public void renderHead(Component component, IHeaderResponse response) {
-		WiQuerySettings settings = WiQuerySettings.get();
-		
-		if(settings.isAutoImportJQueryResource()){
-			ResourceReference ref = settings.getJQueryCoreResourceReference();
-			response.renderJavaScriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
-		}
-		
-		if (!WiQueryUtil.isCurrentRequestAjax()) {
-			// appending component statement
-			// on dom ready, the code is executed.
-			JsStatement onreadyStatement = new JsStatement();
-			onreadyStatement.document().ready(
-					JsScope.quickScope(JsQuery.this.statement.render()));
-			response.renderString("<script type=\"text/javascript\">"
-					+ onreadyStatement.render() + "</script>");
-		} else {
-			addAjaxJavascript(AjaxRequestTarget.get(), statement.render().toString());
-		}
-	}
-
 	/**
 	 * Adds this statement as a {@link HeaderContributor} for the given
 	 * component.
@@ -172,6 +151,31 @@ public class JsQuery extends Behavior implements IHeaderContributor, Serializabl
 		this.statement = jsStatement;
 	}
 
+	/**
+	 * FOR FRAMEWORK'S INTERNAL USE ONLY
+	 */
+	public void renderHead(IHeaderResponse response) {
+		WiQuerySettings settings = WiQuerySettings.get();
+		
+		if(settings.isAutoImportJQueryResource()){
+			ResourceReference ref = settings.getJQueryCoreResourceReference();
+			response.renderJavaScriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
+		}
+		
+		if (!WiQueryUtil.isCurrentRequestAjax()) {
+			// appending component statement
+			// on dom ready, the code is executed.
+			JsStatement onreadyStatement = new JsStatement();
+			onreadyStatement.document().ready(
+					JsScope.quickScope(JsQuery.this.statement.render()));
+			response.renderString("<script type=\"text/javascript\">"
+					+ onreadyStatement.render() + "</script>");
+		} else {
+			addAjaxJavascript(AjaxRequestTarget.get(), statement.render().toString());
+		}
+	}
+
+	
 	/**
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
