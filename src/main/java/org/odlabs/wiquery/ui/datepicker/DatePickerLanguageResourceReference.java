@@ -23,7 +23,6 @@ package org.odlabs.wiquery.ui.datepicker;
 
 import java.util.Locale;
 
-import org.apache.wicket.WicketRuntimeException;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
@@ -43,69 +42,70 @@ public class DatePickerLanguageResourceReference extends
 	 * Enumeration of possibles alternatives languages for the DatePicker
 	 * (Default locale for the DatePicker : EN)
 	 * @author Julien Roche
-	 *
+	 * @note Hielke Hoeve: ordered languages by order of appearance on the file system. 
 	 */
 	public enum DatePickerLanguages {
 		AFRIKAANS			("af"),
-		ALBANIAN			("sq"),
 		ALGERIAN			("ar", "DZ"),
 		ARABIC				("ar"),
-		ARMENIAN			("hy"),
-		AUSTRALIAN			("en", "AU"),
 		AZERBAIJANI			("az"),
-		BOSNIAN				("bs"),
-		BRAZILIAN			("pt", "BR"),
 		BULGARIAN			("bg"),
+		BOSNIAN				("bs"),
 		CATALAN				("ca"),
-		CHINESE				("zh", "HK"),
-		CROATIAN			("hr"),
 		CZECH				("cs"),
 		DANISH				("da"),
-		DUTCH				("nl"),
-		ESPERANTO			("eo"),
-		ESTONIAN			("et"),
-		EUSKARAKO			("eu"),
-		FAROESE				("fo"),
-		FINNISH				("fi"),
-		FRENCH				(Locale.FRENCH),
-		GALICIAN			("gl"),
 		GERMAN				(Locale.GERMAN),
 		GREEK				("el"),
+		AUSTRALIAN			("en", "AU"),
+		UNITED_KINGDOM		(Locale.UK),
+		NEW_ZEALAND			("en", "NZ"),
+		ESPERANTO			("eo"),
+		SPANISH				("es"),
+		ESTONIAN			("et"),
+		EUSKARAKO			("eu"),
+		PERSIAN				("fa"),
+		FINNISH				("fi"),
+		FAROESE				("fo"),
+		SWISS				("fr", "CH"),
+		FRENCH				(Locale.FRENCH),
+		GALICIAN			("gl"),
 		HEBREW				("he"),
+		CROATIAN			("hr"),
 		HUNGARIAN			("hu"),
-		ICELANDIC			("is"),
+		ARMENIAN			("hy"),
 		INDONESIAN			("id"),
+		ICELANDIC			("is"),
 		ITALIAN				(Locale.ITALIAN),
 		JAPANESE			(Locale.JAPANESE),
-		KAZAKH				("kz"),
 		KOREAN				(Locale.KOREAN),
+		KAZAKH				("kz"),
+		LITHUANIAN			("lt"),
 		LATVIAN				("lv"),
 		MALAYALAM			("ml"),
-		LITHUANIAN			("lt"),
 		MALAYSIAN			("ms"),
-		NEW_ZEALAND			("en", "NZ"),
+		DUTCH				("nl"),
 		NORVEGIAN			("no"),
-		PERSIAN				("fa"),
 		POLISH				("pl"),
+		BRAZILIAN			("pt", "BR"),
 		PORTUGUESE			("pt"),
 		ROMANSH				("rm"),
 		ROMANIAN			("ro"),
 		RUSSIAN				("ru"),
-		SERBIA				("sr", "SR"),
-		SERBIAN				("sr"),
-		SIMPLIFIED_CHINESE	(Locale.SIMPLIFIED_CHINESE),
 		SLOVAK				("sk"),
 		SLOVENIAN			("sl"),
-		SPANISH				("es"),
+		ALBANIAN			("sq"),
+		SERBIA				("sr", "SR"),
+		SERBIAN				("sr"),
 		SWEDISH				("sv"),
-		SWISS				("fr", "CH"),
 		TAMIL				("ta"),
 		THAI				("th"),
-		TRADITIONAL_CHINESE	(Locale.TRADITIONAL_CHINESE),
+		TAJIKISTAN			("tj"),
 		TURKISH				("tr"),
-		UNITED_KINGDOM		(Locale.UK),
 		UKRAINIAN			("uk"),
-		VIETNAMESE			("vi");
+		VIETNAMESE			("vi"),
+		SIMPLIFIED_CHINESE	(Locale.SIMPLIFIED_CHINESE),
+		CHINESE				("zh", "HK"),
+		TRADITIONAL_CHINESE	(Locale.TRADITIONAL_CHINESE);
 		
 		// Properties
 		private final Locale locale;
@@ -265,20 +265,5 @@ public class DatePickerLanguageResourceReference extends
 			return new DatePickerLanguageResourceReference(locale, DatePickerLanguages.getJsFileName(dpl));
 		
 		return null;
-	}
-
-	/**
-	 * Method to calculate the name of the javascript file
-	 * @param locale Locale
-	 * @return the name
-	 */
-	private static String getJsFilename(Locale locale) {
-		DatePickerLanguages dpl = DatePickerLanguages.getDatePickerLanguages(locale);
-		
-		if(dpl == null){
-			throw new WicketRuntimeException("The locale cannot load the required javascript locale file");
-		}
-		
-		return DatePickerLanguages.getJsFileName(dpl).toString();
 	}
 }

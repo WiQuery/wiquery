@@ -1,6 +1,7 @@
 package org.odlabs.wiquery.ui.datepicker;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.Locale;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
  * Unit test on the {@link DatePickerLanguageResourceReference}
  * 
  * @author Julien Roche
+ * @author Hielke Hoeve
  */
 public class DatePickerLanguageResourceReferenceTestCase extends
 		WiQueryTestCase {
@@ -22,27 +24,24 @@ public class DatePickerLanguageResourceReferenceTestCase extends
 	protected static final Logger log = LoggerFactory
 			.getLogger(DatePickerLanguageResourceReferenceTestCase.class);
 
-	/**
-	 * Test
-	 * {@link DatePickerLanguageResourceReference.DatePickerLanguages#getDatePickerLanguages(java.util.Locale)}
-	 */
 	@Test
 	public void testGetDatePickerLanguages() {
-		assertNull(DatePickerLanguages.getDatePickerLanguages(new Locale("gj")));
+		Locale nonavailableLocale = new Locale("wiquery");
+		Locale availableLocale = DatePickerLanguages.ARMENIAN.getLocale();
+		
+		assertNull(DatePickerLanguages.getDatePickerLanguages(nonavailableLocale));
+		assertNull(DatePickerLanguageResourceReference.get(nonavailableLocale));
 
-		assertEquals(DatePickerLanguages.getDatePickerLanguages(new Locale(
-				"sr", "SR")), DatePickerLanguages.SERBIA);
-
-		assertEquals(DatePickerLanguages
-				.getDatePickerLanguages(new Locale("sr")),
-				DatePickerLanguages.SERBIAN);
+		assertNotNull(DatePickerLanguages.getDatePickerLanguages(availableLocale));
+		assertNotNull(DatePickerLanguageResourceReference.get(availableLocale));
+		
+		for(DatePickerLanguages language : DatePickerLanguages.values())
+		{
+			assertEquals(language, DatePickerLanguages.getDatePickerLanguages(language.getLocale()));
+			assertNotNull(DatePickerLanguageResourceReference.get(availableLocale));
+		}
 	}
 
-	/**
-	 * Test
-	 * {@link DatePickerLanguageResourceReference.DatePickerLanguages#getJsFileName(DatePickerLanguages)
-	 * )}
-	 */
 	@Test
 	public void testGetJsFileName() {
 		assertNull(DatePickerLanguages.getJsFileName(null));
