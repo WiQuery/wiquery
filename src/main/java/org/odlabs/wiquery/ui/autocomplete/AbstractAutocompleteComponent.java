@@ -266,6 +266,9 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		final T object = this.getModelObject();
 		final IChoiceRenderer<? super T> renderer = getChoiceRenderer();
 
+		if (NOT_ENTERED.equals(valueId))
+			valueId = null;
+		
 		if(valueId == null && Strings.isEmpty(input)){
 			setConvertedInput(null);
 
