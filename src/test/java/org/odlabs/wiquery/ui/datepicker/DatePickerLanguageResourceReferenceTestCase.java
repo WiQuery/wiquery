@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNull;
 
 import java.util.Locale;
 
+import org.apache.wicket.Application;
+import org.apache.wicket.util.lang.Packages;
+import org.apache.wicket.util.resource.locator.IResourceStreamLocator;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.datepicker.DatePickerLanguageResourceReference.DatePickerLanguages;
@@ -37,8 +40,17 @@ public class DatePickerLanguageResourceReferenceTestCase extends
 		
 		for(DatePickerLanguages language : DatePickerLanguages.values())
 		{
+			//assert if the language getter is implemented correctly to return the exact variant. 
 			assertEquals(language, DatePickerLanguages.getDatePickerLanguages(language.getLocale()));
-			assertNotNull(DatePickerLanguageResourceReference.get(availableLocale));
+			
+			//assert if the reference getter is implemented correctly to return a reference to the exact variant. 
+			DatePickerLanguageResourceReference ref = DatePickerLanguageResourceReference.get(language.getLocale());
+			assertNotNull(ref);
+			
+			//assert if the file is actually there.
+			IResourceStreamLocator locator = Application.get().getResourceSettings().getResourceStreamLocator();
+			String absolutePath = Packages.absolutePath(DatePickerLanguageResourceReference.class, DatePickerLanguages.getJsFileName(language));
+			assertNotNull("Resource "+DatePickerLanguages.getJsFileName(language)+" for locale "+language.getLocale()+" does not exist!", locator.locate(DatePickerLanguageResourceReference.class, absolutePath));
 		}
 	}
 

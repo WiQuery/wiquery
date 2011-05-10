@@ -38,11 +38,14 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  */
 public class DatePickerLanguageResourceReference extends
 		WiQueryJavaScriptResourceReference {
+	
 	/**
 	 * Enumeration of possibles alternatives languages for the DatePicker
-	 * (Default locale for the DatePicker : EN)
+	 * 
 	 * @author Julien Roche
-	 * @note Hielke Hoeve: ordered languages by order of appearance on the file system. 
+	 * @note Hielke Hoeve: ordered languages by order of appearance on the file
+	 *       system. There are 3 countries whom have had their ISO code changed.
+	 *       Java has an ugly fix to fix this which we are stuck with... We copied the resource files to reflect both country codes, while Java only uses one of them...
 	 */
 	public enum DatePickerLanguages {
 		AFRIKAANS			("af"),
@@ -70,10 +73,12 @@ public class DatePickerLanguageResourceReference extends
 		FRENCH				(Locale.FRENCH),
 		GALICIAN			("gl"),
 		HEBREW				("he"),
+		//HEBREW_OLD			("iw"),
 		CROATIAN			("hr"),
 		HUNGARIAN			("hu"),
 		ARMENIAN			("hy"),
 		INDONESIAN			("id"),
+		//INDONESIAN_OLD		("in"),
 		ICELANDIC			("is"),
 		ITALIAN				(Locale.ITALIAN),
 		JAPANESE			(Locale.JAPANESE),
