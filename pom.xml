@@ -43,12 +43,21 @@
 				<artifactId>wiquery-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<!-- add wiquery-core also as test project so wiquery-jquery-ui can use 
+				the abstract testcase class -->
+			<dependency>
+				<groupId>org.odlabs.wiquery</groupId>
+				<artifactId>wiquery-core</artifactId>
+				<version>${project.version}</version>
+				<classifier>tests</classifier>
+				<scope>test</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.odlabs.wiquery</groupId>
 				<artifactId>wiquery-jquery-ui</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-		
+
 			<!-- System dependencies -->
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -196,7 +205,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.7</version>
@@ -212,7 +221,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
