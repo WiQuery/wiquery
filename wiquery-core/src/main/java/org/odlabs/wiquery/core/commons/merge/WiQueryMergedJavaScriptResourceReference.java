@@ -102,10 +102,12 @@ public class WiQueryMergedJavaScriptResourceReference extends ResourceReference
 		for (ResourceReference ref : wiQueryHeaderResponse.getJavascript()) {
 
 			// We insert the javascript code into the template
+			StringBuilder resourceName = new StringBuilder(); 
 			try {
-				temp = Streams.readString(getClass().getResourceAsStream(
-						"/" + Packages.absolutePath(ref.getScope(), "") + "/"
-								+ ref.getName()));
+				resourceName.append("/")
+						.append(Packages.absolutePath(ref.getScope(), ""))
+						.append("/").append(ref.getName());
+				temp = Streams.readString(getClass().getResourceAsStream(resourceName.toString()));
 			} catch (Exception e) {
 				temp = null;
 				e.printStackTrace();

@@ -163,7 +163,7 @@ public class WiQueryCoreHeaderContributor extends Behavior implements Serializab
 				JsStatement tempStatement = plugin.statement();
 
 				if (tempStatement != null) {
-					jsStatement.append("\t" + tempStatement.render() + "\n");
+					jsStatement.append("\t").append( tempStatement.render()).append("\n");
 				}
 
 				// calling listeners to compute specific stuff

@@ -49,12 +49,12 @@ public class DateHelper {
 	public static CharSequence getJSDate(Calendar calendar) {
 		StringBuffer dateJavascript = new StringBuffer();
 		dateJavascript.append("new Date(");
-		dateJavascript.append(calendar.get(Calendar.YEAR) + ",");
-		dateJavascript.append(calendar.get(Calendar.MONTH) + ",");
-		dateJavascript.append(calendar.get(Calendar.DAY_OF_MONTH) + ",");
-		dateJavascript.append(calendar.get(Calendar.HOUR_OF_DAY) + ",");
-		dateJavascript.append(calendar.get(Calendar.MINUTE) + ",");
-		dateJavascript.append(calendar.get(Calendar.SECOND) + ",");
+        dateJavascript.append(calendar.get(Calendar.YEAR)).append(",");
+        dateJavascript.append(calendar.get(Calendar.MONTH)).append(",");
+        dateJavascript.append(calendar.get(Calendar.DAY_OF_MONTH)).append(",");
+        dateJavascript.append(calendar.get(Calendar.HOUR_OF_DAY)).append(",");
+        dateJavascript.append(calendar.get(Calendar.MINUTE)).append(",");
+        dateJavascript.append(calendar.get(Calendar.SECOND)).append(",");
 		dateJavascript.append(calendar.get(Calendar.MILLISECOND));
 		dateJavascript.append(")");
 		

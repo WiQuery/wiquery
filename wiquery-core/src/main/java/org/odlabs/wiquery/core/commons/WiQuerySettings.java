@@ -57,9 +57,9 @@ public class WiQuerySettings implements Serializable {
 				WiQueryInitializer.WIQUERY_INSTANCE_KEY);
 
 		if (instance == null) {
-			throw new WicketRuntimeException(
-					"There is no WiQueryInstantiationListener attached to the application "
-							+ Thread.currentThread().getName());
+			throw new WicketRuntimeException(new StringBuilder().append(
+					"There is no WiQueryInstantiationListener attached to the application ").append(
+							 Thread.currentThread().getName()).toString());
 		}
 
 		return instance;

@@ -135,7 +135,7 @@ public class WiQueryMergedStyleSheetResourceReference extends
 
 	private IResourceStream newResourceStream() {
 		String temp;
-		String cssUrl;
+		StringBuilder cssUrl = new StringBuilder();
 		String name;
 		String old;
 		String match;
@@ -143,27 +143,28 @@ public class WiQueryMergedStyleSheetResourceReference extends
 
 		HttpServletRequest request = ((HttpServletRequest) RequestCycle.get()
 				.getRequest());
-		String baseHost = request.getRequestURL().toString();
-		baseHost = baseHost.substring(0,
-				baseHost.indexOf(request.getRequestURI()))
-				+ request.getContextPath() + "/resources/";
+		StringBuilder baseHost = new StringBuilder(); 
+		baseHost.append(request.getRequestURL().toString().substring(0,
+				request.getRequestURL().toString().indexOf(request.getRequestURI())));
+		baseHost.append(request.getContextPath()).append("/resources/");
 
 		for (ResourceReference ref : wiQueryHeaderResponse.getStylesheet()) {
 
 			// We insert the javascript code into the template
+			StringBuilder resourceName = new StringBuilder(); 
 			try {
-
-				temp = Streams.readString(getClass().getResourceAsStream(
-						"/" + Packages.absolutePath(ref.getScope(), "") + "/"
-								+ ref.getName()));
+				resourceName.append("/")
+						.append(Packages.absolutePath(ref.getScope(), ""))
+						.append("/").append(ref.getName());
+				temp = Streams.readString(getClass().getResourceAsStream(resourceName.toString()));
 
 				// Replace of url in the css file (regexp: url\(.*?\) )
 				name = ref.getName();
-				cssUrl = baseHost
-						+ ref.getScope().getName()
-						+ "/"
-						+ (name.indexOf("/") < 0 ? "" : name.substring(0,
-								name.lastIndexOf("/"))) + "/";
+				cssUrl.append(baseHost)
+						.append( ref.getScope().getName())
+						.append( "/")
+						.append( name.indexOf("/") < 0 ? "" : name.substring(0,
+								name.lastIndexOf("/"))) .append("/");
 
 				Pattern p = Pattern.compile(REGEX);
 				Matcher m = p.matcher(temp); // get a matcher object
@@ -171,7 +172,7 @@ public class WiQueryMergedStyleSheetResourceReference extends
 				while (m.find()) {
 					count++;
 					match = m.group();
-					old = getCssUrl(match, cssUrl);
+					old = getCssUrl(match, cssUrl.toString());
 
 					if (!old.equals(match)) {
 						temp = temp.replace(match, old);

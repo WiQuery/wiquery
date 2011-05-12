@@ -58,7 +58,7 @@ public class WiQueryHeaderResponse extends HeaderResponse implements
 		StringBuffer buffer = new StringBuffer();
 
 		for (ResourceReference r : resources) {
-			buffer.append(r.getClass().getSimpleName() + "_");
+            buffer.append(r.getClass().getSimpleName()).append("_");
 			buffer.append(r.getName().replace("/", ":"));
 		}
 

@@ -142,8 +142,12 @@ public class JsQuery extends Behavior implements Serializable {
 			JsStatement onreadyStatement = new JsStatement();
 			onreadyStatement.document().ready(
 					JsScope.quickScope(JsQuery.this.statement.render()));
-			response.renderString("<script type=\"text/javascript\">"
-					+ onreadyStatement.render() + "</script>");
+			
+			StringBuilder responseString = new StringBuilder();
+			responseString.append("<script type=\"text/javascript\">")
+					.append(onreadyStatement.render()).append("</script>");
+
+			response.renderString(responseString.toString());
 		} else {
 			addAjaxJavascript(AjaxRequestTarget.get(), statement.render().toString());
 		}

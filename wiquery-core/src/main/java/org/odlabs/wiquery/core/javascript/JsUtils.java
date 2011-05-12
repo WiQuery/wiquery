@@ -45,7 +45,7 @@ public class JsUtils {
 			array.append(args[0]);
 			
 			for(int i = 1; i < args.length; i++) {
-				array.append(", " + args[i]);
+                array.append(", ").append(args[i]);
 			}
 		}
 		

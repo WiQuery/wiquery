@@ -244,10 +244,10 @@ public class DatePickerLanguageResourceReference extends
 			js.append(locale.getLanguage());
 
 			if (country != null && country.trim().length() > 0) {
-				js.append("-" + country);
+                js.append("-").append(country);
 
 				if (variant != null && variant.trim().length() > 0) {
-					js.append("-" + variant);
+                    js.append("-").append(variant);
 				}
 			}
 

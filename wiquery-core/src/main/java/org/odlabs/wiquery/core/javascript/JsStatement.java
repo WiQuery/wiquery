@@ -85,21 +85,26 @@ public class JsStatement implements Serializable {
 	 * Appends the jQuery's <code>$</code> function to the current
 	 * {@link JsStatement}. So, we can call some special jquery fonction, like
 	 * <code>$.browser</code> ...
+	 * 
 	 * @return {@link JsStatement} this instance.
 	 */
 	public JsStatement $() {
 		statement.append("$");
 		return this;
 	}
-	
+
 	/**
 	 * Same method as {@link #$(Component, String)} with an empty selector.
 	 * 
 	 * @return {@link JsStatement} this instance.
 	 */
 	public JsStatement $(Component context) {
-		String dollarSelector = context == null ? "" : ("'#"
-				+ context.getMarkupId() + "'");
+		StringBuilder dollarSelector = new StringBuilder();
+		if (context == null)
+			dollarSelector.append("");
+		else
+			dollarSelector.append("'#").append( context.getMarkupId()).append("'");
+		
 		statement.append("$(");
 		statement.append(dollarSelector);
 		statement.append(")");
@@ -121,14 +126,18 @@ public class JsStatement implements Serializable {
 	 * @return {@link JsStatement} this instance.
 	 */
 	public JsStatement $(Component context, String selector) {
-		String dollarSelector = context == null ? selector : ("#"
-				+ context.getMarkupId() + " " + selector);
+		StringBuilder dollarSelector = new StringBuilder();
+		if (context == null)
+			dollarSelector.append(selector);
+		else
+			dollarSelector.append("'#").append( context.getMarkupId()).append("' ").append(selector);
+		
 		statement.append("$('");
 		statement.append(dollarSelector);
 		statement.append("')");
 		return this;
 	}
-	
+
 	/**
 	 * Binds the <code>addClass</code> statement.
 	 */
@@ -189,8 +198,8 @@ public class JsStatement implements Serializable {
 	 * @see #chain(CharSequence, CharSequence...).
 	 */
 	public JsStatement chain(ChainableStatement chainableStatement) {
-		this.chain(chainableStatement.chainLabel(), chainableStatement
-				.statementArgs());
+		this.chain(chainableStatement.chainLabel(),
+				chainableStatement.statementArgs());
 		return this;
 	}
 
@@ -236,7 +245,7 @@ public class JsStatement implements Serializable {
 		chain(CssHelper.css(name, value));
 		return this;
 	}
-	
+
 	/**
 	 * Appends $(document) to the statement.
 	 * 
@@ -246,7 +255,7 @@ public class JsStatement implements Serializable {
 		statement.append("$(document)");
 		return this;
 	}
-	
+
 	/**
 	 * Appends the <strong>each</strong> jQuery statement.
 	 * 
@@ -256,14 +265,14 @@ public class JsStatement implements Serializable {
 	public JsStatement each(JsScope scope) {
 		return this.chain("each", scope.render());
 	}
-	
+
 	/**
 	 * @return the statement of the JsStatement
 	 */
 	public StringBuilder getStatement() {
 		return statement;
 	}
-	
+
 	/**
 	 * Binds the <code>html</code> statement.
 	 */
@@ -271,7 +280,7 @@ public class JsStatement implements Serializable {
 		chain(AttributesHelper.html(htmlContents));
 		return this;
 	}
-	
+
 	/**
 	 * Binds the <code>insertAfter</code> statement.
 	 */
@@ -279,7 +288,7 @@ public class JsStatement implements Serializable {
 		chain(ManipulatingHelper.insertAfter(expression));
 		return this;
 	}
-	
+
 	/**
 	 * Binds the <code>insertBefore</code> statement.
 	 */
@@ -287,7 +296,7 @@ public class JsStatement implements Serializable {
 		chain(ManipulatingHelper.insertBefore(expression));
 		return this;
 	}
-	
+
 	/**
 	 * Appends the <strong>ready</strong> jQuery statement.
 	 * 
@@ -298,7 +307,7 @@ public class JsStatement implements Serializable {
 	public JsStatement ready(JsScope scope) {
 		return this.chain("ready", scope.render());
 	}
-	
+
 	/**
 	 * Binds the <code>removeAttr</code> statement.
 	 */
@@ -306,7 +315,7 @@ public class JsStatement implements Serializable {
 		chain(AttributesHelper.removeAttr(key));
 		return this;
 	}
-	
+
 	/**
 	 * Binds the <code>removeClass</code> statement.
 	 */
@@ -314,7 +323,7 @@ public class JsStatement implements Serializable {
 		chain(AttributesHelper.removeClass(className));
 		return this;
 	}
-	
+
 	/**
 	 * Renders this statement.
 	 * 
@@ -326,18 +335,20 @@ public class JsStatement implements Serializable {
 
 	/**
 	 * Renders this statement.
-	 * @param semicolon If true, a semicolon is automatically added
+	 * 
+	 * @param semicolon
+	 *            If true, a semicolon is automatically added
 	 * @return the renderable JavaScript statement as a {@link CharSequence}.
 	 */
 	public CharSequence render(boolean semicolon) {
 		String render = this.statement.toString();
-		
-		if(semicolon){
+
+		if (semicolon) {
 			String trimRendering = render.trim();
-			
+
 			if (trimRendering.length() > 0) {
 				char last = trimRendering.charAt(trimRendering.length() - 1);
-				
+
 				if (last != '}' && last != ';') {
 					render += ";";
 				}
@@ -345,7 +356,7 @@ public class JsStatement implements Serializable {
 		}
 		return render;
 	}
-	
+
 	/**
 	 * Appends the <code>this</code> keyword to this statement.
 	 * 
@@ -355,7 +366,7 @@ public class JsStatement implements Serializable {
 		statement.append("$(this)");
 		return this;
 	}
-	
+
 	/**
 	 * Binds the <code>toggleClass</code> statement.
 	 */

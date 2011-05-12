@@ -169,10 +169,10 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 			buffer.append(locale.getLanguage());
 			
 			if(locale.getCountry() != null && !locale.getCountry().equals("")){
-				buffer.append("_" + locale.getCountry());
+                buffer.append("_").append(locale.getCountry());
 				
 				if(locale.getVariant() != null && !locale.getVariant().equals("")){
-					buffer.append("_" + locale.getVariant());
+                    buffer.append("_").append(locale.getVariant());
 				}
 			}
 			
@@ -192,10 +192,10 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 			buffer.append(locale.getLanguage());
 			
 			if(locale.getCountry() != null && !locale.getCountry().equals("")){
-				buffer.append("_" + locale.getCountry());
+                buffer.append("_").append(locale.getCountry());
 				
 				if(locale.getVariant() != null && !locale.getVariant().equals("")){
-					buffer.append("_" + locale.getVariant());
+                    buffer.append("_").append(locale.getVariant());
 				}
 			}
 			
