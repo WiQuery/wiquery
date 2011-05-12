@@ -98,7 +98,7 @@ public class ButtonIcon  extends Object implements IComplexOption {
 		} else if(primary != null){
 			buffer.append("primary: " + new LiteralOption(primary));
 			
-		} else if(primary != null){
+		} else if(secondary != null){
 			buffer.append("secondary: " + new LiteralOption(secondary));
 		}
 		

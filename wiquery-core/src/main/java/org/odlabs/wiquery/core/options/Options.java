@@ -118,7 +118,7 @@ public class Options implements IModel<Options> {
 	 */
 	public String get(String key) {
 		String ret = getValueFromOptions(key, StringOption.class);
-		if (ret == null && options.containsKey(ret))
+		if (ret == null && options.containsKey(key))
 			ret = options.get(key).toString();
 		return ret;
 	}
