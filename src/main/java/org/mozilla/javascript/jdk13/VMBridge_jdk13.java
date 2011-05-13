@@ -49,8 +49,9 @@ import org.mozilla.javascript.*;
 
 public class VMBridge_jdk13 extends VMBridge
 {
-    private ThreadLocal contextLocal = new ThreadLocal();
+    private ThreadLocal<Object[]> contextLocal = new ThreadLocal<Object[]>();
 
+    @Override
     protected Object getThreadContextHelper()
     {
         // To make subsequent batch calls to getContext/setContext faster
@@ -62,7 +63,7 @@ public class VMBridge_jdk13 extends VMBridge
         // by Attila Szegedi in
         // https://bugzilla.mozilla.org/show_bug.cgi?id=281067#c5
 
-        Object[] storage = (Object[])contextLocal.get();
+        Object[] storage = contextLocal.get();
         if (storage == null) {
             storage = new Object[1];
             contextLocal.set(storage);
@@ -70,23 +71,27 @@ public class VMBridge_jdk13 extends VMBridge
         return storage;
     }
 
+    @Override
     protected Context getContext(Object contextHelper)
     {
         Object[] storage = (Object[])contextHelper;
         return (Context)storage[0];
     }
 
+    @Override
     protected void setContext(Object contextHelper, Context cx)
     {
         Object[] storage = (Object[])contextHelper;
         storage[0] = cx;
     }
 
+    @Override
     protected ClassLoader getCurrentThreadClassLoader()
     {
         return Thread.currentThread().getContextClassLoader();
     }
 
+    @Override
     protected boolean tryToMakeAccessible(Object accessibleObject)
     {
         if (!(accessibleObject instanceof AccessibleObject)) {
@@ -103,14 +108,15 @@ public class VMBridge_jdk13 extends VMBridge
         return accessible.isAccessible();
     }
 
+    @Override
     protected Object getInterfaceProxyHelper(ContextFactory cf,
-                                             Class[] interfaces)
+                                             Class<?>[] interfaces)
     {
         // XXX: How to handle interfaces array withclasses from different
         // class loaders? Using cf.getApplicationClassLoader() ?
         ClassLoader loader = interfaces[0].getClassLoader();
-        Class cl = Proxy.getProxyClass(loader, interfaces);
-        Constructor c;
+        Class<?> cl = Proxy.getProxyClass(loader, interfaces);
+        Constructor<?> c;
         try {
             c = cl.getConstructor(new Class[] { InvocationHandler.class });
         } catch (NoSuchMethodException ex) {
@@ -120,13 +126,14 @@ public class VMBridge_jdk13 extends VMBridge
         return c;
     }
 
+    @Override
     protected Object newInterfaceProxy(Object proxyHelper,
                                        final ContextFactory cf,
                                        final InterfaceAdapter adapter,
                                        final Object target,
                                        final Scriptable topScope)
     {
-        Constructor c = (Constructor)proxyHelper;
+        Constructor<?> c = (Constructor<?>)proxyHelper;
 
         InvocationHandler handler = new InvocationHandler() {
                 public Object invoke(Object proxy,
@@ -151,6 +158,7 @@ public class VMBridge_jdk13 extends VMBridge
         return proxy;
     }
     
+    @Override
     protected boolean isVarArgs(Member member) {
       return false;
     }

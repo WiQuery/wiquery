@@ -39,7 +39,8 @@
 
 package org.mozilla.javascript.serialize;
 
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.io.*;
 
@@ -78,12 +79,22 @@ public class ScriptableOutputStream extends ObjectOutputStream {
     {
         super(out);
         this.scope = scope;
-        table = new Hashtable(31);
+        table = new HashMap<Object,String>();
         table.put(scope, "");
         enableReplaceObject(true);
-        excludeStandardObjectNames();
+        excludeStandardObjectNames(); // XXX
     }
-
+    
+    public void excludeAllIds(Object[] ids) {
+        for (Object id: ids) {
+            if (id instanceof String &&
+                (scope.get((String) id, scope) instanceof Scriptable))
+            {
+                this.addExcludedName((String)id);
+            }
+        }
+    }
+    
     /**
      * Adds a qualified name to the list of object to be excluded from
      * serialization. Names excluded from serialization are looked up
@@ -108,7 +119,7 @@ public class ScriptableOutputStream extends ObjectOutputStream {
     }
 
     /**
-     * Adds a qualified name to the list of object to be excluded from
+     * Adds a qualified name to the list of objects to be excluded from
      * serialization. Names excluded from serialization are looked up
      * in the new scope and replaced upon deserialization.
      * @param name a fully qualified name (of the form "a.b.c", where
@@ -194,15 +205,16 @@ public class ScriptableOutputStream extends ObjectOutputStream {
         private String name;
     }
 
-    protected Object replaceObject(Object obj)
-        throws IOException
+    @Override
+    protected Object replaceObject(Object obj) throws IOException
     {
-        String name = (String) table.get(obj);
+        if (false) throw new IOException(); // suppress warning
+        String name = table.get(obj);
         if (name == null)
             return obj;
         return new PendingLookup(name);
     }
 
     private Scriptable scope;
-    private Hashtable table;
+    private Map<Object,String> table;
 }

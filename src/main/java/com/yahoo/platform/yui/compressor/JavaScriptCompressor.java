@@ -170,6 +170,8 @@ public class JavaScriptCompressor {
         literals.put(new Integer(Token.DOTDOT), "..");
         literals.put(new Integer(Token.DOTQUERY), ".(");
         literals.put(new Integer(Token.XMLATTR), "@");
+        literals.put(new Integer(Token.LET), "let ");
+        literals.put(new Integer(Token.YIELD), "yield ");
 
         // See http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Reserved_Words
 
@@ -308,6 +310,7 @@ public class JavaScriptCompressor {
             throws IOException, EvaluatorException {
 
         CompilerEnvirons env = new CompilerEnvirons();
+        env.setLanguageVersion(Context.VERSION_1_7);
         Parser parser = new Parser(env, reporter);
         parser.parse(in, null, 1);
         String source = parser.getEncodedSource();
@@ -533,7 +536,7 @@ public class JavaScriptCompressor {
         this.tokens = parse(in, reporter);
     }
 
-    public void compress(Writer out, int linebreak, boolean munge, boolean verbose,
+    public void compress(Writer out, Writer mapping, int linebreak, boolean munge, boolean verbose,
             boolean preserveAllSemiColons, boolean disableOptimizations)
             throws IOException {
 
@@ -553,6 +556,9 @@ public class JavaScriptCompressor {
         StringBuffer sb = printSymbolTree(linebreak, preserveAllSemiColons);
 
         out.write(sb.toString());
+        if (mapping != null) {
+            printMungeMapping(mapping);
+        }
     }
 
     private ScriptOrFnScope getCurrentScope() {
@@ -1088,6 +1094,7 @@ public class JavaScriptCompressor {
 
         String symbol;
         JavaScriptToken token;
+        JavaScriptToken lastToken = getToken(0);
         ScriptOrFnScope currentScope;
         JavaScriptIdentifier identifier;
 
@@ -1105,6 +1112,9 @@ public class JavaScriptCompressor {
             currentScope = getCurrentScope();
 
             switch (token.getType()) {
+                case Token.GET:
+                case Token.SET:
+                    lastToken = token;
 
                 case Token.NAME:
 
@@ -1160,7 +1170,10 @@ public class JavaScriptCompressor {
                     break;
 
                 case Token.FUNCTION:
-                    result.append("function");
+                    if (lastToken.getType() != Token.GET && lastToken.getType() != Token.SET) {
+                        result.append("function");
+                    }
+                    lastToken = token;
                     token = consumeToken();
                     if (token.getType() == Token.NAME) {
                         result.append(' ');
@@ -1314,4 +1327,11 @@ public class JavaScriptCompressor {
 
         return result;
     }
+
+    private void printMungeMapping(Writer mapping) throws IOException {
+        StringBuffer sb = new StringBuffer();
+        globalScope.getFullMapping(sb, "");
+        mapping.write(sb.toString());
+    }
+
 }

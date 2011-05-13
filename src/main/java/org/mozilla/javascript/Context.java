@@ -50,7 +50,10 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Locale;
 
 import org.mozilla.javascript.debug.DebuggableScript;
@@ -132,6 +135,11 @@ public class Context
      * JavaScript 1.6
      */
     public static final int VERSION_1_6 =      160;
+
+    /**
+     * JavaScript 1.7
+     */
+    public static final int VERSION_1_7 =      170;
 
     /**
      * Controls behaviour of <tt>Date.prototype.getYear()</tt>.
@@ -234,7 +242,7 @@ public class Context
      * Control if strict variable mode is enabled.
      * When the feature is on Rhino reports runtime errors if assignment
      * to a global variable that does not exist is executed. When the feature
-     * is off such assignments creates new variable in the global scope  as
+     * is off such assignments create a new variable in the global scope as
      * required by ECMA 262.
      * <p>
      * By default {@link #hasFeature(int)} returns false.
@@ -258,7 +266,7 @@ public class Context
      * When the feature is on Rhino will add a "fileName" and "lineNumber"
      * properties to Error objects automatically. When the feature is off, you
      * have to explicitly pass them as the second and third argument to the
-     * Error constructor. Note that neither behaviour is fully ECMA 262 
+     * Error constructor. Note that neither behavior is fully ECMA 262 
      * compliant (as 262 doesn't specify a three-arg constructor), but keeping 
      * the feature off results in Error objects that don't have
      * additional non-ECMA properties when constructed using the ECMA-defined
@@ -288,6 +296,19 @@ public class Context
      */
     public static final int FEATURE_WARNING_AS_ERROR = 12;
 
+    /**
+     * Enables enhanced access to Java. 
+     * Specifically, controls whether private and protected members can be
+     * accessed, and whether scripts can catch all Java exceptions.
+     * <p>
+     * Note that this feature should only be enabled for trusted scripts.
+     * <p>
+     * By default {@link #hasFeature(int)} returns false.
+     * @since 1.7 Release 1
+     */
+    public static final int FEATURE_ENHANCED_JAVA_ACCESS = 13;
+
+
     public static final String languageVersionProperty = "language version";
     public static final String errorReporterProperty   = "error reporter";
 
@@ -297,16 +318,38 @@ public class Context
     public static final Object[] emptyArgs = ScriptRuntime.emptyArgs;
 
     /**
-     * Create a new Context.
+     * Creates a new Context. The context will be associated with the {@link 
+     * ContextFactory#getGlobal() global context factory}.
      *
      * Note that the Context must be associated with a thread before
      * it can be used to execute a script.
-     *
-     * @see #enter()
-     * @see #call(ContextAction)
+     * @deprecated this constructor is deprecated because it creates a 
+     * dependency on a static singleton context factory. Use 
+     * {@link ContextFactory#enter()} or 
+     * {@link ContextFactory#call(ContextAction)} instead. If you subclass
+     * this class, consider using {@link #Context(ContextFactory)} constructor
+     * instead in the subclasses' constructors.
      */
     public Context()
     {
+        this(ContextFactory.getGlobal());
+    }
+    
+    /**
+     * Creates a new context. Provided as a preferred super constructor for
+     * subclasses in place of the deprecated default public constructor.
+     * @param factory the context factory associated with this context (most
+     * likely, the one that created the context). Can not be null. The context
+     * features are inherited from the factory, and the context will also 
+     * otherwise use its factory's services.
+     * @throws IllegalArgumentException if factory parameter is null.
+     */
+    protected Context(ContextFactory factory)
+    {
+        if(factory == null) {
+            throw new IllegalArgumentException("factory == null");
+        }
+        this.factory = factory;
         setLanguageVersion(VERSION_DEFAULT);
         optimizationLevel = codegenClass != null ? 0 : -1;
         maximumInterpreterStackDepth = Integer.MAX_VALUE;
@@ -321,8 +364,8 @@ public class Context
      * @return the Context associated with the current thread, or
      *         null if no context is associated with the current
      *         thread.
-     * @see org.mozilla.javascript.Context#enter()
-     * @see org.mozilla.javascript.Context#exit()
+     * @see ContextFactory#enterContext()
+     * @see ContextFactory#call(ContextAction)
      */
     public static Context getCurrentContext()
     {
@@ -331,43 +374,8 @@ public class Context
     }
 
     /**
-     * Get a context associated with the current thread, creating
-     * one if need be.
-     *
-     * The Context stores the execution state of the JavaScript
-     * engine, so it is required that the context be entered
-     * before execution may begin. Once a thread has entered
-     * a Context, then getCurrentContext() may be called to find
-     * the context that is associated with the current thread.
-     * <p>
-     * Calling <code>enter()</code> will
-     * return either the Context currently associated with the
-     * thread, or will create a new context and associate it
-     * with the current thread. Each call to <code>enter()</code>
-     * must have a matching call to <code>exit()</code>. For example,
-     * <pre>
-     *      Context cx = Context.enter();
-     *      try {
-     *          ...
-     *          cx.evaluateString(...);
-     *      } finally {
-     *          Context.exit();
-     *      }
-     * </pre>
-     * Instead of using <tt>enter()</tt>, <tt>exit()</tt> pair consider using
-     * {@link #call(ContextAction)} which guarantees proper
-     * association of Context instances with the current thread and is faster.
-     * With this method the above example becomes:
-     * <pre>
-     *      Context.call(new ContextAction() {
-     *          public Object run(Context cx) {
-     *              ...
-     *              cx.evaluateString(...);
-     *              return null;
-     *          }
-     *      });
-     * </pre>
-     *
+     * Same as calling {@link ContextFactory#enterContext()} on the global
+     * ContextFactory instance.
      * @return a Context associated with the current thread
      * @see #getCurrentContext()
      * @see #exit()
@@ -388,9 +396,9 @@ public class Context
      * is not associated with any other thread.
      * @param cx a Context to associate with the thread if possible
      * @return a Context associated with the current thread
-     *
-     * @see #enter()
-     * @see #call(ContextAction)
+     * @deprecated use {@link ContextFactory#enterContext(Context)} instead as 
+     * this method relies on usage of a static singleton "global" ContextFactory.
+     * @see ContextFactory#enterContext(Context)
      * @see ContextFactory#call(ContextAction)
      */
     public static Context enter(Context cx)
@@ -403,40 +411,25 @@ public class Context
         Object helper = VMBridge.instance.getThreadContextHelper();
         Context old = VMBridge.instance.getContext(helper);
         if (old != null) {
-            if (cx != null && cx != old && cx.enterCount != 0) {
-                // The suplied context must be the context for
-                // the current thread if it is already entered
-                throw new IllegalArgumentException(
-                    "Cannot enter Context active on another thread");
-            }
-            if (old.factory != null) {
-                // Context with associated factory will be released
-                // automatically and does not need to change enterCount
-                return old;
-            }
-            if (old.sealed) onSealedMutation();
             cx = old;
         } else {
             if (cx == null) {
                 cx = factory.makeContext();
-            } else {
-                if (cx.sealed) onSealedMutation();
-            }
-            if (cx.enterCount != 0 || cx.factory != null) {
-                throw new IllegalStateException();
-            }
-
-            if (!cx.creationEventWasSent) {
-                cx.creationEventWasSent = true;
+                if (cx.enterCount != 0) {
+                    throw new IllegalStateException("factory.makeContext() returned Context instance already associated with some thread");
+                }
                 factory.onContextCreated(cx);
+                if (factory.isSealed() && !cx.isSealed()) {
+                    cx.seal(null);
+                }
+            } else {
+                if (cx.enterCount != 0) {
+                    throw new IllegalStateException("can not use Context instance already associated with some thread");
+                }
             }
-        }
-
-        if (old == null) {
             VMBridge.instance.setContext(helper, cx);
         }
         ++cx.enterCount;
-
         return cx;
      }
 
@@ -445,22 +438,13 @@ public class Context
      *
      * Calling <code>exit()</code> will remove the association between
      * the current thread and a Context if the prior call to
-     * <code>enter()</code> on this thread newly associated a Context
-     * with this thread.
-     * Once the current thread no longer has an associated Context,
-     * it cannot be used to execute JavaScript until it is again associated
-     * with a Context.
-     *
-     * @see org.mozilla.javascript.Context#enter()
-     * @see #call(ContextAction)
-     * @see ContextFactory#call(ContextAction)
+     * {@link ContextFactory#enterContext()} on this thread newly associated a 
+     * Context with this thread. Once the current thread no longer has an 
+     * associated Context, it cannot be used to execute JavaScript until it is 
+     * again associated with a Context.
+     * @see ContextFactory#enterContext()
      */
     public static void exit()
-    {
-        exit(ContextFactory.getGlobal());
-    }
-    
-    static void exit(ContextFactory factory)
     {
         Object helper = VMBridge.instance.getThreadContextHelper();
         Context cx = VMBridge.instance.getContext(helper);
@@ -468,20 +452,12 @@ public class Context
             throw new IllegalStateException(
                 "Calling Context.exit without previous Context.enter");
         }
-        if (cx.factory != null) {
-            // Context with associated factory will be released
-            // automatically and does not need to change enterCount
-            return;
-        }
         if (cx.enterCount < 1) Kit.codeBug();
-        if (cx.sealed) onSealedMutation();
-        --cx.enterCount;
-        if (cx.enterCount == 0) {
+        if (--cx.enterCount == 0) {
             VMBridge.instance.setContext(helper, null);
-            factory.onContextReleased(cx);
+            cx.factory.onContextReleased(cx);
         }
     }
-
     
     /**
      * Call {@link ContextAction#run(Context cx)}
@@ -491,7 +467,9 @@ public class Context
      * construct new Context instance. The instance will be temporary
      * associated with the thread during call to
      * {@link ContextAction#run(Context)}.
-     *
+     * @deprecated use {@link ContextFactory#call(ContextAction)} instead as 
+     * this method relies on usage of a static singleton "global" 
+     * ContextFactory.
      * @return The result of {@link ContextAction#run(Context)}.
      */
     public static Object call(ContextAction action)
@@ -509,100 +487,35 @@ public class Context
      * new Context instance. The instance will be temporary associated
      * with the thread during call to {@link ContextAction#run(Context)}.
      * <p>
-     * It is allowed to use null for <tt>factory</tt> argument
-     * in which case the factory associated with the scope will be
-     * used to create new context instances.
-     *
+     * It is allowed but not advisable to use null for <tt>factory</tt> 
+     * argument in which case the global static singleton ContextFactory 
+     * instance will be used to create new context instances.
      * @see ContextFactory#call(ContextAction)
      */
-    public static Object call(ContextFactory factory, Callable callable,
-                              Scriptable scope, Scriptable thisObj,
-                              Object[] args)
+    public static Object call(ContextFactory factory, final Callable callable,
+                              final Scriptable scope, final Scriptable thisObj,
+                              final Object[] args)
     {
-        if (factory == null) {
+        if(factory == null) {
             factory = ContextFactory.getGlobal();
         }
-
-        Object helper = VMBridge.instance.getThreadContextHelper();
-        Context cx = VMBridge.instance.getContext(helper);
-        if (cx != null) {
-            Object result;
-            if (cx.factory != null) {
-                result = callable.call(cx, scope, thisObj, args);
-            } else {
-                // Context was associated with the thread via Context.enter,
-                // set factory to make Context.enter/exit to be no-op
-                // during call
-                cx.factory = factory;
-                try {
-                    result = callable.call(cx, scope, thisObj, args);
-                } finally {
-                    cx.factory = null;
-                }
+        return call(factory, new ContextAction() {
+            public Object run(Context cx) {
+                return callable.call(cx, scope, thisObj, args);
             }
-            return result;
-        }
-
-        cx = prepareNewContext(factory, helper);
-        try {
-            return callable.call(cx, scope, thisObj, args);
-        } finally {
-            releaseContext(helper, cx);
-        }
+        });
     }
-
+    
     /**
-     * The method implements {@links ContextFactory#call(ContextAction)} logic.
+     * The method implements {@link ContextFactory#call(ContextAction)} logic.
      */
-    static Object call(ContextFactory factory, ContextAction action)
-    {
-        Object helper = VMBridge.instance.getThreadContextHelper();
-        Context cx = VMBridge.instance.getContext(helper);
-
-        if (cx != null) {
-            if (cx.factory != null) {
-                return action.run(cx);
-            } else {
-                cx.factory = factory;
-                try {
-                    return action.run(cx);
-                } finally {
-                    cx.factory = null;
-                }
-            }
-        }
-
-        cx = prepareNewContext(factory, helper);
+    static Object call(ContextFactory factory, ContextAction action) {
+        Context cx = enter(null, factory);
         try {
             return action.run(cx);
-        } finally {
-            releaseContext(helper, cx);
         }
-    }
-
-    private static Context prepareNewContext(ContextFactory factory,
-                                             Object contextHelper)
-    {
-        Context cx = factory.makeContext();
-        if (cx.factory != null || cx.enterCount != 0) {
-            throw new IllegalStateException("factory.makeContext() returned Context instance already associated with some thread");
-        }
-        cx.factory = factory;
-        factory.onContextCreated(cx);
-        if (factory.isSealed() && !cx.isSealed()) {
-            cx.seal(null);
-        }
-        VMBridge.instance.setContext(contextHelper, cx);
-        return cx;
-    }
-
-    private static void releaseContext(Object contextHelper, Context cx)
-    {
-        VMBridge.instance.setContext(contextHelper, null);
-        try {
-            cx.factory.onContextReleased(cx);
-        } finally {
-            cx.factory = null;
+        finally {
+            exit();
         }
     }
 
@@ -616,10 +529,10 @@ public class Context
         // Special workaround for the debugger
         String DBG = "org.mozilla.javascript.tools.debugger.Main";
         if (DBG.equals(listener.getClass().getName())) {
-            Class cl = listener.getClass();
-            Class factoryClass = Kit.classOrNull(
+            Class<?> cl = listener.getClass();
+            Class<?> factoryClass = Kit.classOrNull(
                 "org.mozilla.javascript.ContextFactory");
-            Class[] sig = { factoryClass };
+            Class<?>[] sig = { factoryClass };
             Object[] args = { ContextFactory.getGlobal() };
             try {
                 Method m = cl.getMethod("attachTo", sig);
@@ -646,17 +559,11 @@ public class Context
     }
 
     /**
-     * Return {@link ContextFactory} instance used to create this Context
-     * or the result of {@link ContextFactory#getGlobal()} if no factory
-     * was used for Context creation.
+     * Return {@link ContextFactory} instance used to create this Context.
      */
     public final ContextFactory getFactory()
     {
-        ContextFactory result = factory;
-        if (result == null) {
-            result = ContextFactory.getGlobal();
-        }
-        return result;
+        return factory;
     }
 
     /**
@@ -759,6 +666,7 @@ public class Context
             case VERSION_1_4:
             case VERSION_1_5:
             case VERSION_1_6:
+            case VERSION_1_7:
                 return true;
         }
         return false;
@@ -1229,12 +1137,115 @@ public class Context
             return null;
         }
     }
+    
+    /**
+     * Execute script that may pause execution by capturing a continuation.
+     * Caller must be prepared to catch a ContinuationPending exception
+     * and resume execution by calling 
+     * {@link #resumeContinuation(Object, Scriptable, Object)}.
+     * @param script The script to execute. Script must have been compiled
+     *      with interpreted mode (optimization level -1)
+     * @param scope The scope to execute the script against
+     * @throws ContinuationPending if the script calls a function that results
+     *      in a call to {@link #captureContinuation()}
+     * @since 1.7 Release 2
+     */
+    public Object executeScriptWithContinuations(Script script,
+            Scriptable scope)
+        throws ContinuationPending
+    {
+        if (!(script instanceof InterpretedFunction) ||
+            !((InterpretedFunction)script).isScript())
+        {
+            // Can only be applied to scripts
+            throw new IllegalArgumentException("Script argument was not" +
+                    " a script or was not created by interpreted mode ");
+        }
+        return callFunctionWithContinuations((InterpretedFunction) script,
+                scope, ScriptRuntime.emptyArgs);
+    }
+    
+    /**
+     * Call function that may pause execution by capturing a continuation.
+     * Caller must be prepared to catch a ContinuationPending exception
+     * and resume execution by calling 
+     * {@link #resumeContinuation(Object, Scriptable, Object)}.
+     * @param function The function to call. The function must have been
+     *      compiled with interpreted mode (optimization level -1)
+     * @param scope The scope to execute the script against
+     * @param args The arguments for the function
+     * @throws ContinuationPending if the script calls a function that results
+     *      in a call to {@link #captureContinuation()}
+     * @since 1.7 Release 2
+     */
+    public Object callFunctionWithContinuations(Callable function,
+            Scriptable scope, Object[] args)
+        throws ContinuationPending
+    {
+        if (!(function instanceof InterpretedFunction)) {
+            // Can only be applied to scripts
+            throw new IllegalArgumentException("Function argument was not" +
+                    " created by interpreted mode ");
+        }
+        if (ScriptRuntime.hasTopCall(this)) {
+            throw new IllegalStateException("Cannot have any pending top " +
+                    "calls when executing a script with continuations");
+        }
+        // Annotate so we can check later to ensure no java code in
+        // intervening frames
+        isContinuationsTopCall = true;
+        return ScriptRuntime.doTopCall(function, this, scope, scope, args);
+    }
+    
+    /**
+     * Capture a continuation from the current execution. The execution must
+     * have been started via a call to 
+     * {@link #executeScriptWithContinuations(Script, Scriptable)} or
+     * {@link #callFunctionWithContinuations(Callable, Scriptable, Object[])}.
+     * This implies that the code calling
+     * this method must have been called as a function from the
+     * JavaScript script. Also, there cannot be any non-JavaScript code
+     * between the JavaScript frames (e.g., a call to eval()). The
+     * ContinuationPending exception returned must be thrown.
+     * @return A ContinuationPending exception that must be thrown
+     * @since 1.7 Release 2
+     */
+    public ContinuationPending captureContinuation() {
+        return new ContinuationPending(
+                Interpreter.captureContinuation(this));
+    }
+    
+    /**
+     * Restarts execution of the JavaScript suspended at the call
+     * to {@link #captureContinuation()}. Execution of the code will resume
+     * with the functionResult as the result of the call that captured the
+     * continuation.
+     * Execution of the script will either conclude normally and the
+     * result returned, another continuation will be captured and
+     * thrown, or the script will terminate abnormally and throw an exception.
+     * @param continuation The value returned by 
+     * {@link ContinuationPending#getContinuation()}
+     * @param functionResult This value will appear to the code being resumed
+     *      as the result of the function that captured the continuation
+     * @throws ContinuationPending if another continuation is captured before
+     *      the code terminates
+     * @since 1.7 Release 2
+     */
+    public Object resumeContinuation(Object continuation,
+            Scriptable scope, Object functionResult)
+            throws ContinuationPending
+    {
+        Object[] args = { functionResult };
+        return Interpreter.restartContinuation(
+                (org.mozilla.javascript.NativeContinuation) continuation,
+                this, scope, args);
+    }
 
     /**
      * Check whether a string is ready to be compiled.
      * <p>
      * stringIsCompilableUnit is intended to support interactive compilation of
-     * javascript.  If compiling the string would result in an error
+     * JavaScript.  If compiling the string would result in an error
      * that might be fixed by appending more source, this method
      * returns false.  In every other case, it returns true.
      * <p>
@@ -1339,7 +1350,7 @@ public class Context
     }
 
     final Script compileString(String source,
-                               Interpreter compiler,
+                               Evaluator compiler,
                                ErrorReporter compilationErrorReporter,
                                String sourceName, int lineno,
                                Object securityDomain)
@@ -1380,7 +1391,7 @@ public class Context
     }
 
     final Function compileFunction(Scriptable scope, String source,
-                                   Interpreter compiler,
+                                   Evaluator compiler,
                                    ErrorReporter compilationErrorReporter,
                                    String sourceName, int lineno,
                                    Object securityDomain)
@@ -1641,7 +1652,7 @@ public class Context
      * @see #toObject(Object, Scriptable)
      */
     public static Scriptable toObject(Object value, Scriptable scope,
-                                      Class staticType)
+                                      Class<?> staticType)
     {
         return ScriptRuntime.toObject(scope, value);
     }
@@ -1699,7 +1710,7 @@ public class Context
      * @return the converted value
      * @throws EvaluatorException if the conversion cannot be performed
      */
-    public static Object jsToJava(Object value, Class desiredType)
+    public static Object jsToJava(Object value, Class<?> desiredType)
         throws EvaluatorException
     {
         return NativeJavaObject.coerceTypeImpl(desiredType, value);
@@ -1712,7 +1723,7 @@ public class Context
      *         Note that {@link #jsToJava(Object, Class)} throws
      *         {@link EvaluatorException} instead.
      */
-    public static Object toType(Object value, Class desiredType)
+    public static Object toType(Object value, Class<?> desiredType)
         throws IllegalArgumentException
     {
         try {
@@ -1749,7 +1760,12 @@ public class Context
         }
         // special handling of Error so scripts would not catch them
         if (e instanceof Error) {
-            throw (Error)e;
+            Context cx = getContext();
+            if (cx == null ||
+                !cx.hasFeature(Context.FEATURE_ENHANCED_JAVA_ACCESS))
+            {
+                throw (Error)e;
+            }
         }
         if (e instanceof RhinoException) {
             throw (RhinoException)e;
@@ -1969,7 +1985,7 @@ public class Context
      * <p>
      * Note that the values are maintained with the Context, so
      * if the Context is disassociated from the thread the values
-     * cannot be retreived. Also, if private data is to be maintained
+     * cannot be retrieved. Also, if private data is to be maintained
      * in this manner the key should be a java.lang.Object
      * whose reference is not divulged to untrusted code.
      * @param key the key used to lookup the value
@@ -1977,9 +1993,9 @@ public class Context
      */
     public final Object getThreadLocal(Object key)
     {
-        if (hashtable == null)
+        if (threadLocalMap == null)
             return null;
-        return hashtable.get(key);
+        return threadLocalMap.get(key);
     }
 
     /**
@@ -1988,12 +2004,12 @@ public class Context
      * @param key the key used to index the value
      * @param value the value to save
      */
-    public final void putThreadLocal(Object key, Object value)
+    public synchronized final void putThreadLocal(Object key, Object value)
     {
         if (sealed) onSealedMutation();
-        if (hashtable == null)
-            hashtable = new Hashtable();
-        hashtable.put(key, value);
+        if (threadLocalMap == null)
+            threadLocalMap = new HashMap<Object,Object>();
+        threadLocalMap.put(key, value);
     }
 
     /**
@@ -2004,9 +2020,9 @@ public class Context
     public final void removeThreadLocal(Object key)
     {
         if (sealed) onSealedMutation();
-        if (hashtable == null)
+        if (threadLocalMap == null)
             return;
-        hashtable.remove(key);
+        threadLocalMap.remove(key);
     }
 
     /**
@@ -2136,6 +2152,7 @@ public class Context
      * @see #FEATURE_LOCATION_INFORMATION_IN_ERROR
      * @see #FEATURE_STRICT_MODE
      * @see #FEATURE_WARNING_AS_ERROR
+     * @see #FEATURE_ENHANCED_JAVA_ACCESS
      */
     public boolean hasFeature(int featureIndex)
     {
@@ -2159,7 +2176,7 @@ public class Context
 	}
 
     /**
-     * Get/Set threshold of executed instructions counter that triggers call to
+     * Get threshold of executed instructions counter that triggers call to
      * <code>observeInstructionCount()</code>.
      * When the threshold is zero, instruction counting is disabled,
      * otherwise each time the run-time executes at least the threshold value
@@ -2171,11 +2188,42 @@ public class Context
         return instructionThreshold;
     }
 
+    /**
+     * Set threshold of executed instructions counter that triggers call to
+     * <code>observeInstructionCount()</code>.
+     * When the threshold is zero, instruction counting is disabled,
+     * otherwise each time the run-time executes at least the threshold value
+     * of script instructions, <code>observeInstructionCount()</code> will
+     * be called.<p/>
+     * Note that the meaning of "instruction" is not guaranteed to be
+     * consistent between compiled and interpretive modes: executing a given
+     * script or function in the different modes will result in different
+     * instruction counts against the threshold.
+     * {@link #setGenerateObserverCount} is called with true if
+     * <code>threshold</code> is greater than zero, false otherwise.
+     * @param threshold The instruction threshold
+     */
     public final void setInstructionObserverThreshold(int threshold)
     {
         if (sealed) onSealedMutation();
         if (threshold < 0) throw new IllegalArgumentException();
         instructionThreshold = threshold;
+        setGenerateObserverCount(threshold > 0);
+    }
+
+    /**
+     * Turn on or off generation of code with callbacks to
+     * track the count of executed instructions.
+     * Currently only affects JVM byte code generation: this slows down the
+     * generated code, but code generated without the callbacks will not
+     * be counted toward instruction thresholds. Rhino's interpretive
+     * mode does instruction counting without inserting callbacks, so
+     * there is no requirement to compile code differently.
+     * @param generateObserverCount if true, generated code will contain
+     * calls to accumulate an estimate of the instructions executed.
+     */
+    public void setGenerateObserverCount(boolean generateObserverCount) {
+    	this.generateObserverCount = generateObserverCount;
     }
 
     /**
@@ -2185,9 +2233,6 @@ public class Context
      * reaches limit set by <code>setInstructionObserverThreshold()</code>.
      * The method is useful to observe long running scripts and if necessary
      * to terminate them.
-     * <p>
-     * The instruction counting support is available only for interpreted
-     * scripts generated when the optimization level is set to -1.
      * <p>
      * The default implementation calls
      * {@link ContextFactory#observeInstructionCount(Context cx,
@@ -2237,7 +2282,7 @@ public class Context
                 // Thread.getContextClassLoader can not load Rhino classes,
                 // try to use the loader of ContextFactory or Context
                 // subclasses.
-                Class fClass = f.getClass();
+                Class<?> fClass = f.getClass();
                 if (fClass != ScriptRuntime.ContextFactoryClass) {
                     loader = fClass.getClassLoader();
                 } else {
@@ -2284,11 +2329,14 @@ public class Context
                                Reader sourceReader, String sourceString,
                                String sourceName, int lineno,
                                Object securityDomain, boolean returnFunction,
-                               Interpreter compiler,
+                               Evaluator compiler,
                                ErrorReporter compilationErrorReporter)
         throws IOException
     {
-        if (securityDomain != null && securityController == null) {
+        if(sourceName == null) {
+            sourceName = "unnamed script";
+        }
+        if (securityDomain != null && getSecurityController() == null) {
             throw new IllegalArgumentException(
                 "securityDomain should be null if setSecurityController() was never called");
         }
@@ -2373,19 +2421,26 @@ public class Context
         }
     }
 
-    private static Class codegenClass = Kit.classOrNull(
+    private static Class<?> codegenClass = Kit.classOrNull(
                              "org.mozilla.javascript.optimizer.Codegen");
+    private static Class<?> interpreterClass = Kit.classOrNull(
+                             "org.mozilla.javascript.Interpreter");
 
-    private Interpreter createCompiler()
+    private Evaluator createCompiler()
     {
-        Interpreter result = null;
+        Evaluator result = null;
         if (optimizationLevel >= 0 && codegenClass != null) {
-            result = (Interpreter)Kit.newInstanceOrNull(codegenClass);
+            result = (Evaluator)Kit.newInstanceOrNull(codegenClass);
         }
         if (result == null) {
-            result = new Interpreter();
+            result = createInterpreter();
         }
         return result;
+    }
+
+    static Evaluator createInterpreter()
+    {
+        return (Evaluator)Kit.newInstanceOrNull(interpreterClass);
     }
 
     static String getSourcePositionFromStack(int[] linep)
@@ -2394,7 +2449,9 @@ public class Context
         if (cx == null)
             return null;
         if (cx.lastInterpreterFrame != null) {
-            return Interpreter.getSourcePositionFromStack(cx, linep);
+            Evaluator evaluator = createInterpreter();
+            if (evaluator != null)
+                return evaluator.getSourcePositionFromStack(cx, linep);
         }
         /**
          * A bit of a hack, but the only way to get filename and line
@@ -2442,7 +2499,7 @@ public class Context
     RegExpProxy getRegExpProxy()
     {
         if (regExpProxy == null) {
-            Class cl = Kit.classOrNull(
+            Class<?> cl = Kit.classOrNull(
                           "org.mozilla.javascript.regexp.RegExpImpl");
             if (cl != null) {
                 regExpProxy = (RegExpProxy)Kit.newInstanceOrNull(cl);
@@ -2481,8 +2538,8 @@ public class Context
     {
         if (sealed) onSealedMutation();
         if (activationNames == null)
-            activationNames = new Hashtable(5);
-        activationNames.put(name, name);
+            activationNames = new HashSet<String>();
+        activationNames.add(name);
     }
 
     /**
@@ -2495,7 +2552,7 @@ public class Context
      */
     public final boolean isActivationNeeded(String name)
     {
-        return activationNames != null && activationNames.containsKey(name);
+        return activationNames != null && activationNames.contains(name);
     }
 
     /**
@@ -2513,11 +2570,12 @@ public class Context
 
     private static String implementationVersion;
 
-    private ContextFactory factory;
+    private final ContextFactory factory;
     private boolean sealed;
     private Object sealKey;
 
     Scriptable topCallScope;
+    boolean isContinuationsTopCall;
     NativeCall currentActivationCall;
     XMLLib cachedXMLLib;
 
@@ -2547,15 +2605,14 @@ public class Context
     private Object debuggerData;
     private int enterCount;
     private Object propertyListeners;
-    private Hashtable hashtable;
+    private Map<Object,Object> threadLocalMap;
     private ClassLoader applicationClassLoader;
-    private boolean creationEventWasSent;
 
     /**
      * This is the list of names of objects forcing the creation of
      * function activation records.
      */
-    Hashtable activationNames;
+    Set<String> activationNames;
 
     // For the interpreter to store the last frame for error reports etc.
     Object lastInterpreterFrame;
@@ -2576,4 +2633,7 @@ public class Context
 
     // It can be used to return the second Scriptable result from function
     Scriptable scratchScriptable;
+
+    // Generate an observer count on compiled code
+	public boolean generateObserverCount = false;
 }

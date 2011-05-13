@@ -41,6 +41,7 @@ package org.mozilla.javascript;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Member;
+import java.util.Iterator;
 
 public abstract class VMBridge
 {
@@ -57,7 +58,7 @@ public abstract class VMBridge
         };
         for (int i = 0; i != classNames.length; ++i) {
             String className = classNames[i];
-            Class cl = Kit.classOrNull(className);
+            Class<?> cl = Kit.classOrNull(className);
             if (cl != null) {
                 VMBridge bridge = (VMBridge)Kit.newInstanceOrNull(cl);
                 if (bridge != null) {
@@ -127,7 +128,7 @@ public abstract class VMBridge
      * @param interfaces Array with one or more interface class objects.
      */
     protected Object getInterfaceProxyHelper(ContextFactory cf,
-                                             Class[] interfaces)
+                                             Class<?>[] interfaces)
     {
         throw Context.reportRuntimeError(
             "VMBridge.getInterfaceProxyHelper is not supported");
@@ -163,4 +164,20 @@ public abstract class VMBridge
      * JDK 1.5.
      */
     protected abstract boolean isVarArgs(Member member);
+
+    /**
+     * If "obj" is a java.util.Iterator or a java.lang.Iterable, return a
+     * wrapping as a JavaScript Iterator. Otherwise, return null.
+     * This method is in VMBridge since Iterable is a JDK 1.5 addition.
+     */
+    public Iterator<?> getJavaIterator(Context cx, Scriptable scope, Object obj) {
+        if (obj instanceof Wrapper) {
+            Object unwrapped = ((Wrapper) obj).unwrap();
+            Iterator<?> iterator = null;
+            if (unwrapped instanceof Iterator)
+                iterator = (Iterator<?>) unwrapped;
+            return iterator;
+        }
+        return null;
+    }
 }

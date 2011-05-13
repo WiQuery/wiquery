@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class WiQueryMergedJavaScriptResourceReference extends
-	JavascriptResourceReference implements IClusterable {
+	ResourceReference implements IClusterable {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 6038498199511603297L;

@@ -50,7 +50,7 @@ public class NativeObject extends IdScriptableObject
 {
     static final long serialVersionUID = -6345305608474346996L;
 
-    private static final Object OBJECT_TAG = new Object();
+    private static final Object OBJECT_TAG = "Object";
 
     static void init(Scriptable scope, boolean sealed)
     {
@@ -58,16 +58,19 @@ public class NativeObject extends IdScriptableObject
         obj.exportAsJSClass(MAX_PROTOTYPE_ID, scope, sealed);
     }
 
+    @Override
     public String getClassName()
     {
         return "Object";
     }
 
+    @Override
     public String toString()
     {
         return ScriptRuntime.defaultObjectToString(this);
     }
 
+    @Override
     protected void initPrototypeId(int id)
     {
         String s;
@@ -95,6 +98,7 @@ public class NativeObject extends IdScriptableObject
         initPrototypeMethod(OBJECT_TAG, id, s, arity);
     }
 
+    @Override
     public Object execIdCall(IdFunctionObject f, Context cx, Scriptable scope,
                              Scriptable thisObj, Object[] args)
     {
@@ -215,6 +219,8 @@ public class NativeObject extends IdScriptableObject
                 Callable getterOrSetter = (Callable)args[1];
                 boolean isSetter = (id == Id___defineSetter__);
                 so.setGetterOrSetter(name, index, getterOrSetter, isSetter);
+                if (so instanceof NativeArray)
+                    ((NativeArray)so).setDenseOnly(false);
             }
             return Undefined.instance;
 
@@ -257,6 +263,7 @@ public class NativeObject extends IdScriptableObject
 
 // #string_id_map#
 
+    @Override
     protected int findPrototypeId(String s)
     {
         int id;

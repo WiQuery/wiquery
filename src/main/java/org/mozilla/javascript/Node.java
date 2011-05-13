@@ -41,6 +41,11 @@
 
 package org.mozilla.javascript;
 
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.Iterator;
+import java.util.Collections;
+
 /**
  * This class implements the root of the intermediate representation.
  *
@@ -64,7 +69,7 @@ public class Node
         ISNUMBER_PROP - this node generates code on Number children and
                         delivers a Number result (as opposed to Objects)
         DIRECTCALL_PROP - this call node should emit code to test the function
-                          object against the known class and call diret if it
+                          object against the known class and call direct if it
                           matches.
     */
 
@@ -75,14 +80,17 @@ public class Node
         SPECIALCALL_PROP   = 10,
         SKIP_INDEXES_PROP  = 11, // array of skipped indexes of array literal
         OBJECT_IDS_PROP    = 12, // array of properties for object literal
-        INCRDECR_PROP      = 13, // pre or post type of increment/decerement
+        INCRDECR_PROP      = 13, // pre or post type of increment/decrement
         CATCH_SCOPE_PROP   = 14, // index of catch scope block in catch
         LABEL_ID_PROP      = 15, // label id: code generation uses it
         MEMBER_TYPE_PROP   = 16, // type of element access operation
         NAME_PROP          = 17, // property name
         CONTROL_BLOCK_PROP = 18, // flags a control block that can drop off
         PARENTHESIZED_PROP = 19, // expression is parenthesized
-        LAST_PROP          = 19;
+        GENERATOR_END_PROP = 20,
+        DESTRUCTURING_ARRAY_LENGTH = 21,
+        DESTRUCTURING_NAMES= 22,
+        LAST_PROP          = 22;
 
     // values of ISNUMBER_PROP to specify
     // which of the children are Number types
@@ -124,6 +132,7 @@ public class Node
         }
 
         String str;
+        Node.Scope scope;
     }
 
     public static class Jump extends Node
@@ -221,6 +230,108 @@ public class Node
         public Node target;
         private Node target2;
         private Jump jumpNode;
+    }
+    
+    static class Symbol {
+        Symbol(int declType, String name) {
+            this.declType = declType;
+            this.name = name;
+            this.index = -1;
+        }
+        /**
+         * One of Token.FUNCTION, Token.LP (for parameters), Token.VAR, 
+         * Token.LET, or Token.CONST
+         */
+        int declType;
+        int index;
+        String name;
+        Node.Scope containingTable;
+    }
+    
+    static class Scope extends Jump {
+        public Scope(int nodeType) {
+            super(nodeType);
+        }
+        
+        public Scope(int nodeType, int lineno) {
+            super(nodeType, lineno);
+        }
+        
+        public Scope(int nodeType, Node n, int lineno) {
+            super(nodeType, n, lineno);
+        }
+        
+        /*
+         * Creates a new scope node, moving symbol table information
+         * from "scope" to the new node, and making "scope" a nested
+         * scope contained by the new node.
+         * Useful for injecting a new scope in a scope chain.
+         */
+        public static Scope splitScope(Scope scope) {
+            Scope result = new Scope(scope.getType());
+            result.symbolTable = scope.symbolTable;
+            scope.symbolTable = null;
+            result.parent = scope.parent;
+            scope.parent = result;
+            result.top = scope.top;
+            return result;
+        }
+
+        public static void joinScopes(Scope source, Scope dest) {
+            source.ensureSymbolTable();
+            dest.ensureSymbolTable();
+            if (!Collections.disjoint(source.symbolTable.keySet(),
+                                      dest.symbolTable.keySet()))
+            {
+                throw Kit.codeBug();
+            }
+            dest.symbolTable.putAll(source.symbolTable);
+        }
+        
+        public void setParent(Scope parent) {
+            this.parent = parent;
+            this.top = parent == null ? (ScriptOrFnNode)this : parent.top;
+        }
+        
+        public Scope getParentScope() {
+            return parent;
+        }
+  
+        public Scope getDefiningScope(String name) {
+            for (Scope sn=this; sn != null; sn = sn.parent) {
+                if (sn.symbolTable == null)
+                    continue;
+                if (sn.symbolTable.containsKey(name))
+                    return sn;
+            }
+            return null;
+        }
+        
+        public Symbol getSymbol(String name) {
+            return symbolTable == null ? null : symbolTable.get(name);
+        }
+        
+        public void putSymbol(String name, Symbol symbol) {
+            ensureSymbolTable();
+            symbolTable.put(name, symbol);
+            symbol.containingTable = this;
+            top.addSymbol(symbol);
+        }
+        
+        public Map<String,Symbol> getSymbolTable() {
+            return symbolTable;
+        }
+        
+        private void ensureSymbolTable() {
+            if (symbolTable == null) {
+                symbolTable = new LinkedHashMap<String,Symbol>(5);
+            }
+        }
+  
+        // Use LinkedHashMap so that the iteration order is the insertion order
+        protected LinkedHashMap<String,Symbol> symbolTable;
+        private Scope parent;
+        private ScriptOrFnNode top;
     }
 
     private static class PropListItem
@@ -460,6 +571,10 @@ public class Node
                 case NAME_PROP:          return "name_prop";
                 case CONTROL_BLOCK_PROP: return "control_block_prop";
                 case PARENTHESIZED_PROP: return "parenthesized_prop";
+                case GENERATOR_END_PROP: return "generator_end";
+                case DESTRUCTURING_ARRAY_LENGTH:
+                                         return "destructuring_array_length";
+                case DESTRUCTURING_NAMES:return "destructuring_names";
 
                 default: Kit.codeBug();
             }
@@ -566,6 +681,20 @@ public class Node
         if (s == null) Kit.codeBug();
         ((StringNode)this).str = s;
     }
+    
+    /** Can only be called when node has String context. */
+    public final Scope getScope() {
+        return ((StringNode)this).scope;
+    }
+
+    /** Can only be called when node has String context. */
+    public final void setScope(Scope s) {
+        if (s == null) Kit.codeBug();
+        if (!(this instanceof StringNode)) {
+            throw Kit.codeBug();
+        }
+        ((StringNode)this).scope = s;
+    }
 
     public static Node newTarget()
     {
@@ -574,13 +703,13 @@ public class Node
 
     public final int labelId()
     {
-        if (type != Token.TARGET) Kit.codeBug();
+        if (type != Token.TARGET && type != Token.YIELD) Kit.codeBug();
         return getIntProp(LABEL_ID_PROP, -1);
     }
 
     public void labelId(int labelId)
     {
-        if (type != Token.TARGET) Kit.codeBug();
+        if (type != Token.TARGET  && type != Token.YIELD) Kit.codeBug();
         putIntProp(LABEL_ID_PROP, labelId);
     }
     
@@ -641,6 +770,7 @@ public class Node
     static final int END_DROPS_OFF = 1;
     static final int END_RETURNS = 2;
     static final int END_RETURNS_VALUE = 4;
+    static final int END_YIELDS = 8;
 
     /**
      * Checks that every return usage in a function body is consistent with the
@@ -651,7 +781,7 @@ public class Node
     {
         int n = endCheck();
         return (n & END_RETURNS_VALUE) == 0 ||
-               (n & (END_DROPS_OFF|END_RETURNS)) == 0;
+               (n & (END_DROPS_OFF|END_RETURNS|END_YIELDS)) == 0;
     }
 
     /**
@@ -781,8 +911,9 @@ public class Node
         // satisfy.
         // The target of the predicate is the loop-body for all 4 kinds of
         // loops.
-        for (n = first; n.next != last; n = n.next)
-            /* skip */;
+        for (n = first; n.next != last; n = n.next) {
+            /* skip */
+        }
         if (n.type != Token.IFEQ)
             return END_DROPS_OFF;
 
@@ -866,6 +997,14 @@ public class Node
             case Token.BREAK:
                 return endCheckBreak();
 
+            case Token.EXPR_VOID:
+                if (this.first != null)
+                    return first.endCheck();
+                return END_DROPS_OFF;
+
+            case Token.YIELD:
+                return END_YIELDS;
+
             case Token.CONTINUE:
             case Token.THROW:
                 return END_UNREACHED;
@@ -931,6 +1070,12 @@ public class Node
             return first.next.hasSideEffects() &&
                    first.next.next.hasSideEffects();
 
+          case Token.AND:
+          case Token.OR:
+            if (first == null || last == null)
+                Kit.codeBug();
+            return first.hasSideEffects() || last.hasSideEffects();
+
           case Token.ERROR:         // Avoid cascaded error messages
           case Token.EXPR_RESULT:
           case Token.ASSIGN:
@@ -981,7 +1126,10 @@ public class Node
           case Token.CONTINUE:
           case Token.VAR:
           case Token.CONST:
+          case Token.LET:
+          case Token.LETEXPR:
           case Token.WITH:
+          case Token.WITHEXPR:
           case Token.CATCH:
           case Token.FINALLY:
           case Token.BLOCK:
@@ -993,6 +1141,7 @@ public class Node
           case Token.SETELEM_OP:
           case Token.LOCAL_BLOCK:
           case Token.SET_REF_OP:
+          case Token.YIELD:
             return true;
 
           default:
@@ -1000,6 +1149,7 @@ public class Node
         }
     }
 
+    @Override
     public String toString()
     {
         if (Token.printTrees) {
@@ -1017,23 +1167,43 @@ public class Node
             if (this instanceof StringNode) {
                 sb.append(' ');
                 sb.append(getString());
-            } else if (this instanceof ScriptOrFnNode) {
-                ScriptOrFnNode sof = (ScriptOrFnNode)this;
-                if (this instanceof FunctionNode) {
-                    FunctionNode fn = (FunctionNode)this;
-                    sb.append(' ');
-                    sb.append(fn.getFunctionName());
+                Scope scope = getScope();
+                if (scope != null) {
+                    sb.append("[scope: ");
+                    appendPrintId(scope, printIds, sb);
+                    sb.append("]");
                 }
-                sb.append(" [source name: ");
-                sb.append(sof.getSourceName());
-                sb.append("] [encoded source length: ");
-                sb.append(sof.getEncodedSourceEnd()
-                          - sof.getEncodedSourceStart());
-                sb.append("] [base line: ");
-                sb.append(sof.getBaseLineno());
-                sb.append("] [end line: ");
-                sb.append(sof.getEndLineno());
-                sb.append(']');
+            } else if (this instanceof Node.Scope) {
+                if (this instanceof ScriptOrFnNode) {
+                    ScriptOrFnNode sof = (ScriptOrFnNode)this;
+                    if (this instanceof FunctionNode) {
+                        FunctionNode fn = (FunctionNode)this;
+                        sb.append(' ');
+                        sb.append(fn.getFunctionName());
+                    }
+                    sb.append(" [source name: ");
+                    sb.append(sof.getSourceName());
+                    sb.append("] [encoded source length: ");
+                    sb.append(sof.getEncodedSourceEnd()
+                              - sof.getEncodedSourceStart());
+                    sb.append("] [base line: ");
+                    sb.append(sof.getBaseLineno());
+                    sb.append("] [end line: ");
+                    sb.append(sof.getEndLineno());
+                    sb.append(']');
+                }
+                if (((Node.Scope)this).symbolTable != null) {
+                    sb.append(" [scope ");
+                    appendPrintId(this, printIds, sb);
+                    sb.append(": ");
+                    Iterator<String> iter =
+                        ((Node.Scope) this).symbolTable.keySet().iterator();
+                    while (iter.hasNext()) {
+                        sb.append(iter.next());
+                        sb.append(" ");
+                    }
+                    sb.append("]");
+                }
             } else if (this instanceof Jump) {
                 Jump jump = (Jump)this;
                 if (type == Token.BREAK || type == Token.CONTINUE) {
@@ -1122,6 +1292,17 @@ public class Node
                         throw Kit.codeBug();
                     }
                     break;
+                  case OBJECT_IDS_PROP: {
+                    Object[] a = (Object[]) x.objectValue;
+                    value = "[";
+                    for (int i=0; i < a.length; i++) {
+                        value += a[i].toString();
+                        if (i+1 < a.length)
+                            value += ", ";
+                    }
+                    value += "]";
+                    break;
+                  }
                   default :
                     Object obj = x.objectValue;
                     if (obj != null) {
@@ -1206,7 +1387,7 @@ public class Node
     Node next;             // next sibling
     private Node first;    // first element of a linked list of children
     private Node last;     // last element of a linked list of children
-    private int lineno = -1;    // encapsulated int data; depends on type
+    protected int lineno = -1;
 
     /**
      * Linked list of properties. Since vast majority of nodes would have

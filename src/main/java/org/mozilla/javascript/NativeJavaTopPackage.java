@@ -60,19 +60,16 @@ public class NativeJavaTopPackage
 
     // we know these are packages so we can skip the class check
     // note that this is ok even if the package isn't present.
-    private static final String commonPackages = ""
-                                                 +"java.lang;"
-                                                 +"java.lang.reflect;"
-                                                 +"java.io;"
-                                                 +"java.math;"
-                                                 +"java.net;"
-                                                 +"java.util;"
-                                                 +"java.util.zip;"
-                                                 +"java.text;"
-                                                 +"java.text.resources;"
-                                                 +"java.applet;"
-                                                 +"javax.swing;"
-                                                 ;
+    private static final String[][] commonPackages = {
+            {"java", "lang", "reflect"},
+            {"java", "io"},
+            {"java", "math"},
+            {"java", "net"},
+            {"java", "util", "zip"},
+            {"java", "text", "resources"},
+            {"java", "applet"},
+            {"javax", "swing"}
+    };
 
     NativeJavaTopPackage(ClassLoader loader)
     {
@@ -111,9 +108,11 @@ public class NativeJavaTopPackage
         top.setPrototype(getObjectPrototype(scope));
         top.setParentScope(scope);
 
-        String[] names = Kit.semicolonSplit(commonPackages);
-        for (int i = 0; i != names.length; ++i) {
-            top.forcePackage(names[i], scope);
+        for (int i = 0; i != commonPackages.length; i++) {
+            NativeJavaPackage parent = top;
+            for (int j = 0; j != commonPackages[i].length; j++) {
+                parent = parent.forcePackage(commonPackages[i][j], scope);
+            }
         }
 
         // getClass implementation
@@ -123,7 +122,11 @@ public class NativeJavaTopPackage
         // We want to get a real alias, and not a distinct JavaPackage
         // with the same packageName, so that we share classes and top
         // that are underneath.
-        NativeJavaPackage javaAlias = (NativeJavaPackage)top.get("java", top);
+        String[] topNames = { "java", "javax", "org", "com", "edu", "net" };
+        NativeJavaPackage[] topPackages = new NativeJavaPackage[topNames.length];
+        for (int i=0; i < topNames.length; i++) {
+            topPackages[i] = (NativeJavaPackage)top.get(topNames[i], top);
+        }
 
         // It's safe to downcast here since initStandardObjects takes
         // a ScriptableObject.
@@ -134,7 +137,10 @@ public class NativeJavaTopPackage
         }
         getClass.exportAsScopeProperty();
         global.defineProperty("Packages", top, ScriptableObject.DONTENUM);
-        global.defineProperty("java", javaAlias, ScriptableObject.DONTENUM);
+        for (int i=0; i < topNames.length; i++) {
+            global.defineProperty(topNames[i], topPackages[i],
+                                  ScriptableObject.DONTENUM);
+        }
     }
 
     public Object execIdCall(IdFunctionObject f, Context cx, Scriptable scope,
@@ -152,7 +158,7 @@ public class NativeJavaTopPackage
     {
         if (args.length > 0  && args[0] instanceof Wrapper) {
             Scriptable result = this;
-            Class cl = ((Wrapper) args[0]).unwrap().getClass();
+            Class<?> cl = ((Wrapper) args[0]).unwrap().getClass();
             // Evaluate the class name by getting successive properties of
             // the string to find the appropriate NativeJavaClass object
             String name = cl.getName();
@@ -174,7 +180,7 @@ public class NativeJavaTopPackage
         throw Context.reportRuntimeError0("msg.not.java.obj");
     }
 
-    private static final Object FTAG = new Object();
+    private static final Object FTAG = "JavaTopPackage";
     private static final int Id_getClass = 1;
 }
 

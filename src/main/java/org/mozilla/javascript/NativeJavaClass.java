@@ -44,7 +44,7 @@
 package org.mozilla.javascript;
 
 import java.lang.reflect.*;
-import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * This class reflects Java classes into the JavaScript environment, mainly
@@ -72,27 +72,31 @@ public class NativeJavaClass extends NativeJavaObject implements Function
     public NativeJavaClass() {
     }
 
-    public NativeJavaClass(Scriptable scope, Class cl) {
+    public NativeJavaClass(Scriptable scope, Class<?> cl) {
         this.parent = scope;
         this.javaObject = cl;
         initMembers();
     }
 
+    @Override
     protected void initMembers() {
-        Class cl = (Class)javaObject;
+        Class<?> cl = (Class<?>)javaObject;
         members = JavaMembers.lookupClass(parent, cl, cl, false);
         staticFieldAndMethods
             = members.getFieldAndMethodsObjects(this, cl, true);
     }
 
+    @Override
     public String getClassName() {
         return "JavaClass";
     }
 
+    @Override
     public boolean has(String name, Scriptable start) {
         return members.has(name, true) || javaClassPropertyName.equals(name);
     }
 
+    @Override
     public Object get(String name, Scriptable start) {
         // When used as a constructor, ScriptRuntime.newObject() asks
         // for our prototype to create an object of the correct type.
@@ -120,7 +124,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
         
         // experimental:  look for nested classes by appending $name to
         // current class' name.
-        Class nestedClass = findNestedClass(getClassObject(), name);
+        Class<?> nestedClass = findNestedClass(getClassObject(), name);
         if (nestedClass != null) {
             NativeJavaClass nestedValue = new NativeJavaClass
                 (ScriptableObject.getTopLevelScope(this), nestedClass);
@@ -131,19 +135,22 @@ public class NativeJavaClass extends NativeJavaObject implements Function
         throw members.reportMemberNotFound(name);
     }
 
+    @Override
     public void put(String name, Scriptable start, Object value) {
         members.put(this, name, javaObject, value, true);
     }
 
+    @Override
     public Object[] getIds() {
         return members.getIds(true);
     }
 
-    public Class getClassObject() {
-        return (Class) super.unwrap();
+    public Class<?> getClassObject() {
+        return (Class<?>) super.unwrap();
     }
 
-    public Object getDefaultValue(Class hint) {
+    @Override
+    public Object getDefaultValue(Class<?> hint) {
         if (hint == null || hint == ScriptRuntime.StringClass)
             return this.toString();
         if (hint == ScriptRuntime.BooleanClass)
@@ -160,7 +167,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
         // walk the prototype chain to see if there's a wrapper of a
         // object that's an instanceof this class.
         if (args.length == 1 && args[0] instanceof Scriptable) {
-            Class c = getClassObject();
+            Class<?> c = getClassObject();
             Scriptable p = (Scriptable) args[0];
             do {
                 if (p instanceof Wrapper) {
@@ -176,7 +183,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
 
     public Scriptable construct(Context cx, Scriptable scope, Object[] args)
     {
-        Class classObject = getClassObject();
+        Class<?> classObject = getClassObject();
         int modifiers = classObject.getModifiers();
         if (! (Modifier.isInterface(modifiers) ||
                Modifier.isAbstract(modifiers)))
@@ -219,7 +226,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
                                         Object[] args, MemberBox ctor)
     {
         Scriptable topLevel = ScriptableObject.getTopLevelScope(scope);
-        Class[] argTypes = ctor.argTypes;
+        Class<?>[] argTypes = ctor.argTypes;
       
         if (ctor.vararg) {
             // marshall the explicit parameter
@@ -242,7 +249,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
                                            argTypes[argTypes.length - 1]);
             } else {            
                 // marshall the variable parameter
-                Class componentType = argTypes[argTypes.length - 1].
+                Class<?> componentType = argTypes[argTypes.length - 1].
                                         getComponentType();
                 varArgs = Array.newInstance(componentType, 
                                             args.length - argTypes.length + 1);            
@@ -264,7 +271,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
                 Object x = Context.jsToJava(arg, argTypes[i]);
                 if (x != arg) {
                     if (args == origArgs) {
-                        args = (Object[])origArgs.clone();
+                        args = origArgs.clone();
                     }
                     args[i] = x;
                 }
@@ -277,6 +284,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
         return cx.getWrapFactory().wrapNewObject(cx, topLevel, instance);
     }
 
+    @Override
     public String toString() {
         return "[JavaClass " + getClassObject().getName() + "]";
     }
@@ -289,6 +297,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
      * name conflicts between java.lang.Class's methods and the
      * static methods exposed by a JavaNativeClass.
      */
+    @Override
     public boolean hasInstance(Scriptable value) {
 
         if (value instanceof Wrapper &&
@@ -302,7 +311,7 @@ public class NativeJavaClass extends NativeJavaObject implements Function
         return false;
     }
 
-    private static Class findNestedClass(Class parentClass, String name) {
+    private static Class<?> findNestedClass(Class<?> parentClass, String name) {
         String nestedClassName = parentClass.getName() + '$' + name;
         ClassLoader loader = parentClass.getClassLoader();
         if (loader == null) {
@@ -316,5 +325,5 @@ public class NativeJavaClass extends NativeJavaObject implements Function
         }
     }
 
-    private Hashtable staticFieldAndMethods;
+    private Map<String,FieldAndMethods> staticFieldAndMethods;
 }

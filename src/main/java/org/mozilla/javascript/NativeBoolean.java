@@ -49,7 +49,7 @@ final class NativeBoolean extends IdScriptableObject
 {
     static final long serialVersionUID = -3716996899943880933L;
 
-    private static final Object BOOLEAN_TAG = new Object();
+    private static final Object BOOLEAN_TAG = "Boolean";
 
     static void init(Scriptable scope, boolean sealed)
     {
@@ -62,12 +62,14 @@ final class NativeBoolean extends IdScriptableObject
         booleanValue = b;
     }
 
+    @Override
     public String getClassName()
     {
         return "Boolean";
     }
 
-    public Object getDefaultValue(Class typeHint) {
+    @Override
+    public Object getDefaultValue(Class<?> typeHint) {
         // This is actually non-ECMA, but will be proposed
         // as a change in round 2.
         if (typeHint == ScriptRuntime.BooleanClass)
@@ -75,6 +77,7 @@ final class NativeBoolean extends IdScriptableObject
         return super.getDefaultValue(typeHint);
     }
 
+    @Override
     protected void initPrototypeId(int id)
     {
         String s;
@@ -89,6 +92,7 @@ final class NativeBoolean extends IdScriptableObject
         initPrototypeMethod(BOOLEAN_TAG, id, s, arity);
     }
 
+    @Override
     public Object execIdCall(IdFunctionObject f, Context cx, Scriptable scope,
                              Scriptable thisObj, Object[] args)
     {
@@ -98,7 +102,15 @@ final class NativeBoolean extends IdScriptableObject
         int id = f.methodId();
 
         if (id == Id_constructor) {
-            boolean b = ScriptRuntime.toBoolean(args, 0);
+            boolean b;
+            if (args.length == 0) {
+                b = false;
+            } else {
+                b = args[0] instanceof ScriptableObject &&
+                        ((ScriptableObject) args[0]).avoidObjectDetection()
+                    ? true
+                    : ScriptRuntime.toBoolean(args[0]);
+            }
             if (thisObj == null) {
                 // new Boolean(val) creates a new boolean object.
                 return new NativeBoolean(b);
@@ -129,6 +141,7 @@ final class NativeBoolean extends IdScriptableObject
 
 // #string_id_map#
 
+    @Override
     protected int findPrototypeId(String s)
     {
         int id;

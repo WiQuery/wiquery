@@ -33,6 +33,7 @@ import org.apache.wicket.IClusterable;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.Resource;
 import org.apache.wicket.ResourceReference;
+import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
@@ -40,9 +41,6 @@ import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
 import org.apache.wicket.util.template.PackagedTextTemplate;
 import org.apache.wicket.util.time.Time;
-import org.odlabs.wiquery.core.commons.WiQuerySettings;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +56,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class WiQueryMergedStyleSheetResourceReference extends
-WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
+CompressedResourceReference implements IClusterable {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 6038498199511603297L;
@@ -144,27 +142,7 @@ WiQueryYUICompressedStyleSheetResourceReference implements IClusterable {
 			 * @see org.apache.wicket.Resource#getResourceStream()
 			 */
 			public IResourceStream getResourceStream() {
-				IResourceStream stream = null;
-				
-				if(WiQuerySettings.get().isMinifiedResources()){
-					stream = new WiQueryYUICompressedStyleSheetResourceStream() {
-						private static final long serialVersionUID = 1L;
-
-						/**
-						 * {@inheritDoc}
-						 * @see org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource.YUICompressedResourceStream#getOriginalResourceStream()
-						 */
-						@Override
-						protected IResourceStream getOriginalResourceStream() {
-							return newResourceStream();
-						}
-					};
-					
-				} else {
-					stream = newResourceStream();
-				}
-				
-				return stream;
+				return newResourceStream();
 			}
 		};
 	}

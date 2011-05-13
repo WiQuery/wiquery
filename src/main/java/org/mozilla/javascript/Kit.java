@@ -42,7 +42,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.lang.reflect.Method;
-import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Collection of utilities
@@ -59,8 +59,8 @@ public class Kit
     static {
         // Are we running on a JDK 1.4 or later system?
         try {
-            Class ThrowableClass = Kit.classOrNull("java.lang.Throwable");
-            Class[] signature = { ThrowableClass };
+            Class<?> ThrowableClass = Kit.classOrNull("java.lang.Throwable");
+            Class<?>[] signature = { ThrowableClass };
             Throwable_initCause
                 = ThrowableClass.getMethod("initCause", signature);
         } catch (Exception ex) {
@@ -68,7 +68,7 @@ public class Kit
         }
     }
 
-    public static Class classOrNull(String className)
+    public static Class<?> classOrNull(String className)
     {
         try {
             return Class.forName(className);
@@ -82,13 +82,17 @@ public class Kit
         return null;
     }
 
-    public static Class classOrNull(ClassLoader loader, String className)
+    /**
+     * Attempt to load the class of the given name. Note that the type parameter
+     * isn't checked.
+     */
+    public static Class<?> classOrNull(ClassLoader loader, String className)
     {
         try {
             return loader.loadClass(className);
         } catch (ClassNotFoundException ex) {
         } catch (SecurityException ex) {
-        } catch  (LinkageError ex) {
+        } catch (LinkageError ex) {
         } catch (IllegalArgumentException e) {
             // Can be thrown if name has characters that a class name
             // can not contain
@@ -96,7 +100,7 @@ public class Kit
         return null;
     }
 
-    static Object newInstanceOrNull(Class cl)
+    static Object newInstanceOrNull(Class<?> cl)
     {
         try {
             return cl.newInstance();
@@ -109,12 +113,12 @@ public class Kit
     }
 
     /**
-     * Check that testClass is accesible from the given loader.
+     * Check that testClass is accessible from the given loader.
      */
     static boolean testIfCanLoadRhinoClasses(ClassLoader loader)
     {
-        Class testClass = ScriptRuntime.ContextFactoryClass;
-        Class x = Kit.classOrNull(loader, testClass.getName());
+        Class<?> testClass = ScriptRuntime.ContextFactoryClass;
+        Class<?> x = Kit.classOrNull(loader, testClass.getName());
         if (x != testClass) {
             // The check covers the case when x == null =>
             // loader does not know about testClass or the case
@@ -142,43 +146,6 @@ public class Kit
             }
         }
         return ex;
-    }
-
-    /**
-     * Split string into array of strings using semicolon as string terminator
-     * (; after the last string is required).
-     */
-    public static String[] semicolonSplit(String s)
-    {
-        String[] array = null;
-        for (;;) {
-            // loop 2 times: first to count semicolons and then to fill array
-            int count = 0;
-            int cursor = 0;
-            for (;;) {
-                int next = s.indexOf(';', cursor);
-                if (next < 0) {
-                    break;
-                }
-                if (array != null) {
-                    array[count] = s.substring(cursor, next);
-                }
-                ++count;
-                cursor = next + 1;
-            }
-            // after the last semicolon
-            if (array == null) {
-                // array size counting state:
-                // check for required terminating ';'
-                if (cursor != s.length())
-                    throw new IllegalArgumentException();
-                array = new String[count];
-            } else {
-                // array filling state: stop the loop
-                break;
-            }
-        }
-        return array;
     }
 
     /**
@@ -374,7 +341,7 @@ public class Kit
         }
     }
 
-    static Object initHash(Hashtable h, Object key, Object initialValue)
+    static Object initHash(Map<Object,Object> h, Object key, Object initialValue)
     {
         synchronized (h) {
             Object current = h.get(key);
@@ -399,6 +366,7 @@ public class Kit
             this.key2 = key2;
         }
 
+        @Override
         public boolean equals(Object anotherObj)
         {
             if (!(anotherObj instanceof ComplexKey))
@@ -407,6 +375,7 @@ public class Kit
             return key1.equals(another.key1) && key2.equals(another.key2);
         }
 
+        @Override
         public int hashCode()
         {
             if (hash == 0) {

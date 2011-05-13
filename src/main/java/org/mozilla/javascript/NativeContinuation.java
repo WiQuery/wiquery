@@ -36,21 +36,20 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package org.mozilla.javascript.continuations;
+package org.mozilla.javascript;
 
-import org.mozilla.javascript.*;
-
-public final class Continuation extends IdScriptableObject implements Function
+public final class NativeContinuation extends IdScriptableObject
+    implements Function
 {
     static final long serialVersionUID = 1794167133757605367L;
 
-    private static final Object FTAG = new Object();
+    private static final Object FTAG = "Continuation";
 
     private Object implementation;
 
-    public static void init(Scriptable scope, boolean sealed)
+    public static void init(Context cx, Scriptable scope, boolean sealed)
     {
-        Continuation obj = new Continuation();
+        NativeContinuation obj = new NativeContinuation();
         obj.exportAsJSClass(MAX_PROTOTYPE_ID, scope, sealed);
     }
 
@@ -64,6 +63,7 @@ public final class Continuation extends IdScriptableObject implements Function
         this.implementation = implementation;
     }
 
+    @Override
     public String getClassName()
     {
         return "Continuation";
@@ -88,6 +88,7 @@ public final class Continuation extends IdScriptableObject implements Function
         return false;
     }
 
+    @Override
     protected void initPrototypeId(int id)
     {
         String s;
@@ -99,6 +100,7 @@ public final class Continuation extends IdScriptableObject implements Function
         initPrototypeMethod(FTAG, id, s, arity);
     }
 
+    @Override
     public Object execIdCall(IdFunctionObject f, Context cx, Scriptable scope,
                              Scriptable thisObj, Object[] args)
     {
@@ -115,6 +117,7 @@ public final class Continuation extends IdScriptableObject implements Function
 
 // #string_id_map#
 
+    @Override
     protected int findPrototypeId(String s)
     {
         int id;

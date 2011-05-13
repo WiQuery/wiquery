@@ -139,6 +139,7 @@ final class InterpretedFunction extends NativeFunction implements Script
         }
     }
 
+    @Override
     public String getFunctionName()
     {
         return (idata.itsName == null) ? "" : idata.itsName;
@@ -153,6 +154,7 @@ final class InterpretedFunction extends NativeFunction implements Script
      * {@link ScriptRuntime#emptyArgs} to pass empty arguments.
      * @return the result of the function call.
      */
+    @Override
     public Object call(Context cx, Scriptable scope, Scriptable thisObj,
                        Object[] args)
     {
@@ -164,7 +166,7 @@ final class InterpretedFunction extends NativeFunction implements Script
 
     public Object exec(Context cx, Scriptable scope)
     {
-        if (idata.itsFunctionType != 0) {
+        if (!isScript()) {
             // Can only be applied to scripts
             throw new IllegalStateException();
         }
@@ -176,37 +178,55 @@ final class InterpretedFunction extends NativeFunction implements Script
         return Interpreter.interpret(
             this, cx, scope, scope, ScriptRuntime.emptyArgs);
     }
+    
+    public boolean isScript() {
+        return idata.itsFunctionType == 0;
+    }
 
+    @Override
     public String getEncodedSource()
     {
         return Interpreter.getEncodedSource(idata);
     }
 
+    @Override
     public DebuggableScript getDebuggableView()
     {
         return idata;
     }
 
+    @Override
+    public Object resumeGenerator(Context cx, Scriptable scope, int operation,
+                                  Object state, Object value)
+    {
+        return Interpreter.resumeGenerator(cx, scope, operation, state, value);
+    }
+
+    @Override
     protected int getLanguageVersion()
     {
         return idata.languageVersion;
     }
 
+    @Override
     protected int getParamCount()
     {
         return idata.argCount;
     }
 
+    @Override
     protected int getParamAndVarCount()
     {
         return idata.argNames.length;
     }
 
+    @Override
     protected String getParamOrVarName(int index)
     {
         return idata.argNames[index];
     }
 
+    @Override
     protected boolean getParamOrVarConst(int index)
     {
         return idata.argIsConst[index];

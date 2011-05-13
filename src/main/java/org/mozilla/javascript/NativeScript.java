@@ -59,7 +59,7 @@ class NativeScript extends BaseFunction
 {
     static final long serialVersionUID = -6795101161980121700L;
 
-    private static final Object SCRIPT_TAG = new Object();
+    private static final Object SCRIPT_TAG = "Script";
 
     static void init(Scriptable scope, boolean sealed)
     {
@@ -75,11 +75,13 @@ class NativeScript extends BaseFunction
     /**
      * Returns the name of this JavaScript class, "Script".
      */
+    @Override
     public String getClassName()
     {
         return "Script";
     }
 
+    @Override
     public Object call(Context cx, Scriptable scope, Scriptable thisObj,
                        Object[] args)
     {
@@ -89,21 +91,25 @@ class NativeScript extends BaseFunction
         return Undefined.instance;
     }
 
+    @Override
     public Scriptable construct(Context cx, Scriptable scope, Object[] args)
     {
         throw Context.reportRuntimeError0("msg.script.is.not.constructor");
     }
 
+    @Override
     public int getLength()
     {
         return 0;
     }
 
+    @Override
     public int getArity()
     {
         return 0;
     }
 
+    @Override
     String decompile(int indent, int flags)
     {
         if (script instanceof NativeFunction) {
@@ -112,6 +118,7 @@ class NativeScript extends BaseFunction
         return super.decompile(indent, flags);
     }
 
+    @Override
     protected void initPrototypeId(int id)
     {
         String s;
@@ -126,6 +133,7 @@ class NativeScript extends BaseFunction
         initPrototypeMethod(SCRIPT_TAG, id, s, arity);
     }
 
+    @Override
     public Object execIdCall(IdFunctionObject f, Context cx, Scriptable scope,
                              Scriptable thisObj, Object[] args)
     {
@@ -189,6 +197,7 @@ class NativeScript extends BaseFunction
 
 // #string_id_map#
 
+    @Override
     protected int findPrototypeId(String s)
     {
         int id;

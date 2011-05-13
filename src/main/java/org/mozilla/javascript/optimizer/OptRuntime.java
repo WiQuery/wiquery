@@ -114,7 +114,7 @@ public final class OptRuntime extends ScriptRuntime
     public static Object callProp0(Object value, String property,
                                    Context cx, Scriptable scope)
     {
-        Callable f = getPropFunctionAndThis(value, property, cx);
+        Callable f = getPropFunctionAndThis(value, property, cx, scope);
         Scriptable thisObj = lastStoredScriptable(cx);
         return f.call(cx, scope, thisObj, ScriptRuntime.emptyArgs);
     }
@@ -237,7 +237,7 @@ public final class OptRuntime extends ScriptRuntime
 
     public static void main(final Script script, final String[] args)
     {
-        Context.call(new ContextAction() {
+        ContextFactory.getGlobal().call(new ContextAction() {
             public Object run(Context cx)
             {
                 ScriptableObject global = getGlobal(cx);
@@ -255,4 +255,57 @@ public final class OptRuntime extends ScriptRuntime
         });
     }
 
+    public static void throwStopIteration(Object obj) {
+        throw new JavaScriptException(
+            NativeIterator.getStopIterationObject((Scriptable)obj), "", 0);
+    }
+
+    public static Scriptable createNativeGenerator(NativeFunction funObj,
+                                                   Scriptable scope,
+                                                   Scriptable thisObj,
+                                                   int maxLocals,
+                                                   int maxStack)
+    {
+        return new NativeGenerator(scope, funObj,
+                new GeneratorState(thisObj, maxLocals, maxStack));
+    }
+
+    public static Object[] getGeneratorStackState(Object obj) {
+        GeneratorState rgs = (GeneratorState) obj;
+        if (rgs.stackState == null)
+            rgs.stackState = new Object[rgs.maxStack];
+        return rgs.stackState;
+    }
+
+    public static Object[] getGeneratorLocalsState(Object obj) {
+        GeneratorState rgs = (GeneratorState) obj;
+        if (rgs.localsState == null)
+            rgs.localsState = new Object[rgs.maxLocals];
+        return rgs.localsState;
+    }
+
+    public static class GeneratorState {
+        static final String CLASS_NAME =
+            "org/mozilla/javascript/optimizer/OptRuntime$GeneratorState";
+
+        public int resumptionPoint;
+        static final String resumptionPoint_NAME = "resumptionPoint";
+        static final String resumptionPoint_TYPE = "I";
+        
+        public Scriptable thisObj;
+        static final String thisObj_NAME = "thisObj";
+        static final String thisObj_TYPE =
+            "Lorg/mozilla/javascript/Scriptable;";
+
+        Object[] stackState;
+        Object[] localsState;
+        int maxLocals;
+        int maxStack;
+
+        GeneratorState(Scriptable thisObj, int maxLocals, int maxStack) {
+            this.thisObj = thisObj;
+            this.maxLocals = maxLocals;
+            this.maxStack = maxStack;
+        }
+    }
 }

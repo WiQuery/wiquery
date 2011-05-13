@@ -57,6 +57,7 @@ public class NativeJavaArray extends NativeJavaObject
 {
     static final long serialVersionUID = -924022554283675333L;
 
+    @Override
     public String getClassName() {
         return "JavaArray";
     }
@@ -65,13 +66,14 @@ public class NativeJavaArray extends NativeJavaObject
         return new NativeJavaArray(scope, array);
     }
 
+    @Override
     public Object unwrap() {
         return array;
     }
 
     public NativeJavaArray(Scriptable scope, Object array) {
         super(scope, null, ScriptRuntime.ObjectClass);
-        Class cl = array.getClass();
+        Class<?> cl = array.getClass();
         if (!cl.isArray()) {
             throw new RuntimeException("Array expected");
         }
@@ -80,14 +82,17 @@ public class NativeJavaArray extends NativeJavaObject
         this.cls = cl.getComponentType();
     }
 
+    @Override
     public boolean has(String id, Scriptable start) {
         return id.equals("length") || super.has(id, start);
     }
 
+    @Override
     public boolean has(int index, Scriptable start) {
         return 0 <= index && index < length;
     }
 
+    @Override
     public Object get(String id, Scriptable start) {
         if (id.equals("length"))
             return new Integer(length);
@@ -101,6 +106,7 @@ public class NativeJavaArray extends NativeJavaObject
         return result;
     }
 
+    @Override
     public Object get(int index, Scriptable start) {
         if (0 <= index && index < length) {
             Context cx = Context.getContext();
@@ -110,12 +116,15 @@ public class NativeJavaArray extends NativeJavaObject
         return Undefined.instance;
     }
 
+    @Override
     public void put(String id, Scriptable start, Object value) {
         // Ignore assignments to "length"--it's readonly.
         if (!id.equals("length"))
-            super.put(id, start, value);
+            throw Context.reportRuntimeError1(
+                "msg.java.array.member.not.found", id);
     }
 
+    @Override
     public void put(int index, Scriptable start, Object value) {
         if (0 <= index && index < length) {
             Array.set(array, index, Context.jsToJava(value, cls));
@@ -127,7 +136,8 @@ public class NativeJavaArray extends NativeJavaObject
         }
     }
 
-    public Object getDefaultValue(Class hint) {
+    @Override
+    public Object getDefaultValue(Class<?> hint) {
         if (hint == null || hint == ScriptRuntime.StringClass)
             return array.toString();
         if (hint == ScriptRuntime.BooleanClass)
@@ -137,6 +147,7 @@ public class NativeJavaArray extends NativeJavaObject
         return this;
     }
 
+    @Override
     public Object[] getIds() {
         Object[] result = new Object[length];
         int i = length;
@@ -145,6 +156,7 @@ public class NativeJavaArray extends NativeJavaObject
         return result;
     }
 
+    @Override
     public boolean hasInstance(Scriptable value) {
         if (!(value instanceof Wrapper))
             return false;
@@ -152,6 +164,7 @@ public class NativeJavaArray extends NativeJavaObject
         return cls.isInstance(instance);
     }
 
+    @Override
     public Scriptable getPrototype() {
         if (prototype == null) {
             prototype =
@@ -163,6 +176,5 @@ public class NativeJavaArray extends NativeJavaObject
 
     Object array;
     int length;
-    Class cls;
-    Scriptable prototype;
+    Class<?> cls;
 }

@@ -99,7 +99,7 @@ public class NativeRegExp extends IdScriptableObject implements Function
     private static final byte REOP_LPAREN        = 10; /* left paren bytecode: kid is u.num'th sub-regexp */
     private static final byte REOP_RPAREN        = 11; /* right paren bytecode */
     private static final byte REOP_DOT           = 12; /* stands for any character */
-    private static final byte REOP_CCLASS        = 13; /* character class: [a-f] */
+//    private static final byte REOP_CCLASS        = 13; /* character class: [a-f] */
     private static final byte REOP_DIGIT         = 14; /* match a digit char: [0-9] */
     private static final byte REOP_NONDIGIT      = 15; /* match a non-digit char: [^0-9] */
     private static final byte REOP_ALNUM         = 16; /* match an alphanumeric char: [0-9a-z_A-Z] */
@@ -110,23 +110,23 @@ public class NativeRegExp extends IdScriptableObject implements Function
     private static final byte REOP_FLAT          = 21; /* match a flat string */
     private static final byte REOP_FLAT1         = 22; /* match a single char */
     private static final byte REOP_JUMP          = 23; /* for deoptimized closure loops */
-    private static final byte REOP_DOTSTAR       = 24; /* optimize .* to use a single opcode */
-    private static final byte REOP_ANCHOR        = 25; /* like .* but skips left context to unanchored r.e. */
-    private static final byte REOP_EOLONLY       = 26; /* $ not preceded by any pattern */
-    private static final byte REOP_UCFLAT        = 27; /* flat Unicode string; len immediate counts chars */
+//    private static final byte REOP_DOTSTAR       = 24; /* optimize .* to use a single opcode */
+//    private static final byte REOP_ANCHOR        = 25; /* like .* but skips left context to unanchored r.e. */
+//    private static final byte REOP_EOLONLY       = 26; /* $ not preceded by any pattern */
+//    private static final byte REOP_UCFLAT        = 27; /* flat Unicode string; len immediate counts chars */
     private static final byte REOP_UCFLAT1       = 28; /* single Unicode char */
-    private static final byte REOP_UCCLASS       = 29; /* Unicode character class, vector of chars to match */
-    private static final byte REOP_NUCCLASS      = 30; /* negated Unicode character class */
-    private static final byte REOP_BACKREFi      = 31; /* case-independent REOP_BACKREF */
+//    private static final byte REOP_UCCLASS       = 29; /* Unicode character class, vector of chars to match */
+//    private static final byte REOP_NUCCLASS      = 30; /* negated Unicode character class */
+//    private static final byte REOP_BACKREFi      = 31; /* case-independent REOP_BACKREF */
     private static final byte REOP_FLATi         = 32; /* case-independent REOP_FLAT */
     private static final byte REOP_FLAT1i        = 33; /* case-independent REOP_FLAT1 */
-    private static final byte REOP_UCFLATi       = 34; /* case-independent REOP_UCFLAT */
+//    private static final byte REOP_UCFLATi       = 34; /* case-independent REOP_UCFLAT */
     private static final byte REOP_UCFLAT1i      = 35; /* case-independent REOP_UCFLAT1 */
-    private static final byte REOP_ANCHOR1       = 36; /* first-char discriminating REOP_ANCHOR */
-    private static final byte REOP_NCCLASS       = 37; /* negated 8-bit character class */
-    private static final byte REOP_DOTSTARMIN    = 38; /* ungreedy version of REOP_DOTSTAR */
-    private static final byte REOP_LPARENNON     = 39; /* non-capturing version of REOP_LPAREN */
-    private static final byte REOP_RPARENNON     = 40; /* non-capturing version of REOP_RPAREN */
+//    private static final byte REOP_ANCHOR1       = 36; /* first-char discriminating REOP_ANCHOR */
+//    private static final byte REOP_NCCLASS       = 37; /* negated 8-bit character class */
+//    private static final byte REOP_DOTSTARMIN    = 38; /* ungreedy version of REOP_DOTSTAR */
+//    private static final byte REOP_LPARENNON     = 39; /* non-capturing version of REOP_LPAREN */
+//    private static final byte REOP_RPARENNON     = 40; /* non-capturing version of REOP_RPAREN */
     private static final byte REOP_ASSERT        = 41; /* zero width positive lookahead assertion */
     private static final byte REOP_ASSERT_NOT    = 42; /* zero width negative lookahead assertion */
     private static final byte REOP_ASSERTTEST    = 43; /* sentinel at end of assertion child */
@@ -140,6 +140,7 @@ public class NativeRegExp extends IdScriptableObject implements Function
     private static final byte REOP_REPEAT        = 51; /* directs execution of greedy quantifier */
     private static final byte REOP_MINIMALREPEAT = 52; /* directs execution of non-greedy quantifier */
     private static final byte REOP_END           = 53;
+     
 
 
     public static void init(Context cx, Scriptable scope, boolean sealed)
@@ -175,6 +176,7 @@ public class NativeRegExp extends IdScriptableObject implements Function
         ScriptRuntime.setObjectProtoAndParent(this, scope);
     }
 
+    @Override
     public String getClassName()
     {
         return "RegExp";
@@ -212,6 +214,7 @@ public class NativeRegExp extends IdScriptableObject implements Function
         return this;
     }
 
+    @Override
     public String toString()
     {
         StringBuffer buf = new StringBuffer();
@@ -2165,7 +2168,7 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
                     // XXX: If backTrackData will no longer be used, then
                     // there is no need to clone backTrackData.parens
                     if (backTrackData.parens != null) {
-                        gData.parens = (long[])backTrackData.parens.clone();
+                        gData.parens = backTrackData.parens.clone();
                     }
 
                     gData.cp = backTrackData.cp;
@@ -2411,11 +2414,13 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
 
         MAX_INSTANCE_ID = 5;
 
+    @Override
     protected int getMaxInstanceId()
     {
         return MAX_INSTANCE_ID;
     }
 
+    @Override
     protected int findInstanceIdInfo(String s)
     {
         int id;
@@ -2458,6 +2463,7 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
         return instanceIdInfo(attr, id);
     }
 
+    @Override
     protected String getInstanceIdName(int id)
     {
         switch (id) {
@@ -2470,6 +2476,7 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
         return super.getInstanceIdName(id);
     }
 
+    @Override
     protected Object getInstanceIdValue(int id)
     {
         switch (id) {
@@ -2487,6 +2494,7 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
         return super.getInstanceIdValue(id);
     }
 
+    @Override
     protected void setInstanceIdValue(int id, Object value)
     {
         if (id == Id_lastIndex) {
@@ -2496,6 +2504,7 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
         super.setInstanceIdValue(id, value);
     }
 
+    @Override
     protected void initPrototypeId(int id)
     {
         String s;
@@ -2512,6 +2521,7 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
         initPrototypeMethod(REGEXP_TAG, id, s, arity);
     }
 
+    @Override
     public Object execIdCall(IdFunctionObject f, Context cx, Scriptable scope,
                              Scriptable thisObj, Object[] args)
     {
@@ -2549,6 +2559,7 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
     }
 
 // #string_id_map#
+    @Override
     protected int findPrototypeId(String s)
     {
         int id;
@@ -2588,7 +2599,7 @@ System.out.println("Testing at " + gData.cp + ", op = " + op);
     private RECompiled re;
     double lastIndex;          /* index after last match, for //g iterator */
 
-};       // class NativeRegExp
+}       // class NativeRegExp
 
 class RECompiled implements Serializable
 {
@@ -2697,7 +2708,7 @@ class REBackTrackData {
         continuation_pc = pc;
         lastParen = gData.lastParen;
         if (gData.parens != null) {
-            parens = (long[])gData.parens.clone();
+            parens = gData.parens.clone();
         }
         cp = gData.cp;
         stateStackTop = gData.stateStackTop;
