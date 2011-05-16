@@ -1,33 +1,34 @@
 /* ***** BEGIN LICENSE BLOCK *****
-*
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License
-* Version 1.1 (the "License"); you may not use this file except in
-* compliance with the License. You may obtain a copy of the License
-* at http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS"
-* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
-* See the License for the specific language governing rights and
-* limitations under the License.
-*
-* The Original Code is org/mozilla/javascript/TokenStream.java,
-* a component of the Rhino Library ( http://www.mozilla.org/rhino/ )
-* This file is a modification of the Original Code developed
-* for YUI Compressor.
-*
-* The Initial Developer of the Original Code is Mozilla Foundation
-*
-* Copyright (c) 2009 Mozilla Foundation. All Rights Reserved.
-*
-* Contributor(s): Yahoo! Inc. 2009
-*
-* ***** END LICENSE BLOCK ***** */
+ *
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License
+ * at http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+ * See the License for the specific language governing rights and
+ * limitations under the License.
+ *
+ * The Original Code is org/mozilla/javascript/TokenStream.java,
+ * a component of the Rhino Library ( http://www.mozilla.org/rhino/ )
+ * This file is a modification of the Original Code developed
+ * for YUI Compressor.
+ *
+ * The Initial Developer of the Original Code is Mozilla Foundation
+ *
+ * Copyright (c) 2009 Mozilla Foundation. All Rights Reserved.
+ *
+ * Contributor(s):  Yahoo! Inc. 2009
+ *
+ * ***** END LICENSE BLOCK ***** */
 
 package org.mozilla.javascript;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
 
 /**
  * This class implements the JavaScript scanner.
@@ -35,13 +36,13 @@ import java.io.*;
  * It is based on the C source files jsscan.c and jsscan.h
  * in the jsref package.
  *
- * @see org.mozilla.javascript.Parser
+ * @see org.mozilla.javascript.Parser1
  *
  * @author Mike McCabe
  * @author Brendan Eich
  */
 
-class TokenStream
+class TokenStream1
 {
     /*
      * For chars - because we need something out-of-range
@@ -51,8 +52,8 @@ class TokenStream
     private final static int
         EOF_CHAR = -1;
 
-    TokenStream(Parser parser, Reader sourceReader, String sourceString,
-                int lineno)
+    TokenStream1(final Parser1 parser, final Reader sourceReader, final String sourceString,
+                final int lineno)
     {
         this.parser = parser;
         this.lineno = lineno;
@@ -73,18 +74,18 @@ class TokenStream
      * TokenStream; if getToken has been called since the passed token
      * was scanned, the op or string printed may be incorrect.
      */
-    String tokenToString(int token)
+    String tokenToString(final int token)
     {
-        if (Token.printTrees) {
-            String name = Token.name(token);
+        if (Token1.printTrees) {
+            final String name = Token1.name(token);
 
             switch (token) {
-            case Token.STRING:
-            case Token.REGEXP:
-            case Token.NAME:
+            case Token1.STRING:
+            case Token1.REGEXP:
+            case Token1.NAME:
                 return name + " `" + this.string + "'";
 
-            case Token.NUMBER:
+            case Token1.NUMBER:
                 return "NUMBER " + this.number;
             }
 
@@ -93,82 +94,80 @@ class TokenStream
         return "";
     }
 
-    static boolean isKeyword(String s)
+    static boolean isKeyword(final String s)
     {
-        return Token.EOF != stringToKeyword(s);
+        return Token1.EOF != stringToKeyword(s);
     }
 
-    private static int stringToKeyword(String name)
+    private static int stringToKeyword(final String name)
     {
 // #string_id_map#
 // The following assumes that Token.EOF == 0
         final int
-            Id_break         = Token.BREAK,
-            Id_case          = Token.CASE,
-            Id_continue      = Token.CONTINUE,
-            Id_default       = Token.DEFAULT,
-            Id_delete        = Token.DELPROP,
-            Id_do            = Token.DO,
-            Id_else          = Token.ELSE,
-            Id_export        = Token.EXPORT,
-            Id_false         = Token.FALSE,
-            Id_for           = Token.FOR,
-            Id_function      = Token.FUNCTION,
-            Id_if            = Token.IF,
-            Id_in            = Token.IN,
-            Id_let           = Token.LET,
-            Id_new           = Token.NEW,
-            Id_null          = Token.NULL,
-            Id_return        = Token.RETURN,
-            Id_switch        = Token.SWITCH,
-            Id_this          = Token.THIS,
-            Id_true          = Token.TRUE,
-            Id_typeof        = Token.TYPEOF,
-            Id_var           = Token.VAR,
-            Id_void          = Token.VOID,
-            Id_while         = Token.WHILE,
-            Id_with          = Token.WITH,
-            Id_yield         = Token.YIELD,
+            Id_break         = Token1.BREAK,
+            Id_case          = Token1.CASE,
+            Id_continue      = Token1.CONTINUE,
+            Id_default       = Token1.DEFAULT,
+            Id_delete        = Token1.DELPROP,
+            Id_do            = Token1.DO,
+            Id_else          = Token1.ELSE,
+            Id_export        = Token1.EXPORT,
+            Id_false         = Token1.FALSE,
+            Id_for           = Token1.FOR,
+            Id_function      = Token1.FUNCTION,
+            Id_if            = Token1.IF,
+            Id_in            = Token1.IN,
+            Id_new           = Token1.NEW,
+            Id_null          = Token1.NULL,
+            Id_return        = Token1.RETURN,
+            Id_switch        = Token1.SWITCH,
+            Id_this          = Token1.THIS,
+            Id_true          = Token1.TRUE,
+            Id_typeof        = Token1.TYPEOF,
+            Id_var           = Token1.VAR,
+            Id_void          = Token1.VOID,
+            Id_while         = Token1.WHILE,
+            Id_with          = Token1.WITH,
 
             // the following are #ifdef RESERVE_JAVA_KEYWORDS in jsscan.c
-            Id_abstract      = Token.RESERVED,
-            Id_boolean       = Token.RESERVED,
-            Id_byte          = Token.RESERVED,
-            Id_catch         = Token.CATCH,
-            Id_char          = Token.RESERVED,
-            Id_class         = Token.RESERVED,
-            Id_const         = Token.CONST,
-            Id_debugger      = Token.DEBUGGER,
-            Id_double        = Token.RESERVED,
-            Id_enum          = Token.RESERVED,
-            Id_extends       = Token.RESERVED,
-            Id_final         = Token.RESERVED,
-            Id_finally       = Token.FINALLY,
-            Id_float         = Token.RESERVED,
-            Id_goto          = Token.RESERVED,
-            Id_implements    = Token.RESERVED,
-            Id_import        = Token.IMPORT,
-            Id_instanceof    = Token.INSTANCEOF,
-            Id_int           = Token.RESERVED,
-            Id_interface     = Token.RESERVED,
-            Id_long          = Token.RESERVED,
-            Id_native        = Token.RESERVED,
-            Id_package       = Token.RESERVED,
-            Id_private       = Token.RESERVED,
-            Id_protected     = Token.RESERVED,
-            Id_public        = Token.RESERVED,
-            Id_short         = Token.RESERVED,
-            Id_static        = Token.RESERVED,
-            Id_super         = Token.RESERVED,
-            Id_synchronized  = Token.RESERVED,
-            Id_throw         = Token.THROW,
-            Id_throws        = Token.RESERVED,
-            Id_transient     = Token.RESERVED,
-            Id_try           = Token.TRY,
-            Id_volatile      = Token.RESERVED;
+            Id_abstract      = Token1.RESERVED,
+            Id_boolean       = Token1.RESERVED,
+            Id_byte          = Token1.RESERVED,
+            Id_catch         = Token1.CATCH,
+            Id_char          = Token1.RESERVED,
+            Id_class         = Token1.RESERVED,
+            Id_const         = Token1.CONST,
+            Id_debugger      = Token1.RESERVED,
+            Id_double        = Token1.RESERVED,
+            Id_enum          = Token1.RESERVED,
+            Id_extends       = Token1.RESERVED,
+            Id_final         = Token1.RESERVED,
+            Id_finally       = Token1.FINALLY,
+            Id_float         = Token1.RESERVED,
+            Id_goto          = Token1.RESERVED,
+            Id_implements    = Token1.RESERVED,
+            Id_import        = Token1.IMPORT,
+            Id_instanceof    = Token1.INSTANCEOF,
+            Id_int           = Token1.RESERVED,
+            Id_interface     = Token1.RESERVED,
+            Id_long          = Token1.RESERVED,
+            Id_native        = Token1.RESERVED,
+            Id_package       = Token1.RESERVED,
+            Id_private       = Token1.RESERVED,
+            Id_protected     = Token1.RESERVED,
+            Id_public        = Token1.RESERVED,
+            Id_short         = Token1.RESERVED,
+            Id_static        = Token1.RESERVED,
+            Id_super         = Token1.RESERVED,
+            Id_synchronized  = Token1.RESERVED,
+            Id_throw         = Token1.THROW,
+            Id_throws        = Token1.RESERVED,
+            Id_transient     = Token1.RESERVED,
+            Id_try           = Token1.TRY,
+            Id_volatile      = Token1.RESERVED;
 
         int id;
-        String s = name;
+        final String s = name;
 // #generated# Last update: 2001-06-01 17:45:01 CEST
         L0: { id = 0; String X = null; int c;
             L: switch (s.length()) {
@@ -180,7 +179,6 @@ class TokenStream
             case 3: switch (s.charAt(0)) {
                 case 'f': if (s.charAt(2)=='r' && s.charAt(1)=='o') {id=Id_for; break L0;} break L;
                 case 'i': if (s.charAt(2)=='t' && s.charAt(1)=='n') {id=Id_int; break L0;} break L;
-                case 'l': if (s.charAt(2)=='t' && s.charAt(1)=='e') {id=Id_let; break L0;} break L;
                 case 'n': if (s.charAt(2)=='w' && s.charAt(1)=='e') {id=Id_new; break L0;} break L;
                 case 't': if (s.charAt(2)=='y' && s.charAt(1)=='r') {id=Id_try; break L0;} break L;
                 case 'v': if (s.charAt(2)=='r' && s.charAt(1)=='a') {id=Id_var; break L0;} break L;
@@ -207,10 +205,7 @@ class TokenStream
                 } break L;
             case 5: switch (s.charAt(2)) {
                 case 'a': X="class";id=Id_class; break L;
-                case 'e': c=s.charAt(0);
-                    if (c=='b') { X="break";id=Id_break; }
-                    else if (c=='y') { X="yield";id=Id_yield; }
-                    break L;
+                case 'e': X="break";id=Id_break; break L;
                 case 'i': X="while";id=Id_while; break L;
                 case 'l': X="false";id=Id_false; break L;
                 case 'n': c=s.charAt(0);
@@ -270,7 +265,7 @@ class TokenStream
         }
 // #/generated#
 // #/string_id_map#
-        if (id == 0) { return Token.EOF; }
+        if (id == 0) { return Token1.EOF; }
         return id & 0xff;
     }
 
@@ -292,10 +287,10 @@ class TokenStream
             for (;;) {
                 c = getChar();
                 if (c == EOF_CHAR) {
-                    return Token.EOF;
+                    return Token1.EOF;
                 } else if (c == '\n') {
                     dirtyLine = false;
-                    return Token.EOL;
+                    return Token1.EOL;
                 } else if (!isJSSpace(c)) {
                     if (c != '-') {
                         dirtyLine = true;
@@ -304,7 +299,7 @@ class TokenStream
                 }
             }
 
-            if (c == '@') return Token.XMLATTR;
+            if (c == '@') return Token1.XMLATTR;
 
             // identifier/keyword/instanceof?
             // watch out for starting with a <backslash>
@@ -348,7 +343,7 @@ class TokenStream
                         }
                         if (escapeVal < 0) {
                             parser.addError("msg.invalid.escape");
-                            return Token.ERROR;
+                            return Token1.ERROR;
                         }
                         addToString(escapeVal);
                         isUnicodeEscapeStart = false;
@@ -361,7 +356,7 @@ class TokenStream
                                 containsEscape = true;
                             } else {
                                 parser.addError("msg.illegal.character");
-                                return Token.ERROR;
+                                return Token1.ERROR;
                             }
                         } else {
                             if (c == EOF_CHAR
@@ -375,23 +370,15 @@ class TokenStream
                 }
                 ungetChar(c);
 
-                String str = getStringFromBuffer();
+                final String str = getStringFromBuffer();
                 if (!containsEscape) {
                     // OPT we shouldn't have to make a string (object!) to
                     // check if it's a keyword.
 
                     // Return the corresponding token if it's a keyword
-                    int result = stringToKeyword(str);
-                    if (result != Token.EOF) {
-                        if ((result == Token.LET || result == Token.YIELD) &&
-                            parser.compilerEnv.getLanguageVersion()
-                            < Context.VERSION_1_7)
-                        {
-                            // LET and YIELD are tokens only in 1.7 and later
-                            string = result == Token.LET ? "let" : "yield";
-                            result = Token.NAME;
-                        }
-                        if (result != Token.RESERVED) {
+                    final int result = stringToKeyword(str);
+                    if (result != Token1.EOF) {
+                        if (result != Token1.RESERVED) {
                             return result;
                         } else if (!parser.compilerEnv.
                                         isReservedKeywordAsIdentifier())
@@ -406,7 +393,7 @@ class TokenStream
                     }
                 }
                 this.string = (String)allStrings.intern(str);
-                return Token.NAME;
+                return Token1.NAME;
             }
 
             // is it a number?
@@ -469,7 +456,7 @@ class TokenStream
                         }
                         if (!isDigit(c)) {
                             parser.addError("msg.missing.exponent");
-                            return Token.ERROR;
+                            return Token1.ERROR;
                         }
                         do {
                             addToString(c);
@@ -478,7 +465,7 @@ class TokenStream
                     }
                 }
                 ungetChar(c);
-                String numString = getStringFromBuffer();
+                final String numString = getStringFromBuffer();
 
                 double dval;
                 if (base == 10 && !isInteger) {
@@ -486,16 +473,16 @@ class TokenStream
                         // Use Java conversion to number from string...
                         dval = Double.valueOf(numString).doubleValue();
                     }
-                    catch (NumberFormatException ex) {
+                    catch (final NumberFormatException ex) {
                         parser.addError("msg.caught.nfe");
-                        return Token.ERROR;
+                        return Token1.ERROR;
                     }
                 } else {
                     dval = ScriptRuntime.stringToNumber(numString, 0, base);
                 }
 
                 this.number = dval;
-                return Token.NUMBER;
+                return Token1.NUMBER;
             }
 
             // is it a string?
@@ -505,7 +492,7 @@ class TokenStream
                 // are any escaped characters in the string, we revert to
                 // building it out of a StringBuffer.
 
-                int quoteChar = c;
+                final int quoteChar = c;
                 stringBufferTop = 0;
 
                 c = getChar();
@@ -513,7 +500,7 @@ class TokenStream
                     if (c == '\n' || c == EOF_CHAR) {
                         ungetChar(c);
                         parser.addError("msg.unterminated.string.lit");
-                        return Token.ERROR;
+                        return Token1.ERROR;
                     }
 
                     if (c == '\\') {
@@ -562,79 +549,79 @@ class TokenStream
                     c = getChar();
                 }
 
-                String str = getStringFromBuffer();
+                final String str = getStringFromBuffer();
                 this.string = (String)allStrings.intern(str);
-                return Token.STRING;
+                return Token1.STRING;
             }
 
             switch (c) {
-            case ';': return Token.SEMI;
-            case '[': return Token.LB;
-            case ']': return Token.RB;
-            case '{': return Token.LC;
-            case '}': return Token.RC;
-            case '(': return Token.LP;
-            case ')': return Token.RP;
-            case ',': return Token.COMMA;
-            case '?': return Token.HOOK;
+            case ';': return Token1.SEMI;
+            case '[': return Token1.LB;
+            case ']': return Token1.RB;
+            case '{': return Token1.LC;
+            case '}': return Token1.RC;
+            case '(': return Token1.LP;
+            case ')': return Token1.RP;
+            case ',': return Token1.COMMA;
+            case '?': return Token1.HOOK;
             case ':':
                 if (matchChar(':')) {
-                    return Token.COLONCOLON;
+                    return Token1.COLONCOLON;
                 } else {
-                    return Token.COLON;
+                    return Token1.COLON;
                 }
             case '.':
                 if (matchChar('.')) {
-                    return Token.DOTDOT;
+                    return Token1.DOTDOT;
                 } else if (matchChar('(')) {
-                    return Token.DOTQUERY;
+                    return Token1.DOTQUERY;
                 } else {
-                    return Token.DOT;
+                    return Token1.DOT;
                 }
 
             case '|':
                 if (matchChar('|')) {
-                    return Token.OR;
+                    return Token1.OR;
                 } else if (matchChar('=')) {
-                    return Token.ASSIGN_BITOR;
+                    return Token1.ASSIGN_BITOR;
                 } else {
-                    return Token.BITOR;
+                    return Token1.BITOR;
                 }
 
             case '^':
                 if (matchChar('=')) {
-                    return Token.ASSIGN_BITXOR;
+                    return Token1.ASSIGN_BITXOR;
                 } else {
-                    return Token.BITXOR;
+                    return Token1.BITXOR;
                 }
 
             case '&':
                 if (matchChar('&')) {
-                    return Token.AND;
+                    return Token1.AND;
                 } else if (matchChar('=')) {
-                    return Token.ASSIGN_BITAND;
+                    return Token1.ASSIGN_BITAND;
                 } else {
-                    return Token.BITAND;
+                    return Token1.BITAND;
                 }
 
             case '=':
                 if (matchChar('=')) {
                     if (matchChar('='))
-                        return Token.SHEQ;
+                        return Token1.SHEQ;
                     else
-                        return Token.EQ;
+                        return Token1.EQ;
                 } else {
-                    return Token.ASSIGN;
+                    return Token1.ASSIGN;
                 }
 
             case '!':
                 if (matchChar('=')) {
                     if (matchChar('='))
-                        return Token.SHNE;
+                        return Token1.SHNE;
                     else
-                        return Token.NE;
+                        return Token1.NE;
                 } else {
-                    return Token.NOT;
+                    return Token1.NOT;
                 }
 
             case '<':
@@ -645,21 +632,21 @@ class TokenStream
                             skipLine();
                             continue retry;
                         }
-                        ungetCharIgnoreLineEnd('-');
+                        ungetChar('-');
                     }
-                    ungetCharIgnoreLineEnd('!');
+                    ungetChar('!');
                 }
                 if (matchChar('<')) {
                     if (matchChar('=')) {
-                        return Token.ASSIGN_LSH;
+                        return Token1.ASSIGN_LSH;
                     } else {
-                        return Token.LSH;
+                        return Token1.LSH;
                     }
                 } else {
                     if (matchChar('=')) {
-                        return Token.LE;
+                        return Token1.LE;
                     } else {
-                        return Token.LT;
+                        return Token1.LT;
                     }
                 }
 
@@ -667,30 +654,30 @@ class TokenStream
                 if (matchChar('>')) {
                     if (matchChar('>')) {
                         if (matchChar('=')) {
-                            return Token.ASSIGN_URSH;
+                            return Token1.ASSIGN_URSH;
                         } else {
-                            return Token.URSH;
+                            return Token1.URSH;
                         }
                     } else {
                         if (matchChar('=')) {
-                            return Token.ASSIGN_RSH;
+                            return Token1.ASSIGN_RSH;
                         } else {
-                            return Token.RSH;
+                            return Token1.RSH;
                         }
                     }
                 } else {
                     if (matchChar('=')) {
-                        return Token.GE;
+                        return Token1.GE;
                     } else {
-                        return Token.GT;
+                        return Token1.GT;
                     }
                 }
 
             case '*':
                 if (matchChar('=')) {
-                    return Token.ASSIGN_MUL;
+                    return Token1.ASSIGN_MUL;
                 } else {
-                    return Token.MUL;
+                    return Token1.MUL;
                 }
 
             case '/':
@@ -701,12 +688,12 @@ class TokenStream
                 }
                 if (matchChar('*')) {
                     boolean lookForSlash = false;
-                    StringBuffer sb = new StringBuffer();
+                    final StringBuffer sb = new StringBuffer();
                     for (;;) {
                         c = getChar();
                         if (c == EOF_CHAR) {
                             parser.addError("msg.unterminated.comment");
-                            return Token.ERROR;
+                            return Token1.ERROR;
                         }
                         sb.append((char) c);
                         if (c == '*') {
@@ -714,22 +701,7 @@ class TokenStream
                         } else if (c == '/') {
                             if (lookForSlash) {
                                 sb.delete(sb.length()-2, sb.length());
-                                String s1 = sb.toString();
-                                String s2 = s1.trim();
-                                if (s1.startsWith("!")) {
-                                    // Remove the leading '!'
-                                    this.string = s1.substring(1);
-                                    return Token.KEEPCOMMENT;
-                                } else if (s2.startsWith("@cc_on") ||
-                                           s2.startsWith("@if")    ||
-                                           s2.startsWith("@elif")  ||
-                                           s2.startsWith("@else")  ||
-                                           s2.startsWith("@end")) {
-                                    this.string = s1;
-                                    return Token.CONDCOMMENT;
-                                } else {
-                                    continue retry;
-                                }
+                                continue retry;
                             }
                         } else {
                             lookForSlash = false;
@@ -738,33 +710,33 @@ class TokenStream
                 }
 
                 if (matchChar('=')) {
-                    return Token.ASSIGN_DIV;
+                    return Token1.ASSIGN_DIV;
                 } else {
-                    return Token.DIV;
+                    return Token1.DIV;
                 }
 
             case '%':
                 if (matchChar('=')) {
-                    return Token.ASSIGN_MOD;
+                    return Token1.ASSIGN_MOD;
                 } else {
-                    return Token.MOD;
+                    return Token1.MOD;
                 }
 
             case '~':
-                return Token.BITNOT;
+                return Token1.BITNOT;
 
             case '+':
                 if (matchChar('=')) {
-                    return Token.ASSIGN_ADD;
+                    return Token1.ASSIGN_ADD;
                 } else if (matchChar('+')) {
-                    return Token.INC;
+                    return Token1.INC;
                 } else {
-                    return Token.ADD;
+                    return Token1.ADD;
                 }
 
             case '-':
                 if (matchChar('=')) {
-                    c = Token.ASSIGN_SUB;
+                    c = Token1.ASSIGN_SUB;
                 } else if (matchChar('-')) {
                     if (!dirtyLine) {
                         // treat HTML end-comment after possible whitespace
@@ -774,21 +746,21 @@ class TokenStream
                             continue retry;
                         }
                     }
-                    c = Token.DEC;
+                    c = Token1.DEC;
                 } else {
-                    c = Token.SUB;
+                    c = Token1.SUB;
                 }
                 dirtyLine = true;
                 return c;
 
             default:
                 parser.addError("msg.illegal.character");
-                return Token.ERROR;
+                return Token1.ERROR;
             }
         }
     }
 
-    private static boolean isAlpha(int c)
+    private static boolean isAlpha(final int c)
     {
         // Use 'Z' < 'a'
         if (c <= 'Z') {
@@ -798,7 +770,7 @@ class TokenStream
         }
     }
 
-    static boolean isDigit(int c)
+    static boolean isDigit(final int c)
     {
         return '0' <= c && c <= '9';
     }
@@ -807,7 +779,7 @@ class TokenStream
      * \v, I think.)  note that code in getChar() implicitly accepts
      * '\r' == \u000D as well.
      */
-    static boolean isJSSpace(int c)
+    static boolean isJSSpace(final int c)
     {
         if (c <= 127) {
             return c == 0x20 || c == 0x9 || c == 0xC || c == 0xB;
@@ -817,7 +789,7 @@ class TokenStream
         }
     }
 
-    private static boolean isJSFormatChar(int c)
+    private static boolean isJSFormatChar(final int c)
     {
         return c > 127 && Character.getType((char)c) == Character.FORMAT;
     }
@@ -825,15 +797,15 @@ class TokenStream
     /**
      * Parser calls the method when it gets / or /= in literal context.
      */
-    void readRegExp(int startToken)
+    void readRegExp(final int startToken)
         throws IOException
     {
         stringBufferTop = 0;
-        if (startToken == Token.ASSIGN_DIV) {
+        if (startToken == Token1.ASSIGN_DIV) {
             // Miss-scanned /=
             addToString('=');
         } else {
-            if (startToken != Token.DIV) Kit.codeBug();
+            if (startToken != Token1.DIV) Kit.codeBug();
         }
 
         int c;
@@ -851,9 +823,10 @@ class TokenStream
             } else if (c == ']') {
                 inClass = false;
             }
+
             addToString(c);
         }
-        int reEnd = stringBufferTop;
+        final int reEnd = stringBufferTop;
 
         while (true) {
             if (matchChar('g'))
@@ -913,11 +886,11 @@ class TokenStream
                 case '{':
                     ungetChar(c);
                     this.string = getStringFromBuffer();
-                    return Token.XML;
+                    return Token1.XML;
                 case '\'':
                 case '"':
                     addToString(c);
-                    if (!readQuotedString(c)) return Token.ERROR;
+                    if (!readQuotedString(c)) return Token1.ERROR;
                     break;
                 case '=':
                     addToString(c);
@@ -937,7 +910,7 @@ class TokenStream
 
                 if (!xmlIsTagContent && xmlOpenTagsCount == 0) {
                     this.string = getStringFromBuffer();
-                    return Token.XMLEND;
+                    return Token1.XMLEND;
                 }
             } else {
                 switch (c) {
@@ -956,13 +929,13 @@ class TokenStream
                             c = getChar();
                             if (c == '-') {
                                 addToString(c);
-                                if(!readXmlComment()) return Token.ERROR;
+                                if(!readXmlComment()) return Token1.ERROR;
                             } else {
                                 // throw away the string in progress
                                 stringBufferTop = 0;
                                 this.string = null;
                                 parser.addError("msg.XML.bad.form");
-                                return Token.ERROR;
+                                return Token1.ERROR;
                             }
                             break;
                         case '[':
@@ -981,25 +954,25 @@ class TokenStream
                                 addToString('T');
                                 addToString('A');
                                 addToString('[');
-                                if (!readCDATA()) return Token.ERROR;
+                                if (!readCDATA()) return Token1.ERROR;
 
                             } else {
                                 // throw away the string in progress
                                 stringBufferTop = 0;
                                 this.string = null;
                                 parser.addError("msg.XML.bad.form");
-                                return Token.ERROR;
+                                return Token1.ERROR;
                             }
                             break;
                         default:
-                            if(!readEntity()) return Token.ERROR;
+                            if(!readEntity()) return Token1.ERROR;
                             break;
                         }
                         break;
                     case '?':
                         c = getChar(); // Skip ?
                         addToString(c);
-                        if (!readPI()) return Token.ERROR;
+                        if (!readPI()) return Token1.ERROR;
                         break;
                     case '/':
                         // End tag
@@ -1010,7 +983,7 @@ class TokenStream
                             stringBufferTop = 0;
                             this.string = null;
                             parser.addError("msg.XML.bad.form");
-                            return Token.ERROR;
+                            return Token1.ERROR;
                         }
                         xmlIsTagContent = true;
                         xmlOpenTagsCount--;
@@ -1025,7 +998,7 @@ class TokenStream
                 case '{':
                     ungetChar(c);
                     this.string = getStringFromBuffer();
-                    return Token.XML;
+                    return Token1.XML;
                 default:
                     addToString(c);
                     break;
@@ -1036,13 +1009,13 @@ class TokenStream
         stringBufferTop = 0; // throw away the string in progress
         this.string = null;
         parser.addError("msg.XML.bad.form");
-        return Token.ERROR;
+        return Token1.ERROR;
     }
 
     /**
      *
      */
-    private boolean readQuotedString(int quote) throws IOException
+    private boolean readQuotedString(final int quote) throws IOException
     {
         for (int c = getChar(); c != EOF_CHAR; c = getChar()) {
             addToString(c);
@@ -1159,11 +1132,11 @@ class TokenStream
         return new String(stringBuffer, 0, stringBufferTop);
     }
 
-    private void addToString(int c)
+    private void addToString(final int c)
     {
-        int N = stringBufferTop;
+        final int N = stringBufferTop;
         if (N == stringBuffer.length) {
-            char[] tmp = new char[stringBuffer.length * 2];
+            final char[] tmp = new char[stringBuffer.length * 2];
             System.arraycopy(stringBuffer, 0, tmp, 0, N);
             stringBuffer = tmp;
         }
@@ -1171,7 +1144,7 @@ class TokenStream
         stringBufferTop = N + 1;
     }
 
-    private void ungetChar(int c)
+    private void ungetChar(final int c)
     {
         // can not unread past across line boundary
         if (ungetCursor != 0 && ungetBuffer[ungetCursor - 1] == '\n')
@@ -1179,20 +1152,20 @@ class TokenStream
         ungetBuffer[ungetCursor++] = c;
     }
 
-    private boolean matchChar(int test) throws IOException
+    private boolean matchChar(final int test) throws IOException
     {
-        int c = getCharIgnoreLineEnd();
+        final int c = getChar();
         if (c == test) {
             return true;
         } else {
-            ungetCharIgnoreLineEnd(c);
+            ungetChar(c);
             return false;
         }
     }
 
     private int peekChar() throws IOException
     {
-        int c = getChar();
+        final int c = getChar();
         ungetChar(c);
         return c;
     }
@@ -1249,53 +1222,6 @@ class TokenStream
         }
     }
 
-    private int getCharIgnoreLineEnd() throws IOException
-    {
-        if (ungetCursor != 0) {
-            return ungetBuffer[--ungetCursor];
-        }
-
-        for(;;) {
-            int c;
-            if (sourceString != null) {
-                if (sourceCursor == sourceEnd) {
-                    hitEOF = true;
-                    return EOF_CHAR;
-                }
-                c = sourceString.charAt(sourceCursor++);
-            } else {
-                if (sourceCursor == sourceEnd) {
-                    if (!fillSourceBuffer()) {
-                        hitEOF = true;
-                        return EOF_CHAR;
-                    }
-                }
-                c = sourceBuffer[sourceCursor++];
-            }
-
-            if (c <= 127) {
-                if (c == '\n' || c == '\r') {
-                    lineEndChar = c;
-                    c = '\n';
-                }
-            } else {
-                if (isJSFormatChar(c)) {
-                    continue;
-                }
-                if (ScriptRuntime.isJSLineTerminator(c)) {
-                    lineEndChar = c;
-                    c = '\n';
-                }
-            }
-            return c;
-        }
-    }
-
-    private void ungetCharIgnoreLineEnd(int c)
-    {
-        ungetBuffer[ungetCursor++] = c;
-    }
-
     private void skipLine() throws IOException
     {
         // skip to end of line
@@ -1320,7 +1246,7 @@ class TokenStream
                 --lineEnd;
             } else {
                 for (; lineEnd != sourceEnd; ++lineEnd) {
-                    int c = sourceString.charAt(lineEnd);
+                    final int c = sourceString.charAt(lineEnd);
                     if (ScriptRuntime.isJSLineTerminator(c)) {
                         break;
                     }
@@ -1339,7 +1265,7 @@ class TokenStream
                     if (i == sourceEnd) {
                         try {
                             if (!fillSourceBuffer()) { break; }
-                        } catch (IOException ioe) {
+                        } catch (final IOException ioe) {
                             // ignore it, we're already displaying an error...
                             break;
                         }
@@ -1347,7 +1273,7 @@ class TokenStream
                         // line buffer and change lineStart
                         i = lineStart + lineLength;
                     }
-                    int c = sourceBuffer[i];
+                    final int c = sourceBuffer[i];
                     if (ScriptRuntime.isJSLineTerminator(c)) {
                         break;
                     }
@@ -1368,12 +1294,12 @@ class TokenStream
                 sourceCursor -= lineStart;
                 lineStart = 0;
             } else {
-                char[] tmp = new char[sourceBuffer.length * 2];
+                final char[] tmp = new char[sourceBuffer.length * 2];
                 System.arraycopy(sourceBuffer, 0, tmp, 0, sourceEnd);
                 sourceBuffer = tmp;
             }
         }
-        int n = sourceReader.read(sourceBuffer, sourceEnd,
+        final int n = sourceReader.read(sourceBuffer, sourceEnd,
                                   sourceBuffer.length - sourceEnd);
         if (n < 0) {
             return false;
@@ -1387,8 +1313,8 @@ class TokenStream
 
     String regExpFlags;
 
-    // Set this to an initial non-null value so that the Parser has
-    // something to retrieve even if an error has occurred and no
+    // Set this to an inital non-null value so that the Parser has
+    // something to retrieve even if an error has occured and no
     // string is found.  Fosters one class of error, but saves lots of
     // code.
     private String string = "";
@@ -1419,5 +1345,5 @@ class TokenStream
     private boolean xmlIsTagContent;
     private int xmlOpenTagsCount;
 
-    private Parser parser;
+    private Parser1 parser;
 }

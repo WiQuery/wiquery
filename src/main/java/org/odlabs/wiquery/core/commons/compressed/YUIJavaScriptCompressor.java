@@ -41,13 +41,13 @@ public class YUIJavaScriptCompressor implements IJavascriptCompressor {
 	};
 
 	public String compress(String original) {
+		long startTime = System.currentTimeMillis();
 		StringReader originalJsReader = new StringReader(original);
 		StringWriter compressedJs = new StringWriter();
-		StringWriter mappedJs = new StringWriter();
 		try {
 			JavaScriptCompressor compressor = new JavaScriptCompressor(
 					originalJsReader, logWrap);
-			compressor.compress(compressedJs, mappedJs, -1, true, false, false, false);
+			compressor.compress(compressedJs, -1, true, false, true, false);
 			compressedJs.flush();
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
@@ -61,6 +61,8 @@ public class YUIJavaScriptCompressor implements IJavascriptCompressor {
 			return original;
 		}
 
+		long endTime = System.currentTimeMillis();
+		log.debug("Compressed JS in "+(endTime-startTime)+" ms.");
 		return compressedJs.toString();
 	}
 }

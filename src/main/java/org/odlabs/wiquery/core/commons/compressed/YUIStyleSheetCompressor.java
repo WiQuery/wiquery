@@ -21,6 +21,7 @@ public class YUIStyleSheetCompressor implements IJavascriptCompressor {
 			.getLogger(YUIStyleSheetCompressor.class);
 
 	public String compress(String original) {
+		long startTime = System.currentTimeMillis();
 		StringReader originalCssReader = new StringReader(original);
 		StringWriter compressedCss = new StringWriter();
 		try {
@@ -35,6 +36,8 @@ public class YUIStyleSheetCompressor implements IJavascriptCompressor {
 			return original;
 		}
 
+		long endTime = System.currentTimeMillis();
+		log.debug("Compressed CSS in "+(endTime-startTime)+" ms.");
 		return compressedCss.toString();
 	}
 }

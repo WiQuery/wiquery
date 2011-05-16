@@ -26,6 +26,7 @@
 		<jackson.version>[1.6,1.6.7]</jackson.version>
 		<log4j.version>[1.2,1.2.16]</log4j.version>
 		<slf4j.version>[1.6,1.6.1]</slf4j.version>
+		<rhino.version>1.7R2</rhino.version>
 		<junit.version>4.8.2</junit.version>
 	</properties>
 
@@ -186,54 +187,20 @@
 					</supportedProjectTypes>
 					<instructions>
 						<Import-Package>
-							!org.odlabs.wiquery*,
-							!com.yahoo.platform.yui.compressor*,
-							!org.mozilla.javascript*,
-							org.codehaus.jackson*;version="${jackson.version}",
-							org.apache.wicket*;version="${wicket.version}",
-							org.slf4j*version="${slf4j.version}",
-							*
+                            !org.odlabs.wiquery*,
+                            !com.yahoo.platform.yui.compressor*,
+                            !org.mozilla.javascript*,
+                            org.codehaus.jackson*;version="${jackson.version}",
+                            org.apache.wicket*;version="${wicket.version}",
+                            org.slf4j*version="${slf4j.version}",
+                            *
 						</Import-Package>
 						<Export-Package>
-							org.odlabs.wiquery*,
-							com.yahoo.platform.yui.compressor*,
-							org.mozilla.javascript*
+                            org.odlabs.wiquery*,
+                            com.yahoo.platform.yui.compressor*,
+                            org.mozilla.javascript*
 						</Export-Package>
 					</instructions>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>net.alchim31.maven</groupId>
-				<artifactId>yuicompressor-maven-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compress</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<suffix>.min</suffix>
-					<preserveAllSemiColons>true</preserveAllSemiColons>
-					<includes>
-                		<include>**/*.js</include>
-                		<include>**/*.css</include>
-              		</includes>
-					<excludes>
-						<exclude>**/wiquery-gen.js</exclude>
-						<exclude>**/wiquery-merged.js</exclude>
-						<exclude>**/wiquery-merged.css</exclude>
-						<exclude>**/*.min.js</exclude>
-						<exclude>**/*.min.css</exclude>
-						<exclude>**/*.java</exclude>
-                		<exclude>**/*.html</exclude>
-                		<exclude>**/*.xml</exclude>
-                		<exclude>**/*.properties</exclude>
-                		<exclude>**/*.gif</exclude>
-                		<exclude>**/*.png</exclude>
-                		<exclude>**/*.jpg</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -280,6 +247,11 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>rhino</groupId>
+			<artifactId>js</artifactId>
+			<version>${rhino.version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->
