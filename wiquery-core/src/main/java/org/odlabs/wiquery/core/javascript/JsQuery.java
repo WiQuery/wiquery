@@ -202,17 +202,11 @@ public class JsQuery extends Behavior implements Serializable {
                 	addAjaxJavascript(requestHandler, js);
                 }
 
-            } else if (AjaxRequestTarget.get() == null) {
+            } else if (!WiQueryUtil.isCurrentRequestAjax()) {
 				// appending component statement
 				// on dom ready, the code is executed.
 				JsStatement onreadyStatement = new JsStatement();
 				onreadyStatement.document().ready(JsScope.quickScope(js));
-
-				/*
-				 * use {@link WiqueryGeneratedJavaScriptResourceReference} to
-				 * compress, minimize, etc the given javascript, then
-				 * immediately retrieve it.
-				 */
             	response.renderJavaScript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen-"+System.currentTimeMillis());
 
 			} else {
@@ -227,24 +221,6 @@ public class JsQuery extends Behavior implements Serializable {
 	 */
 	private void addAjaxJavascript(IRequestHandler requestHandler, final String js){
 		AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestHandler;
-		ajaxRequestTarget.addListener(new IListener() {
-
-			/**
-			 * {@inheritDoc}
-			 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onAfterRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget.IJavascriptResponse)
-			 */
-			public void onAfterRespond(Map<String, Component> map,
-					IJavaScriptResponse response) {
-				response.addJavaScript(js);
-			}
-
-			/**
-			 * {@inheritDoc}
-			 * @see org.apache.wicket.ajax.AjaxRequestTarget.IListener#onBeforeRespond(java.util.Map, org.apache.wicket.ajax.AjaxRequestTarget)
-			 */
-			public void onBeforeRespond(Map<String, Component> map, AjaxRequestTarget target) {
-				// Do nothing
-			}
-		});
+		ajaxRequestTarget.getHeaderResponse().renderOnDomReadyJavaScript(js);
 	}
 }
