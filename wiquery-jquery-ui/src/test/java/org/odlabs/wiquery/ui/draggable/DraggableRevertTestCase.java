@@ -42,8 +42,13 @@ public class DraggableRevertTestCase extends WiQueryTestCase {
 		} catch (Exception e) {
 			// We have an expected error
 			assertEquals(
-					"The DraggableRevert must have one not null parameter", e
-							.getMessage());
+					"The DraggableRevert must have one not null parameter",
+					e.getMessage());
 		}
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

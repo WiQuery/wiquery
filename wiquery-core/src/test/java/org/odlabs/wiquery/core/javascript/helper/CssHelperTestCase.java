@@ -25,8 +25,9 @@ public class CssHelperTestCase extends WiQueryTestCase {
 	@Test
 	public void testCss() {
 		String expectedJavascript = "$('div').css('font-weight', 'bold');";
-		String generatedJavascript = new JsStatement().$(null, "div").chain(
-				CssHelper.css("font-weight", "bold")).render().toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+				.chain(CssHelper.css("font-weight", "bold")).render()
+				.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -43,12 +44,17 @@ public class CssHelperTestCase extends WiQueryTestCase {
 
 		Options options = new Options();
 		options.putLiteral("font-weight", "bold");
-		String generatedJavascript = new JsStatement().$(null, "div").chain(
-				CssHelper.css(options)).render().toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+				.chain(CssHelper.css(options)).render().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 
 		assertEquals(generatedJavascript, expectedJavascript);
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

@@ -332,4 +332,9 @@ public class OptionsTestCase extends WiQueryTestCase {
 		}
 
 	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

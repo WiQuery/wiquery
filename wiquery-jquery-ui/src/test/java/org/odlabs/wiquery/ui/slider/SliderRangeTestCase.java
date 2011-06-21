@@ -42,8 +42,13 @@ public class SliderRangeTestCase extends WiQueryTestCase {
 			assertTrue(false);
 		} catch (Exception e) {
 			// We have an expected error
-			assertEquals("The SliderRange must have one not null parameter", e
-					.getMessage());
+			assertEquals("The SliderRange must have one not null parameter",
+					e.getMessage());
 		}
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

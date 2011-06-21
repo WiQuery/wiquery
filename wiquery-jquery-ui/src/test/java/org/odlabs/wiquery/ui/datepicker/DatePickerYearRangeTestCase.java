@@ -14,8 +14,8 @@ public class DatePickerYearRangeTestCase extends WiQueryTestCase {
 
 	@Test
 	public void testGetJavaScriptOption() {
-		DatePickerYearRange yearRange = new DatePickerYearRange(
-				new Short("2000"), new Short("2010"));
+		DatePickerYearRange yearRange = new DatePickerYearRange(new Short(
+				"2000"), new Short("2010"));
 
 		// Absolute
 		String expectedJavascript = "'2000:2010'";
@@ -24,7 +24,7 @@ public class DatePickerYearRangeTestCase extends WiQueryTestCase {
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Relative today
 		yearRange.setRelativeRange(new Short("-10"), new Short("10"), true);
 		expectedJavascript = "'-10:+10'";
@@ -33,7 +33,7 @@ public class DatePickerYearRangeTestCase extends WiQueryTestCase {
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Relative to the selected date
 		yearRange.setRelativeRange(new Short("-10"), new Short("10"), false);
 		expectedJavascript = "'c-10:c+10'";
@@ -42,14 +42,21 @@ public class DatePickerYearRangeTestCase extends WiQueryTestCase {
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Mixed range
-		yearRange.setRange(new Short("2000"), new Short("-10"), DatePickerYearRangeControl.ABSOLUTE, DatePickerYearRangeControl.RELATIVE_TODAY);
+		yearRange.setRange(new Short("2000"), new Short("-10"),
+				DatePickerYearRangeControl.ABSOLUTE,
+				DatePickerYearRangeControl.RELATIVE_TODAY);
 		expectedJavascript = "'2000:-10'";
 		generatedJavascript = yearRange.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

@@ -140,4 +140,9 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 
 		assertEquals(generatedJavascript, expectedJavascript);
 	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

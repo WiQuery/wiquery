@@ -48,24 +48,30 @@ public class AnimateTestCase extends WiQueryTestCase {
 	public void testStatementArgs() {
 		HashMap<String, String> properties = new HashMap<String, String>();
 		properties.put("width", "100%");
-		
+
 		// First case
 		AnimateDuration duration = new AnimateDuration(500);
 		String expectedJavascript = "$('#aComponent').animate({width: '100%'}, {duration: 500});";
-		String generatedJavascript = new JsStatement().$(null, "#aComponent").chain(
-				new Animate(properties, duration)).render().toString();
-		
+		String generatedJavascript = new JsStatement().$(null, "#aComponent")
+				.chain(new Animate(properties, duration)).render().toString();
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Second case
 		expectedJavascript = "$('#aComponent').animate({width: '100%'}, {duration: 500, easing: 'linear'});";
-		generatedJavascript = new JsStatement().$(null, "#aComponent").chain(
-				new Animate(properties, duration, "linear")).render().toString();
-		
+		generatedJavascript = new JsStatement().$(null, "#aComponent")
+				.chain(new Animate(properties, duration, "linear")).render()
+				.toString();
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

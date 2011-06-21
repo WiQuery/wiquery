@@ -27,7 +27,7 @@ public class DraggableContainmentTestCase extends WiQueryTestCase {
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Selector param
 		containment.setSelector(new LiteralOption("#anId"));
 		expectedJavascript = "'#anId'";
@@ -62,5 +62,10 @@ public class DraggableContainmentTestCase extends WiQueryTestCase {
 					"The DraggableContainment must have one not null parameter",
 					e.getMessage());
 		}
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

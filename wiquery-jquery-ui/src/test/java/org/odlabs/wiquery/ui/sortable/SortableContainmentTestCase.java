@@ -21,12 +21,11 @@ public class SortableContainmentTestCase extends WiQueryTestCase {
 		String expectedJavascript = "'#test'";
 		String generatedJavascript = containment.getJavascriptOption()
 				.toString();
-		
+
 		// Selector param
 		containment.setSelector(new LiteralOption("#test"));
 		expectedJavascript = "'#test'";
-		generatedJavascript = containment.getJavascriptOption()
-				.toString();
+		generatedJavascript = containment.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -52,5 +51,10 @@ public class SortableContainmentTestCase extends WiQueryTestCase {
 					"The SortableContainment must have one not null parameter",
 					e.getMessage());
 		}
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

@@ -31,26 +31,40 @@ public class DatePickerLanguageResourceReferenceTestCase extends
 	public void testGetDatePickerLanguages() {
 		Locale nonavailableLocale = new Locale("wiquery");
 		Locale availableLocale = DatePickerLanguages.ARMENIAN.getLocale();
-		
-		assertNull(DatePickerLanguages.getDatePickerLanguages(nonavailableLocale));
+
+		assertNull(DatePickerLanguages
+				.getDatePickerLanguages(nonavailableLocale));
 		assertNull(DatePickerLanguageResourceReference.get(nonavailableLocale));
 
-		assertNotNull(DatePickerLanguages.getDatePickerLanguages(availableLocale));
+		assertNotNull(DatePickerLanguages
+				.getDatePickerLanguages(availableLocale));
 		assertNotNull(DatePickerLanguageResourceReference.get(availableLocale));
 
-		for(DatePickerLanguages language : DatePickerLanguages.values())
-		{
-			//assert if the language getter is implemented correctly to return the exact variant. 
-			assertEquals(language, DatePickerLanguages.getDatePickerLanguages(language.getLocale()));
-			
-			//assert if the reference getter is implemented correctly to return a reference to the exact variant. 
-			DatePickerLanguageResourceReference ref = DatePickerLanguageResourceReference.get(language.getLocale());
+		for (DatePickerLanguages language : DatePickerLanguages.values()) {
+			// assert if the language getter is implemented correctly to return
+			// the exact variant.
+			assertEquals(language,
+					DatePickerLanguages.getDatePickerLanguages(language
+							.getLocale()));
+
+			// assert if the reference getter is implemented correctly to return
+			// a reference to the exact variant.
+			DatePickerLanguageResourceReference ref = DatePickerLanguageResourceReference
+					.get(language.getLocale());
 			assertNotNull(ref);
-			
-			//assert if the file is actually there.
-			IResourceStreamLocator locator = Application.get().getResourceSettings().getResourceStreamLocator();
-			String absolutePath = Packages.absolutePath(DatePickerLanguageResourceReference.class, DatePickerLanguages.getJsFileName(language));
-			assertNotNull("Resource "+DatePickerLanguages.getJsFileName(language)+" for locale "+language.getLocale()+" does not exist!", locator.locate(DatePickerLanguageResourceReference.class, absolutePath));
+
+			// assert if the file is actually there.
+			IResourceStreamLocator locator = Application.get()
+					.getResourceSettings().getResourceStreamLocator();
+			String absolutePath = Packages.absolutePath(
+					DatePickerLanguageResourceReference.class,
+					DatePickerLanguages.getJsFileName(language));
+			assertNotNull(
+					"Resource " + DatePickerLanguages.getJsFileName(language)
+							+ " for locale " + language.getLocale()
+							+ " does not exist!", locator.locate(
+							DatePickerLanguageResourceReference.class,
+							absolutePath));
 		}
 	}
 
@@ -58,12 +72,17 @@ public class DatePickerLanguageResourceReferenceTestCase extends
 	public void testGetJsFileName() {
 		assertNull(DatePickerLanguages.getJsFileName(null));
 
-		assertEquals(DatePickerLanguages.getJsFileName(
-				DatePickerLanguages.FRENCH).toString(),
-				"i18n/jquery.ui.datepicker-fr.js");
+		assertEquals(
+				DatePickerLanguages.getJsFileName(DatePickerLanguages.FRENCH)
+						.toString(), "i18n/jquery.ui.datepicker-fr.js");
 
-		assertEquals(DatePickerLanguages.getJsFileName(
-				DatePickerLanguages.SERBIA).toString(),
-				"i18n/jquery.ui.datepicker-sr-SR.js");
+		assertEquals(
+				DatePickerLanguages.getJsFileName(DatePickerLanguages.SERBIA)
+						.toString(), "i18n/jquery.ui.datepicker-sr-SR.js");
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

@@ -36,6 +36,8 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.accordion.Accordion.AccordionTriggerEvent;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Test on {@link Accordion}
@@ -43,7 +45,8 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * @author Julien Roche
  */
 public class AccordionTestCase extends WiQueryTestCase {
-	// Properties
+	private static final Logger log = LoggerFactory
+			.getLogger(AccordionTestCase.class);
 	private Accordion accordion;
 
 	@Override
@@ -309,5 +312,10 @@ public class AccordionTestCase extends WiQueryTestCase {
 		assertNotNull(accordion.widget());
 		assertEquals(accordion.widget().render().toString(),
 				"$('#anId').accordion('widget');");
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

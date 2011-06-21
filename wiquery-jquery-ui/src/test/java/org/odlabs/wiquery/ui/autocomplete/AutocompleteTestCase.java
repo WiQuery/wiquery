@@ -35,6 +35,8 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.InputTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.position.PositionOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Test of {@link Autocomplete}
@@ -42,7 +44,8 @@ import org.odlabs.wiquery.ui.position.PositionOptions;
  * @author Julien Roche
  */
 public class AutocompleteTestCase extends WiQueryTestCase {
-	// Properties
+	private static final Logger log = LoggerFactory
+			.getLogger(AutocompleteTestCase.class);
 	private Autocomplete<String> autocomplete;
 
 	@Override
@@ -334,5 +337,10 @@ public class AutocompleteTestCase extends WiQueryTestCase {
 		assertNotNull(autocomplete.widget());
 		assertEquals(autocomplete.widget().render().toString(),
 				"$('#anId').autocomplete('widget');");
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

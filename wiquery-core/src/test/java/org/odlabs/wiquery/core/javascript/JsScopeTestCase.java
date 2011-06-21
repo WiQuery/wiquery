@@ -75,6 +75,7 @@ public class JsScopeTestCase extends WiQueryTestCase {
 
 			/*
 			 * (non-Javadoc)
+			 * 
 			 * @see
 			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
 			 * .wiquery.core.javascript.JsScopeContext)
@@ -101,4 +102,8 @@ public class JsScopeTestCase extends WiQueryTestCase {
 		assertEquals(generatedJavascript, expectedJavascript);
 	}
 
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

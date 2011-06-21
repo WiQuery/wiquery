@@ -69,4 +69,9 @@ public class JSQueryTestCase extends WiQueryTestCase {
 		jss.append(jsq.getStatement().render());
 		log.info(jss.render().toString());
 	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

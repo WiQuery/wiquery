@@ -21,8 +21,6 @@
  */
 package org.odlabs.wiquery.core.javascript;
 
-import static org.junit.Assert.assertEquals;
-
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.ITestPanelSource;
@@ -46,20 +44,6 @@ public class JsQueryTestCase extends WiQueryTestCase {
 
 	// Properties
 	private JsQuery jsQuery;
-
-	/**
-	 * Log and assert javascript
-	 * 
-	 * @param expectedJavascript
-	 * @param generatedJavascript
-	 */
-	private void assertAndLog(CharSequence expectedJavascript,
-			CharSequence generatedJavascript) {
-		log.info(expectedJavascript.toString());
-		log.info(generatedJavascript.toString());
-
-		assertEquals(generatedJavascript, expectedJavascript);
-	}
 
 	@Override
 	@Before
@@ -104,5 +88,10 @@ public class JsQueryTestCase extends WiQueryTestCase {
 	@Test
 	public void testDocument() {
 		assertAndLog("$(document);", jsQuery.document().render());
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

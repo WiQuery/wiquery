@@ -41,4 +41,8 @@ public class DefaultJsScopeUiDatePickerOnChangeEventTestCase extends
 		assertEquals(generatedJavascript, expectedJavascript);
 	}
 
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

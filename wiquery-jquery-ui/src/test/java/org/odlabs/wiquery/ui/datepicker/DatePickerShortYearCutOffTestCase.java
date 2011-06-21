@@ -65,4 +65,9 @@ public class DatePickerShortYearCutOffTestCase extends WiQueryTestCase {
 					e.getMessage());
 		}
 	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

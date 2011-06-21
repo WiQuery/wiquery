@@ -31,4 +31,9 @@ public class PositionOffsetTestCase extends WiQueryTestCase {
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
 	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

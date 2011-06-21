@@ -42,8 +42,13 @@ public class ResizableHandlesTestCase extends WiQueryTestCase {
 		} catch (Exception e) {
 			// We have an expected error
 			assertEquals(
-					"The ResizableHandles must have one not null parameter", e
-							.getMessage());
+					"The ResizableHandles must have one not null parameter",
+					e.getMessage());
 		}
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

@@ -30,6 +30,7 @@ public class JsScopeUiEventTestCase extends WiQueryTestCase {
 
 			/*
 			 * (non-Javadoc)
+			 * 
 			 * @see
 			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
 			 * .wiquery.core.javascript.JsScopeContext)
@@ -100,5 +101,10 @@ public class JsScopeUiEventTestCase extends WiQueryTestCase {
 		log.info(generatedJavascript);
 
 		assertEquals(generatedJavascript, expectedJavascript);
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

@@ -14,13 +14,18 @@ public class DialogButtonTestCase extends WiQueryTestCase {
 
 	@Test
 	public void testGetJavaScriptOption() {
-		DialogButton button = new DialogButton("Ok", JsScope
-				.quickScope("alert('test');"));
+		DialogButton button = new DialogButton("Ok",
+				JsScope.quickScope("alert('test');"));
 		String expectedJavascript = "'Ok':function() {\n\talert('test');\n}";
 		String generatedJavascript = button.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

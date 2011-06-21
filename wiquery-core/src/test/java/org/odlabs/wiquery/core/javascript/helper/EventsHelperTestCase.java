@@ -21,8 +21,6 @@
  */
 package org.odlabs.wiquery.core.javascript.helper;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.events.MouseEvent;
@@ -45,20 +43,6 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 
 	// Properties
 	private JsStatement jsStatement;
-
-	/**
-	 * Log and assert javascript
-	 * 
-	 * @param expectedJavascript
-	 * @param generatedJavascript
-	 */
-	private void assertAndLog(CharSequence expectedJavascript,
-			CharSequence generatedJavascript) {
-		log.info(expectedJavascript.toString());
-		log.info(generatedJavascript.toString());
-
-		assertEquals(generatedJavascript, expectedJavascript);
-	}
 
 	@Override
 	@Before
@@ -655,5 +639,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 				jsStatement.chain(
 						EventsHelper.unload(JsScope
 								.quickScope("alert('done');"))).render());
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

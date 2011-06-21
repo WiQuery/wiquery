@@ -62,8 +62,13 @@ public class AccordionActiveTestCase extends WiQueryTestCase {
 		} catch (Exception e) {
 			// We have an expected error
 			assertEquals(
-					"The AccordionActive must have one not null parameter", e
-							.getMessage());
+					"The AccordionActive must have one not null parameter",
+					e.getMessage());
 		}
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

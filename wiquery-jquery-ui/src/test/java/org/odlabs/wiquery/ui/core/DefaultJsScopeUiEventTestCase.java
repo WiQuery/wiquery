@@ -40,4 +40,8 @@ public class DefaultJsScopeUiEventTestCase extends WiQueryTestCase {
 		assertEquals(generatedJavascript, expectedJavascript);
 	}
 
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

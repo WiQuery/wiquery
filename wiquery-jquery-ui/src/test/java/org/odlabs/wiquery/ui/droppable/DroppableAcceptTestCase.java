@@ -42,8 +42,13 @@ public class DroppableAcceptTestCase extends WiQueryTestCase {
 		} catch (Exception e) {
 			// We have an expected error
 			assertEquals(
-					"The DroppableAccept must have one not null parameter", e
-							.getMessage());
+					"The DroppableAccept must have one not null parameter",
+					e.getMessage());
 		}
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }

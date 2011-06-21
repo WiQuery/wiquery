@@ -103,11 +103,11 @@ public class JsStatement implements Serializable {
 		if (context == null)
 			dollarSelector.append("");
 		else
-			dollarSelector.append("'#").append( context.getMarkupId()).append("'");
+			dollarSelector.append("#").append( context.getMarkupId());
 		
-		statement.append("$(");
+		statement.append("$('");
 		statement.append(dollarSelector);
-		statement.append(")");
+		statement.append("')");
 		return this;
 	}
 
@@ -130,7 +130,7 @@ public class JsStatement implements Serializable {
 		if (context == null)
 			dollarSelector.append(selector);
 		else
-			dollarSelector.append("'#").append( context.getMarkupId()).append("' ").append(selector);
+			dollarSelector.append("#").append( context.getMarkupId()).append(" ").append(selector);
 		
 		statement.append("$('");
 		statement.append(dollarSelector);

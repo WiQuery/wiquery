@@ -57,4 +57,9 @@ public class ListItemOptionsTestCase extends WiQueryTestCase {
 		options.add(o2);
 		assertTrue(options.values().length == 2);
 	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

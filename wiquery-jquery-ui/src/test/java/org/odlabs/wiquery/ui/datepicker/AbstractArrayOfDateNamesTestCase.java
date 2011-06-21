@@ -59,4 +59,9 @@ public class AbstractArrayOfDateNamesTestCase extends WiQueryTestCase {
 			return 3;
 		}
 	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

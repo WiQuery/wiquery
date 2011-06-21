@@ -48,4 +48,9 @@ public class DatePickerDurationTestCase extends WiQueryTestCase {
 					e.getMessage());
 		}
 	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
+	}
 }

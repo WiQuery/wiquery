@@ -26,7 +26,7 @@ public class ResizableContainmentTestCase extends WiQueryTestCase {
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Selector param
 		containment.setSelector(new LiteralOption("#test"));
 		expectedJavascript = "'#test'";
@@ -57,5 +57,10 @@ public class ResizableContainmentTestCase extends WiQueryTestCase {
 					"The ResizableContainment must have one not null parameter",
 					e.getMessage());
 		}
+	}
+
+	@Override
+	protected Logger getLog() {
+		return log;
 	}
 }
