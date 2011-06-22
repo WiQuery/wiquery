@@ -743,9 +743,11 @@ public class DatePickerTestCase extends WiQueryTestCase {
 	public void testSetDateDateOption() {
 		assertNotNull(datePicker.setDate(new DateOption(new GregorianCalendar(
 				2009, 11, 1).getTime())));
-		assertEquals(datePicker.setDate(
-				new DateOption(new GregorianCalendar(2009, 11, 1).getTime()))
-				.render().toString(),
+		assertEquals(
+				datePicker
+						.setDate(
+								new DateOption(new GregorianCalendar(2009, 11,
+										1).getTime())).render().toString(),
 				"$('#anId').datepicker('setDate', new Date(2009,11,1,0,0,0,0));");
 	}
 

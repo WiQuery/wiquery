@@ -44,8 +44,9 @@ public class DialogUtilsLanguagesTestCase extends WiQueryTestCase {
 		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(null),
 				DialogUtilsLanguages.ENGLISH);
 
-		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale(
-				"af")), DialogUtilsLanguages.ENGLISH);
+		assertEquals(
+				DialogUtilsLanguages.getDialogUtilsLanguages(new Locale("af")),
+				DialogUtilsLanguages.ENGLISH);
 
 		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale(
 				"hi", "IN")), DialogUtilsLanguages.HINDI);
@@ -57,10 +58,14 @@ public class DialogUtilsLanguagesTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetDialogUtilsLiteral() {
-		assertEquals(DialogUtilsLanguages
-				.getDialogUtilsLiteral(DialogUtilsLanguages.ENGLISH), "'en'");
+		assertEquals(
+				DialogUtilsLanguages
+						.getDialogUtilsLiteral(DialogUtilsLanguages.ENGLISH),
+				"'en'");
 
-		assertEquals(DialogUtilsLanguages
-				.getDialogUtilsLiteral(DialogUtilsLanguages.HINDI), "'hi_IN'");
+		assertEquals(
+				DialogUtilsLanguages
+						.getDialogUtilsLiteral(DialogUtilsLanguages.HINDI),
+				"'hi_IN'");
 	}
 }

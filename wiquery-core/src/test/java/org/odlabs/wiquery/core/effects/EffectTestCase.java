@@ -41,25 +41,31 @@ public class EffectTestCase extends WiQueryTestCase {
 	@Test
 	public void testStatementArgs() {
 		// Test with no parameters
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new EffectTest()).render().toString(),
+		assertEquals(
+				new JsStatement().$(null, "#aComponent")
+						.chain(new EffectTest()).render().toString(),
 				"$('#aComponent').anEffect();");
 
 		// Test with a parameter
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new EffectTest("'aaa'")).render().toString(),
+		assertEquals(
+				new JsStatement().$(null, "#aComponent")
+						.chain(new EffectTest("'aaa'")).render().toString(),
 				"$('#aComponent').anEffect('aaa');");
 
 		// Test with a speed and a parameter
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new EffectTest(EffectSpeed.SLOW, "'aaa'")).render().toString(),
+		assertEquals(
+				new JsStatement().$(null, "#aComponent")
+						.chain(new EffectTest(EffectSpeed.SLOW, "'aaa'"))
+						.render().toString(),
 				"$('#aComponent').anEffect('slow', 'aaa');");
 
 		// Test with a speed, a parameter and a callback
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new EffectTest(EffectSpeed.SLOW, JsScope
-						.quickScope("alert('test');"), "'aaa'")).render()
-				.toString(),
+		assertEquals(
+				new JsStatement()
+						.$(null, "#aComponent")
+						.chain(new EffectTest(EffectSpeed.SLOW, JsScope
+								.quickScope("alert('test');"), "'aaa'"))
+						.render().toString(),
 				"$('#aComponent').anEffect('slow', 'aaa', function() {\n\talert('test');\n});");
 	}
 

@@ -54,7 +54,7 @@ public class CollectingVisitor<X extends Component> implements
 	public void component(Component component, IVisit<Void> visit) {
 		if (matcher.matches(component)) {
 			matchedComponents.add((X) component);
-			if(findFirst)
+			if (findFirst)
 				visit.stop();
 		}
 	}

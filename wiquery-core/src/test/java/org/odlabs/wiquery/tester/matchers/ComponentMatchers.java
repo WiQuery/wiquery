@@ -91,8 +91,8 @@ public class ComponentMatchers {
 		T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength]
 				: (T[]) Array
 						.newInstance(newType.getComponentType(), newLength);
-		System.arraycopy(original, from, copy, 0, Math.min(original.length
-				- from, newLength));
+		System.arraycopy(original, from, copy, 0,
+				Math.min(original.length - from, newLength));
 		return copy;
 	}
 

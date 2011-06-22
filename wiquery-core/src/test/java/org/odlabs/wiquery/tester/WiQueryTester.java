@@ -175,20 +175,19 @@ public class WiQueryTester extends WicketTester {
 
 			}
 		});
-		
+
 		return contributors;
 	}
-	
+
 	public WiQueryCoreHeaderContributor getWiQueryCoreHeaderContributor() {
-		
+
 		List<IHeaderContributor> contributors = getHeaderContributors();
-		
-		for(IHeaderContributor contributor : contributors)
-		{
-			if(contributor instanceof WiQueryCoreHeaderContributor)
+
+		for (IHeaderContributor contributor : contributors) {
+			if (contributor instanceof WiQueryCoreHeaderContributor)
 				return (WiQueryCoreHeaderContributor) contributor;
 		}
-		
+
 		return null;
 	}
 }

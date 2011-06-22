@@ -48,7 +48,6 @@ public class ProgressBarTestCase extends WiQueryTestCase {
 	public void setUp() {
 		super.setUp();
 
-
 		tester.startPanel(new ITestPanelSource() {
 			private static final long serialVersionUID = 1L;
 

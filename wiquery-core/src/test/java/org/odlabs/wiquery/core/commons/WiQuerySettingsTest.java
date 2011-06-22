@@ -53,7 +53,8 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		Result r = tester.ifContains("^((?!" + string + ").)*$");
 		if (r.wasFailed()) {
 			throw new ComparisonFailure("String [" + string
-					+ "] found in page, but shouldn't be there:  " + message, string, "@page");
+					+ "] found in page, but shouldn't be there:  " + message,
+					string, "@page");
 		}
 	}
 

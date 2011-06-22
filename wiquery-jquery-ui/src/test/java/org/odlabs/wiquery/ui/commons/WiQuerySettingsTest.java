@@ -1,6 +1,5 @@
 package org.odlabs.wiquery.ui.commons;
 
-
 import org.apache.wicket.util.tester.Result;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
@@ -76,15 +75,9 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		startTestPage();
 		tester.dumpPage();
 		tester.assertContains(CoreJavaScriptResourceReference.class.getName());
-		tester
-				.assertContains(WiQueryCoreThemeResourceReference.class
-						.getName());
-		tester
-				.assertContains(CoreUIJavaScriptResourceReference.class
-						.getName());
-		tester
-				.assertContains(WidgetJavascriptResourceReference.class
-						.getName());
+		tester.assertContains(WiQueryCoreThemeResourceReference.class.getName());
+		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
+		tester.assertContains(WidgetJavascriptResourceReference.class.getName());
 
 	}
 
@@ -95,15 +88,9 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		assertNotContains(
 				"Core library is disabled. Resource reference shouldn't be rendered",
 				CoreJavaScriptResourceReference.class.getName());
-		tester
-				.assertContains(WiQueryCoreThemeResourceReference.class
-						.getName());
-		tester
-				.assertContains(CoreUIJavaScriptResourceReference.class
-						.getName());
-		tester
-				.assertContains(WidgetJavascriptResourceReference.class
-						.getName());
+		tester.assertContains(WiQueryCoreThemeResourceReference.class.getName());
+		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
+		tester.assertContains(WidgetJavascriptResourceReference.class.getName());
 
 	}
 
@@ -118,9 +105,7 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		assertNotContains(
 				"UI library is disabled. Resource reference shouldn't be rendered",
 				CoreUIJavaScriptResourceReference.class.getName());
-		tester
-				.assertContains(WidgetJavascriptResourceReference.class
-						.getName());
+		tester.assertContains(WidgetJavascriptResourceReference.class.getName());
 
 	}
 
@@ -153,7 +138,8 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		Result r = tester.ifContains("^((?!" + string + ").)*$");
 		if (r.wasFailed()) {
 			throw new ComparisonFailure("String [" + string
-					+ "] found in page, but shouldn't be there:  " + message, string, "@page");
+					+ "] found in page, but shouldn't be there:  " + message,
+					string, "@page");
 		}
 	}
 

@@ -32,7 +32,7 @@ public class ChildMatches implements ComponentMatcher {
 		boolean matches = false;
 
 		public void component(Component child, IVisit<Void> visit) {
-			if(childMatcher.matches(child))
+			if (childMatcher.matches(child))
 				visit.stop();
 		}
 	}

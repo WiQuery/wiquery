@@ -8,7 +8,7 @@ public class WiQuerySettingsTestPage extends WebPage implements IWiQueryPlugin {
 	private static final long serialVersionUID = 1L;
 
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		
+
 	}
 
 	public JsStatement statement() {

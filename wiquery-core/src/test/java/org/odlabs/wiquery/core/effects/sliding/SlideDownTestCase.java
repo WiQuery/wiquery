@@ -38,8 +38,8 @@ public class SlideDownTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new SlideDown()).render().toString(),
-				"$('#aComponent').slideDown();");
+		assertEquals(
+				new JsStatement().$(null, "#aComponent").chain(new SlideDown())
+						.render().toString(), "$('#aComponent').slideDown();");
 	}
 }

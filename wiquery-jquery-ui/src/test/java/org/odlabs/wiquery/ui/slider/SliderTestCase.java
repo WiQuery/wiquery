@@ -230,8 +230,11 @@ public class SliderTestCase extends WiQueryTestCase {
 		assertEquals(slider.statement().render().toString(),
 				"$('#anId').slider({min: 5.0, max: 10.0});");
 		slider.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(slider.statement().render().toString().contains(
-				"change: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(slider
+				.statement()
+				.render()
+				.toString()
+				.contains("change: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -244,8 +247,8 @@ public class SliderTestCase extends WiQueryTestCase {
 		assertEquals(slider.statement().render().toString(),
 				"$('#anId').slider({min: 5.0, max: 10.0});");
 		slider.setSlideEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(slider.statement().render().toString().contains(
-				"slide: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(slider.statement().render().toString()
+				.contains("slide: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -258,8 +261,8 @@ public class SliderTestCase extends WiQueryTestCase {
 		assertEquals(slider.statement().render().toString(),
 				"$('#anId').slider({min: 5.0, max: 10.0});");
 		slider.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(slider.statement().render().toString().contains(
-				"start: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(slider.statement().render().toString()
+				.contains("start: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -272,8 +275,8 @@ public class SliderTestCase extends WiQueryTestCase {
 		assertEquals(slider.statement().render().toString(),
 				"$('#anId').slider({min: 5.0, max: 10.0});");
 		slider.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(slider.statement().render().toString().contains(
-				"stop: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(slider.statement().render().toString()
+				.contains("stop: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**

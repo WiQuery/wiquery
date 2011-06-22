@@ -401,8 +401,8 @@ public class DialogTestCase extends WiQueryTestCase {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
 		dialog.setCloseEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"close: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(dialog.statement().render().toString()
+				.contains("close: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -415,8 +415,8 @@ public class DialogTestCase extends WiQueryTestCase {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
 		dialog.setDragEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"drag: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(dialog.statement().render().toString()
+				.contains("drag: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -429,8 +429,12 @@ public class DialogTestCase extends WiQueryTestCase {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
 		dialog.setDragStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"dragStart: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(dialog
+				.statement()
+				.render()
+				.toString()
+				.contains(
+						"dragStart: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -443,8 +447,12 @@ public class DialogTestCase extends WiQueryTestCase {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
 		dialog.setDragStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"dragStop: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(dialog
+				.statement()
+				.render()
+				.toString()
+				.contains(
+						"dragStop: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -457,8 +465,8 @@ public class DialogTestCase extends WiQueryTestCase {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
 		dialog.setFocusEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"focus: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(dialog.statement().render().toString()
+				.contains("focus: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -471,8 +479,8 @@ public class DialogTestCase extends WiQueryTestCase {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
 		dialog.setOpenEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"open: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(dialog.statement().render().toString()
+				.contains("open: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -485,8 +493,11 @@ public class DialogTestCase extends WiQueryTestCase {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
 		dialog.setResizeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"resize: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(dialog
+				.statement()
+				.render()
+				.toString()
+				.contains("resize: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -498,11 +509,13 @@ public class DialogTestCase extends WiQueryTestCase {
 	public void testSetResizeStartEvent() {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
-		dialog
-				.setResizeStartEvent(JsScopeUiEvent
-						.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"resizeStart: function(event, ui) {\n\talert('event');\n}"));
+		dialog.setResizeStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertTrue(dialog
+				.statement()
+				.render()
+				.toString()
+				.contains(
+						"resizeStart: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**
@@ -515,8 +528,12 @@ public class DialogTestCase extends WiQueryTestCase {
 		assertEquals(dialog.statement().render().toString(),
 				"$('#anId').dialog({autoOpen: false, position: 'center'});");
 		dialog.setResizeStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertTrue(dialog.statement().render().toString().contains(
-				"resizeStop: function(event, ui) {\n\talert('event');\n}"));
+		assertTrue(dialog
+				.statement()
+				.render()
+				.toString()
+				.contains(
+						"resizeStop: function(event, ui) {\n\talert('event');\n}"));
 	}
 
 	/**

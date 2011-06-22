@@ -38,8 +38,9 @@ public class SlideToggleTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new SlideToggle()).render().toString(),
+		assertEquals(
+				new JsStatement().$(null, "#aComponent")
+						.chain(new SlideToggle()).render().toString(),
 				"$('#aComponent').slideToggle();");
 	}
 }

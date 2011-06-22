@@ -38,7 +38,8 @@ public class ToggleTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new Toggle()).render().toString(), "$('#aComponent').toggle();");
+		assertEquals(
+				new JsStatement().$(null, "#aComponent").chain(new Toggle())
+						.render().toString(), "$('#aComponent').toggle();");
 	}
 }

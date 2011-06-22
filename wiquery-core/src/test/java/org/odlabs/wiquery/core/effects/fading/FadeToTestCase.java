@@ -38,7 +38,8 @@ public class FadeToTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new FadeTo()).render().toString(), "$('#aComponent').fadeTo();");
+		assertEquals(
+				new JsStatement().$(null, "#aComponent").chain(new FadeTo())
+						.render().toString(), "$('#aComponent').fadeTo();");
 	}
 }

@@ -159,8 +159,7 @@ public class ButtonTestCase extends WiQueryTestCase {
 		assertNotNull(page.getBehavior().getLabel());
 		assertEquals(page.getBehavior().getLabel(), "This is a link");
 
-		page = (ButtonTestPage) tester
-				.startPage(new ButtonTestPage(false));
+		page = (ButtonTestPage) tester.startPage(new ButtonTestPage(false));
 		assertNotNull(page.getBehavior().getLabel());
 		assertEquals(page.getBehavior().getLabel(), "This is a link");
 	}

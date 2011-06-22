@@ -25,7 +25,8 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 
 /**
- * $Id$
+ * $Id: ButtonPageFailedTestPage.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
  * Dummy page to test the onComponent of the ButtonBehavior
  * </p>

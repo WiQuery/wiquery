@@ -39,7 +39,7 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * @author Julien Roche
  */
 public class DraggableAjaxBehaviorTestCase extends WiQueryTestCase {
-	
+
 	@Override
 	@Before
 	public void setUp() {

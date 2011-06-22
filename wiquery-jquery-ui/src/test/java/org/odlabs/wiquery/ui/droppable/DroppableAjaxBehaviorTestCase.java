@@ -38,7 +38,7 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * @author Julien Roche
  */
 public class DroppableAjaxBehaviorTestCase extends WiQueryTestCase {
-	
+
 	/**
 	 * Test method for
 	 * {@link org.odlabs.wiquery.ui.droppable.DroppableAjaxBehavior#statement()}
