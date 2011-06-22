@@ -275,7 +275,7 @@ public class StyleSheetPackageResource extends CompressedPackageResource {
 
 					IJavascriptCompressor compressor = Application.get()
 							.getResourceSettings().getJavascriptCompressor();
-					if (compressor != null) {
+					if (compressor != null && compressor instanceof YUIJavaScriptCompressor) {
 						String s = new String(input, "UTF-8");
 						return new YUIStyleSheetCompressor().compress(s)
 								.getBytes("UTF-8");
