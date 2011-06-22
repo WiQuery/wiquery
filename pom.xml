@@ -5,11 +5,11 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.2.4</version>
 	<name>WiQuery project</name>
 
 	<scm>
-		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/trunk/</developerConnection>
+		<developerConnection>scm:svn:https://wiquery.googlecode.com/svn/trunk/</developerConnection>
 	</scm>
 
 	<distributionManagement>
