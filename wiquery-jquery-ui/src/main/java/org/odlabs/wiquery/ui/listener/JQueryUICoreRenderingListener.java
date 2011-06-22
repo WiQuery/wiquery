@@ -30,6 +30,7 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
+import org.odlabs.wiquery.core.commons.listener.JQueryCoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
@@ -58,6 +59,15 @@ public class JQueryUICoreRenderingListener implements
 	private static final ResourceReference DEFAULT_THEME = new WiQueryCoreThemeResourceReference(
 			"uilightness");
 
+	private static JQueryUICoreRenderingListener INSTANCE = new JQueryUICoreRenderingListener();
+
+	private JQueryUICoreRenderingListener() {
+	}
+
+	public static JQueryUICoreRenderingListener getInstance() {
+		return INSTANCE;
+	}
+	
 	/**
 	 * @return the default theme
 	 */

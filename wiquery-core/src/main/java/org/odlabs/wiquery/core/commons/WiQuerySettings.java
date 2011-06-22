@@ -101,16 +101,30 @@ public class WiQuerySettings implements Serializable {
 				&& !(compressor instanceof NoOpTextCompressor));
 	}
 
+	/**
+	 * @param listener
+	 * @return true when not already added and false when already added.
+	 */
 	public boolean addListener(WiQueryPluginRenderingListener listener) {
-		return listeners.add(listener);
+		if(!listeners.contains(listener))
+			return listeners.add(listener);
+		
+		return false;
 	}
 
 	public List<WiQueryPluginRenderingListener> getListeners() {
 		return Collections.unmodifiableList(listeners);
 	}
 
+	/**
+	 * @param initializer
+	 * @return true when not already added and false when already added.
+	 */
 	public boolean addInitializer(IWiQueryInitializer initializer) {
-		return initializers.add(initializer);
+		if(!initializers.contains(initializer))
+			return initializers.add(initializer);
+		
+		return false;
 	}
 
 	public List<IWiQueryInitializer> getInitializers() {

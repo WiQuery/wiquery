@@ -12,8 +12,10 @@ public class WiQueryCoreInitializer implements IWiQueryInitializer {
 	public void init(Application application, WiQuerySettings wiQuerySettings) {
 		// add WiQueryRenderingListener to add the all knowing WiQueryCoreHeaderContributor
 		application.getComponentPostOnBeforeRenderListeners().add(new WiQueryRenderingListener());
+		
 		//add JQueryCoreRenderingListener which will automatically add the jquery core to the page
-		wiQuerySettings.addListener(new JQueryCoreRenderingListener());
+		//duplicates will be ignored.
+		wiQuerySettings.addListener(JQueryCoreRenderingListener.getInstance());
 	}
 
 }

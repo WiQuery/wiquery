@@ -42,6 +42,15 @@ public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListen
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3644333357586234429L;
+	
+	private static JQueryCoreRenderingListener INSTANCE = new JQueryCoreRenderingListener();
+
+	private JQueryCoreRenderingListener() {
+	}
+
+	public static JQueryCoreRenderingListener getInstance() {
+		return INSTANCE;
+	}
 
 	/**
 	 * Renders needed resources for any jQuery code (e.g. core libraries).
