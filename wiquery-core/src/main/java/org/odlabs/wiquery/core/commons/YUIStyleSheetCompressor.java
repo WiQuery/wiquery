@@ -22,6 +22,11 @@ public class YUIStyleSheetCompressor implements ICssCompressor
 
 	public String compress(String original)
 	{
+		long startMillis = 0;
+		long endMillis = 0;
+		if(log.isDebugEnabled())
+			startMillis = System.currentTimeMillis();
+		
 		StringReader originalJsReader = new StringReader(original);
 		StringWriter compressedJs = new StringWriter();
 		try
@@ -29,6 +34,12 @@ public class YUIStyleSheetCompressor implements ICssCompressor
 			CssCompressor compressor = new CssCompressor(originalJsReader);
 			compressor.compress(compressedJs, -1);
 			compressedJs.flush();
+			
+			if(log.isDebugEnabled())
+			{
+				endMillis = System.currentTimeMillis();
+				log.debug("Compressed CSS in "+(endMillis-startMillis)+"ms");
+			}
 		}
 		catch (Exception e)
 		{

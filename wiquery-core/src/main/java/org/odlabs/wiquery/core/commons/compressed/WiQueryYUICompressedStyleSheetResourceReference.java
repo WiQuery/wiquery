@@ -36,7 +36,7 @@ import org.apache.wicket.request.resource.PackageResourceReference;
  * @since 1.1
  * @deprecated This reference is deprecated as users can now set
  *             {@link Application#getResourceSettings()
- *             #setJavaScriptCompressor(IJavaScriptCompressor)}
+ *             #setCssCompressor(IJavaScriptCompressor)}
  */
 public class WiQueryYUICompressedStyleSheetResourceReference extends
 		PackageResourceReference {
