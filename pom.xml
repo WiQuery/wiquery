@@ -24,7 +24,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<wicket.version>[1.4,1.4.20]</wicket.version>
 		<jackson.version>[1.6,1.6.7]</jackson.version>
-		<log4j.version>[1.2,1.2.16]</log4j.version>
 		<slf4j.version>[1.6,1.6.1]</slf4j.version>
 		<rhino.version>1.7R2</rhino.version>
 		<junit.version>4.8.2</junit.version>
@@ -243,16 +242,6 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket</artifactId>
 			<version>${wicket.version}</version>
@@ -273,6 +262,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
