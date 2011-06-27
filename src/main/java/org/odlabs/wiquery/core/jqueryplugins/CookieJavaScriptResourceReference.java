@@ -41,7 +41,7 @@ public class CookieJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static CookieJavaScriptResourceReference instance = new CookieJavaScriptResourceReference();;
+	private static CookieJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link CookieJavaScriptResourceReference}.
@@ -54,6 +54,8 @@ public class CookieJavaScriptResourceReference extends
 	 * Returns the {@link CookieJavaScriptResourceReference} instance.
 	 */
 	public static CookieJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new CookieJavaScriptResourceReference();
 		return instance;
 	}
 }

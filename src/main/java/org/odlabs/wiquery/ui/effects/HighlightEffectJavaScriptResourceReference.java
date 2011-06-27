@@ -39,7 +39,7 @@ public class HighlightEffectJavaScriptResourceReference extends WiQueryJavaScrip
 	/**
 	 * Singleton instance.
 	 */
-	private static HighlightEffectJavaScriptResourceReference instance = new HighlightEffectJavaScriptResourceReference();;
+	private static HighlightEffectJavaScriptResourceReference instance;
 	
 	/**
 	 * Default constructor
@@ -52,6 +52,8 @@ public class HighlightEffectJavaScriptResourceReference extends WiQueryJavaScrip
 	 * Returns the {@link HighlightEffectJavaScriptResourceReference} instance.
 	 */
 	public static HighlightEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new HighlightEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

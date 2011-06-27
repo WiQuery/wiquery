@@ -38,23 +38,26 @@ public class ProgressBarJavaScriptResourceReference extends
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3423205998397680042L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ProgressBarJavaScriptResourceReference instance = new ProgressBarJavaScriptResourceReference();;
+	private static ProgressBarJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link ProgressBarJavaScriptResourceReference}.
 	 */
 	private ProgressBarJavaScriptResourceReference() {
-		super(ProgressBarJavaScriptResourceReference.class, "jquery.ui.progressbar.js");
+		super(ProgressBarJavaScriptResourceReference.class,
+				"jquery.ui.progressbar.js");
 	}
 
 	/**
 	 * Returns the {@link ProgressBarJavaScriptResourceReference} instance.
 	 */
 	public static ProgressBarJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new ProgressBarJavaScriptResourceReference();
 		return instance;
 	}
 }

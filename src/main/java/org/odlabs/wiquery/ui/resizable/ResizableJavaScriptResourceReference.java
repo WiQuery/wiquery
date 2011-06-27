@@ -39,23 +39,26 @@ public class ResizableJavaScriptResourceReference extends
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3423205998397680042L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ResizableJavaScriptResourceReference instance = new ResizableJavaScriptResourceReference();;
+	private static ResizableJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link ResizableJavaScriptResourceReference}.
 	 */
 	private ResizableJavaScriptResourceReference() {
-		super(ResizableJavaScriptResourceReference.class, "jquery.ui.resizable.js");
+		super(ResizableJavaScriptResourceReference.class,
+				"jquery.ui.resizable.js");
 	}
 
 	/**
 	 * Returns the {@link ResizableJavaScriptResourceReference} instance.
 	 */
 	public static ResizableJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new ResizableJavaScriptResourceReference();
 		return instance;
 	}
 }

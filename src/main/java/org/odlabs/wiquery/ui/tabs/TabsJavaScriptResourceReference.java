@@ -24,21 +24,23 @@ package org.odlabs.wiquery.ui.tabs;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: TabsJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Tabs component.
+ * References the JavaScript resource to get the Tabs component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
 public class TabsJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static TabsJavaScriptResourceReference instance = new TabsJavaScriptResourceReference();;
+	private static TabsJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link TabsJavaScriptResourceReference}.
@@ -51,6 +53,8 @@ public class TabsJavaScriptResourceReference extends
 	 * Returns the {@link TabsJavaScriptResourceReference} instance.
 	 */
 	public static TabsJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new TabsJavaScriptResourceReference();
 		return instance;
 	}
 }

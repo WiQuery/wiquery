@@ -24,21 +24,23 @@ package org.odlabs.wiquery.ui.widget;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: WidgetJavascriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the widget utilities.
+ * References the JavaScript resource to get the widget utilities.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
 public class WidgetJavascriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static WidgetJavascriptResourceReference instance = new WidgetJavascriptResourceReference();;
+	private static WidgetJavascriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link WidgetJavascriptResourceReference}.
@@ -51,6 +53,8 @@ public class WidgetJavascriptResourceReference extends
 	 * Returns the {@link WidgetJavascriptResourceReference} instance.
 	 */
 	public static WidgetJavascriptResourceReference get() {
+		if (instance == null)
+			instance = new WidgetJavascriptResourceReference();
 		return instance;
 	}
 }

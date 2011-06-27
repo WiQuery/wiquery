@@ -24,21 +24,23 @@ package org.odlabs.wiquery.ui.dialog;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: DialogJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Dialog component.
+ * References the JavaScript resource to get the Dialog component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
 public class DialogJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static DialogJavaScriptResourceReference instance = new DialogJavaScriptResourceReference();;
+	private static DialogJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link DialogJavaScriptResourceReference}.
@@ -51,6 +53,8 @@ public class DialogJavaScriptResourceReference extends
 	 * Returns the {@link DialogJavaScriptResourceReference} instance.
 	 */
 	public static DialogJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new DialogJavaScriptResourceReference();
 		return instance;
 	}
 }

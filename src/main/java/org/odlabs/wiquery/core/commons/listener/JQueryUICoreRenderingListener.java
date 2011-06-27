@@ -54,8 +54,8 @@ public class JQueryUICoreRenderingListener implements
 	/**
 	 * The default theme.
 	 */
-	private static final ResourceReference DEFAULT_THEME = new WiQueryCoreThemeResourceReference(
-			"uilightness");
+	private static final ResourceReference DEFAULT_THEME = WiQueryCoreThemeResourceReference
+			.get("uilightness");
 
 	/**
 	 * @return the default theme

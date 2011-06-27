@@ -24,34 +24,39 @@ package org.odlabs.wiquery.ui.sortable;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: SortableJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to apply sortable behavior to any
- *  HTML element.
+ * References the JavaScript resource to apply sortable behavior to any HTML
+ * element.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
 public class SortableJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static SortableJavaScriptResourceReference instance = new SortableJavaScriptResourceReference();;
+	private static SortableJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.
 	 */
 	private SortableJavaScriptResourceReference() {
-		super(SortableJavaScriptResourceReference.class, "jquery.ui.sortable.js");
+		super(SortableJavaScriptResourceReference.class,
+				"jquery.ui.sortable.js");
 	}
 
 	/**
 	 * Returns the {@link SortableJavaScriptResourceReference} instance.
 	 */
 	public static SortableJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new SortableJavaScriptResourceReference();
 		return instance;
 	}
 }

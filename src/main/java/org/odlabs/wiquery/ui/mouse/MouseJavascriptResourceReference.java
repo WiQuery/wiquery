@@ -24,21 +24,23 @@ package org.odlabs.wiquery.ui.mouse;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: MouseJavascriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the mouse utilities.
+ * References the JavaScript resource to get the mouse utilities.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
 public class MouseJavascriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static MouseJavascriptResourceReference instance = new MouseJavascriptResourceReference();;
+	private static MouseJavascriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link MouseJavascriptResourceReference}.
@@ -51,6 +53,8 @@ public class MouseJavascriptResourceReference extends
 	 * Returns the {@link MouseJavascriptResourceReference} instance.
 	 */
 	public static MouseJavascriptResourceReference get() {
+		if (instance == null)
+			instance = new MouseJavascriptResourceReference();
 		return instance;
 	}
 }

@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: BounceEffectJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Bounce jQuery UI effect.
+ * References the JavaScript resource to import the Bounce jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class BounceEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class BounceEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -3565759378628266183L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static BounceEffectJavaScriptResourceReference instance = new BounceEffectJavaScriptResourceReference();;
+	private static BounceEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
 	private BounceEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.bounce.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.bounce.js");
 	}
 
 	/**
 	 * Returns the {@link BounceEffectJavaScriptResourceReference} instance.
 	 */
 	public static BounceEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new BounceEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

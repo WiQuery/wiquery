@@ -38,7 +38,7 @@ public class ButtonJavascriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static ButtonJavascriptResourceReference instance = new ButtonJavascriptResourceReference();;
+	private static ButtonJavascriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link ButtonJavascriptResourceReference}.
@@ -51,6 +51,8 @@ public class ButtonJavascriptResourceReference extends
 	 * Returns the {@link ButtonJavascriptResourceReference} instance.
 	 */
 	public static ButtonJavascriptResourceReference get() {
+		if (instance == null)
+			instance = new ButtonJavascriptResourceReference();
 		return instance;
 	}
 }

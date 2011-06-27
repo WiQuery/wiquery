@@ -24,33 +24,40 @@ package org.odlabs.wiquery.ui.autocomplete;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id: AutocompleteJavascriptResourceReference.java 457 2010-10-15 07:14:28Z hielke.hoeve@gmail.com $
+ * $Id: AutocompleteJavascriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Autocomplete component.
+ * References the JavaScript resource to get the Autocomplete component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
 public class WiQueryAutocompleteJavascriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static WiQueryAutocompleteJavascriptResourceReference instance = new WiQueryAutocompleteJavascriptResourceReference();;
+	private static WiQueryAutocompleteJavascriptResourceReference instance;
 
 	/**
-	 * Builds a new instance of {@link WiQueryAutocompleteJavascriptResourceReference}.
+	 * Builds a new instance of
+	 * {@link WiQueryAutocompleteJavascriptResourceReference}.
 	 */
 	private WiQueryAutocompleteJavascriptResourceReference() {
-		super(WiQueryAutocompleteJavascriptResourceReference.class, "wiquery-autocomplete.js");
+		super(WiQueryAutocompleteJavascriptResourceReference.class,
+				"wiquery-autocomplete.js");
 	}
 
 	/**
-	 * Returns the {@link WiQueryAutocompleteJavascriptResourceReference} instance.
+	 * Returns the {@link WiQueryAutocompleteJavascriptResourceReference}
+	 * instance.
 	 */
 	public static WiQueryAutocompleteJavascriptResourceReference get() {
+		if (instance == null)
+			instance = new WiQueryAutocompleteJavascriptResourceReference();
 		return instance;
 	}
 }

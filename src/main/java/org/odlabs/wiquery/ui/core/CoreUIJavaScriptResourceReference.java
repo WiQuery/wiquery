@@ -38,9 +38,11 @@ public class CoreUIJavaScriptResourceReference extends
 
 	private static final long serialVersionUID = 4585057795574929263L;
 
-	private static CoreUIJavaScriptResourceReference instance = new CoreUIJavaScriptResourceReference();;
+	private static CoreUIJavaScriptResourceReference instance;
 
 	public static CoreUIJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new CoreUIJavaScriptResourceReference();
 		return instance;
 	}
 

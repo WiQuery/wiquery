@@ -21,6 +21,7 @@
  */
 package org.odlabs.wiquery.ui.themes;
 
+import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQueryStyleSheetResourceReference;
 
 /**
@@ -38,7 +39,24 @@ public class WiQueryCoreThemeResourceReference extends
 
 	private static final long serialVersionUID = 6795863553105608280L;
 
-	public WiQueryCoreThemeResourceReference(String theme) {
+	/**
+	 * Singleton instance.
+	 */
+	private static WiQueryCoreThemeResourceReference instance;
+
+	/**
+	 * Returns the {@link CoreJavaScriptResourceReference} instance.
+	 */
+	public static WiQueryCoreThemeResourceReference get(String theme) {
+		if (instance == null)
+			instance = new WiQueryCoreThemeResourceReference(theme);
+		return instance;
+	}
+
+	/**
+	 * Builds a new instance of {@link CoreJavaScriptResourceReference}.
+	 */
+	private WiQueryCoreThemeResourceReference(String theme) {
 		super(WiQueryCoreThemeResourceReference.class, theme
 				+ "/jquery-ui-1.8.12.custom.css");
 	}

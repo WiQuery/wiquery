@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: DropEffectJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Drop jQuery UI effect.
+ * References the JavaScript resource to import the Drop jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class DropEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class DropEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -93284559079596805L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static DropEffectJavaScriptResourceReference instance = new DropEffectJavaScriptResourceReference();;
+	private static DropEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
 	private DropEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.drop.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.drop.js");
 	}
 
 	/**
 	 * Returns the {@link DropEffectJavaScriptResourceReference} instance.
 	 */
 	public static DropEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new DropEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

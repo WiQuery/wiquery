@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: FoldEffectJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Fold jQuery UI effect.
+ * References the JavaScript resource to import the Fold jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class FoldEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class FoldEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 4691925978528852666L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static FoldEffectJavaScriptResourceReference instance = new FoldEffectJavaScriptResourceReference();;
-	
+	private static FoldEffectJavaScriptResourceReference instance;
+
 	/**
 	 * Default constructor
 	 */
 	private FoldEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.fold.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.fold.js");
 	}
 
 	/**
 	 * Returns the {@link FoldEffectJavaScriptResourceReference} instance.
 	 */
 	public static FoldEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new FoldEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

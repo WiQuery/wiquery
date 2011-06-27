@@ -39,7 +39,7 @@ public class BlindEffectJavaScriptResourceReference extends WiQueryJavaScriptRes
 	/**
 	 * Singleton instance.
 	 */
-	private static BlindEffectJavaScriptResourceReference instance = new BlindEffectJavaScriptResourceReference();;
+	private static BlindEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
@@ -52,6 +52,8 @@ public class BlindEffectJavaScriptResourceReference extends WiQueryJavaScriptRes
 	 * Returns the {@link BlindEffectJavaScriptResourceReference} instance.
 	 */
 	public static BlindEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new BlindEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

@@ -24,21 +24,23 @@ package org.odlabs.wiquery.ui.slider;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: SliderJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Slider component.
+ * References the JavaScript resource to get the Slider component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
 public class SliderJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static SliderJavaScriptResourceReference instance = new SliderJavaScriptResourceReference();;
+	private static SliderJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link SliderJavaScriptResourceReference}.

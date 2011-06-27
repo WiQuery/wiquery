@@ -1,7 +1,9 @@
 package org.odlabs.wiquery.core.commons;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
+import org.apache.wicket.util.lang.Packages;
 
 /**
  * <p>
@@ -34,18 +36,31 @@ public class WiQueryStyleSheetResourceReference extends
 		CompressedResourceReference {
 	private static final long serialVersionUID = 1L;
 
+	private Boolean minified = null;
+
 	public WiQueryStyleSheetResourceReference(Class<?> scope, String name) {
-		super(scope, processName(name), null, null);
+		super(scope, name, null, null);
 	}
 
-	private static String processName(String name) {
-		if (isMinifiedJavascript())
-			return name.substring(0, name.length() - 3) + "min.css";
+	public boolean exists(Class<?> scope, String path) {
+		String absolutePath = Packages.absolutePath(scope, path);
+		return Application.get().getResourceSettings()
+				.getResourceStreamLocator()
+				.locate(scope, absolutePath, getStyle(), getLocale(), null) != null;
+	}
 
+	public String getWiQueryName() {
+		String name = getName();
+		String minifiedName = name.substring(0, name.length() - 3) + "min.css";
+		if (minified == null)
+			minified = isMinifiedStyleSheetResources()
+					&& exists(getScope(), minifiedName);
+		if (minified)
+			return minifiedName;
 		return name;
 	}
 
-	public static boolean isMinifiedJavascript() {
+	public static boolean isMinifiedStyleSheetResources() {
 		return WiQuerySettings.get().isMinifiedResources();
 	}
 }

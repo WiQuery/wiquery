@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ShakeEffectJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Shake jQuery UI effect.
+ * References the JavaScript resource to import the Shake jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ShakeEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class ShakeEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -1202143038814716047L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ShakeEffectJavaScriptResourceReference instance = new ShakeEffectJavaScriptResourceReference();;
+	private static ShakeEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
 	private ShakeEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.shake.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.shake.js");
 	}
 
 	/**
 	 * Returns the {@link ShakeEffectJavaScriptResourceReference} instance.
 	 */
 	public static ShakeEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new ShakeEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

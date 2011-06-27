@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: PulsateEffectJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Pulsate jQuery UI effect.
+ * References the JavaScript resource to import the Pulsate jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class PulsateEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class PulsateEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -5550806128536330878L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static PulsateEffectJavaScriptResourceReference instance = new PulsateEffectJavaScriptResourceReference();;
+	private static PulsateEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
 	private PulsateEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.pulsate.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.pulsate.js");
 	}
 
 	/**
 	 * Returns the {@link PulsateEffectJavaScriptResourceReference} instance.
 	 */
 	public static PulsateEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new PulsateEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

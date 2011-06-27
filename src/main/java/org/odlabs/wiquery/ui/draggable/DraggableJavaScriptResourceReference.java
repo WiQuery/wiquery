@@ -38,23 +38,26 @@ public class DraggableJavaScriptResourceReference extends
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3704373328245392716L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static DraggableJavaScriptResourceReference instance = new DraggableJavaScriptResourceReference();;
+	private static DraggableJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link DraggableJavaScriptResourceReference}.
 	 */
 	private DraggableJavaScriptResourceReference() {
-		super(DraggableJavaScriptResourceReference.class, "jquery.ui.draggable.js");
+		super(DraggableJavaScriptResourceReference.class,
+				"jquery.ui.draggable.js");
 	}
 
 	/**
 	 * Returns the {@link DraggableJavaScriptResourceReference} instance.
 	 */
 	public static DraggableJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new DraggableJavaScriptResourceReference();
 		return instance;
 	}
 }

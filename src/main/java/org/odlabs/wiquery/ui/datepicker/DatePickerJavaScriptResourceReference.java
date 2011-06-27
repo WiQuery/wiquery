@@ -24,33 +24,38 @@ package org.odlabs.wiquery.ui.datepicker;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: DatePickerJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the DatePicker component.
+ * References the JavaScript resource to get the DatePicker component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
 public class DatePickerJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static DatePickerJavaScriptResourceReference instance = new DatePickerJavaScriptResourceReference();;
+	private static DatePickerJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link DatePickerJavaScriptResourceReference}.
 	 */
 	private DatePickerJavaScriptResourceReference() {
-		super(DatePickerJavaScriptResourceReference.class, "jquery.ui.datepicker.js");
+		super(DatePickerJavaScriptResourceReference.class,
+				"jquery.ui.datepicker.js");
 	}
 
 	/**
 	 * Returns the {@link DatePickerJavaScriptResourceReference} instance.
 	 */
 	public static DatePickerJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new DatePickerJavaScriptResourceReference();
 		return instance;
 	}
 }

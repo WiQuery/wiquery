@@ -24,33 +24,38 @@ package org.odlabs.wiquery.ui.accordion;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: AccordionJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the DatePicker component.
+ * References the JavaScript resource to get the DatePicker component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
 public class AccordionJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static AccordionJavaScriptResourceReference instance = new AccordionJavaScriptResourceReference();;
+	private static AccordionJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link AccordionJavaScriptResourceReference}.
 	 */
 	private AccordionJavaScriptResourceReference() {
-		super(AccordionJavaScriptResourceReference.class, "jquery.ui.accordion.js");
+		super(AccordionJavaScriptResourceReference.class,
+				"jquery.ui.accordion.js");
 	}
 
 	/**
 	 * Returns the {@link AccordionJavaScriptResourceReference} instance.
 	 */
 	public static AccordionJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new AccordionJavaScriptResourceReference();
 		return instance;
 	}
 }

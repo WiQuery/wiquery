@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: TransferEffectJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Transfer jQuery UI effect.
+ * References the JavaScript resource to import the Transfer jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class TransferEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class TransferEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -6460737051632029822L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static TransferEffectJavaScriptResourceReference instance = new TransferEffectJavaScriptResourceReference();;
+	private static TransferEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
 	private TransferEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.transfer.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.transfer.js");
 	}
 
 	/**
 	 * Returns the {@link TransferEffectJavaScriptResourceReference} instance.
 	 */
 	public static TransferEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new TransferEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

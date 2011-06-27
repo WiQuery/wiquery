@@ -24,11 +24,13 @@ package org.odlabs.wiquery.ui.selectable;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: SelectableJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to apply selectable behavior to any
- *  HTML element.
+ * References the JavaScript resource to apply selectable behavior to any HTML
+ * element.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
@@ -37,23 +39,26 @@ public class SelectableJavaScriptResourceReference extends
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -4480460830759651938L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static SelectableJavaScriptResourceReference instance = new SelectableJavaScriptResourceReference();;
+	private static SelectableJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link SelectableJavaScriptResourceReference}.
 	 */
 	private SelectableJavaScriptResourceReference() {
-		super(SelectableJavaScriptResourceReference.class, "jquery.ui.selectable.js");
+		super(SelectableJavaScriptResourceReference.class,
+				"jquery.ui.selectable.js");
 	}
 
 	/**
 	 * Returns the {@link SelectableJavaScriptResourceReference} instance.
 	 */
 	public static SelectableJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new SelectableJavaScriptResourceReference();
 		return instance;
 	}
 }

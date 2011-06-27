@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ExplodeEffectJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Explode jQuery UI effect.
+ * References the JavaScript resource to import the Explode jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ExplodeEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class ExplodeEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 7452940370456162856L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ExplodeEffectJavaScriptResourceReference instance = new ExplodeEffectJavaScriptResourceReference();;
+	private static ExplodeEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
 	private ExplodeEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.explode.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.explode.js");
 	}
 
 	/**
 	 * Returns the {@link ExplodeEffectJavaScriptResourceReference} instance.
 	 */
 	public static ExplodeEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new ExplodeEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ScaleEffectJavaScriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Scale jQuery UI effect.
+ * References the JavaScript resource to import the Scale jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ScaleEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class ScaleEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -3173953116856601631L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ScaleEffectJavaScriptResourceReference instance = new ScaleEffectJavaScriptResourceReference();;
+	private static ScaleEffectJavaScriptResourceReference instance;
 
 	/**
 	 * Default constructor
 	 */
 	private ScaleEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.scale.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.scale.js");
 	}
 
 	/**
 	 * Returns the {@link ScaleEffectJavaScriptResourceReference} instance.
 	 */
 	public static ScaleEffectJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new ScaleEffectJavaScriptResourceReference();
 		return instance;
 	}
 }

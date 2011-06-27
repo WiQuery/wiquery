@@ -21,6 +21,7 @@
  */
 package org.odlabs.wiquery.core.commons;
 
+
 /**
  * $Id: CoreJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
  * lionel.armanet $
@@ -39,12 +40,14 @@ public class CoreJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static CoreJavaScriptResourceReference instance = new CoreJavaScriptResourceReference();;
+	private static CoreJavaScriptResourceReference instance;
 
 	/**
 	 * Returns the {@link CoreJavaScriptResourceReference} instance.
 	 */
 	public static CoreJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new CoreJavaScriptResourceReference();
 		return instance;
 	}
 

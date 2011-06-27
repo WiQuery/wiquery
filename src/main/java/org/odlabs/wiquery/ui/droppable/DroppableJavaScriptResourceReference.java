@@ -40,23 +40,26 @@ public class DroppableJavaScriptResourceReference extends
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3704373328245392715L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static DroppableJavaScriptResourceReference instance = new DroppableJavaScriptResourceReference();;
+	private static DroppableJavaScriptResourceReference instance;
 
 	/**
 	 * Builds a new instance of {@link DroppableJavaScriptResourceReference}.
 	 */
 	private DroppableJavaScriptResourceReference() {
-		super(DroppableJavaScriptResourceReference.class, "jquery.ui.droppable.js");
+		super(DroppableJavaScriptResourceReference.class,
+				"jquery.ui.droppable.js");
 	}
 
 	/**
 	 * Returns the {@link DroppableJavaScriptResourceReference} instance.
 	 */
 	public static DroppableJavaScriptResourceReference get() {
+		if (instance == null)
+			instance = new DroppableJavaScriptResourceReference();
 		return instance;
 	}
 }
