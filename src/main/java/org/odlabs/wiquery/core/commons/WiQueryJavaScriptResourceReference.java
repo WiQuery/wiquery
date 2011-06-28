@@ -1,5 +1,7 @@
 package org.odlabs.wiquery.core.commons;
 
+import java.util.Locale;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
@@ -19,8 +21,8 @@ import org.apache.wicket.util.lang.Packages;
  * 
  * <p>
  * Always provide the normal (non-minimized) version, wiquery will reference to
- * the minimized version when {@link WiQuerySettings#isCompressedJavascript()}
- * is true.
+ * the minimized version when {@link WiQuerySettings#isMinifiedResources()} is
+ * true.
  * </p>
  * <p>
  * The filename format for the 2 versions is:
@@ -36,26 +38,23 @@ public class WiQueryJavaScriptResourceReference extends
 		CompressedResourceReference {
 	private static final long serialVersionUID = 1L;
 
-	private Boolean minified = null;
-
 	public WiQueryJavaScriptResourceReference(Class<?> scope, String name) {
-		super(scope, name, null, null);
+		super(scope, getWiQueryName(scope, name, null, null), null, null);
 	}
 
-	public boolean exists(Class<?> scope, String path) {
-		String absolutePath = Packages.absolutePath(scope, path);
+	public static boolean exists(Class<?> scope, String name, String style,
+			Locale locale) {
+		String absolutePath = Packages.absolutePath(scope, name);
 		return Application.get().getResourceSettings()
 				.getResourceStreamLocator()
-				.locate(scope, absolutePath, getStyle(), getLocale(), null) != null;
+				.locate(scope, absolutePath, style, locale, null) != null;
 	}
 
-	public String getWiQueryName() {
-		String name = getName();
+	public static String getWiQueryName(Class<?> scope, String name,
+			String style, Locale locale) {
 		String minifiedName = name.substring(0, name.length() - 2) + "min.js";
-		if (minified == null)
-			minified = isMinifiedJavaScriptResources()
-					&& exists(getScope(), minifiedName);
-		if (minified)
+		if (isMinifiedJavaScriptResources()
+				&& exists(scope, minifiedName, style, locale))
 			return minifiedName;
 		return name;
 	}
