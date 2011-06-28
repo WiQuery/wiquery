@@ -53,9 +53,13 @@ public class WiQueryStyleSheetResourceReference extends
 	public static String getWiQueryName(Class<?> scope, String name,
 			String style, Locale locale) {
 		String minifiedName = name.substring(0, name.length() - 3) + "min.css";
+
 		if (isMinifiedStyleSheetResources()
 				&& exists(scope, minifiedName, style, locale))
+		{
 			return minifiedName;
+		}
+
 		return name;
 	}
 
