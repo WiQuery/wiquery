@@ -5,6 +5,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.apache.wicket.javascript.IJavascriptCompressor;
+import org.apache.wicket.util.string.Strings;
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
 import org.slf4j.Logger;
@@ -53,7 +54,7 @@ public class YUIJavaScriptCompressor implements IJavascriptCompressor {
 			log.error(e.getMessage(), e);
 			return original;
 		} catch (RuntimeException e) {
-			if (e.getMessage() == null || e.getMessage().trim().isEmpty())
+			if (e.getMessage() == null || Strings.isEmpty(e.getMessage().trim()))
 				log.error("Failed to compress javascript, no reason was given.");
 			else
 				log.error(e.getMessage(), e);
