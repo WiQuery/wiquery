@@ -134,6 +134,18 @@ public class Options implements IModel<Options> {
 	public Boolean getBoolean(String key) {
 		return getValueFromOptions(key, BooleanOption.class);
 	}
+	
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public JsScope getJsScope(String key) {
+		return (JsScope) this.options.get(key);
+	}
 
 	/**
 	 * <p>
