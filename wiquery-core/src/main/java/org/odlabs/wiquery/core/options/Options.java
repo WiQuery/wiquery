@@ -65,7 +65,7 @@ public class Options implements IModel<Options> {
 	 * The internal structure is a map associating each option label with each
 	 * option value.
 	 */
-	private Map<String, Object> options = new LinkedHashMap<String, Object>();
+	private final Map<String, Object> options = new LinkedHashMap<String, Object>();
 
 	/**
 	 * The {@link IOptionsRenderer} to use.
@@ -133,6 +133,18 @@ public class Options implements IModel<Options> {
 	 */
 	public Boolean getBoolean(String key) {
 		return getValueFromOptions(key, BooleanOption.class);
+	}
+
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public JsScope getJsScope(String key) {
+		return (JsScope) this.options.get(key);
 	}
 
 	/**
@@ -211,20 +223,15 @@ public class Options implements IModel<Options> {
 						isLast));
 			} else if (value instanceof IComplexOption) {
 				// Case of an IComplexOption
-				sb
-						.append(this.optionsRenderer.renderOption(key,
-								((IComplexOption) value).getJavascriptOption(),
-								isLast));
+				sb.append(this.optionsRenderer.renderOption(key,
+						((IComplexOption) value).getJavascriptOption(), isLast));
 			} else if (value instanceof ITypedOption<?>) {
 				// Case of an ITypedOption
-				sb.append(this.optionsRenderer
-						.renderOption(key, ((ITypedOption<?>) value)
-								.getJavascriptOption(), isLast));
+				sb.append(this.optionsRenderer.renderOption(key,
+						((ITypedOption<?>) value).getJavascriptOption(), isLast));
 			} else {
 				// Other cases
-				sb
-						.append(this.optionsRenderer.renderOption(key, value,
-								isLast));
+				sb.append(this.optionsRenderer.renderOption(key, value, isLast));
 			}
 			count++;
 		}
@@ -553,7 +560,8 @@ public class Options implements IModel<Options> {
 	 * <p>
 	 * Puts a {@link String} value as a JavaScript literal for the given name.
 	 * <p>
-	 * Note that the JavaScript resulting from this options will be <code>'value'</code>
+	 * Note that the JavaScript resulting from this options will be
+	 * <code>'value'</code>
 	 * </p>
 	 * </p>
 	 * 
@@ -571,7 +579,8 @@ public class Options implements IModel<Options> {
 	 * <p>
 	 * Puts a {@link String} value as a JavaScript literal for the given name.
 	 * <p>
-	 * Note that the JavaScript resulting from this options will be <code>'value'</code>
+	 * Note that the JavaScript resulting from this options will be
+	 * <code>'value'</code>
 	 * </p>
 	 * </p>
 	 * 
