@@ -21,7 +21,9 @@
  */
 package org.odlabs.wiquery.ui.core;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id: CoreUIJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
@@ -38,7 +40,7 @@ public class CoreUIJavaScriptResourceReference extends
 
 	private static final long serialVersionUID = 4585057795574929263L;
 
-	private static CoreUIJavaScriptResourceReference instance = new CoreUIJavaScriptResourceReference();;
+	private static CoreUIJavaScriptResourceReference instance = new CoreUIJavaScriptResourceReference();
 
 	public static CoreUIJavaScriptResourceReference get() {
 		return instance;
@@ -51,4 +53,11 @@ public class CoreUIJavaScriptResourceReference extends
 		super(CoreUIJavaScriptResourceReference.class, "jquery.ui.core.js");
 	}
 
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		AbstractResourceDependentResourceReference[] list = new AbstractResourceDependentResourceReference[1];
+		list[0] = CoreJavaScriptResourceReference.get();
+
+		return list;
+	}
 }

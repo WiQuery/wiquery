@@ -21,24 +21,37 @@
  */
 package org.odlabs.wiquery.ui.dialog;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.button.ButtonJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: DialogJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Dialog component.
+ * References the JavaScript resource to get the Dialog component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
 public class DialogJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static DialogJavaScriptResourceReference instance = new DialogJavaScriptResourceReference();;
+	private static DialogJavaScriptResourceReference instance = new DialogJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link DialogJavaScriptResourceReference}.
@@ -52,5 +65,19 @@ public class DialogJavaScriptResourceReference extends
 	 */
 	public static DialogJavaScriptResourceReference get() {
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+		list.add(CoreUIJavaScriptResourceReference.get());
+		list.add(WidgetJavaScriptResourceReference.get());
+		list.add(ButtonJavaScriptResourceReference.get());
+		list.add(DraggableJavaScriptResourceReference.get());
+		list.add(MouseJavaScriptResourceReference.get());
+		list.add(PositionJavaScriptResourceReference.get());
+		list.add(ResizableJavaScriptResourceReference.get());
+
+		return list.toArray(new AbstractResourceDependentResourceReference[0]);
 	}
 }

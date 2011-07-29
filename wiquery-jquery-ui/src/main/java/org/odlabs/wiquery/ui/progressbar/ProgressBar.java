@@ -22,16 +22,16 @@
 package org.odlabs.wiquery.ui.progressbar;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.options.UiOptionsRenderer;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -74,9 +74,9 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ProgressBarJavaScriptResourceReference.get());
+	public void renderHead(IHeaderResponse response) {
+		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+			response.renderJavaScriptReference(ProgressBarJavaScriptResourceReference.get());
 	}
 
 	/*

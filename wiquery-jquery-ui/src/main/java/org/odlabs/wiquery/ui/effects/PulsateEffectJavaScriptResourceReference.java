@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -39,7 +39,7 @@ public class PulsateEffectJavaScriptResourceReference extends WiQueryJavaScriptR
 	/**
 	 * Singleton instance.
 	 */
-	private static PulsateEffectJavaScriptResourceReference instance = new PulsateEffectJavaScriptResourceReference();;
+	private static PulsateEffectJavaScriptResourceReference instance = new PulsateEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor

@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.slider;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -38,7 +38,7 @@ public class SliderJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static SliderJavaScriptResourceReference instance = new SliderJavaScriptResourceReference();;
+	private static SliderJavaScriptResourceReference instance = new SliderJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link SliderJavaScriptResourceReference}.

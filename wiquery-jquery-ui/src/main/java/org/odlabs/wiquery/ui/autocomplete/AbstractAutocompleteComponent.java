@@ -26,6 +26,7 @@ import java.util.List;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.HiddenField;
@@ -34,10 +35,9 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.util.string.Strings;
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
@@ -76,9 +76,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		 * @see org.odlabs.wiquery.ui.autocomplete.Autocomplete#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 		 */
 		@Override
-		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-			super.contribute(wiQueryResourceManager);
-			wiQueryResourceManager.addJavaScriptResource(WiQueryAutocompleteJavascriptResourceReference.get());
+		public void renderHead(IHeaderResponse response) {
+			response.renderJavaScriptReference(WiQueryAutocompleteJavaScriptResourceReference.get());
 		}
 
 		/**

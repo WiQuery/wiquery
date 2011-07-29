@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -39,7 +39,7 @@ public class ScaleEffectJavaScriptResourceReference extends WiQueryJavaScriptRes
 	/**
 	 * Singleton instance.
 	 */
-	private static ScaleEffectJavaScriptResourceReference instance = new ScaleEffectJavaScriptResourceReference();;
+	private static ScaleEffectJavaScriptResourceReference instance = new ScaleEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor

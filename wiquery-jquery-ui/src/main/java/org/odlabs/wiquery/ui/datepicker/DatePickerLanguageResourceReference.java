@@ -23,7 +23,7 @@ package org.odlabs.wiquery.ui.datepicker;
 
 import java.util.Locale;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id: DatePickerLanguageResourceReference.java 81 2009-05-28 20:05:12Z

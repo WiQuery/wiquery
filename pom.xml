@@ -9,7 +9,7 @@
 	<name>WiQuery Parent</name>
 
 	<scm>
-		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wicket-1.5</developerConnection>
+		<developerConnection>scm:svn:https://wiquery.googlecode.com/svn/branches/wicket-1.5</developerConnection>
 	</scm>
 
 	<distributionManagement>

@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.selectable;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -41,7 +41,7 @@ public class SelectableJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static SelectableJavaScriptResourceReference instance = new SelectableJavaScriptResourceReference();;
+	private static SelectableJavaScriptResourceReference instance = new SelectableJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link SelectableJavaScriptResourceReference}.

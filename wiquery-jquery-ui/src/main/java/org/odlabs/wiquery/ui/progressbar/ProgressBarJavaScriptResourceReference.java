@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.progressbar;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id: ResizableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
@@ -42,7 +42,7 @@ public class ProgressBarJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static ProgressBarJavaScriptResourceReference instance = new ProgressBarJavaScriptResourceReference();;
+	private static ProgressBarJavaScriptResourceReference instance = new ProgressBarJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link ProgressBarJavaScriptResourceReference}.

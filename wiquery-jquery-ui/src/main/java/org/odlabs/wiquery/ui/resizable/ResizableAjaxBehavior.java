@@ -24,7 +24,7 @@ package org.odlabs.wiquery.ui.resizable;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
@@ -75,9 +75,8 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 		 */
 		@Override
-		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-			super.contribute(wiQueryResourceManager);
-			ResizableAjaxBehavior.this.contribute(wiQueryResourceManager);
+		public void renderHead(Component component, IHeaderResponse response) {
+			ResizableAjaxBehavior.this.renderHead(component, response);
 		}
 
 		/**
@@ -155,15 +154,6 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.ui.resizable.ResizableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 * Override this method for additional resources
-	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		// To override
-	}
-
-	/**
 	 * @return the standard resizable JavaScript behavior
 	 */
 	public ResizableBehavior getResizableBehavior() {
@@ -220,7 +210,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
 	 */
 	protected JsStatement statement() {
 		return resizableBehavior.statement();

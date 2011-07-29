@@ -21,30 +21,35 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: DatePickerJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the DatePicker component.
+ * References the JavaScript resource to get the DatePicker component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
 public class DatePickerJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static DatePickerJavaScriptResourceReference instance = new DatePickerJavaScriptResourceReference();;
+	private static DatePickerJavaScriptResourceReference instance = new DatePickerJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link DatePickerJavaScriptResourceReference}.
 	 */
 	private DatePickerJavaScriptResourceReference() {
-		super(DatePickerJavaScriptResourceReference.class, "jquery.ui.datepicker.js");
+		super(DatePickerJavaScriptResourceReference.class,
+				"jquery.ui.datepicker.js");
 	}
 
 	/**
@@ -52,5 +57,13 @@ public class DatePickerJavaScriptResourceReference extends
 	 */
 	public static DatePickerJavaScriptResourceReference get() {
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		AbstractResourceDependentResourceReference[] list = new AbstractResourceDependentResourceReference[1];
+		list[0] = CoreUIJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

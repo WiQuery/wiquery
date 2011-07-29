@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -39,7 +39,7 @@ public class CoreEffectJavaScriptResourceReference extends WiQueryJavaScriptReso
 	/**
 	 * Singleton instance.
 	 */
-	private static CoreEffectJavaScriptResourceReference instance = new CoreEffectJavaScriptResourceReference();;
+	private static CoreEffectJavaScriptResourceReference instance = new CoreEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor

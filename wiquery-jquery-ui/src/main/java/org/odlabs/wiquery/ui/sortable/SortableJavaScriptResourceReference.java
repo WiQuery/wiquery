@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -39,7 +39,7 @@ public class SortableJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static SortableJavaScriptResourceReference instance = new SortableJavaScriptResourceReference();;
+	private static SortableJavaScriptResourceReference instance = new SortableJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.

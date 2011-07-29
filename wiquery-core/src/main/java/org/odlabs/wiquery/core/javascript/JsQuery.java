@@ -22,21 +22,18 @@
 package org.odlabs.wiquery.core.javascript;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.AjaxRequestTarget.IJavaScriptResponse;
-import org.apache.wicket.ajax.AjaxRequestTarget.IListener;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.resource.ResourceReference;
-import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.WiQuerySettings;
-import org.odlabs.wiquery.core.commons.WiQueryUtil;
-import org.odlabs.wiquery.core.commons.WiqueryGeneratedJavaScriptResource;
+import org.odlabs.wiquery.core.WiQuerySettings;
+import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiqueryGeneratedJavaScriptResource;
+import org.odlabs.wiquery.core.util.WiQueryUtil;
 
 /**
  * $Id$

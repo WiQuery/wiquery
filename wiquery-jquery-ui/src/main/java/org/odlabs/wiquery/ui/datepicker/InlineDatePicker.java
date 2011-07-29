@@ -22,9 +22,9 @@
 package org.odlabs.wiquery.ui.datepicker;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -82,12 +82,13 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
+	public void renderHead(IHeaderResponse response) {
+		response.renderJavaScriptReference(DatePickerJavaScriptResourceReference.get());
 		
 		DatePickerLanguageResourceReference dpl = DatePickerLanguageResourceReference.get(getLocale());
 		if(dpl !=null)
-			wiQueryResourceManager.addJavaScriptResource(dpl);
+			response.renderJavaScriptReference
+			(dpl);
 	}
 
 	/* (non-Javadoc)

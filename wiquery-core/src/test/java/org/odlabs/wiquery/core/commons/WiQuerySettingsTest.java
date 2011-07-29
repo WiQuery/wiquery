@@ -3,6 +3,8 @@ package org.odlabs.wiquery.core.commons;
 import org.apache.wicket.util.tester.Result;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
+import org.odlabs.wiquery.core.WiQuerySettings;
+import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
@@ -30,7 +32,8 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 
 	@Test
 	public void testWiquerySettingsUILibraryDisabled() {
-		WiQuerySettings.get().setAutoImportJQueryUIResource(false);
+		WiQuerySettings.get().setAutoImportJQueryUIJavaScriptResource(false);
+		WiQuerySettings.get().setAutoImportJQueryUIStyleSheetResource(false);
 		startTestPage();
 		tester.assertContains(CoreJavaScriptResourceReference.class.getName());
 	}

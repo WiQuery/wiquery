@@ -21,8 +21,9 @@
  */
 package org.odlabs.wiquery.ui.position;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
@@ -64,9 +65,8 @@ public class PositionBehavior extends WiQueryAbstractBehavior {
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		super.contribute(wiQueryResourceManager);
-		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
+	public void renderHead(Component component, IHeaderResponse response) {
+		response.renderJavaScriptReference(PositionJavaScriptResourceReference.get());
 	}
 	
 	/**Method retrieving the options of the component

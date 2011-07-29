@@ -40,36 +40,34 @@ import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
-import org.odlabs.wiquery.core.commons.WiQueryCoreHeaderContributor;
 import org.odlabs.wiquery.tester.matchers.ComponentMatcher;
 import org.odlabs.wiquery.tester.matchers.ComponentTypeMatcher;
 
-public class WiQueryTester extends WicketTester {
-	public <X extends Component> X first(final MarkupContainer root,
-			ComponentMatcher matcher) {
+public class WiQueryTester extends WicketTester
+{
+	public <X extends Component> X first(final MarkupContainer root, ComponentMatcher matcher)
+	{
 		CollectingVisitor<X> visitor = new CollectingVisitor<X>(matcher, true);
 		root.visitChildren(visitor);
-		return visitor.matchedComponents.isEmpty() ? null
-				: visitor.matchedComponents.get(0);
+		return visitor.matchedComponents.isEmpty() ? null : visitor.matchedComponents.get(0);
 	}
 
-	public <X extends Component> List<X> all(final MarkupContainer root,
-			ComponentMatcher matcher) {
+	public <X extends Component> List<X> all(final MarkupContainer root, ComponentMatcher matcher)
+	{
 		CollectingVisitor<X> visitor = new CollectingVisitor<X>(matcher);
 		root.visitChildren(visitor);
 		return visitor.matchedComponents;
 	}
 
-	public <X extends Component> X first(final MarkupContainer root,
-			Class<X> componentType) {
-		CollectingVisitor<X> visitor = new CollectingVisitor<X>(
-				new ComponentTypeMatcher(componentType), true);
+	public <X extends Component> X first(final MarkupContainer root, Class<X> componentType)
+	{
+		CollectingVisitor<X> visitor = new CollectingVisitor<X>(new ComponentTypeMatcher(componentType), true);
 		root.visitChildren(visitor);
 		return visitor.matchedComponents.get(0);
 	}
 
-	public <X extends Component> List<X> all(MarkupContainer root,
-			Class<X> componentType) {
+	public <X extends Component> List<X> all(MarkupContainer root, Class<X> componentType)
+	{
 		ComponentMatcher matcher = new ComponentTypeMatcher(componentType);
 		CollectingVisitor<X> visitor = new CollectingVisitor<X>(matcher);
 		root.visitChildren(componentType, visitor);
@@ -79,20 +77,22 @@ public class WiQueryTester extends WicketTester {
 	/**
 	 * Sets the value on the input control.
 	 */
-	public void setValue(FormComponent<?> input, String value) {
+	public void setValue(FormComponent< ? > input, String value)
+	{
 		getLastRequest().setParameter(input.getInputName(), value);
 	}
 
 	/**
-	 * Renders a <code>Panel</code> defined in <code>TestPanelSource</code>
-	 * inside a {@link Form}. The usage is similar to
-	 * {@link #startPage(ITestPageSource)}. Please note that testing
-	 * <code>Panel</code> must use the supplied
+	 * Renders a <code>Panel</code> defined in <code>TestPanelSource</code> inside a
+	 * {@link Form}. The usage is similar to {@link #startPage(ITestPageSource)}. Please
+	 * note that testing <code>Panel</code> must use the supplied
 	 * <code>panelId<code> as a <code>Component</code> id.
 	 * 
 	 * <pre>
-	 * tester.startFormPanel(new TestPanelSource() {
-	 * 	public Panel getTestPanel(String panelId) {
+	 * tester.startFormPanel(new TestPanelSource()
+	 * {
+	 * 	public Panel getTestPanel(String panelId)
+	 * 	{
 	 * 		MyData mockMyData = new MyData();
 	 * 		return new MyPanel(panelId, mockMyData);
 	 * 	}
@@ -100,15 +100,18 @@ public class WiQueryTester extends WicketTester {
 	 * </pre>
 	 * 
 	 * @param factory
-	 *            a <code>Panel</code> factory that creates test
-	 *            <code>Panel</code> instances
+	 *            a <code>Panel</code> factory that creates test <code>Panel</code>
+	 *            instances
 	 * @return a rendered <code>Panel</code>
 	 */
-	public Panel startFormPanel(final ITestPanelSource factory) {
-		FormTestPage page = (FormTestPage) startPage(new ITestPageSource() {
+	public Panel startFormPanel(final ITestPanelSource factory)
+	{
+		FormTestPage page = (FormTestPage) startPage(new ITestPageSource()
+		{
 			private static final long serialVersionUID = 1L;
 
-			public Page getTestPage() {
+			public Page getTestPage()
+			{
 				return new FormTestPage(factory);
 			}
 		});
@@ -117,14 +120,16 @@ public class WiQueryTester extends WicketTester {
 
 	/**
 	 * Renders a <code>FormComponentPanel</code> defined in
-	 * <code>TestFormComponentPanelSource</code> inside a {@link Form}. The
-	 * usage is similar to {@link #startPage(ITestPageSource)}. Please note that
-	 * testing <code>Panel</code> must use the supplied
+	 * <code>TestFormComponentPanelSource</code> inside a {@link Form}. The usage is
+	 * similar to {@link #startPage(ITestPageSource)}. Please note that testing
+	 * <code>Panel</code> must use the supplied
 	 * <code>panelId<code> as a <code>Component</code> id.
 	 * 
 	 * <pre>
-	 * tester.startFormPanel(new TestPanelSource() {
-	 * 	public FormComponentPanel getTestPanel(String panelId) {
+	 * tester.startFormPanel(new TestPanelSource()
+	 * {
+	 * 	public FormComponentPanel getTestPanel(String panelId)
+	 * 	{
 	 * 		MyData mockMyData = new MyData();
 	 * 		return new MyPanel(panelId, mockMyData);
 	 * 	}
@@ -132,62 +137,56 @@ public class WiQueryTester extends WicketTester {
 	 * </pre>
 	 * 
 	 * @param factory
-	 *            a <code>Panel</code> factory that creates test
-	 *            <code>Panel</code> instances
+	 *            a <code>Panel</code> factory that creates test <code>Panel</code>
+	 *            instances
 	 * @return a rendered <code>Panel</code>
 	 */
-	public FormComponentPanel<?> startFormPanel(
-			final TestFormComponentPanelSource factory) {
-		FormTestPage page = (FormTestPage) startPage(new ITestPageSource() {
+	public FormComponentPanel< ? > startFormPanel(final TestFormComponentPanelSource factory)
+	{
+		FormTestPage page = (FormTestPage) startPage(new ITestPageSource()
+		{
 			private static final long serialVersionUID = 1L;
 
-			public Page getTestPage() {
+			public Page getTestPage()
+			{
 				return new FormTestPage(factory);
 			}
 		});
-		return (FormComponentPanel<?>) page.get(page.getPanelComponentPath());
+		return (FormComponentPanel< ? >) page.get(page.getPanelComponentPath());
 	}
 
-	public RepeatingView getRepeatingView(String path) {
+	public RepeatingView getRepeatingView(String path)
+	{
 		Page renderedPage = getLastRenderedPage();
 		assertComponent(path, RepeatingView.class);
 		RepeatingView rv = (RepeatingView) renderedPage.get(path);
 		return rv;
 	}
 
-	public ListView<?> getListView(String path) {
+	public ListView< ? > getListView(String path)
+	{
 		Page renderedPage = getLastRenderedPage();
 		assertComponent(path, ListView.class);
-		ListView<?> rv = (ListView<?>) renderedPage.get(path);
+		ListView< ? > rv = (ListView< ? >) renderedPage.get(path);
 		return rv;
 	}
 
-	public List<IHeaderContributor> getHeaderContributors() {
+	public List<IHeaderContributor> getHeaderContributors()
+	{
 		Page renderedPage = getLastRenderedPage();
 		final List<IHeaderContributor> contributors = new ArrayList<IHeaderContributor>();
 
-		renderedPage.visitChildren(new IVisitor<Component, Void>() {
-			public void component(Component component, IVisit<Void> visit) {
+		renderedPage.visitChildren(new IVisitor<Component, Void>()
+		{
+			public void component(Component component, IVisit<Void> visit)
+			{
 				for (Behavior behavior : component.getBehaviors())
-					if (behavior instanceof IHeaderContributor
-							|| behavior instanceof WiQueryCoreHeaderContributor)
+					if (behavior instanceof IHeaderContributor)
 						contributors.add((IHeaderContributor) behavior);
 
 			}
 		});
 
 		return contributors;
-	}
-
-	public WiQueryCoreHeaderContributor getWiQueryCoreHeaderContributor() {
-
-		List<IHeaderContributor> contributors = getHeaderContributors();
-
-		for (IHeaderContributor contributor : contributors) {
-			if (contributor instanceof WiQueryCoreHeaderContributor)
-				return (WiQueryCoreHeaderContributor) contributor;
-		}
-
-		return null;
 	}
 }

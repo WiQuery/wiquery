@@ -22,10 +22,10 @@
 package org.odlabs.wiquery.ui.dialog;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
@@ -33,10 +33,10 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
-import org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -107,17 +107,15 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
-		wiQueryResourceManager
-				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
-		wiQueryResourceManager
-				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
+	public void renderHead(IHeaderResponse response) {
+		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(PositionJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(DialogJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(DraggableJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(ResizableJavaScriptResourceReference.get());
 	}
 
 	/*

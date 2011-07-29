@@ -25,15 +25,15 @@ import org.apache.wicket.Component;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.themes.UiIcon;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -82,9 +82,9 @@ public class ButtonBehavior extends WiQueryAbstractBehavior {
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
+	public void renderHead(Component component, IHeaderResponse response) {
+		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
 	}
 	
 	/**Method retrieving the options of the component

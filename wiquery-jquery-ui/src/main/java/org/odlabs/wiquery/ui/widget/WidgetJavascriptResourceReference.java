@@ -21,36 +21,38 @@
  */
 package org.odlabs.wiquery.ui.widget;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: WidgetJavascriptResourceReference.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the widget utilities.
+ * References the JavaScript resource to get the widget utilities.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
-public class WidgetJavascriptResourceReference extends
+public class WidgetJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static WidgetJavascriptResourceReference instance = new WidgetJavascriptResourceReference();;
+	private static WidgetJavaScriptResourceReference instance = new WidgetJavaScriptResourceReference();
 
 	/**
-	 * Builds a new instance of {@link WidgetJavascriptResourceReference}.
+	 * Builds a new instance of {@link WidgetJavaScriptResourceReference}.
 	 */
-	private WidgetJavascriptResourceReference() {
-		super(WidgetJavascriptResourceReference.class, "jquery.ui.widget.js");
+	private WidgetJavaScriptResourceReference() {
+		super(WidgetJavaScriptResourceReference.class, "jquery.ui.widget.js");
 	}
 
 	/**
-	 * Returns the {@link WidgetJavascriptResourceReference} instance.
+	 * Returns the {@link WidgetJavaScriptResourceReference} instance.
 	 */
-	public static WidgetJavascriptResourceReference get() {
+	public static WidgetJavaScriptResourceReference get() {
 		return instance;
 	}
 }

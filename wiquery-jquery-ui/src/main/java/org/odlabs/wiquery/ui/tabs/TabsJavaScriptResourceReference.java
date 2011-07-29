@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.tabs;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -38,7 +38,7 @@ public class TabsJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static TabsJavaScriptResourceReference instance = new TabsJavaScriptResourceReference();;
+	private static TabsJavaScriptResourceReference instance = new TabsJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link TabsJavaScriptResourceReference}.

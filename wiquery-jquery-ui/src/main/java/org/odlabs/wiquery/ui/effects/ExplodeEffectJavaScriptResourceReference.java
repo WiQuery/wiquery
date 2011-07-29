@@ -21,31 +21,39 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ExplodeEffectJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Explode jQuery UI effect.
+ * References the JavaScript resource to import the Explode jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ExplodeEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class ExplodeEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 7452940370456162856L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ExplodeEffectJavaScriptResourceReference instance = new ExplodeEffectJavaScriptResourceReference();;
+	private static ExplodeEffectJavaScriptResourceReference instance = new ExplodeEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor
 	 */
 	private ExplodeEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.explode.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.explode.js");
 	}
 
 	/**
@@ -53,5 +61,13 @@ public class ExplodeEffectJavaScriptResourceReference extends WiQueryJavaScriptR
 	 */
 	public static ExplodeEffectJavaScriptResourceReference get() {
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+		list.add(CoreEffectJavaScriptResourceReference.get());
+
+		return list.toArray(new AbstractResourceDependentResourceReference[0]);
 	}
 }

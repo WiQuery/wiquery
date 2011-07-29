@@ -24,6 +24,7 @@ package org.odlabs.wiquery.ui.button;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.form.Radio;
 import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.form.SimpleFormComponentLabel;
@@ -32,12 +33,11 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -140,11 +140,11 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
+	public void renderHead(IHeaderResponse response) {
+		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
 	 */
 	public JsStatement statement() {
 		return new JsQuery(radioGroup).$().chain("buttonset");

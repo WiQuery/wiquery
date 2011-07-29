@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -39,7 +39,7 @@ public class TransferEffectJavaScriptResourceReference extends WiQueryJavaScript
 	/**
 	 * Singleton instance.
 	 */
-	private static TransferEffectJavaScriptResourceReference instance = new TransferEffectJavaScriptResourceReference();;
+	private static TransferEffectJavaScriptResourceReference instance = new TransferEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor

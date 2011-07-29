@@ -23,8 +23,7 @@ package org.odlabs.wiquery.core.effects;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -32,67 +31,65 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 /**
  * $Id$
  * <p>
- * Defines an {@link Effect} behavior triggering the
- * {@link #respond(AjaxRequestTarget)} method with an Ajax query.
+ * Defines an {@link Effect} behavior triggering the {@link #respond(AjaxRequestTarget)}
+ * method with an Ajax query.
  * </p>
  * 
  * @author Lionel Armanet
  * @since 1.0
  */
-public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehavior implements IWiQueryPlugin {
+public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehavior implements IWiQueryPlugin
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 6423661892490365888L;
-	
+
 	/**
 	 * The effect to use.
 	 */
-	private Effect effect;
+	private final Effect effect;
 
 	/**
 	 * Creates this behavior for a given {@link Effect}.
 	 */
-	public WiqueryAjaxEffectBehavior(Effect effect) {
+	public WiqueryAjaxEffectBehavior(Effect effect)
+	{
 		this.effect = effect;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript()
 	 */
 	@Override
-	protected CharSequence getCallbackScript() {
+	protected CharSequence getCallbackScript()
+	{
 		// binds the ajax call to the wrapped event
 		JsQuery query = new JsQuery(this.getComponent());
 		effect.setCallback(JsScope.quickScope(getHandlerScript()));
 		return query.$().chain(effect).render();
 	}
 
-	protected CharSequence getHandlerScript() {
+	protected CharSequence getHandlerScript()
+	{
 		return super.getCallbackScript();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getPreconditionScript()
 	 */
 	@Override
-	protected CharSequence getPreconditionScript() {
+	protected CharSequence getPreconditionScript()
+	{
 		return null;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public JsStatement statement() {
+	public JsStatement statement()
+	{
 		JsQuery query = new JsQuery(this.getComponent());
 		effect.setCallback(JsScope.quickScope(getHandlerScript()));
 		query.$().chain(effect).render();

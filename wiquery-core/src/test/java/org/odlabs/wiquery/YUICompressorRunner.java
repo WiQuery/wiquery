@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.odlabs.wiquery.core.commons.YUIJavaScriptCompressor;
+import org.odlabs.wiquery.core.compression.YUIJavaScriptCompressor;
 
 /**
  * @author Hielke Hoeve

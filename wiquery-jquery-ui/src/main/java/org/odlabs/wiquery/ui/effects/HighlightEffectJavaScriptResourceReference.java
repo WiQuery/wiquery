@@ -21,31 +21,39 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: HighlightEffectJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Highlight jQuery UI effect.
+ * References the JavaScript resource to import the Highlight jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class HighlightEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class HighlightEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -3395721774043602930L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static HighlightEffectJavaScriptResourceReference instance = new HighlightEffectJavaScriptResourceReference();;
-	
+	private static HighlightEffectJavaScriptResourceReference instance = new HighlightEffectJavaScriptResourceReference();
+
 	/**
 	 * Default constructor
 	 */
 	private HighlightEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.highlight.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.highlight.js");
 	}
 
 	/**
@@ -53,5 +61,13 @@ public class HighlightEffectJavaScriptResourceReference extends WiQueryJavaScrip
 	 */
 	public static HighlightEffectJavaScriptResourceReference get() {
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+		list.add(CoreEffectJavaScriptResourceReference.get());
+
+		return list.toArray(new AbstractResourceDependentResourceReference[0]);
 	}
 }

@@ -21,36 +21,53 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id: AutocompleteJavascriptResourceReference.java 457 2010-10-15 07:14:28Z hielke.hoeve@gmail.com $
+ * $Id: AutocompleteJavascriptResourceReference.java 457 2010-10-15 07:14:28Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Autocomplete component.
+ * References the JavaScript resource to get the Autocomplete component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
-public class WiQueryAutocompleteJavascriptResourceReference extends
+public class WiQueryAutocompleteJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static WiQueryAutocompleteJavascriptResourceReference instance = new WiQueryAutocompleteJavascriptResourceReference();;
+	private static WiQueryAutocompleteJavaScriptResourceReference instance = new WiQueryAutocompleteJavaScriptResourceReference();
 
 	/**
-	 * Builds a new instance of {@link WiQueryAutocompleteJavascriptResourceReference}.
+	 * Builds a new instance of
+	 * {@link WiQueryAutocompleteJavaScriptResourceReference}.
 	 */
-	private WiQueryAutocompleteJavascriptResourceReference() {
-		super(WiQueryAutocompleteJavascriptResourceReference.class, "wiquery-autocomplete.js");
+	private WiQueryAutocompleteJavaScriptResourceReference() {
+		super(WiQueryAutocompleteJavaScriptResourceReference.class,
+				"wiquery-autocomplete.js");
 	}
 
 	/**
-	 * Returns the {@link WiQueryAutocompleteJavascriptResourceReference} instance.
+	 * Returns the {@link WiQueryAutocompleteJavaScriptResourceReference}
+	 * instance.
 	 */
-	public static WiQueryAutocompleteJavascriptResourceReference get() {
+	public static WiQueryAutocompleteJavaScriptResourceReference get() {
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+		list.add(AutocompleteJavaScriptResourceReference.get());
+
+		return list.toArray(new AbstractResourceDependentResourceReference[0]);
 	}
 }

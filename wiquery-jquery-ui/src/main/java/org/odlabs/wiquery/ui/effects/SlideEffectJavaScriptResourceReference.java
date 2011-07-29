@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -39,7 +39,7 @@ public class SlideEffectJavaScriptResourceReference extends WiQueryJavaScriptRes
 	/**
 	 * Singleton instance.
 	 */
-	private static SlideEffectJavaScriptResourceReference instance = new SlideEffectJavaScriptResourceReference();;
+	private static SlideEffectJavaScriptResourceReference instance = new SlideEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor

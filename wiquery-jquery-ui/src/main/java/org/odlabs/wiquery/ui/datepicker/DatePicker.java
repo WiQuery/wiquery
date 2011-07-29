@@ -22,10 +22,10 @@
 package org.odlabs.wiquery.ui.datepicker;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -37,7 +37,7 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -138,13 +138,13 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
+	public void renderHead(IHeaderResponse response) {
+		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+			response.renderJavaScriptReference(DatePickerJavaScriptResourceReference.get());
 		
 		DatePickerLanguageResourceReference dpl = DatePickerLanguageResourceReference.get(getLocale());
 		if(dpl !=null)
-			wiQueryResourceManager.addJavaScriptResource(dpl);
+			response.renderJavaScriptReference(dpl);
 	}
 
 	/* (non-Javadoc)

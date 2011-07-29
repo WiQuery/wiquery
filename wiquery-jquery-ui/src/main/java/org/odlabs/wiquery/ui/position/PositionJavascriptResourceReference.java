@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.position;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -31,26 +31,26 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class PositionJavascriptResourceReference extends
+public class PositionJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
 	 * Singleton instance.
 	 */
-	private static PositionJavascriptResourceReference instance = new PositionJavascriptResourceReference();;
+	private static PositionJavaScriptResourceReference instance = new PositionJavaScriptResourceReference();
 
 	/**
-	 * Builds a new instance of {@link PositionJavascriptResourceReference}.
+	 * Builds a new instance of {@link PositionJavaScriptResourceReference}.
 	 */
-	private PositionJavascriptResourceReference() {
-		super(PositionJavascriptResourceReference.class, "jquery.ui.position.js");
+	private PositionJavaScriptResourceReference() {
+		super(PositionJavaScriptResourceReference.class, "jquery.ui.position.js");
 	}
 
 	/**
-	 * Returns the {@link PositionJavascriptResourceReference} instance.
+	 * Returns the {@link PositionJavaScriptResourceReference} instance.
 	 */
-	public static PositionJavascriptResourceReference get() {
+	public static PositionJavaScriptResourceReference get() {
 		return instance;
 	}
 }

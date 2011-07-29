@@ -23,7 +23,6 @@ package org.odlabs.wiquery.core.events;
 
 import org.apache.wicket.Component;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
@@ -36,14 +35,15 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class WiQueryEventBehavior extends WiQueryAbstractBehavior {
+public class WiQueryEventBehavior extends WiQueryAbstractBehavior
+{
 
 	private static final long serialVersionUID = -5984090566307323188L;
 
 	/**
 	 * The trigger event.
 	 */
-	private Event event;
+	private final Event event;
 
 	/**
 	 * Builds a new instance of {@link WiQueryEventBehavior}.
@@ -51,34 +51,32 @@ public class WiQueryEventBehavior extends WiQueryAbstractBehavior {
 	 * @param event
 	 *            the {@link Event} triggering the JavaScript statement.
 	 */
-	public WiQueryEventBehavior(Event event) {
+	public WiQueryEventBehavior(Event event)
+	{
 		super();
 		this.event = event;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
+	 * 
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#bind(org.apache.wicket.Component)
 	 */
 	@Override
-	public void bind(Component component) {
+	public void bind(Component component)
+	{
 		super.bind(component);
 		component.setOutputMarkupId(true);
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		// nothing to do
-	}
-
-	/**
-	 * {@inheritDoc}
+	 * 
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
-	public JsStatement statement() {
+	@Override
+	public JsStatement statement()
+	{
 		return new JsQuery(this.getComponent()).$().chain(event);
 	}
 

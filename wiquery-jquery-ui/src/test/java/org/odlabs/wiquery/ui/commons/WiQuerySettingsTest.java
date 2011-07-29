@@ -1,19 +1,20 @@
 package org.odlabs.wiquery.ui.commons;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.util.tester.Result;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
-import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
-import org.odlabs.wiquery.core.commons.WiQuerySettings;
+import org.odlabs.wiquery.core.WiQuerySettings;
 import org.odlabs.wiquery.core.events.Event;
 import org.odlabs.wiquery.core.events.WiQueryEventBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * Tests {@link WiQuerySettings}.
@@ -37,10 +38,9 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		 * @see org.odlabs.wiquery.core.events.WiQueryEventBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 		 */
 		@Override
-		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-			wiQueryResourceManager
-					.addJavaScriptResource(WidgetJavascriptResourceReference
-							.get());
+		public void renderHead(Component component, IHeaderResponse response) {
+			response.renderJavaScriptReference(WidgetJavaScriptResourceReference
+					.get());
 		}
 	}
 
@@ -77,7 +77,7 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		tester.assertContains(CoreJavaScriptResourceReference.class.getName());
 		tester.assertContains(WiQueryCoreThemeResourceReference.class.getName());
 		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
-		tester.assertContains(WidgetJavascriptResourceReference.class.getName());
+		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
 
 	}
 
@@ -90,13 +90,14 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 				CoreJavaScriptResourceReference.class.getName());
 		tester.assertContains(WiQueryCoreThemeResourceReference.class.getName());
 		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
-		tester.assertContains(WidgetJavascriptResourceReference.class.getName());
+		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
 
 	}
 
 	@Test
 	public void testWiquerySettingsUILibraryDisabled() {
-		WiQuerySettings.get().setAutoImportJQueryUIResource(false);
+		WiQuerySettings.get().setAutoImportJQueryUIStyleSheetResource(false);
+		WiQuerySettings.get().setAutoImportJQueryUIJavaScriptResource(false);
 		startTestPage();
 		tester.assertContains(CoreJavaScriptResourceReference.class.getName());
 		assertNotContains(
@@ -105,7 +106,7 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		assertNotContains(
 				"UI library is disabled. Resource reference shouldn't be rendered",
 				CoreUIJavaScriptResourceReference.class.getName());
-		tester.assertContains(WidgetJavascriptResourceReference.class.getName());
+		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
 
 	}
 
@@ -124,7 +125,7 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 				CoreUIJavaScriptResourceReference.class.getName());
 		assertNotContains(
 				"Resource Management is disabled. Reference shouldn't be rendered",
-				WidgetJavascriptResourceReference.class.getName());
+				WidgetJavaScriptResourceReference.class.getName());
 
 	}
 

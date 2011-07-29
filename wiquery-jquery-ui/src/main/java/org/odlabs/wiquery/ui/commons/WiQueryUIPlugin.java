@@ -27,7 +27,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 
 /**
  * $Id$

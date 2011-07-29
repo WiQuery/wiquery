@@ -28,15 +28,15 @@ import java.util.Set;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.Request;
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.AxisEnum;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.SnapModeEnum;
@@ -115,10 +115,10 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 		 * @see org.odlabs.wiquery.ui.draggable.DraggableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 		 */
 		@Override
-		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-			super.contribute(wiQueryResourceManager);
-			wiQueryResourceManager.addJavaScriptResource(wiQueryDraggableJs);
-			DraggableAjaxBehavior.this.contribute(wiQueryResourceManager);
+		public void renderHead(Component component, IHeaderResponse response) {
+			super.renderHead(component, response);
+			response.renderJavaScriptReference(wiQueryDraggableJs);
+			DraggableAjaxBehavior.this.renderHead(component, response);
 		}
 
 		/**
@@ -364,15 +364,6 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.ui.draggable.DraggableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 * Override this method to add additionnal resources
-	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		// To override
-	}
-
-	/**
 	 * @return the standard draggable JavaScript behavior
 	 */
 	public DraggableBehavior getDraggableBehavior() {
@@ -501,7 +492,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior 
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
 	 */
 	protected JsStatement statement() {
 		return draggableBehavior.statement();

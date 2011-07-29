@@ -23,8 +23,8 @@ package org.odlabs.wiquery.ui.sortable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
@@ -33,9 +33,9 @@ import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.sortable.SortableHelper.HelperEnum;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -165,11 +165,10 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
-		wiQueryResourceManager
-				.addJavaScriptResource(SortableJavaScriptResourceReference.get());
+	public void renderHead(Component component, IHeaderResponse response) {
+		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+			response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
+				response.renderJavaScriptReference(SortableJavaScriptResourceReference.get());
 	}
 	
 	/**

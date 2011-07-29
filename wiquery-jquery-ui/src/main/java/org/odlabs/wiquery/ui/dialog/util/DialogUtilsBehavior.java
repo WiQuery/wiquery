@@ -23,23 +23,24 @@ package org.odlabs.wiquery.ui.dialog.util;
 
 import java.util.Locale;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.Session;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.SharedResourceReference;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
-import org.odlabs.wiquery.ui.button.ButtonJavascriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.button.ButtonJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.dialog.Dialog;
 import org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
-import org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id: DialogResourcesBehavior.java
@@ -281,19 +282,17 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		super.contribute(wiQueryResourceManager);
+	public void renderHead(Component component, IHeaderResponse response) {
+		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(PositionJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(DialogJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(DraggableJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(ResizableJavaScriptResourceReference.get());
 		
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
-		
-		wiQueryResourceManager.addJavaScriptResource(WIQUERY_DIALOG_JS);
-		wiQueryResourceManager.addJavaScriptResource(
+		response.renderJavaScriptReference(WIQUERY_DIALOG_JS);
+		response.renderJavaScriptReference(
 				DialogUtilsLanguages.getDialogUtilsResource(
 						DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())));
 	}

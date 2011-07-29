@@ -221,7 +221,7 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
 	 */
 	protected JsStatement statement() {
 		return selectableBehavior.statement();

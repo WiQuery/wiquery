@@ -22,46 +22,39 @@
 package org.odlabs.wiquery.core.behavior;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
  * $Id$
- * 
  * <p>
  * Link between {@link IWiQueryPlugin} and {@link AbstractDefaultAjaxBehavior}
  * </p>
  * 
  * @author Julien Roche
  * @since 1.1
- * 
  */
-public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBehavior implements IWiQueryPlugin {
+public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBehavior implements IWiQueryPlugin
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 6498661892490365888L;
 
 	/**
 	 * {@inheritDoc}
+	 * 
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
 	 */
 	@Override
-	protected void onBind() {
+	protected void onBind()
+	{
 		super.onBind();
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 * 
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
 	 */
 	public abstract JsStatement statement();
 }

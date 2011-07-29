@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -39,7 +39,7 @@ public class ShakeEffectJavaScriptResourceReference extends WiQueryJavaScriptRes
 	/**
 	 * Singleton instance.
 	 */
-	private static ShakeEffectJavaScriptResourceReference instance = new ShakeEffectJavaScriptResourceReference();;
+	private static ShakeEffectJavaScriptResourceReference instance = new ShakeEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor

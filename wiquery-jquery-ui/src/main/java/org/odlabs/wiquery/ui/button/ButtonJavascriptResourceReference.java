@@ -21,36 +21,53 @@
  */
 package org.odlabs.wiquery.ui.button;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ButtonJavascriptResourceReference.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Button component.
+ * References the JavaScript resource to get the Button component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
-public class ButtonJavascriptResourceReference extends
+public class ButtonJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ButtonJavascriptResourceReference instance = new ButtonJavascriptResourceReference();;
+	private static ButtonJavaScriptResourceReference instance = new ButtonJavaScriptResourceReference();
 
 	/**
-	 * Builds a new instance of {@link ButtonJavascriptResourceReference}.
+	 * Builds a new instance of {@link ButtonJavaScriptResourceReference}.
 	 */
-	private ButtonJavascriptResourceReference() {
-		super(ButtonJavascriptResourceReference.class, "jquery.ui.button.js");
+	private ButtonJavaScriptResourceReference() {
+		super(ButtonJavaScriptResourceReference.class, "jquery.ui.button.js");
 	}
 
 	/**
-	 * Returns the {@link ButtonJavascriptResourceReference} instance.
+	 * Returns the {@link ButtonJavaScriptResourceReference} instance.
 	 */
-	public static ButtonJavascriptResourceReference get() {
+	public static ButtonJavaScriptResourceReference get() {
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+		list.add(CoreUIJavaScriptResourceReference.get());
+		list.add(WidgetJavaScriptResourceReference.get());
+
+		return list.toArray(new AbstractResourceDependentResourceReference[0]);
 	}
 }

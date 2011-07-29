@@ -21,31 +21,39 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: BlindEffectJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Blind jQuery UI effect.
+ * References the JavaScript resource to import the Blind jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class BlindEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class BlindEffectJavaScriptResourceReference extends
+		WiQueryJavaScriptResourceReference {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 2433859014719481769L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static BlindEffectJavaScriptResourceReference instance = new BlindEffectJavaScriptResourceReference();;
+	private static BlindEffectJavaScriptResourceReference instance = new BlindEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor
 	 */
 	private BlindEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.blind.js");
+		super(CoreEffectJavaScriptResourceReference.class,
+				"jquery.effects.blind.js");
 	}
 
 	/**
@@ -53,5 +61,13 @@ public class BlindEffectJavaScriptResourceReference extends WiQueryJavaScriptRes
 	 */
 	public static BlindEffectJavaScriptResourceReference get() {
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+		list.add(CoreEffectJavaScriptResourceReference.get());
+
+		return list.toArray(new AbstractResourceDependentResourceReference[0]);
 	}
 }

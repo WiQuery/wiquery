@@ -21,36 +21,51 @@
  */
 package org.odlabs.wiquery.ui.mouse;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
+import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: MouseJavascriptResourceReference.java 869 2011-05-04 12:26:32Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the mouse utilities.
+ * References the JavaScript resource to get the mouse utilities.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
-public class MouseJavascriptResourceReference extends
+public class MouseJavaScriptResourceReference extends
 		WiQueryJavaScriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static MouseJavascriptResourceReference instance = new MouseJavascriptResourceReference();;
+	private static MouseJavaScriptResourceReference instance = new MouseJavaScriptResourceReference();
 
 	/**
-	 * Builds a new instance of {@link MouseJavascriptResourceReference}.
+	 * Builds a new instance of {@link MouseJavaScriptResourceReference}.
 	 */
-	private MouseJavascriptResourceReference() {
-		super(MouseJavascriptResourceReference.class, "jquery.ui.mouse.js");
+	private MouseJavaScriptResourceReference() {
+		super(MouseJavaScriptResourceReference.class, "jquery.ui.mouse.js");
 	}
 
 	/**
-	 * Returns the {@link MouseJavascriptResourceReference} instance.
+	 * Returns the {@link MouseJavaScriptResourceReference} instance.
 	 */
-	public static MouseJavascriptResourceReference get() {
+	public static MouseJavaScriptResourceReference get() {
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+		list.add(WidgetJavaScriptResourceReference.get());
+
+		return list.toArray(new AbstractResourceDependentResourceReference[0]);
 	}
 }

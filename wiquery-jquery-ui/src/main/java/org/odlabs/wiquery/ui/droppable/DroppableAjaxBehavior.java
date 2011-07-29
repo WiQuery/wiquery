@@ -24,7 +24,7 @@ package org.odlabs.wiquery.ui.droppable;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
@@ -82,9 +82,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 		 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 		 */
 		@Override
-		public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-			super.contribute(wiQueryResourceManager);
-			DroppableAjaxBehavior.this.contribute(wiQueryResourceManager);
+		public void renderHead(Component component, IHeaderResponse response) {
+			super.renderHead(component, response);
+			DroppableAjaxBehavior.this.renderHead(component, response);
 		}
 
 		/**
@@ -159,15 +159,6 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.ui.droppable.DroppableBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 * Override this method for additional resources
-	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		// To override
-	}
-
-	/**
 	 * 	We override super method to add droppedId parameter to the URL. Otherwise we use standard 
 	 *  AbstractDefaultAjaxBehavior machinery to generate script: what way all the logic 
 	 *  regarding IAjaxCallDecorator or indicatorId will be added to the generated script. 
@@ -235,7 +226,7 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends Abstrac
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
 	 */
 	protected JsStatement statement() {
 		return droppableBehavior.statement();

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.form.Check;
 import org.apache.wicket.markup.html.form.CheckGroup;
 import org.apache.wicket.markup.html.form.SimpleFormComponentLabel;
@@ -35,12 +36,11 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.CollectionModel;
-import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
-import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -93,7 +93,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 			protected void onSelectionChanged(final Collection<? extends T> newSelection) {
 				ButtonCheckSet.this.onSelectionChanged(newSelection);
 			}
-		};;
+		};
 		checkGroup.setOutputMarkupId(true);
 		checkGroup.setRenderBodyOnly(false);
 		add(checkGroup);
@@ -144,11 +144,11 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
+	public void renderHead(IHeaderResponse response) {
+		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
 	}
 
 	/**
@@ -187,7 +187,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
 	 */
 	public JsStatement statement() {
 		return new JsQuery(checkGroup).$().chain("buttonset");
