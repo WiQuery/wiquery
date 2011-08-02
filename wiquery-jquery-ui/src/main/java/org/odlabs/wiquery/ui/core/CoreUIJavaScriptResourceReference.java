@@ -21,13 +21,10 @@
  */
 package org.odlabs.wiquery.ui.core;
 
-import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
-import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id: CoreUIJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
- * lionel.armanet $
+ * $Id$
  * <p>
  * References the core jQuery UI library.
  * </p>
@@ -35,29 +32,24 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class CoreUIJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class CoreUIJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 
 	private static final long serialVersionUID = 4585057795574929263L;
 
-	private static CoreUIJavaScriptResourceReference instance = new CoreUIJavaScriptResourceReference();
+	private static CoreUIJavaScriptResourceReference instance =
+		new CoreUIJavaScriptResourceReference();
 
-	public static CoreUIJavaScriptResourceReference get() {
+	public static CoreUIJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	/**
 	 * Builds a new instance of {@link CoreUIJavaScriptResourceReference}.
 	 */
-	private CoreUIJavaScriptResourceReference() {
+	private CoreUIJavaScriptResourceReference()
+	{
 		super(CoreUIJavaScriptResourceReference.class, "jquery.ui.core.js");
-	}
-
-	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
-		AbstractResourceDependentResourceReference[] list = new AbstractResourceDependentResourceReference[1];
-		list[0] = CoreJavaScriptResourceReference.get();
-
-		return list;
 	}
 }

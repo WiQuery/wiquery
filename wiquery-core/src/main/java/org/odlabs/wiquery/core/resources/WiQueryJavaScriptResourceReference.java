@@ -12,18 +12,15 @@ import org.odlabs.wiquery.core.WiQuerySettings;
 
 /**
  * <p>
- * {@link ResourceReference} which checks the {@link WiQuerySettings} if the
- * resources needs to fetch the normal (non-minimized) version or the minimized
- * version.
+ * {@link ResourceReference} which checks the {@link WiQuerySettings} if the resources
+ * needs to fetch the normal (non-minimized) version or the minimized version.
  * </p>
  * <p>
- * Note that this ResourceReference only loads files and does not minify on the
- * fly.
+ * Note that this ResourceReference only loads files and does not minify on the fly.
  * </p>
  * <p>
- * Always provide the normal (non-minimized) version, wiquery will reference to
- * the minimized version when {@link WiQuerySettings#isCompressedJavascript()}
- * is true.
+ * Always provide the normal (non-minimized) version, wiquery will reference to the
+ * minimized version when {@link WiQuerySettings#isMinifiedJavaScriptResources()} is true.
  * </p>
  * <p>
  * The filename format for the 2 versions is:
@@ -35,53 +32,59 @@ import org.odlabs.wiquery.core.WiQuerySettings;
  * 
  * @author Hielke Hoeve
  */
-public class WiQueryJavaScriptResourceReference extends
-		AbstractResourceDependentResourceReference {
+public class WiQueryJavaScriptResourceReference extends AbstractResourceDependentResourceReference
+{
 	private static final long serialVersionUID = 1L;
 
 	private Boolean minified = null;
 
-	public WiQueryJavaScriptResourceReference(Class<?> scope, String name) {
+	public WiQueryJavaScriptResourceReference(Class< ? > scope, String name)
+	{
 		super(scope, name, null, null, null);
 	}
 
-	private boolean exists(Class<?> scope, String name) {
-		IResourceStreamLocator locator = Application.get()
-				.getResourceSettings().getResourceStreamLocator();
+	private boolean exists(Class< ? > scope, String name)
+	{
+		IResourceStreamLocator locator =
+			Application.get().getResourceSettings().getResourceStreamLocator();
 		String absolutePath = Packages.absolutePath(scope, name);
-		IResourceStream stream = locator.locate(scope, absolutePath,
-				getStyle(), getVariation(), getLocale(), null, true);
+		IResourceStream stream =
+			locator
+				.locate(scope, absolutePath, getStyle(), getVariation(), getLocale(), null, true);
 		return stream != null;
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		String name = super.getName();
 		String minifiedName = name.substring(0, name.length() - 2) + "min.js";
 		if (minified == null)
-			minified = isMinifiedJavaScriptResources()
-					&& exists(getScope(), minifiedName);
+			minified = isMinifiedJavaScriptResources() && exists(getScope(), minifiedName);
 		if (minified)
 			return minifiedName;
 		return name;
 	}
 
-	public static boolean isMinifiedJavaScriptResources() {
+	public static boolean isMinifiedJavaScriptResources()
+	{
 		return WiQuerySettings.get().isMinifiedJavaScriptResources();
 	}
 
 	/**
-	 * @return default an empty list as all subclasses must implement this to
-	 *         fit their own needs.
+	 * @return default an empty list as all subclasses must implement this to fit their
+	 *         own needs.
 	 */
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
 		return new AbstractResourceDependentResourceReference[0];
 	}
 
 	@Override
-	public IResource getResource() {
-		return new JavaScriptPackageResource(getScope(), getName(),
-				getLocale(), getStyle(), getVariation());
+	public IResource getResource()
+	{
+		return new JavaScriptPackageResource(getScope(), getName(), getLocale(), getStyle(),
+			getVariation());
 	}
 }

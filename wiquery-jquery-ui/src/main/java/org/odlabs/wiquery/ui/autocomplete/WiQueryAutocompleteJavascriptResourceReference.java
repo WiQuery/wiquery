@@ -38,34 +38,37 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @since 1.1
  */
 public class WiQueryAutocompleteJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static WiQueryAutocompleteJavaScriptResourceReference instance = new WiQueryAutocompleteJavaScriptResourceReference();
+	private static WiQueryAutocompleteJavaScriptResourceReference instance =
+		new WiQueryAutocompleteJavaScriptResourceReference();
 
 	/**
-	 * Builds a new instance of
-	 * {@link WiQueryAutocompleteJavaScriptResourceReference}.
+	 * Builds a new instance of {@link WiQueryAutocompleteJavaScriptResourceReference}.
 	 */
-	private WiQueryAutocompleteJavaScriptResourceReference() {
-		super(WiQueryAutocompleteJavaScriptResourceReference.class,
-				"wiquery-autocomplete.js");
+	private WiQueryAutocompleteJavaScriptResourceReference()
+	{
+		super(WiQueryAutocompleteJavaScriptResourceReference.class, "wiquery-autocomplete.js");
 	}
 
 	/**
-	 * Returns the {@link WiQueryAutocompleteJavaScriptResourceReference}
-	 * instance.
+	 * Returns the {@link WiQueryAutocompleteJavaScriptResourceReference} instance.
 	 */
-	public static WiQueryAutocompleteJavaScriptResourceReference get() {
+	public static WiQueryAutocompleteJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
-		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		List<AbstractResourceDependentResourceReference> list =
+			new ArrayList<AbstractResourceDependentResourceReference>();
 		list.add(AutocompleteJavaScriptResourceReference.get());
 
 		return list.toArray(new AbstractResourceDependentResourceReference[0]);

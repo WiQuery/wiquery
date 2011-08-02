@@ -24,43 +24,39 @@ package org.odlabs.wiquery.core;
 import java.io.Serializable;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.request.resource.ResourceReference;
 import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 
 /**
- * $Id: JQueryCoreRenderingListener.java 1050 2011-06-22 11:18:55Z
- * hielke.hoeve@gmail.com $
+ * $Id: JQueryCoreRenderingListener.java 1050 2011-06-22 11:18:55Z hielke.hoeve@gmail.com
+ * $
  * <p>
- * Implementation of the WiQueryPluginRenderingListener to render the jQuery
- * base library, needed for any {@link IWiQueryPlugin} to work.
+ * Implementation of the WiQueryPluginRenderingListener to render the jQuery base library,
+ * needed for any {@link IWiQueryPlugin} to work.
  * </p>
  * 
  * @author lionel
  * @since 1.0
  */
-public class JQueryCoreRenderingListener implements
-		WiQueryPluginRenderingListener, Serializable {
+public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListener, Serializable
+{
 	private static final long serialVersionUID = 3644333357586234429L;
 
 	private static JQueryCoreRenderingListener INSTANCE = new JQueryCoreRenderingListener();
 
-	private JQueryCoreRenderingListener() {
+	private JQueryCoreRenderingListener()
+	{
 	}
 
-	public static JQueryCoreRenderingListener getInstance() {
+	public static JQueryCoreRenderingListener getInstance()
+	{
 		return INSTANCE;
 	}
 
 	/**
 	 * Renders needed resources for any jQuery code (e.g. core libraries).
 	 */
-	public void onRender(IWiQueryPlugin plugin, IHeaderResponse response) {
-		WiQuerySettings settings = WiQuerySettings.get();
-
-		if (settings.isAutoImportJQueryResource()) {
-			ResourceReference ref = settings.getJQueryCoreResourceReference();
-			response.renderJavaScriptReference(ref == null ? CoreJavaScriptResourceReference
-					.get() : ref);
-		}
+	public void onRender(IWiQueryPlugin plugin, IHeaderResponse response)
+	{
+		response.renderJavaScriptReference(CoreJavaScriptResourceReference.get());
 	}
 }

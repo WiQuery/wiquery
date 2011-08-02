@@ -22,29 +22,27 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Arthur Hupka
  * @since 01.10.2010
  */
-public class WiQuerySettingsTest extends WiQueryTestCase {
-
+public class WiQuerySettingsTest extends WiQueryTestCase
+{
 	@WiQueryUIPlugin
-	private final class TestEventBehavior extends WiQueryEventBehavior {
+	private final class TestEventBehavior extends WiQueryEventBehavior
+	{
 		private static final long serialVersionUID = 1L;
 
-		private TestEventBehavior(Event event) {
+		private TestEventBehavior(Event event)
+		{
 			super(event);
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.core.events.WiQueryEventBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-		 */
 		@Override
-		public void renderHead(Component component, IHeaderResponse response) {
-			response.renderJavaScriptReference(WidgetJavaScriptResourceReference
-					.get());
+		public void renderHead(Component component, IHeaderResponse response)
+		{
+			response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
 		}
 	}
 
-	private final class TestEvent extends Event {
+	private final class TestEvent extends Event
+	{
 		private static final long serialVersionUID = 1L;
 
 		/**
@@ -53,9 +51,11 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 		 * @see org.odlabs.wiquery.core.events.Event#callback()
 		 */
 		@Override
-		public JsScope callback() {
+		public JsScope callback()
+		{
 
-			return new JsScope() {
+			return new JsScope()
+			{
 				private static final long serialVersionUID = 1L;
 
 				/**
@@ -64,14 +64,16 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 				 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
 				 */
 				@Override
-				protected void execute(JsScopeContext scopeContext) {
+				protected void execute(JsScopeContext scopeContext)
+				{
 				}
 			};
 		}
 	}
 
 	@Test
-	public void testWiquerySettingsDefault() {
+	public void testWiquerySettingsDefault()
+	{
 		startTestPage();
 		tester.dumpPage();
 		tester.assertContains(CoreJavaScriptResourceReference.class.getName());
@@ -82,12 +84,12 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testWiquerySettingsCoreLibraryDisabled() {
+	public void testWiquerySettingsCoreLibraryDisabled()
+	{
 		WiQuerySettings.get().setAutoImportJQueryResource(false);
 		startTestPage();
-		assertNotContains(
-				"Core library is disabled. Resource reference shouldn't be rendered",
-				CoreJavaScriptResourceReference.class.getName());
+		assertNotContains("Core library is disabled. Resource reference shouldn't be rendered",
+			CoreJavaScriptResourceReference.class.getName());
 		tester.assertContains(WiQueryCoreThemeResourceReference.class.getName());
 		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
 		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
@@ -95,53 +97,50 @@ public class WiQuerySettingsTest extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testWiquerySettingsUILibraryDisabled() {
+	public void testWiquerySettingsUILibraryDisabled()
+	{
 		WiQuerySettings.get().setAutoImportJQueryUIStyleSheetResource(false);
 		WiQuerySettings.get().setAutoImportJQueryUIJavaScriptResource(false);
 		startTestPage();
 		tester.assertContains(CoreJavaScriptResourceReference.class.getName());
-		assertNotContains(
-				"UI library is disabled. Resource reference shouldn't be rendered",
-				WiQueryCoreThemeResourceReference.class.getName());
-		assertNotContains(
-				"UI library is disabled. Resource reference shouldn't be rendered",
-				CoreUIJavaScriptResourceReference.class.getName());
+		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
+			WiQueryCoreThemeResourceReference.class.getName());
+		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
+			CoreUIJavaScriptResourceReference.class.getName());
 		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
 
 	}
 
 	@Test
-	public void testWiqueryResourceManagementDisabled() {
+	public void testWiqueryResourceManagementDisabled()
+	{
 		WiQuerySettings.get().setEnableWiqueryResourceManagement(false);
 		startTestPage();
-		assertNotContains(
-				"Resource Management is disabled. Reference shouldn't be rendered",
-				CoreJavaScriptResourceReference.class.getName());
-		assertNotContains(
-				"Resource Management is disabled. Reference shouldn't be rendered",
-				WiQueryCoreThemeResourceReference.class.getName());
-		assertNotContains(
-				"Resource Management is disabled. Reference shouldn't be rendered",
-				CoreUIJavaScriptResourceReference.class.getName());
-		assertNotContains(
-				"Resource Management is disabled. Reference shouldn't be rendered",
-				WidgetJavaScriptResourceReference.class.getName());
+		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
+			CoreJavaScriptResourceReference.class.getName());
+		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
+			WiQueryCoreThemeResourceReference.class.getName());
+		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
+			CoreUIJavaScriptResourceReference.class.getName());
+		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
+			WidgetJavaScriptResourceReference.class.getName());
 
 	}
 
-	private void startTestPage() {
+	private void startTestPage()
+	{
 		WiQuerySettingsTestPage p = new WiQuerySettingsTestPage();
 		p.add(new TestEventBehavior(new TestEvent()));
 		tester.startPage(p);
 	}
 
-	public void assertNotContains(String message, String string) {
+	public void assertNotContains(String message, String string)
+	{
 		Result r = tester.ifContains("^((?!" + string + ").)*$");
-		if (r.wasFailed()) {
+		if (r.wasFailed())
+		{
 			throw new ComparisonFailure("String [" + string
-					+ "] found in page, but shouldn't be there:  " + message,
-					string, "@page");
+				+ "] found in page, but shouldn't be there:  " + message, string, "@page");
 		}
 	}
-
 }

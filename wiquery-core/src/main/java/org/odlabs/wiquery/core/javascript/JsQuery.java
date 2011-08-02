@@ -29,8 +29,6 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.IRequestHandler;
-import org.apache.wicket.request.resource.ResourceReference;
-import org.odlabs.wiquery.core.WiQuerySettings;
 import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiqueryGeneratedJavaScriptResource;
 import org.odlabs.wiquery.core.util.WiQueryUtil;
@@ -38,12 +36,12 @@ import org.odlabs.wiquery.core.util.WiQueryUtil;
 /**
  * $Id$
  * <p>
- * {@link JsQuery} is the main entry point of WickeXt's JavaScript integration.
- * This class is used to link JavaScript to a component and to render it.
+ * {@link JsQuery} is the main entry point of WickeXt's JavaScript integration. This class
+ * is used to link JavaScript to a component and to render it.
  * </p>
  * <p>
- * This class implements the {@link IHeaderContributor} interface, so if you
- * want to append the generated JavaScript, just do this:
+ * This class implements the {@link IHeaderContributor} interface, so if you want to
+ * append the generated JavaScript, just do this:
  * 
  * <pre>
  *  	<code>
@@ -51,7 +49,7 @@ import org.odlabs.wiquery.core.util.WiQueryUtil;
  * jsq.$().chain(&quot;css&quot;, &quot;border&quot;, &quot;1px solid red&quot;);
  * myComponent.add(new HeaderContributor(jsq));
  * </code>
- *  </pre>
+ * </pre>
  * 
  * </p>
  * <p>
@@ -64,7 +62,8 @@ import org.odlabs.wiquery.core.util.WiQueryUtil;
  * @author Lionel Armanet
  * @since 0.7
  */
-public class JsQuery extends Behavior implements Serializable {
+public class JsQuery extends Behavior implements Serializable
+{
 
 	private static final long serialVersionUID = -5351600688981395614L;
 
@@ -81,7 +80,8 @@ public class JsQuery extends Behavior implements Serializable {
 	/**
 	 * Creates a new {@link JsQuery} linked to a {@link Component}.
 	 */
-	public JsQuery(Component component) {
+	public JsQuery(Component component)
+	{
 		super();
 		this.component = component;
 		this.component.setOutputMarkupId(true);
@@ -90,22 +90,22 @@ public class JsQuery extends Behavior implements Serializable {
 	/**
 	 * Creates a new {@link JsQuery}.
 	 */
-	public JsQuery() {
+	public JsQuery()
+	{
 
 	}
 
 	/**
-	 * @return a new {@link JsStatement} initialized with the <code>$</code>
-	 *         statement.
+	 * @return a new {@link JsStatement} initialized with the <code>$</code> statement.
 	 */
-	public JsStatement $() {
+	public JsStatement $()
+	{
 		return statement = new JsStatement().$(component);
 	}
 
 	/**
-	 * Same as {@link #$()} but with a specified CSS selector. If this
-	 * {@link JsQuery} is linked to a component, the resulting JavaScript code
-	 * will be
+	 * Same as {@link #$()} but with a specified CSS selector. If this {@link JsQuery} is
+	 * linked to a component, the resulting JavaScript code will be
 	 * <p>
 	 * <code>$("#yourComponentId cssSelector")</code>
 	 * </p>
@@ -113,48 +113,49 @@ public class JsQuery extends Behavior implements Serializable {
 	 * @param selector
 	 * @return
 	 */
-	public JsStatement $(String selector) {
+	public JsStatement $(String selector)
+	{
 		return statement = new JsStatement().$(component, selector);
 	}
 
 	/**
-	 * @return a new {@link JsStatement} initialized with the
-	 *         <code>document</code> statement.
+	 * @return a new {@link JsStatement} initialized with the <code>document</code>
+	 *         statement.
 	 */
-	public JsStatement document() {
+	public JsStatement document()
+	{
 		return statement = new JsStatement().document();
 	}
 
-	public void renderHead(Component component, IHeaderResponse response) {
-		WiQuerySettings settings = WiQuerySettings.get();
-		
-		if(settings.isAutoImportJQueryResource()){
-			ResourceReference ref = settings.getJQueryCoreResourceReference();
-			response.renderJavaScriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);	
-		}
-		
-		if (!WiQueryUtil.isCurrentRequestAjax()) {
+	@Override
+	public void renderHead(Component component, IHeaderResponse response)
+	{
+		response.renderJavaScriptReference(CoreJavaScriptResourceReference.get());
+
+		if (!WiQueryUtil.isCurrentRequestAjax())
+		{
 			// appending component statement
 			// on dom ready, the code is executed.
 			JsStatement onreadyStatement = new JsStatement();
-			onreadyStatement.document().ready(
-					JsScope.quickScope(JsQuery.this.statement.render()));
-			
+			onreadyStatement.document().ready(JsScope.quickScope(JsQuery.this.statement.render()));
+
 			StringBuilder responseString = new StringBuilder();
 			responseString.append("<script type=\"text/javascript\">")
-					.append(onreadyStatement.render()).append("</script>");
+				.append(onreadyStatement.render()).append("</script>");
 
 			response.renderString(responseString.toString());
-		} else {
+		}
+		else
+		{
 			addAjaxJavascript(AjaxRequestTarget.get(), statement.render().toString());
 		}
 	}
 
 	/**
-	 * Adds this statement as a {@link HeaderContributor} for the given
-	 * component.
+	 * Adds this statement as a {@link HeaderContributor} for the given component.
 	 */
-	public void contribute(Component component) {
+	public void contribute(Component component)
+	{
 		this.component = component;
 		component.add(this);
 	}
@@ -162,61 +163,53 @@ public class JsQuery extends Behavior implements Serializable {
 	/**
 	 * @return the statement
 	 */
-	public JsStatement getStatement() {
+	public JsStatement getStatement()
+	{
 		return statement;
 	}
 
 	/**
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
-	public void setStatement(JsStatement jsStatement) {
+	public void setStatement(JsStatement jsStatement)
+	{
 		this.statement = jsStatement;
 	}
 
 	/**
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
-	public void renderHead(IHeaderResponse response,
-			IRequestHandler requestHandler) {
-		WiQuerySettings settings = WiQuerySettings.get();
+	public void renderHead(IHeaderResponse response, IRequestHandler requestHandler)
+	{
 		final String js = statement == null ? null : statement.render().toString();
-		
-		if (js != null && js.trim().length() > 0) {
-			if (settings.isEmbedGeneratedStatements()) {
-                if (settings.isAutoImportJQueryResource()) {
-                	ResourceReference ref = settings.getJQueryCoreResourceReference();
-                    response.renderJavaScriptReference(ref == null ? CoreJavaScriptResourceReference.get() : ref);
-                }
 
-                if (!WiQueryUtil.isCurrentRequestAjax()) {
-                    // appending component statement
-                    // on dom ready, the code is executed.
-                    JsStatement onreadyStatement = new JsStatement();
-                    onreadyStatement.document().ready(JsScope.quickScope(js));
-                    response.renderJavaScript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen" + System.currentTimeMillis());
-
-                } else {
-                	addAjaxJavascript(requestHandler, js);
-                }
-
-            } else if (!WiQueryUtil.isCurrentRequestAjax()) {
+		if (js != null && js.trim().length() > 0)
+		{
+			if (!WiQueryUtil.isCurrentRequestAjax())
+			{
 				// appending component statement
 				// on dom ready, the code is executed.
 				JsStatement onreadyStatement = new JsStatement();
 				onreadyStatement.document().ready(JsScope.quickScope(js));
-            	response.renderJavaScript(WiqueryGeneratedJavaScriptResource.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen-"+System.currentTimeMillis());
+				response.renderJavaScript(WiqueryGeneratedJavaScriptResource
+					.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen-"
+					+ System.currentTimeMillis());
 
-			} else {
+			}
+			else
+			{
 				addAjaxJavascript(requestHandler, js);
 			}
 		}
 	}
-	
+
 	/**
 	 * Private method to add javascript into the ajax request pool
+	 * 
 	 * @param js
 	 */
-	private void addAjaxJavascript(IRequestHandler requestHandler, final String js){
+	private void addAjaxJavascript(IRequestHandler requestHandler, final String js)
+	{
 		AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestHandler;
 		ajaxRequestTarget.getHeaderResponse().renderOnDomReadyJavaScript(js);
 	}
