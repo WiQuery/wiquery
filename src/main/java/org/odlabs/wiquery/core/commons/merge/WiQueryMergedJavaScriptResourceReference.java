@@ -21,14 +21,17 @@
  */
 package org.odlabs.wiquery.core.commons.merge;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.IClusterable;
 import org.apache.wicket.Resource;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.javascript.IJavascriptCompressor;
+import org.apache.wicket.markup.html.CompressedPackageResource;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.apache.wicket.util.io.Streams;
 import org.apache.wicket.util.lang.Packages;
@@ -118,14 +121,14 @@ public class WiQueryMergedJavaScriptResourceReference extends
 					
 					// We insert the javascript code into the template
 					try {
-						IResourceStream resource =
-							Application.get().getResourceSettings().getResourceStreamLocator().locate(
-							getClass(),
-								"/" + Packages.absolutePath(
-										ref.getScope(),	"") 
-										+ "/" + ref.getName());
-						if(resource!=null)						
-							temp = Streams.readString(resource.getInputStream());
+						InputStream resourceStream = ref.getResource().getResourceStream().getInputStream();
+						// hum, not good to uncompress, but how to achieve this since the CompressingResourceStream is protected ?
+						if (ref.getResource() instanceof CompressedPackageResource) {
+							resourceStream = new GZIPInputStream(resourceStream);
+						}
+							
+						temp = Streams.readString(resourceStream, Application.get().getMarkupSettings().getDefaultMarkupEncoding());
+
 					} catch (Exception e) {
 						temp = null;
 						e.printStackTrace();
