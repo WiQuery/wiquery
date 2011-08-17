@@ -21,10 +21,13 @@
  */
 package org.odlabs.wiquery.core.commons.merge;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,12 +36,13 @@ import org.apache.wicket.IClusterable;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.Resource;
 import org.apache.wicket.ResourceReference;
+import org.apache.wicket.markup.html.CompressedPackageResource;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.util.io.Streams;
-import org.apache.wicket.util.lang.Packages;
 import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.util.resource.StringResourceStream;
+import org.apache.wicket.util.string.UrlUtils;
 import org.apache.wicket.util.template.PackagedTextTemplate;
 import org.apache.wicket.util.time.Time;
 import org.slf4j.Logger;
@@ -77,25 +81,28 @@ CompressedResourceReference implements IClusterable {
 	 * Convert local URL for the merging stylesheet( the url will be broken, so
 	 * we have to rewrite it !!)
 	 * @param url
-	 * @param baseUrl
+	 * @param baseReference the reference to the parent CSS file (containing the url("...") stuff)
 	 * @return
 	 */
-	protected static String getCssUrl(String url, String baseUrl) {
+	protected static String getCssUrl(String url, ResourceReference baseReference) {
 		String cleaned = url.replace(" ", "").replace("'", "").replace("\"", "");
 		cleaned = cleaned.substring(4); // remove '('
 		cleaned = cleaned.substring(0, cleaned.length() - 1); // remove ')'
 		
-		if(cleaned.startsWith("http:") 
-				|| cleaned.startsWith("https:")
-				|| cleaned.startsWith("ftp:")
-				|| cleaned.startsWith("file:")){
-			return "url(\"" + cleaned + "\")"; // Quotes are important for the merging process
+		StringBuilder buffer = new StringBuilder();
+		buffer.append("url(\"");
+		
+		if (UrlUtils.isRelative(cleaned)) {
+			// the url is relative to the parent CSS, so we build its path from the parent
+			String urlPath = new File(new File(baseReference.getName()).getParentFile(), cleaned).getPath();
+			// we build a very new reference, so Wicket could give us the correct URL for the url("...") stuff
+			ResourceReference urlReference = new ResourceReference(baseReference.getScope(), urlPath, baseReference.getLocale(), baseReference.getStyle());
+			buffer.append(RequestCycle.get().urlFor(urlReference));
+		
+		} else {
+			buffer.append(cleaned);
 		}
 		
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("url(\"");
-		buffer.append(baseUrl);
-		buffer.append(cleaned);
 		buffer.append("\")");
 		return buffer.toString();
 	}
@@ -149,8 +156,6 @@ CompressedResourceReference implements IClusterable {
 	
 	private IResourceStream newResourceStream() {
 		String temp = null;
-		String cssUrl;
-		String name;
 		String old;
 		String match;
 		StringBuffer buffer = new StringBuffer();
@@ -167,27 +172,22 @@ CompressedResourceReference implements IClusterable {
 			// We insert the javascript code into the template
 			try {
 				
-				IResourceStream resource =
-						Application.get().getResourceSettings().getResourceStreamLocator().locate(
-						getClass(),
-								"/" + Packages.absolutePath(
-										ref.getScope(),	"") 
-										+ "/" + ref.getName());
-				if(resource!=null)						
-					temp = Streams.readString(resource.getInputStream());
-				
+				InputStream resourceStream = ref.getResource().getResourceStream().getInputStream();
+				// hum, not good to uncompress, but how to achieve this since the CompressingResourceStream is protected ?
+				if (ref.getResource() instanceof CompressedPackageResource) {
+					resourceStream = new GZIPInputStream(resourceStream);
+				}
+					
+				temp = Streams.readString(resourceStream, Application.get().getMarkupSettings().getDefaultMarkupEncoding());
+					
 				// Replace of url in the css file (regexp: url\(.*?\) )
-				name = ref.getName();
-				cssUrl = baseHost + ref.getScope().getName() + "/"
-					+ (name.indexOf("/") < 0 ? "" : name.substring(0, name.lastIndexOf("/") + 1));
-				
 				Pattern p = Pattern.compile(REGEX);
 				Matcher m = p.matcher(temp); // get a matcher object
 				int count = 0;
 				while(m.find()) {
 					count++;
 					match = m.group();
-					old = getCssUrl(match, cssUrl);
+					old = getCssUrl(match, ref);
 					
 					if(!old.equals(match)){
 						temp = temp.replace(match, old);
