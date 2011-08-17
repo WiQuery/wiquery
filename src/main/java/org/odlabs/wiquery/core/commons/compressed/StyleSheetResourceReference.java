@@ -4,7 +4,6 @@ import java.util.Locale;
 
 import org.apache.wicket.Resource;
 import org.apache.wicket.ResourceReference;
-import org.apache.wicket.markup.html.JavascriptPackageResource;
 import org.apache.wicket.markup.html.PackageResource;
 
 /**
@@ -53,7 +52,7 @@ public class StyleSheetResourceReference extends ResourceReference {
 
 	@Override
 	protected Resource newResource() {
-		PackageResource packageResource = JavascriptPackageResource
+		PackageResource packageResource = StyleSheetPackageResource 
 				.newPackageResource(getScope(), getName(), getLocale(),
 						getStyle());
 		if (packageResource != null) {
