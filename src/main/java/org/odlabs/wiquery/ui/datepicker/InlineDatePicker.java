@@ -41,8 +41,8 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
 /**
  * $Id$
  * <p>
- * 	An inline DatePicker as described in 
- * <a href="http://jqueryui.com/demos/datepicker/#inline">here</a>.
+ * An inline DatePicker as described in <a
+ * href="http://jqueryui.com/demos/datepicker/#inline">here</a>.
  * </p>
  * 
  * 
@@ -52,16 +52,20 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
  * @since 1.0.2
  */
 @WiQueryUIPlugin
-public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryPlugin {
-		// Constants
+public class InlineDatePicker<T> extends WebMarkupContainer implements
+		IWiQueryPlugin {
+	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 2L;
 
 	// Properties
 	private DatePickerOptions options;
 
-	/**Constructor
-	 * @param id Markup identifiant
+	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 *            Markup identifiant
 	 */
 	public InlineDatePicker(String id) {
 		super(id);
@@ -71,34 +75,46 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apache.wicket.Component#detachModel()
 	 */
 	@Override
 	protected void detachModel() {
 		super.detachModel();
-		options.detach();		
+		options.detach();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.
+	 * wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
-		
-		DatePickerLanguageResourceReference dpl = DatePickerLanguageResourceReference.get(getLocale());
-		if(dpl !=null)
+		wiQueryResourceManager
+				.addJavaScriptResource(DatePickerJavaScriptResourceReference
+						.get());
+
+		DatePickerLanguageResourceReference dpl = DatePickerLanguageResourceReference
+				.get(getLocale());
+		if (dpl != null)
 			wiQueryResourceManager.addJavaScriptResource(dpl);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
 	 */
 	public JsStatement statement() {
 		return new JsQuery(this).$().chain("datepicker",
 				options.getOptions().getJavaScriptOptions());
 	}
-	
-	/**Method retrieving the options of the component
+
+	/**
+	 * Method retrieving the options of the component
+	 * 
 	 * @return the options
 	 */
 	protected Options getOptions() {
@@ -106,11 +122,13 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	}
 
 	/*---- Options section ---*/
-	
-	/**The jQuery selector for another field that is to be updated with the 
-	 * selected date from the datepicker. Use the altFormat setting below to 
-	 * change the format of the date within this field. Leave as blank for no 
+
+	/**
+	 * The jQuery selector for another field that is to be updated with the
+	 * selected date from the datepicker. Use the altFormat setting below to
+	 * change the format of the date within this field. Leave as blank for no
 	 * alternate field.
+	 * 
 	 * @param altField
 	 * @return instance of the current component
 	 */
@@ -118,36 +136,37 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setAltField(altField);
 		return this;
 	}
-	
+
 	/**
 	 * @return the altField option value
 	 */
 	public String getAltField() {
 		return this.options.getAltField();
 	}
-	
-	/**The dateFormat to be used for the altField option. This allows one date 
-	 * format to be shown to the user for selection purposes, while a different 
+
+	/**
+	 * The dateFormat to be used for the altField option. This allows one date
+	 * format to be shown to the user for selection purposes, while a different
 	 * format is actually sent behind the scenes.
 	 * 
 	 * The format can be combinations of the following:
 	 * <ul>
-	 * 	<li>d - day of month (no leading zero)</li>
-	 * 	<li>dd - day of month (two digit)</li>
-	 * 	<li>o - day of the year (no leading zeros)</li>
-	 * 	<li>oo - day of the year (three digit)</li>
-	 * 	<li>D - day name short</li>
-	 * 	<li>DD - day name long</li>
-	 * 	<li>m - month of year (no leading zero)</li>
-	 * 	<li>mm - month of year (two digit)</li>
-	 * 	<li>M - month name short</li>
-	 * 	<li>MM - month name long</li>
-	 * 	<li>y - year (two digit)</li>
-	 * 	<li>yy - year (four digit)</li>
-	 * 	<li>@ - Unix timestamp (ms since 01/01/1970)</li>
-	 * 	<li>'...' - literal text</li>
-	 * 	<li>'' - single quote</li>
-	 * 	<li>anything else - literal text</li>
+	 * <li>d - day of month (no leading zero)</li>
+	 * <li>dd - day of month (two digit)</li>
+	 * <li>o - day of the year (no leading zeros)</li>
+	 * <li>oo - day of the year (three digit)</li>
+	 * <li>D - day name short</li>
+	 * <li>DD - day name long</li>
+	 * <li>m - month of year (no leading zero)</li>
+	 * <li>mm - month of year (two digit)</li>
+	 * <li>M - month name short</li>
+	 * <li>MM - month name long</li>
+	 * <li>y - year (two digit)</li>
+	 * <li>yy - year (four digit)</li>
+	 * <li>@ - Unix timestamp (ms since 01/01/1970)</li>
+	 * <li>'...' - literal text</li>
+	 * <li>'' - single quote</li>
+	 * <li>anything else - literal text</li>
 	 * </ul>
 	 * 
 	 * @param altFormat
@@ -157,16 +176,18 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setAltFormat(altFormat);
 		return this;
 	}
-	
+
 	/**
 	 * @return the altFormat option value
 	 */
 	public String getAltFormat() {
 		return this.options.getAltFormat();
 	}
-		
-	
-	/**Set's the text to display after each date field, e.g. to show the required format.
+
+	/**
+	 * Set's the text to display after each date field, e.g. to show the
+	 * required format.
+	 * 
 	 * @param appendText
 	 * @return instance of the current component
 	 */
@@ -174,17 +195,18 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setAppendText(appendText);
 		return this;
 	}
-	
+
 	/**
 	 * @return the appendText option value
 	 */
 	public String getAppendText() {
 		return this.options.getAppendText();
 	}
-	
+
 	/**
-	 * Set to true to automatically resize the input field to accomodate dates 
+	 * Set to true to automatically resize the input field to accomodate dates
 	 * in the current dateFormat.
+	 * 
 	 * @return instance of the current component
 	 */
 	public InlineDatePicker<T> setAutoSize(boolean autoSize) {
@@ -198,9 +220,11 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public boolean isAutoSize() {
 		return options.isAutoSize();
 	}
-	
-	/**Set's URL for the popup button image. If set, button text becomes the alt 
+
+	/**
+	 * Set's URL for the popup button image. If set, button text becomes the alt
 	 * value and is not directly displayed.
+	 * 
 	 * @param buttonImage
 	 * @return instance of the current component
 	 */
@@ -208,16 +232,18 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setButtonImage(buttonImage);
 		return this;
 	}
-	
+
 	/**
 	 * @return the buttonImage option value
 	 */
 	public String getButtonImage() {
 		return this.options.getButtonImage();
 	}
-	
-	/**Set to true to place an image after the field to use as the trigger 
+
+	/**
+	 * Set to true to place an image after the field to use as the trigger
 	 * without it appearing on a button.
+	 * 
 	 * @param buttonImageOnly
 	 * @return instance of the current component
 	 */
@@ -229,12 +255,14 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	/**
 	 * @return the buttonImageOnly option value
 	 */
-	public boolean isButtonImageOnly() {		
+	public boolean isButtonImageOnly() {
 		return this.options.isButtonImageOnly();
 	}
-	
-	/**Set's the text to display on the trigger button. Use in conjunction with 
+
+	/**
+	 * Set's the text to display on the trigger button. Use in conjunction with
 	 * showOn equal to 'button' or 'both'.
+	 * 
 	 * @param buttonText
 	 * @return instance of the current component
 	 */
@@ -242,17 +270,19 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setButtonText(buttonText);
 		return this;
 	}
-	
+
 	/**
 	 * @return the buttonText option value
 	 */
 	public String getButtonText() {
 		return this.options.getButtonText();
 	}
-	
-	/**A function to calculate the week of the year for a given date. The default 
-	 * implementation uses the ISO 8601 definition: weeks start on a Monday; 
-	 * the first week of the year contains the first Thursday of the year.
+
+	/**
+	 * A function to calculate the week of the year for a given date. The
+	 * default implementation uses the ISO 8601 definition: weeks start on a
+	 * Monday; the first week of the year contains the first Thursday of the
+	 * year.
 	 * 
 	 * Default: $.datepicker.iso8601Week
 	 * 
@@ -266,6 +296,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 
 	/**
 	 * Sets if the date's month is selectable in a drop down list or not.
+	 * 
 	 * @return instance of the current component
 	 */
 	public InlineDatePicker<T> setChangeMonth(boolean changeMonth) {
@@ -277,12 +308,15 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * Returns true if the date's month is selectable in a drop down list,
 	 * returns false otherwise.
 	 */
-	public boolean isChangeMonth() {		
+	public boolean isChangeMonth() {
 		return this.options.isChangeMonth();
 	}
-	
-	/**The text to display for the week of the year column heading. This attribute 
-	 * is one of the regionalisation attributes. Use showWeek to display this column.
+
+	/**
+	 * The text to display for the week of the year column heading. This
+	 * attribute is one of the regionalisation attributes. Use showWeek to
+	 * display this column.
+	 * 
 	 * @param weekHeader
 	 * @return instance of the current component
 	 */
@@ -290,7 +324,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setWeekHeader(weekHeader);
 		return this;
 	}
-	
+
 	/**
 	 * @return the weekHeader option value
 	 */
@@ -310,16 +344,18 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		options.setYearRange(yearRange);
 		return this;
 	}
-	
+
 	/**
 	 * @return the year range valu option
 	 */
 	public DatePickerYearRange getYearRange() {
 		return this.options.getYearRange();
 	}
-	
-	/**Additional text to display after the year in the month headers. This 
+
+	/**
+	 * Additional text to display after the year in the month headers. This
 	 * attribute is one of the regionalisation attributes.
+	 * 
 	 * @param yearSuffix
 	 * @return instance of the current component
 	 */
@@ -327,7 +363,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setYearSuffix(yearSuffix);
 		return this;
 	}
-	
+
 	/**
 	 * @return the yearSuffix option value
 	 */
@@ -337,6 +373,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 
 	/**
 	 * Sets if the date's year is selectable in a drop down list or not.
+	 * 
 	 * @return instance of the current component
 	 */
 	public InlineDatePicker<T> setChangeYear(boolean changeYear) {
@@ -348,12 +385,15 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * Returns true if the date's year is selectable in a drop down list,
 	 * returns false otherwise.
 	 */
-	public boolean isChangeYear() {		
+	public boolean isChangeYear() {
 		return this.options.isChangeYear();
 	}
-	
-	/**Set's the text to display for the close link. This attribute is one of 
-	 * the regionalisation attributes. Use the showButtonPanel to display this button.
+
+	/**
+	 * Set's the text to display for the close link. This attribute is one of
+	 * the regionalisation attributes. Use the showButtonPanel to display this
+	 * button.
+	 * 
 	 * @param closeText
 	 * @return instance of the current component
 	 */
@@ -361,15 +401,17 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setCloseText(closeText);
 		return this;
 	}
-	
+
 	/**
 	 * @return the closeText option value
 	 */
 	public String getCloseText() {
 		return this.options.getCloseText();
 	}
-	
-	/**True if the input field is constrained to the current date format.
+
+	/**
+	 * True if the input field is constrained to the current date format.
+	 * 
 	 * @param constrainInput
 	 * @return instance of the current component
 	 */
@@ -384,10 +426,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public boolean isConstrainInput() {
 		return this.options.isConstrainInput();
 	}
-	
-	/**Set's the text to display for the current day link. This attribute is one 
-	 * of the regionalisation attributes. Use the showButtonPanel to display 
+
+	/**
+	 * Set's the text to display for the current day link. This attribute is one
+	 * of the regionalisation attributes. Use the showButtonPanel to display
 	 * this button.
+	 * 
 	 * @param currentText
 	 * @return instance of the current component
 	 */
@@ -395,7 +439,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setCurrentText(currentText);
 		return this;
 	}
-	
+
 	/**
 	 * @return the currentText option value
 	 */
@@ -417,11 +461,14 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	/**
 	 * Returns the calendar's starting day.
 	 */
-	public short getFirstDay() {		
+	public short getFirstDay() {
 		return this.options.getFirstDay();
 	}
-	
-	/**If true, the current day link moves to the currently selected date instead of today.
+
+	/**
+	 * If true, the current day link moves to the currently selected date
+	 * instead of today.
+	 * 
 	 * @param gotoCurrent
 	 * @return instance of the current component
 	 */
@@ -436,10 +483,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public boolean isGotoCurrent() {
 		return this.options.isGotoCurrent();
 	}
-	
-	/**Normally the previous and next links are disabled when not applicable 
-	 * (see minDate/maxDate). You can hide them altogether by setting this 
+
+	/**
+	 * Normally the previous and next links are disabled when not applicable
+	 * (see minDate/maxDate). You can hide them altogether by setting this
 	 * attribute to true.
+	 * 
 	 * @param hideIfNoPrevNext
 	 * @return instance of the current component
 	 */
@@ -454,9 +503,11 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public boolean isHideIfNoPrevNext() {
 		return this.options.isHideIfNoPrevNext();
 	}
-	
-	/**True if the current language is drawn from right to left. This attribute 
+
+	/**
+	 * True if the current language is drawn from right to left. This attribute
 	 * is one of the regionalisation attributes.
+	 * 
 	 * @param isRTL
 	 * @return instance of the current component
 	 */
@@ -471,10 +522,13 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public boolean isIsRTL() {
 		return this.options.isIsRTL();
 	}
-	
-	/**Set a maximum selectable date via a Date object, or a number of days from 
-	 * today (e.g. +7) or a string of values and periods ('y' for years, 'm' for 
-	 * months, 'w' for weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
+
+	/**
+	 * Set a maximum selectable date via a Date object, or a number of days from
+	 * today (e.g. +7) or a string of values and periods ('y' for years, 'm' for
+	 * months, 'w' for weeks, 'd' for days, e.g. '+1m +1w'), or null for no
+	 * limit.
+	 * 
 	 * @param maxDate
 	 * @return instance of the current component
 	 */
@@ -489,10 +543,13 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public DateOption getMaxDate() {
 		return this.options.getMaxDate();
 	}
-	
-	/**Set a minimum selectable date via a Date object, or a number of days from 
-	 * today (e.g. +7) or a string of values and periods ('y' for years, 'm' for 
-	 * months, 'w' for weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
+
+	/**
+	 * Set a minimum selectable date via a Date object, or a number of days from
+	 * today (e.g. +7) or a string of values and periods ('y' for years, 'm' for
+	 * months, 'w' for weeks, 'd' for days, e.g. '+1m +1w'), or null for no
+	 * limit.
+	 * 
 	 * @param minDate
 	 * @return instance of the current component
 	 */
@@ -507,10 +564,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public DateOption getMinDate() {
 		return this.options.getMinDate();
 	}
-	
-	/**Set's the list of full month names, as used in the month header on each 
-	 * datepicker and as requested via the dateFormat setting. This attribute is 
+
+	/**
+	 * Set's the list of full month names, as used in the month header on each
+	 * datepicker and as requested via the dateFormat setting. This attribute is
 	 * one of the regionalisation attributes.
+	 * 
 	 * @param monthNames
 	 * @return instance of the current component
 	 */
@@ -525,13 +584,17 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public ArrayOfMonthNames getMonthNames() {
 		return this.options.getMonthNames();
 	}
-	
-	/**Set's the list of abbreviated month names, for use as requested via the 
-	 * dateFormat setting. This attribute is one of the regionalisation attributes.
+
+	/**
+	 * Set's the list of abbreviated month names, for use as requested via the
+	 * dateFormat setting. This attribute is one of the regionalisation
+	 * attributes.
+	 * 
 	 * @param monthNamesShort
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setMonthNamesShort(ArrayOfMonthNames monthNamesShort) {
+	public InlineDatePicker<T> setMonthNamesShort(
+			ArrayOfMonthNames monthNamesShort) {
 		options.setMonthNamesShort(monthNamesShort);
 		return this;
 	}
@@ -539,17 +602,20 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	/**
 	 * @return the monthNames option value
 	 */
-	public ArrayOfMonthNames getMonthNamesShort() {		
+	public ArrayOfMonthNames getMonthNamesShort() {
 		return options.getMonthNamesShort();
 	}
-	
-	/**When true the formatDate function is applied to the prevText, nextText, 
-	 * and currentText values before display, allowing them to display the 
+
+	/**
+	 * When true the formatDate function is applied to the prevText, nextText,
+	 * and currentText values before display, allowing them to display the
 	 * target month names for example.
+	 * 
 	 * @param navigationAsDateFormat
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setNavigationAsDateFormat(boolean navigationAsDateFormat) {
+	public InlineDatePicker<T> setNavigationAsDateFormat(
+			boolean navigationAsDateFormat) {
 		options.setNavigationAsDateFormat(navigationAsDateFormat);
 		return this;
 	}
@@ -557,13 +623,15 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	/**
 	 * @return the navigationAsDateFormat option value
 	 */
-	public boolean isNavigationAsDateFormat() {				
+	public boolean isNavigationAsDateFormat() {
 		return this.options.isNavigationAsDateFormat();
 	}
-	
-	/**Set's the text to display for the next month link. This attribute is one 
-	 * of the regionalisation attributes. With the standard ThemeRoller styling, 
+
+	/**
+	 * Set's the text to display for the next month link. This attribute is one
+	 * of the regionalisation attributes. With the standard ThemeRoller styling,
 	 * this value is replaced by an icon.
+	 * 
 	 * @param nextText
 	 * @return instance of the current component
 	 */
@@ -571,7 +639,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setNextText(nextText);
 		return this;
 	}
-	
+
 	/**
 	 * @return the nextText option value
 	 */
@@ -581,6 +649,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 
 	/**
 	 * Sets if the next/previous months are showed in the calendar.
+	 * 
 	 * @return instance of the current component
 	 */
 	public InlineDatePicker<T> setShowOtherMonths(boolean showOtherMonths) {
@@ -589,13 +658,13 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	}
 
 	/**
-	 * @deprecated will be removed in 1.2
-	 * Returns if the next/previous months are showed in the calendar.
+	 * @deprecated will be removed in 1.2 Returns if the next/previous months
+	 *             are showed in the calendar.
 	 */
 	public boolean getShowOtherMonths() {
 		return options.getShowOtherMonths();
 	}
-	
+
 	/**
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
@@ -605,9 +674,11 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 
 	/**
 	 * Sets the number of months displayed on the date picker.
+	 * 
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths) {
+	public InlineDatePicker<T> setNumberOfMonths(
+			DatePickerNumberOfMonths numberOfMonths) {
 		this.options.setNumberOfMonths(numberOfMonths);
 		return this;
 	}
@@ -615,13 +686,15 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	/**
 	 * Returns the number of months displayed on the date picker.
 	 */
-	public DatePickerNumberOfMonths getNumberOfMonths() {	
+	public DatePickerNumberOfMonths getNumberOfMonths() {
 		return this.options.getNumberOfMonths();
 	}
-	
-	/**Set's the text to display for the previous month link. This attribute is one 
-	 * of the regionalisation attributes. With the standard ThemeRoller styling, 
-	 * this value is replaced by an icon.
+
+	/**
+	 * Set's the text to display for the previous month link. This attribute is
+	 * one of the regionalisation attributes. With the standard ThemeRoller
+	 * styling, this value is replaced by an icon.
+	 * 
 	 * @param prevText
 	 * @return instance of the current component
 	 */
@@ -629,16 +702,18 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setPrevText(prevText);
 		return this;
 	}
-	
+
 	/**
 	 * @return the prevText option value
 	 */
 	public String getPrevText() {
 		return this.options.getPrevText();
 	}
-	
-	/**When true days in other months shown before or after the current month 
+
+	/**
+	 * When true days in other months shown before or after the current month
 	 * are selectable. This only applies if showOtherMonths is also true.
+	 * 
 	 * @param selectOtherMonths
 	 * @return instance of the current behavior
 	 */
@@ -646,19 +721,22 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setSelectOtherMonths(selectOtherMonths);
 		return this;
 	}
-	
+
 	/**
 	 * @return the selectOtherMonths option
 	 */
 	public boolean isSelectOtherMonths() {
 		return options.isSelectOtherMonths();
 	}
-	
-	/**Set the cutoff year for determining the century for a date
+
+	/**
+	 * Set the cutoff year for determining the century for a date
+	 * 
 	 * @param shortYearCutoff
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff) {
+	public InlineDatePicker<T> setShortYearCutoff(
+			DatePickerShortYearCutOff shortYearCutoff) {
 		options.setShortYearCutoff(shortYearCutoff);
 		return this;
 	}
@@ -669,10 +747,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public DatePickerShortYearCutOff getShortYearCutoff() {
 		return this.options.getShortYearCutoff();
 	}
-	
-	/**Set the name of the animation used to show/hide the datepicker. Use 
-	 * 'show' (the default), 'slideDown', 'fadeIn', or any of the show/hide 
+
+	/**
+	 * Set the name of the animation used to show/hide the datepicker. Use
+	 * 'show' (the default), 'slideDown', 'fadeIn', or any of the show/hide
 	 * jQuery UI effects
+	 * 
 	 * @param showAnim
 	 * @return instance of the current component
 	 */
@@ -680,15 +760,17 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setShowAnim(showAnim);
 		return this;
 	}
-	
+
 	/**
 	 * @return the showAnim option value
 	 */
 	public String getShowAnim() {
 		return this.options.getShowAnim();
 	}
-	
-	/**Whether to show the button panel.
+
+	/**
+	 * Whether to show the button panel.
+	 * 
 	 * @param showButtonPanel
 	 * @return instance of the current component
 	 */
@@ -700,12 +782,14 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	/**
 	 * @return the showButtonPanel option value
 	 */
-	public boolean isShowButtonPanel() {		
+	public boolean isShowButtonPanel() {
 		return this.options.isShowButtonPanel();
 	}
-	
-	/**Specify where in a multi-month display the current month shows, starting 
+
+	/**
+	 * Specify where in a multi-month display the current month shows, starting
 	 * from 0 at the top/left.
+	 * 
 	 * @param showCurrentAtPos
 	 * @return instance of the current component
 	 */
@@ -720,8 +804,10 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public short getShowCurrentAtPos() {
 		return this.options.getShowCurrentAtPos();
 	}
-	
-	/**Whether to show the month after the year in the header.
+
+	/**
+	 * Whether to show the month after the year in the header.
+	 * 
 	 * @param showMonthAfterYear
 	 * @return instance of the current component
 	 */
@@ -736,10 +822,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public boolean isShowMonthAfterYear() {
 		return this.options.isShowMonthAfterYear();
 	}
-	
-	/**Have the datepicker appear automatically when the field receives focus 
-	 * ('focus'), appear only when a button is clicked ('button'), or appear 
+
+	/**
+	 * Have the datepicker appear automatically when the field receives focus
+	 * ('focus'), appear only when a button is clicked ('button'), or appear
 	 * when either event takes place ('both').
+	 * 
 	 * @param showOn
 	 * @return instance of the current component
 	 */
@@ -754,13 +842,16 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public ShowOnEnum getShowOn() {
 		return this.options.getShowOn();
 	}
-	
-	/**If using one of the jQuery UI effects for showAnim, you can provide 
+
+	/**
+	 * If using one of the jQuery UI effects for showAnim, you can provide
 	 * additional settings for that animation via this option.
+	 * 
 	 * @param showOptions
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setShowOptions(ListItemOptions<LiteralOption> showOptions) {
+	public InlineDatePicker<T> setShowOptions(
+			ListItemOptions<LiteralOption> showOptions) {
 		options.setShowOptions(showOptions);
 		return this;
 	}
@@ -771,11 +862,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public ListItemOptions<LiteralOption> getShowOptions() {
 		return this.options.getShowOptions();
 	}
-	
+
 	/**
-	 * When true a column is added to show the week of the year. The calculateWeek 
-	 * option determines how the week of the year is calculated. You may also 
-	 * want to change the firstDay option.
+	 * When true a column is added to show the week of the year. The
+	 * calculateWeek option determines how the week of the year is calculated.
+	 * You may also want to change the firstDay option.
+	 * 
 	 * @return instance of the current component
 	 */
 	public InlineDatePicker<T> setShowWeek(boolean showWeek) {
@@ -792,6 +884,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 
 	/**
 	 * Sets the number of months stepped when the next/previous button are hit.
+	 * 
 	 * @return instance of the current component
 	 */
 	public InlineDatePicker<T> setStepMonths(short stepMonths) {
@@ -803,32 +896,33 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * Returns the number of months stepped when the next/previous button are
 	 * hit.
 	 */
-	public short getStepMonths() {	
+	public short getStepMonths() {
 		return this.options.getStepMonths();
 	}
 
 	/**
 	 * Sets the ISO date format to use.
 	 * 
-	 *  The format can be combinations of the following:
+	 * The format can be combinations of the following:
 	 * <ul>
-	 * 	<li>d - day of month (no leading zero)</li>
-	 * 	<li>dd - day of month (two digit)</li>
-	 * 	<li>o - day of the year (no leading zeros)</li>
-	 * 	<li>oo - day of the year (three digit)</li>
-	 * 	<li>D - day name short</li>
-	 * 	<li>DD - day name long</li>
-	 * 	<li>m - month of year (no leading zero)</li>
-	 * 	<li>mm - month of year (two digit)</li>
-	 * 	<li>M - month name short</li>
-	 * 	<li>MM - month name long</li>
-	 * 	<li>y - year (two digit)</li>
-	 * 	<li>yy - year (four digit)</li>
-	 * 	<li>@ - Unix timestamp (ms since 01/01/1970)</li>
-	 * 	<li>'...' - literal text</li>
-	 * 	<li>'' - single quote</li>
-	 * 	<li>anything else - literal text</li>
+	 * <li>d - day of month (no leading zero)</li>
+	 * <li>dd - day of month (two digit)</li>
+	 * <li>o - day of the year (no leading zeros)</li>
+	 * <li>oo - day of the year (three digit)</li>
+	 * <li>D - day name short</li>
+	 * <li>DD - day name long</li>
+	 * <li>m - month of year (no leading zero)</li>
+	 * <li>mm - month of year (two digit)</li>
+	 * <li>M - month name short</li>
+	 * <li>MM - month name long</li>
+	 * <li>y - year (two digit)</li>
+	 * <li>yy - year (four digit)</li>
+	 * <li>@ - Unix timestamp (ms since 01/01/1970)</li>
+	 * <li>'...' - literal text</li>
+	 * <li>'' - single quote</li>
+	 * <li>anything else - literal text</li>
 	 * </ul>
+	 * 
 	 * @return instance of the current component
 	 */
 	public InlineDatePicker<T> setDateFormat(String dateFormat) {
@@ -842,11 +936,13 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public String getDateFormat() {
 		return this.options.getDateFormat();
 	}
-	
-	/**Set's the list of long day names, starting from Sunday, for use as 
-	 * requested via the dateFormat setting. They also appear as popup hints 
-	 * when hovering over the corresponding column headings. This attribute is 
+
+	/**
+	 * Set's the list of long day names, starting from Sunday, for use as
+	 * requested via the dateFormat setting. They also appear as popup hints
+	 * when hovering over the corresponding column headings. This attribute is
 	 * one of the regionalisation attributes.
+	 * 
 	 * @param dayNames
 	 * @return instance of the current component
 	 */
@@ -861,10 +957,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public ArrayOfDayNames getDayNames() {
 		return this.options.getDayNames();
 	}
-	
-	/**Set's the list of minimised day names, starting from Sunday, for use as 
-	 * column headers within the datepicker. This attribute is one of the 
+
+	/**
+	 * Set's the list of minimised day names, starting from Sunday, for use as
+	 * column headers within the datepicker. This attribute is one of the
 	 * regionalisation attributes.
+	 * 
 	 * @param dayNamesMin
 	 * @return instance of the current component
 	 */
@@ -879,10 +977,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public ArrayOfDayNames getDayNamesMin() {
 		return this.options.getDayNamesMin();
 	}
-	
-	/**Set's the list of abbreviated day names, starting from Sunday, for use as 
-	 * requested via the dateFormat setting. This attribute is one of the 
+
+	/**
+	 * Set's the list of abbreviated day names, starting from Sunday, for use as
+	 * requested via the dateFormat setting. This attribute is one of the
 	 * regionalisation attributes.
+	 * 
 	 * @param dayNamesShort
 	 * @return instance of the current component
 	 */
@@ -897,11 +997,13 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public ArrayOfDayNames getDayNamesShort() {
 		return this.options.getDayNamesShort();
 	}
-	
-	/**Set the date to highlight on first opening if the field is blank. Specify 
-	 * either an actual date via a Date object, or a number of days from today 
-	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 
-	 * 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null for today.
+
+	/**
+	 * Set the date to highlight on first opening if the field is blank. Specify
+	 * either an actual date via a Date object, or a number of days from today
+	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for
+	 * months, 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null for today.
+	 * 
 	 * @param defaultDate
 	 * @return instance of the current component
 	 */
@@ -916,9 +1018,11 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public DateOption getDefaultDate() {
 		return this.options.getDefaultDate();
 	}
-	
-	/**Disables (true) or enables (false) the datepicker. Can be set when 
+
+	/**
+	 * Disables (true) or enables (false) the datepicker. Can be set when
 	 * initialising (first creating) the datepicker.
+	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
 	 */
@@ -926,17 +1030,19 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setDisabled(disabled);
 		return this;
 	}
-	
+
 	/**
 	 * @return the disabled option
 	 */
 	public boolean isDisabled() {
 		return options.isDisabled();
 	}
-	
-	/**Control the speed at which the datepicker appears, it may be a time in 
-	 * milliseconds, a string representing one of the three predefined speeds 
+
+	/**
+	 * Control the speed at which the datepicker appears, it may be a time in
+	 * milliseconds, a string representing one of the three predefined speeds
 	 * ("slow", "normal", "fast"), or '' for immediately.
+	 * 
 	 * @param duration
 	 * @return instance of the current component
 	 */
@@ -953,8 +1059,10 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	}
 
 	/*---- Events section ---*/
-	
-	/**Set's the callback before the datepicker is displayed.
+
+	/**
+	 * Set's the callback before the datepicker is displayed.
+	 * 
 	 * @param beforeShow
 	 * @return instance of the current component
 	 */
@@ -962,161 +1070,211 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		this.options.setBeforeShowEvent(beforeShow);
 		return this;
 	}
-	
-	/**The function takes a date as a parameter and must return an array with [0] 
-	 * equal to true/false indicating whether or not this date is selectable, [1] 
-	 * equal to a CSS class name(s) or '' for the default presentation and [2] 
-	 * an optional popup tooltip for this date. It is called for each day in 
-	 * the datepicker before is it displayed.
+
+	/**
+	 * The function takes a date as a parameter and must return an array with
+	 * [0] equal to true/false indicating whether or not this date is
+	 * selectable, [1] equal to a CSS class name(s) or '' for the default
+	 * presentation and [2] an optional popup tooltip for this date. It is
+	 * called for each day in the datepicker before is it displayed.
+	 * 
 	 * @param beforeShowDay
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setBeforeShowDayEvent(JsScopeUiDatePickerEvent beforeShowDay) {
+	public InlineDatePicker<T> setBeforeShowDayEvent(
+			JsScopeUiDatePickerEvent beforeShowDay) {
 		this.options.setBeforeShowDayEvent(beforeShowDay);
 		return this;
 	}
-	
-	/**Allows you to define your own event when the datepicker moves to a new 
-	 * month and/or year. The function receives the selected year, month (1-12), 
-	 * and the datepicker instance as parameters. this refers to the associated 
+
+	/**
+	 * Allows you to define your own event when the datepicker moves to a new
+	 * month and/or year. The function receives the selected year, month (1-12),
+	 * and the datepicker instance as parameters. this refers to the associated
 	 * input field.
+	 * 
 	 * @param onChangeMonthYear
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setOnChangeMonthYearEvent(JsScopeUiDatePickerOnChangeEvent onChangeMonthYear) {
+	public InlineDatePicker<T> setOnChangeMonthYearEvent(
+			JsScopeUiDatePickerOnChangeEvent onChangeMonthYear) {
 		this.options.setOnChangeMonthYearEvent(onChangeMonthYear);
 		return this;
 	}
-	
-	/**Allows you to define your own event when the datepicker is closed, whether 
-	 * or not a date is selected. The function receives the selected date as text 
-	 * and the datepicker instance as parameters. this refers to the associated 
-	 * input field.
+
+	/**
+	 * Allows you to define your own event when the datepicker is closed,
+	 * whether or not a date is selected. The function receives the selected
+	 * date as text and the datepicker instance as parameters. this refers to
+	 * the associated input field.
+	 * 
 	 * @param onClose
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setOnCloseEvent(JsScopeUiDatePickerDateTextEvent onClose) {
+	public InlineDatePicker<T> setOnCloseEvent(
+			JsScopeUiDatePickerDateTextEvent onClose) {
 		this.options.setOnCloseEvent(onClose);
 		return this;
 	}
-	
-	/**Allows you to define your own event when the datepicker is selected. The 
-	 * function receives the selected date as text and the datepicker instance 
+
+	/**
+	 * Allows you to define your own event when the datepicker is selected. The
+	 * function receives the selected date as text and the datepicker instance
 	 * as parameters. this refers to the associated input field.
+	 * 
 	 * @param onSelect
 	 * @return instance of the current component
 	 */
-	public InlineDatePicker<T> setOnSelectEvent(JsScopeUiDatePickerDateTextEvent onSelect) {
+	public InlineDatePicker<T> setOnSelectEvent(
+			JsScopeUiDatePickerDateTextEvent onSelect) {
 		this.options.setOnSelectEvent(onSelect);
 		return this;
 	}
-	
+
 	/*---- Methods section ---*/
-	/**Method to destroy the datepicker
-	 * This will return the element back to its pre-init state.
+	/**
+	 * Method to destroy the datepicker This will return the element back to its
+	 * pre-init state.
+	 * 
 	 * @return the associated JsStatement
 	 */
 	public JsStatement destroy() {
 		return new JsQuery(this).$().chain("datepicker", "'destroy'");
 	}
 
-	/**Method to destroy the datepicker within the ajax request
+	/**
+	 * Method to destroy the datepicker within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
 	}
-	
-	/**Method to disable the datepicker
+
+	/**
+	 * Method to disable the datepicker
+	 * 
 	 * @return the associated JsStatement
 	 */
 	public JsStatement disable() {
 		return new JsQuery(this).$().chain("datepicker", "'disable'");
 	}
 
-	/**Method to disable the datepicker within the ajax request
+	/**
+	 * Method to disable the datepicker within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
 	}
-	
-	/**Method to enable the datepicker
+
+	/**
+	 * Method to enable the datepicker
+	 * 
 	 * @return the associated JsStatement
 	 */
 	public JsStatement enable() {
 		return new JsQuery(this).$().chain("datepicker", "'enable'");
 	}
 
-	/**Method to enable the datepicker within the ajax request
+	/**
+	 * Method to enable the datepicker within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
 	}
-	
-	/**Method returning the current date for the datepicker
+
+	/**
+	 * Method returning the current date for the datepicker
+	 * 
 	 * @return the associated JsStatement
 	 */
 	public JsStatement getDate() {
 		return new JsQuery(this).$().chain("datepicker", "'getDate'");
 	}
-	
-	/**Method to hide the datepicker
-	 * @param speed The speed at which to close the date picker.
+
+	/**
+	 * Method to hide the datepicker
+	 * 
+	 * @param speed
+	 *            The speed at which to close the date picker.
 	 * @return the associated JsStatement
 	 */
 	public JsStatement hide(short speed) {
-		return new JsQuery(this).$().chain("datepicker", "'hide'", Short.toString(speed));
+		return new JsQuery(this).$().chain("datepicker", "'hide'",
+				Short.toString(speed));
 	}
 
-	/**Method to hide the datepicker within the ajax request
+	/**
+	 * Method to hide the datepicker within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
-	 * @param speed The speed at which to close the date picker.
+	 * @param speed
+	 *            The speed at which to close the date picker.
 	 */
 	public void hide(AjaxRequestTarget ajaxRequestTarget, short speed) {
-		ajaxRequestTarget.appendJavascript(this.hide(speed).render().toString());
+		ajaxRequestTarget
+				.appendJavascript(this.hide(speed).render().toString());
 	}
-	
-	/**Method to hide the datepicker
+
+	/**
+	 * Method to hide the datepicker
+	 * 
 	 * @return the associated JsStatement
 	 */
 	public JsStatement hide() {
 		return new JsQuery(this).$().chain("datepicker", "'hide'");
 	}
 
-	/**Method to hide the datepicker within the ajax request
+	/**
+	 * Method to hide the datepicker within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
 	 */
 	public void hide(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.hide().render().toString());
 	}
-	
-	/**Method to set the date of the datepicker
-	 * @param dateOption Date to set
+
+	/**
+	 * Method to set the date of the datepicker
+	 * 
+	 * @param dateOption
+	 *            Date to set
 	 * @return the associated JsStatement
 	 */
 	public JsStatement setDate(DateOption dateOption) {
 		return new JsQuery(this).$().chain("datepicker", "'setDate'",
-				dateOption.getJavascriptOption());
+				dateOption != null ? dateOption.getJavascriptOption() : null);
 	}
 
-	/**Method to set the date of the datepicker within the ajax request
+	/**
+	 * Method to set the date of the datepicker within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
-	 * @param dateOption Date to set
+	 * @param dateOption
+	 *            Date to set
 	 */
-	public void setDate(AjaxRequestTarget ajaxRequestTarget, DateOption dateOption) {
-		ajaxRequestTarget.appendJavascript(this.setDate(dateOption).render().toString());
+	public void setDate(AjaxRequestTarget ajaxRequestTarget,
+			DateOption dateOption) {
+		ajaxRequestTarget.appendJavascript(this.setDate(dateOption).render()
+				.toString());
 	}
-	
-	/**Method to show the datepicker
+
+	/**
+	 * Method to show the datepicker
+	 * 
 	 * @return the associated JsStatement
 	 */
 	public JsStatement show() {
 		return new JsQuery(this).$().chain("datepicker", "'show'");
 	}
 
-	/**Method to show the datepicker within the ajax request
+	/**
+	 * Method to show the datepicker within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
 	 */
 	public void show(AjaxRequestTarget ajaxRequestTarget) {

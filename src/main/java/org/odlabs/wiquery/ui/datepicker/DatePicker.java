@@ -1154,7 +1154,7 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public JsStatement setDate(DateOption dateOption) {
 		return new JsQuery(this).$().chain("datepicker", "'setDate'",
-				dateOption.getJavascriptOption());
+				dateOption != null ? dateOption.getJavascriptOption() : null);
 	}
 
 	/**Method to set the date of the datepicker within the ajax request
