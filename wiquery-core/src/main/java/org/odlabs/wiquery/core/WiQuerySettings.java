@@ -72,8 +72,6 @@ public class WiQuerySettings implements Serializable
 
 	private boolean autoImportJQueryUIStyleSheetResource;
 
-	private boolean embedGeneratedStatements;
-
 	private boolean enableWiqueryResourceManagement;
 
 	private final List<IWiQueryInitializer> initializers;
