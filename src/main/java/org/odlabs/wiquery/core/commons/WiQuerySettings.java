@@ -72,7 +72,8 @@ public class WiQuerySettings implements Serializable {
 	private List<WiQueryPluginRenderingListener> listeners;
 	private JavascriptResourceReference jQueryCoreResourceReference;
 	private boolean minifiedResources;
-	private boolean autoImportJQueryUIResource;
+	private boolean autoImportJQueryUIJavaScriptResource;
+	private boolean autoImportJQueryUIStyleSheetResource;
 	private boolean enableWiqueryResourceManagement;
 	private boolean embedGeneratedStatements;
 
@@ -82,7 +83,8 @@ public class WiQuerySettings implements Serializable {
 	public WiQuerySettings() {
 		super();
 		
-		this.autoImportJQueryUIResource = true;
+		this.autoImportJQueryUIJavaScriptResource = true;
+		this.autoImportJQueryUIStyleSheetResource = true;
 		this.enableWiqueryResourceManagement = true;
 		this.embedGeneratedStatements = false;
 		
@@ -221,28 +223,44 @@ public class WiQuerySettings implements Serializable {
 		this.minifiedResources = minifiedResources;
 	}
 
-	public boolean isAutoImportJQueryUIResource() {
-		return autoImportJQueryUIResource;
+	public boolean isAutoImportJQueryUIJavaScriptResource()
+	{
+		return autoImportJQueryUIJavaScriptResource;
+	}
+
+	public boolean isAutoImportJQueryUIStyleSheetResource()
+	{
+		return autoImportJQueryUIStyleSheetResource;
+	}
+
+	public void setAutoImportJQueryUIResource(boolean autoImportJQueryUIResource) {
+		this.autoImportJQueryUIJavaScriptResource = autoImportJQueryUIResource;
+		this.autoImportJQueryUIStyleSheetResource = autoImportJQueryUIResource;
 	}
 
 	/**
-	 * If set to <code>false</code>, no jQueryUI resources are contributed by
-	 * the framework, which means the user is responsible to add required
-	 * resources (javascript and css files) for jQueryUI to work. Useful if one
-	 * wants to manage resources globally or use a CDN network to load
-	 * resources.
+	 * If set to <code>false</code>, no jQueryUI JavaScript resources are contributed by
+	 * the framework, which means the user is responsible to add required resources
+	 * <strong>(javascript files)</strong> for jQueryUI to work. Useful if one wants to
+	 * manage resources globally or use a CDN network to load resources.
 	 * <p/>
-	 * <b>Warning:</b> If version does not match to the version contributed by
-	 * the framework, functionality may be harmed!
+	 * <b>Warning:</b> If version does not match to the version contributed by the
+	 * framework, functionality may be harmed!
 	 * 
-	 * @param autoImportJQueryUIResource
-	 *            <code>true</code> to let the framework import required
-	 *            resources. <code>false</code> to disable automatic resources
-	 *            contribution by the framework.
+	 * @param autoImportJQueryUIJavaScriptResource
+	 *            <code>true</code> to let the framework import required resources.
+	 *            <code>false</code> to disable automatic resources contribution by the
+	 *            framework.
 	 * @see #setEnableWiqueryResourceManagement(boolean)
 	 */
-	public void setAutoImportJQueryUIResource(boolean autoImportJQueryUIResource) {
-		this.autoImportJQueryUIResource = autoImportJQueryUIResource;
+	public void setAutoImportJQueryUIJavaScriptResource(boolean autoImportJQueryUIJavaScriptResource)
+	{
+		this.autoImportJQueryUIJavaScriptResource = autoImportJQueryUIJavaScriptResource;
+	}
+
+	public void setAutoImportJQueryUIStyleSheetResource(boolean autoImportJQueryUIStyleSheetResource)
+	{
+		this.autoImportJQueryUIStyleSheetResource = autoImportJQueryUIStyleSheetResource;
 	}
 
 	public boolean isEnableWiqueryResourceManagement() {
@@ -270,9 +288,9 @@ public class WiQuerySettings implements Serializable {
 	 */
 	public void setEnableWiqueryResourceManagement(
 			boolean enableWiqueryResourceManagement) {
-		this.autoImportJQueryUIResource = enableWiqueryResourceManagement;
 		this.autoImportJQueryResource = enableWiqueryResourceManagement;
+		this.autoImportJQueryUIJavaScriptResource = enableWiqueryResourceManagement;
+		this.autoImportJQueryUIStyleSheetResource = enableWiqueryResourceManagement;
 		this.enableWiqueryResourceManagement = enableWiqueryResourceManagement;
 	}
-
 }

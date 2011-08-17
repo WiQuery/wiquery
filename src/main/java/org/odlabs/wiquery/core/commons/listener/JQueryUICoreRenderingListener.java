@@ -73,22 +73,27 @@ public class JQueryUICoreRenderingListener implements
 	 */
 	public void onRender(IWiQueryPlugin plugin,
 			WiQueryResourceManager resourceManager, IHeaderResponse response) {
-		if (WiQuerySettings.get().isAutoImportJQueryUIResource()) {
-			if (plugin.getClass().isAnnotationPresent(WiQueryUIPlugin.class)) {
-				Application application = Application.get();
-				if (application instanceof IThemableApplication) {
-					// if application is themable, imports the given theme
-					response
-							.renderCSSReference(((IThemableApplication) application)
-									.getTheme(Session.get()));
-				} else {
-					// application is not themed, imports default theme
-					response.renderCSSReference(DEFAULT_THEME);
-				}
-				response
-						.renderJavascriptReference(CoreUIJavaScriptResourceReference
-								.get());
+		// if css contribution is enabled and component is WiQueryUIPlugin then
+		// contribute css
+		if (WiQuerySettings.get().isAutoImportJQueryUIStyleSheetResource()
+				&& plugin.getClass().isAnnotationPresent(WiQueryUIPlugin.class)) {
+			Application application = Application.get();
+			if (application instanceof IThemableApplication) {
+				// if application is themable, imports the given theme
+				response.renderCSSReference(((IThemableApplication) application)
+						.getTheme(Session.get()));
+			} else {
+				// application is not themed, imports default theme
+				response.renderCSSReference(DEFAULT_THEME);
 			}
+		}
+
+		// if js contribution is enabled and component is WiQueryUIPlugin then
+		// contribute js
+		if (WiQuerySettings.get().isAutoImportJQueryUIJavaScriptResource()
+				&& plugin.getClass().isAnnotationPresent(WiQueryUIPlugin.class)) {
+			response.renderJavascriptReference(CoreUIJavaScriptResourceReference
+					.get());
 		}
 	}
 
