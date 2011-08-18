@@ -49,82 +49,120 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * $Id$
+ * $Id: WiQueryMergedStyleSheetResourceReference.java 1156 2011-08-17 08:04:07Z
+ * hielke.hoeve@gmail.com $
  * 
  * <p>
- * Merged many stylesheet {@link ResourceReference} into one {@link IResourceStream}
+ * Merged many stylesheet {@link ResourceReference} into one
+ * {@link IResourceStream}
  * </p>
  * 
  * @author Julien Roche
  * @since 1.1
- *
+ * 
  */
 public class WiQueryMergedStyleSheetResourceReference extends
-CompressedResourceReference implements IClusterable {
+		CompressedResourceReference implements IClusterable {
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 6038498199511603297L;
-	
+
 	/** Name of the template for our ResourceReference */
 	private static final String TEMPLATE_NAME = "wiquery-merged.css";
-	
+
 	/** Content-type */
 	private static final String CONTENT_TYPE = "text/css";
-	
+
 	/** Regular expression to find the url */
-	private static final String REGEX = "url\\(.*?\\)";
-	
+	private static final String REGEX = "url\\s*?\\(.*?\\)";
+
 	/** Logger */
-	private static final Logger LOGGER = LoggerFactory.getLogger(WiQueryMergedStyleSheetResourceReference.class);
-	
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(WiQueryMergedStyleSheetResourceReference.class);
+
 	/**
 	 * Convert local URL for the merging stylesheet( the url will be broken, so
 	 * we have to rewrite it !!)
+	 * 
 	 * @param url
-	 * @param baseReference the reference to the parent CSS file (containing the url("...") stuff)
+	 * @param baseReference
+	 *            the reference to the parent CSS file (containing the
+	 *            url("...") stuff)
 	 * @return
 	 */
-	protected static String getCssUrl(String url, ResourceReference baseReference) {
-		String cleaned = url.replace(" ", "").replace("'", "").replace("\"", "");
-		cleaned = cleaned.substring(4); // remove '('
-		cleaned = cleaned.substring(0, cleaned.length() - 1); // remove ')'
-		
+	protected static String getCssUrl(String url,
+			ResourceReference baseReference) {
+		String cleaned = url.replace("'", "").replace("\"", "").trim();
+		cleaned = cleaned.substring(3).trim(); // remove 'url'
+		cleaned = cleaned.substring(1).trim(); // remove '('
+		cleaned = cleaned.substring(0, cleaned.length() - 1).trim(); // remove ')'
+
 		StringBuilder buffer = new StringBuilder();
 		buffer.append("url(\"");
-		
+
 		if (UrlUtils.isRelative(cleaned)) {
-			// the url is relative to the parent CSS, so we build its path from the parent
-			String urlPath = new File(new File(baseReference.getName()).getParentFile(), cleaned).getPath();
-			// we build a very new reference, so Wicket could give us the correct URL for the url("...") stuff
-			ResourceReference urlReference = new ResourceReference(baseReference.getScope(), urlPath, baseReference.getLocale(), baseReference.getStyle());
+			// the url is relative to the parent CSS, so we build its path from
+			// the parent
+			String urlPath = new File(
+					new File(baseReference.getName()).getParentFile(), cleaned)
+					.getPath();
+			
+			// we build a very new reference, so Wicket could give us the
+			// correct URL for the url("...") stuff
+			ResourceReference urlReference = new ResourceReference(
+					baseReference.getScope(), urlPath,
+					baseReference.getLocale(), baseReference.getStyle());
 			buffer.append(RequestCycle.get().urlFor(urlReference));
-		
+
 		} else {
 			buffer.append(cleaned);
 		}
-		
+
 		buffer.append("\")");
 		return buffer.toString();
 	}
-	
+
+	public static String fixCssUrls(String temp, ResourceReference ref) {
+		String old;
+		String match;
+
+		// Replace of url in the css file (regexp: url\(.*?\) )
+		Pattern p = Pattern.compile(REGEX);
+		Matcher m = p.matcher(temp); // get a matcher object
+		int count = 0;
+		while (m.find()) {
+			count++;
+			match = m.group();
+			old = getCssUrl(match, ref).trim();
+
+			if (!old.equals(match)) {
+				temp = temp.replace(match, old);
+			}
+		}
+
+		return temp;
+	}
+
 	// Properties
 	private PackagedTextTemplate csstemplate;
 	private WiQueryHeaderResponse wiQueryHeaderResponse;
-	
+
 	/**
 	 * Default constructor
 	 */
-	public WiQueryMergedStyleSheetResourceReference(WiQueryHeaderResponse wiQueryHeaderResponse) {
-		super(WiQueryMergedStyleSheetResourceReference.class, 
-				TEMPLATE_NAME + "_" + 
-				WiQueryHeaderResponse.getMergedResourceName(wiQueryHeaderResponse.getStylesheet()));
-		
+	public WiQueryMergedStyleSheetResourceReference(
+			WiQueryHeaderResponse wiQueryHeaderResponse) {
+		super(WiQueryMergedStyleSheetResourceReference.class, TEMPLATE_NAME
+				+ "_"
+				+ WiQueryHeaderResponse
+						.getMergedResourceName(wiQueryHeaderResponse
+								.getStylesheet()));
+
 		this.wiQueryHeaderResponse = wiQueryHeaderResponse;
 		csstemplate = new PackagedTextTemplate(
-				WiQueryMergedStyleSheetResourceReference.class, 
-				TEMPLATE_NAME);
+				WiQueryMergedStyleSheetResourceReference.class, TEMPLATE_NAME);
 	}
-	
+
 	/**
 	 * Returns the last modified time of the {@link PackagedTextTemplate}
 	 * itself.
@@ -134,9 +172,10 @@ CompressedResourceReference implements IClusterable {
 	public Time lastModifiedTime() {
 		return csstemplate.lastModifiedTime();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
+	 * 
 	 * @see org.apache.wicket.ResourceReference#newResource()
 	 */
 	@Override
@@ -146,6 +185,7 @@ CompressedResourceReference implements IClusterable {
 
 			/**
 			 * {@inheritDoc}
+			 * 
 			 * @see org.apache.wicket.Resource#getResourceStream()
 			 */
 			public IResourceStream getResourceStream() {
@@ -153,62 +193,52 @@ CompressedResourceReference implements IClusterable {
 			}
 		};
 	}
-	
+
 	private IResourceStream newResourceStream() {
 		String temp = null;
-		String old;
-		String match;
 		StringBuffer buffer = new StringBuffer();
-		
-		HttpServletRequest request = ((WebRequest)RequestCycle.get().getRequest()).getHttpServletRequest();
+
+		HttpServletRequest request = ((WebRequest) RequestCycle.get()
+				.getRequest()).getHttpServletRequest();
 		String baseHost = request.getRequestURL().toString();
-		baseHost = baseHost.substring(0, baseHost.indexOf(request.getRequestURI()))
-			+ request.getContextPath() + "/resources/";
-		
-		for(ResourceReference ref : wiQueryHeaderResponse.getStylesheet()){
+		baseHost = baseHost.substring(0,
+				baseHost.indexOf(request.getRequestURI()))
+				+ request.getContextPath() + "/resources/";
+
+		for (ResourceReference ref : wiQueryHeaderResponse.getStylesheet()) {
 			// We bind the resources into the SharedResources
 			ref.bind(Application.get());
-			
+
 			// We insert the javascript code into the template
 			try {
-				
-				InputStream resourceStream = ref.getResource().getResourceStream().getInputStream();
-				// hum, not good to uncompress, but how to achieve this since the CompressingResourceStream is protected ?
+
+				InputStream resourceStream = ref.getResource()
+						.getResourceStream().getInputStream();
+				// hum, not good to uncompress, but how to achieve this since
+				// the CompressingResourceStream is protected ?
 				if (ref.getResource() instanceof CompressedPackageResource) {
 					resourceStream = new GZIPInputStream(resourceStream);
 				}
-					
-				temp = Streams.readString(resourceStream, Application.get().getMarkupSettings().getDefaultMarkupEncoding());
-					
-				// Replace of url in the css file (regexp: url\(.*?\) )
-				Pattern p = Pattern.compile(REGEX);
-				Matcher m = p.matcher(temp); // get a matcher object
-				int count = 0;
-				while(m.find()) {
-					count++;
-					match = m.group();
-					old = getCssUrl(match, ref);
-					
-					if(!old.equals(match)){
-						temp = temp.replace(match, old);
-					}
-				}
-				
+
+				temp = Streams.readString(resourceStream, Application.get()
+						.getMarkupSettings().getDefaultMarkupEncoding());
+				temp = fixCssUrls(temp, ref);
+
 			} catch (Exception e) {
 				temp = null;
 				e.printStackTrace();
 				LOGGER.error("error in merged processing", e);
 			}
-			
-			if(temp != null){
+
+			if (temp != null) {
 				buffer.append(temp).append("\r\n");
 			}
 		}
-		
-		Map<String, Object> genCss= new HashMap<String, Object>();
+
+		Map<String, Object> genCss = new HashMap<String, Object>();
 		genCss.put("wiqueryresources", buffer);
 		csstemplate.interpolate(genCss);
-		
+
 		return new StringResourceStream(csstemplate.asString(), CONTENT_TYPE);
 	}
 }
