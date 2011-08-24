@@ -64,6 +64,14 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	}
 
 	@Override
+	public void renderJavaScriptReference(ResourceReference reference,
+			PageParameters pageParameters, String id, boolean defer, String charset)
+	{
+		if (isReferenceAllowed(reference))
+			super.renderJavaScriptReference(reference, pageParameters, id, defer, charset);
+	}
+
+	@Override
 	public void renderCSSReference(ResourceReference reference, PageParameters pageParameters,
 			String media)
 	{
