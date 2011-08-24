@@ -72,7 +72,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * @param checks
 	 *            List of checks
 	 */
-	public ButtonCheckSet(String id, IModel<List< ? extends ButtonElement<T>>> checks)
+	public ButtonCheckSet(String id, IModel< ? extends List< ? extends ButtonElement<T>>> checks)
 	{
 		this(id, checks, new CollectionModel<T>(new ArrayList<T>()));
 	}
@@ -87,8 +87,8 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * @param model
 	 *            Model of the default object
 	 */
-	public ButtonCheckSet(String id, IModel<List< ? extends ButtonElement<T>>> checks,
-			IModel<Collection<T>> model)
+	public ButtonCheckSet(String id, IModel< ? extends List< ? extends ButtonElement<T>>> checks,
+			IModel< ? extends Collection<T>> model)
 	{
 		super(id);
 
@@ -177,7 +177,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 *            Model of the default object
 	 */
 	public ButtonCheckSet(String id, List< ? extends ButtonElement<T>> checks,
-			IModel<Collection<T>> model)
+			IModel< ? extends Collection<T>> model)
 	{
 		this(id, Model.ofList(checks), model);
 	}
