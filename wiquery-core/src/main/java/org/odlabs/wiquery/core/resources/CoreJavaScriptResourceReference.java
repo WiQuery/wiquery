@@ -22,8 +22,7 @@
 package org.odlabs.wiquery.core.resources;
 
 /**
- * $Id: CoreJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
- * lionel.armanet $
+ * $Id: CoreJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z lionel.armanet $
  * <p>
  * References the core jQuery library.
  * </p>
@@ -31,8 +30,8 @@ package org.odlabs.wiquery.core.resources;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class CoreJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class CoreJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 
 	private static final long serialVersionUID = -2918665261694523156L;
 
@@ -44,15 +43,17 @@ public class CoreJavaScriptResourceReference extends
 	/**
 	 * Returns the {@link CoreJavaScriptResourceReference} instance.
 	 */
-	public static CoreJavaScriptResourceReference get() {
+	public static CoreJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	/**
 	 * Builds a new instance of {@link CoreJavaScriptResourceReference}.
 	 */
-	private CoreJavaScriptResourceReference() {
-		super(CoreJavaScriptResourceReference.class, "jquery-1.5.2.js");
+	private CoreJavaScriptResourceReference()
+	{
+		super(CoreJavaScriptResourceReference.class, "jquery-1.6.2.js");
 	}
 
 }
