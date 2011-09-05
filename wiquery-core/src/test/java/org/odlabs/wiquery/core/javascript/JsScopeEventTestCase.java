@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core.javascript;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -12,16 +12,17 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class JsScopeEventTestCase extends WiQueryTestCase {
+public class JsScopeEventTestCase extends WiQueryTestCase
+{
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(JsScopeEventTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(JsScopeEventTestCase.class);
 
 	/**
 	 * Check the quickScope function
 	 */
 	@Test
-	public void testQuickScope() {
+	public void testQuickScope()
+	{
 		String expectedJavascript = "function(event) {\n\talert('test');\n}";
 		JsScopeEvent quickScope = JsScopeEvent.quickScope("alert('test');");
 		String generatedJavascript = quickScope.render().toString();
@@ -44,10 +45,11 @@ public class JsScopeEventTestCase extends WiQueryTestCase {
 	 * Check the quickScope function
 	 */
 	@Test
-	public void testQuickScopeJsStatement() {
+	public void testQuickScopeJsStatement()
+	{
 		String expectedJavascript = "function(event) {\n\talert('test');\n}";
-		JsScopeEvent quickScope = JsScopeEvent.quickScope(new JsStatement()
-				.append("alert('test')"));
+		JsScopeEvent quickScope =
+			JsScopeEvent.quickScope(new JsStatement().append("alert('test')"));
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);
@@ -65,7 +67,8 @@ public class JsScopeEventTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

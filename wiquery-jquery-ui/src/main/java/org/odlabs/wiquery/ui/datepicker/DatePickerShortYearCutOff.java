@@ -33,34 +33,49 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class DatePickerShortYearCutOff implements IComplexOption {	
+public class DatePickerShortYearCutOff implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Short shortParam;
+
 	private String literalParam;
-	
-	/**Constructor
-	 * @param shortParam Short parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param shortParam
+	 *            Short parameter
 	 */
-	public DatePickerShortYearCutOff(Short shortParam) {
+	public DatePickerShortYearCutOff(Short shortParam)
+	{
 		this(shortParam, null);
 	}
 
-	/**Constructor
-	 * @param literalParam Literal parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param literalParam
+	 *            Literal parameter
 	 */
-	public DatePickerShortYearCutOff(String literalParam) {
+	public DatePickerShortYearCutOff(String literalParam)
+	{
 		this(null, literalParam);
 	}
-	
-	/**Constructor
-	 * @param shortParam Short parameter
-	 * @param literalParam Literal parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param shortParam
+	 *            Short parameter
+	 * @param literalParam
+	 *            Literal parameter
 	 */
-	private DatePickerShortYearCutOff(Short shortParam, String literalParam) {
+	private DatePickerShortYearCutOff(Short shortParam, String literalParam)
+	{
 		super();
 		setParam(shortParam, literalParam);
 	}
@@ -68,59 +83,78 @@ public class DatePickerShortYearCutOff implements IComplexOption {
 	/**
 	 * @return the literalParam
 	 */
-	public String getLiteralParam() {
+	public String getLiteralParam()
+	{
 		return literalParam;
 	}
-	
+
 	/**
 	 * @return the shortParam
 	 */
-	public Short getShortParam() {
+	public Short getShortParam()
+	{
 		return shortParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(shortParam == null && literalParam == null){
-			throw new IllegalArgumentException("The DatePickerShortYearCutOff must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (shortParam == null && literalParam == null)
+		{
+			throw new IllegalArgumentException(
+				"The DatePickerShortYearCutOff must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(shortParam != null){
+
+		if (shortParam != null)
+		{
 			sequence = shortParam.toString();
 		}
-		else if(literalParam != null){
+		else if (literalParam != null)
+		{
 			sequence = new LiteralOption(literalParam).toString();
 		}
-		else{
-			throw new IllegalArgumentException("The DatePickerShortYearCutOff must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The DatePickerShortYearCutOff must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
-	
-	/**Set's the literal parameter
-	 * @param literalParam the literal to set
+
+	/**
+	 * Set's the literal parameter
+	 * 
+	 * @param literalParam
+	 *            the literal to set
 	 */
-	public void setLiteralParam(String literalParam) {
+	public void setLiteralParam(String literalParam)
+	{
 		setParam(null, literalParam);
 	}
-	
-	/**Set's the short parameter
-	 * @param shortParam short parameter
+
+	/**
+	 * Set's the short parameter
+	 * 
+	 * @param shortParam
+	 *            short parameter
 	 */
-	public void setShortParam(Short shortParam) {
+	public void setShortParam(Short shortParam)
+	{
 		setParam(shortParam, null);
 	}
-	
-	/**Method setting the right parameter
-	 * @param shortParam Short parameter
-	 * @param literalParam Literal parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param shortParam
+	 *            Short parameter
+	 * @param literalParam
+	 *            Literal parameter
 	 */
-	private void setParam(Short shortParam, String literalParam) {
+	private void setParam(Short shortParam, String literalParam)
+	{
 		this.shortParam = shortParam;
 		this.literalParam = literalParam;
 	}

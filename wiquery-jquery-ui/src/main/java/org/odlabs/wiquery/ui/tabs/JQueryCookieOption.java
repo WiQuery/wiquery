@@ -33,199 +33,245 @@ import org.odlabs.wiquery.ui.datepicker.DateOption;
 /**
  * $Id: JQueryCookieOption
  * <p>
- * Bean storing jQuery cookie options (only the value of cookie won't be stored
- * into the options)
+ * Bean storing jQuery cookie options (only the value of cookie won't be stored into the
+ * options)
  * </p>
  * <p>
- * Warning : You must import the {@link CookieJavaScriptResourceReference} to enable
- * the cookie option
+ * Warning : You must import the {@link CookieJavaScriptResourceReference} to enable the
+ * cookie option
  * </p>
  * 
  * @author Julien Roche
  * @since 1.0
  */
-public class JQueryCookieOption extends Object implements IComplexOption {
+public class JQueryCookieOption extends Object implements IComplexOption
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 9153408474806895999L;
-	
+
 	// Properties
 	private String value;
+
 	private String name;
+
 	private Options options;
-	
+
 	/**
 	 * Constructeur
-	 * @param name Name of the cookie
+	 * 
+	 * @param name
+	 *            Name of the cookie
 	 */
-	public JQueryCookieOption(String name) {
+	public JQueryCookieOption(String name)
+	{
 		super();
-		
-		if(Strings.isEmpty(name)){
+
+		if (Strings.isEmpty(name))
+		{
 			throw new WicketRuntimeException("name cannot be null or empty");
 		}
-		
+
 		options = new Options();
 		setName(name);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
+	public CharSequence getJavascriptOption()
+	{
 		return options.getJavaScriptOptions();
 	}
-	
-	/**Method retrieving the options
+
+	/**
+	 * Method retrieving the options
+	 * 
 	 * @return the options
 	 */
-	protected Options getOptions() {
+	protected Options getOptions()
+	{
 		return options;
 	}
-	
+
 	/*---- Options section ---*/
-	
-	/** Set's the domain name (example: server.domain.net)
+
+	/**
+	 * Set's the domain name (example: server.domain.net)
+	 * 
 	 * @param domain
 	 */
-	public JQueryCookieOption setDomain(String domain) {
+	public JQueryCookieOption setDomain(String domain)
+	{
 		this.options.putLiteral("domain", domain);
 		return this;
 	}
-	
+
 	/**
 	 * @return the domain option value
 	 */
-	public String getDomain() {
+	public String getDomain()
+	{
 		return this.options.getLiteral("domain");
 	}
-	
+
 	/**
 	 * Set's with a Number or a Date the time of validation of the cookie
+	 * 
 	 * @param expires
 	 */
-	public JQueryCookieOption setExpires(DateOption expires) {
+	public JQueryCookieOption setExpires(DateOption expires)
+	{
 		this.options.put("expires", expires);
 		return this;
 	}
-	
+
 	/**
 	 * @return the expires option value
 	 */
-	public DateOption getExpires() {
+	public DateOption getExpires()
+	{
 		IComplexOption expires = this.options.getComplexOption("expires");
-		
-		if(expires != null && expires instanceof DateOption){
+
+		if (expires != null && expires instanceof DateOption)
+		{
 			return (DateOption) expires;
 		}
-		
+
 		return null;
 	}
-	
-	/** Set's the name of the cookie
+
+	/**
+	 * Set's the name of the cookie
+	 * 
 	 * @param name
 	 */
-	private JQueryCookieOption setName(String name) {
+	private JQueryCookieOption setName(String name)
+	{
 		this.name = name;
 		return this;
 	}
-	
+
 	/**
 	 * @return the name option value
 	 */
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
-	
-	/** Set's the path ("/" or "http://server.domain.net" for examples)
+
+	/**
+	 * Set's the path ("/" or "http://server.domain.net" for examples)
+	 * 
 	 * @param path
 	 */
-	public JQueryCookieOption setPath(String path) {
+	public JQueryCookieOption setPath(String path)
+	{
 		this.options.putLiteral("path", path);
 		return this;
 	}
-	
+
 	/**
 	 * @return the path option value
 	 */
-	public String getPath() {
+	public String getPath()
+	{
 		return this.options.getLiteral("path");
 	}
-	
-	/**Set's the transaction security status (must we enable the SSL protocol ?)
+
+	/**
+	 * Set's the transaction security status (must we enable the SSL protocol ?)
+	 * 
 	 * @param secure
 	 */
-	public JQueryCookieOption setSecure(boolean secure) {
+	public JQueryCookieOption setSecure(boolean secure)
+	{
 		this.options.put("secure", secure);
 		return this;
 	}
-	
+
 	/**
 	 * @return the secure option value
 	 */
-	public boolean isSecure() {
-		if(this.options.containsKey("secure")){
+	public boolean isSecure()
+	{
+		if (this.options.containsKey("secure"))
+		{
 			return this.options.getBoolean("secure");
 		}
-		
+
 		return false;
 	}
-	
-	/** Set's the value of the cookie
+
+	/**
+	 * Set's the value of the cookie
+	 * 
 	 * @param value
 	 */
-	public JQueryCookieOption setValue(String value) {
+	public JQueryCookieOption setValue(String value)
+	{
 		this.value = value;
 		return this;
 	}
-	
+
 	/**
 	 * @return the value
 	 */
-	public String getValue() {
+	public String getValue()
+	{
 		return this.value;
 	}
-	
+
 	/*---- Methods section ---*/
-	
-	/**Method to delete the cookie
-	 * This will return the element back to its pre-init state.
+
+	/**
+	 * Method to delete the cookie This will return the element back to its pre-init
+	 * state.
+	 * 
 	 * @return the associated JsStatement
 	 */
-	public JsStatement deleteCookie() {
-		return new JsStatement().$().chain("cookie", JsUtils.quotes(getName()), "null", 
-				getJavascriptOption());
+	public JsStatement deleteCookie()
+	{
+		return new JsStatement().$().chain("cookie", JsUtils.quotes(getName()), "null",
+			getJavascriptOption());
 	}
 
-	/**Method to delete the cookie within the ajax request
+	/**
+	 * Method to delete the cookie within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
 	 */
-	public void deleteCookie(AjaxRequestTarget ajaxRequestTarget) {
+	public void deleteCookie(AjaxRequestTarget ajaxRequestTarget)
+	{
 		ajaxRequestTarget.appendJavaScript(this.deleteCookie().render().toString());
 	}
-	
-	/**Method to retrieve the cookie
-	 * This will return the element back to its pre-init state.
+
+	/**
+	 * Method to retrieve the cookie This will return the element back to its pre-init
+	 * state.
+	 * 
 	 * @return the associated JsStatement
 	 */
-	public JsStatement getCookie() {
+	public JsStatement getCookie()
+	{
 		return new JsStatement().$().chain("cookie", JsUtils.quotes(getName()));
 	}
-	
-	/**Method to set the cookie
-	 * This will return the element back to its pre-init state.
+
+	/**
+	 * Method to set the cookie This will return the element back to its pre-init state.
+	 * 
 	 * @return the associated JsStatement
 	 */
-	public JsStatement setCookie() {
-		return new JsStatement().$().chain("cookie", JsUtils.quotes(getName()), 
-				JsUtils.quotes(getValue()), getJavascriptOption());
+	public JsStatement setCookie()
+	{
+		return new JsStatement().$().chain("cookie", JsUtils.quotes(getName()),
+			JsUtils.quotes(getValue()), getJavascriptOption());
 	}
 
-	/**Method to set the cookie within the ajax request
+	/**
+	 * Method to set the cookie within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
 	 */
-	public void setCookie(AjaxRequestTarget ajaxRequestTarget) {
+	public void setCookie(AjaxRequestTarget ajaxRequestTarget)
+	{
 		ajaxRequestTarget.appendJavaScript(this.setCookie().render().toString());
 	}
 }

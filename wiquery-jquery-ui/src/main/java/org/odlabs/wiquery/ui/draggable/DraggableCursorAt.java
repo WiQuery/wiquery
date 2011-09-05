@@ -24,7 +24,6 @@ package org.odlabs.wiquery.ui.draggable;
 import org.odlabs.wiquery.core.options.IListItemOption;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.CursorAtEnum;
 
-
 /**
  * $Id: DraggableCursorAt.java
  * <p>
@@ -34,46 +33,53 @@ import org.odlabs.wiquery.ui.draggable.DraggableBehavior.CursorAtEnum;
  * @author Julien Roche
  * @since 1.0
  */
-public class DraggableCursorAt extends Object implements IListItemOption {
+public class DraggableCursorAt extends Object implements IListItemOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -1683433456056445578L;
-	
+
 	// Properties
 	private CursorAtEnum cursorAtEnum;
+
 	private int gap;
-	
-	/** Build a new instance
-	 * @param cursorAtEnum Position
+
+	/**
+	 * Build a new instance
+	 * 
+	 * @param cursorAtEnum
+	 *            Position
 	 * @param gap
 	 */
-	public DraggableCursorAt(CursorAtEnum cursorAtEnum, int gap) {
+	public DraggableCursorAt(CursorAtEnum cursorAtEnum, int gap)
+	{
 		super();
 		setCursorAtEnum(cursorAtEnum);
 		setGap(gap);
 	}
-	
-	public CursorAtEnum getCursorAtEnum() {
+
+	public CursorAtEnum getCursorAtEnum()
+	{
 		return cursorAtEnum;
 	}
 
-	public int getGap() {
+	public int getGap()
+	{
 		return gap;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
-	 */
-	public final CharSequence getJavascriptOption() {
+	public final CharSequence getJavascriptOption()
+	{
 		return getCursorAtEnum().toString() + ":" + getGap();
 	}
 
-	public void setCursorAtEnum(CursorAtEnum cursorAtEnum) {
+	public void setCursorAtEnum(CursorAtEnum cursorAtEnum)
+	{
 		this.cursorAtEnum = cursorAtEnum;
 	}
 
-	public void setGap(int gap) {
+	public void setGap(int gap)
+	{
 		this.gap = gap;
 	}
 }

@@ -35,7 +35,8 @@ import org.odlabs.wiquery.core.options.IOptionsRenderer;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class UiOptionsRenderer implements IOptionsRenderer {
+public class UiOptionsRenderer implements IOptionsRenderer
+{
 
 	private static final long serialVersionUID = 6564869405941048495L;
 
@@ -43,37 +44,26 @@ public class UiOptionsRenderer implements IOptionsRenderer {
 
 	private Component component;
 
-	public UiOptionsRenderer(String statement, Component component) {
+	public UiOptionsRenderer(String statement, Component component)
+	{
 		super();
 		this.statement = statement;
 		this.component = component;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.options.IOptionsRenderer#renderAfter(java.lang.StringBuilder)
-	 */
-	public void renderAfter(StringBuilder stringBuilder) {
+	public void renderAfter(StringBuilder stringBuilder)
+	{
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.options.IOptionsRenderer#renderBefore(java.lang.StringBuilder)
-	 */
-	public void renderBefore(StringBuilder stringBuilder) {
+	public void renderBefore(StringBuilder stringBuilder)
+	{
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.options.IOptionsRenderer#renderOption(java.lang.String,
-	 *      java.lang.Object, boolean)
-	 */
-	public CharSequence renderOption(String name, Object value, boolean isLast) {
-		JsStatement jsStatement = new JsQuery(this.component).$().chain(
-				this.statement, "'option'", "'" + name + "'", value.toString());
+	public CharSequence renderOption(String name, Object value, boolean isLast)
+	{
+		JsStatement jsStatement =
+			new JsQuery(this.component).$().chain(this.statement, "'option'", "'" + name + "'",
+				value.toString());
 		return jsStatement.render();
 	}
 

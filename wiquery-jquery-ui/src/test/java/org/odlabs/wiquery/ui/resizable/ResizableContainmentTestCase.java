@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.ui.resizable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.options.LiteralOption;
@@ -9,19 +8,18 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ResizableContainmentTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(ResizableContainmentTestCase.class);
+public class ResizableContainmentTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(ResizableContainmentTestCase.class);
 
 	@Test
-	public void testGetJavaScriptOption() {
-		ResizableContainment containment = new ResizableContainment(
-				"jQuery('#test')");
+	public void testGetJavaScriptOption()
+	{
+		ResizableContainment containment = new ResizableContainment("jQuery('#test')");
 
 		// Object param
 		String expectedJavascript = "jQuery('#test')";
-		String generatedJavascript = containment.getJavascriptOption()
-				.toString();
+		String generatedJavascript = containment.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -37,8 +35,7 @@ public class ResizableContainmentTestCase extends WiQueryTestCase {
 		assertEquals(generatedJavascript, expectedJavascript);
 
 		// Enum param
-		containment
-				.setElementEnumParam(ResizableContainment.ElementEnum.PARENT);
+		containment.setElementEnumParam(ResizableContainment.ElementEnum.PARENT);
 		expectedJavascript = ResizableContainment.ElementEnum.PARENT.toString();
 		generatedJavascript = containment.getJavascriptOption().toString();
 
@@ -48,19 +45,22 @@ public class ResizableContainmentTestCase extends WiQueryTestCase {
 
 		// Null param
 		containment.setElementOrSelectorParam(null);
-		try {
+		try
+		{
 			generatedJavascript = containment.getJavascriptOption().toString();
 			assertTrue(false);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// We have an expected error
-			assertEquals(
-					"The ResizableContainment must have one not null parameter",
-					e.getMessage());
+			assertEquals("The ResizableContainment must have one not null parameter",
+				e.getMessage());
 		}
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

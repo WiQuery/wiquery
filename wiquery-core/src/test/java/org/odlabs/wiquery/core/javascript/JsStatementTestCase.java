@@ -38,28 +38,29 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class JsStatementTestCase extends WiQueryTestCase {
+public class JsStatementTestCase extends WiQueryTestCase
+{
 	// Constants
 	/** Logger */
-	protected static final Logger log = LoggerFactory
-			.getLogger(JsStatementTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(JsStatementTestCase.class);
 
 	// Properties
 	private JsStatement jsStatement;
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		super.setUp();
 		jsStatement = new JsStatement();
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.core.javascript.JsStatement#$()}.
+	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsStatement#$()}.
 	 */
 	@Test
-	public void test$() {
+	public void test$()
+	{
 		assertAndLog("$;", jsStatement.$().render());
 	}
 
@@ -69,12 +70,15 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void test$Component() {
+	public void test$Component()
+	{
 		final WebMarkupContainer component = new WebMarkupContainer("anId");
-		tester.startPanel(new ITestPanelSource() {
+		tester.startPanel(new ITestPanelSource()
+		{
 			private static final long serialVersionUID = 1L;
 
-			public Panel getTestPanel(String panelId) {
+			public Panel getTestPanel(String panelId)
+			{
 				Panel panel = new DivTestPanel(panelId);
 				component.setMarkupId("anId");
 				panel.add(component);
@@ -90,34 +94,36 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void test$ComponentString() {
+	public void test$ComponentString()
+	{
 		assertAndLog("$('span');", jsStatement.$(null, "span").render());
 		jsStatement = new JsStatement();
 
 		final WebMarkupContainer component = new WebMarkupContainer("anId");
-		tester.startPanel(new ITestPanelSource() {
+		tester.startPanel(new ITestPanelSource()
+		{
 			private static final long serialVersionUID = 1L;
 
-			public Panel getTestPanel(String panelId) {
+			public Panel getTestPanel(String panelId)
+			{
 				Panel panel = new DivTestPanel(panelId);
 				component.setMarkupId("anId");
 				panel.add(component);
 				return panel;
 			}
 		});
-		assertAndLog("$('#anId span');", jsStatement.$(component, "span")
-				.render());
+		assertAndLog("$('#anId span');", jsStatement.$(component, "span").render());
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.core.javascript.JsStatement#addClass(java.lang.String)}
-	 * .
+	 * {@link org.odlabs.wiquery.core.javascript.JsStatement#addClass(java.lang.String)} .
 	 */
 	@Test
-	public void testAddClass() {
+	public void testAddClass()
+	{
 		assertAndLog("$('span').addClass('myClass');",
-				jsStatement.$(null, "span").addClass("myClass").render());
+			jsStatement.$(null, "span").addClass("myClass").render());
 	}
 
 	/**
@@ -126,10 +132,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testAfter() {
+	public void testAfter()
+	{
 		assertAndLog("$('span').after('<div>some text</div>');",
-				jsStatement.$(null, "span").after("<div>some text</div>")
-						.render());
+			jsStatement.$(null, "span").after("<div>some text</div>").render());
 	}
 
 	/**
@@ -138,9 +144,9 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testAppend() {
-		assertAndLog("$('div').click();", jsStatement
-				.append("$('div').click()").render());
+	public void testAppend()
+	{
+		assertAndLog("$('div').click();", jsStatement.append("$('div').click()").render());
 	}
 
 	/**
@@ -149,14 +155,11 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testAttrStringJsScope() {
-		assertAndLog(
-				"$('span').attr('click', function() {\n\talert('click done');\n});",
-				jsStatement
-						.$(null, "span")
-						.attr("click",
-								JsScope.quickScope("alert('click done');"))
-						.render());
+	public void testAttrStringJsScope()
+	{
+		assertAndLog("$('span').attr('click', function() {\n\talert('click done');\n});",
+			jsStatement.$(null, "span").attr("click", JsScope.quickScope("alert('click done');"))
+				.render());
 	}
 
 	/**
@@ -165,9 +168,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testAttrStringString() {
+	public void testAttrStringString()
+	{
 		assertAndLog("$('span').attr('title', 'a title');",
-				jsStatement.$(null, "span").attr("title", "a title").render());
+			jsStatement.$(null, "span").attr("title", "a title").render());
 	}
 
 	/**
@@ -176,9 +180,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testBefore() {
-		assertAndLog("$('span').before('<div>some text</div>');", jsStatement
-				.$(null, "span").before("<div>some text</div>").render());
+	public void testBefore()
+	{
+		assertAndLog("$('span').before('<div>some text</div>');", jsStatement.$(null, "span")
+			.before("<div>some text</div>").render());
 	}
 
 	/**
@@ -187,11 +192,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testChainChainableStatement() {
-		assertAndLog(
-				"$('span').css('font-weight', 'bold');",
-				jsStatement.$(null, "span")
-						.chain(CssHelper.css("font-weight", "bold")).render());
+	public void testChainChainableStatement()
+	{
+		assertAndLog("$('span').css('font-weight', 'bold');",
+			jsStatement.$(null, "span").chain(CssHelper.css("font-weight", "bold")).render());
 	}
 
 	/**
@@ -200,9 +204,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testChainCharSequenceCharSequenceArray() {
-		assertAndLog("$('span').a(b, c);",
-				jsStatement.$(null, "span").chain("a", "b", "c").render());
+	public void testChainCharSequenceCharSequenceArray()
+	{
+		assertAndLog("$('span').a(b, c);", jsStatement.$(null, "span").chain("a", "b", "c")
+			.render());
 	}
 
 	/**
@@ -211,11 +216,12 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testCssOptions() {
+	public void testCssOptions()
+	{
 		Options options = new Options();
 		options.putLiteral("font-weight", "bold");
 		assertAndLog("$('span').css({font-weight: 'bold'});",
-				jsStatement.$(null, "span").css(options).render());
+			jsStatement.$(null, "span").css(options).render());
 	}
 
 	/**
@@ -224,17 +230,18 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testCssStringString() {
+	public void testCssStringString()
+	{
 		assertAndLog("$('span').css('font-weight', 'bold');",
-				jsStatement.$(null, "span").css("font-weight", "bold").render());
+			jsStatement.$(null, "span").css("font-weight", "bold").render());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.core.javascript.JsStatement#document()}.
+	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsStatement#document()}.
 	 */
 	@Test
-	public void testDocument() {
+	public void testDocument()
+	{
 		assertAndLog("$(document);", jsStatement.document().render());
 	}
 
@@ -244,11 +251,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testEach() {
-		assertAndLog(
-				"$('span').each(function() {\n\talert('done');\n});",
-				jsStatement.$(null, "span")
-						.each(JsScope.quickScope("alert('done');")).render());
+	public void testEach()
+	{
+		assertAndLog("$('span').each(function() {\n\talert('done');\n});",
+			jsStatement.$(null, "span").each(JsScope.quickScope("alert('done');")).render());
 	}
 
 	/**
@@ -257,9 +263,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testHtml() {
-		assertAndLog("$('span').html('some text');", jsStatement
-				.$(null, "span").html("some text").render());
+	public void testHtml()
+	{
+		assertAndLog("$('span').html('some text');", jsStatement.$(null, "span").html("some text")
+			.render());
 	}
 
 	/**
@@ -268,10 +275,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testInsertAfter() {
-		assertAndLog("$('span').insertAfter('<div>some text</div>');",
-				jsStatement.$(null, "span").insertAfter("<div>some text</div>")
-						.render());
+	public void testInsertAfter()
+	{
+		assertAndLog("$('span').insertAfter('<div>some text</div>');", jsStatement.$(null, "span")
+			.insertAfter("<div>some text</div>").render());
 	}
 
 	/**
@@ -280,10 +287,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testInsertBefore() {
-		assertAndLog("$('span').insertBefore('<div>some text</div>');",
-				jsStatement.$(null, "span")
-						.insertBefore("<div>some text</div>").render());
+	public void testInsertBefore()
+	{
+		assertAndLog("$('span').insertBefore('<div>some text</div>');", jsStatement.$(null, "span")
+			.insertBefore("<div>some text</div>").render());
 	}
 
 	/**
@@ -292,11 +299,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testReady() {
-		assertAndLog(
-				"$('span').ready(function() {\n\talert('done');\n});",
-				jsStatement.$(null, "span")
-						.ready(JsScope.quickScope("alert('done');")).render());
+	public void testReady()
+	{
+		assertAndLog("$('span').ready(function() {\n\talert('done');\n});",
+			jsStatement.$(null, "span").ready(JsScope.quickScope("alert('done');")).render());
 	}
 
 	/**
@@ -305,9 +311,10 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testRemoveAttr() {
+	public void testRemoveAttr()
+	{
 		assertAndLog("$('span').removeAttr('title');",
-				jsStatement.$(null, "span").removeAttr("title").render());
+			jsStatement.$(null, "span").removeAttr("title").render());
 	}
 
 	/**
@@ -316,17 +323,18 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testRemoveClass() {
+	public void testRemoveClass()
+	{
 		assertAndLog("$('span').removeClass('myClass');",
-				jsStatement.$(null, "span").removeClass("myClass").render());
+			jsStatement.$(null, "span").removeClass("myClass").render());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.core.javascript.JsStatement#render()}.
+	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsStatement#render()}.
 	 */
 	@Test
-	public void testRender() {
+	public void testRender()
+	{
 		assertAndLog("$;", jsStatement.$().render());
 	}
 
@@ -335,18 +343,19 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.JsStatement#render(boolean)}.
 	 */
 	@Test
-	public void testRenderBoolean() {
+	public void testRenderBoolean()
+	{
 		assertAndLog("$;", jsStatement.$().render(true));
 		jsStatement = new JsStatement();
 		assertAndLog("$", jsStatement.$().render(false));
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.core.javascript.JsStatement#self()}.
+	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsStatement#self()}.
 	 */
 	@Test
-	public void testSelf() {
+	public void testSelf()
+	{
 		assertAndLog("$(this);", jsStatement.self().render());
 	}
 
@@ -356,13 +365,15 @@ public class JsStatementTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testToggleClass() {
+	public void testToggleClass()
+	{
 		assertAndLog("$('span').toggleClass('myClass');",
-				jsStatement.$(null, "span").toggleClass("myClass").render());
+			jsStatement.$(null, "span").toggleClass("myClass").render());
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

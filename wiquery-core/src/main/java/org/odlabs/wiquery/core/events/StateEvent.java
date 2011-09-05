@@ -30,16 +30,21 @@ package org.odlabs.wiquery.core.events;
  * @author Lionel Armanet
  * @since 0.5
  */
-public enum StateEvent implements EventLabel {
+public enum StateEvent implements EventLabel
+{
 
-	ABORT, BLUR, CHANGE, ERROR, FOCUS, LOAD, RESIZE, SELECT, UNLOAD;
+	ABORT,
+	BLUR,
+	CHANGE,
+	ERROR,
+	FOCUS,
+	LOAD,
+	RESIZE,
+	SELECT,
+	UNLOAD;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.events.EventLabel#getEventLabel()
-	 */
-	public String getEventLabel() {
+	public String getEventLabel()
+	{
 		return this.name().toLowerCase();
 	}
 

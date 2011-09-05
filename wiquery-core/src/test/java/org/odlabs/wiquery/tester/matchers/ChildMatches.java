@@ -6,20 +6,24 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
 /**
- * Matcher die controleert of een kind van het huidige component voldoet aan de
- * opgegeven matcher.
+ * Matcher die controleert of een kind van het huidige component voldoet aan de opgegeven
+ * matcher.
  */
-public class ChildMatches implements ComponentMatcher {
+public class ChildMatches implements ComponentMatcher
+{
 	private ComponentMatcher childMatcher;
 
-	public ChildMatches(ComponentMatcher childMatcher) {
+	public ChildMatches(ComponentMatcher childMatcher)
+	{
 		assert childMatcher != null;
 		this.childMatcher = childMatcher;
 	}
 
-	public boolean matches(Component component) {
+	public boolean matches(Component component)
+	{
 		// alleen markupcontainers hebben kinderen
-		if (component instanceof MarkupContainer) {
+		if (component instanceof MarkupContainer)
+		{
 			MarkupContainer container = (MarkupContainer) component;
 			ChildMatchingVisitor visitor = new ChildMatchingVisitor();
 			container.visitChildren(visitor);
@@ -28,17 +32,20 @@ public class ChildMatches implements ComponentMatcher {
 		return false;
 	}
 
-	class ChildMatchingVisitor implements IVisitor<Component, Void> {
+	class ChildMatchingVisitor implements IVisitor<Component, Void>
+	{
 		boolean matches = false;
 
-		public void component(Component child, IVisit<Void> visit) {
+		public void component(Component child, IVisit<Void> visit)
+		{
 			if (childMatcher.matches(child))
 				visit.stop();
 		}
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "child matches [" + childMatcher + "]";
 	}
 }

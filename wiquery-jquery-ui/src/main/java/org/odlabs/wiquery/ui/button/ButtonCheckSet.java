@@ -96,11 +96,6 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 		{
 			private static final long serialVersionUID = 8265281439115476364L;
 
-			/**
-			 * {@inheritDoc}
-			 * 
-			 * @see org.apache.wicket.markup.html.form.CheckGroup#onSelectionChanged(java.util.Collection)
-			 */
 			@Override
 			protected void onSelectionChanged(final Collection< ? extends T> newSelection)
 			{
@@ -129,11 +124,6 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 			{
 				private static final long serialVersionUID = 1L;
 
-				/**
-				 * {@inheritDoc}
-				 * 
-				 * @see org.apache.wicket.markup.html.list.ListView#populateItem(org.apache.wicket.markup.html.list.ListItem)
-				 */
 				@Override
 				protected void populateItem(ListItem<ButtonElement<T>> item)
 				{
@@ -182,11 +172,6 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 		this(id, Model.ofList(checks), model);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
@@ -249,11 +234,6 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
-	 */
 	public JsStatement statement()
 	{
 		return new JsQuery(checkGroup).$().chain("buttonset");

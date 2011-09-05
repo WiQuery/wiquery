@@ -27,49 +27,59 @@ import java.util.Date;
 /**
  * $Id$
  * <p>
- * 	Helper to create javascript Date instance.
+ * Helper to create javascript Date instance.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class DateHelper {
+public class DateHelper
+{
 	/**
 	 * Method to generate a javascript sequence to create an instance of date
+	 * 
 	 * @return the javascript charsequence
 	 */
-	public static CharSequence getJSDate() {
+	public static CharSequence getJSDate()
+	{
 		return "new Date()";
 	}
-	
+
 	/**
 	 * Method to generate a javascript sequence to create an instance of date
-	 * @param calendar Date to generate
+	 * 
+	 * @param calendar
+	 *            Date to generate
 	 * @return the javascript charsequence
 	 */
-	public static CharSequence getJSDate(Calendar calendar) {
+	public static CharSequence getJSDate(Calendar calendar)
+	{
 		StringBuffer dateJavascript = new StringBuffer();
 		dateJavascript.append("new Date(");
-        dateJavascript.append(calendar.get(Calendar.YEAR)).append(",");
-        dateJavascript.append(calendar.get(Calendar.MONTH)).append(",");
-        dateJavascript.append(calendar.get(Calendar.DAY_OF_MONTH)).append(",");
-        dateJavascript.append(calendar.get(Calendar.HOUR_OF_DAY)).append(",");
-        dateJavascript.append(calendar.get(Calendar.MINUTE)).append(",");
-        dateJavascript.append(calendar.get(Calendar.SECOND)).append(",");
+		dateJavascript.append(calendar.get(Calendar.YEAR)).append(",");
+		dateJavascript.append(calendar.get(Calendar.MONTH)).append(",");
+		dateJavascript.append(calendar.get(Calendar.DAY_OF_MONTH)).append(",");
+		dateJavascript.append(calendar.get(Calendar.HOUR_OF_DAY)).append(",");
+		dateJavascript.append(calendar.get(Calendar.MINUTE)).append(",");
+		dateJavascript.append(calendar.get(Calendar.SECOND)).append(",");
 		dateJavascript.append(calendar.get(Calendar.MILLISECOND));
 		dateJavascript.append(")");
-		
+
 		return dateJavascript;
 	}
-	
+
 	/**
 	 * Method to generate a javascript sequence to create an instance of date
-	 * @param date Date to generate
+	 * 
+	 * @param date
+	 *            Date to generate
 	 * @return the javascript charsequence
 	 */
-	public static CharSequence getJSDate(Date date) {
+	public static CharSequence getJSDate(Date date)
+	{
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		
+
 		return getJSDate(calendar);
 	}
 }

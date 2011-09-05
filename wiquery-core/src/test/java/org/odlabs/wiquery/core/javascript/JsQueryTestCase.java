@@ -36,24 +36,27 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class JsQueryTestCase extends WiQueryTestCase {
+public class JsQueryTestCase extends WiQueryTestCase
+{
 	// Constants
 	/** Logger */
-	protected static final Logger log = LoggerFactory
-			.getLogger(JsQueryTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(JsQueryTestCase.class);
 
 	// Properties
 	private JsQuery jsQuery;
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource() {
+		tester.startPanel(new ITestPanelSource()
+		{
 			private static final long serialVersionUID = 1L;
 
-			public Panel getTestPanel(String panelId) {
+			public Panel getTestPanel(String panelId)
+			{
 				Panel panel = new DivTestPanel(panelId);
 				WebMarkupContainer component = new WebMarkupContainer("anId");
 				component.setMarkupId("anId");
@@ -68,7 +71,8 @@ public class JsQueryTestCase extends WiQueryTestCase {
 	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsQuery#$()}.
 	 */
 	@Test
-	public void test$() {
+	public void test$()
+	{
 		assertAndLog("$('#anId');", jsQuery.$().render());
 	}
 
@@ -77,21 +81,23 @@ public class JsQueryTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.JsQuery#$(java.lang.String)}.
 	 */
 	@Test
-	public void test$String() {
+	public void test$String()
+	{
 		assertAndLog("$('#anId span');", jsQuery.$("span").render());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.core.javascript.JsQuery#document()}.
+	 * Test method for {@link org.odlabs.wiquery.core.javascript.JsQuery#document()}.
 	 */
 	@Test
-	public void testDocument() {
+	public void testDocument()
+	{
 		assertAndLog("$(document);", jsQuery.document().render());
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

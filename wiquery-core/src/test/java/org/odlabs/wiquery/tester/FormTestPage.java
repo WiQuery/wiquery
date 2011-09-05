@@ -27,7 +27,8 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.util.tester.DummyPanelPage;
 import org.apache.wicket.util.tester.ITestPanelSource;
 
-public class FormTestPage extends WebPage {
+public class FormTestPage extends WebPage
+{
 	/**
 	 * 
 	 */
@@ -37,21 +38,24 @@ public class FormTestPage extends WebPage {
 
 	private WebMarkupContainer panel;
 
-	public FormTestPage(ITestPanelSource panelFactory) {
+	public FormTestPage(ITestPanelSource panelFactory)
+	{
 		form = new Form<Void>("form");
 		add(form);
 		panel = panelFactory.getTestPanel(DummyPanelPage.TEST_PANEL_ID);
 		form.add(panel);
 	}
 
-	public FormTestPage(TestFormComponentPanelSource panelFactory) {
+	public FormTestPage(TestFormComponentPanelSource panelFactory)
+	{
 		form = new Form<Void>("form");
 		add(form);
 		panel = panelFactory.getTestPanel(DummyPanelPage.TEST_PANEL_ID);
 		form.add(panel);
 	}
 
-	public String getPanelComponentPath() {
+	public String getPanelComponentPath()
+	{
 		return panel.getPath();
 	}
 }

@@ -40,7 +40,8 @@ import org.apache.wicket.model.IModel;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class StringOption extends AbstractOption<String> {
+public class StringOption extends AbstractOption<String>
+{
 	private static final long serialVersionUID = -5938430089917100476L;
 
 	/**
@@ -49,7 +50,8 @@ public class StringOption extends AbstractOption<String> {
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
-	public StringOption(String value) {
+	public StringOption(String value)
+	{
 		super(value);
 	}
 
@@ -59,19 +61,22 @@ public class StringOption extends AbstractOption<String> {
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
-	public StringOption(IModel<String> value) {
+	public StringOption(IModel<String> value)
+	{
 		super(value);
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return getValue();
 	}
 
-	public IModelOption<String> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new StringOption(((IComponentAssignedModel<String>) getModel())
-					.wrapOnAssignment(component));
+	public IModelOption<String> wrapOnAssignment(Component component)
+	{
+		if (getModel() instanceof IComponentAssignedModel< ? >)
+			return new StringOption(
+				((IComponentAssignedModel<String>) getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

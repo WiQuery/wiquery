@@ -25,15 +25,16 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
- * Helper class to implement the hightlight effect as in 
+ * $Id$ Helper class to
+ * implement the hightlight effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Hightlight
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
  */
-public class HighlightEffect extends Effect {
+public class HighlightEffect extends Effect
+{
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,48 +42,52 @@ public class HighlightEffect extends Effect {
 	 * Mode direction.
 	 * 
 	 */
-	public static enum Mode {
-		show, hide;
+	public static enum Mode
+	{
+		show,
+		hide;
 	}
-	
-	
+
 	/**
 	 * Constructor.
 	 */
-	public HighlightEffect() {
-		this(null, null, 1000);		
+	public HighlightEffect()
+	{
+		this(null, null, 1000);
 	}
-	
-	/**
-	 * Constructor.
-	 * @param duration The duration.
-	 */
-	public HighlightEffect(int duration) {
-		this(null, null, duration);		
-	}
-	
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param direction The direction
-	 * @param scale The scale 
-	 * @param percent The percent
-	 * @param duration The duration.
+	 * @param duration
+	 *            The duration.
 	 */
-	public HighlightEffect(Mode mode, String color, int duration) {
-		super(JsUtils.quotes("highlight"),
-				"{" 
-				+(mode != null?"mode:"+ JsUtils.quotes(mode.name()):"")				
-				+(color!= null?", color: "+ color :"")				
-				+"}", Integer.toString(duration));
+	public HighlightEffect(int duration)
+	{
+		this(null, null, duration);
 	}
-		
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
+	/**
+	 * Constructor.
+	 * 
+	 * @param direction
+	 *            The direction
+	 * @param scale
+	 *            The scale
+	 * @param percent
+	 *            The percent
+	 * @param duration
+	 *            The duration.
 	 */
-	public String chainLabel() {
+	public HighlightEffect(Mode mode, String color, int duration)
+	{
+		super(JsUtils.quotes("highlight"), "{"
+			+ (mode != null ? "mode:" + JsUtils.quotes(mode.name()) : "")
+			+ (color != null ? ", color: " + color : "") + "}", Integer.toString(duration));
+	}
+
+	public String chainLabel()
+	{
 		return "effect";
 	}
 

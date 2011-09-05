@@ -21,9 +21,6 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
@@ -67,10 +64,10 @@ public class WiQueryAutocompleteJavaScriptResourceReference extends
 	@Override
 	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
 	{
-		List<AbstractResourceDependentResourceReference> list =
-			new ArrayList<AbstractResourceDependentResourceReference>();
-		list.add(AutocompleteJavaScriptResourceReference.get());
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[1];
+		list[0] = AutocompleteJavaScriptResourceReference.get();
 
-		return list.toArray(new AbstractResourceDependentResourceReference[0]);
+		return list;
 	}
 }

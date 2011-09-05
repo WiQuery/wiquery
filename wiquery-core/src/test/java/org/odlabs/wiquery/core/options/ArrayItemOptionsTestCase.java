@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.core.options;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -13,16 +12,17 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class ArrayItemOptionsTestCase extends WiQueryTestCase {
+public class ArrayItemOptionsTestCase extends WiQueryTestCase
+{
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(ArrayItemOptionsTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(ArrayItemOptionsTestCase.class);
 
 	/**
 	 * Check the syntax
 	 */
 	@Test
-	public void testGetJavascriptItemOptions() {
+	public void testGetJavascriptItemOptions()
+	{
 		ArrayItemOptions<IntegerItemOptions> options = new ArrayItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
@@ -47,7 +47,8 @@ public class ArrayItemOptionsTestCase extends WiQueryTestCase {
 	 * Test the values
 	 */
 	@Test
-	public void testValues() {
+	public void testValues()
+	{
 		ArrayItemOptions<IntegerItemOptions> options = new ArrayItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
@@ -59,7 +60,8 @@ public class ArrayItemOptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

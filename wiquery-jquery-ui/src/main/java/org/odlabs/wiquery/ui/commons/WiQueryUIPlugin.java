@@ -40,6 +40,7 @@ import org.odlabs.wiquery.core.IWiQueryPlugin;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = ElementType.TYPE)
 @Inherited
-public @interface WiQueryUIPlugin {
+public @interface WiQueryUIPlugin
+{
 
 }

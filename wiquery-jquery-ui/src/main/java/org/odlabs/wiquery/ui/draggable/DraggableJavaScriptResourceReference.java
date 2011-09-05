@@ -21,18 +21,13 @@
  */
 package org.odlabs.wiquery.ui.draggable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id: DraggableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
- * lionel.armanet $
+ * $Id$
  * <p>
  * References the resource to apply draggable behavior on HTML components.
  * </p>
@@ -40,8 +35,8 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class DraggableJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class DraggableJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3704373328245392716L;
@@ -49,30 +44,33 @@ public class DraggableJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static DraggableJavaScriptResourceReference instance = new DraggableJavaScriptResourceReference();
+	private static DraggableJavaScriptResourceReference instance =
+		new DraggableJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link DraggableJavaScriptResourceReference}.
 	 */
-	private DraggableJavaScriptResourceReference() {
-		super(DraggableJavaScriptResourceReference.class,
-				"jquery.ui.draggable.js");
+	private DraggableJavaScriptResourceReference()
+	{
+		super(DraggableJavaScriptResourceReference.class, "jquery.ui.draggable.js");
 	}
 
 	/**
 	 * Returns the {@link DraggableJavaScriptResourceReference} instance.
 	 */
-	public static DraggableJavaScriptResourceReference get() {
+	public static DraggableJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
-		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
-		list.add(CoreUIJavaScriptResourceReference.get());
-		list.add(WidgetJavaScriptResourceReference.get());
-		list.add(MouseJavaScriptResourceReference.get());
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[2];
+		list[0] = CoreUIJavaScriptResourceReference.get();
+		list[1] = MouseJavaScriptResourceReference.get();
 
-		return list.toArray(new AbstractResourceDependentResourceReference[0]);
+		return list;
 	}
 }

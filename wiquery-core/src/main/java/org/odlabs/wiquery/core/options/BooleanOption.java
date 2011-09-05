@@ -40,7 +40,8 @@ import org.apache.wicket.model.IModel;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class BooleanOption extends AbstractOption<Boolean> {
+public class BooleanOption extends AbstractOption<Boolean>
+{
 	private static final long serialVersionUID = -5938430089917100476L;
 
 	/**
@@ -49,7 +50,8 @@ public class BooleanOption extends AbstractOption<Boolean> {
 	 * @param literal
 	 *            the wrapped {@link Boolean}
 	 */
-	public BooleanOption(Boolean value) {
+	public BooleanOption(Boolean value)
+	{
 		super(value);
 	}
 
@@ -59,20 +61,23 @@ public class BooleanOption extends AbstractOption<Boolean> {
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
-	public BooleanOption(IModel<Boolean> value) {
+	public BooleanOption(IModel<Boolean> value)
+	{
 		super(value);
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		Boolean value = getValue();
 		return value != null ? Boolean.toString(value) : null;
 	}
 
-	public IModelOption<Boolean> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new BooleanOption(((IComponentAssignedModel<Boolean>) getModel())
-					.wrapOnAssignment(component));
+	public IModelOption<Boolean> wrapOnAssignment(Component component)
+	{
+		if (getModel() instanceof IComponentAssignedModel< ? >)
+			return new BooleanOption(
+				((IComponentAssignedModel<Boolean>) getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

@@ -42,15 +42,20 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class DroppableBehavior extends WiQueryAbstractBehavior {
+public class DroppableBehavior extends WiQueryAbstractBehavior
+{
 	/**
 	 * Enumeration for the tolerance option
 	 * 
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum ToleranceEnum {
-		FIT, INTERSECT, POINTER, TOUCH;
+	public enum ToleranceEnum
+	{
+		FIT,
+		INTERSECT,
+		POINTER,
+		TOUCH;
 	}
 
 	// Constants
@@ -58,61 +63,59 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	private static final long serialVersionUID = 2L;
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current
-	 * draggable element, a jQuery object.
+	 * Properties on the ui parameter (use it into callback functions) : current draggable
+	 * element, a jQuery object.
 	 */
 	public static final String UI_DRAGGABLE = "ui.draggable";
+
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current
-	 * draggable helper, a jQuery object
+	 * Properties on the ui parameter (use it into callback functions) : current draggable
+	 * helper, a jQuery object
 	 */
 	public static final String UI_HELPER = "ui.helper";
+
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current
-	 * position of the draggable helper { top: , left: }
+	 * Properties on the ui parameter (use it into callback functions) : current position
+	 * of the draggable helper { top: , left: }
 	 */
 	public static final String UI_POSITION = "ui.position";
+
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current
-	 * absolute position of the draggable helper { top: , left: }
+	 * Properties on the ui parameter (use it into callback functions) : current absolute
+	 * position of the draggable helper { top: , left: }
 	 */
 	public static final String UI_OFFSET = "ui.offset";
 
 	// Properties
 	private Options options = new Options();
 
-	
 	@Override
-	public void bind(Component component) {
+	public void bind(Component component)
+	{
 		options.setOwner(component);
 		super.bind(component);
 	}
-	
+
 	@Override
-	public void detach(Component component) {
+	public void detach(Component component)
+	{
 		super.detach(component);
 		options.detach();
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
+
 	@Override
-	public void renderHead(Component component, IHeaderResponse response) {
+	public void renderHead(Component component, IHeaderResponse response)
+	{
 		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-			response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
-				response.renderJavaScriptReference(DroppableJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
+		response.renderJavaScriptReference(DroppableJavaScriptResourceReference.get());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
-	 */
 	@Override
-	public JsStatement statement() {
+	public JsStatement statement()
+	{
 		return new JsQuery(getComponent()).$().chain("droppable",
-				this.options.getJavaScriptOptions());
+			this.options.getJavaScriptOptions());
 	}
 
 	/**
@@ -120,7 +123,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * 
 	 * @return the options
 	 */
-	protected Options getOptions() {
+	protected Options getOptions()
+	{
 		return options;
 	}
 
@@ -128,15 +132,15 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 
 	/**
 	 * All draggables that match the selector will be accepted. If a function is
-	 * specified, the function will be called for each draggable on the page
-	 * (passed as the first argument to the function), to provide a custom
-	 * filter. The function should return true if the draggable should be
-	 * accepted.
+	 * specified, the function will be called for each draggable on the page (passed as
+	 * the first argument to the function), to provide a custom filter. The function
+	 * should return true if the draggable should be accepted.
 	 * 
 	 * @param accept
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setAccept(DroppableAccept accept) {
+	public DroppableBehavior setAccept(DroppableAccept accept)
+	{
 		this.options.put("accept", accept);
 		return this;
 	}
@@ -144,9 +148,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the accept option
 	 */
-	public DroppableAccept getAccept() {
+	public DroppableAccept getAccept()
+	{
 		IComplexOption accept = this.options.getComplexOption("accept");
-		if (accept instanceof DroppableAccept) {
+		if (accept instanceof DroppableAccept)
+		{
 			return (DroppableAccept) accept;
 		}
 
@@ -154,13 +160,14 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	}
 
 	/**
-	 * If specified, the class will be added to the droppable while an
-	 * acceptable draggable is being dragged.
+	 * If specified, the class will be added to the droppable while an acceptable
+	 * draggable is being dragged.
 	 * 
 	 * @param activeClass
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setActiveClass(String activeClass) {
+	public DroppableBehavior setActiveClass(String activeClass)
+	{
 		this.options.putLiteral("activeClass", activeClass);
 		return this;
 	}
@@ -168,7 +175,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the activeClass option
 	 */
-	public String getActiveClass() {
+	public String getActiveClass()
+	{
 		return this.options.getLiteral("activeClass");
 	}
 
@@ -178,7 +186,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * @param addClasses
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setAddClasses(boolean addClasses) {
+	public DroppableBehavior setAddClasses(boolean addClasses)
+	{
 		this.options.put("addClasses", addClasses);
 		return this;
 	}
@@ -186,32 +195,39 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the addClasses option
 	 */
-	public boolean isAddClasses() {
-		if (this.options.containsKey("addClasses")) {
+	public boolean isAddClasses()
+	{
+		if (this.options.containsKey("addClasses"))
+		{
 			return this.options.getBoolean("addClasses");
 		}
-		
+
 		return true;
 	}
-	
-	/**Disables (true) or enables (false) the droppable. Can be set when 
-	 * initialising (first creating) the droppable.
+
+	/**
+	 * Disables (true) or enables (false) the droppable. Can be set when initialising
+	 * (first creating) the droppable.
+	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setDisabled(boolean disabled) {
+	public DroppableBehavior setDisabled(boolean disabled)
+	{
 		this.options.put("disabled", disabled);
 		return this;
 	}
-	
+
 	/**
 	 * @return the disabled option
 	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
+	public boolean isDisabled()
+	{
+		if (this.options.containsKey("disabled"))
+		{
 			return this.options.getBoolean("disabled");
 		}
-		
+
 		return false;
 	}
 
@@ -221,7 +237,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * @param greedy
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setGreedy(boolean greedy) {
+	public DroppableBehavior setGreedy(boolean greedy)
+	{
 		this.options.put("greedy", greedy);
 		return this;
 	}
@@ -229,22 +246,25 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the greedy option
 	 */
-	public boolean isGreedy() {
-		if (this.options.containsKey("greedy")) {
+	public boolean isGreedy()
+	{
+		if (this.options.containsKey("greedy"))
+		{
 			return this.options.getBoolean("greedy");
 		}
-		
+
 		return false;
 	}
 
 	/**
-	 * If specified, the class will be added to the droppable while an
-	 * acceptable draggable is being hovered.
+	 * If specified, the class will be added to the droppable while an acceptable
+	 * draggable is being hovered.
 	 * 
 	 * @param hoverClass
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setHoverClass(String hoverClass) {
+	public DroppableBehavior setHoverClass(String hoverClass)
+	{
 		this.options.putLiteral("hoverClass", hoverClass);
 		return this;
 	}
@@ -252,19 +272,21 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the hoverClass option
 	 */
-	public String getHoverClass() {
+	public String getHoverClass()
+	{
 		return this.options.getLiteral("hoverClass");
 	}
 
 	/**
-	 * Used to group sets of draggable and droppable items, in addition to
-	 * droppable's accept option. A draggable with the same scope value as a
-	 * droppable will be accepted.
+	 * Used to group sets of draggable and droppable items, in addition to droppable's
+	 * accept option. A draggable with the same scope value as a droppable will be
+	 * accepted.
 	 * 
 	 * @param scope
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setScope(String scope) {
+	public DroppableBehavior setScope(String scope)
+	{
 		this.options.putLiteral("scope", scope);
 		return this;
 	}
@@ -272,15 +294,16 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * @return the scope option
 	 */
-	public String getScope() {
+	public String getScope()
+	{
 		String scope = this.options.getLiteral("scope");
 
 		return scope == null ? "default" : scope;
 	}
 
 	/**
-	 * Set's the mode to use for testing whether a draggable is 'over' a
-	 * droppable. Possible values: 'fit', 'intersect', 'pointer', 'touch'.
+	 * Set's the mode to use for testing whether a draggable is 'over' a droppable.
+	 * Possible values: 'fit', 'intersect', 'pointer', 'touch'.
 	 * <ul>
 	 * <li><b>fit</b>: draggable overlaps the droppable entirely</li>
 	 * <li><b>intersect</b>: draggable overlaps the droppable at least 50%</li>
@@ -291,32 +314,33 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * @param tolerance
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setTolerance(ToleranceEnum tolerance) {
-		this.options
-				.putLiteral("tolerance", tolerance.toString().toLowerCase());
+	public DroppableBehavior setTolerance(ToleranceEnum tolerance)
+	{
+		this.options.putLiteral("tolerance", tolerance.toString().toLowerCase());
 		return this;
 	}
 
 	/**
 	 * @return the tolerance option enum
 	 */
-	public ToleranceEnum getTolerance() {
+	public ToleranceEnum getTolerance()
+	{
 		String tolerance = this.options.getLiteral("tolerance");
 		return tolerance == null ? ToleranceEnum.INTERSECT : ToleranceEnum.valueOf(tolerance
-				.toUpperCase());
+			.toUpperCase());
 	}
 
 	/*---- Events section ---*/
 
 	/**
-	 * Set's the callback when an accepted draggable starts dragging. This can
-	 * be useful if you want to make the droppable 'light up' when it can be
-	 * dropped on.
+	 * Set's the callback when an accepted draggable starts dragging. This can be useful
+	 * if you want to make the droppable 'light up' when it can be dropped on.
 	 * 
 	 * @param activate
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setActivateEvent(JsScopeUiEvent activate) {
+	public DroppableBehavior setActivateEvent(JsScopeUiEvent activate)
+	{
 		this.options.put("activate", activate);
 		return this;
 	}
@@ -327,45 +351,48 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * @param deactivate
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setDeactivateEvent(JsScopeUiEvent deactivate) {
+	public DroppableBehavior setDeactivateEvent(JsScopeUiEvent deactivate)
+	{
 		this.options.put("deactivate", deactivate);
 		return this;
 	}
 
 	/**
-	 * Set's the callback when an accepted draggable is dropped 'over' (within
-	 * the tolerance of) this droppable. In the callback, $(this) represents the
-	 * droppable the draggable is dropped on. ui.draggable represents the
-	 * draggable.
+	 * Set's the callback when an accepted draggable is dropped 'over' (within the
+	 * tolerance of) this droppable. In the callback, $(this) represents the droppable the
+	 * draggable is dropped on. ui.draggable represents the draggable.
 	 * 
 	 * @param drop
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setDropEvent(JsScopeUiEvent drop) {
+	public DroppableBehavior setDropEvent(JsScopeUiEvent drop)
+	{
 		this.options.put("drop", drop);
 		return this;
 	}
 
 	/**
-	 * Set's the callback when an accepted draggable is dragged out (within the
-	 * tolerance of) this droppable.
+	 * Set's the callback when an accepted draggable is dragged out (within the tolerance
+	 * of) this droppable.
 	 * 
 	 * @param out
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setOutEvent(JsScopeUiEvent out) {
+	public DroppableBehavior setOutEvent(JsScopeUiEvent out)
+	{
 		this.options.put("out", out);
 		return this;
 	}
 
 	/**
-	 * Set's the callback when an accepted draggable is dragged 'over' (within
-	 * the tolerance of) this droppable.
+	 * Set's the callback when an accepted draggable is dragged 'over' (within the
+	 * tolerance of) this droppable.
 	 * 
 	 * @param over
 	 * @return instance of the current behavior
 	 */
-	public DroppableBehavior setOverEvent(JsScopeUiEvent over) {
+	public DroppableBehavior setOverEvent(JsScopeUiEvent over)
+	{
 		this.options.put("over", over);
 		return this;
 	}
@@ -373,12 +400,13 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	/*---- Methods section ---*/
 
 	/**
-	 * Method to destroy the droppable This will return the element back to its
-	 * pre-init state.
+	 * Method to destroy the droppable This will return the element back to its pre-init
+	 * state.
 	 * 
 	 * @return the associated JsStatement
 	 */
-	public JsStatement destroy() {
+	public JsStatement destroy()
+	{
 		return new JsQuery(getComponent()).$().chain("droppable", "'destroy'");
 	}
 
@@ -387,7 +415,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * 
 	 * @param ajaxRequestTarget
 	 */
-	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
+	public void destroy(AjaxRequestTarget ajaxRequestTarget)
+	{
 		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 
@@ -396,7 +425,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * 
 	 * @return the associated JsStatement
 	 */
-	public JsStatement disable() {
+	public JsStatement disable()
+	{
 		return new JsQuery(getComponent()).$().chain("droppable", "'disable'");
 	}
 
@@ -405,7 +435,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * 
 	 * @param ajaxRequestTarget
 	 */
-	public void disable(AjaxRequestTarget ajaxRequestTarget) {
+	public void disable(AjaxRequestTarget ajaxRequestTarget)
+	{
 		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 
@@ -414,7 +445,8 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * 
 	 * @return the associated JsStatement
 	 */
-	public JsStatement enable() {
+	public JsStatement enable()
+	{
 		return new JsQuery(getComponent()).$().chain("droppable", "'enable'");
 	}
 
@@ -423,21 +455,28 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 * 
 	 * @param ajaxRequestTarget
 	 */
-	public void enable(AjaxRequestTarget ajaxRequestTarget) {
+	public void enable(AjaxRequestTarget ajaxRequestTarget)
+	{
 		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
-	
-	/**Method to returns the .ui-droppable  element
+
+	/**
+	 * Method to returns the .ui-droppable element
+	 * 
 	 * @return the associated JsStatement
 	 */
-	public JsStatement widget() {
+	public JsStatement widget()
+	{
 		return new JsQuery(getComponent()).$().chain("droppable", "'widget'");
 	}
 
-	/**Method to returns the .ui-droppable  element within the ajax request
+	/**
+	 * Method to returns the .ui-droppable element within the ajax request
+	 * 
 	 * @param ajaxRequestTarget
 	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
+	public void widget(AjaxRequestTarget ajaxRequestTarget)
+	{
 		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 }

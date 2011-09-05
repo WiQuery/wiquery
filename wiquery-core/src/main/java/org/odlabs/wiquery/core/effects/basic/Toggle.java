@@ -27,39 +27,38 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
 /**
  * $Id$
  * <p>
- * Defines the toggle {@link Effect}. A toggle consists to show a component
- * when it's hidden, and to hide it when it's displayed.
+ * Defines the toggle {@link Effect}. A toggle consists to show a component when it's
+ * hidden, and to hide it when it's displayed.
  * </p>
  * 
  * @author Lionel Armanet, reiern70
  * @since 0.7
  */
-public class Toggle extends Effect {
+public class Toggle extends Effect
+{
 
 	private static final long serialVersionUID = 235427840472391563L;
 
 	/**
 	 * Default constructor.
 	 */
-	public Toggle() {
+	public Toggle()
+	{
 		super();
 	}
-	
+
 	/**
 	 * Creates this effect with the given {@link EffectSpeed}.
 	 * 
 	 * @param effectSpeed
 	 */
-	public Toggle(EffectSpeed effectSpeed) {
+	public Toggle(EffectSpeed effectSpeed)
+	{
 		super(effectSpeed);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return "toggle";
 	}
 

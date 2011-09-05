@@ -40,7 +40,8 @@ import org.apache.wicket.model.IModel;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class ShortOption extends AbstractOption<Short> {
+public class ShortOption extends AbstractOption<Short>
+{
 	private static final long serialVersionUID = -5938430089917100476L;
 
 	/**
@@ -49,7 +50,8 @@ public class ShortOption extends AbstractOption<Short> {
 	 * @param literal
 	 *            the wrapped {@link Short}
 	 */
-	public ShortOption(Short value) {
+	public ShortOption(Short value)
+	{
 		super(value);
 	}
 
@@ -59,20 +61,23 @@ public class ShortOption extends AbstractOption<Short> {
 	 * @param literal
 	 *            the wrapped {@link Short}
 	 */
-	public ShortOption(IModel<Short> value) {
+	public ShortOption(IModel<Short> value)
+	{
 		super(value);
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		Short value = getValue();
 		return value != null ? Short.toString(value) : null;
 	}
 
-	public IModelOption<Short> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new ShortOption(((IComponentAssignedModel<Short>) getModel())
-					.wrapOnAssignment(component));
+	public IModelOption<Short> wrapOnAssignment(Component component)
+	{
+		if (getModel() instanceof IComponentAssignedModel< ? >)
+			return new ShortOption(
+				((IComponentAssignedModel<Short>) getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

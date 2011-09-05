@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core.javascript.helper;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
 
@@ -9,12 +9,13 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DateHelperTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(DateHelperTestCase.class);
+public class DateHelperTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(DateHelperTestCase.class);
 
 	@Test
-	public void testGetJSDate() {
+	public void testGetJSDate()
+	{
 		// Date param
 		String expectedJavascript = "new Date()";
 		String generatedJavascript = DateHelper.getJSDate().toString();
@@ -25,7 +26,8 @@ public class DateHelperTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetJSDateWithCalendar() {
+	public void testGetJSDateWithCalendar()
+	{
 		// Date param
 		GregorianCalendar calendar = new GregorianCalendar(2009, 11, 7);
 		String expectedJavascript = "new Date(2009,11,7,0,0,0,0)";
@@ -37,12 +39,12 @@ public class DateHelperTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetJSDateWithDate() {
+	public void testGetJSDateWithDate()
+	{
 		// Date param
 		GregorianCalendar calendar = new GregorianCalendar(2009, 11, 11);
 		String expectedJavascript = "new Date(2009,11,11,0,0,0,0)";
-		String generatedJavascript = DateHelper.getJSDate(calendar.getTime())
-				.toString();
+		String generatedJavascript = DateHelper.getJSDate(calendar.getTime()).toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -50,7 +52,8 @@ public class DateHelperTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

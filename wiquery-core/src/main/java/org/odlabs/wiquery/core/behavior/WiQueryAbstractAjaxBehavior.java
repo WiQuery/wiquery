@@ -26,7 +26,8 @@ import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
- * $Id$
+ * $Id: WiQueryAbstractAjaxBehavior.java 1143 2011-07-29 11:51:49Z hielke.hoeve@gmail.com
+ * $
  * <p>
  * Link between {@link IWiQueryPlugin} and {@link AbstractDefaultAjaxBehavior}
  * </p>
@@ -34,27 +35,18 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Julien Roche
  * @since 1.1
  */
-public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBehavior implements IWiQueryPlugin
+public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBehavior implements
+		IWiQueryPlugin
 {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 6498661892490365888L;
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
-	 */
 	@Override
 	protected void onBind()
 	{
 		super.onBind();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
-	 */
 	public abstract JsStatement statement();
 }

@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScope;
@@ -33,68 +33,63 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * 
  * @author Julien Roche
  */
-public class EffectTestCase extends WiQueryTestCase {
+public class EffectTestCase extends WiQueryTestCase
+{
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.core.effects.Effect#statementArgs()}.
+	 * Test method for {@link org.odlabs.wiquery.core.effects.Effect#statementArgs()}.
 	 */
 	@Test
-	public void testStatementArgs() {
+	public void testStatementArgs()
+	{
 		// Test with no parameters
-		assertEquals(
-				new JsStatement().$(null, "#aComponent")
-						.chain(new EffectTest()).render().toString(),
-				"$('#aComponent').anEffect();");
+		assertEquals(new JsStatement().$(null, "#aComponent").chain(new EffectTest()).render()
+			.toString(), "$('#aComponent').anEffect();");
 
 		// Test with a parameter
-		assertEquals(
-				new JsStatement().$(null, "#aComponent")
-						.chain(new EffectTest("'aaa'")).render().toString(),
-				"$('#aComponent').anEffect('aaa');");
+		assertEquals(new JsStatement().$(null, "#aComponent").chain(new EffectTest("'aaa'"))
+			.render().toString(), "$('#aComponent').anEffect('aaa');");
 
 		// Test with a speed and a parameter
 		assertEquals(
-				new JsStatement().$(null, "#aComponent")
-						.chain(new EffectTest(EffectSpeed.SLOW, "'aaa'"))
-						.render().toString(),
-				"$('#aComponent').anEffect('slow', 'aaa');");
+			new JsStatement().$(null, "#aComponent")
+				.chain(new EffectTest(EffectSpeed.SLOW, "'aaa'")).render().toString(),
+			"$('#aComponent').anEffect('slow', 'aaa');");
 
 		// Test with a speed, a parameter and a callback
 		assertEquals(
-				new JsStatement()
-						.$(null, "#aComponent")
-						.chain(new EffectTest(EffectSpeed.SLOW, JsScope
-								.quickScope("alert('test');"), "'aaa'"))
-						.render().toString(),
-				"$('#aComponent').anEffect('slow', 'aaa', function() {\n\talert('test');\n});");
+			new JsStatement()
+				.$(null, "#aComponent")
+				.chain(
+					new EffectTest(EffectSpeed.SLOW, JsScope.quickScope("alert('test');"), "'aaa'"))
+				.render().toString(),
+			"$('#aComponent').anEffect('slow', 'aaa', function() {\n\talert('test');\n});");
 	}
 
 	/**
 	 * @author Julien Roche
 	 */
-	private class EffectTest extends Effect {
+	private class EffectTest extends Effect
+	{
 		private static final long serialVersionUID = 1L;
 
-		public EffectTest(CharSequence... parameters) {
+		public EffectTest(CharSequence... parameters)
+		{
 			super(parameters);
 		}
 
-		public EffectTest(EffectSpeed effectSpeed, CharSequence... parameters) {
+		public EffectTest(EffectSpeed effectSpeed, CharSequence... parameters)
+		{
 			super(effectSpeed, parameters);
 		}
 
-		public EffectTest(EffectSpeed effectSpeed, JsScope callback,
-				CharSequence... parameters) {
+		public EffectTest(EffectSpeed effectSpeed, JsScope callback, CharSequence... parameters)
+		{
 			super(effectSpeed, callback, parameters);
 			// TODO Auto-generated constructor stub
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-		 */
-		public String chainLabel() {
+		public String chainLabel()
+		{
 			return "anEffect";
 		}
 	}

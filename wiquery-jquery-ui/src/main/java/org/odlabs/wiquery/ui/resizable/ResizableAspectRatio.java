@@ -32,94 +32,128 @@ import org.odlabs.wiquery.core.options.IComplexOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class ResizableAspectRatio implements IComplexOption {	
+public class ResizableAspectRatio implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Boolean booleanParam;
+
 	private Float floatParam;
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
 	 */
-	public ResizableAspectRatio(Boolean booleanParam) {
+	public ResizableAspectRatio(Boolean booleanParam)
+	{
 		this(booleanParam, null);
 	}
 
-	/**Constructor
-	 * @param floatParam Float parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param floatParam
+	 *            Float parameter
 	 */
-	public ResizableAspectRatio(Float floatParam) {
+	public ResizableAspectRatio(Float floatParam)
+	{
 		this(null, floatParam);
 	}
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 * @param floatParam Float parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param floatParam
+	 *            Float parameter
 	 */
-	private ResizableAspectRatio(Boolean booleanParam, Float floatParam) {
+	private ResizableAspectRatio(Boolean booleanParam, Float floatParam)
+	{
 		super();
 		setParam(booleanParam, floatParam);
 	}
-	
+
 	/**
 	 * @return the booleanParam
 	 */
-	public Boolean getBooleanParam() {
+	public Boolean getBooleanParam()
+	{
 		return booleanParam;
 	}
 
 	/**
 	 * @return the floatParam
 	 */
-	public Float getFloatParam() {
+	public Float getFloatParam()
+	{
 		return floatParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && floatParam == null){
-			throw new IllegalArgumentException("The ResizableAspectRatio must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (booleanParam == null && floatParam == null)
+		{
+			throw new IllegalArgumentException(
+				"The ResizableAspectRatio must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(booleanParam != null){
+
+		if (booleanParam != null)
+		{
 			sequence = booleanParam.toString();
 		}
-		else if(floatParam != null){
+		else if (floatParam != null)
+		{
 			sequence = floatParam.toString();
 		}
-		else{
-			throw new IllegalArgumentException("The ResizableAspectRatio must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The ResizableAspectRatio must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the boolean parameter
-	 * @param booleanParam the boolean to set
+	/**
+	 * Set's the boolean parameter
+	 * 
+	 * @param booleanParam
+	 *            the boolean to set
 	 */
-	public void setBooleanParam(Boolean booleanParam) {
+	public void setBooleanParam(Boolean booleanParam)
+	{
 		setParam(booleanParam, null);
 	}
-	
-	/**Set's the float parameter
-	 * @param floatParam the float to set
+
+	/**
+	 * Set's the float parameter
+	 * 
+	 * @param floatParam
+	 *            the float to set
 	 */
-	public void setFloatParam(Float floatParam) {
+	public void setFloatParam(Float floatParam)
+	{
 		setParam(null, floatParam);
 	}
-	
-	/**Method setting the right parameter
-	 * @param booleanParam Boolean parameter
-	 * @param floatParam Float parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param floatParam
+	 *            Float parameter
 	 */
-	private void setParam(Boolean booleanParam, Float floatParam) {
+	private void setParam(Boolean booleanParam, Float floatParam)
+	{
 		this.booleanParam = booleanParam;
 		this.floatParam = floatParam;
 	}

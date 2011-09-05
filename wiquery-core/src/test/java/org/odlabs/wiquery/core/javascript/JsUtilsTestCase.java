@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core.javascript;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.events.MouseEvent;
@@ -13,19 +13,19 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class JsUtilsTestCase extends WiQueryTestCase {
+public class JsUtilsTestCase extends WiQueryTestCase
+{
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(JsUtilsTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(JsUtilsTestCase.class);
 
 	/**
 	 * Test {@link JsUtils#array(CharSequence...)}
 	 */
 	@Test
-	public void testArray() {
+	public void testArray()
+	{
 		String expectedJavascript = "['a', 'b', 'c']";
-		String generatedJavascript = JsUtils.array("'a'", "'b'", "'c'")
-				.toString();
+		String generatedJavascript = JsUtils.array("'a'", "'b'", "'c'").toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -38,7 +38,8 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 	 * {@link JsUtils#doubleQuotes(CharSequence, boolean)}
 	 */
 	@Test
-	public void testDoubleQuotes() {
+	public void testDoubleQuotes()
+	{
 		// Without escaped quote
 		String expectedJavascript = "\"a\"";
 		String generatedJavascript = JsUtils.doubleQuotes("a");
@@ -62,7 +63,8 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 	 * Test {@link JsUtils#escapeDoubleQuote(CharSequence)}
 	 */
 	@Test
-	public void testEscapeDoubleQuote() {
+	public void testEscapeDoubleQuote()
+	{
 		String expectedJavascript = "\\\"Hello\\\"";
 		String generatedJavascript = JsUtils.escapeDoubleQuote("\"Hello\"");
 
@@ -76,7 +78,8 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 	 * Test {@link JsUtils#escapeQuote(CharSequence)}
 	 */
 	@Test
-	public void testEscapeQuote() {
+	public void testEscapeQuote()
+	{
 		String expectedJavascript = "l\\'oiseau";
 		String generatedJavascript = JsUtils.escapeQuote("l'oiseau");
 
@@ -87,14 +90,13 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 	}
 
 	/**
-	 * Test
-	 * {@link JsUtils#implode(org.odlabs.wiquery.core.events.EventLabel...)}
+	 * Test {@link JsUtils#implode(org.odlabs.wiquery.core.events.EventLabel...)}
 	 */
 	@Test
-	public void testImplode() {
+	public void testImplode()
+	{
 		String expectedJavascript = "'click dblclick'";
-		String generatedJavascript = JsUtils.implode(MouseEvent.CLICK,
-				MouseEvent.DBLCLICK);
+		String generatedJavascript = JsUtils.implode(MouseEvent.CLICK, MouseEvent.DBLCLICK);
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -107,7 +109,8 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 	 * {@link JsUtils#quotes(CharSequence, boolean)}
 	 */
 	@Test
-	public void testQuotes() {
+	public void testQuotes()
+	{
 		// Without escaped quote
 		String expectedJavascript = "'a'";
 		String generatedJavascript = JsUtils.quotes("a");
@@ -131,7 +134,8 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 	 * Test {@link JsUtils#string(int)}
 	 */
 	@Test
-	public void testString() {
+	public void testString()
+	{
 		String expectedJavascript = "5";
 		String generatedJavascript = JsUtils.string(5);
 
@@ -142,7 +146,8 @@ public class JsUtilsTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

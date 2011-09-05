@@ -34,94 +34,128 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class DroppableAccept implements IComplexOption {
+public class DroppableAccept implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137953L;
-	
+
 	// Properties
 	private JsScope functionParam;
+
 	private String literalParam;
-	
-	/**Constructor
-	 * @param literalParam Literal parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param literalParam
+	 *            Literal parameter
 	 */
-	public DroppableAccept(String literalParam) {
+	public DroppableAccept(String literalParam)
+	{
 		this(null, literalParam);
 	}
-	
-	/**Constructor
-	 * @param functionParam Function parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param functionParam
+	 *            Function parameter
 	 */
-	public DroppableAccept(JsScope functionParam) {
+	public DroppableAccept(JsScope functionParam)
+	{
 		this(functionParam, null);
 	}
 
-	/**Constructor
-	 * @param functionParam Function parameter
-	 * @param literalParam Literal parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param functionParam
+	 *            Function parameter
+	 * @param literalParam
+	 *            Literal parameter
 	 */
-	private DroppableAccept(JsScope functionParam, String literalParam) {
+	private DroppableAccept(JsScope functionParam, String literalParam)
+	{
 		super();
 		setParam(functionParam, literalParam);
 	}
-	
+
 	/**
 	 * @return the literalParam
 	 */
-	public String getLiteralParam() {
+	public String getLiteralParam()
+	{
 		return literalParam;
 	}
 
 	/**
 	 * @return the functionParam
 	 */
-	public JsScope getFunctionParam() {
+	public JsScope getFunctionParam()
+	{
 		return functionParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(literalParam == null && functionParam == null){
-			throw new IllegalArgumentException("The DroppableAccept must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (literalParam == null && functionParam == null)
+		{
+			throw new IllegalArgumentException(
+				"The DroppableAccept must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(literalParam != null){
+
+		if (literalParam != null)
+		{
 			sequence = new LiteralOption(literalParam).toString();
 		}
-		else if(functionParam != null){
+		else if (functionParam != null)
+		{
 			sequence = functionParam.render();
 		}
-		else{
-			throw new IllegalArgumentException("The DroppableAccept must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The DroppableAccept must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the literal parameter
-	 * @param literalParam the literal to set
+	/**
+	 * Set's the literal parameter
+	 * 
+	 * @param literalParam
+	 *            the literal to set
 	 */
-	public void setHelperEnumParam(String literalParam) {
+	public void setHelperEnumParam(String literalParam)
+	{
 		setParam(null, literalParam);
 	}
-	
-	/**Set's the function parameter
-	 * @param functionParam the JsScope to set
+
+	/**
+	 * Set's the function parameter
+	 * 
+	 * @param functionParam
+	 *            the JsScope to set
 	 */
-	public void setFunctionParam(JsScope functionParam) {
+	public void setFunctionParam(JsScope functionParam)
+	{
 		setParam(functionParam, null);
 	}
-	
-	/**Method setting the right parameter
-	 * @param functionParam Function parameter
-	 * @param literalParam Literal parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param functionParam
+	 *            Function parameter
+	 * @param literalParam
+	 *            Literal parameter
 	 */
-	private void setParam(JsScope functionParam, String literalParam) {
+	private void setParam(JsScope functionParam, String literalParam)
+	{
 		this.functionParam = functionParam;
 		this.literalParam = literalParam;
 	}

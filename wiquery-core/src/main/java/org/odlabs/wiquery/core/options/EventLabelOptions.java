@@ -25,43 +25,53 @@ import org.odlabs.wiquery.core.events.EventLabel;
 
 /**
  * Representation of an EventLabel into an ItemOptions
+ * 
  * @author Julien Roche
- *
+ * 
  */
-public class EventLabelOptions extends Object implements IComplexOption {
+public class EventLabelOptions extends Object implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -1683433456056445577L;
-	
+
 	// Properties
 	private EventLabel eventLabel;
-	
-	/**Default constructor
+
+	/**
+	 * Default constructor
+	 * 
 	 * @param eventLabel
 	 */
-	public EventLabelOptions(EventLabel eventLabel) {
+	public EventLabelOptions(EventLabel eventLabel)
+	{
 		super();
 		this.eventLabel = eventLabel;
 	}
-	
-	/**Method retrieving the eventLabel value
+
+	/**
+	 * Method retrieving the eventLabel value
+	 * 
 	 * @return the eventLabel
 	 */
-	public EventLabel getEventLabel() {
+	public EventLabel getEventLabel()
+	{
 		return eventLabel;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
+	public CharSequence getJavascriptOption()
+	{
 		return new LiteralOption(eventLabel.getEventLabel()).toString();
 	}
 
-	/**Methode setting the eventLabel value
-	 * @param eventLabel EventLabel
+	/**
+	 * Methode setting the eventLabel value
+	 * 
+	 * @param eventLabel
+	 *            EventLabel
 	 */
-	public void setInteger(EventLabel eventLabel) {
+	public void setInteger(EventLabel eventLabel)
+	{
 		this.eventLabel = eventLabel;
 	}
 }

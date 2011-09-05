@@ -41,7 +41,8 @@ import java.util.List;
  * @see JsScope
  * @see JsStatement
  */
-public class JsScopeContext implements Serializable {
+public class JsScopeContext implements Serializable
+{
 
 	private static final long serialVersionUID = -4223292444618777899L;
 
@@ -58,58 +59,64 @@ public class JsScopeContext implements Serializable {
 	/**
 	 * Creates a new {@link JsScopeContext} with the given arguments.
 	 */
-	public JsScopeContext(String... scopeVariables) {
+	public JsScopeContext(String... scopeVariables)
+	{
 		this.scopeVariables = scopeVariables;
 		statements = new ArrayList<JsStatement>();
 	}
 
 	/**
-	 * Creates a new {@link JsStatement} and append the "this" keyword in this
-	 * statement.
+	 * Creates a new {@link JsStatement} and append the "this" keyword in this statement.
 	 * 
 	 * @return the created {@link JsStatement}.
 	 */
-	public JsStatement self() {
+	public JsStatement self()
+	{
 		JsStatement statement = new JsStatement();
 		statements.add(statement);
 		return statement.self();
 	}
 
 	/**
-	 * Creates a new {@link JsStatement} and append the given variable name in
-	 * this statement.
+	 * Creates a new {@link JsStatement} and append the given variable name in this
+	 * statement.
 	 * 
 	 * @return the created {@link JsStatement}.
 	 */
-	public JsStatement var(String variable) {
+	public JsStatement var(String variable)
+	{
 		JsStatement statement = new JsStatement();
 		statements.add(statement);
 		return statement.append(variable);
 	}
 
 	/**
-	 * Creates a new {@link JsStatement} and append the given JavaScript code in
-	 * this statement.
+	 * Creates a new {@link JsStatement} and append the given JavaScript code in this
+	 * statement.
 	 * 
 	 * @return the created {@link JsStatement}.
 	 */
-	public JsStatement append(CharSequence javascriptCode) {
+	public JsStatement append(CharSequence javascriptCode)
+	{
 		JsStatement statement = new JsStatement();
 		statements.add(statement);
 		return statement.append(javascriptCode);
 	}
 
 	/**
-	 * Returns the JavaScript statement to declare the scope declaration (eg.
-	 * the list of variables declared in the JavaScript function).
+	 * Returns the JavaScript statement to declare the scope declaration (eg. the list of
+	 * variables declared in the JavaScript function).
 	 */
-	CharSequence scopeDeclaration() {
-		if (scopeVariables.length == 0) {
+	CharSequence scopeDeclaration()
+	{
+		if (scopeVariables.length == 0)
+		{
 			return "";
 		}
 		StringBuilder scopeDeclaration = new StringBuilder();
 		scopeDeclaration.append(scopeVariables[0]);
-		for (int i = 1; i < scopeVariables.length; i++) {
+		for (int i = 1; i < scopeVariables.length; i++)
+		{
 			scopeDeclaration.append(", ");
 			scopeDeclaration.append(scopeVariables[i]);
 		}
@@ -119,9 +126,11 @@ public class JsScopeContext implements Serializable {
 	/**
 	 * Renders the list of statements of this {@link JsScopeContext}.
 	 */
-	CharSequence render() {
+	CharSequence render()
+	{
 		StringBuilder stringBuilder = new StringBuilder();
-		for (JsStatement statement : statements) {
+		for (JsStatement statement : statements)
+		{
 			stringBuilder.append("\t");
 			stringBuilder.append(statement.render());
 			stringBuilder.append("\n");

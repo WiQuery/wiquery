@@ -25,15 +25,16 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
- * Helper class to implement the shake effect as in 
+ * $Id$ Helper class to
+ * implement the shake effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Shake
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
  */
-public class ShakeEffect extends Effect {
+public class ShakeEffect extends Effect
+{
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,50 +42,56 @@ public class ShakeEffect extends Effect {
 	 * Shake direction.
 	 * 
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
-	 *
-	 */
-	public static enum Direction {
-		up, down, left, right;
-	}
-	
-	/**
-	 * Constructor.
-	 */
-	public ShakeEffect() {
-		this(Direction.left, 3, 20, 100);		
-	}
-	
-	/**
-	 * Constructor.
 	 * 
-	 * @param direction The direction.
 	 */
-	public ShakeEffect(Direction direction) {
-		this(direction, 3, 20, 100);		
+	public static enum Direction
+	{
+		up,
+		down,
+		left,
+		right;
 	}
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param direction The direction used to shake it.
-	 * @param times show many time to shake it.
-	 * @param distance The distance 
-	 * @param duration The duration
-	 */
-	public ShakeEffect(Direction direction, int times, int distance,  int duration) {
-		super(JsUtils.quotes("shake"),
-				"{direction:"
-				+ JsUtils.quotes(direction.name())
-				+", times: "+ Integer.toString(times)
-				+", distance:" + Integer.toString(distance)				
-				+"}", Integer.toString(duration));
-	}
-		
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
+	/**
+	 * Constructor.
 	 */
-	public String chainLabel() {
+	public ShakeEffect()
+	{
+		this(Direction.left, 3, 20, 100);
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param direction
+	 *            The direction.
+	 */
+	public ShakeEffect(Direction direction)
+	{
+		this(direction, 3, 20, 100);
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param direction
+	 *            The direction used to shake it.
+	 * @param times
+	 *            show many time to shake it.
+	 * @param distance
+	 *            The distance
+	 * @param duration
+	 *            The duration
+	 */
+	public ShakeEffect(Direction direction, int times, int distance, int duration)
+	{
+		super(JsUtils.quotes("shake"), "{direction:" + JsUtils.quotes(direction.name())
+			+ ", times: " + Integer.toString(times) + ", distance:" + Integer.toString(distance)
+			+ "}", Integer.toString(duration));
+	}
+
+	public String chainLabel()
+	{
 		return "effect";
 	}
 

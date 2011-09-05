@@ -41,8 +41,10 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class LiteralOption extends AbstractOption<String> {
+public class LiteralOption extends AbstractOption<String>
+{
 	private static final long serialVersionUID = -5938430089917100476L;
+
 	private boolean doubleQuote;
 
 	/**
@@ -51,7 +53,8 @@ public class LiteralOption extends AbstractOption<String> {
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
-	public LiteralOption(String value) {
+	public LiteralOption(String value)
+	{
 		this(value, false);
 	}
 
@@ -61,7 +64,8 @@ public class LiteralOption extends AbstractOption<String> {
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
-	public LiteralOption(IModel<String> value) {
+	public LiteralOption(IModel<String> value)
+	{
 		this(value, false);
 	}
 
@@ -71,7 +75,8 @@ public class LiteralOption extends AbstractOption<String> {
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
-	public LiteralOption(String value, boolean doubleQuote) {
+	public LiteralOption(String value, boolean doubleQuote)
+	{
 		super(value);
 		this.doubleQuote = doubleQuote;
 	}
@@ -82,30 +87,33 @@ public class LiteralOption extends AbstractOption<String> {
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
-	public LiteralOption(IModel<String> value, boolean doubleQuote) {
+	public LiteralOption(IModel<String> value, boolean doubleQuote)
+	{
 		super(value);
 		this.doubleQuote = doubleQuote;
 	}
-	
+
 	/**
 	 * @deprecated Use getValue()
 	 */
 	@Deprecated
-	public String getLiteral() {
+	public String getLiteral()
+	{
 		return getValue();
 	}
 
 	@Override
-	public String toString() {
-		return doubleQuote ? JsUtils.doubleQuotes(getValue()) : JsUtils
-				.quotes(getValue());
+	public String toString()
+	{
+		return doubleQuote ? JsUtils.doubleQuotes(getValue()) : JsUtils.quotes(getValue());
 	}
 
-	public IModelOption<String> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
+	public IModelOption<String> wrapOnAssignment(Component component)
+	{
+		if (getModel() instanceof IComponentAssignedModel< ? >)
 			return new LiteralOption(
-					((IComponentAssignedModel<String>) getModel())
-							.wrapOnAssignment(component), doubleQuote);
+				((IComponentAssignedModel<String>) getModel()).wrapOnAssignment(component),
+				doubleQuote);
 		return this;
 	}
 }

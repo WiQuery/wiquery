@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.ui.draggable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.options.LiteralOption;
@@ -10,19 +9,18 @@ import org.odlabs.wiquery.ui.draggable.DraggableContainment.ContainmentEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DraggableContainmentTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(DraggableContainmentTestCase.class);
+public class DraggableContainmentTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(DraggableContainmentTestCase.class);
 
 	@Test
-	public void testGetJavaScriptOption() {
-		DraggableContainment containment = new DraggableContainment(
-				ContainmentEnum.WINDOW);
+	public void testGetJavaScriptOption()
+	{
+		DraggableContainment containment = new DraggableContainment(ContainmentEnum.WINDOW);
 
 		// ContainmentEnum param
 		String expectedJavascript = ContainmentEnum.WINDOW.toString();
-		String generatedJavascript = containment.getJavascriptOption()
-				.toString();
+		String generatedJavascript = containment.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -53,19 +51,22 @@ public class DraggableContainmentTestCase extends WiQueryTestCase {
 
 		// Null param
 		containment.setContainmentEnumParam(null);
-		try {
+		try
+		{
 			generatedJavascript = containment.getJavascriptOption().toString();
 			assertTrue(false);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// We have an expected error
-			assertEquals(
-					"The DraggableContainment must have one not null parameter",
-					e.getMessage());
+			assertEquals("The DraggableContainment must have one not null parameter",
+				e.getMessage());
 		}
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

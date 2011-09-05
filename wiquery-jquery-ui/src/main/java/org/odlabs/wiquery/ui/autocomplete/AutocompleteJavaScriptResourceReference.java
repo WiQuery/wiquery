@@ -40,33 +40,37 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class AutocompleteJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class AutocompleteJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static AutocompleteJavaScriptResourceReference instance = new AutocompleteJavaScriptResourceReference();
+	private static AutocompleteJavaScriptResourceReference instance =
+		new AutocompleteJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link AutocompleteJavaScriptResourceReference}.
 	 */
-	private AutocompleteJavaScriptResourceReference() {
-		super(AutocompleteJavaScriptResourceReference.class,
-				"jquery.ui.autocomplete.js");
+	private AutocompleteJavaScriptResourceReference()
+	{
+		super(AutocompleteJavaScriptResourceReference.class, "jquery.ui.autocomplete.js");
 	}
 
 	/**
 	 * Returns the {@link AutocompleteJavaScriptResourceReference} instance.
 	 */
-	public static AutocompleteJavaScriptResourceReference get() {
+	public static AutocompleteJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
-		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		List<AbstractResourceDependentResourceReference> list =
+			new ArrayList<AbstractResourceDependentResourceReference>();
 		list.add(CoreUIJavaScriptResourceReference.get());
 		list.add(WidgetJavaScriptResourceReference.get());
 		list.add(PositionJavaScriptResourceReference.get());

@@ -26,13 +26,13 @@ import org.apache.wicket.markup.html.IHeaderResponse;
 /**
  * $Id: WiQueryPluginRenderingListener.java 412 2010-09-17 21:23:25Z lionel.armanet $
  * <p>
- * 	Listens to WiQuery components rendering.
+ * Listens to WiQuery components rendering.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 1.0-m2
  */
-public interface WiQueryPluginRenderingListener {
-
+public interface WiQueryPluginRenderingListener
+{
 	void onRender(IWiQueryPlugin plugin, IHeaderResponse response);
-	
 }

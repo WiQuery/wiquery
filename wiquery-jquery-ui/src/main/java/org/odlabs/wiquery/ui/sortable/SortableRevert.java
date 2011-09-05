@@ -32,95 +32,128 @@ import org.odlabs.wiquery.core.options.IComplexOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class SortableRevert implements IComplexOption {	
+public class SortableRevert implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Boolean booleanParam;
+
 	private Integer intParameter;
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
 	 */
-	public SortableRevert(Boolean booleanParam) {
+	public SortableRevert(Boolean booleanParam)
+	{
 		this(booleanParam, null);
 	}
 
-	/**Constructor
-	 * @param intParameter Integer parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param intParameter
+	 *            Integer parameter
 	 */
-	public SortableRevert(Integer intParameter) {
+	public SortableRevert(Integer intParameter)
+	{
 		this(null, intParameter);
 	}
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 * @param intParameter Integer parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param intParameter
+	 *            Integer parameter
 	 */
-	private SortableRevert(Boolean booleanParam, Integer intParameter) {
+	private SortableRevert(Boolean booleanParam, Integer intParameter)
+	{
 		super();
 		setParam(booleanParam, intParameter);
 	}
-	
+
 	/**
 	 * @return the booleanParam
 	 */
-	public Boolean getBooleanParam() {
+	public Boolean getBooleanParam()
+	{
 		return booleanParam;
 	}
 
 	/**
 	 * @return the intParameter
 	 */
-	public Integer getIntParam() {
+	public Integer getIntParam()
+	{
 		return intParameter;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && intParameter == null){
-			throw new IllegalArgumentException("The SortableRevert must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (booleanParam == null && intParameter == null)
+		{
+			throw new IllegalArgumentException(
+				"The SortableRevert must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(booleanParam != null){
+
+		if (booleanParam != null)
+		{
 			sequence = booleanParam.toString();
 		}
-		else if(intParameter != null){
+		else if (intParameter != null)
+		{
 			sequence = intParameter.toString();
 		}
-		else{
-			throw new IllegalArgumentException("The SortableRevert must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The SortableRevert must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the boolean parameter
-	 * @param booleanParam the boolean to set
+	/**
+	 * Set's the boolean parameter
+	 * 
+	 * @param booleanParam
+	 *            the boolean to set
 	 */
-	public void setBooleanParam(Boolean booleanParam) {
+	public void setBooleanParam(Boolean booleanParam)
+	{
 		setParam(booleanParam, null);
 	}
-	
-	/**Set's the Integer parameter
-	 * @param intParameter the integer to set
+
+	/**
+	 * Set's the Integer parameter
+	 * 
+	 * @param intParameter
+	 *            the integer to set
 	 */
-	public void setIntParam(Integer intParameter) {
+	public void setIntParam(Integer intParameter)
+	{
 		setParam(null, intParameter);
 	}
-	
-	/**Method setting the right parameter
-	 * @param booleanParam Boolean parameter
-	 * @param intParameter Integer parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param intParameter
+	 *            Integer parameter
 	 */
-	private void setParam(Boolean booleanParam, Integer intParameter) {
+	private void setParam(Boolean booleanParam, Integer intParameter)
+	{
 		this.booleanParam = booleanParam;
 		this.intParameter = intParameter;
 	}

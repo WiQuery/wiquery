@@ -34,124 +34,158 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class DraggableHelper implements IComplexOption {
+public class DraggableHelper implements IComplexOption
+{
 	/**
 	 * Clone helper
 	 */
 	public static final DraggableHelper CLONE = new DraggableHelper(HelperEnum.CLONE);
-	
+
 	/**
 	 * Original helper
 	 */
 	public static final DraggableHelper ORIGINAL = new DraggableHelper(HelperEnum.ORIGINAL);
-	
-	public enum HelperEnum {
-		CLONE		(new LiteralOption("clone")),
-		ORIGINAL 	(new LiteralOption("original"));
-		
+
+	public enum HelperEnum
+	{
+		CLONE(new LiteralOption("clone")),
+		ORIGINAL(new LiteralOption("original"));
+
 		// Properties
 		private LiteralOption literalParam;
-		
-		HelperEnum(LiteralOption literalParam){
+
+		HelperEnum(LiteralOption literalParam)
+		{
 			this.literalParam = literalParam;
 		}
 
-		/* (non-Javadoc)
-		 * @see java.lang.Enum#toString()
-		 */
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return literalParam.toString();
 		}
 	}
-	
+
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private JsScope functionParam;
+
 	private HelperEnum helperEnumParam;
-	
-	/**Constructor
-	 * @param helperEnumParam HelperEnum parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param helperEnumParam
+	 *            HelperEnum parameter
 	 */
-	public DraggableHelper(HelperEnum helperEnumParam) {
+	public DraggableHelper(HelperEnum helperEnumParam)
+	{
 		this(null, helperEnumParam);
 	}
-	
-	/**Constructor
-	 * @param functionParam Function parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param functionParam
+	 *            Function parameter
 	 */
-	public DraggableHelper(JsScope functionParam) {
+	public DraggableHelper(JsScope functionParam)
+	{
 		this(functionParam, null);
 	}
 
-	/**Constructor
-	 * @param functionParam Function parameter
-	 * @param helperEnumParam HelperEnum parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param functionParam
+	 *            Function parameter
+	 * @param helperEnumParam
+	 *            HelperEnum parameter
 	 */
-	private DraggableHelper(JsScope functionParam, HelperEnum helperEnumParam) {
+	private DraggableHelper(JsScope functionParam, HelperEnum helperEnumParam)
+	{
 		super();
 		setParam(functionParam, helperEnumParam);
 	}
-	
+
 	/**
 	 * @return the helperEnumParam
 	 */
-	public HelperEnum getHelperEnumParam() {
+	public HelperEnum getHelperEnumParam()
+	{
 		return helperEnumParam;
 	}
 
 	/**
 	 * @return the functionParam
 	 */
-	public JsScope getFunctionParam() {
+	public JsScope getFunctionParam()
+	{
 		return functionParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(helperEnumParam == null && functionParam == null){
-			throw new IllegalArgumentException("The DraggableHelper must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (helperEnumParam == null && functionParam == null)
+		{
+			throw new IllegalArgumentException(
+				"The DraggableHelper must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(helperEnumParam != null){
+
+		if (helperEnumParam != null)
+		{
 			sequence = helperEnumParam.toString();
 		}
-		else if(functionParam != null){
+		else if (functionParam != null)
+		{
 			sequence = functionParam.render();
 		}
-		else{
-			throw new IllegalArgumentException("The DraggableHelper must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The DraggableHelper must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the HelperEnum parameter
-	 * @param helperEnumParam the HelperEnum to set
+	/**
+	 * Set's the HelperEnum parameter
+	 * 
+	 * @param helperEnumParam
+	 *            the HelperEnum to set
 	 */
-	public void setHelperEnumParam(HelperEnum helperEnumParam) {
+	public void setHelperEnumParam(HelperEnum helperEnumParam)
+	{
 		setParam(null, helperEnumParam);
 	}
-	
-	/**Set's the function parameter
-	 * @param functionParam the JsScope to set
+
+	/**
+	 * Set's the function parameter
+	 * 
+	 * @param functionParam
+	 *            the JsScope to set
 	 */
-	public void setFunctionParam(JsScope functionParam) {
+	public void setFunctionParam(JsScope functionParam)
+	{
 		setParam(functionParam, null);
 	}
-	
-	/**Method setting the right parameter
-	 * @param functionParam Function parameter
-	 * @param helperEnumParam HelperEnum parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param functionParam
+	 *            Function parameter
+	 * @param helperEnumParam
+	 *            HelperEnum parameter
 	 */
-	private void setParam(JsScope functionParam, HelperEnum helperEnumParam) {
+	private void setParam(JsScope functionParam, HelperEnum helperEnumParam)
+	{
 		this.functionParam = functionParam;
 		this.helperEnumParam = helperEnumParam;
 	}

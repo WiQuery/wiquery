@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -33,20 +33,20 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class AnimateDurationTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(AnimateDurationTestCase.class);
+public class AnimateDurationTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(AnimateDurationTestCase.class);
 
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
-	public void testGetJavaScriptOption() {
+	public void testGetJavaScriptOption()
+	{
 		AnimateDuration animateDuration = new AnimateDuration(500);
 
 		String expectedJavascript = "500";
-		String generatedJavascript = animateDuration.getJavascriptOption()
-				.toString();
+		String generatedJavascript = animateDuration.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -57,11 +57,11 @@ public class AnimateDurationTestCase extends WiQueryTestCase {
 	 * Test the javascript generation
 	 */
 	@Test
-	public void testGetJavaScriptOptionEnum() {
+	public void testGetJavaScriptOptionEnum()
+	{
 		AnimateDuration animateDuration = new AnimateDuration(EffectSpeed.FAST);
 		String expectedJavascript = "'fast'";
-		String generatedJavascript = animateDuration.getJavascriptOption()
-				.toString();
+		String generatedJavascript = animateDuration.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -69,7 +69,8 @@ public class AnimateDurationTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

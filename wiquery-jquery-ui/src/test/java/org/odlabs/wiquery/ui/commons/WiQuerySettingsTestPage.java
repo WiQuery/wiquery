@@ -2,7 +2,8 @@ package org.odlabs.wiquery.ui.commons;
 
 import org.apache.wicket.markup.html.WebPage;
 
-public class WiQuerySettingsTestPage extends WebPage {
+public class WiQuerySettingsTestPage extends WebPage
+{
 
 	/**
 	 * 

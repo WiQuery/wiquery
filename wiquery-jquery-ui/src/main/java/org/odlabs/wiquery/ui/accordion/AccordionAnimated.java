@@ -33,94 +33,128 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class AccordionAnimated implements IComplexOption {	
+public class AccordionAnimated implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Boolean booleanParam;
+
 	private String effectParam;
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
 	 */
-	public AccordionAnimated(Boolean booleanParam) {
+	public AccordionAnimated(Boolean booleanParam)
+	{
 		this(booleanParam, null);
 	}
 
-	/**Constructor
-	 * @param effectParam Effect parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param effectParam
+	 *            Effect parameter
 	 */
-	public AccordionAnimated(String effectParam) {
+	public AccordionAnimated(String effectParam)
+	{
 		this(null, effectParam);
 	}
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 * @param effectParam Effect parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param effectParam
+	 *            Effect parameter
 	 */
-	private AccordionAnimated(Boolean booleanParam, String effectParam) {
+	private AccordionAnimated(Boolean booleanParam, String effectParam)
+	{
 		super();
 		setParam(booleanParam, effectParam);
 	}
-	
+
 	/**
 	 * @return the booleanParam
 	 */
-	public Boolean getBooleanParam() {
+	public Boolean getBooleanParam()
+	{
 		return booleanParam;
 	}
 
 	/**
 	 * @return the effectParam
 	 */
-	public String getEffectPAram() {
+	public String getEffectPAram()
+	{
 		return effectParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && effectParam == null){
-			throw new IllegalArgumentException("The AccordionAnimated must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (booleanParam == null && effectParam == null)
+		{
+			throw new IllegalArgumentException(
+				"The AccordionAnimated must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(booleanParam != null){
+
+		if (booleanParam != null)
+		{
 			sequence = booleanParam.toString();
 		}
-		else if(effectParam != null){
+		else if (effectParam != null)
+		{
 			sequence = new LiteralOption(effectParam).toString();
 		}
-		else{
-			throw new IllegalArgumentException("The AccordionAnimated must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The AccordionAnimated must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the boolean parameter
-	 * @param booleanParam the boolean to set
+	/**
+	 * Set's the boolean parameter
+	 * 
+	 * @param booleanParam
+	 *            the boolean to set
 	 */
-	public void setBooleanParam(Boolean booleanParam) {
+	public void setBooleanParam(Boolean booleanParam)
+	{
 		setParam(booleanParam, null);
 	}
-	
-	/**Set's the effect parameter
-	 * @param effectParam the effect to set
+
+	/**
+	 * Set's the effect parameter
+	 * 
+	 * @param effectParam
+	 *            the effect to set
 	 */
-	public void setEffectParam(String effectParam) {
+	public void setEffectParam(String effectParam)
+	{
 		setParam(null, effectParam);
 	}
-	
-	/**Method setting the right parameter
-	 * @param booleanParam Boolean parameter
-	 * @param effectParam Effect parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param effectParam
+	 *            Effect parameter
 	 */
-	private void setParam(Boolean booleanParam, String effectParam) {
+	private void setParam(Boolean booleanParam, String effectParam)
+	{
 		this.booleanParam = booleanParam;
 		this.effectParam = effectParam;
 	}

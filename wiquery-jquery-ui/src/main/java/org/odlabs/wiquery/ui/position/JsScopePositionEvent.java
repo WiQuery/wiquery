@@ -26,28 +26,31 @@ import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 
-
 /**
- * $Id$
- * This class represent a JsScope event for the position JQuery UI utility
- * The javascript representation will be like this:
+ * $Id$ This
+ * class represent a JsScope event for the position JQuery UI utility The javascript
+ * representation will be like this:
  * <p>
- * 	function(params) { ... }
+ * function(params) { ... }
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
-public abstract class JsScopePositionEvent extends JsScope {
-	//Constants
-	/**	Constant of serialization */
+public abstract class JsScopePositionEvent extends JsScope
+{
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
-	/**Default constructor
+
+	/**
+	 * Default constructor
 	 */
-	public JsScopePositionEvent() {
+	public JsScopePositionEvent()
+	{
 		super("params");
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScopePositionEvent} to execute the given statement.
 	 * 
@@ -55,22 +58,21 @@ public abstract class JsScopePositionEvent extends JsScope {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeUiDatePickerDateTextEvent}.
 	 */
-	public static JsScopePositionEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopePositionEvent() {
+	public static JsScopePositionEvent quickScope(final CharSequence javascriptCode)
+	{
+		return new JsScopePositionEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(javascriptCode);
 			}
 
 		};
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScopePositionEvent} to execute the given statement.
 	 * 
@@ -78,16 +80,15 @@ public abstract class JsScopePositionEvent extends JsScope {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopePositionEvent}.
 	 */
-	public static JsScopePositionEvent quickScope(final JsStatement jsStatement) {
-		return new JsScopePositionEvent() {
+	public static JsScopePositionEvent quickScope(final JsStatement jsStatement)
+	{
+		return new JsScopePositionEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
 			}
 		};

@@ -1,9 +1,6 @@
 package org.odlabs.wiquery.core.options;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -23,12 +20,12 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class OptionsTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(OptionsTestCase.class);
+public class OptionsTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(OptionsTestCase.class);
 
-	public static class WithMemoryModel<T extends Serializable> extends
-			Model<T> {
+	public static class WithMemoryModel<T extends Serializable> extends Model<T>
+	{
 
 		private static final long serialVersionUID = 1L;
 
@@ -36,25 +33,29 @@ public class OptionsTestCase extends WiQueryTestCase {
 
 		private IModel<T> model;
 
-		public WithMemoryModel(IModel<T> model) {
+		public WithMemoryModel(IModel<T> model)
+		{
 			super();
 			this.model = model;
 		}
 
 		@Override
-		public void detach() {
+		public void detach()
+		{
 			super.detach();
 			model.detach();
 			detached = true;
 		}
 
-		public boolean isDetached() {
+		public boolean isDetached()
+		{
 			return detached;
 		}
 	}
 
 	@Test
-	public void testGetBoolean() {
+	public void testGetBoolean()
+	{
 		Options options = new Options();
 		options.put("keyBoolean", true);
 
@@ -63,7 +64,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetIComplexOption() {
+	public void testGetIComplexOption()
+	{
 		DefaultComplexOptionImpl impl = new DefaultComplexOptionImpl();
 
 		Options options = new Options();
@@ -71,42 +73,40 @@ public class OptionsTestCase extends WiQueryTestCase {
 
 		assertFalse(options.isEmpty());
 
-		IComplexOption complexOption = options
-				.getComplexOption("keyComplexOption");
+		IComplexOption complexOption = options.getComplexOption("keyComplexOption");
 		assertNotNull(complexOption);
 		assertEquals(impl, complexOption);
 	}
 
 	@Test
-	public void testOptionsDetachment() {
+	public void testOptionsDetachment()
+	{
 		Options options = new Options();
-		WithMemoryModel<Float> iRemeberFloat = new WithMemoryModel<Float>(
-				new Model<Float>(1F));
+		WithMemoryModel<Float> iRemeberFloat = new WithMemoryModel<Float>(new Model<Float>(1F));
 		options.putFloat("keyFloat", iRemeberFloat);
 		assertFalse(options.isEmpty());
 
-		WithMemoryModel<Short> iRemeberShort = new WithMemoryModel<Short>(
-				new Model<Short>((short) 1));
+		WithMemoryModel<Short> iRemeberShort =
+			new WithMemoryModel<Short>(new Model<Short>((short) 1));
 		options.putShort("keyShort", iRemeberShort);
 
-		WithMemoryModel<Integer> iRemeberInteger = new WithMemoryModel<Integer>(
-				new Model<Integer>(1));
+		WithMemoryModel<Integer> iRemeberInteger =
+			new WithMemoryModel<Integer>(new Model<Integer>(1));
 		options.putInteger("keyInteger", iRemeberInteger);
 
-		WithMemoryModel<Double> iRemeberDouble = new WithMemoryModel<Double>(
-				new Model<Double>(1D));
+		WithMemoryModel<Double> iRemeberDouble = new WithMemoryModel<Double>(new Model<Double>(1D));
 		options.putDouble("keyDouble", iRemeberDouble);
 
-		WithMemoryModel<String> iRemeberString = new WithMemoryModel<String>(
-				new Model<String>("String"));
+		WithMemoryModel<String> iRemeberString =
+			new WithMemoryModel<String>(new Model<String>("String"));
 		options.putString("keyString", iRemeberString);
 
-		WithMemoryModel<String> iRemeberLiteral = new WithMemoryModel<String>(
-				new Model<String>("String"));
+		WithMemoryModel<String> iRemeberLiteral =
+			new WithMemoryModel<String>(new Model<String>("String"));
 		options.putString("keyLiteral", iRemeberLiteral);
 
-		WithMemoryModel<Boolean> iRemeberBoolean = new WithMemoryModel<Boolean>(
-				new Model<Boolean>(true));
+		WithMemoryModel<Boolean> iRemeberBoolean =
+			new WithMemoryModel<Boolean>(new Model<Boolean>(true));
 		options.putBoolean("keyBoolean", iRemeberBoolean);
 
 		assertFalse(options.isEmpty());
@@ -123,7 +123,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testOptionsWrappedModels() {
+	public void testOptionsWrappedModels()
+	{
 		// this method test the use of wrapped models in options
 		OptionsTestPanel panel = new OptionsTestPanel("panel");
 		Options options = panel.getOptions();
@@ -145,7 +146,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetFloat() {
+	public void testGetFloat()
+	{
 		Options options = new Options();
 		options.put("keyFloat", 1F);
 
@@ -154,7 +156,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetICollectionItemOptions() {
+	public void testGetICollectionItemOptions()
+	{
 		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(23);
@@ -172,7 +175,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetInt() {
+	public void testGetInt()
+	{
 		Options options = new Options();
 		options.put("keyInt", 1);
 
@@ -181,7 +185,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetJavaScriptOptions() {
+	public void testGetJavaScriptOptions()
+	{
 		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(23);
@@ -213,8 +218,7 @@ public class OptionsTestCase extends WiQueryTestCase {
 		assertTrue(generatedJavascript.startsWith("{"));
 		assertTrue(generatedJavascript.endsWith("}"));
 
-		generatedJavascript = generatedJavascript.substring(1,
-				generatedJavascript.length() - 1);
+		generatedJavascript = generatedJavascript.substring(1, generatedJavascript.length() - 1);
 		List<String> opts = Arrays.asList(generatedJavascript.split(", "));
 
 		assertEquals(opts.size(), 13);
@@ -235,7 +239,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetLiteral() {
+	public void testGetLiteral()
+	{
 		Options options = new Options();
 		options.putLiteral("keyLiteral", "literal");
 		options.putLiteral("keyLiteralModel", new Model<String>("literal1"));
@@ -246,7 +251,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testGetString() {
+	public void testGetString()
+	{
 		Options options = new Options();
 		options.put("keyString", "string");
 		options.putString("keyStringModel", new Model<String>("string"));
@@ -257,7 +263,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testPutBoolean() {
+	public void testPutBoolean()
+	{
 		Options options = new Options();
 		options.put("keyBoolean", true);
 		options.putBoolean("keyBooleanModel", new Model<Boolean>(true));
@@ -268,7 +275,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testPutComplexOption() {
+	public void testPutComplexOption()
+	{
 		Options options = new Options();
 		options.put("keyComplexOption", new DefaultComplexOptionImpl());
 
@@ -277,7 +285,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testPutFloat() {
+	public void testPutFloat()
+	{
 		Options options = new Options();
 		options.put("keyFloat", 1F);
 		options.putFloat("keyFloatModel", new Model<Float>(1F));
@@ -289,7 +298,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testPutICollectionItemOptions() {
+	public void testPutICollectionItemOptions()
+	{
 		Options options = new Options();
 		options.put("keyOptions", new ArrayItemOptions<IntegerItemOptions>());
 
@@ -298,7 +308,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testPutInt() {
+	public void testPutInt()
+	{
 		Options options = new Options();
 		options.put("keyInt", 1);
 
@@ -307,7 +318,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testPutLiterral() {
+	public void testPutLiterral()
+	{
 		Options options = new Options();
 		options.putLiteral("keyLiteral", "literal");
 
@@ -316,7 +328,8 @@ public class OptionsTestCase extends WiQueryTestCase {
 	}
 
 	@Test
-	public void testPutString() {
+	public void testPutString()
+	{
 		Options options = new Options();
 		options.put("keyString", "string");
 
@@ -324,17 +337,20 @@ public class OptionsTestCase extends WiQueryTestCase {
 		assertTrue(options.containsKey("keyString"));
 	}
 
-	private class DefaultComplexOptionImpl implements IComplexOption {
+	private class DefaultComplexOptionImpl implements IComplexOption
+	{
 		private static final long serialVersionUID = 1L;
 
-		public CharSequence getJavascriptOption() {
+		public CharSequence getJavascriptOption()
+		{
 			return "alert('complex option');";
 		}
 
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -11,13 +11,14 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JSQueryTestCase extends WiQueryTestCase {
+public class JSQueryTestCase extends WiQueryTestCase
+{
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(JSQueryTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(JSQueryTestCase.class);
 
 	@Test
-	public void testJSQuerySyntax() {
+	public void testJSQuerySyntax()
+	{
 		JsQuery jsq = new JsQuery();
 		JsStatement jst = jsq.$(".sample").chain("css", "'foo'", "'bar'");
 		String expected = "$('.sample').css('foo', 'bar');";
@@ -28,11 +29,13 @@ public class JSQueryTestCase extends WiQueryTestCase {
 
 		jsq = new JsQuery();
 		expected = "$('.sample').ready(function() {\n\talert('foo');\n\talert('bar');\n});";
-		jst = jsq.$(".sample").ready(new JsScope() {
+		jst = jsq.$(".sample").ready(new JsScope()
+		{
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append("alert('foo')");
 				scopeContext.append("alert('bar')");
 			}
@@ -43,15 +46,18 @@ public class JSQueryTestCase extends WiQueryTestCase {
 		log.info(generated);
 		assertEquals(generated, expected);
 
-		expected = "$('.sample').each(function() {\n"
-				+ "\t$(this).css('foo');\n" + "\t$(this).css('bar');\n" + "});";
+		expected =
+			"$('.sample').each(function() {\n" + "\t$(this).css('foo');\n"
+				+ "\t$(this).css('bar');\n" + "});";
 
 		jsq = new JsQuery();
-		jst = jsq.$(".sample").each(new JsScope() {
+		jst = jsq.$(".sample").each(new JsScope()
+		{
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.self().chain("css", "'foo'");
 				scopeContext.self().chain("css", "'bar'");
 			}
@@ -71,7 +77,8 @@ public class JSQueryTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

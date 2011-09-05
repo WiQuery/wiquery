@@ -21,14 +21,12 @@
  */
 package org.odlabs.wiquery.ui.selectable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 
@@ -37,16 +35,16 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * 
  * @author Julien Roche
  */
-public class SelectableAjaxBehaviorTestCase extends WiQueryTestCase {
+public class SelectableAjaxBehaviorTestCase extends WiQueryTestCase
+{
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableAjaxBehavior#statement()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.selectable.SelectableAjaxBehavior#statement()} .
 	 */
 	@Test
-	@Ignore("This testcase tests if the wicket team decides to change the AJAX JS or not")
-	public void testStatement() {
+	public void testStatement()
+	{
 		InnerSelectableAjaxBehavior selectableAjaxBehavior = new InnerSelectableAjaxBehavior();
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
@@ -55,33 +53,29 @@ public class SelectableAjaxBehaviorTestCase extends WiQueryTestCase {
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
 
-		String genrateAjaxStatment = selectableAjaxBehavior.statement()
-				.render().toString();
-		String expectedAjaxStatement = "$('#anId').selectable({stop: function(event, ui) {\n\t"
-				+ "var selected = new Array();jQuery.each($('#anId').find(\".ui-selectee.ui-selected\"), function(){selected.push($(this).attr('id'));});var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&selectedArray='+ jQuery.unique(selected).toString(),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+		String generateAjaxStatment = selectableAjaxBehavior.statement().render().toString();
+		String expectedAjaxStatement =
+			"$('#anId').selectable({stop: function(event, ui) {\n\t"
+				+ "var selected = new Array();jQuery.each($('#anId').find(\".ui-selectee.ui-selected\"), function(){selected.push($(this).attr('id'));});var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&selectedArray='+ jQuery.unique(selected).toString(),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}});";
 		assertNotNull(selectableAjaxBehavior.getSelectableBehavior());
-		assertEquals(genrateAjaxStatment, expectedAjaxStatement);
+		assertEquals(expectedAjaxStatement, generateAjaxStatment);
 	}
 
-	private class InnerSelectableAjaxBehavior extends SelectableAjaxBehavior {
+	private class InnerSelectableAjaxBehavior extends SelectableAjaxBehavior
+	{
 		private static final long serialVersionUID = 1L;
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.selectable.SelectableAjaxBehavior#onSelection(org.apache.wicket.Component[],
-		 *      org.apache.wicket.ajax.AjaxRequestTarget)
-		 */
 		@Override
-		public void onSelection(Component[] components,
-				AjaxRequestTarget ajaxRequestTarget) {
+		public void onSelection(Component[] components, AjaxRequestTarget ajaxRequestTarget)
+		{
 			// TODO Auto-generated method stub
 
 		}
 	}
 
-	private class InnerPage extends WebPage {
+	private class InnerPage extends WebPage
+	{
 
 		/**
 		 * 

@@ -10,18 +10,21 @@ import org.apache.wicket.model.ResourceModel;
 /**
  * @author Ernesto Reinaldo Barreiro
  */
-public class ButtonTestPage extends WebPage {
+public class ButtonTestPage extends WebPage
+{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private ButtonBehavior behavior;
 
 	/**
 	 * Construtor.
 	 */
-	public ButtonTestPage(boolean addBefore) {
+	public ButtonTestPage(boolean addBefore)
+	{
 		behavior = new ButtonBehavior();
 		if (addBefore)
 			behavior.setLabel(new ResourceModel("key"));
@@ -32,7 +35,8 @@ public class ButtonTestPage extends WebPage {
 		add(link);
 	}
 
-	public ButtonBehavior getBehavior() {
+	public ButtonBehavior getBehavior()
+	{
 		return behavior;
 	}
 }

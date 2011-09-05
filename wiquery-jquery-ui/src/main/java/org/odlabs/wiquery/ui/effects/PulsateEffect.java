@@ -25,15 +25,16 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
- * Helper class to implement the pulsate effect as in 
+ * $Id$ Helper class to
+ * implement the pulsate effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Pulsate
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
  */
-public class PulsateEffect extends Effect {
+public class PulsateEffect extends Effect
+{
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,49 +42,52 @@ public class PulsateEffect extends Effect {
 	 * The PulsateMode.
 	 * 
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
-	 *
+	 * 
 	 */
-	public static enum PulsateMode {
-		show, hide;
+	public static enum PulsateMode
+	{
+		show,
+		hide;
 	}
-	
+
 	/**
 	 * Constructor.
 	 */
-	public PulsateEffect() {
-		this(PulsateMode.show, 5, 500);		
+	public PulsateEffect()
+	{
+		this(PulsateMode.show, 5, 500);
 	}
-	
-	/**
-	 * Constructor.
-	 *
-	 *@param mode The mode (show or hide).
-	 */
-	 
-	public PulsateEffect(PulsateMode mode) {
-		this(mode, 5, 500);		
-	}
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param mode The mode (show or hide).
-	 * @param times show many time to shake it.
-	 * @param duration The duration
+	 * @param mode
+	 *            The mode (show or hide).
 	 */
-	public PulsateEffect(PulsateMode mode, int times, int duration) {
-		super(JsUtils.quotes("pulsate"),
-				"{mode:"
-				+ JsUtils.quotes(mode.name())
-				+", times: "+ Integer.toString(times)
-				+"}", Integer.toString(duration));
-	}
-		
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
+	public PulsateEffect(PulsateMode mode)
+	{
+		this(mode, 5, 500);
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param mode
+	 *            The mode (show or hide).
+	 * @param times
+	 *            show many time to shake it.
+	 * @param duration
+	 *            The duration
 	 */
-	public String chainLabel() {
+	public PulsateEffect(PulsateMode mode, int times, int duration)
+	{
+		super(JsUtils.quotes("pulsate"), "{mode:" + JsUtils.quotes(mode.name()) + ", times: "
+			+ Integer.toString(times) + "}", Integer.toString(duration));
+	}
+
+	public String chainLabel()
+	{
 		return "effect";
 	}
 

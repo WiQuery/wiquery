@@ -28,8 +28,8 @@ import org.codehaus.jackson.annotate.JsonValue;
 /**
  * $Id$
  * <p>
- * {@link JsScope} are used to define anonymous JavaScript functions. For
- * example, let's take the <code>each</code> statement:
+ * {@link JsScope} are used to define anonymous JavaScript functions. For example, let's
+ * take the <code>each</code> statement:
  * </p>
  * 
  * <pre>
@@ -45,8 +45,8 @@ import org.codehaus.jackson.annotate.JsonValue;
  * </pre>
  * 
  * <p>
- * You can either pass arguments to the JsScope (like in JavaScript functions)
- * (see constructor args).
+ * You can either pass arguments to the JsScope (like in JavaScript functions) (see
+ * constructor args).
  * </p>
  * 
  * @author Lionel Armanet
@@ -54,11 +54,12 @@ import org.codehaus.jackson.annotate.JsonValue;
  * @see JsStatement
  * @see JsScopeContext
  */
-public abstract class JsScope implements Serializable {
-	//Constants
-	/**	Constant of serialization */
+public abstract class JsScope implements Serializable
+{
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * The function statement.
 	 */
@@ -76,19 +77,22 @@ public abstract class JsScope implements Serializable {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScope}.
 	 */
-	public static JsScope quickScope(final CharSequence javascriptCode) {
-		return new JsScope() {
+	public static JsScope quickScope(final CharSequence javascriptCode)
+	{
+		return new JsScope()
+		{
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(javascriptCode);
 			}
 
 		};
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScope} to execute the given statement.
 	 * 
@@ -96,13 +100,16 @@ public abstract class JsScope implements Serializable {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScope}.
 	 */
-	public static JsScope quickScope(final JsStatement jsStatement) {
-		return new JsScope() {
+	public static JsScope quickScope(final JsStatement jsStatement)
+	{
+		return new JsScope()
+		{
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
 			}
 
@@ -110,13 +117,13 @@ public abstract class JsScope implements Serializable {
 	}
 
 	/**
-	 * Constructs a new {@link JsScope} instance with the given args. This is
-	 * the equivalent of the JavaScript statement:
-	 * <code>function(arg1, arg2, arg3) {</code>
+	 * Constructs a new {@link JsScope} instance with the given args. This is the
+	 * equivalent of the JavaScript statement: <code>function(arg1, arg2, arg3) {</code>
 	 * 
 	 * @param scopeParameters
 	 */
-	public JsScope(String... scopeParameters) {
+	public JsScope(String... scopeParameters)
+	{
 		super();
 		scopeContext = new JsScopeContext(scopeParameters);
 		statement = null;
@@ -133,7 +140,8 @@ public abstract class JsScope implements Serializable {
 	/**
 	 * Ends the scope JavaScript declaration.
 	 */
-	private JsScope closeScope() {
+	private JsScope closeScope()
+	{
 		statement.append("}");
 		return this;
 	}
@@ -142,8 +150,10 @@ public abstract class JsScope implements Serializable {
 	 * Renders the scope.
 	 */
 	@JsonValue
-	public CharSequence render() {
-		if(statement == null){
+	public CharSequence render()
+	{
+		if (statement == null)
+		{
 			statement = new StringBuilder();
 			statement.append("function(");
 			statement.append(scopeContext.scopeDeclaration());

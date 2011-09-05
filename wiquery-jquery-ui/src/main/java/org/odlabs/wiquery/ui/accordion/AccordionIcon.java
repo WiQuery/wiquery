@@ -34,39 +34,43 @@ import org.odlabs.wiquery.ui.themes.UiIcon;
  * @author Julien Roche
  * @since 1.0
  */
-public class AccordionIcon  extends Object implements IComplexOption {
+public class AccordionIcon extends Object implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 4723376695783554832L;
-	
+
 	// Properties
 	private String headerClass;
+
 	private String headerSelectedClass;
-	
+
 	private Boolean wantIcons;
-	
+
 	/**
 	 * Constructor
 	 * 
 	 * @param header
 	 * @param headerSelected
 	 */
-	public AccordionIcon(UiIcon header, UiIcon  headerSelected) {
+	public AccordionIcon(UiIcon header, UiIcon headerSelected)
+	{
 		super();
-		if(header != null)
+		if (header != null)
 			this.headerClass = header.getCssClass();
-		if(headerSelected != null)
+		if (headerSelected != null)
 			this.headerSelectedClass = headerSelected.getCssClass();
 		this.wantIcons = null;
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
 	 * @param headerClass
 	 * @param headerSelectedClass
 	 */
-	public AccordionIcon(String headerClass, String headerSelectedClass) {
+	public AccordionIcon(String headerClass, String headerSelectedClass)
+	{
 		super();
 		this.headerClass = headerClass;
 		this.headerSelectedClass = headerSelectedClass;
@@ -75,52 +79,65 @@ public class AccordionIcon  extends Object implements IComplexOption {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wantIcons
 	 */
-	public AccordionIcon(Boolean wantIcons) {
+	public AccordionIcon(Boolean wantIcons)
+	{
 		super();
 		this.wantIcons = wantIcons;
 	}
 
-	/**Method retrieving the class for the header
+	/**
+	 * Method retrieving the class for the header
+	 * 
 	 * @return the class for the header
 	 */
-	public String getHeaderClass() {
+	public String getHeaderClass()
+	{
 		return headerClass;
 	}
 
-	/**Method retrieving the class for the headerSelected
+	/**
+	 * Method retrieving the class for the headerSelected
+	 * 
 	 * @return the class for the headerSelected
 	 */
-	public String getHeaderSelectedClass() {
+	public String getHeaderSelectedClass()
+	{
 		return headerSelectedClass;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(wantIcons != null) 
+
+	public CharSequence getJavascriptOption()
+	{
+		if (wantIcons != null)
 			return wantIcons.toString();
-		return "{'header': " + new LiteralOption(headerClass) + ", 'headerSelected': " 
+		return "{'header': " + new LiteralOption(headerClass) + ", 'headerSelected': "
 			+ new LiteralOption(headerSelectedClass) + "}";
 	}
-	
-	/**Method setting the class for the header
+
+	/**
+	 * Method setting the class for the header
+	 * 
 	 * @param headerClass
 	 */
-	public void setHeaderClass(String headerClass) {
+	public void setHeaderClass(String headerClass)
+	{
 		this.headerClass = headerClass;
 	}
 
-	/**Method setting the class for the headerSelected
+	/**
+	 * Method setting the class for the headerSelected
+	 * 
 	 * @param headerSelectedClass
 	 */
-	public void setHeaderSelectedClass(String headerSelectedClass) {
+	public void setHeaderSelectedClass(String headerSelectedClass)
+	{
 		this.headerSelectedClass = headerSelectedClass;
 	}
 
-	public Boolean getWantIcons() {
+	public Boolean getWantIcons()
+	{
 		return wantIcons;
 	}
 }

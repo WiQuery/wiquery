@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.ui.datepicker.scope;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -12,20 +12,21 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class DefaultJsScopeUiDatePickerOnChangeEventTestCase extends
-		WiQueryTestCase {
+public class DefaultJsScopeUiDatePickerOnChangeEventTestCase extends WiQueryTestCase
+{
 
 	protected static final Logger log = LoggerFactory
-			.getLogger(DefaultJsScopeUiDatePickerOnChangeEventTestCase.class);
+		.getLogger(DefaultJsScopeUiDatePickerOnChangeEventTestCase.class);
 
 	/**
 	 * Check the syntax
 	 */
 	@Test
-	public void testJsScopeSyntax() {
+	public void testJsScopeSyntax()
+	{
 		String expectedJavascript = "function(year, month, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerOnChangeEvent scopeUiEvent = new DefaultJsScopeUiDatePickerOnChangeEvent(
-				"alert('test');");
+		JsScopeUiDatePickerOnChangeEvent scopeUiEvent =
+			new DefaultJsScopeUiDatePickerOnChangeEvent("alert('test');");
 		String generatedJavascript = scopeUiEvent.render().toString();
 
 		log.info(expectedJavascript);
@@ -42,7 +43,8 @@ public class DefaultJsScopeUiDatePickerOnChangeEventTestCase extends
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

@@ -40,8 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * $Id: WiQueryInitializer.java 721 2011-03-09 08:32:12Z hielke.hoeve@gmail.com
- * $
+ * $Id: WiQueryInitializer.java 721 2011-03-09 08:32:12Z hielke.hoeve@gmail.com $
  * <p>
  * {@link IInitializer} to retrieve settings for wiQuery
  * </p>
@@ -49,21 +48,24 @@ import org.slf4j.LoggerFactory;
  * @author Julien Roche
  * @since 1.1
  */
-public class WiQueryInitializer implements IInitializer {
+public class WiQueryInitializer implements IInitializer
+{
+	public static final MetaDataKey<WiQuerySettings> WIQUERY_INSTANCE_KEY =
+		new MetaDataKey<WiQuerySettings>()
+		{
+			private static final long serialVersionUID = 1L;
+		};
 
-	public static final MetaDataKey<WiQuerySettings> WIQUERY_INSTANCE_KEY = new MetaDataKey<WiQuerySettings>() {
-		private static final long serialVersionUID = 1L;
-	};
+	private static final Logger LOGGER = LoggerFactory.getLogger(WiQueryInitializer.class);
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(WiQueryInitializer.class);
-
-	public void init(Application application) {
+	public void init(Application application)
+	{
 		// check for WiQuerySettings on the application
 		WiQuerySettings settings = application.getMetaData(WIQUERY_INSTANCE_KEY);
-				
+
 		// create new one when application has none
-		if (settings == null) {
+		if (settings == null)
+		{
 			settings = new WiQuerySettings();
 			// apply IWiQuerySettings to the applications metadata
 			application.setMetaData(WIQUERY_INSTANCE_KEY, settings);
@@ -72,11 +74,12 @@ public class WiQueryInitializer implements IInitializer {
 		}
 		else
 		{
-			LOGGER.info("application already hasWiQuerySettings ");
+			LOGGER.info("application already hasWiQuerySettings");
 		}
 	}
 
-	public void destroy(Application application) {
+	public void destroy(Application application)
+	{
 		// noop
 	}
 
@@ -96,28 +99,35 @@ public class WiQueryInitializer implements IInitializer {
 	 * 
 	 */
 	private void retrieveAndCallInitializers(Application application,
-			WiQuerySettings wiQuerySettings) {
+			WiQuerySettings wiQuerySettings)
+	{
 
 		// Load any wiquery properties files we can find
-		try {
+		try
+		{
 			// Load properties files used by all libraries
 
 			final Iterator<URL> resources = getResources("wiquery.properties");
-			while (resources.hasNext()) {
+			while (resources.hasNext())
+			{
 				InputStream in = null;
-				try {
+				try
+				{
 					final URL url = resources.next();
 					final Properties properties = new Properties();
 					in = url.openStream();
 					properties.load(in);
 					load(application, wiQuerySettings, properties);
-				} finally {
+				}
+				finally
+				{
 					IOUtils.close(in);
 				}
 			}
-		} catch (IOException e) {
-			throw new WicketRuntimeException(
-					"Unable to load initializers file", e);
+		}
+		catch (IOException e)
+		{
+			throw new WicketRuntimeException("Unable to load initializers file", e);
 		}
 
 		// now call any initializers we read
@@ -128,24 +138,25 @@ public class WiQueryInitializer implements IInitializer {
 	 * 
 	 * @see org.apache.wicket.application.IClassResolver#getResources(java.lang.String)
 	 */
-	public Iterator<URL> getResources(String name) {
+	public Iterator<URL> getResources(String name)
+	{
 		HashSet<URL> loadedFiles = new HashSet<URL>();
-		try {
+		try
+		{
 			// Try the classloader for the wiquery jar/bundle
-			Enumeration<URL> resources = WiQuerySettings.class.getClassLoader()
-					.getResources(name);
+			Enumeration<URL> resources = WiQuerySettings.class.getClassLoader().getResources(name);
 			loadResources(resources, loadedFiles);
 
 			// Try the classloader for the user's application jar/bundle
-			resources = Application.get().getClass().getClassLoader()
-					.getResources(name);
+			resources = Application.get().getClass().getClassLoader().getResources(name);
 			loadResources(resources, loadedFiles);
 
 			// Try the context class loader
-			resources = Thread.currentThread().getContextClassLoader()
-					.getResources(name);
+			resources = Thread.currentThread().getContextClassLoader().getResources(name);
 			loadResources(resources, loadedFiles);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			throw new WicketRuntimeException(e);
 		}
 
@@ -157,11 +168,15 @@ public class WiQueryInitializer implements IInitializer {
 	 * @param resources
 	 * @param loadedFiles
 	 */
-	private void loadResources(Enumeration<URL> resources, Set<URL> loadedFiles) {
-		if (resources != null) {
-			while (resources.hasMoreElements()) {
+	private void loadResources(Enumeration<URL> resources, Set<URL> loadedFiles)
+	{
+		if (resources != null)
+		{
+			while (resources.hasMoreElements())
+			{
 				final URL url = resources.nextElement();
-				if (!loadedFiles.contains(url)) {
+				if (!loadedFiles.contains(url))
+				{
 					loadedFiles.add(url);
 				}
 			}
@@ -174,10 +189,11 @@ public class WiQueryInitializer implements IInitializer {
 	 *            Properties map with names of any library initializers in it
 	 */
 	private void load(Application application, WiQuerySettings wiQuerySettings,
-			Properties properties) {
+			Properties properties)
+	{
 		addInitializer(wiQuerySettings, properties.getProperty("initializer"));
 		addInitializer(wiQuerySettings,
-				properties.getProperty(application.getName() + "-initializer"));
+			properties.getProperty(application.getName() + "-initializer"));
 	}
 
 	/**
@@ -185,11 +201,12 @@ public class WiQueryInitializer implements IInitializer {
 	 * 
 	 * @param className
 	 */
-	private void addInitializer(WiQuerySettings wiQuerySettings,
-			String className) {
-		IWiQueryInitializer initializer = (IWiQueryInitializer) WicketObjects
-				.newInstance(className);
-		if (initializer != null) {
+	private void addInitializer(WiQuerySettings wiQuerySettings, String className)
+	{
+		IWiQueryInitializer initializer =
+			(IWiQueryInitializer) WicketObjects.newInstance(className);
+		if (initializer != null)
+		{
 			wiQuerySettings.addInitializer(initializer);
 		}
 	}
@@ -199,10 +216,10 @@ public class WiQueryInitializer implements IInitializer {
 	 * 
 	 * @param wiQuerySettings
 	 */
-	private void callInitializers(Application application,
-			WiQuerySettings wiQuerySettings) {
-		for (IWiQueryInitializer initializer : wiQuerySettings
-				.getInitializers()) {
+	private void callInitializers(Application application, WiQuerySettings wiQuerySettings)
+	{
+		for (IWiQueryInitializer initializer : wiQuerySettings.getInitializers())
+		{
 			LOGGER.info("[" + application.getName() + "] init: " + initializer);
 			initializer.init(application, wiQuerySettings);
 		}

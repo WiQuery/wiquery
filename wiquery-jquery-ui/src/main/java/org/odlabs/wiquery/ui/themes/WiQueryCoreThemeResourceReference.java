@@ -22,9 +22,12 @@
 package org.odlabs.wiquery.ui.themes;
 
 import org.odlabs.wiquery.core.resources.WiQueryStyleSheetResourceReference;
+import org.odlabs.wiquery.core.ui.IWiQueryCoreThemeResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: WiQueryCoreThemeResourceReference.java 1187 2011-08-25 11:10:01Z
+ * hielke.hoeve@gmail.com $
  * <p>
  * Defines the default WiQuery theme.
  * </p>
@@ -32,11 +35,31 @@ import org.odlabs.wiquery.core.resources.WiQueryStyleSheetResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class WiQueryCoreThemeResourceReference extends WiQueryStyleSheetResourceReference
+public class WiQueryCoreThemeResourceReference extends WiQueryStyleSheetResourceReference implements
+		IWiQueryCoreThemeResourceReference
 {
-
 	private static final long serialVersionUID = 6795863553105608280L;
 
+	private static WiQueryCoreThemeResourceReference instance =
+		new WiQueryCoreThemeResourceReference();
+
+	public static WiQueryCoreThemeResourceReference get()
+	{
+		return instance;
+	}
+
+	/**
+	 * Builds a new instance of {@link CoreUIJavaScriptResourceReference}.
+	 */
+	private WiQueryCoreThemeResourceReference()
+	{
+		this("uilightness");
+	}
+
+	/**
+	 * Builds a new instance of {@link CoreUIJavaScriptResourceReference} with given
+	 * theme.
+	 */
 	public WiQueryCoreThemeResourceReference(String theme)
 	{
 		super(WiQueryCoreThemeResourceReference.class, theme + "/jquery-ui-1.8.16.custom.css");

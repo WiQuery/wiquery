@@ -40,7 +40,8 @@ import org.apache.wicket.model.IModel;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class DoubleOption extends AbstractOption<Double> {
+public class DoubleOption extends AbstractOption<Double>
+{
 	private static final long serialVersionUID = -5938430089917100476L;
 
 	/**
@@ -49,7 +50,8 @@ public class DoubleOption extends AbstractOption<Double> {
 	 * @param literal
 	 *            the wrapped {@link Double}
 	 */
-	public DoubleOption(Double value) {
+	public DoubleOption(Double value)
+	{
 		super(value);
 	}
 
@@ -59,20 +61,23 @@ public class DoubleOption extends AbstractOption<Double> {
 	 * @param literal
 	 *            the wrapped {@link Double}
 	 */
-	public DoubleOption(IModel<Double> value) {
+	public DoubleOption(IModel<Double> value)
+	{
 		super(value);
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		Double value = getValue();
 		return value != null ? Double.toString(value) : null;
 	}
 
-	public IModelOption<Double> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new DoubleOption(((IComponentAssignedModel<Double>) getModel())
-					.wrapOnAssignment(component));
+	public IModelOption<Double> wrapOnAssignment(Component component)
+	{
+		if (getModel() instanceof IComponentAssignedModel< ? >)
+			return new DoubleOption(
+				((IComponentAssignedModel<Double>) getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

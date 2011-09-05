@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.ui.core;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -14,29 +14,25 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class JsScopeUiEventTestCase extends WiQueryTestCase {
+public class JsScopeUiEventTestCase extends WiQueryTestCase
+{
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(JsScopeUiEventTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(JsScopeUiEventTestCase.class);
 
 	/**
 	 * Check the syntax
 	 */
 	@Test
-	public void testJsScopeSyntax() {
+	public void testJsScopeSyntax()
+	{
 		String expectedJavascript = "function(event, ui) {\n\talert('test');\n}";
-		JsScopeUiEvent scopeUiEvent = new JsScopeUiEvent() {
+		JsScopeUiEvent scopeUiEvent = new JsScopeUiEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-			 * .wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append("alert('test');");
 			}
 
@@ -60,7 +56,8 @@ public class JsScopeUiEventTestCase extends WiQueryTestCase {
 	 * Check the quickScope function
 	 */
 	@Test
-	public void testQuickScope() {
+	public void testQuickScope()
+	{
 		String expectedJavascript = "function(event, ui) {\n\talert('test');\n}";
 		JsScopeUiEvent quickScope = JsScopeUiEvent.quickScope("alert('test');");
 		String generatedJavascript = quickScope.render().toString();
@@ -83,10 +80,11 @@ public class JsScopeUiEventTestCase extends WiQueryTestCase {
 	 * Check the quickScope function
 	 */
 	@Test
-	public void testQuickScopeJsStatement() {
+	public void testQuickScopeJsStatement()
+	{
 		String expectedJavascript = "function(event, ui) {\n\talert('test');\n}";
-		JsScopeUiEvent quickScope = JsScopeUiEvent.quickScope(new JsStatement()
-				.append("alert('test')"));
+		JsScopeUiEvent quickScope =
+			JsScopeUiEvent.quickScope(new JsStatement().append("alert('test')"));
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);
@@ -104,7 +102,8 @@ public class JsScopeUiEventTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

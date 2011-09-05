@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.ui.datepicker.scope;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -14,29 +14,26 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class JsScopeUiDatePickerDateTextEventTestCase extends WiQueryTestCase {
+public class JsScopeUiDatePickerDateTextEventTestCase extends WiQueryTestCase
+{
 
 	protected static final Logger log = LoggerFactory
-			.getLogger(JsScopeUiDatePickerDateTextEventTestCase.class);
+		.getLogger(JsScopeUiDatePickerDateTextEventTestCase.class);
 
 	/**
 	 * Check the syntax
 	 */
 	@Test
-	public void testJsScopeSyntax() {
+	public void testJsScopeSyntax()
+	{
 		String expectedJavascript = "function(dateText, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerDateTextEvent scopeUiEvent = new JsScopeUiDatePickerDateTextEvent() {
+		JsScopeUiDatePickerDateTextEvent scopeUiEvent = new JsScopeUiDatePickerDateTextEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-			 * .wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append("alert('test');");
 			}
 
@@ -60,10 +57,11 @@ public class JsScopeUiDatePickerDateTextEventTestCase extends WiQueryTestCase {
 	 * Check the quickScope function
 	 */
 	@Test
-	public void testQuickScope() {
+	public void testQuickScope()
+	{
 		String expectedJavascript = "function(dateText, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerDateTextEvent quickScope = JsScopeUiDatePickerDateTextEvent
-				.quickScope("alert('test');");
+		JsScopeUiDatePickerDateTextEvent quickScope =
+			JsScopeUiDatePickerDateTextEvent.quickScope("alert('test');");
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);
@@ -84,10 +82,11 @@ public class JsScopeUiDatePickerDateTextEventTestCase extends WiQueryTestCase {
 	 * Check the quickScope function
 	 */
 	@Test
-	public void testQuickScopeJsStatement() {
+	public void testQuickScopeJsStatement()
+	{
 		String expectedJavascript = "function(dateText, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerDateTextEvent quickScope = JsScopeUiDatePickerDateTextEvent
-				.quickScope(new JsStatement().append("alert('test')"));
+		JsScopeUiDatePickerDateTextEvent quickScope =
+			JsScopeUiDatePickerDateTextEvent.quickScope(new JsStatement().append("alert('test')"));
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);
@@ -105,7 +104,8 @@ public class JsScopeUiDatePickerDateTextEventTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

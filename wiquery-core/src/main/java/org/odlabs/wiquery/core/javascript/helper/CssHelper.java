@@ -29,25 +29,29 @@ import org.odlabs.wiquery.core.options.Options;
 /**
  * $Id$
  * <p>
- * 	Helper to bind css functions.
+ * Helper to bind css functions.
  * </p>
+ * 
  * @author Lionel Armanet
  * @see http://docs.jquery.com/CSS
  */
-public class CssHelper {
+public class CssHelper
+{
 
 	/**
 	 * Binds the <code>css</code> statement.
 	 */
-	public static ChainableStatement css(Options options) {
+	public static ChainableStatement css(Options options)
+	{
 		return new DefaultChainableStatement("css", options.getJavaScriptOptions());
 	}
-	
+
 	/**
 	 * Binds the <code>css</code> statement.
 	 */
-	public static ChainableStatement css(String name, String value) {
+	public static ChainableStatement css(String name, String value)
+	{
 		return new DefaultChainableStatement("css", JsUtils.quotes(name), JsUtils.quotes(value));
 	}
-	
+
 }

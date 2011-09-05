@@ -1,19 +1,19 @@
 package org.odlabs.wiquery.ui.accordion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AccordionAnimatedTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(AccordionAnimatedTestCase.class);
+public class AccordionAnimatedTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(AccordionAnimatedTestCase.class);
 
 	@Test
-	public void testGetJavaScriptOption() {
+	public void testGetJavaScriptOption()
+	{
 		AccordionAnimated snap = new AccordionAnimated(true);
 
 		// Boolean param
@@ -35,19 +35,21 @@ public class AccordionAnimatedTestCase extends WiQueryTestCase {
 
 		// Null param
 		snap.setEffectParam(null);
-		try {
+		try
+		{
 			generatedJavascript = snap.getJavascriptOption().toString();
 			assertTrue(false);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// We have an expected error
-			assertEquals(
-					"The AccordionAnimated must have one not null parameter",
-					e.getMessage());
+			assertEquals("The AccordionAnimated must have one not null parameter", e.getMessage());
 		}
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

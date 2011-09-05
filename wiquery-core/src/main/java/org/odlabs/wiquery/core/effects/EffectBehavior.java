@@ -36,7 +36,8 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @see Effect
  * @see EffectSpeed
  */
-public class EffectBehavior extends WiQueryAbstractBehavior {
+public class EffectBehavior extends WiQueryAbstractBehavior
+{
 
 	private static final long serialVersionUID = 3597955113451275208L;
 
@@ -48,16 +49,15 @@ public class EffectBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * Builds a new instance of {@link EffectBehavior}.
 	 */
-	public EffectBehavior(Effect effect) {
+	public EffectBehavior(Effect effect)
+	{
 		super();
 		this.effect = effect;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public JsStatement statement() {
+	public JsStatement statement()
+	{
 		JsQuery query = new JsQuery(getComponent());
 		query.$().chain(this.effect);
 		return query.getStatement();

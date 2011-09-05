@@ -36,121 +36,166 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class DateOption implements IComplexOption {
+public class DateOption implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Date dateParam;
+
 	private Short shortParam;
+
 	private String literalParam;
-	
-	/**Constructor
-	 * @param shortParam Short parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param shortParam
+	 *            Short parameter
 	 */
-	public DateOption(Short shortParam) {
+	public DateOption(Short shortParam)
+	{
 		this(shortParam, null, null);
 	}
-	
-	/**Constructor
-	 * @param literalParam literal parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param literalParam
+	 *            literal parameter
 	 */
-	public DateOption(String literalParam) {
+	public DateOption(String literalParam)
+	{
 		this(null, literalParam, null);
 	}
-	
-	/**Constructor
-	 * @param dateParam short parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param dateParam
+	 *            short parameter
 	 */
-	public DateOption(Date dateParam) {
+	public DateOption(Date dateParam)
+	{
 		this(null, null, dateParam);
 	}
-	
-	/**Constructor
-	 * @param shortParam Short parameter
-	 * @param literalParam literal parameter
-	 * @param dateParam short parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param shortParam
+	 *            Short parameter
+	 * @param literalParam
+	 *            literal parameter
+	 * @param dateParam
+	 *            short parameter
 	 */
-	private DateOption(Short shortParam, String literalParam, Date dateParam) {
+	private DateOption(Short shortParam, String literalParam, Date dateParam)
+	{
 		super();
 		setParam(shortParam, literalParam, dateParam);
 	}
-	
+
 	/**
 	 * @return the dateParam
 	 */
-	public Date getDateParam() {
+	public Date getDateParam()
+	{
 		return dateParam;
 	}
-	
+
 	/**
 	 * @return the literalParam
 	 */
-	public String getLiteralParam() {
+	public String getLiteralParam()
+	{
 		return literalParam;
 	}
-	
+
 	/**
 	 * @return the shortParam
 	 */
-	public Short getShortParam() {
+	public Short getShortParam()
+	{
 		return shortParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(shortParam == null && literalParam == null && dateParam == null){
+
+	public CharSequence getJavascriptOption()
+	{
+		if (shortParam == null && literalParam == null && dateParam == null)
+		{
 			throw new IllegalArgumentException("The DateOption must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(shortParam != null){
+
+		if (shortParam != null)
+		{
 			sequence = shortParam.toString();
 		}
-		else if(literalParam != null){
+		else if (literalParam != null)
+		{
 			sequence = new LiteralOption(literalParam).toString();
 		}
-		else if(dateParam != null){			
+		else if (dateParam != null)
+		{
 			sequence = DateHelper.getJSDate(dateParam);
 		}
-		else{
+		else
+		{
 			throw new IllegalArgumentException("The DateOption must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
-	
-	/**Set's the date parameter
-	 * @param dateParam short parameter
+
+	/**
+	 * Set's the date parameter
+	 * 
+	 * @param dateParam
+	 *            short parameter
 	 */
-	public void setDateParam(Date dateParam) {
+	public void setDateParam(Date dateParam)
+	{
 		setParam(null, null, dateParam);
 	}
-	
-	/**Set's the literal parameter
-	 * @param literalParam literal parameter
+
+	/**
+	 * Set's the literal parameter
+	 * 
+	 * @param literalParam
+	 *            literal parameter
 	 */
-	public void setLiteralParam(String literalParam) {
+	public void setLiteralParam(String literalParam)
+	{
 		setParam(null, literalParam, null);
 	}
-	
-	/**Set's the short parameter
-	 * @param shortParam short parameter
+
+	/**
+	 * Set's the short parameter
+	 * 
+	 * @param shortParam
+	 *            short parameter
 	 */
-	public void setShortParam(Short shortParam) {
+	public void setShortParam(Short shortParam)
+	{
 		setParam(shortParam, null, null);
 	}
-	
-	/**Method setting the right parameter
-	 * @param shortParam Short parameter
-	 * @param literalParam literal parameter
-	 * @param dateParam short parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param shortParam
+	 *            Short parameter
+	 * @param literalParam
+	 *            literal parameter
+	 * @param dateParam
+	 *            short parameter
 	 */
-	private void setParam(Short shortParam, String literalParam, Date dateParam) {
+	private void setParam(Short shortParam, String literalParam, Date dateParam)
+	{
 		this.shortParam = shortParam;
 		this.literalParam = literalParam;
 		this.dateParam = dateParam;

@@ -30,7 +30,8 @@ package org.odlabs.wiquery.core.events;
  * @author lionel
  * @since 1.0
  */
-public interface EventLabel {
+public interface EventLabel
+{
 
 	/**
 	 * @return The event string label

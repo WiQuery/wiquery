@@ -150,10 +150,6 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin
 		options = new DatePickerOptions(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.Component#detachModel()
-	 */
 	@Override
 	protected void detachModel()
 	{
@@ -161,12 +157,6 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin
 		options.detach();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core
-	 * .commons.WiQueryResourceManager)
-	 */
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
@@ -179,10 +169,6 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin
 			response.renderJavaScriptReference(dpl);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
-	 */
 	public JsStatement statement()
 	{
 		return new JsQuery(this).$().chain("datepicker",

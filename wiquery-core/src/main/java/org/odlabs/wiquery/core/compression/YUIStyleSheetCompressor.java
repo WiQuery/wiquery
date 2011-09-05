@@ -10,9 +10,15 @@ import org.slf4j.LoggerFactory;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
- * <p>Wicket Javascript StyleSheet implementation which compresses StyleSheet using the YUI Compressor.</p>
+ * <p>
+ * Wicket Javascript StyleSheet implementation which compresses StyleSheet using the YUI
+ * Compressor.
+ * </p>
  * 
- * <p>To use this class use: {@code Application.getResourceSettings().setCssCompressor(new YUIStyleSheetCompressor());}</p>
+ * <p>
+ * To use this class use:
+ * {@code Application.getResourceSettings().setCssCompressor(new YUIStyleSheetCompressor());}
+ * </p>
  * 
  * @author Vincent Heet
  */
@@ -24,9 +30,9 @@ public class YUIStyleSheetCompressor implements ICssCompressor
 	{
 		long startMillis = 0;
 		long endMillis = 0;
-		if(log.isDebugEnabled())
+		if (log.isDebugEnabled())
 			startMillis = System.currentTimeMillis();
-		
+
 		StringReader originalJsReader = new StringReader(original);
 		StringWriter compressedJs = new StringWriter();
 		try
@@ -34,11 +40,11 @@ public class YUIStyleSheetCompressor implements ICssCompressor
 			CssCompressor compressor = new CssCompressor(originalJsReader);
 			compressor.compress(compressedJs, -1);
 			compressedJs.flush();
-			
-			if(log.isDebugEnabled())
+
+			if (log.isDebugEnabled())
 			{
 				endMillis = System.currentTimeMillis();
-				log.debug("Compressed CSS in "+(endMillis-startMillis)+"ms");
+				log.debug("Compressed CSS in " + (endMillis - startMillis) + "ms");
 			}
 		}
 		catch (Exception e)

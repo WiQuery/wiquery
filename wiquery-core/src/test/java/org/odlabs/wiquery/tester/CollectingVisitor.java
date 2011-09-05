@@ -29,30 +29,35 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.odlabs.wiquery.tester.matchers.ComponentMatcher;
 
-public class CollectingVisitor<X extends Component> implements
-		IVisitor<Component, Void> {
+public class CollectingVisitor<X extends Component> implements IVisitor<Component, Void>
+{
 	private ComponentMatcher matcher;
 
 	private boolean findFirst = false;
 
 	List<X> matchedComponents = new ArrayList<X>();
 
-	public CollectingVisitor(ComponentMatcher matcher) {
+	public CollectingVisitor(ComponentMatcher matcher)
+	{
 		this.matcher = matcher;
 	}
 
-	public CollectingVisitor(ComponentMatcher matcher, boolean findFirst) {
+	public CollectingVisitor(ComponentMatcher matcher, boolean findFirst)
+	{
 		this.matcher = matcher;
 		this.findFirst = findFirst;
 	}
 
-	public List<X> getMatchedComponents() {
+	public List<X> getMatchedComponents()
+	{
 		return matchedComponents;
 	}
 
 	@SuppressWarnings("unchecked")
-	public void component(Component component, IVisit<Void> visit) {
-		if (matcher.matches(component)) {
+	public void component(Component component, IVisit<Void> visit)
+	{
+		if (matcher.matches(component))
+		{
 			matchedComponents.add((X) component);
 			if (findFirst)
 				visit.stop();

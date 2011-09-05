@@ -21,9 +21,6 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
@@ -37,8 +34,8 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class DropEffectJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class DropEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -93284559079596805L;
@@ -46,28 +43,32 @@ public class DropEffectJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static DropEffectJavaScriptResourceReference instance = new DropEffectJavaScriptResourceReference();
+	private static DropEffectJavaScriptResourceReference instance =
+		new DropEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor
 	 */
-	private DropEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class,
-				"jquery.effects.drop.js");
+	private DropEffectJavaScriptResourceReference()
+	{
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.drop.js");
 	}
 
 	/**
 	 * Returns the {@link DropEffectJavaScriptResourceReference} instance.
 	 */
-	public static DropEffectJavaScriptResourceReference get() {
+	public static DropEffectJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
-		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
-		list.add(CoreEffectJavaScriptResourceReference.get());
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[1];
+		list[0] = CoreEffectJavaScriptResourceReference.get();
 
-		return list.toArray(new AbstractResourceDependentResourceReference[0]);
+		return list;
 	}
 }

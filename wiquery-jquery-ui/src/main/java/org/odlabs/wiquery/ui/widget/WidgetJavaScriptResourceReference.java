@@ -33,26 +33,29 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class WidgetJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class WidgetJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static WidgetJavaScriptResourceReference instance = new WidgetJavaScriptResourceReference();
+	private static WidgetJavaScriptResourceReference instance =
+		new WidgetJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link WidgetJavaScriptResourceReference}.
 	 */
-	private WidgetJavaScriptResourceReference() {
+	private WidgetJavaScriptResourceReference()
+	{
 		super(WidgetJavaScriptResourceReference.class, "jquery.ui.widget.js");
 	}
 
 	/**
 	 * Returns the {@link WidgetJavaScriptResourceReference} instance.
 	 */
-	public static WidgetJavaScriptResourceReference get() {
+	public static WidgetJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 }

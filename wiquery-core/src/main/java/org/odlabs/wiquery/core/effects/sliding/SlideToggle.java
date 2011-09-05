@@ -27,37 +27,37 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
 /**
  * $Id$
  * <p>
- * Defines the slideToggle {@link Effect}. A slide down effect consists to slide 
- * toggle the visibility of all matched elements by adjusting their height
+ * Defines the slideToggle {@link Effect}. A slide down effect consists to slide toggle
+ * the visibility of all matched elements by adjusting their height
  * </p>
  * 
  * @author Julien Roche
  * @since 1.1
  */
-public class SlideToggle extends Effect {
+public class SlideToggle extends Effect
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -5701176979001030721L;
-	
+
 	/**
 	 * Creates this effect
 	 */
-	public SlideToggle() {
+	public SlideToggle()
+	{
 		super();
 	}
 
 	/**
 	 * Creates this effect with the given {@link EffectSpeed}.
 	 */
-	public SlideToggle(EffectSpeed effectSpeed) {
+	public SlideToggle(EffectSpeed effectSpeed)
+	{
 		super(effectSpeed);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return "slideToggle";
 	}
 

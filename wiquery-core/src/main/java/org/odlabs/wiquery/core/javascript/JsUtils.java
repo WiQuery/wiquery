@@ -32,88 +32,105 @@ import org.odlabs.wiquery.core.events.EventLabel;
  * @author Lionel Armanet
  * @since 0.7
  */
-public class JsUtils {
-	
+public class JsUtils
+{
+
 	/**
 	 * @return a javascript representation of the array
 	 */
-	public static CharSequence array(CharSequence... args) {
+	public static CharSequence array(CharSequence... args)
+	{
 		StringBuffer array = new StringBuffer();
 		array.append("[");
-		
-		if(args.length > 0){
+
+		if (args.length > 0)
+		{
 			array.append(args[0]);
-			
-			for(int i = 1; i < args.length; i++) {
-                array.append(", ").append(args[i]);
+
+			for (int i = 1; i < args.length; i++)
+			{
+				array.append(", ").append(args[i]);
 			}
 		}
-		
+
 		array.append("]");
 		return array;
 	}
-	
+
 	/**
 	 * Double quotes the given string (eg. makes a JavaScript String).
 	 */
-	public static String doubleQuotes(CharSequence stringToDoubleQuote) {
+	public static String doubleQuotes(CharSequence stringToDoubleQuote)
+	{
 		return doubleQuotes(stringToDoubleQuote, false);
 	}
-	
+
 	/**
 	 * Double quotes the given string (eg. makes a JavaScript String).
 	 */
-	public static String doubleQuotes(CharSequence stringToDoubleQuote, boolean escapeDoubleQuote) {
-		return "\"" + (escapeDoubleQuote ? escapeDoubleQuote(stringToDoubleQuote) : stringToDoubleQuote) + "\"";
+	public static String doubleQuotes(CharSequence stringToDoubleQuote, boolean escapeDoubleQuote)
+	{
+		return "\""
+			+ (escapeDoubleQuote ? escapeDoubleQuote(stringToDoubleQuote) : stringToDoubleQuote)
+			+ "\"";
 	}
-	
+
 	/**
 	 * @return the sequence with escaped double quotes
 	 */
-	public static String escapeDoubleQuote(CharSequence stringToDoubleQuote) {
-		return stringToDoubleQuote == null ? null : stringToDoubleQuote.toString().replace("\"", "\\\"");
+	public static String escapeDoubleQuote(CharSequence stringToDoubleQuote)
+	{
+		return stringToDoubleQuote == null ? null : stringToDoubleQuote.toString().replace("\"",
+			"\\\"");
 	}
 
 	/**
 	 * @return the sequence with escaped quotes
 	 */
-	public static String escapeQuote(CharSequence stringToQuote) {
+	public static String escapeQuote(CharSequence stringToQuote)
+	{
 		return stringToQuote == null ? null : stringToQuote.toString().replace("'", "\\'");
 	}
-	
+
 	/**
 	 * Converts the given array of {@link EventLabel} to a {@link String}.
 	 */
-	public static String implode(EventLabel... eventLabels) {
-		if (eventLabels.length == 0) {
+	public static String implode(EventLabel... eventLabels)
+	{
+		if (eventLabels.length == 0)
+		{
 			return "''";
 		}
 		String output = "'" + eventLabels[0].getEventLabel();
-		for (int i = 1; i < eventLabels.length; i++) {
+		for (int i = 1; i < eventLabels.length; i++)
+		{
 			EventLabel eventLabel = eventLabels[i];
 			output += " " + eventLabel.getEventLabel();
 		}
 		return output + "'";
 	}
-	
+
 	/**
 	 * Quotes the given string (eg. makes a JavaScript String).
 	 */
-	public static String quotes(CharSequence stringToQuote) {
+	public static String quotes(CharSequence stringToQuote)
+	{
 		return quotes(stringToQuote, false);
 	}
 
 	/**
 	 * Quotes the given string (eg. makes a JavaScript String).
 	 */
-	public static String quotes(CharSequence stringToQuote, boolean escapeQuote) {
+	public static String quotes(CharSequence stringToQuote, boolean escapeQuote)
+	{
 		return "'" + (escapeQuote ? escapeQuote(stringToQuote) : stringToQuote) + "'";
 	}
 
 	/**
 	 * Converts an int to a String. (common alias of valueOf).
 	 */
-	public static String string(int value) {
+	public static String string(int value)
+	{
 		return String.valueOf(value);
 	}
 }

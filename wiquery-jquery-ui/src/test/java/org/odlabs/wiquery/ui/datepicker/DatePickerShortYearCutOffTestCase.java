@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.ui.datepicker;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
@@ -10,19 +9,19 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DatePickerShortYearCutOffTestCase extends WiQueryTestCase {
+public class DatePickerShortYearCutOffTestCase extends WiQueryTestCase
+{
 	protected static final Logger log = LoggerFactory
-			.getLogger(DatePickerShortYearCutOffTestCase.class);
+		.getLogger(DatePickerShortYearCutOffTestCase.class);
 
 	@Test
-	public void testGetJavaScriptOption() {
-		DatePickerNumberOfMonths numberOfMonths = new DatePickerNumberOfMonths(
-				new Short("5"));
+	public void testGetJavaScriptOption()
+	{
+		DatePickerNumberOfMonths numberOfMonths = new DatePickerNumberOfMonths(new Short("5"));
 
 		// Short param
 		String expectedJavascript = "5";
-		String generatedJavascript = numberOfMonths.getJavascriptOption()
-				.toString();
+		String generatedJavascript = numberOfMonths.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -32,15 +31,16 @@ public class DatePickerShortYearCutOffTestCase extends WiQueryTestCase {
 		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
 		numberOfMonths.setArrayParam(array);
 
-		try {
-			generatedJavascript = numberOfMonths.getJavascriptOption()
-					.toString();
+		try
+		{
+			generatedJavascript = numberOfMonths.getJavascriptOption().toString();
 			assertTrue(false);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// We have an expected error
-			assertEquals(
-					"The 'arrayParam' in the DatePickerNumberOfMonths must have two values",
-					e.getMessage());
+			assertEquals("The 'arrayParam' in the DatePickerNumberOfMonths must have two values",
+				e.getMessage());
 		}
 
 		array.add(new IntegerItemOptions(2));
@@ -54,20 +54,22 @@ public class DatePickerShortYearCutOffTestCase extends WiQueryTestCase {
 
 		// Null param
 		numberOfMonths.setShortParam(null);
-		try {
-			generatedJavascript = numberOfMonths.getJavascriptOption()
-					.toString();
+		try
+		{
+			generatedJavascript = numberOfMonths.getJavascriptOption().toString();
 			assertTrue(false);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// We have an expected error
-			assertEquals(
-					"The DatePickerNumberOfMonths must have one not null parameter",
-					e.getMessage());
+			assertEquals("The DatePickerNumberOfMonths must have one not null parameter",
+				e.getMessage());
 		}
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

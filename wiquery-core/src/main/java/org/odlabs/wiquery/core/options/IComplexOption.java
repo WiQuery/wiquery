@@ -32,8 +32,11 @@ import java.io.Serializable;
  * @author Julien Roche
  * @since 1.0
  */
-public interface IComplexOption extends Serializable {
-	/**Method retrieving the javascript representation of this complex option
+public interface IComplexOption extends Serializable
+{
+	/**
+	 * Method retrieving the javascript representation of this complex option
+	 * 
 	 * @return the javascript
 	 */
 	public CharSequence getJavascriptOption();

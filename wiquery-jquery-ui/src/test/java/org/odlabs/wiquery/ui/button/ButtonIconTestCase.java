@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.button;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -34,21 +34,20 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class ButtonIconTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(ButtonIconTestCase.class);
+public class ButtonIconTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(ButtonIconTestCase.class);
 
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
-	public void testGetJavaScriptOption() {
-		ButtonIcon buttonIcon = new ButtonIcon("ui-icon-gear",
-				"ui-icon-triangle-1-s");
+	public void testGetJavaScriptOption()
+	{
+		ButtonIcon buttonIcon = new ButtonIcon("ui-icon-gear", "ui-icon-triangle-1-s");
 
 		String expectedJavascript = "{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}";
-		String generatedJavascript = buttonIcon.getJavascriptOption()
-				.toString();
+		String generatedJavascript = buttonIcon.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -59,12 +58,11 @@ public class ButtonIconTestCase extends WiQueryTestCase {
 	 * Test the javascript generation
 	 */
 	@Test
-	public void testGetJavaScriptOptionEnum() {
-		ButtonIcon buttonIcon = new ButtonIcon(UiIcon.GEAR,
-				UiIcon.TRIANGLE_1_SOUTH);
+	public void testGetJavaScriptOptionEnum()
+	{
+		ButtonIcon buttonIcon = new ButtonIcon(UiIcon.GEAR, UiIcon.TRIANGLE_1_SOUTH);
 		String expectedJavascript = "{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}";
-		String generatedJavascript = buttonIcon.getJavascriptOption()
-				.toString();
+		String generatedJavascript = buttonIcon.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -72,7 +70,8 @@ public class ButtonIconTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

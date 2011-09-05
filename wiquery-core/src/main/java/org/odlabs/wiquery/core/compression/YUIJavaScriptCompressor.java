@@ -12,9 +12,15 @@ import org.slf4j.LoggerFactory;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
- * <p>Wicket Javascript Compressor implementation which compresses Javascript using the YUI Compressor.</p>
+ * <p>
+ * Wicket Javascript Compressor implementation which compresses Javascript using the YUI
+ * Compressor.
+ * </p>
  * 
- * <p>To use this class use: {@code Application.getResourceSettings().setJavaScriptCompressor(new YUIJavaScriptCompressor());}</p>
+ * <p>
+ * To use this class use:
+ * {@code Application.getResourceSettings().setJavaScriptCompressor(new YUIJavaScriptCompressor());}
+ * </p>
  * 
  * @author Vincent Heet
  */
@@ -46,9 +52,9 @@ public class YUIJavaScriptCompressor implements IJavaScriptCompressor
 	{
 		long startMillis = 0;
 		long endMillis = 0;
-		if(log.isDebugEnabled())
+		if (log.isDebugEnabled())
 			startMillis = System.currentTimeMillis();
-		
+
 		StringReader originalJsReader = new StringReader(original);
 		StringWriter compressedJs = new StringWriter();
 		try
@@ -56,11 +62,11 @@ public class YUIJavaScriptCompressor implements IJavaScriptCompressor
 			JavaScriptCompressor compressor = new JavaScriptCompressor(originalJsReader, logWrap);
 			compressor.compress(compressedJs, -1, true, false, false, false);
 			compressedJs.flush();
-			
-			if(log.isDebugEnabled())
+
+			if (log.isDebugEnabled())
 			{
 				endMillis = System.currentTimeMillis();
-				log.debug("Compressed JS in "+(endMillis-startMillis)+"ms");
+				log.debug("Compressed JS in " + (endMillis - startMillis) + "ms");
 			}
 		}
 		catch (Exception e)

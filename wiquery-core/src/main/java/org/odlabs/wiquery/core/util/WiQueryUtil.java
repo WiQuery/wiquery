@@ -6,24 +6,30 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.IPageRequestHandler;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-public class WiQueryUtil {
+public class WiQueryUtil
+{
 
-	public static Page getCurrentPage() {
+	public static Page getCurrentPage()
+	{
 		if (RequestCycle.get().getActiveRequestHandler() instanceof IPageRequestHandler)
-			return (Page) ((IPageRequestHandler) RequestCycle.get()
-					.getActiveRequestHandler()).getPage();
+			return (Page) ((IPageRequestHandler) RequestCycle.get().getActiveRequestHandler())
+				.getPage();
 
 		return null;
 	}
-	
-	public static boolean isCurrentRequestAjax() {
+
+	public static boolean isCurrentRequestAjax()
+	{
 		return AjaxRequestTarget.get() != null;
 	}
 
-	public static PageParameters getCurrentPageParameters() {
-		if (RequestCycle.get().getActiveRequestHandler() instanceof IPageRequestHandler) {
-			Page page = (Page) ((IPageRequestHandler) RequestCycle.get()
-					.getActiveRequestHandler()).getPage();
+	public static PageParameters getCurrentPageParameters()
+	{
+		if (RequestCycle.get().getActiveRequestHandler() instanceof IPageRequestHandler)
+		{
+			Page page =
+				(Page) ((IPageRequestHandler) RequestCycle.get().getActiveRequestHandler())
+					.getPage();
 			if (page != null)
 				return page.getPageParameters();
 		}

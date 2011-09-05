@@ -36,119 +36,157 @@ import org.odlabs.wiquery.core.options.IListItemOption;
  * @author Julien Roche
  * @since 1.1
  */
-public class AutocompleteSource implements IComplexOption {
+public class AutocompleteSource implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
-	private ArrayItemOptions<? extends IListItemOption> array;
+	private ArrayItemOptions< ? extends IListItemOption> array;
+
 	private JsScope jsScope;
+
 	private String string;
-	
-	/**Constructor
-	 * @param array Array parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param array
+	 *            Array parameter
 	 */
-	public AutocompleteSource(ArrayItemOptions<? extends IListItemOption> array) {
+	public AutocompleteSource(ArrayItemOptions< ? extends IListItemOption> array)
+	{
 		this(array, null, null);
 	}
-	
-	/**Constructor
-	 * @param array Array parameter
-	 * @param jsScope Scope parameter
-	 * @param string String parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param array
+	 *            Array parameter
+	 * @param jsScope
+	 *            Scope parameter
+	 * @param string
+	 *            String parameter
 	 */
-	private AutocompleteSource(ArrayItemOptions<? extends IListItemOption> array,
-			JsScope jsScope, String string) {
+	private AutocompleteSource(ArrayItemOptions< ? extends IListItemOption> array, JsScope jsScope,
+			String string)
+	{
 		super();
 		setParam(array, jsScope, string);
 	}
 
-	/**Constructor
-	 * @param jsScope Scope parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param jsScope
+	 *            Scope parameter
 	 */
-	public AutocompleteSource(JsScope jsScope) {
+	public AutocompleteSource(JsScope jsScope)
+	{
 		this(null, jsScope, null);
 	}
-	
-	/**Constructor
-	 * @param string String parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param string
+	 *            String parameter
 	 */
-	public AutocompleteSource(String string) {
+	public AutocompleteSource(String string)
+	{
 		this(null, null, string);
 	}
-	
+
 	/**
 	 * @return the array param
 	 */
-	public ArrayItemOptions<? extends IListItemOption> getArray() {
+	public ArrayItemOptions< ? extends IListItemOption> getArray()
+	{
 		return array;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(array == null && jsScope == null && string == null){
-			throw new IllegalArgumentException("The AutocompleteSource must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (array == null && jsScope == null && string == null)
+		{
+			throw new IllegalArgumentException(
+				"The AutocompleteSource must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(array != null){
+
+		if (array != null)
+		{
 			sequence = array.getJavascriptOption();
 		}
-		else if(jsScope != null){
+		else if (jsScope != null)
+		{
 			sequence = jsScope.render();
 		}
-		else if(string != null){
+		else if (string != null)
+		{
 			sequence = JsUtils.quotes(string);
 		}
-		else{
-			throw new IllegalArgumentException("The AutocompleteSource must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The AutocompleteSource must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
 	/**
 	 * @return the scope param
 	 */
-	public JsScope getJsScope() {
+	public JsScope getJsScope()
+	{
 		return jsScope;
 	}
 
 	/**
 	 * @return the string param
 	 */
-	public String getString() {
+	public String getString()
+	{
 		return string;
 	}
 
 	/**
 	 * Set the array param
+	 * 
 	 * @param array
 	 */
-	public void setArray(ArrayItemOptions<? extends IListItemOption> array) {
+	public void setArray(ArrayItemOptions< ? extends IListItemOption> array)
+	{
 		setParam(array, null, null);
 	}
 
 	/**
 	 * Set the scope param
+	 * 
 	 * @param jsScope
 	 */
-	public void setJsScope(JsScope jsScope) {
+	public void setJsScope(JsScope jsScope)
+	{
 		setParam(null, jsScope, null);
 	}
 
-	/**Method setting the right parameter
-	 * @param array Array parameter
-	 * @param jsScope Scope parameter
-	 * @param string String parameter
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param array
+	 *            Array parameter
+	 * @param jsScope
+	 *            Scope parameter
+	 * @param string
+	 *            String parameter
 	 */
-	private void setParam(ArrayItemOptions<? extends IListItemOption> array,
-			JsScope jsScope, String string) {
+	private void setParam(ArrayItemOptions< ? extends IListItemOption> array, JsScope jsScope,
+			String string)
+	{
 		this.array = array;
 		this.jsScope = jsScope;
 		this.string = string;
@@ -156,9 +194,11 @@ public class AutocompleteSource implements IComplexOption {
 
 	/**
 	 * Set the string param
+	 * 
 	 * @param string
 	 */
-	public void setString(String string) {
+	public void setString(String string)
+	{
 		setParam(null, null, string);
 	}
 }

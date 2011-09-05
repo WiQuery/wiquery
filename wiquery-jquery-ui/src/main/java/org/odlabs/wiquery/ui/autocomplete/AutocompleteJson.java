@@ -26,27 +26,34 @@ import java.io.Serializable;
 /**
  * $Id$
  * <p>
- * 	Value for the {@link AutocompleteComponent}
+ * Value for the {@link AutocompleteComponent}
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
- *
+ * 
  */
-public class AutocompleteJson implements Serializable {
+public class AutocompleteJson implements Serializable
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -2709458515370697155L;
 
 	// Properties
 	private String valueId;
+
 	private String label;
 
 	/**
 	 * Default constructor
-	 * @param valueId Identifiant of the model
-	 * @param label Label to display
+	 * 
+	 * @param valueId
+	 *            Identifiant of the model
+	 * @param label
+	 *            Label to display
 	 */
-	public AutocompleteJson(String valueId, String label) {
+	public AutocompleteJson(String valueId, String label)
+	{
 		super();
 		this.valueId = valueId;
 		this.label = label;
@@ -55,30 +62,36 @@ public class AutocompleteJson implements Serializable {
 	/**
 	 * @return the label to display
 	 */
-	public String getLabel() {
+	public String getLabel()
+	{
 		return label;
 	}
 
 	/**
 	 * @return the identifiant of the model
 	 */
-	public String getValueId() {
+	public String getValueId()
+	{
 		return valueId;
 	}
 
 	/**
 	 * Set the label to display
+	 * 
 	 * @param label
 	 */
-	public void setLabel(String label) {
+	public void setLabel(String label)
+	{
 		this.label = label;
 	}
 
 	/**
 	 * Set the identifiant of the model
+	 * 
 	 * @param valueId
 	 */
-	public void setValueId(String valueId) {
+	public void setValueId(String valueId)
+	{
 		this.valueId = valueId;
 	}
 }

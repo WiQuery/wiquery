@@ -25,7 +25,6 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.IListItemOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
-
 /**
  * $Id: DialogButton.java
  * <p>
@@ -35,57 +34,74 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class DialogButton extends Object implements IListItemOption {
+public class DialogButton extends Object implements IListItemOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -1683433456056445578L;
-	
+
 	// Properties
 	private String title;
+
 	private JsScope jsScope;
-	
-	/** Build a new instance of a dialog button
-	 * @param title Title of the button
-	 * @param jsScope JsScope of the button
+
+	/**
+	 * Build a new instance of a dialog button
+	 * 
+	 * @param title
+	 *            Title of the button
+	 * @param jsScope
+	 *            JsScope of the button
 	 */
-	public DialogButton(String title, JsScope jsScope) {
+	public DialogButton(String title, JsScope jsScope)
+	{
 		super();
 		setTitle(title);
 		setJsScope(jsScope);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
-	 */
-	public final CharSequence getJavascriptOption() {
+
+	public final CharSequence getJavascriptOption()
+	{
 		return new LiteralOption(getTitle()) + ":" + getJsScope().render();
 	}
-	
-	/**Method retrieving the JsScope of the button
+
+	/**
+	 * Method retrieving the JsScope of the button
+	 * 
 	 * @return the JsScope
 	 */
-	public JsScope getJsScope() {
+	public JsScope getJsScope()
+	{
 		return jsScope;
 	}
-	
-	/**Method retrieving the title of the button
+
+	/**
+	 * Method retrieving the title of the button
+	 * 
 	 * @return the title
 	 */
-	public String getTitle() {
+	public String getTitle()
+	{
 		return title;
 	}
-	
-	/**Method setting the JsScope of the button
+
+	/**
+	 * Method setting the JsScope of the button
+	 * 
 	 * @param jsScope
 	 */
-	public void setJsScope(JsScope jsScope) {
+	public void setJsScope(JsScope jsScope)
+	{
 		this.jsScope = jsScope;
 	}
-	
-	/**Method setting the title of the button
+
+	/**
+	 * Method setting the title of the button
+	 * 
 	 * @param title
 	 */
-	public void setTitle(String title) {
+	public void setTitle(String title)
+	{
 		this.title = title;
 	}
 }

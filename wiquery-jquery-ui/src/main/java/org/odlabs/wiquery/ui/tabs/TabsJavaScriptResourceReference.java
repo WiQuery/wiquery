@@ -21,20 +21,25 @@
  */
 package org.odlabs.wiquery.ui.tabs;
 
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: TabsJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Tabs component.
+ * References the JavaScript resource to get the Tabs component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class TabsJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class TabsJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
@@ -43,14 +48,27 @@ public class TabsJavaScriptResourceReference extends
 	/**
 	 * Builds a new instance of {@link TabsJavaScriptResourceReference}.
 	 */
-	private TabsJavaScriptResourceReference() {
+	private TabsJavaScriptResourceReference()
+	{
 		super(TabsJavaScriptResourceReference.class, "jquery.ui.tabs.js");
 	}
 
 	/**
 	 * Returns the {@link TabsJavaScriptResourceReference} instance.
 	 */
-	public static TabsJavaScriptResourceReference get() {
+	public static TabsJavaScriptResourceReference get()
+	{
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[2];
+		list[0] = CoreUIJavaScriptResourceReference.get();
+		list[1] = WidgetJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

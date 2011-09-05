@@ -33,62 +33,77 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Julien Roche
  * @since 1.1
  */
-public class WaitDialogStatements implements Serializable {
+public class WaitDialogStatements implements Serializable
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 5953108291737593348L;
 
 	// Properties
 	private JsStatement close;
+
 	private JsStatement open;
-	
+
 	/**
 	 * Default constructor
 	 */
-	public WaitDialogStatements() {
+	public WaitDialogStatements()
+	{
 		super();
 		close = new JsStatement();
 		open = new JsStatement();
 	}
-	
+
 	/**
 	 * Constructor
-	 * @param open Open statement
-	 * @param close Close statement
+	 * 
+	 * @param open
+	 *            Open statement
+	 * @param close
+	 *            Close statement
 	 */
-	public WaitDialogStatements(JsStatement open, JsStatement close) {
+	public WaitDialogStatements(JsStatement open, JsStatement close)
+	{
 		this();
 		this.open = open;
 		this.close = close;
 	}
-	
+
 	/**
 	 * @return the close statement
 	 */
-	public JsStatement getClose() {
+	public JsStatement getClose()
+	{
 		return close;
 	}
-	
-	/** the open statement
+
+	/**
+	 * the open statement
+	 * 
 	 * @return
 	 */
-	public JsStatement getOpen() {
+	public JsStatement getOpen()
+	{
 		return open;
 	}
-	
+
 	/**
 	 * Set the close statement
+	 * 
 	 * @param close
 	 */
-	public void setClose(JsStatement close) {
+	public void setClose(JsStatement close)
+	{
 		this.close = close;
 	}
-	
+
 	/**
 	 * Set the open statement
+	 * 
 	 * @param open
 	 */
-	public void setOpen(JsStatement open) {
+	public void setOpen(JsStatement open)
+	{
 		this.open = open;
 	}
 }

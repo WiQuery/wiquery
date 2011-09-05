@@ -33,124 +33,158 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class DraggableRevert implements IComplexOption {
+public class DraggableRevert implements IComplexOption
+{
 	/**
 	 * Valid revert
 	 */
 	public static final DraggableRevert VALID = new DraggableRevert(RevertEnum.VALID);
-	
+
 	/**
 	 * Invalid revert
 	 */
 	public static final DraggableRevert INVALID = new DraggableRevert(RevertEnum.INVALID);
-	
-	public enum RevertEnum {
-		VALID		(new LiteralOption("valid")),
-		INVALID 	(new LiteralOption("invalid"));
-		
+
+	public enum RevertEnum
+	{
+		VALID(new LiteralOption("valid")),
+		INVALID(new LiteralOption("invalid"));
+
 		// Properties
 		private LiteralOption literalParam;
-		
-		RevertEnum(LiteralOption literalParam){
+
+		RevertEnum(LiteralOption literalParam)
+		{
 			this.literalParam = literalParam;
 		}
 
-		/* (non-Javadoc)
-		 * @see java.lang.Enum#toString()
-		 */
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return literalParam.toString();
 		}
 	}
-	
+
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Boolean booleanParam;
+
 	private RevertEnum revertEnumParameter;
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
 	 */
-	public DraggableRevert(Boolean booleanParam) {
+	public DraggableRevert(Boolean booleanParam)
+	{
 		this(booleanParam, null);
 	}
 
-	/**Constructor
-	 * @param revertEnumParameter RevertEnum parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param revertEnumParameter
+	 *            RevertEnum parameter
 	 */
-	public DraggableRevert(RevertEnum revertEnumParameter) {
+	public DraggableRevert(RevertEnum revertEnumParameter)
+	{
 		this(null, revertEnumParameter);
 	}
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 * @param revertEnumParameter RevertEnum parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param revertEnumParameter
+	 *            RevertEnum parameter
 	 */
-	private DraggableRevert(Boolean booleanParam, RevertEnum revertEnumParameter) {
+	private DraggableRevert(Boolean booleanParam, RevertEnum revertEnumParameter)
+	{
 		super();
 		setParam(booleanParam, revertEnumParameter);
 	}
-	
+
 	/**
 	 * @return the booleanParam
 	 */
-	public Boolean getBooleanParam() {
+	public Boolean getBooleanParam()
+	{
 		return booleanParam;
 	}
 
 	/**
 	 * @return the stringParam
 	 */
-	public RevertEnum getRevertEnumParam() {
+	public RevertEnum getRevertEnumParam()
+	{
 		return revertEnumParameter;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && revertEnumParameter == null){
-			throw new IllegalArgumentException("The DraggableRevert must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (booleanParam == null && revertEnumParameter == null)
+		{
+			throw new IllegalArgumentException(
+				"The DraggableRevert must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(booleanParam != null){
+
+		if (booleanParam != null)
+		{
 			sequence = booleanParam.toString();
 		}
-		else if(revertEnumParameter != null){
+		else if (revertEnumParameter != null)
+		{
 			sequence = revertEnumParameter.toString();
 		}
-		else{
-			throw new IllegalArgumentException("The DraggableRevert must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The DraggableRevert must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the boolean parameter
-	 * @param booleanParam the boolean to set
+	/**
+	 * Set's the boolean parameter
+	 * 
+	 * @param booleanParam
+	 *            the boolean to set
 	 */
-	public void setBooleanParam(Boolean booleanParam) {
+	public void setBooleanParam(Boolean booleanParam)
+	{
 		setParam(booleanParam, null);
 	}
-	
-	/**Set's the RevertEnum parameter
-	 * @param revertEnumParameter the RevertEnum to set
+
+	/**
+	 * Set's the RevertEnum parameter
+	 * 
+	 * @param revertEnumParameter
+	 *            the RevertEnum to set
 	 */
-	public void setRevertEnumParam(RevertEnum revertEnumParameter) {
+	public void setRevertEnumParam(RevertEnum revertEnumParameter)
+	{
 		setParam(null, revertEnumParameter);
 	}
-	
-	/**Method setting the right parameter
-	 * @param booleanParam Boolean parameter
-	 * @param revertEnumParameter RevertEnum parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param revertEnumParameter
+	 *            RevertEnum parameter
 	 */
-	private void setParam(Boolean booleanParam, RevertEnum revertEnumParameter) {
+	private void setParam(Boolean booleanParam, RevertEnum revertEnumParameter)
+	{
 		this.booleanParam = booleanParam;
 		this.revertEnumParameter = revertEnumParameter;
 	}

@@ -30,7 +30,8 @@ package org.odlabs.wiquery.core.javascript;
  * @author Lionel Armanet
  * @since 0.7
  */
-public class DefaultChainableStatement implements ChainableStatement {
+public class DefaultChainableStatement implements ChainableStatement
+{
 
 	/**
 	 * The statement label.
@@ -45,27 +46,20 @@ public class DefaultChainableStatement implements ChainableStatement {
 	/**
 	 * Creates a new instance of {@link DefaultChainableStatement}.
 	 */
-	public DefaultChainableStatement(String label, CharSequence... args) {
+	public DefaultChainableStatement(String label, CharSequence... args)
+	{
 		super();
 		this.label = label;
 		this.args = args;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return label;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.objetdirect.wickext.core.javascript.ChainableStatement#statementArgs()
-	 */
-	public CharSequence[] statementArgs() {
+	public CharSequence[] statementArgs()
+	{
 		return args;
 	}
 

@@ -24,47 +24,49 @@ package org.odlabs.wiquery.ui.datepicker;
 /**
  * $Id: ArrayOfDayNames.java
  * <p>
- * List of day names for the daynames, daynamesMin, daynamesShort into the 
- * DatePicker component
+ * List of day names for the daynames, daynamesMin, daynamesShort into the DatePicker
+ * component
  * </p>
  * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ArrayOfDayNames extends AbstractArrayOfDateNames {
+public class ArrayOfDayNames extends AbstractArrayOfDateNames
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -9097637272858071731L;
-	
+
 	/** Number of names */
 	public static final Integer NUMBER_OF_NAMES = 7;
-	
-	/** Constructor
-	 * @param sunday 		Name for Sunday
-	 * @param monday		Name for Monday
-	 * @param tuesday		Name for Tuesday
-	 * @param wednesday		Name for Wednesday
-	 * @param thursday		Name for Thursday
-	 * @param friday		Name for Friday
-	 * @param saturday		Name for Saturday
+
+	/**
+	 * Constructor
+	 * 
+	 * @param sunday
+	 *            Name for Sunday
+	 * @param monday
+	 *            Name for Monday
+	 * @param tuesday
+	 *            Name for Tuesday
+	 * @param wednesday
+	 *            Name for Wednesday
+	 * @param thursday
+	 *            Name for Thursday
+	 * @param friday
+	 *            Name for Friday
+	 * @param saturday
+	 *            Name for Saturday
 	 */
-	public ArrayOfDayNames(String sunday, String monday, String tuesday, 
-			String wednesday, String thursday, String friday, String saturday) {
-		super(new String[]{
-				sunday, 
-				monday, 
-				tuesday,
-				wednesday,
-				thursday,
-				friday,
-				saturday});
+	public ArrayOfDayNames(String sunday, String monday, String tuesday, String wednesday,
+			String thursday, String friday, String saturday)
+	{
+		super(new String[] {sunday, monday, tuesday, wednesday, thursday, friday, saturday});
 	}
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.ui.datepicker.AbstractArrayOfDateNames#getNumberOfName()
-	 */
 	@Override
-	public Integer getNumberOfName() {
+	public Integer getNumberOfName()
+	{
 		return NUMBER_OF_NAMES;
 	}
 }

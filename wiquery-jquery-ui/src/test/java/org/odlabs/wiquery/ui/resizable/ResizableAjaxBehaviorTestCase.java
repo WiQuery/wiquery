@@ -21,13 +21,11 @@
  */
 package org.odlabs.wiquery.ui.resizable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 
@@ -36,16 +34,16 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * 
  * @author Julien Roche
  */
-public class ResizableAjaxBehaviorTestCase extends WiQueryTestCase {
+public class ResizableAjaxBehaviorTestCase extends WiQueryTestCase
+{
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.resizable.ResizableAjaxBehavior#statement()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.resizable.ResizableAjaxBehavior#statement()} .
 	 */
 	@Test
-	@Ignore("This testcase tests if the wicket team decides to change the AJAX JS or not")
-	public void testStatement() {
+	public void testStatement()
+	{
 		InnerResizableAjaxBehavior resizableAjaxBehavior = new InnerResizableAjaxBehavior();
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
@@ -54,31 +52,27 @@ public class ResizableAjaxBehaviorTestCase extends WiQueryTestCase {
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
 
-		String genrateAjaxStatment = resizableAjaxBehavior.statement().render()
-				.toString();
-		String expectedAjaxStatement = "$('#anId').resizable({stop: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&resizedHeight='+ui.size.height+'&resizedWidth='+ui.size.width,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+		String generateAjaxStatment = resizableAjaxBehavior.statement().render().toString();
+		String expectedAjaxStatement =
+			"$('#anId').resizable({stop: function(event, ui) {\n\t"
+				+ "var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&resizedHeight='+ui.size.height+'&resizedWidth='+ui.size.width,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}});";
 		assertNotNull(resizableAjaxBehavior.getResizableBehavior());
-		assertEquals(genrateAjaxStatment, expectedAjaxStatement);
+		assertEquals(expectedAjaxStatement, generateAjaxStatment);
 	}
 
-	private class InnerResizableAjaxBehavior extends ResizableAjaxBehavior {
+	private class InnerResizableAjaxBehavior extends ResizableAjaxBehavior
+	{
 		private static final long serialVersionUID = 1L;
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.resizable.ResizableAjaxBehavior#onResize(int,
-		 *      int, org.apache.wicket.ajax.AjaxRequestTarget)
-		 */
 		@Override
-		public void onResize(int height, int width,
-				AjaxRequestTarget ajaxRequestTarget) {
+		public void onResize(int height, int width, AjaxRequestTarget ajaxRequestTarget)
+		{
 		}
 	}
 
-	private class InnerPage extends WebPage {
+	private class InnerPage extends WebPage
+	{
 
 		/**
 		 * 

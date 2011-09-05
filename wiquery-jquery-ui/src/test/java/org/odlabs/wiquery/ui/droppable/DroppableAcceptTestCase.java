@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.ui.droppable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScope;
@@ -9,12 +8,13 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DroppableAcceptTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(DroppableAcceptTestCase.class);
+public class DroppableAcceptTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(DroppableAcceptTestCase.class);
 
 	@Test
-	public void testGetJavaScriptOption() {
+	public void testGetJavaScriptOption()
+	{
 		DroppableAccept helper = new DroppableAccept(".special");
 
 		// HelperEnum param
@@ -36,19 +36,21 @@ public class DroppableAcceptTestCase extends WiQueryTestCase {
 
 		// Null param
 		helper.setHelperEnumParam(null);
-		try {
+		try
+		{
 			generatedJavascript = helper.getJavascriptOption().toString();
 			assertTrue(false);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// We have an expected error
-			assertEquals(
-					"The DroppableAccept must have one not null parameter",
-					e.getMessage());
+			assertEquals("The DroppableAccept must have one not null parameter", e.getMessage());
 		}
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

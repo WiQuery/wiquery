@@ -32,7 +32,8 @@ import java.io.Serializable;
  * @author Lionel Armanet
  * @since 1.0
  */
-public interface IOptionsRenderer extends Serializable {
+public interface IOptionsRenderer extends Serializable
+{
 
 	/**
 	 * Renders a JavaScript code before iterating on each key, value pair.

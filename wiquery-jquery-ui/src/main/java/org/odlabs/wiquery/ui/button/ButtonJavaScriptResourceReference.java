@@ -39,32 +39,37 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class ButtonJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class ButtonJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static ButtonJavaScriptResourceReference instance = new ButtonJavaScriptResourceReference();
+	private static ButtonJavaScriptResourceReference instance =
+		new ButtonJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link ButtonJavaScriptResourceReference}.
 	 */
-	private ButtonJavaScriptResourceReference() {
+	private ButtonJavaScriptResourceReference()
+	{
 		super(ButtonJavaScriptResourceReference.class, "jquery.ui.button.js");
 	}
 
 	/**
 	 * Returns the {@link ButtonJavaScriptResourceReference} instance.
 	 */
-	public static ButtonJavaScriptResourceReference get() {
+	public static ButtonJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
-		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		List<AbstractResourceDependentResourceReference> list =
+			new ArrayList<AbstractResourceDependentResourceReference>();
 		list.add(CoreUIJavaScriptResourceReference.get());
 		list.add(WidgetJavaScriptResourceReference.get());
 

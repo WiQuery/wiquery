@@ -45,244 +45,271 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 /**
  * $Id: DialogResourcesBehavior.java
  * 
- * Behavior to load all needed resources for the {@link Dialog}
- * Contains some utilities method to create very lightweight {@link Dialog} 
+ * Behavior to load all needed resources for the {@link Dialog} Contains some utilities
+ * method to create very lightweight {@link Dialog}
  * 
  * @author Julien Roche
  * @since 1.1
  */
 @WiQueryUIPlugin
-public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
+public class DialogUtilsBehavior extends WiQueryAbstractBehavior
+{
 	/**
-	 * Enumeration of possibles alternatives languages for the Dailog
-	 * (Default local : EN)
+	 * Enumeration of possibles alternatives languages for the Dailog (Default local : EN)
+	 * 
 	 * @author Julien Roche
-	 *
+	 * 
 	 */
-	public enum DialogUtilsLanguages {
-		ALBANIAN			("sq"),
-		ARABIC				("ar"),
-		BELARUSIAN			("be"),
-		BULGARIAN			("bg"),
-		CATALAN				("ca"),
-		CROATIAN			("hr"),
-		DANISH				("da"),
-		DEUTSCH				(Locale.GERMAN),
-		ENGLISH				(Locale.ENGLISH),
-		ESTONIAN			("et"),
-		FINNISH				("fi"),
-		FRENCH				(Locale.FRENCH),
-		GREEK				("el"),
-		HEBREW				("iw"),
-		HINDI				("hi", "IN"),
-		HUNGARIAN			("hu"),
-		ICELANDIC			("is"),
-		INDONESIAN			("in"),
-		ITALIAN				("it"),
-		JAPANESE			("ja"),
-		KOREAN				(Locale.KOREAN),
-		LITHUANIAN			("lt"),
-		NORVEGIAN			("no"),
-		POLISH				("pl"),
-		PORTUGUESE			("pt"),
-		ROUMANIAN			("ro"),
-		RUSSIAN				("ru"),
-		SERBIAN				("sr"),
-		SIMPLIFIED_CHINESE	(Locale.SIMPLIFIED_CHINESE),
-		SLOVAK				("sk"),
-		SLOVENIAN			("sl"),
-		SPANISH				("es"),
-		SWEDISH				("sv"),
-		THAI				("th"),
-		TRADITIONAL_CHINESE	(Locale.TRADITIONAL_CHINESE),
-		TURKISH				("tr"),
-		UKRAINIAN			("uk"),
-		VIETNAMESE			("vi");
-		
+	public enum DialogUtilsLanguages
+	{
+		ALBANIAN("sq"),
+		ARABIC("ar"),
+		BELARUSIAN("be"),
+		BULGARIAN("bg"),
+		CATALAN("ca"),
+		CROATIAN("hr"),
+		DANISH("da"),
+		DEUTSCH(Locale.GERMAN),
+		ENGLISH(Locale.ENGLISH),
+		ESTONIAN("et"),
+		FINNISH("fi"),
+		FRENCH(Locale.FRENCH),
+		GREEK("el"),
+		HEBREW("iw"),
+		HINDI("hi", "IN"),
+		HUNGARIAN("hu"),
+		ICELANDIC("is"),
+		INDONESIAN("in"),
+		ITALIAN("it"),
+		JAPANESE("ja"),
+		KOREAN(Locale.KOREAN),
+		LITHUANIAN("lt"),
+		NORVEGIAN("no"),
+		POLISH("pl"),
+		PORTUGUESE("pt"),
+		ROUMANIAN("ro"),
+		RUSSIAN("ru"),
+		SERBIAN("sr"),
+		SIMPLIFIED_CHINESE(Locale.SIMPLIFIED_CHINESE),
+		SLOVAK("sk"),
+		SLOVENIAN("sl"),
+		SPANISH("es"),
+		SWEDISH("sv"),
+		THAI("th"),
+		TRADITIONAL_CHINESE(Locale.TRADITIONAL_CHINESE),
+		TURKISH("tr"),
+		UKRAINIAN("uk"),
+		VIETNAMESE("vi");
+
 		/**
 		 * Try to find the most appropriate value in the enumeration
-		 * @param locale Local to search
+		 * 
+		 * @param locale
+		 *            Local to search
 		 * @return the value
 		 */
-		public static DialogUtilsLanguages getDialogUtilsLanguages(Locale locale){
-			if(locale == null){
+		public static DialogUtilsLanguages getDialogUtilsLanguages(Locale locale)
+		{
+			if (locale == null)
+			{
 				return DialogUtilsLanguages.ENGLISH;
 			}
-			
+
 			Locale tmpLocale = null;
 			String language = locale.getLanguage();
 			String country = locale.getCountry();
 			String variant = locale.getVariant();
 			String empty = "";
-			
+
 			country = country == null || country.trim().length() <= 0 ? null : country;
 			variant = variant == null || variant.trim().length() <= 0 ? null : variant;
-			
+
 			// Equals on language-country-variant
-			if(variant != null){
-				for(DialogUtilsLanguages l : values()){
+			if (variant != null)
+			{
+				for (DialogUtilsLanguages l : values())
+				{
 					tmpLocale = l.getLocale();
-					
-					if(tmpLocale.getLanguage().equals(language)
-							&& tmpLocale.getCountry().equals(country)
-							&& tmpLocale.getVariant().equals(variant)){
+
+					if (tmpLocale.getLanguage().equals(language)
+						&& tmpLocale.getCountry().equals(country)
+						&& tmpLocale.getVariant().equals(variant))
+					{
 						return l;
 					}
 				}
 			}
-			
+
 			// Equals on language-country
-			if(country != null){
-				for(DialogUtilsLanguages l : values()){
+			if (country != null)
+			{
+				for (DialogUtilsLanguages l : values())
+				{
 					tmpLocale = l.getLocale();
-					
-					if(tmpLocale.getLanguage().equals(language)
-							&& tmpLocale.getCountry().equals(country)
-							&& tmpLocale.getVariant().equals(empty)){
+
+					if (tmpLocale.getLanguage().equals(language)
+						&& tmpLocale.getCountry().equals(country)
+						&& tmpLocale.getVariant().equals(empty))
+					{
 						return l;
 					}
 				}
 			}
-			
+
 			// Equals on language
-			for(DialogUtilsLanguages l : values()){
+			for (DialogUtilsLanguages l : values())
+			{
 				tmpLocale = l.getLocale();
-				
-				if(tmpLocale.getLanguage().equals(language)
-						&& tmpLocale.getCountry().equals(empty)
-						&& tmpLocale.getVariant().equals(empty)){
+
+				if (tmpLocale.getLanguage().equals(language)
+					&& tmpLocale.getCountry().equals(empty) && tmpLocale.getVariant().equals(empty))
+				{
 					return l;
 				}
 			}
-			
+
 			return DialogUtilsLanguages.ENGLISH;
 		}
-		
+
 		/**
 		 * Method calculating the literal language
+		 * 
 		 * @param language
 		 * @return the literal
 		 */
-		public static CharSequence getDialogUtilsLiteral(DialogUtilsLanguages language) {
+		public static CharSequence getDialogUtilsLiteral(DialogUtilsLanguages language)
+		{
 			Locale locale = language.getLocale();
-			
+
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(locale.getLanguage());
-			
-			if(locale.getCountry() != null && !locale.getCountry().equals("")){
-                buffer.append("_").append(locale.getCountry());
-				
-				if(locale.getVariant() != null && !locale.getVariant().equals("")){
-                    buffer.append("_").append(locale.getVariant());
+
+			if (locale.getCountry() != null && !locale.getCountry().equals(""))
+			{
+				buffer.append("_").append(locale.getCountry());
+
+				if (locale.getVariant() != null && !locale.getVariant().equals(""))
+				{
+					buffer.append("_").append(locale.getVariant());
 				}
 			}
-			
+
 			return JsUtils.quotes(buffer);
 		}
-		
+
 		/**
 		 * Method calculating the {@link JavascriptResourceReference} language
+		 * 
 		 * @param language
 		 * @return the resource
 		 */
-		public static WiQueryJavaScriptResourceReference getDialogUtilsResource(DialogUtilsLanguages language) {
+		public static WiQueryJavaScriptResourceReference getDialogUtilsResource(
+				DialogUtilsLanguages language)
+		{
 			Locale locale = language.getLocale();
-			
+
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("wiquery-dialog_");
 			buffer.append(locale.getLanguage());
-			
-			if(locale.getCountry() != null && !locale.getCountry().equals("")){
-                buffer.append("_").append(locale.getCountry());
-				
-				if(locale.getVariant() != null && !locale.getVariant().equals("")){
-                    buffer.append("_").append(locale.getVariant());
+
+			if (locale.getCountry() != null && !locale.getCountry().equals(""))
+			{
+				buffer.append("_").append(locale.getCountry());
+
+				if (locale.getVariant() != null && !locale.getVariant().equals(""))
+				{
+					buffer.append("_").append(locale.getVariant());
 				}
 			}
-			
+
 			buffer.append(".js");
-			
-			return new WiQueryJavaScriptResourceReference(DialogUtilsBehavior.class, "i18n/" + buffer);
+
+			return new WiQueryJavaScriptResourceReference(DialogUtilsBehavior.class, "i18n/"
+				+ buffer);
 		}
-		
+
 		// Properties
 		private final Locale locale;
-		
+
 		/**
 		 * Constructor
+		 * 
 		 * @param locale
 		 */
-		DialogUtilsLanguages(Locale locale) {
+		DialogUtilsLanguages(Locale locale)
+		{
 			this.locale = locale;
 		}
-		
+
 		/**
 		 * Constructor
+		 * 
 		 * @param language
 		 */
-		DialogUtilsLanguages(String language) {
+		DialogUtilsLanguages(String language)
+		{
 			this.locale = new Locale(language);
 		}
-		
+
 		/**
 		 * Constructor
+		 * 
 		 * @param language
 		 * @param country
 		 */
-		DialogUtilsLanguages(String language, String country) {
+		DialogUtilsLanguages(String language, String country)
+		{
 			this.locale = new Locale(language, country);
 		}
-		
+
 		/**
 		 * Constructor
+		 * 
 		 * @param language
 		 * @param country
 		 * @param variant
 		 */
-		DialogUtilsLanguages(String language, String country, String variant) {
+		DialogUtilsLanguages(String language, String country, String variant)
+		{
 			this.locale = new Locale(language, country, variant);
 		}
-		
+
 		/**
 		 * @return the locale
 		 */
-		public Locale getLocale() {
+		public Locale getLocale()
+		{
 			return locale;
 		}
 	}
-	
+
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 2337318416689834710L;
-	
+
 	/** Cancel image */
-	private static final SharedResourceReference CANCEL_IMG = 
-		new SharedResourceReference(DialogUtilsBehavior.class, "cancel.png");
-	
+	private static final SharedResourceReference CANCEL_IMG = new SharedResourceReference(
+		DialogUtilsBehavior.class, "cancel.png");
+
 	/** Question image */
-	private static final SharedResourceReference QUESTION_IMG = 
-		new SharedResourceReference(DialogUtilsBehavior.class, "questionmark.png");
-	
+	private static final SharedResourceReference QUESTION_IMG = new SharedResourceReference(
+		DialogUtilsBehavior.class, "questionmark.png");
+
 	/** Wait image */
-	private static final SharedResourceReference WAIT_IMG = 
-		new SharedResourceReference(DialogUtilsBehavior.class, "wait.gif");
-	
+	private static final SharedResourceReference WAIT_IMG = new SharedResourceReference(
+		DialogUtilsBehavior.class, "wait.gif");
+
 	/** Warning image */
-	private static final SharedResourceReference WARNING_IMG = 
-		new SharedResourceReference(DialogUtilsBehavior.class, "warning.png");
-	
+	private static final SharedResourceReference WARNING_IMG = new SharedResourceReference(
+		DialogUtilsBehavior.class, "warning.png");
+
 	/** Constant of wiQuery Dialog resource */
-	public static final WiQueryJavaScriptResourceReference WIQUERY_DIALOG_JS = 
-		new WiQueryJavaScriptResourceReference(
-				DialogUtilsBehavior.class, 
-				"wiquery-dialog.js");
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
+	public static final WiQueryJavaScriptResourceReference WIQUERY_DIALOG_JS =
+		new WiQueryJavaScriptResourceReference(DialogUtilsBehavior.class, "wiquery-dialog.js");
+
 	@Override
-	public void renderHead(Component component, IHeaderResponse response) {
+	public void renderHead(Component component, IHeaderResponse response)
+	{
 		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
 		response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
 		response.renderJavaScriptReference(PositionJavaScriptResourceReference.get());
@@ -290,118 +317,130 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior {
 		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
 		response.renderJavaScriptReference(DraggableJavaScriptResourceReference.get());
 		response.renderJavaScriptReference(ResizableJavaScriptResourceReference.get());
-		
+
 		response.renderJavaScriptReference(WIQUERY_DIALOG_JS);
-		response.renderJavaScriptReference(
-				DialogUtilsLanguages.getDialogUtilsResource(
-						DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())));
+		response.renderJavaScriptReference(DialogUtilsLanguages
+			.getDialogUtilsResource(DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())));
 	}
-	
+
 	/**
 	 * Method creating an error Dialog
-	 * @param message Message
+	 * 
+	 * @param message
+	 *            Message
 	 * @return a {@link JsStatement}
 	 */
-	public JsStatement errorDialog(String message) {
+	public JsStatement errorDialog(String message)
+	{
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.errorDialog(");
 		statement.append("" + Session.get().nextSequenceValue() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
-				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
+			.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
 		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(CANCEL_IMG, null)) + ")");
-		
+
 		return statement;
 	}
 
 	/**
 	 * @return the used local
 	 */
-	public Locale getLocale() {
+	public Locale getLocale()
+	{
 		Locale l = getComponent() == null ? null : getComponent().getLocale();
 		return l == null ? Locale.ENGLISH : l;
 	}
-	
+
 	/**
 	 * Method creating a question Dialog
-	 * @param message Message
+	 * 
+	 * @param message
+	 *            Message
 	 * @return a {@link JsStatement}
 	 */
-	public JsStatement questionDialog(String message) {
+	public JsStatement questionDialog(String message)
+	{
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.questionDialog(");
 		statement.append("" + Session.get().nextSequenceValue() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
-				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
+			.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
 		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(QUESTION_IMG, null)) + ")");
-		
+
 		return statement;
 	}
-	
+
 	/**
 	 * Method creating a simple dialog
-	 * @param title Title
-	 * @param message Message
+	 * 
+	 * @param title
+	 *            Title
+	 * @param message
+	 *            Message
 	 * @return the required {@link JsStatement}
 	 */
-	public JsStatement simpleDialog(String title, String message) {
+	public JsStatement simpleDialog(String title, String message)
+	{
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.simpleDialog(");
 		statement.append("" + Session.get().nextSequenceValue() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
-				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
+			.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.quotes(title, true) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ")");
-		
+
 		return statement;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
-	 */
+
 	@Override
-	public JsStatement statement() {
+	public JsStatement statement()
+	{
 		return new JsStatement();
 	}
-	
+
 	/**
 	 * Method creating a waiting dialog
+	 * 
 	 * @return a {@link WaitDialogStatements}
 	 */
-	public WaitDialogStatements waitDialog() {
+	public WaitDialogStatements waitDialog()
+	{
 		Integer id = Session.get().nextSequenceValue();
-		
+
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.waitDialog(");
 		statement.append(id.toString() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
-				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
+			.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(WAIT_IMG, null)) + ")");
-		
+
 		WaitDialogStatements wait = new WaitDialogStatements();
 		wait.setOpen(statement);
-		wait.setClose(new JsStatement().$(null, "#dialog" + id).chain("dialog", 
-				JsUtils.quotes("close")));
-		
+		wait.setClose(new JsStatement().$(null, "#dialog" + id).chain("dialog",
+			JsUtils.quotes("close")));
+
 		return wait;
 	}
-	
+
 	/**
 	 * Method creating a warning Dialog
-	 * @param message Message
+	 * 
+	 * @param message
+	 *            Message
 	 * @return a {@link JsStatement}
 	 */
-	public JsStatement warningDialog(String message) {
+	public JsStatement warningDialog(String message)
+	{
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.warningDialog(");
 		statement.append("" + Session.get().nextSequenceValue() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
-				DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
+			.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
 		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(WARNING_IMG, null)) + ")");
-		
+
 		return statement;
 	}
 }

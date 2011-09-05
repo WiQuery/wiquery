@@ -22,9 +22,11 @@
 package org.odlabs.wiquery.ui.core;
 
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: CoreUIJavaScriptResourceReference.java 1145 2011-08-02 08:57:23Z
+ * hielke.hoeve@gmail.com $
  * <p>
  * References the core jQuery UI library.
  * </p>
@@ -32,9 +34,9 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class CoreUIJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+public class CoreUIJavaScriptResourceReference extends WiQueryJavaScriptResourceReference implements
+		ICoreUIJavaScriptResourceReference
 {
-
 	private static final long serialVersionUID = 4585057795574929263L;
 
 	private static CoreUIJavaScriptResourceReference instance =

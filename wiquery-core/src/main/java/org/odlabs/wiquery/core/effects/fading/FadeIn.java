@@ -27,38 +27,37 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
 /**
  * $Id$
  * <p>
- * Defines the fade in {@link Effect}. A fade in consists to make a component
- * appear with a fade effect.
+ * Defines the fade in {@link Effect}. A fade in consists to make a component appear with
+ * a fade effect.
  * </p>
  * 
  * @author Lionel Armanet
  * @since 0.5
  */
-public class FadeIn extends Effect {
+public class FadeIn extends Effect
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 4262828778615480382L;
-	
+
 	/**
 	 * Creates this effect
 	 */
-	public FadeIn() {
+	public FadeIn()
+	{
 		super();
 	}
 
 	/**
 	 * Creates this effect with the given {@link EffectSpeed}.
 	 */
-	public FadeIn(EffectSpeed effectSpeed) {
+	public FadeIn(EffectSpeed effectSpeed)
+	{
 		super(effectSpeed);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return "fadeIn";
 	}
 

@@ -33,94 +33,128 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class ResizableHandles implements IComplexOption {	
+public class ResizableHandles implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private LiteralOption literalParam;
+
 	private String objectParam;
-	
-	/**Constructor
-	 * @param literalParam Literal parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param literalParam
+	 *            Literal parameter
 	 */
-	public ResizableHandles(LiteralOption literalParam) {
+	public ResizableHandles(LiteralOption literalParam)
+	{
 		this(literalParam, null);
 	}
 
-	/**Constructor
-	 * @param objectParam object parameter (jQuery or DOMElement)
+	/**
+	 * Constructor
+	 * 
+	 * @param objectParam
+	 *            object parameter (jQuery or DOMElement)
 	 */
-	public ResizableHandles(String objectParam) {
+	public ResizableHandles(String objectParam)
+	{
 		this(null, objectParam);
 	}
-	
-	/**Constructor
-	 * @param literalParam Literal parameter
-	 * @param objectParam object parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param literalParam
+	 *            Literal parameter
+	 * @param objectParam
+	 *            object parameter
 	 */
-	private ResizableHandles(LiteralOption literalParam, String objectParam) {
+	private ResizableHandles(LiteralOption literalParam, String objectParam)
+	{
 		super();
 		setParam(literalParam, objectParam);
 	}
-	
+
 	/**
 	 * @return the literalParam
 	 */
-	public LiteralOption getLiteralParam() {
+	public LiteralOption getLiteralParam()
+	{
 		return literalParam;
 	}
 
 	/**
 	 * @return the objectParam
 	 */
-	public String getObjectParam() {
+	public String getObjectParam()
+	{
 		return objectParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(objectParam == null && literalParam == null){
-			throw new IllegalArgumentException("The ResizableHandles must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (objectParam == null && literalParam == null)
+		{
+			throw new IllegalArgumentException(
+				"The ResizableHandles must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(objectParam != null){
+
+		if (objectParam != null)
+		{
 			sequence = objectParam;
 		}
-		else if(literalParam != null){
+		else if (literalParam != null)
+		{
 			sequence = literalParam.toString();
 		}
-		else{
-			throw new IllegalArgumentException("The ResizableHandles must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The ResizableHandles must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the literal parameter
-	 * @param literalParam the literal to set
+	/**
+	 * Set's the literal parameter
+	 * 
+	 * @param literalParam
+	 *            the literal to set
 	 */
-	public void setLiteralParam(LiteralOption literalParam) {
+	public void setLiteralParam(LiteralOption literalParam)
+	{
 		setParam(literalParam, null);
 	}
-	
-	/**Set's the object (jQuery or DOMElement) parameter
-	 * @param objectParam the literal to set
+
+	/**
+	 * Set's the object (jQuery or DOMElement) parameter
+	 * 
+	 * @param objectParam
+	 *            the literal to set
 	 */
-	public void setObjectParam(String objectParam) {
+	public void setObjectParam(String objectParam)
+	{
 		setParam(null, objectParam);
 	}
-	
-	/**Method setting the right parameter
-	 * @param literalParam Literal parameter
-	 * @param objectParam object parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param literalParam
+	 *            Literal parameter
+	 * @param objectParam
+	 *            object parameter
 	 */
-	private void setParam(LiteralOption literalParam, String objectParam) {
+	private void setParam(LiteralOption literalParam, String objectParam)
+	{
 		this.literalParam = literalParam;
 		this.objectParam = objectParam;
 	}

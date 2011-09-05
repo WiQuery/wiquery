@@ -34,42 +34,47 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class AbstractArrayOfDateNames extends Object implements IComplexOption {
+public abstract class AbstractArrayOfDateNames extends Object implements IComplexOption
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -9097637272858071731L;
-	
+
 	// Properties
 	private ArrayItemOptions<LiteralOption> itemOptions;
 
 	/**
 	 * Constructor
-	 * @param names List of names
+	 * 
+	 * @param names
+	 *            List of names
 	 */
-	public AbstractArrayOfDateNames(String... names){
+	public AbstractArrayOfDateNames(String... names)
+	{
 		super();
 		itemOptions = new ArrayItemOptions<LiteralOption>();
-		
-		for(String str : names){
+
+		for (String str : names)
+		{
 			itemOptions.add(new LiteralOption(str));
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(itemOptions.isEmpty()){
+
+	public CharSequence getJavascriptOption()
+	{
+		if (itemOptions.isEmpty())
+		{
 			throw new IllegalArgumentException("We must have a list of names");
 		}
-		else if(!getNumberOfName().equals(itemOptions.size())){
-			throw new IllegalArgumentException(
-					String.format("The list must have %d names", getNumberOfName()));
+		else if (!getNumberOfName().equals(itemOptions.size()))
+		{
+			throw new IllegalArgumentException(String.format("The list must have %d names",
+				getNumberOfName()));
 		}
-		
+
 		return itemOptions.getJavascriptOption();
 	}
-	
+
 	/**
 	 * @return the number of desired names
 	 */

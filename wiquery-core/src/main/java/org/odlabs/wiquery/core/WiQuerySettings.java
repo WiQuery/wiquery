@@ -82,6 +82,8 @@ public class WiQuerySettings implements Serializable
 
 	private boolean minifiedStyleSheetResources;
 
+	private List<String> resourceGroupingKeys = new ArrayList<String>();
+
 	public WiQuerySettings()
 	{
 		super();
@@ -102,6 +104,10 @@ public class WiQuerySettings implements Serializable
 		compressor = Application.get().getResourceSettings().getCssCompressor();
 		setMinifiedStyleSheetResources(compressor != null
 			&& !(compressor instanceof NoOpTextCompressor));
+
+		getResourceGroupingKeys().add("org.apache.wicket");
+		getResourceGroupingKeys().add("org.odlabs.wiquery.core");
+		getResourceGroupingKeys().add("org.odlabs.wiquery.ui");
 	}
 
 	/**
@@ -290,4 +296,58 @@ public class WiQuerySettings implements Serializable
 		this.minifiedStyleSheetResources = minifiedStyleSheetResources;
 	}
 
+	public List<String> getResourceGroupingKeys()
+	{
+		return resourceGroupingKeys;
+	}
+
+	public void setResourceGroupingKeys(List<String> resourceGroupingKeys)
+	{
+		this.resourceGroupingKeys = resourceGroupingKeys;
+	}
+
+	/**
+	 * <p>
+	 * Looks for the package name in the list of preferred packages.
+	 * </p>
+	 * 
+	 * <p>
+	 * When the full package name is not found we keep trying by removing a subpackage at
+	 * a time and check if this is found.
+	 * </p>
+	 * <p>
+	 * For example: <code>org.apache.wicket</code> is listed and we have a package called
+	 * <code>org.apache.wicket.ajax</code>.
+	 * <ul>
+	 * <li>We check if <code>org.apache.wicket.ajax</code> is listed, if so return
+	 * <code>org.apache.wicket.ajax</code> else continue</li>
+	 * <li>We check if <code>org.apache.wicket</code> is listed, if so return
+	 * <code>org.apache.wicket</code> else continue</li>
+	 * <li>We check if <code>org.apache</code> is listed, if so return
+	 * <code>org.apache</code> else continue</li>
+	 * <li>We check if <code>org</code> is listed, if so return <code>org</code> else
+	 * continue</li>
+	 * <li>We return null</li>
+	 * 
+	 * <p>
+	 * If no match is found null is returned.
+	 * </p>
+	 */
+	public String findResourceGroupingKey(String packageName)
+	{
+		if (getResourceGroupingKeys().contains(packageName))
+			return packageName;
+
+		String[] packageNameSplit = packageName.split("\\.");
+		for (int i = packageNameSplit.length - 1; i > 0; i--)
+		{
+			String subPackageName =
+				packageName.substring(0, packageName.indexOf(packageNameSplit[i]) - 1);
+
+			if (getResourceGroupingKeys().contains(subPackageName))
+				return subPackageName;
+		}
+
+		return null;
+	}
 }

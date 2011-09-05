@@ -27,38 +27,37 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
 /**
  * $Id$
  * <p>
- * Defines the fade out {@link Effect}. A fade out consists to make a component
- * disappear with a fade effect.
+ * Defines the fade out {@link Effect}. A fade out consists to make a component disappear
+ * with a fade effect.
  * </p>
  * 
  * @author Lionel Armanet
  * @since 0.5
  */
-public class FadeOut extends Effect {
+public class FadeOut extends Effect
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 448124792230851531L;
-	
+
 	/**
 	 * Creates this effect
 	 */
-	public FadeOut() {
+	public FadeOut()
+	{
 		super();
 	}
 
 	/**
 	 * Creates this effect with the given {@link EffectSpeed}.
 	 */
-	public FadeOut(EffectSpeed effectSpeed) {
+	public FadeOut(EffectSpeed effectSpeed)
+	{
 		super(effectSpeed);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return "fadeOut";
 	}
 

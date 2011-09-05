@@ -33,68 +33,97 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class AccordionActive implements IComplexOption {
+public class AccordionActive implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Boolean booleanParam;
+
 	private Integer intParam;
+
 	private LiteralOption selector;
+
 	private String jQueryParam;
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
 	 */
-	public AccordionActive(Boolean booleanParam) {
+	public AccordionActive(Boolean booleanParam)
+	{
 		this(booleanParam, null, null, null);
 	}
-	
-	/**Constructor
-	 * @param intParam Integer parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param intParam
+	 *            Integer parameter
 	 */
-	public AccordionActive(Integer intParam) {
+	public AccordionActive(Integer intParam)
+	{
 		this(null, intParam, null, null);
 	}
 
-	/**Constructor
-	 * @param selector Selector parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param selector
+	 *            Selector parameter
 	 */
-	public AccordionActive(LiteralOption selector) {
+	public AccordionActive(LiteralOption selector)
+	{
 		this(null, null, selector, null);
 	}
-	
-	/**Constructor
-	 * @param jQueryParam jQuery parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param jQueryParam
+	 *            jQuery parameter
 	 */
-	public AccordionActive(String jQueryParam) {
+	public AccordionActive(String jQueryParam)
+	{
 		this(null, null, null, jQueryParam);
 	}
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 * @param intParam Integer parameter
-	 * @param selector Selector parameter
-	 * @param jQueryParam jQuery parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param intParam
+	 *            Integer parameter
+	 * @param selector
+	 *            Selector parameter
+	 * @param jQueryParam
+	 *            jQuery parameter
 	 */
-	private AccordionActive(Boolean booleanParam, Integer intParam,
-			LiteralOption selector, String jQueryParam) {
+	private AccordionActive(Boolean booleanParam, Integer intParam, LiteralOption selector,
+			String jQueryParam)
+	{
 		super();
 		setParam(booleanParam, intParam, selector, jQueryParam);
 	}
-	
+
 	/**
 	 * @return the booleanParam
 	 */
-	public boolean isBooleanParam() {
+	public boolean isBooleanParam()
+	{
 		return booleanParam;
 	}
 
 	/**
 	 * @return the intParam
 	 */
-	public int getIntParam() {
+	public int getIntParam()
+	{
 		return intParam;
 	}
 
@@ -102,101 +131,138 @@ public class AccordionActive implements IComplexOption {
 	 * @return the selectorOrElementParam
 	 * @deprecated will be removed in 1.4
 	 */
-	public LiteralOption getSelectorOrElementParam() {
+	@Deprecated
+	public LiteralOption getSelectorOrElementParam()
+	{
 		return selector;
 	}
-	
+
 	/**
 	 * @return the Selector
 	 */
-	public LiteralOption getSelector() {
+	public LiteralOption getSelector()
+	{
 		return selector;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && intParam == null && jQueryParam == null &&
-				selector == null){
-			throw new IllegalArgumentException("The AccordionActive must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (booleanParam == null && intParam == null && jQueryParam == null && selector == null)
+		{
+			throw new IllegalArgumentException(
+				"The AccordionActive must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(booleanParam != null){
+
+		if (booleanParam != null)
+		{
 			sequence = booleanParam.toString();
 		}
-		else if(intParam != null){
+		else if (intParam != null)
+		{
 			sequence = intParam.toString();
 		}
-		else if(jQueryParam != null){
+		else if (jQueryParam != null)
+		{
 			sequence = jQueryParam;
 		}
-		else if(selector != null){
+		else if (selector != null)
+		{
 			sequence = selector.toString();
 		}
-		else{
-			throw new IllegalArgumentException("The AccordionActive must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The AccordionActive must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
 	/**
 	 * @return the jQueryParam
 	 */
-	public String getJQueryParam() {
+	public String getJQueryParam()
+	{
 		return jQueryParam;
 	}
 
-	/**Set's the boolean parameter
-	 * @param booleanParam the booleanParam to set
+	/**
+	 * Set's the boolean parameter
+	 * 
+	 * @param booleanParam
+	 *            the booleanParam to set
 	 */
-	public void setBooleanParam(boolean booleanParam) {
+	public void setBooleanParam(boolean booleanParam)
+	{
 		setParam(booleanParam, null, null, null);
 	}
 
-	/**Set's the int parameter
-	 * @param intParam the intParam to set
+	/**
+	 * Set's the int parameter
+	 * 
+	 * @param intParam
+	 *            the intParam to set
 	 */
-	public void setIntParam(int intParam) {
+	public void setIntParam(int intParam)
+	{
 		setParam(null, intParam, null, null);
 	}
-	
-	/**Set's the jQuery parameter
-	 * @param queryParam the jQueryParam to set
+
+	/**
+	 * Set's the jQuery parameter
+	 * 
+	 * @param queryParam
+	 *            the jQueryParam to set
 	 */
-	public void setJQueryParam(String queryParam) {
+	public void setJQueryParam(String queryParam)
+	{
 		setParam(null, null, null, queryParam);
 	}
-	
-	/**Method setting the right parameter
-	 * @param booleanParam Boolean parameter
-	 * @param intParam Integer parameter
-	 * @param selectorOrElementParam Selector or element parameter
-	 * @param jQueryParam JQuery parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param intParam
+	 *            Integer parameter
+	 * @param selectorOrElementParam
+	 *            Selector or element parameter
+	 * @param jQueryParam
+	 *            JQuery parameter
 	 */
 	private void setParam(Boolean booleanParam, Integer intParam,
-			LiteralOption selectorOrElementParam, String jQueryParam) {
+			LiteralOption selectorOrElementParam, String jQueryParam)
+	{
 		this.booleanParam = booleanParam;
 		this.intParam = intParam;
 		this.selector = selectorOrElementParam;
 		this.jQueryParam = jQueryParam;
 	}
 
-	/**Set's the selector or element parameter
-	 * @param selectorOrElementParam the selectorOrElementParam to set
+	/**
+	 * Set's the selector or element parameter
+	 * 
+	 * @param selectorOrElementParam
+	 *            the selectorOrElementParam to set
 	 * @deprecated will be removed in 1.4
 	 */
-	public void setSelectorOrElementParam(LiteralOption selectorOrElementParam) {
+	@Deprecated
+	public void setSelectorOrElementParam(LiteralOption selectorOrElementParam)
+	{
 		setParam(null, null, selectorOrElementParam, null);
 	}
-	
-	/**Set's the selector
-	 * @param selector the selector to set
+
+	/**
+	 * Set's the selector
+	 * 
+	 * @param selector
+	 *            the selector to set
 	 */
-	public void setSelector(LiteralOption selector) {
+	public void setSelector(LiteralOption selector)
+	{
 		setParam(null, null, selector, null);
 	}
 }

@@ -28,41 +28,46 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
 /**
  * $Id$
  * <p>
- * 	Helper to bind manipulating functions.
+ * Helper to bind manipulating functions.
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 0.7
  * @see http://docs.jquery.com/Manipulation
  */
-public class ManipulatingHelper {
+public class ManipulatingHelper
+{
 
 	/**
 	 * Binds the <code>after</code> statement.
 	 */
-	public static ChainableStatement after(CharSequence html) {
+	public static ChainableStatement after(CharSequence html)
+	{
 		return new DefaultChainableStatement("after", JsUtils.quotes(html.toString()));
 	}
 
 	/**
 	 * Binds the <code>insertAfter</code> statement.
 	 */
-	public static ChainableStatement insertAfter(String expression) {
+	public static ChainableStatement insertAfter(String expression)
+	{
 		return new DefaultChainableStatement("insertAfter", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>before</code> statement.
 	 */
-	public static ChainableStatement before(CharSequence html) {
+	public static ChainableStatement before(CharSequence html)
+	{
 		return new DefaultChainableStatement("before", JsUtils.quotes(html.toString()));
 	}
-	
+
 	/**
 	 * Binds the <code>insertBefore</code> statement.
 	 */
-	public static ChainableStatement insertBefore(String expression) {
+	public static ChainableStatement insertBefore(String expression)
+	{
 		return new DefaultChainableStatement("insertBefore", JsUtils.quotes(expression));
 	}
-
 
 }

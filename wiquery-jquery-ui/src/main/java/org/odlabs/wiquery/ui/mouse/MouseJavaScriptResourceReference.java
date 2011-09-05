@@ -38,32 +38,37 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class MouseJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class MouseJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static MouseJavaScriptResourceReference instance = new MouseJavaScriptResourceReference();
+	private static MouseJavaScriptResourceReference instance =
+		new MouseJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link MouseJavaScriptResourceReference}.
 	 */
-	private MouseJavaScriptResourceReference() {
+	private MouseJavaScriptResourceReference()
+	{
 		super(MouseJavaScriptResourceReference.class, "jquery.ui.mouse.js");
 	}
 
 	/**
 	 * Returns the {@link MouseJavaScriptResourceReference} instance.
 	 */
-	public static MouseJavaScriptResourceReference get() {
+	public static MouseJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
-		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		List<AbstractResourceDependentResourceReference> list =
+			new ArrayList<AbstractResourceDependentResourceReference>();
 		list.add(WidgetJavaScriptResourceReference.get());
 
 		return list.toArray(new AbstractResourceDependentResourceReference[0]);

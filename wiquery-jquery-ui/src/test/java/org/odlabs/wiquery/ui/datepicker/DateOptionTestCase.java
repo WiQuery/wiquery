@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.ui.datepicker;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
 
@@ -10,18 +9,18 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DateOptionTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(DateOptionTestCase.class);
+public class DateOptionTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(DateOptionTestCase.class);
 
 	@Test
-	public void testGetJavaScriptOption() {
+	public void testGetJavaScriptOption()
+	{
 		DateOption dateOption = new DateOption(new Short("5"));
 
 		// Short param
 		String expectedJavascript = "5";
-		String generatedJavascript = dateOption.getJavascriptOption()
-				.toString();
+		String generatedJavascript = dateOption.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -57,18 +56,21 @@ public class DateOptionTestCase extends WiQueryTestCase {
 
 		// Null param
 		dateOption.setShortParam(null);
-		try {
+		try
+		{
 			generatedJavascript = dateOption.getJavascriptOption().toString();
 			assertTrue(false);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// We have an expected error
-			assertEquals("The DateOption must have one not null parameter",
-					e.getMessage());
+			assertEquals("The DateOption must have one not null parameter", e.getMessage());
 		}
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

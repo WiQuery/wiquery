@@ -33,154 +33,197 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.1
  */
-public class SliderAnimate implements IComplexOption {
+public class SliderAnimate implements IComplexOption
+{
 	/**
 	 * Helper enumeration.
 	 */
-	public static enum AnimateEnum {
-		FAST	(new LiteralOption("fast")),
-		NORMAL 	(new LiteralOption("normal")),
-		SLOW 	(new LiteralOption("slow"));
-		
+	public static enum AnimateEnum
+	{
+		FAST(new LiteralOption("fast")),
+		NORMAL(new LiteralOption("normal")),
+		SLOW(new LiteralOption("slow"));
+
 		// Properties
 		private LiteralOption literalParam;
-		
-		AnimateEnum(LiteralOption literalParam){
+
+		AnimateEnum(LiteralOption literalParam)
+		{
 			this.literalParam = literalParam;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * @see java.lang.Enum#toString()
-		 */
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return literalParam.toString();
 		}
 	}
-	
+
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Boolean booleanParam;
+
 	private AnimateEnum animateEnumParam;
+
 	private Number numberParam;
-	
+
 	public static final SliderAnimate FAST = new SliderAnimate(AnimateEnum.FAST);
+
 	public static final SliderAnimate SLOW = new SliderAnimate(AnimateEnum.SLOW);
+
 	public static final SliderAnimate NORMAL = new SliderAnimate(AnimateEnum.NORMAL);
-	
-	
-	/**Constructor
-	 * @param animateEnumParam AnimateEnum parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param animateEnumParam
+	 *            AnimateEnum parameter
 	 */
-	public SliderAnimate(AnimateEnum animateEnumParam) {
+	public SliderAnimate(AnimateEnum animateEnumParam)
+	{
 		this(null, animateEnumParam, null);
 	}
 
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 */
-	public SliderAnimate(Boolean booleanParam) {
-		this(booleanParam, null, null);
-	}
-	
-	/**Constructor
-	 * @param numberParam Number param
-	 */
-	public SliderAnimate(Number numberParam) {
-		this(null, null, numberParam);
-	}
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 * @param animateEnumParam AnimateEnum parameter
-	 * @param numberParam Number param
-	 */
-	private SliderAnimate(Boolean booleanParam, AnimateEnum animateEnumParam, Number numberParam) {
-		super();
-		setParam(booleanParam, animateEnumParam, numberParam);
-	}
-	
 	/**
-	 * @return the animateEnumParam
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
 	 */
-	public AnimateEnum getAnimateEnumParam() {
-		return animateEnumParam;
+	public SliderAnimate(Boolean booleanParam)
+	{
+		this(booleanParam, null, null);
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
+	 * Constructor
+	 * 
+	 * @param numberParam
+	 *            Number param
 	 */
-	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && animateEnumParam == null && numberParam == null){
+	public SliderAnimate(Number numberParam)
+	{
+		this(null, null, numberParam);
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param animateEnumParam
+	 *            AnimateEnum parameter
+	 * @param numberParam
+	 *            Number param
+	 */
+	private SliderAnimate(Boolean booleanParam, AnimateEnum animateEnumParam, Number numberParam)
+	{
+		super();
+		setParam(booleanParam, animateEnumParam, numberParam);
+	}
+
+	/**
+	 * @return the animateEnumParam
+	 */
+	public AnimateEnum getAnimateEnumParam()
+	{
+		return animateEnumParam;
+	}
+
+	public CharSequence getJavascriptOption()
+	{
+		if (booleanParam == null && animateEnumParam == null && numberParam == null)
+		{
 			throw new IllegalArgumentException("The SliderAnimate must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(booleanParam != null){
+
+		if (booleanParam != null)
+		{
 			sequence = booleanParam.toString();
-			
-		} else if(numberParam != null){
+
+		}
+		else if (numberParam != null)
+		{
 			sequence = numberParam.toString();
-			
-		} else if(animateEnumParam != null){
+
+		}
+		else if (animateEnumParam != null)
+		{
 			sequence = animateEnumParam.toString();
 		}
-		else{
+		else
+		{
 			throw new IllegalArgumentException("The SliderAnimate must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
-	
+
 	/**
 	 * @return
 	 */
-	public Number getNumberParam() {
+	public Number getNumberParam()
+	{
 		return numberParam;
 	}
 
 	/**
 	 * @return the booleanParam
 	 */
-	public boolean isBooleanParam() {
+	public boolean isBooleanParam()
+	{
 		return booleanParam;
 	}
-	
-	/**Set's the boolean parameter
-	 * @param booleanParam the booleanParam to set
+
+	/**
+	 * Set's the boolean parameter
+	 * 
+	 * @param booleanParam
+	 *            the booleanParam to set
 	 */
-	public void setBooleanParam(boolean booleanParam) {
+	public void setBooleanParam(boolean booleanParam)
+	{
 		setParam(booleanParam, null, null);
 	}
-	
+
 	/**
 	 * @param numberParam
 	 */
-	public void setNumberParam(Number numberParam) {
+	public void setNumberParam(Number numberParam)
+	{
 		setParam(null, null, numberParam);
 	}
 
-	/**Method setting the right parameter
-	 * @param booleanParam Boolean parameter
-	 * @param animateEnumParam AnimateEnum parameter
-	 * @param numberParam Number param
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param animateEnumParam
+	 *            AnimateEnum parameter
+	 * @param numberParam
+	 *            Number param
 	 */
-	private void setParam(Boolean booleanParam, AnimateEnum animateEnumParam, Number numberParam) {
+	private void setParam(Boolean booleanParam, AnimateEnum animateEnumParam, Number numberParam)
+	{
 		this.booleanParam = booleanParam;
 		this.animateEnumParam = animateEnumParam;
 		this.numberParam = numberParam;
 	}
 
-	/**Set's the AnimateEnum parameter
-	 * @param animateEnumParam the AnimateEnum to set
+	/**
+	 * Set's the AnimateEnum parameter
+	 * 
+	 * @param animateEnumParam
+	 *            the AnimateEnum to set
 	 */
-	public void setAnimateEnumParam(AnimateEnum animateEnumParam) {
+	public void setAnimateEnumParam(AnimateEnum animateEnumParam)
+	{
 		setParam(null, animateEnumParam, null);
 	}
 }

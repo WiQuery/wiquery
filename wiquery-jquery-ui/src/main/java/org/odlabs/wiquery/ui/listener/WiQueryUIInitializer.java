@@ -14,7 +14,7 @@ public class WiQueryUIInitializer implements IWiQueryInitializer
 	{
 		// make sure that the core listener is registered before us! duplicates
 		// will be ignored.
-		wiQuerySettings.addListener(JQueryCoreRenderingListener.getInstance());
+		wiQuerySettings.addListener(JQueryCoreRenderingListener.get());
 		wiQuerySettings.addListener(JQueryUICoreRenderingListener.getInstance());
 	}
 }

@@ -84,10 +84,6 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 		options = new Options(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.Component#detachModel()
-	 */
 	@Override
 	protected void detachModel()
 	{
@@ -95,11 +91,6 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 		options.detach();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
@@ -116,11 +107,6 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 		return options;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
-	 */
 	public JsStatement statement()
 	{
 		return new JsQuery(this).$().chain("autocomplete", options.getJavaScriptOptions());

@@ -31,67 +31,81 @@ import org.apache.wicket.model.IModel;
  * Bean to specify a button element for the button set
  * </p>
  * 
- * @param <T> The model object type
+ * @param <T>
+ *            The model object type
  * 
  * @author Julien Roche
  * @since 1.1
  */
-public class ButtonElement<T extends Serializable> implements Serializable {
+public class ButtonElement<T extends Serializable> implements Serializable
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -4025676226101615452L;
 
 	// Properties
 	private IModel<T> model;
+
 	private IModel<String> label;
-	
+
 	/**
 	 * Default constructor
 	 */
-	public ButtonElement() {
+	public ButtonElement()
+	{
 		super();
 		model = null;
 		label = null;
 	}
-	
+
 	/**
 	 * Constructor
-	 * @param model Model of the object
-	 * @param label Model for the button's label
+	 * 
+	 * @param model
+	 *            Model of the object
+	 * @param label
+	 *            Model for the button's label
 	 */
-	public ButtonElement(IModel<T> model, IModel<String> label) {
+	public ButtonElement(IModel<T> model, IModel<String> label)
+	{
 		this();
 		this.model = model;
 		this.label = label;
 	}
-	
+
 	/**
 	 * @return the model of the label
 	 */
-	public IModel<String> getLabel() {
+	public IModel<String> getLabel()
+	{
 		return label;
 	}
-	
+
 	/**
 	 * @return the model of our object
 	 */
-	public IModel<T> getModel() {
+	public IModel<T> getModel()
+	{
 		return model;
 	}
-	
+
 	/**
 	 * Set the model label
+	 * 
 	 * @param label
 	 */
-	public void setLabel(IModel<String> label) {
+	public void setLabel(IModel<String> label)
+	{
 		this.label = label;
 	}
-	
+
 	/**
 	 * Set the mode of the object
+	 * 
 	 * @param model
 	 */
-	public void setModel(IModel<T> model) {
+	public void setModel(IModel<T> model)
+	{
 		this.model = model;
 	}
 }

@@ -25,15 +25,16 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
- * Helper class to implement the scale effect as in 
+ * $Id$ Helper class to
+ * implement the scale effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Scale
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
  */
-public class ScaleEffect extends Effect {
+public class ScaleEffect extends Effect
+{
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,55 +42,63 @@ public class ScaleEffect extends Effect {
 	 * Shake direction.
 	 * 
 	 */
-	public static enum Direction {
-		both, horizontal, vertical;
+	public static enum Direction
+	{
+		both,
+		horizontal,
+		vertical;
 	}
-	
+
 	/**
 	 * What to scale.
 	 */
-	public static enum Scale {
-		both, box, content;
+	public static enum Scale
+	{
+		both,
+		box,
+		content;
 	}
-	
-	/**
-	 * Constructor.
-	 */
-	public ScaleEffect() {
-		this(Direction.both, Scale.both, 120, 100);		
-	}
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param direction The direction.
-	 */
-	public ScaleEffect(Direction direction) {
-		this(direction, Scale.both, 120, 100);		
-	}
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param direction The direction
-	 * @param scale The scale 
-	 * @param percent The percent
-	 * @param duration The duration.
-	 */
-	public ScaleEffect(Direction direction, Scale scale, int percent, int duration) {
-		super(JsUtils.quotes("scale"),
-				"{direction:"
-				+ JsUtils.quotes(direction.name())
-				+", percent: "+ Integer.toString(percent)				
-				+", scale: "+ JsUtils.quotes(scale.name())
-				+"}", Integer.toString(duration));
-	}
-		
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
+	/**
+	 * Constructor.
 	 */
-	public String chainLabel() {
+	public ScaleEffect()
+	{
+		this(Direction.both, Scale.both, 120, 100);
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param direction
+	 *            The direction.
+	 */
+	public ScaleEffect(Direction direction)
+	{
+		this(direction, Scale.both, 120, 100);
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param direction
+	 *            The direction
+	 * @param scale
+	 *            The scale
+	 * @param percent
+	 *            The percent
+	 * @param duration
+	 *            The duration.
+	 */
+	public ScaleEffect(Direction direction, Scale scale, int percent, int duration)
+	{
+		super(JsUtils.quotes("scale"), "{direction:" + JsUtils.quotes(direction.name())
+			+ ", percent: " + Integer.toString(percent) + ", scale: "
+			+ JsUtils.quotes(scale.name()) + "}", Integer.toString(duration));
+	}
+
+	public String chainLabel()
+	{
 		return "effect";
 	}
 

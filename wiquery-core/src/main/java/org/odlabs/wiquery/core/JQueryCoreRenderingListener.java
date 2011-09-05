@@ -47,7 +47,7 @@ public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListen
 	{
 	}
 
-	public static JQueryCoreRenderingListener getInstance()
+	public static JQueryCoreRenderingListener get()
 	{
 		return INSTANCE;
 	}
@@ -57,6 +57,7 @@ public class JQueryCoreRenderingListener implements WiQueryPluginRenderingListen
 	 */
 	public void onRender(IWiQueryPlugin plugin, IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(CoreJavaScriptResourceReference.get());
+		if (WiQuerySettings.get().isAutoImportJQueryResource())
+			response.renderJavaScriptReference(CoreJavaScriptResourceReference.get());
 	}
 }

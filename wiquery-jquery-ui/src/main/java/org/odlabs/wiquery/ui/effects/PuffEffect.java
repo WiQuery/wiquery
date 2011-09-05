@@ -25,81 +25,86 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
- * Helper class to implement the puff effect as in 
+ * $Id$ Helper class to
+ * implement the puff effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Puff
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
  */
-public class PuffEffect extends Effect {
+public class PuffEffect extends Effect
+{
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The explode mode.
 	 * 
-	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com) 
-	 *
+	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
+	 * 
 	 */
-	public static enum Mode {
+	public static enum Mode
+	{
 		show,
 		hide;
 	}
-	
+
 	private Mode mode;
-	
-	
+
 	/*
 	 * 
 	 */
-	public PuffEffect() {
-		this(Mode.hide, 1000);		
+	public PuffEffect()
+	{
+		this(Mode.hide, 1000);
 	}
-	
+
 	/**
 	 * 
 	 * @param mode
 	 */
-	public PuffEffect(Mode mode) {
-		this(mode, 1000);		
+	public PuffEffect(Mode mode)
+	{
+		this(mode, 1000);
 	}
-	
+
 	/**
 	 * 
 	 * @param mode
 	 * @param duration
 	 */
-	public PuffEffect(Mode mode, int duration) {
+	public PuffEffect(Mode mode, int duration)
+	{
 		super(JsUtils.quotes("explode"), Integer.toString(duration));
 		this.mode = mode;
 	}
-	
+
 	/**
 	 * 
 	 * @param mode
 	 * @param pieces
 	 * @param duration
 	 */
-	public PuffEffect(Mode mode, int percent, int duration) {
-		super(JsUtils.quotes("explode"), "{percent: "+ Integer.toString(percent)+"}",Integer.toString(duration));
+	public PuffEffect(Mode mode, int percent, int duration)
+	{
+		super(JsUtils.quotes("explode"), "{percent: " + Integer.toString(percent) + "}", Integer
+			.toString(duration));
 		this.mode = mode;
 	}
-	
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return getMode().name();
 	}
 
-	public Mode getMode() {
+	public Mode getMode()
+	{
 		return mode;
 	}
 
-	public void setMode(Mode mode) {
+	public void setMode(Mode mode)
+	{
 		this.mode = mode;
 	}
 

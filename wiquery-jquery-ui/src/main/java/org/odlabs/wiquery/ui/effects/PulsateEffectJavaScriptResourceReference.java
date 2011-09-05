@@ -21,37 +21,54 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: PulsateEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Pulsate jQuery UI effect.
+ * References the JavaScript resource to import the Pulsate jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class PulsateEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class PulsateEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -5550806128536330878L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static PulsateEffectJavaScriptResourceReference instance = new PulsateEffectJavaScriptResourceReference();
+	private static PulsateEffectJavaScriptResourceReference instance =
+		new PulsateEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor
 	 */
-	private PulsateEffectJavaScriptResourceReference() {
+	private PulsateEffectJavaScriptResourceReference()
+	{
 		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.pulsate.js");
 	}
 
 	/**
 	 * Returns the {@link PulsateEffectJavaScriptResourceReference} instance.
 	 */
-	public static PulsateEffectJavaScriptResourceReference get() {
+	public static PulsateEffectJavaScriptResourceReference get()
+	{
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[1];
+		list[0] = CoreEffectJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

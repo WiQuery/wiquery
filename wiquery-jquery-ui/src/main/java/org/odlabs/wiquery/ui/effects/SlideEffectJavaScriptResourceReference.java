@@ -21,37 +21,54 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: SlideEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Slide jQuery UI effect.
+ * References the JavaScript resource to import the Slide jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class SlideEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class SlideEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 2062678871572539729L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static SlideEffectJavaScriptResourceReference instance = new SlideEffectJavaScriptResourceReference();
+	private static SlideEffectJavaScriptResourceReference instance =
+		new SlideEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor
 	 */
-	private SlideEffectJavaScriptResourceReference() {
+	private SlideEffectJavaScriptResourceReference()
+	{
 		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.slide.js");
 	}
 
 	/**
 	 * Returns the {@link SlideEffectJavaScriptResourceReference} instance.
 	 */
-	public static SlideEffectJavaScriptResourceReference get() {
+	public static SlideEffectJavaScriptResourceReference get()
+	{
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[1];
+		list[0] = CoreEffectJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

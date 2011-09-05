@@ -61,7 +61,8 @@ public class WiQueryTester extends WicketTester
 
 	public <X extends Component> X first(final MarkupContainer root, Class<X> componentType)
 	{
-		CollectingVisitor<X> visitor = new CollectingVisitor<X>(new ComponentTypeMatcher(componentType), true);
+		CollectingVisitor<X> visitor =
+			new CollectingVisitor<X>(new ComponentTypeMatcher(componentType), true);
 		root.visitChildren(visitor);
 		return visitor.matchedComponents.get(0);
 	}

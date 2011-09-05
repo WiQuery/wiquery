@@ -30,29 +30,32 @@ import org.apache.wicket.IInitializer;
  * $Id: IWiQueryInitializer.java 563 2010-11-21 20:50:37Z roche.jul@gmail.com $
  * 
  * <p>
- * 	The goal of the {@link IWiQueryInitializer} is to put some configurations for your wiquery 
- * API at the startupt of the wicket application
+ * The goal of the {@link IWiQueryInitializer} is to put some configurations for your
+ * wiquery API at the startupt of the wicket application
  * </p>
  * 
  * <p>
- * Initializers can be configured by having a wiquery.properties file in the class path root, with
- * property 'initializer=${initializer class name}'. You can have one such properties per jar file,
- * but the initializer that property denotes can delegate to other initializers of that library.
+ * Initializers can be configured by having a wiquery.properties file in the class path
+ * root, with property 'initializer=${initializer class name}'. You can have one such
+ * properties per jar file, but the initializer that property denotes can delegate to
+ * other initializers of that library.
  * </p>
  * 
  * <p>
  * This mecanism is the same that the {@link IInitializer}
  * </p>
- *
+ * 
  * @author Julien Roche
  * @since 1.2
  */
-public interface IWiQueryInitializer extends Serializable {
+public interface IWiQueryInitializer extends Serializable
+{
 	/**
 	 * @param application
 	 *            The application loading the component
 	 * 
-	 * @param wiQuerySettings Settings for wiQuery into the current application
+	 * @param wiQuerySettings
+	 *            Settings for wiQuery into the current application
 	 */
 	void init(Application application, WiQuerySettings wiQuerySettings);
 }

@@ -24,58 +24,58 @@ package org.odlabs.wiquery.ui.datepicker;
 /**
  * $Id: ArrayOfMonthNames.java
  * <p>
- * List of day names for the monthnames, monthnamesShort into the 
- * DatePicker component
+ * List of day names for the monthnames, monthnamesShort into the DatePicker component
  * </p>
  * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ArrayOfMonthNames extends AbstractArrayOfDateNames {
+public class ArrayOfMonthNames extends AbstractArrayOfDateNames
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -9097637272858071731L;
-	
+
 	/** Number of names */
 	public static final Integer NUMBER_OF_NAMES = 12;
-	
+
 	/**
-	 * @param january		Name for January
-	 * @param february		Name for February
-	 * @param march			Name for March
-	 * @param april			Name for April
-	 * @param may			Name for May
-	 * @param june			Name for June
-	 * @param july			Name for July
-	 * @param august		Name for August
-	 * @param september		Name for September
-	 * @param october		Name for October
-	 * @param november		Name for November
-	 * @param december		Name for December
+	 * @param january
+	 *            Name for January
+	 * @param february
+	 *            Name for February
+	 * @param march
+	 *            Name for March
+	 * @param april
+	 *            Name for April
+	 * @param may
+	 *            Name for May
+	 * @param june
+	 *            Name for June
+	 * @param july
+	 *            Name for July
+	 * @param august
+	 *            Name for August
+	 * @param september
+	 *            Name for September
+	 * @param october
+	 *            Name for October
+	 * @param november
+	 *            Name for November
+	 * @param december
+	 *            Name for December
 	 */
-	public ArrayOfMonthNames(String january, String february, String march, 
-			String april, String may, String june, String july, String august,
-			String september, String october, String november, String december) {
-		super(new String[]{
-				january, 
-				february, 
-				march,
-				april,
-				may,
-				june,
-				july,
-				august,
-				september,
-				october,
-				november,
-				december});
+	public ArrayOfMonthNames(String january, String february, String march, String april,
+			String may, String june, String july, String august, String september, String october,
+			String november, String december)
+	{
+		super(new String[] {january, february, march, april, may, june, july, august, september,
+			october, november, december});
 	}
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.ui.datepicker.AbstractArrayOfDateNames#getNumberOfName()
-	 */
 	@Override
-	public Integer getNumberOfName() {
+	public Integer getNumberOfName()
+	{
 		return NUMBER_OF_NAMES;
 	}
 }

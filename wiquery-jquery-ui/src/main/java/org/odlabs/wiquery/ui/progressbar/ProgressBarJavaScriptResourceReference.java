@@ -21,11 +21,13 @@
  */
 package org.odlabs.wiquery.ui.progressbar;
 
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id: ResizableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
- * lionel.armanet $
+ * $Id$
  * <p>
  * References the JavaScript resource to get the ProgressBar component.
  * </p>
@@ -33,28 +35,42 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class ProgressBarJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class ProgressBarJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3423205998397680042L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ProgressBarJavaScriptResourceReference instance = new ProgressBarJavaScriptResourceReference();
+	private static ProgressBarJavaScriptResourceReference instance =
+		new ProgressBarJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link ProgressBarJavaScriptResourceReference}.
 	 */
-	private ProgressBarJavaScriptResourceReference() {
+	private ProgressBarJavaScriptResourceReference()
+	{
 		super(ProgressBarJavaScriptResourceReference.class, "jquery.ui.progressbar.js");
 	}
 
 	/**
 	 * Returns the {@link ProgressBarJavaScriptResourceReference} instance.
 	 */
-	public static ProgressBarJavaScriptResourceReference get() {
+	public static ProgressBarJavaScriptResourceReference get()
+	{
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[2];
+		list[0] = CoreUIJavaScriptResourceReference.get();
+		list[1] = WidgetJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

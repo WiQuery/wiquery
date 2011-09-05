@@ -84,11 +84,6 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 			super(id, model);
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.autocomplete.Autocomplete#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-		 */
 		@Override
 		public void renderHead(IHeaderResponse response)
 		{
@@ -98,11 +93,6 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 				.renderJavaScriptReference(WiQueryAutocompleteJavaScriptResourceReference.get());
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.apache.wicket.markup.html.form.AbstractTextComponent#onBeforeRender()
-		 */
 		@Override
 		protected void onBeforeRender()
 		{
@@ -110,22 +100,12 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 			super.onBeforeRender();
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.autocomplete.Autocomplete#setCloseEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
-		 */
 		@Override
 		public Autocomplete<E> setCloseEvent(JsScopeUiEvent close)
 		{
 			throw new WicketRuntimeException("You can't define the close event");
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.autocomplete.Autocomplete#setSelectEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)
-		 */
 		@Override
 		public Autocomplete<E> setSelectEvent(JsScopeUiEvent select)
 		{
@@ -138,22 +118,12 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 			throw new WicketRuntimeException("You can't define the change event");
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.autocomplete.Autocomplete#setSource(org.odlabs.wiquery.ui.autocomplete.AutocompleteSource)
-		 */
 		@Override
 		public Autocomplete<E> setSource(AutocompleteSource source)
 		{
 			throw new WicketRuntimeException("You can't define the source");
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.autocomplete.Autocomplete#statement()
-		 */
 		@Override
 		public JsStatement statement()
 		{
@@ -312,11 +282,6 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.apache.wicket.markup.html.form.FormComponent#convertInput()
-	 */
 	@Override
 	protected final void convertInput()
 	{

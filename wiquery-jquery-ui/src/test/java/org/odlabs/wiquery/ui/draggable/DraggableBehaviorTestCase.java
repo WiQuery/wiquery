@@ -21,11 +21,7 @@
  */
 package org.odlabs.wiquery.ui.draggable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -48,21 +44,25 @@ import org.odlabs.wiquery.ui.draggable.DraggableRevert.RevertEnum;
  * 
  * @author Julien Roche
  */
-public class DraggableBehaviorTestCase extends WiQueryTestCase {
+public class DraggableBehaviorTestCase extends WiQueryTestCase
+{
 	// Properties
 	private DraggableBehavior draggableBehavior;
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		super.setUp();
 
 		draggableBehavior = new DraggableBehavior();
 
-		tester.startPanel(new ITestPanelSource() {
+		tester.startPanel(new ITestPanelSource()
+		{
 			private static final long serialVersionUID = 1L;
 
-			public Panel getTestPanel(String panelId) {
+			public Panel getTestPanel(String panelId)
+			{
 				Panel panel = new DivTestPanel(panelId);
 				WebMarkupContainer component = new WebMarkupContainer("anId");
 				component.setMarkupId("anId");
@@ -74,36 +74,38 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#destroy()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#destroy()}
+	 * .
 	 */
 	@Test
-	public void testDestroy() {
+	public void testDestroy()
+	{
 		assertNotNull(draggableBehavior.destroy());
 		assertEquals(draggableBehavior.destroy().render().toString(),
-				"$('#anId').draggable('destroy');");
+			"$('#anId').draggable('destroy');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#disable()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#disable()}
+	 * .
 	 */
 	@Test
-	public void testDisable() {
+	public void testDisable()
+	{
 		assertNotNull(draggableBehavior.disable());
 		assertEquals(draggableBehavior.disable().render().toString(),
-				"$('#anId').draggable('disable');");
+			"$('#anId').draggable('disable');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#enable()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#enable()}.
 	 */
 	@Test
-	public void testEnable() {
+	public void testEnable()
+	{
 		assertNotNull(draggableBehavior.enable());
 		assertEquals(draggableBehavior.enable().render().toString(),
-				"$('#anId').draggable('enable');");
+			"$('#anId').draggable('enable');");
 	}
 
 	/**
@@ -111,18 +113,20 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getAppendTo()}.
 	 */
 	@Test
-	public void testGetAppendTo() {
+	public void testGetAppendTo()
+	{
 		assertEquals(draggableBehavior.getAppendTo(), "parent");
 		draggableBehavior.setAppendTo("document");
 		assertEquals(draggableBehavior.getAppendTo(), "document");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getAxis()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getAxis()}
+	 * .
 	 */
 	@Test
-	public void testGetAxis() {
+	public void testGetAxis()
+	{
 		assertNull(draggableBehavior.getAxis());
 		draggableBehavior.setAxis(AxisEnum.X);
 		assertEquals(draggableBehavior.getAxis(), AxisEnum.X);
@@ -133,7 +137,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getCancel()}.
 	 */
 	@Test
-	public void testGetCancel() {
+	public void testGetCancel()
+	{
 		assertEquals(draggableBehavior.getCancel(), "input,option");
 		draggableBehavior.setCancel("input");
 		assertEquals(draggableBehavior.getCancel(), "input");
@@ -141,11 +146,11 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getConnectToSortable()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getConnectToSortable()} .
 	 */
 	@Test
-	public void testGetConnectToSortable() {
+	public void testGetConnectToSortable()
+	{
 		assertNull(draggableBehavior.getConnectToSortable());
 		draggableBehavior.setConnectToSortable("aSortable");
 		assertEquals(draggableBehavior.getConnectToSortable(), "aSortable");
@@ -153,16 +158,15 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getContainment()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getContainment()} .
 	 */
 	@Test
-	public void testGetContainment() {
+	public void testGetContainment()
+	{
 		assertNull(draggableBehavior.getContainment());
-		draggableBehavior.setContainment(new DraggableContainment(
-				ContainmentEnum.DOCUMENT));
-		assertEquals(draggableBehavior.getContainment().getJavascriptOption()
-				.toString(), "'document'");
+		draggableBehavior.setContainment(new DraggableContainment(ContainmentEnum.DOCUMENT));
+		assertEquals(draggableBehavior.getContainment().getJavascriptOption().toString(),
+			"'document'");
 	}
 
 	/**
@@ -170,7 +174,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getCursor()}.
 	 */
 	@Test
-	public void testGetCursor() {
+	public void testGetCursor()
+	{
 		assertEquals(draggableBehavior.getCursor(), "auto");
 		draggableBehavior.setCursor("crosshair");
 		assertEquals(draggableBehavior.getCursor(), "crosshair");
@@ -178,17 +183,17 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getCursorAtComplex()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getCursorAtComplex()} .
 	 */
 	@Test
-	public void testGetCursorAtComplex() {
+	public void testGetCursorAtComplex()
+	{
 		assertNull(draggableBehavior.getCursorAtComplex());
 		ListItemOptions<DraggableCursorAt> array = new ListItemOptions<DraggableCursorAt>();
 		array.add(new DraggableCursorAt(CursorAtEnum.TOP, 5));
 		draggableBehavior.setCursorAt(array);
-		assertEquals(draggableBehavior.getCursorAtComplex()
-				.getJavascriptOption().toString(), "{top:5}");
+		assertEquals(draggableBehavior.getCursorAtComplex().getJavascriptOption().toString(),
+			"{top:5}");
 	}
 
 	/**
@@ -196,7 +201,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getDelay()}.
 	 */
 	@Test
-	public void testGetDelay() {
+	public void testGetDelay()
+	{
 		assertEquals(draggableBehavior.getDelay(), 0);
 		draggableBehavior.setDelay(5);
 		assertEquals(draggableBehavior.getDelay(), 5);
@@ -207,22 +213,23 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getDistance()}.
 	 */
 	@Test
-	public void testGetDistance() {
+	public void testGetDistance()
+	{
 		assertEquals(draggableBehavior.getDistance(), 1);
 		draggableBehavior.setDistance(5);
 		assertEquals(draggableBehavior.getDistance(), 5);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getGrid()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getGrid()}
+	 * .
 	 */
 	@Test
-	public void testGetGrid() {
+	public void testGetGrid()
+	{
 		assertNull(draggableBehavior.getGrid());
 		draggableBehavior.setGrid(5, 6);
-		assertEquals(draggableBehavior.getGrid().getJavascriptOption()
-				.toString(), "[5,6]");
+		assertEquals(draggableBehavior.getGrid().getJavascriptOption().toString(), "[5,6]");
 	}
 
 	/**
@@ -230,7 +237,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getHandle()}.
 	 */
 	@Test
-	public void testGetHandle() {
+	public void testGetHandle()
+	{
 		assertNull(draggableBehavior.getHandle());
 		draggableBehavior.setHandle("parent");
 		assertEquals(draggableBehavior.getHandle(), "parent");
@@ -241,13 +249,12 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getHelper()}.
 	 */
 	@Test
-	public void testGetHelper() {
+	public void testGetHelper()
+	{
 		assertNotNull(draggableBehavior.getHelper());
-		assertEquals(draggableBehavior.getHelper().getJavascriptOption()
-				.toString(), "'original'");
+		assertEquals(draggableBehavior.getHelper().getJavascriptOption().toString(), "'original'");
 		draggableBehavior.setHelper(new DraggableHelper(HelperEnum.CLONE));
-		assertEquals(draggableBehavior.getHelper().getJavascriptOption()
-				.toString(), "'clone'");
+		assertEquals(draggableBehavior.getHelper().getJavascriptOption().toString(), "'clone'");
 	}
 
 	/**
@@ -255,13 +262,12 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getIframeFix()}.
 	 */
 	@Test
-	public void testGetIframeFix() {
+	public void testGetIframeFix()
+	{
 		assertNotNull(draggableBehavior.getIframeFix());
-		assertEquals(draggableBehavior.getIframeFix().getJavascriptOption()
-				.toString(), "false");
+		assertEquals(draggableBehavior.getIframeFix().getJavascriptOption().toString(), "false");
 		draggableBehavior.setIframeFix(new DraggableIframeFix(true));
-		assertEquals(draggableBehavior.getIframeFix().getJavascriptOption()
-				.toString(), "true");
+		assertEquals(draggableBehavior.getIframeFix().getJavascriptOption().toString(), "true");
 	}
 
 	/**
@@ -269,7 +275,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getOpacity()}.
 	 */
 	@Test
-	public void testGetOpacity() {
+	public void testGetOpacity()
+	{
 		assertEquals((Object) draggableBehavior.getOpacity(), 0F);
 		draggableBehavior.setOpacity(5F);
 		assertEquals((Object) draggableBehavior.getOpacity(), 5F);
@@ -280,13 +287,13 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getOptions()}.
 	 */
 	@Test
-	public void testGetOptions() {
+	public void testGetOptions()
+	{
 		assertNotNull(draggableBehavior.getOptions());
-		assertEquals(draggableBehavior.getOptions().getJavaScriptOptions()
-				.toString(), "{}");
+		assertEquals(draggableBehavior.getOptions().getJavaScriptOptions().toString(), "{}");
 		draggableBehavior.setAddClasses(true);
-		assertEquals(draggableBehavior.getOptions().getJavaScriptOptions()
-				.toString(), "{addClasses: true}");
+		assertEquals(draggableBehavior.getOptions().getJavaScriptOptions().toString(),
+			"{addClasses: true}");
 	}
 
 	/**
@@ -294,22 +301,21 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getRevert()}.
 	 */
 	@Test
-	public void testGetRevert() {
+	public void testGetRevert()
+	{
 		assertNotNull(draggableBehavior.getRevert());
-		assertEquals(draggableBehavior.getRevert().getJavascriptOption()
-				.toString(), "false");
+		assertEquals(draggableBehavior.getRevert().getJavascriptOption().toString(), "false");
 		draggableBehavior.setRevert(new DraggableRevert(RevertEnum.INVALID));
-		assertEquals(draggableBehavior.getRevert().getJavascriptOption()
-				.toString(), "'invalid'");
+		assertEquals(draggableBehavior.getRevert().getJavascriptOption().toString(), "'invalid'");
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getRevertDuration()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getRevertDuration()} .
 	 */
 	@Test
-	public void testGetRevertDuration() {
+	public void testGetRevertDuration()
+	{
 		assertEquals(draggableBehavior.getRevertDuration(), 500);
 		draggableBehavior.setRevertDuration(100);
 		assertEquals(draggableBehavior.getRevertDuration(), 100);
@@ -320,7 +326,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getScope()}.
 	 */
 	@Test
-	public void testGetScope() {
+	public void testGetScope()
+	{
 		assertEquals(draggableBehavior.getScope(), "default");
 		draggableBehavior.setScope("aValue");
 		assertEquals(draggableBehavior.getScope(), "aValue");
@@ -328,11 +335,11 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getScrollSensitivity()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getScrollSensitivity()} .
 	 */
 	@Test
-	public void testGetScrollSensitivity() {
+	public void testGetScrollSensitivity()
+	{
 		assertEquals(draggableBehavior.getScrollSensitivity(), 20);
 		draggableBehavior.setScrollSensitivity(100);
 		assertEquals(draggableBehavior.getScrollSensitivity(), 100);
@@ -340,28 +347,27 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getScrollSpeed()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getScrollSpeed()} .
 	 */
 	@Test
-	public void testGetScrollSpeed() {
+	public void testGetScrollSpeed()
+	{
 		assertEquals(draggableBehavior.getScrollSpeed(), 20);
 		draggableBehavior.setScrollSpeed(100);
 		assertEquals(draggableBehavior.getScrollSpeed(), 100);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getSnap()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getSnap()}
+	 * .
 	 */
 	@Test
-	public void testGetSnap() {
+	public void testGetSnap()
+	{
 		assertNotNull(draggableBehavior.getSnap());
-		assertEquals(draggableBehavior.getSnap().getJavascriptOption()
-				.toString(), "false");
+		assertEquals(draggableBehavior.getSnap().getJavascriptOption().toString(), "false");
 		draggableBehavior.setSnap(new DraggableSnap(true));
-		assertEquals(draggableBehavior.getSnap().getJavascriptOption()
-				.toString(), "true");
+		assertEquals(draggableBehavior.getSnap().getJavascriptOption().toString(), "true");
 	}
 
 	/**
@@ -369,7 +375,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getSnapMode()}.
 	 */
 	@Test
-	public void testGetSnapMode() {
+	public void testGetSnapMode()
+	{
 		assertEquals(draggableBehavior.getSnapMode(), SnapModeEnum.BOTH);
 		draggableBehavior.setSnapMode(SnapModeEnum.INNER);
 		assertEquals(draggableBehavior.getSnapMode(), SnapModeEnum.INNER);
@@ -377,11 +384,11 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getSnapTolerance()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getSnapTolerance()} .
 	 */
 	@Test
-	public void testGetSnapTolerance() {
+	public void testGetSnapTolerance()
+	{
 		assertEquals(draggableBehavior.getSnapTolerance(), 20);
 		draggableBehavior.setSnapTolerance(100);
 		assertEquals(draggableBehavior.getSnapTolerance(), 100);
@@ -392,7 +399,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getStack()}.
 	 */
 	@Test
-	public void testgetStack() {
+	public void testgetStack()
+	{
 		assertNull(draggableBehavior.getStack());
 		draggableBehavior.setStack("group");
 		assertEquals(draggableBehavior.getStack(), "group");
@@ -403,7 +411,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#getZIndex()}.
 	 */
 	@Test
-	public void testGetZIndex() {
+	public void testGetZIndex()
+	{
 		assertEquals(draggableBehavior.getZIndex(), 0);
 		draggableBehavior.setZIndex(100);
 		assertEquals(draggableBehavior.getZIndex(), 100);
@@ -414,7 +423,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#isAddClasses()}.
 	 */
 	@Test
-	public void testIsAddClasses() {
+	public void testIsAddClasses()
+	{
 		assertTrue(draggableBehavior.isAddClasses());
 		draggableBehavior.setAddClasses(false);
 		assertFalse(draggableBehavior.isAddClasses());
@@ -425,7 +435,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#isDisabled()}.
 	 */
 	@Test
-	public void testIsDisabled() {
+	public void testIsDisabled()
+	{
 		assertFalse(draggableBehavior.isDisabled());
 		draggableBehavior.setDisabled(true);
 		assertTrue(draggableBehavior.isDisabled());
@@ -433,11 +444,11 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#isRefreshPositions()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#isRefreshPositions()} .
 	 */
 	@Test
-	public void testIsRefreshPositions() {
+	public void testIsRefreshPositions()
+	{
 		assertFalse(draggableBehavior.isRefreshPositions());
 		draggableBehavior.setRefreshPositions(true);
 		assertTrue(draggableBehavior.isRefreshPositions());
@@ -448,7 +459,8 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#isScroll()}.
 	 */
 	@Test
-	public void testIsScroll() {
+	public void testIsScroll()
+	{
 		assertTrue(draggableBehavior.isScroll());
 		draggableBehavior.setScroll(false);
 		assertFalse(draggableBehavior.isScroll());
@@ -460,13 +472,12 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetDragEvent() {
+	public void testSetDragEvent()
+	{
+		assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
+		draggableBehavior.setDragEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(draggableBehavior.statement().render().toString(),
-				"$('#anId').draggable({});");
-		draggableBehavior.setDragEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(draggableBehavior.statement().render().toString(),
-				"$('#anId').draggable({drag: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').draggable({drag: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -475,13 +486,12 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetStartEvent() {
+	public void testSetStartEvent()
+	{
+		assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
+		draggableBehavior.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(draggableBehavior.statement().render().toString(),
-				"$('#anId').draggable({});");
-		draggableBehavior.setStartEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(draggableBehavior.statement().render().toString(),
-				"$('#anId').draggable({start: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').draggable({start: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -490,13 +500,12 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetStopEvent() {
+	public void testSetStopEvent()
+	{
+		assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
+		draggableBehavior.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(draggableBehavior.statement().render().toString(),
-				"$('#anId').draggable({});");
-		draggableBehavior.setStopEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(draggableBehavior.statement().render().toString(),
-				"$('#anId').draggable({stop: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').draggable({stop: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -504,20 +513,20 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#statement()}.
 	 */
 	@Test
-	public void testStatement() {
+	public void testStatement()
+	{
 		assertNotNull(draggableBehavior.statement());
-		assertEquals(draggableBehavior.statement().render().toString(),
-				"$('#anId').draggable({});");
+		assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#widget()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#widget()}.
 	 */
 	@Test
-	public void testWidget() {
+	public void testWidget()
+	{
 		assertNotNull(draggableBehavior.widget());
 		assertEquals(draggableBehavior.widget().render().toString(),
-				"$('#anId').draggable('widget');");
+			"$('#anId').draggable('widget');");
 	}
 }

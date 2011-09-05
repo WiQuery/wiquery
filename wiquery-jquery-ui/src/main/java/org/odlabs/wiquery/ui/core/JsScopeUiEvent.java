@@ -25,27 +25,30 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
-
 /**
- * This class represent a JsScope event for the JQuery UI components
- * The javascript representation will be like this:
+ * This class represent a JsScope event for the JQuery UI components The javascript
+ * representation will be like this:
  * <p>
- * 	function(event, ui) { ... }
+ * function(event, ui) { ... }
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class JsScopeUiEvent extends JsScope {
-	//Constants
-	/**	Constant of serialization */
+public abstract class JsScopeUiEvent extends JsScope
+{
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
-	/**Default constructor
+
+	/**
+	 * Default constructor
 	 */
-	public JsScopeUiEvent() {
+	public JsScopeUiEvent()
+	{
 		super("event", "ui");
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScopeUiEvent} to execute the given statement.
 	 * 
@@ -53,21 +56,21 @@ public abstract class JsScopeUiEvent extends JsScope {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeUiEvent}.
 	 */
-	public static JsScopeUiEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopeUiEvent() {
+	public static JsScopeUiEvent quickScope(final CharSequence javascriptCode)
+	{
+		return new JsScopeUiEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/* (non-Javadoc)
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(javascriptCode);
 			}
 
 		};
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScopeUiEvent} to execute the given statement.
 	 * 
@@ -75,16 +78,15 @@ public abstract class JsScopeUiEvent extends JsScope {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeUiEvent}.
 	 */
-	public static JsScopeUiEvent quickScope(final JsStatement jsStatement) {
-		return new JsScopeUiEvent() {
+	public static JsScopeUiEvent quickScope(final JsStatement jsStatement)
+	{
+		return new JsScopeUiEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
 			}
 		};

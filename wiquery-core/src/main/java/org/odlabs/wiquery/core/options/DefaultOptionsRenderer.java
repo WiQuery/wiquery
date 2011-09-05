@@ -43,7 +43,8 @@ package org.odlabs.wiquery.core.options;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class DefaultOptionsRenderer implements IOptionsRenderer {
+public class DefaultOptionsRenderer implements IOptionsRenderer
+{
 
 	private static final long serialVersionUID = 6303118317934309154L;
 
@@ -52,45 +53,35 @@ public class DefaultOptionsRenderer implements IOptionsRenderer {
 	/**
 	 * @return the {@link IOptionsRenderer} instance.
 	 */
-	public static IOptionsRenderer get() {
+	public static IOptionsRenderer get()
+	{
 		return instance;
 	}
 
 	/**
 	 * 
 	 */
-	private DefaultOptionsRenderer() {
+	private DefaultOptionsRenderer()
+	{
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.options.IOptionsRenderer#renderAfter(java.lang.StringBuilder)
-	 */
-	public void renderAfter(StringBuilder stringBuilder) {
+	public void renderAfter(StringBuilder stringBuilder)
+	{
 		stringBuilder.append("}");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.options.IOptionsRenderer#renderBefore(java.lang.StringBuilder)
-	 */
-	public void renderBefore(StringBuilder stringBuilder) {
+	public void renderBefore(StringBuilder stringBuilder)
+	{
 		stringBuilder.append("{");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.options.IOptionsRenderer#renderOption(java.lang.String,
-	 *      java.lang.Object, boolean)
-	 */
-	public CharSequence renderOption(String name, Object value, boolean isLast) {
+	public CharSequence renderOption(String name, Object value, boolean isLast)
+	{
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(name).append(": ").append(value);
-		if (!isLast) {
+		if (!isLast)
+		{
 			stringBuilder.append(", ");
 		}
 		return stringBuilder;

@@ -21,39 +21,57 @@
  */
 package org.odlabs.wiquery.ui.selectable;
 
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: SelectableJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to apply selectable behavior to any
- *  HTML element.
+ * References the JavaScript resource to apply selectable behavior to any HTML element.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class SelectableJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class SelectableJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -4480460830759651938L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static SelectableJavaScriptResourceReference instance = new SelectableJavaScriptResourceReference();
+	private static SelectableJavaScriptResourceReference instance =
+		new SelectableJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link SelectableJavaScriptResourceReference}.
 	 */
-	private SelectableJavaScriptResourceReference() {
+	private SelectableJavaScriptResourceReference()
+	{
 		super(SelectableJavaScriptResourceReference.class, "jquery.ui.selectable.js");
 	}
 
 	/**
 	 * Returns the {@link SelectableJavaScriptResourceReference} instance.
 	 */
-	public static SelectableJavaScriptResourceReference get() {
+	public static SelectableJavaScriptResourceReference get()
+	{
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[2];
+		list[0] = CoreUIJavaScriptResourceReference.get();
+		list[1] = MouseJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

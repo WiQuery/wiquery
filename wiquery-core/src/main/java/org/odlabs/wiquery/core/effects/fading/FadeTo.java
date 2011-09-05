@@ -27,39 +27,38 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
 /**
  * $Id$
  * <p>
- * Defines the fade to {@link Effect}. A fade to consists to fade a component
- * to a specified opacity value.
+ * Defines the fade to {@link Effect}. A fade to consists to fade a component to a
+ * specified opacity value.
  * </p>
  * 
  * @author Lionel Armanet
  * @since 0.7
  */
-public class FadeTo extends Effect {
+public class FadeTo extends Effect
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 5145053114082342165L;
-	
+
 	/**
 	 * Creates this effect
 	 */
-	public FadeTo() {
+	public FadeTo()
+	{
 		super();
 	}
 
 	/**
-	 * Constructs a new fadeto effect executing at the given {@link EffectSpeed}
-	 * and fading to the given opacity.
+	 * Constructs a new fadeto effect executing at the given {@link EffectSpeed} and
+	 * fading to the given opacity.
 	 */
-	public FadeTo(EffectSpeed effectSpeed, float opacity) {
+	public FadeTo(EffectSpeed effectSpeed, float opacity)
+	{
 		super(effectSpeed);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return "fadeTo";
 	}
 

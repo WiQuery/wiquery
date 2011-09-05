@@ -23,43 +23,53 @@ package org.odlabs.wiquery.core.options;
 
 /**
  * Representation of an integer into an ItemOptions
+ * 
  * @author Julien Roche
- *
+ * 
  */
-public class IntegerItemOptions extends Object implements IListItemOption {
+public class IntegerItemOptions extends Object implements IListItemOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -1683433456056445577L;
-	
+
 	// Properties
 	private int integer;
-	
-	/**Default constructor
+
+	/**
+	 * Default constructor
+	 * 
 	 * @param integer
 	 */
-	public IntegerItemOptions(int integer) {
+	public IntegerItemOptions(int integer)
+	{
 		super();
 		this.integer = integer;
 	}
-	
-	/**Method retrieving the integer value
+
+	/**
+	 * Method retrieving the integer value
+	 * 
 	 * @return the integer
 	 */
-	public int getInteger() {
+	public int getInteger()
+	{
 		return integer;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
+	public CharSequence getJavascriptOption()
+	{
 		return Integer.toString(integer);
 	}
 
-	/**Methode setting the integer value
-	 * @param integer Integer
+	/**
+	 * Methode setting the integer value
+	 * 
+	 * @param integer
+	 *            Integer
 	 */
-	public void setInteger(int integer) {
+	public void setInteger(int integer)
+	{
 		this.integer = integer;
 	}
 }

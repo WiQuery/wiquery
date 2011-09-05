@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.ui.core;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -12,19 +12,20 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class DefaultJsScopeUiEventTestCase extends WiQueryTestCase {
+public class DefaultJsScopeUiEventTestCase extends WiQueryTestCase
+{
 
 	protected static final Logger log = LoggerFactory
-			.getLogger(DefaultJsScopeUiEventTestCase.class);
+		.getLogger(DefaultJsScopeUiEventTestCase.class);
 
 	/**
 	 * Check the syntax
 	 */
 	@Test
-	public void testJsScopeSyntax() {
+	public void testJsScopeSyntax()
+	{
 		String expectedJavascript = "function(event, ui) {\n\talert('test');\n}";
-		JsScopeUiEvent scopeUiEvent = new DefaultJsScopeUiEvent(
-				"alert('test');");
+		JsScopeUiEvent scopeUiEvent = new DefaultJsScopeUiEvent("alert('test');");
 		String generatedJavascript = scopeUiEvent.render().toString();
 
 		log.info(expectedJavascript);
@@ -41,7 +42,8 @@ public class DefaultJsScopeUiEventTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

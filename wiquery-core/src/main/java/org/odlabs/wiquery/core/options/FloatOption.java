@@ -40,7 +40,8 @@ import org.apache.wicket.model.IModel;
  * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class FloatOption extends AbstractOption<Float> {
+public class FloatOption extends AbstractOption<Float>
+{
 	private static final long serialVersionUID = -5938430089917100476L;
 
 	/**
@@ -49,7 +50,8 @@ public class FloatOption extends AbstractOption<Float> {
 	 * @param literal
 	 *            the wrapped {@link Float}
 	 */
-	public FloatOption(Float value) {
+	public FloatOption(Float value)
+	{
 		super(value);
 	}
 
@@ -59,20 +61,23 @@ public class FloatOption extends AbstractOption<Float> {
 	 * @param literal
 	 *            the wrapped {@link Float}
 	 */
-	public FloatOption(IModel<Float> value) {
+	public FloatOption(IModel<Float> value)
+	{
 		super(value);
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		Float value = getValue();
 		return value != null ? Float.toString(value) : null;
 	}
 
-	public IModelOption<Float> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new FloatOption(((IComponentAssignedModel<Float>) getModel())
-					.wrapOnAssignment(component));
+	public IModelOption<Float> wrapOnAssignment(Component component)
+	{
+		if (getModel() instanceof IComponentAssignedModel< ? >)
+			return new FloatOption(
+				((IComponentAssignedModel<Float>) getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

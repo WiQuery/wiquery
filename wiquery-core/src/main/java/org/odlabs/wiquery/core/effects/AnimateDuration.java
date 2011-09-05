@@ -31,86 +31,98 @@ import org.odlabs.wiquery.core.options.IComplexOption;
  * $Id$
  * 
  * <p>
- * 	Animate duration
+ * Animate duration
  * </p>
- *
+ * 
  * @author Julien Roche
  * @since 1.2
  */
-public class AnimateDuration implements Serializable, IComplexOption {
+public class AnimateDuration implements Serializable, IComplexOption
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -110965393283295820L;
-	
+
 	// Properties
 	private EffectSpeed effectSpeed;
+
 	private Integer speed;
-	
+
 	/**
 	 * Constructor
-	 * @param effectSpeed {@link EffectSpeed}
+	 * 
+	 * @param effectSpeed
+	 *            {@link EffectSpeed}
 	 */
-	public AnimateDuration(EffectSpeed effectSpeed) {
+	public AnimateDuration(EffectSpeed effectSpeed)
+	{
 		setSpeed(effectSpeed, null);
 	}
-	
+
 	/**
 	 * Constructor
-	 * @param speed Numerical speed
+	 * 
+	 * @param speed
+	 *            Numerical speed
 	 */
-	public AnimateDuration(Integer speed) {
+	public AnimateDuration(Integer speed)
+	{
 		setSpeed(null, speed);
 	}
 
 	/**
 	 * @return the {@link EffectSpeed}
 	 */
-	public EffectSpeed getEffectSpeed() {
+	public EffectSpeed getEffectSpeed()
+	{
 		return effectSpeed;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(speed == null && effectSpeed == null){
+	public CharSequence getJavascriptOption()
+	{
+		if (speed == null && effectSpeed == null)
+		{
 			throw new WicketRuntimeException("AnimateDuration: you must specify a speed !!");
 		}
-		
-		if(speed != null){
+
+		if (speed != null)
+		{
 			return speed.toString();
 		}
-		
+
 		return JsUtils.quotes(effectSpeed.getJavaScriptStatement());
 	}
 
 	/**
 	 * @return the speed
 	 */
-	public Integer getSpeed() {
+	public Integer getSpeed()
+	{
 		return speed;
 	}
 
 	/**
 	 * Set the speed with {@link EffectSpeed}
 	 */
-	public void setEffectSpeed(EffectSpeed effectSpeed) {
+	public void setEffectSpeed(EffectSpeed effectSpeed)
+	{
 		setSpeed(effectSpeed, null);
 	}
 
 	/**
 	 * Set the speed
 	 */
-	private void setSpeed(EffectSpeed effectSpeed, Integer speed) {
+	private void setSpeed(EffectSpeed effectSpeed, Integer speed)
+	{
 		this.effectSpeed = effectSpeed;
 		this.speed = speed;
 	}
-	
+
 	/**
 	 * Set the speed with a numerical
 	 */
-	public void setSpeed(Integer speed) {
+	public void setSpeed(Integer speed)
+	{
 		setSpeed(null, speed);
 	}
 }

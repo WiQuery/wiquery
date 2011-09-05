@@ -74,10 +74,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		options = new DatePickerOptions(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.Component#detachModel()
-	 */
 	@Override
 	protected void detachModel()
 	{
@@ -85,12 +81,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		options.detach();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core
-	 * .commons.WiQueryResourceManager)
-	 */
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
@@ -102,10 +92,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 			response.renderJavaScriptReference(dpl);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
-	 */
 	public JsStatement statement()
 	{
 		return new JsQuery(this).$().chain("datepicker",

@@ -25,79 +25,88 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
- * Helper class to implement the explode effect as in 
+ * $Id$ Helper class to
+ * implement the explode effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Explode
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
  */
-public class ExplodeEffect extends Effect {
+public class ExplodeEffect extends Effect
+{
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The explode mode.
 	 * 
-	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com) 
-	 *
+	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
+	 * 
 	 */
-	public static enum Mode {
+	public static enum Mode
+	{
 		show,
 		hide;
 	}
-	
+
 	private Mode mode;
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param mode The mode
+	 * @param mode
+	 *            The mode
 	 */
-	public ExplodeEffect(Mode mode) {
-		this(mode, 1000);		
+	public ExplodeEffect(Mode mode)
+	{
+		this(mode, 1000);
 	}
-	
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param mode The mode
-	 * @param duration the duration.
+	 * @param mode
+	 *            The mode
+	 * @param duration
+	 *            the duration.
 	 */
-	public ExplodeEffect(Mode mode, int duration) {
+	public ExplodeEffect(Mode mode, int duration)
+	{
 		super(JsUtils.quotes("explode"), Integer.toString(duration));
 		this.mode = mode;
 	}
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param mode The mede
-	 * @param pieces How many pieces
-	 * @param duration The duration of the effect.
+	 * @param mode
+	 *            The mede
+	 * @param pieces
+	 *            How many pieces
+	 * @param duration
+	 *            The duration of the effect.
 	 */
-	public ExplodeEffect(Mode mode, int pieces, int duration) {
-		super(JsUtils.quotes("explode"), "{pieces: "+ Integer.toString(pieces)+"}",Integer.toString(duration));
+	public ExplodeEffect(Mode mode, int pieces, int duration)
+	{
+		super(JsUtils.quotes("explode"), "{pieces: " + Integer.toString(pieces) + "}", Integer
+			.toString(duration));
 		this.mode = mode;
 	}
-	
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return getMode().name();
 	}
 
 	/**
 	 * Gets the mode.
+	 * 
 	 * @return
 	 */
-	public Mode getMode() {
+	public Mode getMode()
+	{
 		return mode;
 	}
-
 
 }

@@ -45,24 +45,13 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 	{
 		private static final long serialVersionUID = 1L;
 
-		/**
-		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.core.events.Event#callback()
-		 */
 		@Override
 		public JsScope callback()
 		{
-
 			return new JsScope()
 			{
 				private static final long serialVersionUID = 1L;
 
-				/**
-				 * {@inheritDoc}
-				 * 
-				 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-				 */
 				@Override
 				protected void execute(JsScopeContext scopeContext)
 				{

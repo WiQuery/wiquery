@@ -27,38 +27,37 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
 /**
  * $Id$
  * <p>
- * Defines the slideup {@link Effect}. A slide down effect consists to slide a
- * component in a bottom-top direction (the component disapears).
+ * Defines the slideup {@link Effect}. A slide down effect consists to slide a component
+ * in a bottom-top direction (the component disapears).
  * </p>
  * 
  * @author Lionel Armanet
  * @since 0.5
  */
-public class SlideUp extends Effect {
+public class SlideUp extends Effect
+{
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -5701176979981030721L;
-	
+
 	/**
 	 * Creates this effect
 	 */
-	public SlideUp() {
+	public SlideUp()
+	{
 		super();
 	}
 
 	/**
 	 * Creates this effect with the given {@link EffectSpeed}.
 	 */
-	public SlideUp(EffectSpeed effectSpeed) {
+	public SlideUp(EffectSpeed effectSpeed)
+	{
 		super(effectSpeed);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return "slideUp";
 	}
 

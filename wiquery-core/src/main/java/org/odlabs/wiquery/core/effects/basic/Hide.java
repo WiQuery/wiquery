@@ -33,14 +33,16 @@ import org.odlabs.wiquery.core.effects.EffectSpeed;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class Hide extends Effect {
+public class Hide extends Effect
+{
 
 	private static final long serialVersionUID = -8467095662730322368L;
 
 	/**
 	 * Default constructor.
 	 */
-	public Hide() {
+	public Hide()
+	{
 		super();
 	}
 
@@ -49,16 +51,13 @@ public class Hide extends Effect {
 	 * 
 	 * @param effectSpeed
 	 */
-	public Hide(EffectSpeed effectSpeed) {
+	public Hide(EffectSpeed effectSpeed)
+	{
 		super(effectSpeed);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return "hide";
 	}
 

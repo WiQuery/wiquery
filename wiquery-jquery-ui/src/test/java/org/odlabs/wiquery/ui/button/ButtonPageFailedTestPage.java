@@ -25,8 +25,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 
 /**
- * $Id: ButtonPageFailedTestPage.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
+ * $Id$
  * <p>
  * Dummy page to test the onComponent of the ButtonBehavior
  * </p>
@@ -34,13 +33,15 @@ import org.apache.wicket.markup.html.WebPage;
  * @author Julien Roche
  * @since 1.1
  */
-public class ButtonPageFailedTestPage extends WebPage {
+public class ButtonPageFailedTestPage extends WebPage
+{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ButtonPageFailedTestPage() {
+	public ButtonPageFailedTestPage()
+	{
 		super();
 		add(new WebMarkupContainer("failedButton").add(new ButtonBehavior()));
 	}

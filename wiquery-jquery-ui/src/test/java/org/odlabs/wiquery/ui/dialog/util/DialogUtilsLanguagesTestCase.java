@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.dialog.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.Locale;
 
@@ -34,38 +34,34 @@ import org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior.DialogUtilsLanguage
  * 
  * @author Julien Roche
  */
-public class DialogUtilsLanguagesTestCase extends WiQueryTestCase {
+public class DialogUtilsLanguagesTestCase extends WiQueryTestCase
+{
 	/**
-	 * Test on
-	 * {@link DialogUtilsLanguages#getDialogUtilsLanguages(java.util.Locale)}
+	 * Test on {@link DialogUtilsLanguages#getDialogUtilsLanguages(java.util.Locale)}
 	 */
 	@Test
-	public void testGetDialogUtilsLanguages() {
+	public void testGetDialogUtilsLanguages()
+	{
 		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(null),
-				DialogUtilsLanguages.ENGLISH);
+			DialogUtilsLanguages.ENGLISH);
 
-		assertEquals(
-				DialogUtilsLanguages.getDialogUtilsLanguages(new Locale("af")),
-				DialogUtilsLanguages.ENGLISH);
+		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale("af")),
+			DialogUtilsLanguages.ENGLISH);
 
-		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale(
-				"hi", "IN")), DialogUtilsLanguages.HINDI);
+		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale("hi", "IN")),
+			DialogUtilsLanguages.HINDI);
 	}
 
 	/**
-	 * Test on
-	 * {@link DialogUtilsLanguages#getDialogUtilsLiteral(DialogUtilsLanguages)}
+	 * Test on {@link DialogUtilsLanguages#getDialogUtilsLiteral(DialogUtilsLanguages)}
 	 */
 	@Test
-	public void testGetDialogUtilsLiteral() {
-		assertEquals(
-				DialogUtilsLanguages
-						.getDialogUtilsLiteral(DialogUtilsLanguages.ENGLISH),
-				"'en'");
+	public void testGetDialogUtilsLiteral()
+	{
+		assertEquals(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages.ENGLISH),
+			"'en'");
 
-		assertEquals(
-				DialogUtilsLanguages
-						.getDialogUtilsLiteral(DialogUtilsLanguages.HINDI),
-				"'hi_IN'");
+		assertEquals(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages.HINDI),
+			"'hi_IN'");
 	}
 }

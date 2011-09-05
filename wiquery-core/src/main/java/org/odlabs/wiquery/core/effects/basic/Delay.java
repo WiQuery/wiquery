@@ -30,32 +30,32 @@ import org.odlabs.wiquery.core.effects.Effect;
  * 
  * @since 1.0.2
  */
-public class Delay extends Effect {
+public class Delay extends Effect
+{
 
 	private static final long serialVersionUID = -6269065478524871681L;
-	
+
 	/**
 	 * Default constructor.
 	 */
-	public Delay() {
+	public Delay()
+	{
 		super();
 	}
 
 	/**
 	 * Creates this effect with the given delay (in milliseconds).
 	 * 
-	 * @param delay in milliseconds
+	 * @param delay
+	 *            in milliseconds
 	 */
-	public Delay(int delay) {
+	public Delay(int delay)
+	{
 		super(String.valueOf(delay));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
-	 */
-	public String chainLabel() {
+	public String chainLabel()
+	{
 		return "delay";
 	}
 

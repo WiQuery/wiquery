@@ -30,19 +30,18 @@ package org.odlabs.wiquery.core.events;
  * @author Lionel Armanet
  * @since 0.5
  */
-public enum KeyboardEvent implements EventLabel {
+public enum KeyboardEvent implements EventLabel
+{
 
 	/**
 	 * Defines possible values for keyboard events.
 	 */
-	KEYDOWN, KEYPRESS, KEYUP;
+	KEYDOWN,
+	KEYPRESS,
+	KEYUP;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.events.EventLabel#getEventLabel()
-	 */
-	public String getEventLabel() {
+	public String getEventLabel()
+	{
 		return this.name().toLowerCase();
 	}
 

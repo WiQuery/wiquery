@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.effects.sliding;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -32,14 +32,15 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * 
  * @author Julien Roche
  */
-public class SlideUpTestCase extends WiQueryTestCase {
+public class SlideUpTestCase extends WiQueryTestCase
+{
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
-	public void testJavascriptGeneration() {
-		assertEquals(
-				new JsStatement().$(null, "#aComponent").chain(new SlideUp())
-						.render().toString(), "$('#aComponent').slideUp();");
+	public void testJavascriptGeneration()
+	{
+		assertEquals(new JsStatement().$(null, "#aComponent").chain(new SlideUp()).render()
+			.toString(), "$('#aComponent').slideUp();");
 	}
 }

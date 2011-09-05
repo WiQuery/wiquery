@@ -33,114 +33,146 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class SliderRange implements IComplexOption {
-	public enum RangeEnum {
-		MIN		(new LiteralOption("min")),
-		MAX 	(new LiteralOption("max"));
-		
+public class SliderRange implements IComplexOption
+{
+	public enum RangeEnum
+	{
+		MIN(new LiteralOption("min")),
+		MAX(new LiteralOption("max"));
+
 		// Properties
 		private LiteralOption literalParam;
-		
-		RangeEnum(LiteralOption literalParam){
+
+		RangeEnum(LiteralOption literalParam)
+		{
 			this.literalParam = literalParam;
 		}
 
-		/* (non-Javadoc)
-		 * @see java.lang.Enum#toString()
-		 */
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return literalParam.toString();
 		}
 	}
-	
+
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Boolean booleanParam;
+
 	private RangeEnum rangeEnumParam;
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
 	 */
-	public SliderRange(Boolean booleanParam) {
+	public SliderRange(Boolean booleanParam)
+	{
 		this(booleanParam, null);
 	}
 
-	/**Constructor
-	 * @param rangeEnumParam RangeEnum parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param rangeEnumParam
+	 *            RangeEnum parameter
 	 */
-	public SliderRange(RangeEnum rangeEnumParam) {
+	public SliderRange(RangeEnum rangeEnumParam)
+	{
 		this(null, rangeEnumParam);
 	}
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 * @param rangeEnumParam RangeEnum parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param rangeEnumParam
+	 *            RangeEnum parameter
 	 */
-	private SliderRange(Boolean booleanParam, RangeEnum rangeEnumParam) {
+	private SliderRange(Boolean booleanParam, RangeEnum rangeEnumParam)
+	{
 		super();
 		setParam(booleanParam, rangeEnumParam);
 	}
-	
+
 	/**
 	 * @return the booleanParam
 	 */
-	public boolean isBooleanParam() {
+	public boolean isBooleanParam()
+	{
 		return booleanParam;
 	}
 
 	/**
 	 * @return the rangeEnumParam
 	 */
-	public RangeEnum getRangeEnumParam() {
+	public RangeEnum getRangeEnumParam()
+	{
 		return rangeEnumParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && rangeEnumParam == null){
+
+	public CharSequence getJavascriptOption()
+	{
+		if (booleanParam == null && rangeEnumParam == null)
+		{
 			throw new IllegalArgumentException("The SliderRange must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(booleanParam != null){
+
+		if (booleanParam != null)
+		{
 			sequence = booleanParam.toString();
 		}
-		else if(rangeEnumParam != null){
+		else if (rangeEnumParam != null)
+		{
 			sequence = rangeEnumParam.toString();
 		}
-		else{
+		else
+		{
 			throw new IllegalArgumentException("The SliderRange must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the boolean parameter
-	 * @param booleanParam the booleanParam to set
+	/**
+	 * Set's the boolean parameter
+	 * 
+	 * @param booleanParam
+	 *            the booleanParam to set
 	 */
-	public void setBooleanParam(boolean booleanParam) {
+	public void setBooleanParam(boolean booleanParam)
+	{
 		setParam(booleanParam, null);
 	}
-	
-	/**Set's the literal parameter
-	 * @param literalParam the literal to set
+
+	/**
+	 * Set's the literal parameter
+	 * 
+	 * @param literalParam
+	 *            the literal to set
 	 */
-	public void setRangeEnumParam(RangeEnum rangeEnumParam) {
+	public void setRangeEnumParam(RangeEnum rangeEnumParam)
+	{
 		setParam(null, rangeEnumParam);
 	}
-	
-	/**Method setting the right parameter
-	 * @param booleanParam Boolean parameter
-	 * @param rangeEnumParam RangeEnum parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param rangeEnumParam
+	 *            RangeEnum parameter
 	 */
-	private void setParam(Boolean booleanParam, RangeEnum rangeEnumParam) {
+	private void setParam(Boolean booleanParam, RangeEnum rangeEnumParam)
+	{
 		this.booleanParam = booleanParam;
 		this.rangeEnumParam = rangeEnumParam;
 	}

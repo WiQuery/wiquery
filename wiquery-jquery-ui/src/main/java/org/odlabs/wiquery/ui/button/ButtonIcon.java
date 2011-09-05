@@ -35,20 +35,27 @@ import org.odlabs.wiquery.ui.themes.UiIcon;
  * @author Ernesto Reinaldo
  * @since 1.1
  */
-public class ButtonIcon  extends Object implements IComplexOption {
+public class ButtonIcon extends Object implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 4723376695783554832L;
-	
+
 	// Properties
 	private String primary;
+
 	private String secondary;
-	
-	/**Default constructor
-	 * @param primary (can be null)
-	 * @param secondary (can be null)
+
+	/**
+	 * Default constructor
+	 * 
+	 * @param primary
+	 *            (can be null)
+	 * @param secondary
+	 *            (can be null)
 	 */
-	public ButtonIcon(String primary, String secondary) {
+	public ButtonIcon(String primary, String secondary)
+	{
 		super();
 		this.primary = primary;
 		this.secondary = secondary;
@@ -60,64 +67,79 @@ public class ButtonIcon  extends Object implements IComplexOption {
 	 * @param primary
 	 * @param secondary
 	 */
-	public ButtonIcon(UiIcon primary, UiIcon secondary) {
+	public ButtonIcon(UiIcon primary, UiIcon secondary)
+	{
 		super();
-		if(primary == null) 
+		if (primary == null)
 			throw new IllegalArgumentException("Primary UI icon should be non-null");
 		this.primary = primary.getCssClass();
-		if(secondary != null)
+		if (secondary != null)
 			this.secondary = secondary.getCssClass();
 	}
-	
-	/**Method retrieving the class for the primary icon
+
+	/**
+	 * Method retrieving the class for the primary icon
+	 * 
 	 * @return the class for the primary icon
 	 */
-	public String getPrimary() {
+	public String getPrimary()
+	{
 		return primary;
 	}
 
-	/**Method retrieving the class for the secondary icon
+	/**
+	 * Method retrieving the class for the secondary icon
+	 * 
 	 * @return the class for the secondary icon
 	 */
-	public String getSecondary() {
+	public String getSecondary()
+	{
 		return secondary;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
+
+	public CharSequence getJavascriptOption()
+	{
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("{");
-		
-		if(primary != null && secondary != null){
+
+		if (primary != null && secondary != null)
+		{
 			buffer.append("primary: " + new LiteralOption(primary));
 			buffer.append(", secondary: " + new LiteralOption(secondary));
-			
-		} else if(primary != null){
+
+		}
+		else if (primary != null)
+		{
 			buffer.append("primary: " + new LiteralOption(primary));
-			
-		} else if(secondary != null){
+
+		}
+		else if (secondary != null)
+		{
 			buffer.append("secondary: " + new LiteralOption(secondary));
 		}
-		
+
 		buffer.append("}");
-		
+
 		return buffer;
 	}
-	
-	/**Method setting the class for the primary icon
+
+	/**
+	 * Method setting the class for the primary icon
+	 * 
 	 * @param primary
 	 */
-	public void setHeaderClass(String primary) {
+	public void setHeaderClass(String primary)
+	{
 		this.primary = primary;
 	}
 
-	/**Method setting the class for the secondary icon
+	/**
+	 * Method setting the class for the secondary icon
+	 * 
 	 * @param secondary
 	 */
-	public void setHeaderSelectedClass(String secondary) {
+	public void setHeaderSelectedClass(String secondary)
+	{
 		this.secondary = secondary;
 	}
 }

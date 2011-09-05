@@ -20,6 +20,26 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>
+ * An implementation of AbstractDependencyRespectingResourceAggregatingHeaderResponse that
+ * renders uses {@link AbstractWiQueryDecoratingHeaderResponse} to render references in
+ * the correct order.
+ * </p>
+ * 
+ * <p>
+ * Just before the response is closed we visit all implementations of
+ * {@link IWiQueryPlugin} that are present on the page or in the {@link AjaxRequestTarget}
+ * and render their {@link IWiQueryPlugin#statement()} results in a ondomready jquery
+ * statement.
+ * </p>
+ * 
+ * @see AbstractWiQueryDecoratingHeaderResponse
+ * @see WiQuerySettings#getResourceGroupingKeys()
+ * @see WiQuerySettings#findResourceGroupingKey(String)
+ * 
+ * @author Hielke Hoeve
+ */
 public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHeaderResponse
 {
 	private static final Logger log = LoggerFactory
@@ -50,7 +70,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 	public void close()
 	{
 		long startTime = System.currentTimeMillis();
-		log.debug("WiQuery jquery contribution starts!");
+		log.debug("WiQuery contribution starts!");
 
 		AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
 		if (ajaxRequestTarget != null)
@@ -61,10 +81,14 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		{
 			renderResponse();
 		}
-		long endTime = System.currentTimeMillis();
-		log.debug("WiQuery jquery contribution finished in " + (endTime - startTime) + "ms!");
+
+		log.debug("WiQuery plugin contribution finished in "
+			+ (System.currentTimeMillis() - startTime) + "ms!");
 
 		super.close();
+
+		log.debug("WiQuery contribution finished in " + (System.currentTimeMillis() - startTime)
+			+ "ms!");
 	}
 
 	/**
@@ -76,6 +100,8 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 	{
 		jsq.renderHead(this, RequestCycle.get().getActiveRequestHandler());
 		jsq = new JsQuery();
+
+		super.onAllCollectionsRendered(allTopLevelReferences);
 	}
 
 	private void renderResponse()

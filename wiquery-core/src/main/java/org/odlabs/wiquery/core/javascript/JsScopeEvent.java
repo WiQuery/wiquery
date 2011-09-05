@@ -21,30 +21,32 @@
  */
 package org.odlabs.wiquery.core.javascript;
 
-
-
 /**
  * $Id$
  * 
- * This class represent a JsScope event for the JQuery scope event
- * The javascript representation will be like this:
+ * This class represent a JsScope event for the JQuery scope event The javascript
+ * representation will be like this:
  * <p>
- * 	function(event) { ... }
+ * function(event) { ... }
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0.2
  */
-public abstract class JsScopeEvent extends JsScope {
-	//Constants
-	/**	Constant of serialization */
+public abstract class JsScopeEvent extends JsScope
+{
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
-	/**Default constructor
+
+	/**
+	 * Default constructor
 	 */
-	public JsScopeEvent() {
+	public JsScopeEvent()
+	{
 		super("event");
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScopeEvent} to execute the given statement.
 	 * 
@@ -52,21 +54,20 @@ public abstract class JsScopeEvent extends JsScope {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeEvent}.
 	 */
-	public static JsScopeEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopeEvent() {
+	public static JsScopeEvent quickScope(final CharSequence javascriptCode)
+	{
+		return new JsScopeEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(javascriptCode);
 			}
 		};
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScopeEvent} to execute the given statement.
 	 * 
@@ -74,16 +75,15 @@ public abstract class JsScopeEvent extends JsScope {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeEvent}.
 	 */
-	public static JsScopeEvent quickScope(final JsStatement jsStatement) {
-		return new JsScopeEvent() {
+	public static JsScopeEvent quickScope(final JsStatement jsStatement)
+	{
+		return new JsScopeEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
 			}
 		};

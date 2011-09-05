@@ -35,76 +35,65 @@ import org.odlabs.wiquery.core.javascript.JsScopeContext;
  * @author Lionel Armanet
  * @since 0.5
  */
-public abstract class WiQueryAjaxEventBehavior extends
-		AbstractDefaultAjaxBehavior {
+public abstract class WiQueryAjaxEventBehavior extends AbstractDefaultAjaxBehavior
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 6498661892490377987L;
-	
+
 	/**
 	 * The event tiggering the Ajax call.
 	 */
 	private EventLabel[] events;
 
-	public WiQueryAjaxEventBehavior(EventLabel... events) {
+	public WiQueryAjaxEventBehavior(EventLabel... events)
+	{
 		super();
 		this.events = events;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getPreconditionScript()
-	 */
 	@Override
-	protected CharSequence getPreconditionScript() {
+	protected CharSequence getPreconditionScript()
+	{
 		return "return true";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#onBind()
-	 */
 	@Override
-	protected void onBind() {
-		this.getComponent().add(
-				new WiQueryEventBehavior(new Event(this.events) {
+	protected void onBind()
+	{
+		this.getComponent().add(new WiQueryEventBehavior(new Event(this.events)
+		{
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public JsScope callback()
+			{
+				return new JsScope("event")
+				{
 
 					private static final long serialVersionUID = 1L;
 
 					@Override
-					public JsScope callback() {
-						return new JsScope("event") {
-
-							private static final long serialVersionUID = 1L;
-
-							@Override
-							protected void execute(JsScopeContext scopeContext) {
-								StringBuilder callback = new StringBuilder();
-								callback.append("if (")
-								.append(getPrecondition())
-								.append(") {");
-								callback.append(WiQueryAjaxEventBehavior.this
-										.getCallbackScript());
-								callback.append("}");
-								scopeContext.append(callback);
-							}
-						};
-
+					protected void execute(JsScopeContext scopeContext)
+					{
+						StringBuilder callback = new StringBuilder();
+						callback.append("if (").append(getPrecondition()).append(") {");
+						callback.append(WiQueryAjaxEventBehavior.this.getCallbackScript());
+						callback.append("}");
+						scopeContext.append(callback);
 					}
+				};
 
-				}));
+			}
+
+		}));
 		super.onBind();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
-	 */
 	@Override
-	protected void respond(AjaxRequestTarget target) {
+	protected void respond(AjaxRequestTarget target)
+	{
 		// just a rename, not to depend on Wicket's refactoring
 		this.onEvent(target);
 	}
@@ -116,10 +105,10 @@ public abstract class WiQueryAjaxEventBehavior extends
 	 *            The Ajax request target
 	 */
 	protected abstract void onEvent(AjaxRequestTarget target);
-	
-	
-	protected String getPrecondition() {
+
+	protected String getPrecondition()
+	{
 		return "true";
 	}
-	
+
 }

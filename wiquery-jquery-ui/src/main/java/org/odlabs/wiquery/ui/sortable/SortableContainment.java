@@ -34,144 +34,190 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.1
  */
-public class SortableContainment implements IComplexOption {
-	public enum ElementEnum {
-		PARENT		(new LiteralOption("parent")),
-		DOCUMENT 	(new LiteralOption("document")),
-		WINDOW 	(new LiteralOption("windo"));
-		
+public class SortableContainment implements IComplexOption
+{
+	public enum ElementEnum
+	{
+		PARENT(new LiteralOption("parent")),
+		DOCUMENT(new LiteralOption("document")),
+		WINDOW(new LiteralOption("windo"));
+
 		// Properties
 		private LiteralOption literalParam;
-		
-		ElementEnum(LiteralOption literalParam){
+
+		ElementEnum(LiteralOption literalParam)
+		{
 			this.literalParam = literalParam;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 * @see java.lang.Enum#toString()
-		 */
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return literalParam.toString();
 		}
 	}
-	
+
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private ElementEnum elementEnumParam;
+
 	private String objectParam;
+
 	private LiteralOption selector;
-	
-	/**Constructor
-	 * @param elementEnumParam elementEnum parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param elementEnumParam
+	 *            elementEnum parameter
 	 */
-	public SortableContainment(ElementEnum elementEnumParam) {
+	public SortableContainment(ElementEnum elementEnumParam)
+	{
 		this(elementEnumParam, null, null);
 	}
 
-	/**Constructor
-	 * @param objectParam object parameter (Element or Selector)
+	/**
+	 * Constructor
+	 * 
+	 * @param objectParam
+	 *            object parameter (Element or Selector)
 	 */
-	public SortableContainment(String objectParam) {
+	public SortableContainment(String objectParam)
+	{
 		this(null, objectParam, null);
 	}
-	
-	/**Constructor
-	 * @param selector Selector
+
+	/**
+	 * Constructor
+	 * 
+	 * @param selector
+	 *            Selector
 	 */
-	public SortableContainment(LiteralOption selector) {
+	public SortableContainment(LiteralOption selector)
+	{
 		this(null, null, selector);
 	}
-	
-	/**Constructor
-	 * @param elementEnumParam elementEnul parameter
-	 * @param objectParam object parameter
-	 * @param selector Selector
+
+	/**
+	 * Constructor
+	 * 
+	 * @param elementEnumParam
+	 *            elementEnul parameter
+	 * @param objectParam
+	 *            object parameter
+	 * @param selector
+	 *            Selector
 	 */
-	private SortableContainment(ElementEnum elementEnumParam, String objectParam, LiteralOption selector) {
+	private SortableContainment(ElementEnum elementEnumParam, String objectParam,
+			LiteralOption selector)
+	{
 		super();
 		setParam(elementEnumParam, objectParam, selector);
 	}
-	
+
 	/**
 	 * @return the elementEnumParam
 	 */
-	public ElementEnum getElementEnumParamParam() {
+	public ElementEnum getElementEnumParamParam()
+	{
 		return elementEnumParam;
 	}
 
 	/**
 	 * @return the objectParam
 	 */
-	public String getElementOrSelectorParam() {
+	public String getElementOrSelectorParam()
+	{
 		return objectParam;
 	}
-	
+
 	/**
 	 * @return the Selector
 	 */
-	public LiteralOption getSelector() {
+	public LiteralOption getSelector()
+	{
 		return selector;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(objectParam == null && elementEnumParam == null && selector == null){
-			throw new IllegalArgumentException("The SortableContainment must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (objectParam == null && elementEnumParam == null && selector == null)
+		{
+			throw new IllegalArgumentException(
+				"The SortableContainment must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(objectParam != null){
+
+		if (objectParam != null)
+		{
 			sequence = JsUtils.quotes(objectParam);
 		}
-		else if(elementEnumParam != null){
+		else if (elementEnumParam != null)
+		{
 			sequence = elementEnumParam.toString();
 		}
-		else if(selector != null){
+		else if (selector != null)
+		{
 			sequence = selector.getJavascriptOption();
 		}
-		else{
-			throw new IllegalArgumentException("The SortableContainment must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The SortableContainment must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the literal parameter
-	 * @param literalParam the literal to set
+	/**
+	 * Set's the literal parameter
+	 * 
+	 * @param literalParam
+	 *            the literal to set
 	 */
-	public void setElementEnumParam(ElementEnum elementEnumParam) {
+	public void setElementEnumParam(ElementEnum elementEnumParam)
+	{
 		setParam(elementEnumParam, null, null);
 	}
-	
-	/**Set's the object (Element or Selector) parameter
-	 * @param objectParam the literal to set
+
+	/**
+	 * Set's the object (Element or Selector) parameter
+	 * 
+	 * @param objectParam
+	 *            the literal to set
 	 */
-	public void setElementOrSelectorParam(String objectParam) {
+	public void setElementOrSelectorParam(String objectParam)
+	{
 		setParam(null, objectParam, null);
 	}
-	
-	/**Set's the Selector
-	 * @param selector Selector
+
+	/**
+	 * Set's the Selector
+	 * 
+	 * @param selector
+	 *            Selector
 	 */
-	public void setSelector(LiteralOption selector) {
+	public void setSelector(LiteralOption selector)
+	{
 		setParam(null, null, selector);
 	}
-	
-	/**Method setting the right parameter
-	 * @param elementEnumParam elementEnum parameter
-	 * @param objectParam object parameter
-	 * @param selector Selector
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param elementEnumParam
+	 *            elementEnum parameter
+	 * @param objectParam
+	 *            object parameter
+	 * @param selector
+	 *            Selector
 	 */
-	private void setParam(ElementEnum elementEnumParam, String objectParam, LiteralOption selector) {
+	private void setParam(ElementEnum elementEnumParam, String objectParam, LiteralOption selector)
+	{
 		this.elementEnumParam = elementEnumParam;
 		this.objectParam = objectParam;
 		this.selector = selector;

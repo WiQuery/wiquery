@@ -24,34 +24,40 @@ package org.odlabs.wiquery.ui.effects;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: CoreEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the core for jQuery UI effects.
+ * References the JavaScript resource to import the core for jQuery UI effects.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class CoreEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class CoreEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 308143135598505224L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static CoreEffectJavaScriptResourceReference instance = new CoreEffectJavaScriptResourceReference();
+	private static CoreEffectJavaScriptResourceReference instance =
+		new CoreEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor
 	 */
-	private CoreEffectJavaScriptResourceReference() {
+	private CoreEffectJavaScriptResourceReference()
+	{
 		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.core.js");
 	}
 
 	/**
 	 * Returns the {@link CoreEffectJavaScriptResourceReference} instance.
 	 */
-	public static CoreEffectJavaScriptResourceReference get() {
+	public static CoreEffectJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 }

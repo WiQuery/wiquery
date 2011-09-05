@@ -32,14 +32,17 @@ package org.odlabs.wiquery.core.effects;
  * @see Effect
  * @see EffectBehavior
  */
-public enum EffectSpeed {
+public enum EffectSpeed
+{
 
-	SLOW, FAST;
+	SLOW,
+	FAST;
 
 	/**
 	 * @return a non null String containing the effect speed value.
 	 */
-	public String getJavaScriptStatement() {
+	public String getJavaScriptStatement()
+	{
 		return this.name().toLowerCase();
 	}
 }

@@ -21,36 +21,55 @@
  */
 package org.odlabs.wiquery.ui.slider;
 
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: SliderJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the Slider component.
+ * References the JavaScript resource to get the Slider component.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class SliderJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class SliderJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static SliderJavaScriptResourceReference instance = new SliderJavaScriptResourceReference();
+	private static SliderJavaScriptResourceReference instance =
+		new SliderJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link SliderJavaScriptResourceReference}.
 	 */
-	private SliderJavaScriptResourceReference() {
+	private SliderJavaScriptResourceReference()
+	{
 		super(SliderJavaScriptResourceReference.class, "jquery.ui.slider.js");
 	}
 
 	/**
 	 * Returns the {@link SliderJavaScriptResourceReference} instance.
 	 */
-	public static SliderJavaScriptResourceReference get() {
+	public static SliderJavaScriptResourceReference get()
+	{
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[2];
+		list[0] = CoreUIJavaScriptResourceReference.get();
+		list[1] = MouseJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

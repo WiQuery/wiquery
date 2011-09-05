@@ -21,25 +21,28 @@
  */
 package org.odlabs.wiquery.tester;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class WiQueryTestCase {
-	private static final Logger log = LoggerFactory
-			.getLogger(WiQueryTestCase.class);
+public abstract class WiQueryTestCase
+{
+	private static final Logger log = LoggerFactory.getLogger(WiQueryTestCase.class);
+
 	protected WiQueryTester tester;
 
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		tester = new WiQueryTester();
 	}
 
 	@After
-	public void tearDown() {
+	public void tearDown()
+	{
 
 	}
 
@@ -49,8 +52,8 @@ public abstract class WiQueryTestCase {
 	 * @param expectedJavascript
 	 * @param generatedJavascript
 	 */
-	protected void assertAndLog(CharSequence expectedJavascript,
-			CharSequence generatedJavascript) {
+	protected void assertAndLog(CharSequence expectedJavascript, CharSequence generatedJavascript)
+	{
 		getLog().info(expectedJavascript.toString());
 		getLog().info(generatedJavascript.toString());
 
@@ -60,7 +63,8 @@ public abstract class WiQueryTestCase {
 	/**
 	 * Override this when you want your test to print the messages.
 	 */
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

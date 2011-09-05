@@ -11,16 +11,17 @@ import org.apache.wicket.model.IModel;
  * 
  * @author Ernesto Reinaldo Barreiro
  */
-public interface IModelOption<B> {
+public interface IModelOption<B>
+{
 
 	/**
-	 * @return Return the model 
+	 * @return Return the model
 	 */
 	IModel<B> getModel();
-	
+
 	void setModel(IModel<B> model);
-	
+
 	B getValue();
-	
+
 	IModelOption<B> wrapOnAssignment(Component component);
 }

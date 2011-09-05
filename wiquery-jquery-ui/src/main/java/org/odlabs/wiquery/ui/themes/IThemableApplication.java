@@ -4,10 +4,9 @@ import org.apache.wicket.Session;
 import org.apache.wicket.request.resource.ResourceReference;
 
 /**
- * Allows to mark your WEB application as a provider of,
- * session based, UI themes. Example 
+ * Allows to mark your WEB application as a provider of, session based, UI themes. Example
  * 
- *  <pre>
+ * <pre>
  *  public class WicketApplication extends WebApplication implements IThemableApplication {
  *  
  *  ...
@@ -20,16 +19,17 @@ import org.apache.wicket.request.resource.ResourceReference;
  *  	}
  *  }
  * </pre>
- *
+ * 
  */
-public interface IThemableApplication {
+public interface IThemableApplication
+{
 
 	/**
 	 * 
-	 * @param session The wicket session 
-	 * @return A resource reference for the active theme 
-	 *         for the given session.
+	 * @param session
+	 *            The wicket session
+	 * @return A resource reference for the active theme for the given session.
 	 */
-	ResourceReference getTheme(Session session); 
-	
+	ResourceReference getTheme(Session session);
+
 }

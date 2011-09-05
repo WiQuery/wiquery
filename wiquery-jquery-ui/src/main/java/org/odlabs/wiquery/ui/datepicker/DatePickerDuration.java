@@ -33,55 +33,70 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class DatePickerDuration implements IComplexOption {
-	public enum DurationEnum {
-		FAST		(new LiteralOption("fast")),
-		NORMAL 		(new LiteralOption("normal")),
-		SLOW 		(new LiteralOption("slow"));
-		
+public class DatePickerDuration implements IComplexOption
+{
+	public enum DurationEnum
+	{
+		FAST(new LiteralOption("fast")),
+		NORMAL(new LiteralOption("normal")),
+		SLOW(new LiteralOption("slow"));
+
 		// Properties
 		private LiteralOption literalParam;
-		
-		DurationEnum(LiteralOption literalParam){
+
+		DurationEnum(LiteralOption literalParam)
+		{
 			this.literalParam = literalParam;
 		}
 
-		/* (non-Javadoc)
-		 * @see java.lang.Enum#toString()
-		 */
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return literalParam.toString();
 		}
 	}
-	
+
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137949L;
-	
+
 	// Properties
 	private Short shortParam;
+
 	private DurationEnum durationEnumParam;
-	
-	/**Constructor
-	 * @param shortParam Short parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param shortParam
+	 *            Short parameter
 	 */
-	public DatePickerDuration(Short shortParam) {
+	public DatePickerDuration(Short shortParam)
+	{
 		this(shortParam, null);
 	}
 
-	/**Constructor
-	 * @param durationEnumParam DurationEnum parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param durationEnumParam
+	 *            DurationEnum parameter
 	 */
-	public DatePickerDuration(DurationEnum durationEnumParam) {
+	public DatePickerDuration(DurationEnum durationEnumParam)
+	{
 		this(null, durationEnumParam);
 	}
-	
-	/**Constructor
-	 * @param shortParam Short parameter
-	 * @param durationEnumParam DurationEnum parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param shortParam
+	 *            Short parameter
+	 * @param durationEnumParam
+	 *            DurationEnum parameter
 	 */
-	private DatePickerDuration(Short shortParam, DurationEnum durationEnumParam) {
+	private DatePickerDuration(Short shortParam, DurationEnum durationEnumParam)
+	{
 		super();
 		setParam(shortParam, durationEnumParam);
 	}
@@ -89,59 +104,78 @@ public class DatePickerDuration implements IComplexOption {
 	/**
 	 * @return the durationEnumParam
 	 */
-	public DurationEnum getDurationEnumParam() {
+	public DurationEnum getDurationEnumParam()
+	{
 		return durationEnumParam;
 	}
-	
+
 	/**
 	 * @return the shortParam
 	 */
-	public Short getShortParam() {
+	public Short getShortParam()
+	{
 		return shortParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(shortParam == null && durationEnumParam == null){
-			throw new IllegalArgumentException("The DatePickerDuration must have one not null parameter");
+
+	public CharSequence getJavascriptOption()
+	{
+		if (shortParam == null && durationEnumParam == null)
+		{
+			throw new IllegalArgumentException(
+				"The DatePickerDuration must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(shortParam != null){
+
+		if (shortParam != null)
+		{
 			sequence = shortParam.toString();
 		}
-		else if(durationEnumParam != null){
+		else if (durationEnumParam != null)
+		{
 			sequence = durationEnumParam.toString();
 		}
-		else{
-			throw new IllegalArgumentException("The DatePickerDuration must have one not null parameter");
+		else
+		{
+			throw new IllegalArgumentException(
+				"The DatePickerDuration must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
-	
-	/**Set's the DurationEnum parameter
-	 * @param durationEnumParam the DurationEnum to set
+
+	/**
+	 * Set's the DurationEnum parameter
+	 * 
+	 * @param durationEnumParam
+	 *            the DurationEnum to set
 	 */
-	public void setDurationEnumParam(DurationEnum durationEnumParam) {
+	public void setDurationEnumParam(DurationEnum durationEnumParam)
+	{
 		setParam(null, durationEnumParam);
 	}
-	
-	/**Set's the short parameter
-	 * @param shortParam short parameter
+
+	/**
+	 * Set's the short parameter
+	 * 
+	 * @param shortParam
+	 *            short parameter
 	 */
-	public void setShortParam(Short shortParam) {
+	public void setShortParam(Short shortParam)
+	{
 		setParam(shortParam, null);
 	}
-	
-	/**Method setting the right parameter
-	 * @param shortParam Short parameter
-	 * @param durationEnumParam DurationEnum parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param shortParam
+	 *            Short parameter
+	 * @param durationEnumParam
+	 *            DurationEnum parameter
 	 */
-	private void setParam(Short shortParam, DurationEnum durationEnumParam) {
+	private void setParam(Short shortParam, DurationEnum durationEnumParam)
+	{
 		this.shortParam = shortParam;
 		this.durationEnumParam = durationEnumParam;
 	}

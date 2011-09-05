@@ -28,123 +28,141 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
 /**
  * $Id$
  * <p>
- * 	Helper to bind traversing functions.
+ * Helper to bind traversing functions.
  * </p>
+ * 
  * @author Lionel Armanet
  * @see http://docs.jquery.com/Traversing
  */
-public class TraversingHelper {
+public class TraversingHelper
+{
 
 	/**
 	 * Binds the <code>eq</code> statement.
 	 */
-	public static ChainableStatement eq(int position) {
+	public static ChainableStatement eq(int position)
+	{
 		return new DefaultChainableStatement("eq", JsUtils.string(position));
 	}
 
 	/**
 	 * Binds the <code>filter</code> statement.
 	 */
-	public static ChainableStatement filter(String expression) {
+	public static ChainableStatement filter(String expression)
+	{
 		return new DefaultChainableStatement("filter", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>not</code> statement.
 	 */
-	public static ChainableStatement not(String expression) {
+	public static ChainableStatement not(String expression)
+	{
 		return new DefaultChainableStatement("not", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>slice</code> statement.
 	 */
-	public static ChainableStatement slice(int start) {
+	public static ChainableStatement slice(int start)
+	{
 		return new DefaultChainableStatement("slice", JsUtils.string(start));
 	}
 
 	/**
 	 * Binds the <code>slice</code> statement.
 	 */
-	public static ChainableStatement slice(int start, int end) {
+	public static ChainableStatement slice(int start, int end)
+	{
 		return new DefaultChainableStatement("slice", JsUtils.string(start), JsUtils.string(end));
 	}
 
 	/**
 	 * Binds the <code>add</code> statement.
 	 */
-	public static ChainableStatement add(String expression) {
+	public static ChainableStatement add(String expression)
+	{
 		return new DefaultChainableStatement("add", JsUtils.quotes(expression));
 	}
 
 	/**
 	 * Binds the <code>children</code> statement.
 	 */
-	public static ChainableStatement children(String expression) {
+	public static ChainableStatement children(String expression)
+	{
 		return new DefaultChainableStatement("children", JsUtils.quotes(expression));
 	}
 
 	/**
 	 * Binds the <code>contents</code> statement.
 	 */
-	public static ChainableStatement contents(String expression) {
+	public static ChainableStatement contents(String expression)
+	{
 		return new DefaultChainableStatement("contents", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>find</code> statement.
 	 */
-	public static ChainableStatement find(String expression) {
+	public static ChainableStatement find(String expression)
+	{
 		return new DefaultChainableStatement("find", JsUtils.quotes(expression));
 	}
 
 	/**
 	 * Binds the <code>next</code> statement.
 	 */
-	public static ChainableStatement next(String expression) {
+	public static ChainableStatement next(String expression)
+	{
 		return new DefaultChainableStatement("next", JsUtils.quotes(expression));
 	}
 
 	/**
 	 * Binds the <code>nextAll</code> statement.
 	 */
-	public static ChainableStatement nextAll(String expression) {
+	public static ChainableStatement nextAll(String expression)
+	{
 		return new DefaultChainableStatement("nextAll", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>parent</code> statement.
 	 */
-	public static ChainableStatement parent(String expression) {
+	public static ChainableStatement parent(String expression)
+	{
 		return new DefaultChainableStatement("parent", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>parents</code> statement.
 	 */
-	public static ChainableStatement parents(String expression) {
+	public static ChainableStatement parents(String expression)
+	{
 		return new DefaultChainableStatement("parents", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>prev</code> statement.
 	 */
-	public static ChainableStatement prev(String expression) {
+	public static ChainableStatement prev(String expression)
+	{
 		return new DefaultChainableStatement("prev", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>prevAll</code> statement.
 	 */
-	public static ChainableStatement prevAll(String expression) {
+	public static ChainableStatement prevAll(String expression)
+	{
 		return new DefaultChainableStatement("prevAll", JsUtils.quotes(expression));
 	}
-	
+
 	/**
 	 * Binds the <code>siblings</code> statement.
 	 */
-	public static ChainableStatement siblings(String expression) {
+	public static ChainableStatement siblings(String expression)
+	{
 		return new DefaultChainableStatement("siblings", JsUtils.quotes(expression));
 	}
-	
+
 }

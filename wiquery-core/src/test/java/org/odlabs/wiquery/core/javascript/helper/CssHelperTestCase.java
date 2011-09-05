@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core.javascript.helper;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -14,19 +14,20 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class CssHelperTestCase extends WiQueryTestCase {
+public class CssHelperTestCase extends WiQueryTestCase
+{
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(CssHelperTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(CssHelperTestCase.class);
 
 	/**
 	 * Test {@link CssHelper#css(String, String)}
 	 */
 	@Test
-	public void testCss() {
+	public void testCss()
+	{
 		String expectedJavascript = "$('div').css('font-weight', 'bold');";
-		String generatedJavascript = new JsStatement().$(null, "div")
-				.chain(CssHelper.css("font-weight", "bold")).render()
+		String generatedJavascript =
+			new JsStatement().$(null, "div").chain(CssHelper.css("font-weight", "bold")).render()
 				.toString();
 
 		log.info(expectedJavascript);
@@ -39,13 +40,14 @@ public class CssHelperTestCase extends WiQueryTestCase {
 	 * Test {@link CssHelper#css(org.odlabs.wiquery.core.options.Options)}
 	 */
 	@Test
-	public void testCssOptions() {
+	public void testCssOptions()
+	{
 		String expectedJavascript = "$('div').css({font-weight: 'bold'});";
 
 		Options options = new Options();
 		options.putLiteral("font-weight", "bold");
-		String generatedJavascript = new JsStatement().$(null, "div")
-				.chain(CssHelper.css(options)).render().toString();
+		String generatedJavascript =
+			new JsStatement().$(null, "div").chain(CssHelper.css(options)).render().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -54,7 +56,8 @@ public class CssHelperTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

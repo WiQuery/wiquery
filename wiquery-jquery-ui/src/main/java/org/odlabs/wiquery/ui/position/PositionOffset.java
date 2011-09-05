@@ -33,69 +33,81 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.1
  */
-public class PositionOffset extends Object implements IComplexOption {
+public class PositionOffset extends Object implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
+
 	// Properties
 	private int offsetLeft;
+
 	private int offsetTop;
-	
+
 	/**
 	 * Constructor
-	 * @param offsetLeft offset Left
+	 * 
+	 * @param offsetLeft
+	 *            offset Left
 	 */
-	public PositionOffset(int offsetLeft) {
+	public PositionOffset(int offsetLeft)
+	{
 		this(offsetLeft, offsetLeft);
 	}
-	
+
 	/**
 	 * Constructor
-	 * @param offsetLeft offset Left
-	 * @param offsetTop Offset top
+	 * 
+	 * @param offsetLeft
+	 *            offset Left
+	 * @param offsetTop
+	 *            Offset top
 	 */
-	public PositionOffset(int offsetLeft, int offsetTop) {
+	public PositionOffset(int offsetLeft, int offsetTop)
+	{
 		super();
 		this.offsetLeft = offsetLeft;
 		this.offsetTop = offsetTop;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
+	public CharSequence getJavascriptOption()
+	{
 		return new LiteralOption(offsetLeft + " " + offsetTop).toString();
 	}
 
 	/**
 	 * @return the offset left
 	 */
-	public int getOffsetLeft() {
+	public int getOffsetLeft()
+	{
 		return offsetLeft;
 	}
 
 	/**
 	 * @return the offset top
 	 */
-	public int getOffsetTop() {
+	public int getOffsetTop()
+	{
 		return offsetTop;
 	}
 
 	/**
 	 * Set the offset left
+	 * 
 	 * @param offsetLeft
 	 */
-	public void setOffsetLeft(int offsetLeft) {
+	public void setOffsetLeft(int offsetLeft)
+	{
 		this.offsetLeft = offsetLeft;
 	}
 
 	/**
 	 * Set the offset top
+	 * 
 	 * @param offserTop
 	 */
-	public void setOffsetTop(int offsetTop) {
+	public void setOffsetTop(int offsetTop)
+	{
 		this.offsetTop = offsetTop;
 	}
 }

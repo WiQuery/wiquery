@@ -42,107 +42,122 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 /**
  * $Id$
  * <p>
- * Creates a set of button radio UI component from this {@link Panel}'s
- * HTML markup.
+ * Creates a set of button radio UI component from this {@link Panel}'s HTML markup.
  * </p>
  * 
- * @param <T> The model object type
+ * @param <T>
+ *            The model object type
  * 
  * @author Julien Roche
  * @since 1.1
  */
 @WiQueryUIPlugin
-public class ButtonRadioSet<T extends Serializable> extends Panel implements IWiQueryPlugin {
+public class ButtonRadioSet<T extends Serializable> extends Panel implements IWiQueryPlugin
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -7837076246968244110L;
-	
+
 	// Properties
 	private final RadioGroup<T> radioGroup;
-	
+
 	/**
 	 * Constructor
-	 * @param id Wicket identifiant
-	 * @param radios List of radios
-	 * @param model Model of the default object
+	 * 
+	 * @param id
+	 *            Wicket identifiant
+	 * @param radios
+	 *            List of radios
+	 * @param model
+	 *            Model of the default object
 	 */
-	public ButtonRadioSet(String id, IModel<List<? extends ButtonElement<T>>> radios) {
+	public ButtonRadioSet(String id, IModel<List< ? extends ButtonElement<T>>> radios)
+	{
 		this(id, radios, new Model<T>());
 	}
 
 	/**
 	 * Constructor
-	 * @param id Wicket identifiant
-	 * @param radios List of radios
+	 * 
+	 * @param id
+	 *            Wicket identifiant
+	 * @param radios
+	 *            List of radios
 	 */
-	public ButtonRadioSet(String id, IModel<List<? extends ButtonElement<T>>> radios,
-			IModel<T> model) {
+	public ButtonRadioSet(String id, IModel<List< ? extends ButtonElement<T>>> radios,
+			IModel<T> model)
+	{
 		super(id);
-		
-		radioGroup = new RadioGroup<T>("buttonRadioSetGroup", model){
+
+		radioGroup = new RadioGroup<T>("buttonRadioSetGroup", model)
+		{
 			private static final long serialVersionUID = 8265281439115476364L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.apache.wicket.markup.html.form.RadioGroup#onSelectionChanged(java.lang.Object)
-			 */
 			@Override
-			protected void onSelectionChanged(Object newSelection) {
+			protected void onSelectionChanged(Object newSelection)
+			{
 				ButtonRadioSet.this.onSelectionChanged(newSelection);
 			}
 		};
 		radioGroup.setOutputMarkupId(true);
 		radioGroup.setRenderBodyOnly(false);
 		add(radioGroup);
-		
-		ListView<? extends ButtonElement<T>> view = new ListView<ButtonElement<T>>("buttonRadioSetView", radios) {
-			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.apache.wicket.markup.html.list.ListView#populateItem(org.apache.wicket.markup.html.list.ListItem)
-			 */
-			@Override
-			protected void populateItem(ListItem<ButtonElement<T>> item) {
-				ButtonElement<T> buttonElement = item.getModelObject();
-				
-				Radio<T> radio = newRadio("buttonRadio", buttonElement.getModel(), radioGroup);
-				radio.setLabel(buttonElement.getLabel());
-				radio.setOutputMarkupId(true);
-				
-				SimpleFormComponentLabel label = new SimpleFormComponentLabel("buttonRadioLabel", radio);
-				
-				item.add(radio);
-				item.add(label);
-			}
-		};
+		ListView< ? extends ButtonElement<T>> view =
+			new ListView<ButtonElement<T>>("buttonRadioSetView", radios)
+			{
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				protected void populateItem(ListItem<ButtonElement<T>> item)
+				{
+					ButtonElement<T> buttonElement = item.getModelObject();
+
+					Radio<T> radio = newRadio("buttonRadio", buttonElement.getModel(), radioGroup);
+					radio.setLabel(buttonElement.getLabel());
+					radio.setOutputMarkupId(true);
+
+					SimpleFormComponentLabel label =
+						new SimpleFormComponentLabel("buttonRadioLabel", radio);
+
+					item.add(radio);
+					item.add(label);
+				}
+			};
 		radioGroup.add(view);
 	}
 
 	/**
 	 * Constructor
-	 * @param id Wicket identifiant
-	 * @param radios List of radios
+	 * 
+	 * @param id
+	 *            Wicket identifiant
+	 * @param radios
+	 *            List of radios
 	 */
-	public ButtonRadioSet(String id, List<? extends ButtonElement<T>> radios) {
+	public ButtonRadioSet(String id, List< ? extends ButtonElement<T>> radios)
+	{
 		this(id, Model.ofList(radios));
 	}
-	
+
 	/**
 	 * Constructor
-	 * @param id Wicket identifiant
-	 * @param radios List of radios
-	 * @param model Model of the default object
+	 * 
+	 * @param id
+	 *            Wicket identifiant
+	 * @param radios
+	 *            List of radios
+	 * @param model
+	 *            Model of the default object
 	 */
-	public ButtonRadioSet(String id, List<? extends ButtonElement<T>> radios, IModel<T> model) {
+	public ButtonRadioSet(String id, List< ? extends ButtonElement<T>> radios, IModel<T> model)
+	{
 		this(id, Model.ofList(radios), model);
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
-	public void renderHead(IHeaderResponse response) {
+
+	@Override
+	public void renderHead(IHeaderResponse response)
+	{
 		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
 		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
 	}
@@ -150,41 +165,48 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	/**
 	 * @return the radio group of this component
 	 */
-	public RadioGroup<T> getRadioGroup() {
+	public RadioGroup<T> getRadioGroup()
+	{
 		return radioGroup;
-	}
-	
-	/**
-	 * Method creating a new {@link Radio}
-	 * @param wicketId Wicket identifiant
-	 * @param model Model to use
-	 * @param group Group of the {@link Radio}
-	 * @return a {@link Radio}
-	 */
-	protected Radio<T> newRadio(String wicketId, IModel<T> model, RadioGroup<T> group) {
-		Radio<T> radio = new Radio<T>(wicketId, model, group);
-		return radio;
-	}
-	
-	/**
-	 * Template method that can be overridden by clients that implement IOnChangeListener to be
-	 * notified by onChange events of a select element. This method does nothing by default.
-	 * <p>
-	 * Called when a option is selected of a dropdown list that wants to be notified of this event.
-	 * This method is to be implemented by clients that want to be notified of selection events.
-	 * 
-	 * @param newSelection
-	 *            The newly selected object of the backing model NOTE this is the same as you would
-	 *            get by calling getModelObject() if the new selection were current
-	 */
-	protected void onSelectionChanged(final Object newSelection){
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.IWiQueryPlugin#statement()
+	 * Method creating a new {@link Radio}
+	 * 
+	 * @param wicketId
+	 *            Wicket identifiant
+	 * @param model
+	 *            Model to use
+	 * @param group
+	 *            Group of the {@link Radio}
+	 * @return a {@link Radio}
 	 */
-	public JsStatement statement() {
+	protected Radio<T> newRadio(String wicketId, IModel<T> model, RadioGroup<T> group)
+	{
+		Radio<T> radio = new Radio<T>(wicketId, model, group);
+		return radio;
+	}
+
+	/**
+	 * Template method that can be overridden by clients that implement IOnChangeListener
+	 * to be notified by onChange events of a select element. This method does nothing by
+	 * default.
+	 * <p>
+	 * Called when a option is selected of a dropdown list that wants to be notified of
+	 * this event. This method is to be implemented by clients that want to be notified of
+	 * selection events.
+	 * 
+	 * @param newSelection
+	 *            The newly selected object of the backing model NOTE this is the same as
+	 *            you would get by calling getModelObject() if the new selection were
+	 *            current
+	 */
+	protected void onSelectionChanged(final Object newSelection)
+	{
+	}
+
+	public JsStatement statement()
+	{
 		return new JsQuery(radioGroup).$().chain("buttonset");
 	}
 }

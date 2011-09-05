@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -38,22 +38,27 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * 
  * @author Julien Roche
  */
-public class EffectBehaviorTestCase extends WiQueryTestCase {
+public class EffectBehaviorTestCase extends WiQueryTestCase
+{
 	// Properties
 	private Component component;
+
 	private EffectBehavior effectBehavior;
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		super.setUp();
 
 		effectBehavior = new EffectBehavior(new Hide());
 
-		tester.startPanel(new ITestPanelSource() {
+		tester.startPanel(new ITestPanelSource()
+		{
 			private static final long serialVersionUID = 1L;
 
-			public Panel getTestPanel(String panelId) {
+			public Panel getTestPanel(String panelId)
+			{
 				Panel panel = new DivTestPanel(panelId);
 				component = new WebMarkupContainer("anId");
 				component.setMarkupId(component.getId());
@@ -66,12 +71,11 @@ public class EffectBehaviorTestCase extends WiQueryTestCase {
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.core.effects.EffectBehavior#statement()}.
+	 * Test method for {@link org.odlabs.wiquery.core.effects.EffectBehavior#statement()}.
 	 */
 	@Test
-	public void testStatement() {
-		assertEquals(effectBehavior.statement().render().toString(),
-				"$('#anId').hide();");
+	public void testStatement()
+	{
+		assertEquals(effectBehavior.statement().render().toString(), "$('#anId').hide();");
 	}
 }

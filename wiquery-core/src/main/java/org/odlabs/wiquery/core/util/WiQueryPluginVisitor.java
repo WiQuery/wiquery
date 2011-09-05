@@ -31,27 +31,33 @@ import org.odlabs.wiquery.core.IWiQueryPlugin;
 /**
  * $Id: WiQueryPluginVisitor.java 634 2010-12-24 14:42:09Z hielke.hoeve@gmail.com $
  * <p>
- * 	Visits component hierarchy to find plugins both in components and behaviors
+ * Visits component hierarchy to find plugins both in components and behaviors
  * </p>
+ * 
  * @author Lionel Armanet
  * @since 1.0-m2
  */
-public class WiQueryPluginVisitor implements IVisitor<Component, Boolean>, Serializable {
+public class WiQueryPluginVisitor implements IVisitor<Component, Boolean>, Serializable
+{
 
 	private static final long serialVersionUID = -4147296857772880048L;
-	
+
 	private IWiQueryPlugin wiQueryPlugin;
-	
-	public WiQueryPluginVisitor(IWiQueryPlugin wiQueryPlugin) {
+
+	public WiQueryPluginVisitor(IWiQueryPlugin wiQueryPlugin)
+	{
 		super();
 		this.wiQueryPlugin = wiQueryPlugin;
 	}
 
-	public void component(Component component, IVisit<Boolean> visit) {
-		if (component.getBehaviors().contains(this.wiQueryPlugin)) {
+	public void component(Component component, IVisit<Boolean> visit)
+	{
+		if (component.getBehaviors().contains(this.wiQueryPlugin))
+		{
 			visit.stop(Boolean.TRUE);
 		}
-		if (component.equals(this.wiQueryPlugin)) {
+		if (component.equals(this.wiQueryPlugin))
+		{
 			visit.stop(Boolean.TRUE);
 		}
 	}

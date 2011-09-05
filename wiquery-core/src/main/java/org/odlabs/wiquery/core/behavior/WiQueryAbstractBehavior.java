@@ -15,10 +15,6 @@ public abstract class WiQueryAbstractBehavior extends Behavior implements IWiQue
 	// Properties
 	private Component component;
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.behavior.AbstractBehavior#bind(org.apache.wicket.Component)
-	 */
 	@Override
 	public void bind(Component component)
 	{
@@ -34,10 +30,5 @@ public abstract class WiQueryAbstractBehavior extends Behavior implements IWiQue
 		return component;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
-	 */
 	public abstract JsStatement statement();
-
 }

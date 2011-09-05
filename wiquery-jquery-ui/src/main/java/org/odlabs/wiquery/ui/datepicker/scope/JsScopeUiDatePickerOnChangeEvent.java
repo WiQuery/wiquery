@@ -25,68 +25,70 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
-
 /**
- * This class represent a JsScope event for the datepicker JQuery UI components
- * for the onchange callback
- * The javascript representation will be like this:
+ * This class represent a JsScope event for the datepicker JQuery UI components for the
+ * onchange callback The javascript representation will be like this:
  * <p>
- * 	function(year, month, inst) { ... }
+ * function(year, month, inst) { ... }
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class JsScopeUiDatePickerOnChangeEvent extends JsScope {
-	//Constants
-	/**	Constant of serialization */
+public abstract class JsScopeUiDatePickerOnChangeEvent extends JsScope
+{
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
-	/**Default constructor
+
+	/**
+	 * Default constructor
 	 */
-	public JsScopeUiDatePickerOnChangeEvent() {
+	public JsScopeUiDatePickerOnChangeEvent()
+	{
 		super("year", "month", "inst");
 	}
-	
+
 	/**
-	 * Creates a default {@link JsScopeUiDatePickerOnChangeEvent} to execute the given statement.
+	 * Creates a default {@link JsScopeUiDatePickerOnChangeEvent} to execute the given
+	 * statement.
 	 * 
 	 * @param javascriptCode
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeUiDatePickerDateTextEvent}.
 	 */
-	public static JsScopeUiDatePickerOnChangeEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopeUiDatePickerOnChangeEvent() {
+	public static JsScopeUiDatePickerOnChangeEvent quickScope(final CharSequence javascriptCode)
+	{
+		return new JsScopeUiDatePickerOnChangeEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(javascriptCode);
 			}
 
 		};
 	}
-	
+
 	/**
-	 * Creates a default {@link JsScopeUiDatePickerOnChangeEvent} to execute the given statement.
+	 * Creates a default {@link JsScopeUiDatePickerOnChangeEvent} to execute the given
+	 * statement.
 	 * 
 	 * @param jsStatement
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeUiDatePickerOnChangeEvent}.
 	 */
-	public static JsScopeUiDatePickerOnChangeEvent quickScope(final JsStatement jsStatement) {
-		return new JsScopeUiDatePickerOnChangeEvent() {
+	public static JsScopeUiDatePickerOnChangeEvent quickScope(final JsStatement jsStatement)
+	{
+		return new JsScopeUiDatePickerOnChangeEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
 			}
 		};

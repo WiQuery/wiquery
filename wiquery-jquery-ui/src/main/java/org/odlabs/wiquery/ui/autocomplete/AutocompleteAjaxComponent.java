@@ -40,42 +40,50 @@ import org.codehaus.jackson.map.ObjectMapper;
 /**
  * $Id$
  * <p>
- * Creates an autocomplete UI component which will bind on a Wicket model. The list of possibles
- * values have filled with Ajax
+ * Creates an autocomplete UI component which will bind on a Wicket model. The list of
+ * possibles values have filled with Ajax
  * </p>
+ * 
  * @author Julien Roche
- * @param <T> The model object type
+ * @param <T>
+ *            The model object type
  * @since 1.1
  */
-public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteComponent<T> {
+public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteComponent<T>
+{
 	private String term;
+
 	/**
 	 * Ajax behavior to create the list of possibles values
+	 * 
 	 * @author Julien Roche
-	 *
+	 * 
 	 */
-	private class InnerAutocompleteAjaxBehavior extends AbstractAjaxBehavior {
+	private class InnerAutocompleteAjaxBehavior extends AbstractAjaxBehavior
+	{
 		// Constants
-		/**	Constant of serialization */
+		/** Constant of serialization */
 		private static final long serialVersionUID = -5411632961744455568L;
 
-		/**
-		 * {@inheritDoc}
-		 * @see org.apache.wicket.behavior.IBehaviorListener#onRequest()
-		 */
-		public void onRequest() {
-			term = this.getComponent().getRequest().getQueryParameters().getParameterValue("term").toString();
+		public void onRequest()
+		{
+			term =
+				this.getComponent().getRequest().getQueryParameters().getParameterValue("term")
+					.toString();
 
-			if(!Strings.isEmpty(term)){
+			if (!Strings.isEmpty(term))
+			{
 				StringWriter sw = new StringWriter();
-				try {
+				try
+				{
 					JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
 
 					AutocompleteJson value = null;
 					Integer index = 0;
 					List<Object> json = new ArrayList<Object>();
 
-					for(T obj : getValues(term)){
+					for (T obj : getValues(term))
+					{
 						index++;
 						value = newAutocompleteJson(index, obj);
 						json.add(value);
@@ -83,18 +91,20 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 
 					new ObjectMapper().writeValue(gen, json);
 
-				} catch (IOException e) {
+				}
+				catch (IOException e)
+				{
 					throw new WicketRuntimeException(e);
 				}
 
 				RequestCycle.get().scheduleRequestHandlerAfterCurrent(
-						new TextRequestHandler("application/json", "utf-8", sw.toString()));
+					new TextRequestHandler("application/json", "utf-8", sw.toString()));
 			}
 		}
 	}
 
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -3377109382248062940L;
 
 	// Wicket components
@@ -102,17 +112,23 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 
 	/**
 	 * Constructor
-	 * @param id Wicket identifiant
-	 * @param model Model of the default value
+	 * 
+	 * @param id
+	 *            Wicket identifiant
+	 * @param model
+	 *            Model of the default value
 	 */
-	public AutocompleteAjaxComponent(String id, final IModel<T> model) {
+	public AutocompleteAjaxComponent(String id, final IModel<T> model)
+	{
 		super(id, model);
 
 		innerAutcompleteAjaxBehavior = new InnerAutocompleteAjaxBehavior();
 		add(innerAutcompleteAjaxBehavior);
 	}
 
-	public AutocompleteAjaxComponent(String id, final IModel<T> model, IChoiceRenderer<? super T> choiceRenderer){
+	public AutocompleteAjaxComponent(String id, final IModel<T> model,
+			IChoiceRenderer< ? super T> choiceRenderer)
+	{
 		super(id, model, choiceRenderer);
 		innerAutcompleteAjaxBehavior = new InnerAutocompleteAjaxBehavior();
 		add(innerAutcompleteAjaxBehavior);
@@ -120,34 +136,33 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 
 	/**
 	 * Method called when the search is launched
-	 * @param term Value typed
+	 * 
+	 * @param term
+	 *            Value typed
 	 * @return possible values
 	 */
 	public abstract List<T> getValues(String term);
-	
+
 	@Override
-	protected List<? extends T> getChoices() {
+	protected List< ? extends T> getChoices()
+	{
 		return getValues(term);
 	}
-	
-	
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.ui.autocomplete.AbstractAutocompleteComponent#onBeforeRenderAutocomplete(org.odlabs.wiquery.ui.autocomplete.Autocomplete)
-	 */
 	@Override
-	protected void onBeforeRenderAutocomplete(Autocomplete<?> autocomplete) {
+	protected void onBeforeRenderAutocomplete(Autocomplete< ? > autocomplete)
+	{
 		T defaultValue = AutocompleteAjaxComponent.this.getModelObject();
 
-		if(defaultValue != null){
+		if (defaultValue != null)
+		{
 			AutocompleteJson value = null;
 			value = newAutocompleteJson(0, defaultValue);
 			autocomplete.setDefaultModelObject(value.getLabel());
 			getAutocompleteHidden().setModelObject(value.getValueId());
 		}
 
-		autocomplete.getOptions().putLiteral(
-				"source", innerAutcompleteAjaxBehavior.getCallbackUrl().toString());
+		autocomplete.getOptions().putLiteral("source",
+			innerAutcompleteAjaxBehavior.getCallbackUrl().toString());
 	}
 }

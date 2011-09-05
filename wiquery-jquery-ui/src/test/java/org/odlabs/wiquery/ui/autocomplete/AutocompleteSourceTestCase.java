@@ -21,8 +21,7 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScope;
@@ -37,17 +36,17 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class AutocompleteSourceTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(AutocompleteSourceTestCase.class);
+public class AutocompleteSourceTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(AutocompleteSourceTestCase.class);
 
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
-	public void testGetJavaScriptOption() {
-		AutocompleteSource source = new AutocompleteSource(
-				"http://localhost:8080/url.jsp");
+	public void testGetJavaScriptOption()
+	{
+		AutocompleteSource source = new AutocompleteSource("http://localhost:8080/url.jsp");
 
 		// String param
 		String expectedJavascript = "'http://localhost:8080/url.jsp'";
@@ -83,20 +82,22 @@ public class AutocompleteSourceTestCase extends WiQueryTestCase {
 		// Null param
 		source.setString(null);
 
-		try {
+		try
+		{
 			generatedJavascript = source.getJavascriptOption().toString();
 			assertTrue(false);
 
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// We have an expected error
-			assertEquals(
-					"The AutocompleteSource must have one not null parameter",
-					e.getMessage());
+			assertEquals("The AutocompleteSource must have one not null parameter", e.getMessage());
 		}
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

@@ -33,8 +33,9 @@ import org.apache.wicket.model.Model;
  * @author Emond Papegaaij
  * @since 1.2
  */
-public abstract class AbstractOption<T extends Serializable> implements IDetachable, ITypedOption<T>,
-		IModelOption<T> {
+public abstract class AbstractOption<T extends Serializable> implements IDetachable,
+		ITypedOption<T>, IModelOption<T>
+{
 	private static final long serialVersionUID = 1L;
 
 	private IModel<T> value;
@@ -45,7 +46,8 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 	 * @param literal
 	 *            the wrapped value
 	 */
-	public AbstractOption(T value) {
+	public AbstractOption(T value)
+	{
 		this(new Model<T>(value));
 	}
 
@@ -55,38 +57,41 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 	 * @param literal
 	 *            the wrapped value
 	 */
-	public AbstractOption(IModel<T> value) {
+	public AbstractOption(IModel<T> value)
+	{
 		this.value = value;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
-	 */
-	public CharSequence getJavascriptOption() {
+	public CharSequence getJavascriptOption()
+	{
 		return toString();
 	}
 
 	@Override
 	abstract public String toString();
 
-	public void detach() {
-		if (value != null) {
+	public void detach()
+	{
+		if (value != null)
+		{
 			value.detach();
 		}
 	}
 
-	public IModel<T> getModel() {
+	public IModel<T> getModel()
+	{
 		return value;
 	}
 
-	public void setModel(IModel<T> model) {
+	public void setModel(IModel<T> model)
+	{
 		this.value = model;
 	}
 
-	public T getValue() {
-		if (value != null) {
+	public T getValue()
+	{
+		if (value != null)
+		{
 			return value.getObject();
 		}
 		return null;

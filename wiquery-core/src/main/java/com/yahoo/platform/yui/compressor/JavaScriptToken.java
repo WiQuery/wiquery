@@ -8,21 +8,26 @@
  */
 package com.yahoo.platform.yui.compressor;
 
-public class JavaScriptToken {
+public class JavaScriptToken
+{
 
-    private int type;
-    private String value;
+	private int type;
 
-    JavaScriptToken(int type, String value) {
-        this.type = type;
-        this.value = value;
-    }
+	private String value;
 
-    int getType() {
-        return type;
-    }
+	JavaScriptToken(int type, String value)
+	{
+		this.type = type;
+		this.value = value;
+	}
 
-    String getValue() {
-        return value;
-    }
+	int getType()
+	{
+		return type;
+	}
+
+	String getValue()
+	{
+		return value;
+	}
 }

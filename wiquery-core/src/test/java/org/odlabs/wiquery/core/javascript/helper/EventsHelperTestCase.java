@@ -35,18 +35,19 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class EventsHelperTestCase extends WiQueryTestCase {
+public class EventsHelperTestCase extends WiQueryTestCase
+{
 	// Constants
 	/** Logger */
-	protected static final Logger log = LoggerFactory
-			.getLogger(EventsHelperTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(EventsHelperTestCase.class);
 
 	// Properties
 	private JsStatement jsStatement;
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		super.setUp();
 
 		jsStatement = new JsStatement().$(null, "div");
@@ -58,13 +59,13 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testBind() {
+	public void testBind()
+	{
 		assertAndLog(
-				"$('div').bind('click', function() {\n\talert('click done');\n});",
-				jsStatement.chain(
-						EventsHelper.bind(MouseEvent.CLICK,
-								JsScope.quickScope("alert('click done');")))
-						.render());
+			"$('div').bind('click', function() {\n\talert('click done');\n});",
+			jsStatement.chain(
+				EventsHelper.bind(MouseEvent.CLICK, JsScope.quickScope("alert('click done');")))
+				.render());
 	}
 
 	/**
@@ -72,9 +73,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#blur()}.
 	 */
 	@Test
-	public void testBlur() {
-		assertAndLog("$('div').blur();", jsStatement.chain(EventsHelper.blur())
-				.render());
+	public void testBlur()
+	{
+		assertAndLog("$('div').blur();", jsStatement.chain(EventsHelper.blur()).render());
 	}
 
 	/**
@@ -83,12 +84,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testBlurJsScope() {
-		assertAndLog(
-				"$('div').blur(function() {\n\talert('done');\n});",
-				jsStatement
-						.chain(EventsHelper.blur(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testBlurJsScope()
+	{
+		assertAndLog("$('div').blur(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.blur(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -96,9 +95,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#change()}.
 	 */
 	@Test
-	public void testChange() {
-		assertAndLog("$('div').change();",
-				jsStatement.chain(EventsHelper.change()).render());
+	public void testChange()
+	{
+		assertAndLog("$('div').change();", jsStatement.chain(EventsHelper.change()).render());
 	}
 
 	/**
@@ -107,12 +106,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testChangeJsScope() {
-		assertAndLog(
-				"$('div').change(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.change(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testChangeJsScope()
+	{
+		assertAndLog("$('div').change(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.change(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -120,9 +117,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#click()}.
 	 */
 	@Test
-	public void testClick() {
-		assertAndLog("$('div').click();",
-				jsStatement.chain(EventsHelper.click()).render());
+	public void testClick()
+	{
+		assertAndLog("$('div').click();", jsStatement.chain(EventsHelper.click()).render());
 	}
 
 	/**
@@ -131,23 +128,20 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testClickJsScope() {
-		assertAndLog(
-				"$('div').click(function() {\n\talert('done');\n});",
-				jsStatement
-						.chain(EventsHelper.click(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testClickJsScope()
+	{
+		assertAndLog("$('div').click(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.click(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#dblclick()}
-	 * .
+	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#dblclick()} .
 	 */
 	@Test
-	public void testDblclick() {
-		assertAndLog("$('div').dblclick();",
-				jsStatement.chain(EventsHelper.dblclick()).render());
+	public void testDblclick()
+	{
+		assertAndLog("$('div').dblclick();", jsStatement.chain(EventsHelper.dblclick()).render());
 	}
 
 	/**
@@ -156,12 +150,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testDblclickJsScope() {
-		assertAndLog(
-				"$('div').dblclick(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.dblclick(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testDblclickJsScope()
+	{
+		assertAndLog("$('div').dblclick(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.dblclick(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -170,13 +162,11 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testDie() {
-		assertAndLog(
-				"$('div').die('click', function() {\n\talert('click done');\n});",
-				jsStatement.chain(
-						EventsHelper.die(MouseEvent.CLICK,
-								JsScope.quickScope("alert('click done');")))
-						.render());
+	public void testDie()
+	{
+		assertAndLog("$('div').die('click', function() {\n\talert('click done');\n});", jsStatement
+			.chain(EventsHelper.die(MouseEvent.CLICK, JsScope.quickScope("alert('click done');")))
+			.render());
 	}
 
 	/**
@@ -184,9 +174,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#error()}.
 	 */
 	@Test
-	public void testError() {
-		assertAndLog("$('div').error();",
-				jsStatement.chain(EventsHelper.error()).render());
+	public void testError()
+	{
+		assertAndLog("$('div').error();", jsStatement.chain(EventsHelper.error()).render());
 	}
 
 	/**
@@ -195,12 +185,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testErrorJsScope() {
-		assertAndLog(
-				"$('div').error(function() {\n\talert('done');\n});",
-				jsStatement
-						.chain(EventsHelper.error(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testErrorJsScope()
+	{
+		assertAndLog("$('div').error(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.error(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -208,9 +196,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#focus()}.
 	 */
 	@Test
-	public void testFocus() {
-		assertAndLog("$('div').focus();",
-				jsStatement.chain(EventsHelper.focus()).render());
+	public void testFocus()
+	{
+		assertAndLog("$('div').focus();", jsStatement.chain(EventsHelper.focus()).render());
 	}
 
 	/**
@@ -219,12 +207,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testFocusJsScope() {
-		assertAndLog(
-				"$('div').focus(function() {\n\talert('done');\n});",
-				jsStatement
-						.chain(EventsHelper.focus(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testFocusJsScope()
+	{
+		assertAndLog("$('div').focus(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.focus(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -233,13 +219,13 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testHover() {
+	public void testHover()
+	{
 		assertAndLog(
-				"$('div').hover(function() {\n\talert('over');\n}, function() {\n\talert('out');\n});",
-				jsStatement.chain(
-						EventsHelper.hover(
-								JsScope.quickScope("alert('over');"),
-								JsScope.quickScope("alert('out');"))).render());
+			"$('div').hover(function() {\n\talert('over');\n}, function() {\n\talert('out');\n});",
+			jsStatement.chain(
+				EventsHelper.hover(JsScope.quickScope("alert('over');"),
+					JsScope.quickScope("alert('out');"))).render());
 	}
 
 	/**
@@ -247,9 +233,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#keydown()}.
 	 */
 	@Test
-	public void testKeydown() {
-		assertAndLog("$('div').keydown();",
-				jsStatement.chain(EventsHelper.keydown()).render());
+	public void testKeydown()
+	{
+		assertAndLog("$('div').keydown();", jsStatement.chain(EventsHelper.keydown()).render());
 	}
 
 	/**
@@ -258,23 +244,20 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testKeydownJsScope() {
-		assertAndLog(
-				"$('div').keydown(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.keydown(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testKeydownJsScope()
+	{
+		assertAndLog("$('div').keydown(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.keydown(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#keypress()}
-	 * .
+	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#keypress()} .
 	 */
 	@Test
-	public void testKeypress() {
-		assertAndLog("$('div').keypress();",
-				jsStatement.chain(EventsHelper.keypress()).render());
+	public void testKeypress()
+	{
+		assertAndLog("$('div').keypress();", jsStatement.chain(EventsHelper.keypress()).render());
 	}
 
 	/**
@@ -283,12 +266,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testKeypressJsScope() {
-		assertAndLog(
-				"$('div').keypress(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.keypress(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testKeypressJsScope()
+	{
+		assertAndLog("$('div').keypress(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.keypress(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -296,9 +277,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#keyup()}.
 	 */
 	@Test
-	public void testKeyup() {
-		assertAndLog("$('div').keyup();",
-				jsStatement.chain(EventsHelper.keyup()).render());
+	public void testKeyup()
+	{
+		assertAndLog("$('div').keyup();", jsStatement.chain(EventsHelper.keyup()).render());
 	}
 
 	/**
@@ -307,12 +288,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testKeyupJsScope() {
-		assertAndLog(
-				"$('div').keyup(function() {\n\talert('done');\n});",
-				jsStatement
-						.chain(EventsHelper.keyup(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testKeyupJsScope()
+	{
+		assertAndLog("$('div').keyup(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.keyup(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -321,13 +300,13 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testLive() {
+	public void testLive()
+	{
 		assertAndLog(
-				"$('div').live('click', function() {\n\talert('click done');\n});",
-				jsStatement.chain(
-						EventsHelper.live(MouseEvent.CLICK,
-								JsScope.quickScope("alert('click done');")))
-						.render());
+			"$('div').live('click', function() {\n\talert('click done');\n});",
+			jsStatement.chain(
+				EventsHelper.live(MouseEvent.CLICK, JsScope.quickScope("alert('click done');")))
+				.render());
 	}
 
 	/**
@@ -336,12 +315,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testLoad() {
-		assertAndLog(
-				"$('div').load(function() {\n\talert('done');\n});",
-				jsStatement
-						.chain(EventsHelper.load(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testLoad()
+	{
+		assertAndLog("$('div').load(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.load(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -350,12 +327,11 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testMousedown() {
-		assertAndLog(
-				"$('div').mousedown(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.mousedown(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testMousedown()
+	{
+		assertAndLog("$('div').mousedown(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.mousedown(JsScope.quickScope("alert('done');")))
+				.render());
 	}
 
 	/**
@@ -364,12 +340,11 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testMouseenter() {
-		assertAndLog(
-				"$('div').mouseenter(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.mouseenter(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testMouseenter()
+	{
+		assertAndLog("$('div').mouseenter(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.mouseenter(JsScope.quickScope("alert('done');")))
+				.render());
 	}
 
 	/**
@@ -378,12 +353,11 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testMouseleave() {
-		assertAndLog(
-				"$('div').mouseleave(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.mouseleave(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testMouseleave()
+	{
+		assertAndLog("$('div').mouseleave(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.mouseleave(JsScope.quickScope("alert('done');")))
+				.render());
 	}
 
 	/**
@@ -392,12 +366,11 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testMousemove() {
-		assertAndLog(
-				"$('div').mousemove(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.mousemove(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testMousemove()
+	{
+		assertAndLog("$('div').mousemove(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.mousemove(JsScope.quickScope("alert('done');")))
+				.render());
 	}
 
 	/**
@@ -406,12 +379,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testMouseout() {
-		assertAndLog(
-				"$('div').mouseout(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.mouseout(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testMouseout()
+	{
+		assertAndLog("$('div').mouseout(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.mouseout(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -420,12 +391,11 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testMouseover() {
-		assertAndLog(
-				"$('div').mouseover(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.mouseover(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testMouseover()
+	{
+		assertAndLog("$('div').mouseover(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.mouseover(JsScope.quickScope("alert('done');")))
+				.render());
 	}
 
 	/**
@@ -434,12 +404,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testMouseup() {
-		assertAndLog(
-				"$('div').mouseup(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.mouseup(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testMouseup()
+	{
+		assertAndLog("$('div').mouseup(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.mouseup(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -448,13 +416,11 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testOne() {
-		assertAndLog(
-				"$('div').one('click', function() {\n\talert('click done');\n});",
-				jsStatement.chain(
-						EventsHelper.one(MouseEvent.CLICK,
-								JsScope.quickScope("alert('click done');")))
-						.render());
+	public void testOne()
+	{
+		assertAndLog("$('div').one('click', function() {\n\talert('click done');\n});", jsStatement
+			.chain(EventsHelper.one(MouseEvent.CLICK, JsScope.quickScope("alert('click done');")))
+			.render());
 	}
 
 	/**
@@ -463,12 +429,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testReady() {
-		assertAndLog(
-				"$('div').ready(function() {\n\talert('done');\n});",
-				jsStatement
-						.chain(EventsHelper.ready(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testReady()
+	{
+		assertAndLog("$('div').ready(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.ready(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -477,12 +441,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testScroll() {
-		assertAndLog(
-				"$('div').scroll(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.scroll(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testScroll()
+	{
+		assertAndLog("$('div').scroll(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.scroll(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -490,9 +452,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#select()}.
 	 */
 	@Test
-	public void testSelect() {
-		assertAndLog("$('div').select();",
-				jsStatement.chain(EventsHelper.select()).render());
+	public void testSelect()
+	{
+		assertAndLog("$('div').select();", jsStatement.chain(EventsHelper.select()).render());
 	}
 
 	/**
@@ -501,12 +463,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSelectJsScope() {
-		assertAndLog(
-				"$('div').select(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.select(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testSelectJsScope()
+	{
+		assertAndLog("$('div').select(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.select(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -514,9 +474,9 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.core.javascript.helper.EventsHelper#submit()}.
 	 */
 	@Test
-	public void testSubmit() {
-		assertAndLog("$('div').submit();",
-				jsStatement.chain(EventsHelper.submit()).render());
+	public void testSubmit()
+	{
+		assertAndLog("$('div').submit();", jsStatement.chain(EventsHelper.submit()).render());
 	}
 
 	/**
@@ -525,12 +485,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSubmitJsScope() {
-		assertAndLog(
-				"$('div').submit(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.submit(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testSubmitJsScope()
+	{
+		assertAndLog("$('div').submit(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.submit(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	/**
@@ -539,12 +497,13 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testToggleJsScopeJsScope() {
+	public void testToggleJsScopeJsScope()
+	{
 		assertAndLog(
-				"$('div').toggle(function() {\n\talert('a');\n}, function() {\n\talert('b');\n});",
-				jsStatement.chain(
-						EventsHelper.toggle(JsScope.quickScope("alert('a');"),
-								JsScope.quickScope("alert('b');"))).render());
+			"$('div').toggle(function() {\n\talert('a');\n}, function() {\n\talert('b');\n});",
+			jsStatement.chain(
+				EventsHelper.toggle(JsScope.quickScope("alert('a');"),
+					JsScope.quickScope("alert('b');"))).render());
 	}
 
 	/**
@@ -553,13 +512,13 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testToggleJsScopeJsScopeJsScopeArray() {
+	public void testToggleJsScopeJsScopeJsScopeArray()
+	{
 		assertAndLog(
-				"$('div').toggle(function() {\n\talert('a');\n}, function() {\n\talert('b');\n}, function() {\n\talert('c');\n});",
-				jsStatement.chain(
-						EventsHelper.toggle(JsScope.quickScope("alert('a');"),
-								JsScope.quickScope("alert('b');"),
-								JsScope.quickScope("alert('c');"))).render());
+			"$('div').toggle(function() {\n\talert('a');\n}, function() {\n\talert('b');\n}, function() {\n\talert('c');\n});",
+			jsStatement.chain(
+				EventsHelper.toggle(JsScope.quickScope("alert('a');"),
+					JsScope.quickScope("alert('b');"), JsScope.quickScope("alert('c');"))).render());
 	}
 
 	/**
@@ -568,10 +527,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testTriggerEventLabel() {
+	public void testTriggerEventLabel()
+	{
 		assertAndLog("$('div').trigger('click');",
-				jsStatement.chain(EventsHelper.trigger(MouseEvent.CLICK))
-						.render());
+			jsStatement.chain(EventsHelper.trigger(MouseEvent.CLICK)).render());
 	}
 
 	/**
@@ -580,11 +539,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testTriggerEventLabelCharSequenceArray() {
+	public void testTriggerEventLabelCharSequenceArray()
+	{
 		assertAndLog("$('div').trigger('click', ['a']);",
-				jsStatement
-						.chain(EventsHelper.trigger(MouseEvent.CLICK, "'a'"))
-						.render());
+			jsStatement.chain(EventsHelper.trigger(MouseEvent.CLICK, "'a'")).render());
 	}
 
 	/**
@@ -593,11 +551,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testTriggerHandlerEventLabel() {
+	public void testTriggerHandlerEventLabel()
+	{
 		assertAndLog("$('div').triggerHandler('click');",
-				jsStatement
-						.chain(EventsHelper.triggerHandler(MouseEvent.CLICK))
-						.render());
+			jsStatement.chain(EventsHelper.triggerHandler(MouseEvent.CLICK)).render());
 	}
 
 	/**
@@ -606,10 +563,10 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testTriggerHandlerEventLabelCharSequenceArray() {
-		assertAndLog("$('div').triggerHandler('click', ['a']);", jsStatement
-				.chain(EventsHelper.triggerHandler(MouseEvent.CLICK, "'a'"))
-				.render());
+	public void testTriggerHandlerEventLabelCharSequenceArray()
+	{
+		assertAndLog("$('div').triggerHandler('click', ['a']);",
+			jsStatement.chain(EventsHelper.triggerHandler(MouseEvent.CLICK, "'a'")).render());
 	}
 
 	/**
@@ -618,13 +575,13 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testUnbind() {
+	public void testUnbind()
+	{
 		assertAndLog(
-				"$('div').unbind('click', function() {\n\talert('click done');\n});",
-				jsStatement.chain(
-						EventsHelper.unbind(MouseEvent.CLICK,
-								JsScope.quickScope("alert('click done');")))
-						.render());
+			"$('div').unbind('click', function() {\n\talert('click done');\n});",
+			jsStatement.chain(
+				EventsHelper.unbind(MouseEvent.CLICK, JsScope.quickScope("alert('click done');")))
+				.render());
 	}
 
 	/**
@@ -633,16 +590,15 @@ public class EventsHelperTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testUnload() {
-		assertAndLog(
-				"$('div').unload(function() {\n\talert('done');\n});",
-				jsStatement.chain(
-						EventsHelper.unload(JsScope
-								.quickScope("alert('done');"))).render());
+	public void testUnload()
+	{
+		assertAndLog("$('div').unload(function() {\n\talert('done');\n});",
+			jsStatement.chain(EventsHelper.unload(JsScope.quickScope("alert('done');"))).render());
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

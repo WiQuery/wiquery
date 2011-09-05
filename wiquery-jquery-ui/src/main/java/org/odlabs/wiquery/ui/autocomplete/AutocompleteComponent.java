@@ -34,53 +34,68 @@ import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
- * $Id$
+ * $Id: AutocompleteComponent.java 463 2010-10-19 12:14:45Z richardjohnwilkinson@gmail.com
+ * $
  * <p>
  * Creates an autocomplete UI component which will bind on a Wicket model
  * </p>
+ * 
  * @author Julien Roche
- * @param <T> The model object type
+ * @param <T>
+ *            The model object type
  * @since 1.1
  */
-public abstract class AutocompleteComponent<T> extends AbstractAutocompleteComponent<T> {
+public abstract class AutocompleteComponent<T> extends AbstractAutocompleteComponent<T>
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -3377109382248062940L;
 
 	// Properties
-	private final IModel<? extends List<? extends T>> list;
+	private final IModel< ? extends List< ? extends T>> list;
 
 	/**
 	 * Constructor
-	 * @param id Wicket identifiant
-	 * @param model Model of the default value
-	 * @param list List of possibles values
+	 * 
+	 * @param id
+	 *            Wicket identifiant
+	 * @param model
+	 *            Model of the default value
+	 * @param list
+	 *            List of possibles values
 	 */
-	public AutocompleteComponent(String id, final IModel<T> model, final IModel<? extends List<? extends T>> list) {
+	public AutocompleteComponent(String id, final IModel<T> model,
+			final IModel< ? extends List< ? extends T>> list)
+	{
 		super(id, model);
 		this.list = list;
 	}
 
 	/**
 	 * Constructor
-	 * @param id Wicket identifiant
-	 * @param model Model of the default value
-	 * @param list List of possibles values
+	 * 
+	 * @param id
+	 *            Wicket identifiant
+	 * @param model
+	 *            Model of the default value
+	 * @param list
+	 *            List of possibles values
 	 */
-	public AutocompleteComponent(String id, final IModel<T> model, final IModel<? extends List<? extends T>> list, IChoiceRenderer<? super T> choiceRenderer) {
+	public AutocompleteComponent(String id, final IModel<T> model,
+			final IModel< ? extends List< ? extends T>> list,
+			IChoiceRenderer< ? super T> choiceRenderer)
+	{
 		super(id, model, choiceRenderer);
 		this.list = list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.ui.autocomplete.AbstractAutocompleteComponent#onBeforeRenderAutocomplete(org.odlabs.wiquery.ui.autocomplete.Autocomplete)
-	 */
 	@Override
-	protected void onBeforeRenderAutocomplete(Autocomplete<?> autocomplete) {
+	protected void onBeforeRenderAutocomplete(Autocomplete< ? > autocomplete)
+	{
 		StringWriter sw = new StringWriter();
 
-		try {
+		try
+		{
 			JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
 
 			List<Object> json = new ArrayList<Object>();
@@ -88,12 +103,14 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 			AutocompleteJson value = null;
 			Integer index = 0;
 
-			for(T obj : AutocompleteComponent.this.list.getObject()){
+			for (T obj : AutocompleteComponent.this.list.getObject())
+			{
 				index++;
 				value = newAutocompleteJson(index, obj);
 				json.add(value);
 
-				if(obj.equals(defaultValue)){
+				if (obj.equals(defaultValue))
+				{
 					autocomplete.setDefaultModelObject(value.getLabel());
 					getAutocompleteHidden().setModelObject(value.getValueId());
 				}
@@ -101,23 +118,27 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 
 			new ObjectMapper().writeValue(gen, json);
 
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			throw new WicketRuntimeException(e);
 		}
 
 		autocomplete.getOptions().put("source", sw.toString());
 	}
 
-
 	@Override
-	protected List<? extends T> getChoices() {
+	protected List< ? extends T> getChoices()
+	{
 		return list.getObject();
 	}
 
 	@Override
-	protected void onDetach() {
+	protected void onDetach()
+	{
 		super.onDetach();
-		if(list != null){
+		if (list != null)
+		{
 			list.detach();
 		}
 	}

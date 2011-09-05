@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
@@ -36,34 +36,36 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class AnimateTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(AnimateTestCase.class);
+public class AnimateTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(AnimateTestCase.class);
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.core.effects.Animate#statementArgs()}.
+	 * Test method for {@link org.odlabs.wiquery.core.effects.Animate#statementArgs()}.
 	 */
 	@Test
-	public void testStatementArgs() {
+	public void testStatementArgs()
+	{
 		HashMap<String, String> properties = new HashMap<String, String>();
 		properties.put("width", "100%");
 
 		// First case
 		AnimateDuration duration = new AnimateDuration(500);
 		String expectedJavascript = "$('#aComponent').animate({width: '100%'}, {duration: 500});";
-		String generatedJavascript = new JsStatement().$(null, "#aComponent")
-				.chain(new Animate(properties, duration)).render().toString();
+		String generatedJavascript =
+			new JsStatement().$(null, "#aComponent").chain(new Animate(properties, duration))
+				.render().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
 
 		// Second case
-		expectedJavascript = "$('#aComponent').animate({width: '100%'}, {duration: 500, easing: 'linear'});";
-		generatedJavascript = new JsStatement().$(null, "#aComponent")
-				.chain(new Animate(properties, duration, "linear")).render()
-				.toString();
+		expectedJavascript =
+			"$('#aComponent').animate({width: '100%'}, {duration: 500, easing: 'linear'});";
+		generatedJavascript =
+			new JsStatement().$(null, "#aComponent")
+				.chain(new Animate(properties, duration, "linear")).render().toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -71,7 +73,8 @@ public class AnimateTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

@@ -21,10 +21,7 @@
  */
 package org.odlabs.wiquery.ui.selectable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -41,20 +38,24 @@ import org.odlabs.wiquery.ui.selectable.SelectableBehavior.ToleranceEnum;
  * 
  * @author Julien Roche
  */
-public class SelectableBehaviorTestCase extends WiQueryTestCase {
+public class SelectableBehaviorTestCase extends WiQueryTestCase
+{
 	// Properties
 	private SelectableBehavior selectableBehavior;
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		super.setUp();
 
 		selectableBehavior = new SelectableBehavior();
-		tester.startPanel(new ITestPanelSource() {
+		tester.startPanel(new ITestPanelSource()
+		{
 			private static final long serialVersionUID = 1L;
 
-			public Panel getTestPanel(String panelId) {
+			public Panel getTestPanel(String panelId)
+			{
 				Panel panel = new DivTestPanel(panelId);
 				WebMarkupContainer component = new WebMarkupContainer("anId");
 				component.setMarkupId("anId");
@@ -71,10 +72,11 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#destroy()}.
 	 */
 	@Test
-	public void testDestroy() {
+	public void testDestroy()
+	{
 		assertNotNull(selectableBehavior.destroy());
 		assertEquals(selectableBehavior.destroy().render().toString(),
-				"$('#anId').selectable('destroy');");
+			"$('#anId').selectable('destroy');");
 	}
 
 	/**
@@ -82,10 +84,11 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#disable()}.
 	 */
 	@Test
-	public void testDisable() {
+	public void testDisable()
+	{
 		assertNotNull(selectableBehavior.disable());
 		assertEquals(selectableBehavior.disable().render().toString(),
-				"$('#anId').selectable('disable');");
+			"$('#anId').selectable('disable');");
 	}
 
 	/**
@@ -93,10 +96,11 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#enable()}.
 	 */
 	@Test
-	public void testEnable() {
+	public void testEnable()
+	{
 		assertNotNull(selectableBehavior.enable());
 		assertEquals(selectableBehavior.enable().render().toString(),
-				"$('#anId').selectable('enable');");
+			"$('#anId').selectable('enable');");
 	}
 
 	/**
@@ -104,7 +108,8 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#getCancel()}.
 	 */
 	@Test
-	public void testGetCancel() {
+	public void testGetCancel()
+	{
 		assertEquals(selectableBehavior.getCancel(), "input,option");
 		selectableBehavior.setCancel("input");
 		assertEquals(selectableBehavior.getCancel(), "input");
@@ -115,7 +120,8 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#getDelay()}.
 	 */
 	@Test
-	public void testGetDelay() {
+	public void testGetDelay()
+	{
 		assertEquals(selectableBehavior.getDelay(), 0);
 		selectableBehavior.setDelay(5);
 		assertEquals(selectableBehavior.getDelay(), 5);
@@ -123,11 +129,11 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#getDistance()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#getDistance()} .
 	 */
 	@Test
-	public void testGetDistance() {
+	public void testGetDistance()
+	{
 		assertEquals(selectableBehavior.getDistance(), 0);
 		selectableBehavior.setDistance(5);
 		assertEquals(selectableBehavior.getDistance(), 5);
@@ -138,7 +144,8 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#getFilter()}.
 	 */
 	@Test
-	public void testGetFilter() {
+	public void testGetFilter()
+	{
 		assertEquals(selectableBehavior.getFilter(), "*");
 		selectableBehavior.setFilter("input");
 		assertEquals(selectableBehavior.getFilter(), "input");
@@ -149,17 +156,18 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#getOptions()}.
 	 */
 	@Test
-	public void testGetOptions() {
+	public void testGetOptions()
+	{
 		assertNotNull(selectableBehavior.getOptions());
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#getTolerance()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#getTolerance()} .
 	 */
 	@Test
-	public void testGetTolerance() {
+	public void testGetTolerance()
+	{
 		assertEquals(selectableBehavior.getTolerance(), ToleranceEnum.TOUCH);
 		selectableBehavior.setTolerance(ToleranceEnum.FIT);
 		assertEquals(selectableBehavior.getTolerance(), ToleranceEnum.FIT);
@@ -167,11 +175,11 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#isAutoRefresh()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#isAutoRefresh()} .
 	 */
 	@Test
-	public void testIsAutoRefresh() {
+	public void testIsAutoRefresh()
+	{
 		assertTrue(selectableBehavior.isAutoRefresh());
 		selectableBehavior.setAutoRefresh(false);
 		assertFalse(selectableBehavior.isAutoRefresh());
@@ -182,7 +190,8 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#isDisabled()}.
 	 */
 	@Test
-	public void testIsDisabled() {
+	public void testIsDisabled()
+	{
 		assertFalse(selectableBehavior.isDisabled());
 		selectableBehavior.setDisabled(true);
 		assertTrue(selectableBehavior.isDisabled());
@@ -193,10 +202,11 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#refresh()}.
 	 */
 	@Test
-	public void testRefresh() {
+	public void testRefresh()
+	{
 		assertNotNull(selectableBehavior.refresh());
 		assertEquals(selectableBehavior.refresh().render().toString(),
-				"$('#anId').selectable('refresh');");
+			"$('#anId').selectable('refresh');");
 	}
 
 	/**
@@ -205,14 +215,13 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetSelectedEvent() {
+	public void testSetSelectedEvent()
+	{
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({});");
-		selectableBehavior.setSelectedEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(
-				selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({selected: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').selectable({});");
+		selectableBehavior.setSelectedEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(selectableBehavior.statement().render().toString(),
+			"$('#anId').selectable({selected: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -221,14 +230,13 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetSelectingEvent() {
+	public void testSetSelectingEvent()
+	{
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({});");
-		selectableBehavior.setSelectingEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(
-				selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({selecting: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').selectable({});");
+		selectableBehavior.setSelectingEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(selectableBehavior.statement().render().toString(),
+			"$('#anId').selectable({selecting: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -237,13 +245,13 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetStartEvent() {
+	public void testSetStartEvent()
+	{
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({});");
-		selectableBehavior.setStartEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
+			"$('#anId').selectable({});");
+		selectableBehavior.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({start: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').selectable({start: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -252,13 +260,13 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetStopEvent() {
+	public void testSetStopEvent()
+	{
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({});");
-		selectableBehavior.setStopEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
+			"$('#anId').selectable({});");
+		selectableBehavior.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({stop: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').selectable({stop: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -267,14 +275,13 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetUnselectedEvent() {
+	public void testSetUnselectedEvent()
+	{
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({});");
-		selectableBehavior.setUnselectedEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(
-				selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({unselected: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').selectable({});");
+		selectableBehavior.setUnselectedEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(selectableBehavior.statement().render().toString(),
+			"$('#anId').selectable({unselected: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -283,14 +290,13 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSetUnselectingEvent() {
+	public void testSetUnselectingEvent()
+	{
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({});");
-		selectableBehavior.setUnselectingEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(
-				selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({unselecting: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').selectable({});");
+		selectableBehavior.setUnselectingEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(selectableBehavior.statement().render().toString(),
+			"$('#anId').selectable({unselecting: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -298,10 +304,11 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#statement()}.
 	 */
 	@Test
-	public void testStatement() {
+	public void testStatement()
+	{
 		assertNotNull(selectableBehavior.statement());
 		assertEquals(selectableBehavior.statement().render().toString(),
-				"$('#anId').selectable({});");
+			"$('#anId').selectable({});");
 	}
 
 	/**
@@ -309,9 +316,10 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase {
 	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#widget()}.
 	 */
 	@Test
-	public void testWidget() {
+	public void testWidget()
+	{
 		assertNotNull(selectableBehavior.widget());
 		assertEquals(selectableBehavior.widget().render().toString(),
-				"$('#anId').selectable('widget');");
+			"$('#anId').selectable('widget');");
 	}
 }

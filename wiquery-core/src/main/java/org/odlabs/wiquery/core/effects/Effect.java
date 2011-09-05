@@ -37,9 +37,8 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * <code>.effectName(speed, [callback])</code>
  * </p>
  * <p>
- * An effect is a {@link ChainableStatement}, so all subclasses will have to
- * implement {@link ChainableStatement#chainLabel()} to indicate the effect
- * name.
+ * An effect is a {@link ChainableStatement}, so all subclasses will have to implement
+ * {@link ChainableStatement#chainLabel()} to indicate the effect name.
  * </p>
  * 
  * @author Lionel Armanet
@@ -47,11 +46,12 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @see EffectSpeed
  * @see ChainableStatement
  */
-public abstract class Effect implements ChainableStatement, Serializable {
+public abstract class Effect implements ChainableStatement, Serializable
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 6498661896790365888L;
-	
+
 	// Properties
 	/**
 	 * The list of parameters to apply to the effect.
@@ -67,7 +67,8 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	 * @param parameters
 	 *            the list of parameters to apply to the effect.
 	 */
-	public Effect(CharSequence... parameters) {
+	public Effect(CharSequence... parameters)
+	{
 		this.parameters = new ArrayList<CharSequence>(Arrays.asList(parameters));
 	}
 
@@ -79,34 +80,34 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	 * @param parameters
 	 *            the list of parameters to apply to the effect.
 	 */
-	public Effect(EffectSpeed effectSpeed, CharSequence... parameters) {
+	public Effect(EffectSpeed effectSpeed, CharSequence... parameters)
+	{
 		this(parameters);
 		this.parameters.add(0, JsUtils.quotes(effectSpeed.getJavaScriptStatement()));
 	}
-	
+
 	/**
 	 * Creates a new effect.
 	 * 
 	 * @param effectSpeed
 	 *            the speed to display the effect.
 	 * @param callback
-	 * 			  Callback on the effect
+	 *            Callback on the effect
 	 * @param parameters
 	 *            the list of parameters to apply to the effect.
 	 */
-	public Effect(EffectSpeed effectSpeed, JsScope callback, CharSequence... parameters) {
+	public Effect(EffectSpeed effectSpeed, JsScope callback, CharSequence... parameters)
+	{
 		this(parameters);
 		this.parameters.add(0, JsUtils.quotes(effectSpeed.getJavaScriptStatement()));
 		this.callback = callback;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#statementArgs()
-	 */
-	public CharSequence[] statementArgs() {
+	public CharSequence[] statementArgs()
+	{
 		List<CharSequence> ret = new ArrayList<CharSequence>(this.parameters);
-		if (this.effectCallback() != null) {
+		if (this.effectCallback() != null)
+		{
 			ret.add(this.effectCallback().render());
 		}
 		return ret.toArray(new CharSequence[ret.size()]);
@@ -117,7 +118,8 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	 * 
 	 * @return the {@link JsScope} to execute.
 	 */
-	public JsScope effectCallback() {
+	public JsScope effectCallback()
+	{
 		return this.callback;
 	}
 
@@ -127,7 +129,8 @@ public abstract class Effect implements ChainableStatement, Serializable {
 	 * @param callback
 	 *            A {@link JsScope} defining the callback
 	 */
-	public void setCallback(JsScope callback) {
+	public void setCallback(JsScope callback)
+	{
 		this.callback = callback;
 	}
 

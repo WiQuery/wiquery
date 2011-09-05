@@ -24,33 +24,38 @@ package org.odlabs.wiquery.ui.position;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: PositionJavaScriptResourceReference.java 1150 2011-08-02 10:09:02Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to get the position utilities.
+ * References the JavaScript resource to get the position utilities.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.1
  */
-public class PositionJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class PositionJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static PositionJavaScriptResourceReference instance = new PositionJavaScriptResourceReference();
+	private static PositionJavaScriptResourceReference instance =
+		new PositionJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link PositionJavaScriptResourceReference}.
 	 */
-	private PositionJavaScriptResourceReference() {
+	private PositionJavaScriptResourceReference()
+	{
 		super(PositionJavaScriptResourceReference.class, "jquery.ui.position.js");
 	}
 
 	/**
 	 * Returns the {@link PositionJavaScriptResourceReference} instance.
 	 */
-	public static PositionJavaScriptResourceReference get() {
+	public static PositionJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 }

@@ -1,5 +1,7 @@
 package org.odlabs.wiquery.core.resources;
 
+import java.util.Locale;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.request.resource.JavaScriptPackageResource;
@@ -38,9 +40,37 @@ public class WiQueryJavaScriptResourceReference extends AbstractResourceDependen
 
 	private Boolean minified = null;
 
+	/**
+	 * Construct.
+	 * 
+	 * @param scope
+	 *            mandatory parameter
+	 * @param name
+	 *            mandatory parameter
+	 * @param locale
+	 *            resource locale
+	 * @param style
+	 *            resource style
+	 * @param variation
+	 *            resource variation
+	 */
+	public WiQueryJavaScriptResourceReference(Class< ? > scope, String name, Locale locale,
+			String style, String variation)
+	{
+		super(scope, name, locale, style, variation);
+	}
+
+	/**
+	 * Construct.
+	 * 
+	 * @param scope
+	 *            mandatory parameter
+	 * @param name
+	 *            mandatory parameter
+	 */
 	public WiQueryJavaScriptResourceReference(Class< ? > scope, String name)
 	{
-		super(scope, name, null, null, null);
+		super(scope, name);
 	}
 
 	private boolean exists(Class< ? > scope, String name)
@@ -86,5 +116,10 @@ public class WiQueryJavaScriptResourceReference extends AbstractResourceDependen
 	{
 		return new JavaScriptPackageResource(getScope(), getName(), getLocale(), getStyle(),
 			getVariation());
+	}
+
+	public boolean isWiQuery()
+	{
+		return getClass().getPackage().getName().startsWith("org.odlabs.wiquery");
 	}
 }

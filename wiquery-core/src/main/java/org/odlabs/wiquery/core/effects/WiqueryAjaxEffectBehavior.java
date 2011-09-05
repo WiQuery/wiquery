@@ -38,7 +38,8 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Lionel Armanet
  * @since 1.0
  */
-public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehavior implements IWiQueryPlugin
+public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehavior implements
+		IWiQueryPlugin
 {
 	// Constants
 	/** Constant of serialization */
@@ -57,10 +58,6 @@ public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehav
 		this.effect = effect;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackScript()
-	 */
 	@Override
 	protected CharSequence getCallbackScript()
 	{
@@ -75,19 +72,12 @@ public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehav
 		return super.getCallbackScript();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getPreconditionScript()
-	 */
 	@Override
 	protected CharSequence getPreconditionScript()
 	{
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public JsStatement statement()
 	{
 		JsQuery query = new JsQuery(this.getComponent());

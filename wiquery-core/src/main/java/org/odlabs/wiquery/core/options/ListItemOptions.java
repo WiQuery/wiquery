@@ -23,39 +23,43 @@ package org.odlabs.wiquery.core.options;
 
 import java.util.ArrayList;
 
-/** List of IListItemOptions
+/**
+ * List of IListItemOptions
+ * 
  * @author Julien Roche
- *
+ * 
  */
-public class ListItemOptions<E extends IListItemOption> extends ArrayList<E> implements ICollectionItemOptions  {
+public class ListItemOptions<E extends IListItemOption> extends ArrayList<E> implements
+		ICollectionItemOptions
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1779802328333735627L;
 
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.ICollectionItemOptions#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
+	public CharSequence getJavascriptOption()
+	{
 		StringBuffer javascript = new StringBuffer();
 		javascript.append("{");
-		
-		if(!isEmpty()){
-			for(IListItemOption itemOption : this){
+
+		if (!isEmpty())
+		{
+			for (IListItemOption itemOption : this)
+			{
 				javascript.append(itemOption.getJavascriptOption());
 				javascript.append(",");
 			}
-			javascript.replace(javascript.length() - 1, 
-					javascript.length(), ""); //Remove the last ','
+			javascript.replace(javascript.length() - 1, javascript.length(), ""); // Remove
+																					// the
+																					// last
+																					// ','
 		}
-		
+
 		javascript.append("}");
 		return javascript;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.ICollectionItemOptions#values()
-	 */
-	public IListItemOption[] values() {
+
+	public IListItemOption[] values()
+	{
 		return this.toArray(new IListItemOption[this.size()]);
 	}
 }

@@ -25,27 +25,30 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
-
 /**
- * This class represent a JsScope event for the datepicker JQuery UI components
- * The javascript representation will be like this:
+ * This class represent a JsScope event for the datepicker JQuery UI components The
+ * javascript representation will be like this:
  * <p>
- * 	function(date) { ... }
+ * function(date) { ... }
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class JsScopeUiDatePickerEvent extends JsScope {
-	//Constants
-	/**	Constant of serialization */
+public abstract class JsScopeUiDatePickerEvent extends JsScope
+{
+	// Constants
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-	
-	/**Default constructor
+
+	/**
+	 * Default constructor
 	 */
-	public JsScopeUiDatePickerEvent() {
+	public JsScopeUiDatePickerEvent()
+	{
 		super("date");
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScopeUiDatePickerEvent} to execute the given statement.
 	 * 
@@ -53,22 +56,21 @@ public abstract class JsScopeUiDatePickerEvent extends JsScope {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeUiDatePickerEvent}.
 	 */
-	public static JsScopeUiDatePickerEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopeUiDatePickerEvent() {
+	public static JsScopeUiDatePickerEvent quickScope(final CharSequence javascriptCode)
+	{
+		return new JsScopeUiDatePickerEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(javascriptCode);
 			}
 
 		};
 	}
-	
+
 	/**
 	 * Creates a default {@link JsScopeUiDatePickerEvent} to execute the given statement.
 	 * 
@@ -76,16 +78,15 @@ public abstract class JsScopeUiDatePickerEvent extends JsScope {
 	 *            the JavaScript statement to execute with the scope.
 	 * @return the created {@link JsScopeUiDatePickerEvent}.
 	 */
-	public static JsScopeUiDatePickerEvent quickScope(final JsStatement jsStatement) {
-		return new JsScopeUiDatePickerEvent() {
+	public static JsScopeUiDatePickerEvent quickScope(final JsStatement jsStatement)
+	{
+		return new JsScopeUiDatePickerEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
 			}
 		};

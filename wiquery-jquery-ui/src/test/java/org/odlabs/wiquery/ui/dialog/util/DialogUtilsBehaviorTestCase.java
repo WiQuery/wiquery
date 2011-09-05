@@ -21,8 +21,7 @@
  */
 package org.odlabs.wiquery.ui.dialog.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.Locale;
 
@@ -36,27 +35,26 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * 
  * @author Julien Roche
  */
-public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
+public class DialogUtilsBehaviorTestCase extends WiQueryTestCase
+{
 	// Properties
 	private DialogUtilsBehavior dialogUtilsBehavior;
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		super.setUp();
 
 		dialogUtilsBehavior = new DialogUtilsBehavior();
 
-		WebMarkupContainer anId = new WebMarkupContainer("anId") {
+		WebMarkupContainer anId = new WebMarkupContainer("anId")
+		{
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * 
-			 * @see org.apache.wicket.Component#getLocale()
-			 */
 			@Override
-			public Locale getLocale() {
+			public Locale getLocale()
+			{
 				return Locale.FRENCH;
 			}
 		};
@@ -70,12 +68,12 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testErrorDialog() {
+	public void testErrorDialog()
+	{
 		assertNotNull(dialogUtilsBehavior.errorDialog("a message"));
 		assertEquals(
-				dialogUtilsBehavior.errorDialog("a message").render()
-						.toString(),
-				"$.ui.dialog.wiquery.errorDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/cancel.png');");
+			dialogUtilsBehavior.errorDialog("a message").render().toString(),
+			"$.ui.dialog.wiquery.errorDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/cancel.png');");
 	}
 
 	/**
@@ -84,12 +82,12 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testQuestionDialog() {
+	public void testQuestionDialog()
+	{
 		assertNotNull(dialogUtilsBehavior.questionDialog("a message"));
 		assertEquals(
-				dialogUtilsBehavior.questionDialog("a message").render()
-						.toString(),
-				"$.ui.dialog.wiquery.questionDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/questionmark.png');");
+			dialogUtilsBehavior.questionDialog("a message").render().toString(),
+			"$.ui.dialog.wiquery.questionDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/questionmark.png');");
 	}
 
 	/**
@@ -98,31 +96,30 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testSimpleDialog() {
+	public void testSimpleDialog()
+	{
 		assertNotNull(dialogUtilsBehavior.simpleDialog("a title", "a message"));
-		assertEquals(dialogUtilsBehavior.simpleDialog("a title", "a message")
-				.render().toString(),
-				"$.ui.dialog.wiquery.simpleDialog(2, 'fr', 'a title', \"a message\");");
+		assertEquals(dialogUtilsBehavior.simpleDialog("a title", "a message").render().toString(),
+			"$.ui.dialog.wiquery.simpleDialog(2, 'fr', 'a title', \"a message\");");
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior#waitDialog()}
-	 * .
+	 * {@link org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior#waitDialog()} .
 	 */
 	@Test
-	public void testWaitDialog() {
+	public void testWaitDialog()
+	{
 		assertNotNull(dialogUtilsBehavior.waitDialog());
 		WaitDialogStatements st = dialogUtilsBehavior.waitDialog();
 
 		assertNotNull(st.getClose());
 		assertNotNull(st.getOpen());
 
-		assertEquals(st.getClose().render().toString(),
-				"$('#dialog2').dialog('close');");
+		assertEquals(st.getClose().render().toString(), "$('#dialog2').dialog('close');");
 		assertEquals(
-				st.getOpen().render().toString(),
-				"$.ui.dialog.wiquery.waitDialog(2, 'fr', 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/wait.gif');");
+			st.getOpen().render().toString(),
+			"$.ui.dialog.wiquery.waitDialog(2, 'fr', 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/wait.gif');");
 	}
 
 	/**
@@ -131,11 +128,11 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase {
 	 * .
 	 */
 	@Test
-	public void testWarningDialog() {
+	public void testWarningDialog()
+	{
 		assertNotNull(dialogUtilsBehavior.warningDialog("a message"));
 		assertEquals(
-				dialogUtilsBehavior.warningDialog("a message").render()
-						.toString(),
-				"$.ui.dialog.wiquery.warningDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/warning.png');");
+			dialogUtilsBehavior.warningDialog("a message").render().toString(),
+			"$.ui.dialog.wiquery.warningDialog(2, 'fr', \"a message\", 'wicket/resource/org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior/warning.png');");
 	}
 }

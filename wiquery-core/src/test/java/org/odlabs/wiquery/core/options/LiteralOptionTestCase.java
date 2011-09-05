@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core.options;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -12,16 +12,17 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class LiteralOptionTestCase extends WiQueryTestCase {
+public class LiteralOptionTestCase extends WiQueryTestCase
+{
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(LiteralOptionTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(LiteralOptionTestCase.class);
 
 	/**
 	 * Test {@link LiteralOption#toString()}
 	 */
 	@Test
-	public void testToString() {
+	public void testToString()
+	{
 		// With quote
 		String expectedJavascript = "'a'";
 		String generatedJavascript = new LiteralOption("a").toString();
@@ -42,7 +43,8 @@ public class LiteralOptionTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

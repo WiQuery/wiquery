@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.ui.position;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
@@ -12,15 +12,16 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class PositionOffsetTestCase extends WiQueryTestCase {
-	protected static final Logger log = LoggerFactory
-			.getLogger(PositionOffsetTestCase.class);
+public class PositionOffsetTestCase extends WiQueryTestCase
+{
+	protected static final Logger log = LoggerFactory.getLogger(PositionOffsetTestCase.class);
 
 	/**
 	 * Test of the javascript generation
 	 */
 	@Test
-	public void testGetJavaScriptOption() {
+	public void testGetJavaScriptOption()
+	{
 		PositionOffset yearRAnge = new PositionOffset(5, 10);
 
 		// Short params
@@ -33,7 +34,8 @@ public class PositionOffsetTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

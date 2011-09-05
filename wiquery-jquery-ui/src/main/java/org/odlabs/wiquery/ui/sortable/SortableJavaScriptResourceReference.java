@@ -21,37 +21,55 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: SortableJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to apply sortable behavior to any
- *  HTML element.
+ * References the JavaScript resource to apply sortable behavior to any HTML element.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class SortableJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class SortableJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static SortableJavaScriptResourceReference instance = new SortableJavaScriptResourceReference();
+	private static SortableJavaScriptResourceReference instance =
+		new SortableJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.
 	 */
-	private SortableJavaScriptResourceReference() {
+	private SortableJavaScriptResourceReference()
+	{
 		super(SortableJavaScriptResourceReference.class, "jquery.ui.sortable.js");
 	}
 
 	/**
 	 * Returns the {@link SortableJavaScriptResourceReference} instance.
 	 */
-	public static SortableJavaScriptResourceReference get() {
+	public static SortableJavaScriptResourceReference get()
+	{
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[2];
+		list[0] = CoreUIJavaScriptResourceReference.get();
+		list[1] = MouseJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

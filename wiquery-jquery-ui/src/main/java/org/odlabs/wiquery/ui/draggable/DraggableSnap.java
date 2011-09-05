@@ -33,94 +33,126 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * @author Julien Roche
  * @since 1.0
  */
-public class DraggableSnap implements IComplexOption {	
+public class DraggableSnap implements IComplexOption
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = 3404088696595137950L;
-	
+
 	// Properties
 	private Boolean booleanParam;
+
 	private String selectorParam;
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
 	 */
-	public DraggableSnap(Boolean booleanParam) {
+	public DraggableSnap(Boolean booleanParam)
+	{
 		this(booleanParam, null);
 	}
 
-	/**Constructor
-	 * @param selectorParam Selector parameter
+	/**
+	 * Constructor
+	 * 
+	 * @param selectorParam
+	 *            Selector parameter
 	 */
-	public DraggableSnap(String selectorParam) {
+	public DraggableSnap(String selectorParam)
+	{
 		this(null, selectorParam);
 	}
-	
-	/**Constructor
-	 * @param booleanParam Boolean parameter
-	 * @param selectorParam Selector parameter
+
+	/**
+	 * Constructor
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param selectorParam
+	 *            Selector parameter
 	 */
-	private DraggableSnap(Boolean booleanParam, String selectorParam) {
+	private DraggableSnap(Boolean booleanParam, String selectorParam)
+	{
 		super();
 		setParam(booleanParam, selectorParam);
 	}
-	
+
 	/**
 	 * @return the booleanParam
 	 */
-	public Boolean getBooleanParam() {
+	public Boolean getBooleanParam()
+	{
 		return booleanParam;
 	}
 
 	/**
 	 * @return the selectorParam
 	 */
-	public String getSelectorPAram() {
+	public String getSelectorPAram()
+	{
 		return selectorParam;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
-	 */
-	public CharSequence getJavascriptOption() {
-		if(booleanParam == null && selectorParam == null){
+
+	public CharSequence getJavascriptOption()
+	{
+		if (booleanParam == null && selectorParam == null)
+		{
 			throw new IllegalArgumentException("The DraggableSnap must have one not null parameter");
 		}
-		
+
 		CharSequence sequence = null;
-		
-		if(booleanParam != null){
+
+		if (booleanParam != null)
+		{
 			sequence = booleanParam.toString();
 		}
-		else if(selectorParam != null){
+		else if (selectorParam != null)
+		{
 			sequence = new LiteralOption(selectorParam).toString();
 		}
-		else{
+		else
+		{
 			throw new IllegalArgumentException("The DraggableSnap must have one not null parameter");
 		}
-		
+
 		return sequence;
 	}
 
-	/**Set's the boolean parameter
-	 * @param booleanParam the boolean to set
+	/**
+	 * Set's the boolean parameter
+	 * 
+	 * @param booleanParam
+	 *            the boolean to set
 	 */
-	public void setBooleanParam(Boolean booleanParam) {
+	public void setBooleanParam(Boolean booleanParam)
+	{
 		setParam(booleanParam, null);
 	}
-	
-	/**Set's the selector parameter
-	 * @param selectorParam the selector to set
+
+	/**
+	 * Set's the selector parameter
+	 * 
+	 * @param selectorParam
+	 *            the selector to set
 	 */
-	public void setSelectorParam(String selectorParam) {
+	public void setSelectorParam(String selectorParam)
+	{
 		setParam(null, selectorParam);
 	}
-	
-	/**Method setting the right parameter
-	 * @param booleanParam Boolean parameter
-	 * @param selectorParam Selector parameter
+
+	/**
+	 * Method setting the right parameter
+	 * 
+	 * @param booleanParam
+	 *            Boolean parameter
+	 * @param selectorParam
+	 *            Selector parameter
 	 */
-	private void setParam(Boolean booleanParam, String selectorParam) {
+	private void setParam(Boolean booleanParam, String selectorParam)
+	{
 		this.booleanParam = booleanParam;
 		this.selectorParam = selectorParam;
 	}

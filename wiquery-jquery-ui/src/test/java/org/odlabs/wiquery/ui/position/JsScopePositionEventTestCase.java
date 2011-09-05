@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.ui.position;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -14,29 +14,25 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Julien Roche
  */
-public class JsScopePositionEventTestCase extends WiQueryTestCase {
+public class JsScopePositionEventTestCase extends WiQueryTestCase
+{
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(JsScopePositionEventTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(JsScopePositionEventTestCase.class);
 
 	/**
 	 * Check the syntax
 	 */
 	@Test
-	public void testJsScopeSyntax() {
+	public void testJsScopeSyntax()
+	{
 		String expectedJavascript = "function(params) {\n\talert('test');\n}";
-		JsScopePositionEvent scopeUiEvent = new JsScopePositionEvent() {
+		JsScopePositionEvent scopeUiEvent = new JsScopePositionEvent()
+		{
 			private static final long serialVersionUID = 1L;
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs
-			 * .wiquery.core.javascript.JsScopeContext)
-			 */
 			@Override
-			protected void execute(JsScopeContext scopeContext) {
+			protected void execute(JsScopeContext scopeContext)
+			{
 				scopeContext.append("alert('test');");
 			}
 
@@ -60,10 +56,10 @@ public class JsScopePositionEventTestCase extends WiQueryTestCase {
 	 * Check the quickScope function
 	 */
 	@Test
-	public void testQuickScope() {
+	public void testQuickScope()
+	{
 		String expectedJavascript = "function(params) {\n\talert('test');\n}";
-		JsScopePositionEvent quickScope = JsScopePositionEvent
-				.quickScope("alert('test');");
+		JsScopePositionEvent quickScope = JsScopePositionEvent.quickScope("alert('test');");
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);
@@ -84,10 +80,11 @@ public class JsScopePositionEventTestCase extends WiQueryTestCase {
 	 * Check the quickScope function
 	 */
 	@Test
-	public void testQuickScopeJsStatement() {
+	public void testQuickScopeJsStatement()
+	{
 		String expectedJavascript = "function(params) {\n\talert('test');\n}";
-		JsScopePositionEvent quickScope = JsScopePositionEvent
-				.quickScope(new JsStatement().append("alert('test')"));
+		JsScopePositionEvent quickScope =
+			JsScopePositionEvent.quickScope(new JsStatement().append("alert('test')"));
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);
@@ -105,7 +102,8 @@ public class JsScopePositionEventTestCase extends WiQueryTestCase {
 	}
 
 	@Override
-	protected Logger getLog() {
+	protected Logger getLog()
+	{
 		return log;
 	}
 }

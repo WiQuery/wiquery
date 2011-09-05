@@ -21,37 +21,54 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
+import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ScaleEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
+ * hielke.hoeve@gmail.com $
  * <p>
- * 	References the JavaScript resource to import the Scale jQuery UI effect.
+ * References the JavaScript resource to import the Scale jQuery UI effect.
  * </p>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
-public class ScaleEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class ScaleEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	// Constants
-	/**	Constant of serialization */
+	/** Constant of serialization */
 	private static final long serialVersionUID = -3173953116856601631L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
-	private static ScaleEffectJavaScriptResourceReference instance = new ScaleEffectJavaScriptResourceReference();
+	private static ScaleEffectJavaScriptResourceReference instance =
+		new ScaleEffectJavaScriptResourceReference();
 
 	/**
 	 * Default constructor
 	 */
-	private ScaleEffectJavaScriptResourceReference() {
+	private ScaleEffectJavaScriptResourceReference()
+	{
 		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.scale.js");
 	}
 
 	/**
 	 * Returns the {@link ScaleEffectJavaScriptResourceReference} instance.
 	 */
-	public static ScaleEffectJavaScriptResourceReference get() {
+	public static ScaleEffectJavaScriptResourceReference get()
+	{
 		return instance;
+	}
+
+	@Override
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[1];
+		list[0] = CoreEffectJavaScriptResourceReference.get();
+
+		return list;
 	}
 }

@@ -13,43 +13,55 @@ import org.mozilla.javascript.Token1;
 /**
  * JavaScriptIdentifier represents a variable/function identifier.
  */
-class JavaScriptIdentifier extends JavaScriptToken {
+class JavaScriptIdentifier extends JavaScriptToken
+{
 
-    private int refcount = 0;
-    private String mungedValue;
-    private ScriptOrFnScope declaredScope;
-    private boolean markedForMunging = true;
+	private int refcount = 0;
 
-    JavaScriptIdentifier(String value, ScriptOrFnScope declaredScope) {
-        super(Token1.NAME, value);
-        this.declaredScope = declaredScope;
-    }
+	private String mungedValue;
 
-    ScriptOrFnScope getDeclaredScope() {
-        return declaredScope;
-    }
+	private ScriptOrFnScope declaredScope;
 
-    void setMungedValue(String value) {
-        mungedValue = value;
-    }
+	private boolean markedForMunging = true;
 
-    String getMungedValue() {
-        return mungedValue;
-    }
+	JavaScriptIdentifier(String value, ScriptOrFnScope declaredScope)
+	{
+		super(Token1.NAME, value);
+		this.declaredScope = declaredScope;
+	}
 
-    void preventMunging() {
-        markedForMunging = false;
-    }
+	ScriptOrFnScope getDeclaredScope()
+	{
+		return declaredScope;
+	}
 
-    boolean isMarkedForMunging() {
-        return markedForMunging;
-    }
+	void setMungedValue(String value)
+	{
+		mungedValue = value;
+	}
 
-    void incrementRefcount() {
-        refcount++;
-    }
+	String getMungedValue()
+	{
+		return mungedValue;
+	}
 
-    int getRefcount() {
-        return refcount;
-    }
+	void preventMunging()
+	{
+		markedForMunging = false;
+	}
+
+	boolean isMarkedForMunging()
+	{
+		return markedForMunging;
+	}
+
+	void incrementRefcount()
+	{
+		refcount++;
+	}
+
+	int getRefcount()
+	{
+		return refcount;
+	}
 }

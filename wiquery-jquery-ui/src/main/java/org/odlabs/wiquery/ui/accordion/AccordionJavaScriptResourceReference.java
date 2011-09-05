@@ -21,9 +21,6 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
@@ -39,36 +36,40 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class AccordionJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+public class AccordionJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+{
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static AccordionJavaScriptResourceReference instance = new AccordionJavaScriptResourceReference();
+	private static AccordionJavaScriptResourceReference instance =
+		new AccordionJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link AccordionJavaScriptResourceReference}.
 	 */
-	private AccordionJavaScriptResourceReference() {
-		super(AccordionJavaScriptResourceReference.class,
-				"jquery.ui.accordion.js");
+	private AccordionJavaScriptResourceReference()
+	{
+		super(AccordionJavaScriptResourceReference.class, "jquery.ui.accordion.js");
 	}
 
 	/**
 	 * Returns the {@link AccordionJavaScriptResourceReference} instance.
 	 */
-	public static AccordionJavaScriptResourceReference get() {
+	public static AccordionJavaScriptResourceReference get()
+	{
 		return instance;
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences() {
-		List<AbstractResourceDependentResourceReference> list = new ArrayList<AbstractResourceDependentResourceReference>();
-		list.add(CoreUIJavaScriptResourceReference.get());
-		list.add(WidgetJavaScriptResourceReference.get());
+	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	{
+		AbstractResourceDependentResourceReference[] list =
+			new AbstractResourceDependentResourceReference[2];
+		list[0] = CoreUIJavaScriptResourceReference.get();
+		list[1] = WidgetJavaScriptResourceReference.get();
 
-		return list.toArray(new AbstractResourceDependentResourceReference[0]);
+		return list;
 	}
 }

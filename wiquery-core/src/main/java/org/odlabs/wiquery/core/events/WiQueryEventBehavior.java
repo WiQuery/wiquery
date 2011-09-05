@@ -57,11 +57,6 @@ public class WiQueryEventBehavior extends WiQueryAbstractBehavior
 		this.event = event;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#bind(org.apache.wicket.Component)
-	 */
 	@Override
 	public void bind(Component component)
 	{
@@ -69,11 +64,6 @@ public class WiQueryEventBehavior extends WiQueryAbstractBehavior
 		component.setOutputMarkupId(true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
-	 */
 	@Override
 	public JsStatement statement()
 	{

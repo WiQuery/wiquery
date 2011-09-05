@@ -25,11 +25,15 @@ import java.io.Serializable;
 
 /**
  * Interface to represent an item of a list
+ * 
  * @author Julien Roche
- *
+ * 
  */
-public interface IListItemOption extends Serializable {
-	/**Method retrieving the javascript's representation of the option
+public interface IListItemOption extends Serializable
+{
+	/**
+	 * Method retrieving the javascript's representation of the option
+	 * 
 	 * @return
 	 */
 	public CharSequence getJavascriptOption();
