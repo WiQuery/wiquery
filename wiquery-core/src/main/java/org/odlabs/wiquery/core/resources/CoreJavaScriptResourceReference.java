@@ -53,7 +53,7 @@ public class CoreJavaScriptResourceReference extends WiQueryJavaScriptResourceRe
 	 */
 	private CoreJavaScriptResourceReference()
 	{
-		super(CoreJavaScriptResourceReference.class, "jquery-1.6.2.js");
+		super(CoreJavaScriptResourceReference.class, "jquery-1.6.3.js");
 	}
 
 }
