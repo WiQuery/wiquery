@@ -9,6 +9,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.IPageRequestHandler;
 import org.apache.wicket.resource.aggregation.ResourceReferenceAndStringData;
@@ -152,21 +153,18 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 
 		for (Component owner : ajaxRequestTarget.getComponents())
 		{
-			if (owner.determineVisibility())
+			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
+
+			if (owner instanceof WebMarkupContainer)
 			{
-				if (owner instanceof IWiQueryPlugin)
-				{
-					renderPlugin(ajaxRequestTarget, (IWiQueryPlugin) owner,
-						pluginRenderingListeners, this);
-				}
-				for (Behavior behavior : owner.getBehaviors())
-				{
-					if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(owner))
-					{
-						renderPlugin(ajaxRequestTarget, (IWiQueryPlugin) behavior,
-							pluginRenderingListeners, this);
-					}
-				}
+				((WebMarkupContainer) owner).visitChildren(visitor);
+			}
+
+			visitor.component(owner, new Visit<Void>());
+
+			for (IWiQueryPlugin plugin : visitor.getPlugins())
+			{
+				renderPlugin(ajaxRequestTarget, plugin, pluginRenderingListeners, this);
 			}
 		}
 	}
