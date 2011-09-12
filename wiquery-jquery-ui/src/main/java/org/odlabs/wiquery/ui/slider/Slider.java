@@ -67,6 +67,12 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin
 	public static final String UI_VALUE = "ui.value";
 
 	/**
+	 * Properties on the ui parameter (use it into callback functions) : Integers - all
+	 * handlers' values
+	 */
+	public static final String UI_VALUES = "ui.values";
+
+	/**
 	 * Enumeration for the orientation option
 	 * 
 	 * @author Lionel Armanet

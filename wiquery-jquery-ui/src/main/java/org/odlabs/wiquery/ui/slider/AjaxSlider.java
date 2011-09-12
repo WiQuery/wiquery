@@ -160,12 +160,11 @@ public class AjaxSlider extends Slider
 		@Override
 		protected void execute(JsScopeContext scopeContext)
 		{
-			scopeContext.append(new StringBuffer().append("var values = $(this).slider('values');")
-				.append("var url = '").append(slider.sliderContext.getCallbackUrl()).append("&")
-				.append(SLIDER_EVENT).append("=").append(event.name()).append("&")
-				.append(SLIDER_VALUE).append("=").append("'+").append(Slider.UI_VALUE)
-				.append("+'&").append(SLIDER_VALUES).append("=").append("'+")
-				.append("values")
+			scopeContext.append(new StringBuffer().append("var url = '")
+				.append(slider.sliderContext.getCallbackUrl()).append("&").append(SLIDER_EVENT)
+				.append("=").append(event.name()).append("&").append(SLIDER_VALUE).append("=")
+				.append("'+").append(Slider.UI_VALUE).append("+'&").append(SLIDER_VALUES)
+				.append("=").append("'+").append(Slider.UI_VALUES)
 				.append(";")
 				// delegating call-back generation to AJAX behavior
 				// so that we don't miss 'decorator' related functionality.
