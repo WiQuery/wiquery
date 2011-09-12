@@ -1,7 +1,8 @@
 package org.odlabs.wiquery.core;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MetaDataKey;
@@ -188,13 +189,13 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 
 	private static class WiQueryPluginCollector implements IVisitor<Component, Void>
 	{
-		private final List<IWiQueryPlugin> plugins = new ArrayList<IWiQueryPlugin>();
+		private final Set<IWiQueryPlugin> plugins = new HashSet<IWiQueryPlugin>();
 
 		private WiQueryPluginCollector()
 		{
 		}
 
-		public List<IWiQueryPlugin> getPlugins()
+		public Set<IWiQueryPlugin> getPlugins()
 		{
 			return plugins;
 		}
@@ -203,16 +204,25 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		{
 			if (component.determineVisibility())
 			{
+				boolean alreadyVisited = false;
 				if (component instanceof IWiQueryPlugin)
 				{
-					plugins.add((IWiQueryPlugin) component);
+					alreadyVisited = plugins.add((IWiQueryPlugin) component);
 				}
-				for (Behavior behavior : component.getBehaviors())
+
+				if (!alreadyVisited)
 				{
-					if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(component))
+					for (Behavior behavior : component.getBehaviors())
 					{
-						plugins.add((IWiQueryPlugin) behavior);
+						if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(component))
+						{
+							plugins.add((IWiQueryPlugin) behavior);
+						}
 					}
+				}
+				else
+				{
+					visit.dontGoDeeper();
 				}
 			}
 			else
