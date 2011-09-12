@@ -204,25 +204,17 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		{
 			if (component.determineVisibility())
 			{
-				boolean alreadyVisited = false;
 				if (component instanceof IWiQueryPlugin)
 				{
-					alreadyVisited = plugins.add((IWiQueryPlugin) component);
+					plugins.add((IWiQueryPlugin) component);
 				}
 
-				if (!alreadyVisited)
+				for (Behavior behavior : component.getBehaviors())
 				{
-					for (Behavior behavior : component.getBehaviors())
+					if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(component))
 					{
-						if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(component))
-						{
-							plugins.add((IWiQueryPlugin) behavior);
-						}
+						plugins.add((IWiQueryPlugin) behavior);
 					}
-				}
-				else
-				{
-					visit.dontGoDeeper();
 				}
 			}
 			else
