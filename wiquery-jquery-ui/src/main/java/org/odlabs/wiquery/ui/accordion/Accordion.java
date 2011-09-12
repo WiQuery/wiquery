@@ -99,7 +99,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin
 	 * 
 	 * @return the options
 	 */
-	protected Options getOptions()
+	public Options getOptions()
 	{
 		return options;
 	}
