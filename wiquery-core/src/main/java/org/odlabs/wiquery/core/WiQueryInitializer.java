@@ -60,6 +60,9 @@ public class WiQueryInitializer implements IInitializer
 
 	public void init(Application application)
 	{
+		Application.get().getComponentInstantiationListeners()
+			.add(new WiQueryPluginInstantiationListener());
+
 		// check for WiQuerySettings on the application
 		WiQuerySettings settings = application.getMetaData(WIQUERY_INSTANCE_KEY);
 
