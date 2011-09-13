@@ -21,9 +21,8 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -38,8 +37,7 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Lionel Armanet
  * @since 1.0
  */
-public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehavior implements
-		IWiQueryPlugin
+public abstract class WiqueryAjaxEffectBehavior extends WiQueryAbstractAjaxBehavior
 {
 	// Constants
 	/** Constant of serialization */
@@ -78,6 +76,7 @@ public abstract class WiqueryAjaxEffectBehavior extends AbstractDefaultAjaxBehav
 		return null;
 	}
 
+	@Override
 	public JsStatement statement()
 	{
 		JsQuery query = new JsQuery(this.getComponent());

@@ -24,8 +24,8 @@ package org.odlabs.wiquery.ui.selectable;
 import java.util.StringTokenizer;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
@@ -62,7 +62,7 @@ import org.odlabs.wiquery.ui.selectable.SelectableBehavior.ToleranceEnum;
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
+public abstract class SelectableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * We override the behavior to deny the access of critical methods
@@ -169,6 +169,7 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	@Override
 	protected void onBind()
 	{
+		super.onBind();
 		getComponent().add(selectableBehavior);
 	}
 
@@ -214,7 +215,8 @@ public abstract class SelectableAjaxBehavior extends AbstractDefaultAjaxBehavior
 		onSelection(target);
 	}
 
-	protected JsStatement statement()
+	@Override
+	public JsStatement statement()
 	{
 		return selectableBehavior.statement();
 	}

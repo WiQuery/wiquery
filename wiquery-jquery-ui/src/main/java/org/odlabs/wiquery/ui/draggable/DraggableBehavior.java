@@ -150,10 +150,10 @@ public class DraggableBehavior extends WiQueryAbstractBehavior
 	}
 
 	@Override
-	public void bind(Component component)
+	public void onBind()
 	{
-		options.setOwner(component);
-		super.bind(component);
+		super.onBind();
+		options.setOwner(getComponent());
 	}
 
 	@Override

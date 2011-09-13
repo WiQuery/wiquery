@@ -60,12 +60,12 @@ public class AjaxSlider extends Slider
 	 * 
 	 * @author Ernesto Reinaldo Barreiro
 	 */
-	private static abstract class SliderAjaxBehaivior extends AbstractDefaultAjaxBehavior
+	private static abstract class SliderAjaxBehavior extends AbstractDefaultAjaxBehavior
 	{
 
 		private static final long serialVersionUID = 1L;
 
-		public SliderAjaxBehaivior()
+		public SliderAjaxBehavior()
 		{
 		}
 
@@ -80,7 +80,7 @@ public class AjaxSlider extends Slider
 	/*
 	 * AJAX behavior needed for AJAX call-backs.
 	 */
-	private SliderAjaxBehaivior sliderContext;
+	private SliderAjaxBehavior sliderContext;
 
 	// parameters to be passed along the request.
 	/*
@@ -196,7 +196,7 @@ public class AjaxSlider extends Slider
 		super(id, min, max);
 
 		// Create a behavior needed for AJAX call-backs.
-		sliderContext = new SliderAjaxBehaivior()
+		sliderContext = new SliderAjaxBehavior()
 		{
 
 			private static final long serialVersionUID = 1L;

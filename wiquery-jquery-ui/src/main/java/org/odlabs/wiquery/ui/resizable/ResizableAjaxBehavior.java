@@ -22,9 +22,9 @@
 package org.odlabs.wiquery.ui.resizable;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
@@ -59,7 +59,7 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * @author Julien Roche
  * @since 1.0
  */
-public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior
+public abstract class ResizableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * We override the behavior to deny the access of critical methods
@@ -155,6 +155,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	@Override
 	protected void onBind()
 	{
+		super.onBind();
 		getComponent().add(resizableBehavior);
 	}
 
@@ -187,9 +188,7 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	/**
 	 * onDrop is called back when the drop event has been fired.
 	 * 
-	 * @param droppedComponent
-	 *            the dropped {@link Component}
-	 * @param ajaxRequestTarget
+	 * @param target
 	 *            the Ajax target
 	 */
 
@@ -199,7 +198,8 @@ public abstract class ResizableAjaxBehavior extends AbstractDefaultAjaxBehavior
 		onResize(target);
 	}
 
-	protected JsStatement statement()
+	@Override
+	public JsStatement statement()
 	{
 		return resizableBehavior.statement();
 	}

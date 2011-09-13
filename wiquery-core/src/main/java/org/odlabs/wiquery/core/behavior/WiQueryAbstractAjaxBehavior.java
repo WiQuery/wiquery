@@ -42,11 +42,5 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 	/** Constant of serialization */
 	private static final long serialVersionUID = 6498661892490365888L;
 
-	@Override
-	protected void onBind()
-	{
-		super.onBind();
-	}
-
 	public abstract JsStatement statement();
 }

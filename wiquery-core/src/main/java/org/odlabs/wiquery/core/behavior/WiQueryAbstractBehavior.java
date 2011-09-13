@@ -8,18 +8,48 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 // abstract entry point for all wiquery behaviors
 public abstract class WiQueryAbstractBehavior extends Behavior implements IWiQueryPlugin
 {
-	// Constants
-	/** Constant of serialization */
 	private static final long serialVersionUID = 6498661892490365888L;
 
-	// Properties
 	private Component component;
 
-	@Override
-	public void bind(Component component)
+	public WiQueryAbstractBehavior()
 	{
-		this.component = component;
-		super.bind(component);
+	}
+
+	/**
+	 * Bind this handler to the given component.
+	 * 
+	 * @param hostComponent
+	 *            the component to bind to
+	 */
+	@Override
+	public final void bind(final Component hostComponent)
+	{
+		if (hostComponent == null)
+		{
+			throw new IllegalArgumentException("Argument hostComponent must be not null");
+		}
+
+		if (component != null)
+		{
+			throw new IllegalStateException("this kind of handler cannot be attached to "
+				+ "multiple components; it is already attached to component " + component
+				+ ", but component " + hostComponent + " wants to be attached too");
+		}
+
+		component = hostComponent;
+
+		// call the callback
+		onBind();
+	}
+
+	/**
+	 * Called when the component was bound to it's host component. You can get the bound
+	 * host component by calling getComponent.
+	 */
+	protected void onBind()
+	{
+		getComponent().setOutputMarkupId(true);
 	}
 
 	/**

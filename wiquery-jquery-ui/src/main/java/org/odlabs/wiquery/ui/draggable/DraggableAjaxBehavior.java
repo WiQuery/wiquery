@@ -26,10 +26,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.Request;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -61,7 +61,7 @@ import org.odlabs.wiquery.ui.draggable.DraggableBehavior.SnapModeEnum;
  * @author Ernesto Reinaldo Barreiro
  * @since 1.0
  */
-public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
+public abstract class DraggableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 {
 	public enum DraggableEvent
 	{
@@ -375,6 +375,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	@Override
 	protected void onBind()
 	{
+		super.onBind();
 		getComponent().add(draggableBehavior);
 	}
 
@@ -425,7 +426,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * @param ajaxRequestTarget
 	 *            the Ajax target
 	 */
-	public abstract void onDrag(Component component, AjaxRequestTarget ajaxRequestTarget);
+	public abstract void onDrag(Component draggedComponent, AjaxRequestTarget ajaxRequestTarget);
 
 	/**
 	 * onInvalid is called back when the drag stop event has been fired and if the drag
@@ -441,7 +442,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * @param ajaxRequestTarget
 	 *            the Ajax target
 	 */
-	public void onInvalid(Component component, AjaxRequestTarget ajaxRequestTarget)
+	public void onInvalid(Component draggedComponent, AjaxRequestTarget ajaxRequestTarget)
 	{
 		// To override
 	}
@@ -454,7 +455,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * @param ajaxRequestTarget
 	 *            the Ajax target
 	 */
-	public abstract void onStart(Component component, AjaxRequestTarget ajaxRequestTarget);
+	public abstract void onStart(Component draggedComponent, AjaxRequestTarget ajaxRequestTarget);
 
 	/**
 	 * onStop is called back when the drag stop event has been fired.
@@ -483,7 +484,7 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * @param ajaxRequestTarget
 	 *            the Ajax target
 	 */
-	public void onValid(Component component, AjaxRequestTarget ajaxRequestTarget)
+	public void onValid(Component draggedComponent, AjaxRequestTarget ajaxRequestTarget)
 	{
 		// To override
 	}
@@ -494,7 +495,8 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
 		onDrag(target);
 	}
 
-	protected JsStatement statement()
+	@Override
+	public JsStatement statement()
 	{
 		return draggableBehavior.statement();
 	}
@@ -505,8 +507,6 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * generated script. This makes draggable behavior more compatible with standard
 	 * Wicket's AJAX call-backs.
 	 * 
-	 * @param onlyTargetActivePage
-	 * @param dragType
 	 * @return
 	 */
 	protected CharSequence getCallbackStopEventScript()
@@ -521,7 +521,6 @@ public abstract class DraggableAjaxBehavior extends AbstractDefaultAjaxBehavior
 	 * generated script. This makes draggable behavior more compatible with standard
 	 * Wicket's AJAX call-backs.
 	 * 
-	 * @param onlyTargetActivePage
 	 * @param dragType
 	 * @return
 	 */

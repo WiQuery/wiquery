@@ -25,9 +25,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
@@ -81,7 +81,7 @@ import org.odlabs.wiquery.ui.sortable.SortableBehavior.ToleranceEnum;
  * @author Ernesto Reinaldo Barreiro
  * @since 1.0
  */
-public abstract class SortableAjaxBehavior<E extends Component> extends AbstractDefaultAjaxBehavior
+public abstract class SortableAjaxBehavior<E extends Component> extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * We override the behavior to deny the access of critical methods
@@ -196,7 +196,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 					@Override
 					protected void execute(JsScopeContext scopeContext)
 					{
-						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptRemove(true));
+						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptRemove());
 					}
 
 				});
@@ -211,7 +211,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 					@Override
 					protected void execute(JsScopeContext scopeContext)
 					{
-						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptUpdate(true));
+						scopeContext.append(SortableAjaxBehavior.this.getCallbackScriptUpdate());
 					}
 
 				});
@@ -246,7 +246,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * 
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
-	protected CharSequence getCallbackScriptRemove(boolean onlyTargetActivePage)
+	protected CharSequence getCallbackScriptRemove()
 	{
 		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + SORTED_TYPE
 			+ "=" + SortedEvent.REMOVE.toString().toLowerCase() + "&" + SORTED_ID + "='+ $("
@@ -261,7 +261,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	 * 
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
-	protected CharSequence getCallbackScriptUpdate(boolean onlyTargetActivePage)
+	protected CharSequence getCallbackScriptUpdate()
 	{
 		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + SORTED_TYPE
 			+ "=" + SortedEvent.UPDATE.toString().toLowerCase() + "&" + SORTED_INDEX
@@ -341,6 +341,7 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 	@Override
 	protected void onBind()
 	{
+		super.onBind();
 		getComponent().add(sortableBehavior);
 	}
 
@@ -434,7 +435,8 @@ public abstract class SortableAjaxBehavior<E extends Component> extends Abstract
 		onSort(target);
 	}
 
-	protected JsStatement statement()
+	@Override
+	public JsStatement statement()
 	{
 		return sortableBehavior.statement();
 	}

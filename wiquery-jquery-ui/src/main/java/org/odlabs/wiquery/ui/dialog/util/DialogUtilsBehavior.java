@@ -198,7 +198,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior
 		}
 
 		/**
-		 * Method calculating the {@link JavascriptResourceReference} language
+		 * Method calculating the {@link WiQueryJavaScriptResourceReference} language
 		 * 
 		 * @param language
 		 * @return the resource

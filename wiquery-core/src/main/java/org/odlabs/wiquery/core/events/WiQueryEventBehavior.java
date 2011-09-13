@@ -21,7 +21,6 @@
  */
 package org.odlabs.wiquery.core.events;
 
-import org.apache.wicket.Component;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -55,13 +54,6 @@ public class WiQueryEventBehavior extends WiQueryAbstractBehavior
 	{
 		super();
 		this.event = event;
-	}
-
-	@Override
-	public void bind(Component component)
-	{
-		super.bind(component);
-		component.setOutputMarkupId(true);
 	}
 
 	@Override

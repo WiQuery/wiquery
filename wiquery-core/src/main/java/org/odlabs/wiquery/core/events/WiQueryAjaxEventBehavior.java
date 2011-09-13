@@ -21,8 +21,8 @@
  */
 package org.odlabs.wiquery.core.events;
 
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 
@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.javascript.JsScopeContext;
  * @author Lionel Armanet
  * @since 0.5
  */
-public abstract class WiQueryAjaxEventBehavior extends AbstractDefaultAjaxBehavior
+public abstract class WiQueryAjaxEventBehavior extends WiQueryAbstractAjaxBehavior
 {
 	// Constants
 	/** Constant of serialization */
@@ -61,6 +61,8 @@ public abstract class WiQueryAjaxEventBehavior extends AbstractDefaultAjaxBehavi
 	@Override
 	protected void onBind()
 	{
+		super.onBind();
+
 		this.getComponent().add(new WiQueryEventBehavior(new Event(this.events)
 		{
 
@@ -88,7 +90,6 @@ public abstract class WiQueryAjaxEventBehavior extends AbstractDefaultAjaxBehavi
 			}
 
 		}));
-		super.onBind();
 	}
 
 	@Override

@@ -22,9 +22,9 @@
 package org.odlabs.wiquery.ui.droppable;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
@@ -67,7 +67,7 @@ import org.odlabs.wiquery.ui.droppable.DroppableBehavior.ToleranceEnum;
  * @since 1.0
  */
 public abstract class DroppableAjaxBehavior<E extends Component> extends
-		AbstractDefaultAjaxBehavior
+		WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * We override the behavior to deny the access of critical methods (example, we don't
@@ -179,6 +179,7 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends
 	@Override
 	protected void onBind()
 	{
+		super.onBind();
 		getComponent().add(droppableBehavior);
 	}
 
@@ -213,7 +214,8 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends
 		onDrop(target);
 	}
 
-	protected JsStatement statement()
+	@Override
+	public JsStatement statement()
 	{
 		return droppableBehavior.statement();
 	}

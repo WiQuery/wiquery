@@ -151,13 +151,34 @@ public class JsQuery extends Behavior implements Serializable
 		}
 	}
 
-	/**
-	 * Adds this statement as a {@link HeaderContributor} for the given component.
-	 */
-	public void contribute(Component component)
+	@Override
+	public final void bind(Component hostComponent)
 	{
-		this.component = component;
-		component.add(this);
+		if (hostComponent == null)
+		{
+			throw new IllegalArgumentException("Argument hostComponent must be not null");
+		}
+
+		if (component != null)
+		{
+			throw new IllegalStateException("this kind of handler cannot be attached to "
+				+ "multiple components; it is already attached to component " + component
+				+ ", but component " + hostComponent + " wants to be attached too");
+		}
+
+		component = hostComponent;
+
+		// call the callback
+		onBind();
+	}
+
+	/**
+	 * Called when the component was bound to it's host component. You can get the bound
+	 * host component by calling getComponent.
+	 */
+	protected void onBind()
+	{
+		component.setOutputMarkupId(true);
 	}
 
 	/**
