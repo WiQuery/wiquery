@@ -82,7 +82,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	public void renderCSSReference(ResourceReference reference, String media)
 	{
 		if (isReferenceAllowed(reference))
-			super.renderCSSReference(reference);
+			super.renderCSSReference(reference, media);
 	}
 
 	@Override
