@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -189,7 +189,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 
 	private static class WiQueryPluginCollector implements IVisitor<Component, Void>
 	{
-		private final Set<IWiQueryPlugin> plugins = new HashSet<IWiQueryPlugin>();
+		private final Set<IWiQueryPlugin> plugins = new LinkedHashSet<IWiQueryPlugin>();
 
 		private WiQueryPluginCollector()
 		{
