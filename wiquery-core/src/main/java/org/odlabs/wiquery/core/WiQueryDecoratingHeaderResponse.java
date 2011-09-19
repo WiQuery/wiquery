@@ -1,8 +1,7 @@
 package org.odlabs.wiquery.core;
 
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MetaDataKey;
@@ -124,8 +123,8 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 			settings.getListeners();
 
 		WiQueryPluginCollector visitor = new WiQueryPluginCollector();
-		page.visitChildren(visitor);
 		visitor.component(page, new Visit<Void>());
+		page.visitChildren(visitor);
 
 		JsStatement jsStatement = new JsStatement();
 		for (IWiQueryPlugin plugin : visitor.getPlugins())
@@ -155,13 +154,12 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		for (Component owner : ajaxRequestTarget.getComponents())
 		{
 			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
+			visitor.component(owner, new Visit<Void>());
 
 			if (owner instanceof WebMarkupContainer)
 			{
 				((WebMarkupContainer) owner).visitChildren(visitor);
 			}
-
-			visitor.component(owner, new Visit<Void>());
 
 			for (IWiQueryPlugin plugin : visitor.getPlugins())
 			{
@@ -189,13 +187,13 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 
 	private static class WiQueryPluginCollector implements IVisitor<Component, Void>
 	{
-		private final Set<IWiQueryPlugin> plugins = new LinkedHashSet<IWiQueryPlugin>();
+		private final LinkedList<IWiQueryPlugin> plugins = new LinkedList<IWiQueryPlugin>();
 
 		private WiQueryPluginCollector()
 		{
 		}
 
-		public Set<IWiQueryPlugin> getPlugins()
+		public LinkedList<IWiQueryPlugin> getPlugins()
 		{
 			return plugins;
 		}
@@ -206,14 +204,14 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 			{
 				if (component instanceof IWiQueryPlugin)
 				{
-					plugins.add((IWiQueryPlugin) component);
+					plugins.add(0, (IWiQueryPlugin) component);
 				}
 
 				for (Behavior behavior : component.getBehaviors())
 				{
 					if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(component))
 					{
-						plugins.add((IWiQueryPlugin) behavior);
+						plugins.add(0, (IWiQueryPlugin) behavior);
 					}
 				}
 			}

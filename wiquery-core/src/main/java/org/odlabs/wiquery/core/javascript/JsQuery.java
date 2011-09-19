@@ -198,6 +198,18 @@ public class JsQuery extends Behavior implements Serializable
 	}
 
 	/**
+	 * Adds this statement as Behavior to the component. When the page or ajax request is
+	 * rendered this statement will be added.
+	 * 
+	 * @deprecated use {@link Component#add(Behavior...)}.
+	 */
+	@Deprecated
+	public void contribute(Component component)
+	{
+		component.add(this);
+	}
+
+	/**
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
 	public void renderHead(IHeaderResponse response, IRequestHandler requestHandler)
