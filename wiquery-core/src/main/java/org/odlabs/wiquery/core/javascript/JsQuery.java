@@ -159,7 +159,7 @@ public class JsQuery extends Behavior implements Serializable
 			throw new IllegalArgumentException("Argument hostComponent must be not null");
 		}
 
-		if (component != null)
+		if (component != null && component != hostComponent)
 		{
 			throw new IllegalStateException("this kind of handler cannot be attached to "
 				+ "multiple components; it is already attached to component " + component
