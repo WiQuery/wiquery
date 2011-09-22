@@ -24,7 +24,6 @@ package org.odlabs.wiquery.core.javascript;
 import java.io.Serializable;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
@@ -134,20 +133,18 @@ public class JsQuery extends Behavior implements Serializable
 
 		if (!WiQueryUtil.isCurrentRequestAjax())
 		{
-			// appending component statement
-			// on dom ready, the code is executed.
+			// appending component statement on dom ready, the code is executed.
 			JsStatement onreadyStatement = new JsStatement();
-			onreadyStatement.document().ready(JsScope.quickScope(JsQuery.this.statement.render()));
+			String js = statement.render().toString();
+			onreadyStatement.document().ready(JsScope.quickScope(js));
 
-			StringBuilder responseString = new StringBuilder();
-			responseString.append("<script type=\"text/javascript\">")
-				.append(onreadyStatement.render()).append("</script>");
-
-			response.renderString(responseString.toString());
+			response.renderJavaScript(WiqueryGeneratedJavaScriptResource
+				.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), Integer.toString(js
+				.hashCode()));
 		}
 		else
 		{
-			addAjaxJavascript(AjaxRequestTarget.get(), statement.render().toString());
+			response.renderOnDomReadyJavaScript(statement.render().toString());
 		}
 	}
 
@@ -231,19 +228,8 @@ public class JsQuery extends Behavior implements Serializable
 			}
 			else
 			{
-				addAjaxJavascript(requestHandler, js);
+				response.renderOnDomReadyJavaScript(js);
 			}
 		}
-	}
-
-	/**
-	 * Private method to add javascript into the ajax request pool
-	 * 
-	 * @param js
-	 */
-	private void addAjaxJavascript(IRequestHandler requestHandler, final String js)
-	{
-		AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestHandler;
-		ajaxRequestTarget.getHeaderResponse().renderOnDomReadyJavaScript(js);
 	}
 }

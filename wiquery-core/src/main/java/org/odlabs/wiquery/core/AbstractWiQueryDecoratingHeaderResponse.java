@@ -18,6 +18,7 @@ import org.apache.wicket.resource.dependencies.AbstractResourceDependentResource
 import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.CssUtils;
 import org.apache.wicket.util.string.JavaScriptUtils;
+import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryStyleSheetResourceReference;
@@ -55,7 +56,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 
 	protected WiQuerySettings settings = WiQuerySettings.get();
 
-	private Deque<IToken> thingsToBeRendered = new LinkedBlockingDeque<IToken>();
+	private Deque<AbstractToken> thingsToBeRendered = new LinkedBlockingDeque<AbstractToken>();
 
 	public AbstractWiQueryDecoratingHeaderResponse(IHeaderResponse real)
 	{
@@ -66,8 +67,9 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	public void renderCSS(CharSequence css, String id)
 	{
 		Args.notNull(css, "css");
+		Args.notNull(id, "id");
 
-		IToken token = new CssToken(css, id);
+		AbstractToken token = new CssToken(css, id);
 		thingsToBeRendered.add(token);
 	}
 
@@ -123,8 +125,9 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	public void renderJavaScript(CharSequence javascript, String id)
 	{
 		Args.notNull(javascript, "javascript");
+		Args.notNull(id, "id");
 
-		IToken token = new JavascriptToken(javascript, id);
+		AbstractToken token = new JavascriptToken(javascript, id);
 		thingsToBeRendered.add(token);
 	}
 
@@ -195,7 +198,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	{
 		Args.notNull(string, "string");
 
-		IToken token = new StringToken(string);
+		AbstractToken token = new StringToken(string, Integer.toString(string.hashCode()));
 		thingsToBeRendered.add(token);
 	}
 
@@ -218,9 +221,10 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		Args.notNull(event, "event");
 		Args.notNull(javascript, "javascript");
 
-		IToken token =
+		AbstractToken token =
 			new JavascriptToken("Wicket.Event.add(" + target + ", \"" + event
-				+ "\", function(event) { " + javascript + ";});", null);
+				+ "\", function(event) { " + javascript + ";});", Integer.toString(javascript
+				.hashCode()));
 		thingsToBeRendered.add(token);
 
 		renderJavaScriptReference(WicketEventReference.INSTANCE);
@@ -243,10 +247,10 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 			return;
 		}
 
-		Iterator<IToken> jsIter = thingsToBeRendered.iterator();
+		Iterator<AbstractToken> jsIter = thingsToBeRendered.iterator();
 		while (jsIter.hasNext())
 		{
-			IToken token = jsIter.next();
+			AbstractToken token = jsIter.next();
 			{
 				if (wasRendered(token.getId()) == false)
 				{
@@ -335,25 +339,24 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		return true;
 	}
 
-	private interface IToken
-	{
-		CharSequence getValue();
-
-		String getId();
-
-		/**
-		 * Renders the value and id in the correct form to the Response.
-		 */
-		void render(Response response);
-	}
-
-	private class StringToken implements IToken
+	private abstract class AbstractToken
 	{
 		private CharSequence value;
 
-		public StringToken(CharSequence value)
+		private String id;
+
+		/**
+		 * @param value
+		 * @param id
+		 *            when null or empty a substring of value is used to generate an id,
+		 *            if all fails "-1" is used.
+		 */
+		public AbstractToken(CharSequence value, String id)
 		{
 			this.value = value;
+			this.id =
+				!Strings.isEmpty(id) ? id : (!Strings.isEmpty(value) ? Integer.toString(value
+					.subSequence(0, Math.min(15, value.length())).hashCode()) : "-1");
 		}
 
 		public CharSequence getValue()
@@ -363,65 +366,51 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 
 		public String getId()
 		{
-			return value != null ? value.toString() : null;
+			return id;
 		}
 
+		/**
+		 * Renders the value and id in the correct form to the Response.
+		 */
+		public abstract void render(Response response);
+	}
+
+	private class StringToken extends AbstractToken
+	{
+		public StringToken(CharSequence value, String id)
+		{
+			super(value, id);
+		}
+
+		@Override
 		public void render(Response response)
 		{
 			getResponse().write(getValue());
 		}
 	}
 
-	private class JavascriptToken implements IToken
+	private class JavascriptToken extends AbstractToken
 	{
-		private CharSequence value;
-
-		private String id;
-
 		public JavascriptToken(CharSequence value, String id)
 		{
-			this.value = value;
-			this.id = id;
+			super(value, id);
 		}
 
-		public CharSequence getValue()
-		{
-			return value;
-		}
-
-		public String getId()
-		{
-			return id;
-		}
-
+		@Override
 		public void render(Response response)
 		{
 			JavaScriptUtils.writeJavaScript(getResponse(), getValue(), getId());
 		}
 	}
 
-	private class CssToken implements IToken
+	private class CssToken extends AbstractToken
 	{
-		private CharSequence value;
-
-		private String id;
-
 		public CssToken(CharSequence value, String id)
 		{
-			this.value = value;
-			this.id = id;
+			super(value, id);
 		}
 
-		public CharSequence getValue()
-		{
-			return value;
-		}
-
-		public String getId()
-		{
-			return id;
-		}
-
+		@Override
 		public void render(Response response)
 		{
 			getResponse().write(CssUtils.INLINE_OPEN_TAG + getValue() + CssUtils.INLINE_CLOSE_TAG);
