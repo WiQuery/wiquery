@@ -159,6 +159,14 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	}
 
 	@Override
+	public void renderJavaScriptReference(ResourceReference reference,
+			PageParameters pageParameters, String id, boolean defer, String charset)
+	{
+		if (isReferenceAllowed(reference))
+			super.renderJavaScriptReference(reference, pageParameters, id, defer, charset);
+	}
+
+	@Override
 	public void renderJavaScriptReference(String url)
 	{
 		super.renderJavaScriptReference(url);
@@ -189,6 +197,18 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 
 		IToken token = new StringToken(string);
 		thingsToBeRendered.add(token);
+	}
+
+	@Override
+	public void renderOnDomReadyJavaScript(String javascript)
+	{
+		renderOnEventJavaScript("window", "domready", javascript);
+	}
+
+	@Override
+	public void renderOnLoadJavaScript(String javascript)
+	{
+		renderOnEventJavaScript("window", "load", javascript);
 	}
 
 	@Override
