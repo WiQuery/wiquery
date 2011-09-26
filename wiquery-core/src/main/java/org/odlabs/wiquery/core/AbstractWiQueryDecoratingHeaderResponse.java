@@ -67,7 +67,6 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	public void renderCSS(CharSequence css, String id)
 	{
 		Args.notNull(css, "css");
-		Args.notNull(id, "id");
 
 		AbstractToken token = new CssToken(css, id);
 		thingsToBeRendered.add(token);
@@ -125,7 +124,6 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	public void renderJavaScript(CharSequence javascript, String id)
 	{
 		Args.notNull(javascript, "javascript");
-		Args.notNull(id, "id");
 
 		AbstractToken token = new JavascriptToken(javascript, id);
 		thingsToBeRendered.add(token);
