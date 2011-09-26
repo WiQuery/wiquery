@@ -24,11 +24,8 @@ package org.odlabs.wiquery.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.IInitializer;
@@ -109,8 +106,9 @@ public class WiQueryInitializer implements IInitializer
 		try
 		{
 			// Load properties files used by all libraries
-
-			final Iterator<URL> resources = getResources("wiquery.properties");
+			final Iterator<URL> resources =
+				application.getApplicationSettings().getClassResolver()
+					.getResources("wiquery.properties");
 			while (resources.hasNext())
 			{
 				InputStream in = null;
@@ -135,55 +133,6 @@ public class WiQueryInitializer implements IInitializer
 
 		// now call any initializers we read
 		callInitializers(application, wiQuerySettings);
-	}
-
-	/**
-	 * 
-	 * @see org.apache.wicket.application.IClassResolver#getResources(java.lang.String)
-	 */
-	public Iterator<URL> getResources(String name)
-	{
-		HashSet<URL> loadedFiles = new HashSet<URL>();
-		try
-		{
-			// Try the classloader for the wiquery jar/bundle
-			Enumeration<URL> resources = WiQuerySettings.class.getClassLoader().getResources(name);
-			loadResources(resources, loadedFiles);
-
-			// Try the classloader for the user's application jar/bundle
-			resources = Application.get().getClass().getClassLoader().getResources(name);
-			loadResources(resources, loadedFiles);
-
-			// Try the context class loader
-			resources = Thread.currentThread().getContextClassLoader().getResources(name);
-			loadResources(resources, loadedFiles);
-		}
-		catch (IOException e)
-		{
-			throw new WicketRuntimeException(e);
-		}
-
-		return loadedFiles.iterator();
-	}
-
-	/**
-	 * 
-	 * @param resources
-	 * @param loadedFiles
-	 */
-	private void loadResources(Enumeration<URL> resources, Set<URL> loadedFiles)
-	{
-		if (resources != null)
-		{
-			while (resources.hasMoreElements())
-			{
-				final URL url = resources.nextElement();
-				if (!loadedFiles.contains(url))
-				{
-					loadedFiles.add(url);
-				}
-			}
-		}
 	}
 
 	/**

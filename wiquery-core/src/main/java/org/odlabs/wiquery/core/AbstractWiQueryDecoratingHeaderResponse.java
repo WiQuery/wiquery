@@ -56,11 +56,17 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 
 	protected WiQuerySettings settings = WiQuerySettings.get();
 
-	private Deque<AbstractToken> thingsToBeRendered = new LinkedBlockingDeque<AbstractToken>();
+	private final Deque<AbstractToken> thingsToBeRendered =
+		new LinkedBlockingDeque<AbstractToken>();
 
 	public AbstractWiQueryDecoratingHeaderResponse(IHeaderResponse real)
 	{
 		super(real);
+	}
+
+	public void addThingToBeRendered(AbstractToken token)
+	{
+		thingsToBeRendered.add(token);
 	}
 
 	@Override
@@ -69,7 +75,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		Args.notNull(css, "css");
 
 		AbstractToken token = new CssToken(css, id);
-		thingsToBeRendered.add(token);
+		addThingToBeRendered(token);
 	}
 
 	@Override
@@ -126,7 +132,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		Args.notNull(javascript, "javascript");
 
 		AbstractToken token = new JavascriptToken(javascript, id);
-		thingsToBeRendered.add(token);
+		addThingToBeRendered(token);
 	}
 
 	@Override
@@ -197,7 +203,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		Args.notNull(string, "string");
 
 		AbstractToken token = new StringToken(string, Integer.toString(string.hashCode()));
-		thingsToBeRendered.add(token);
+		addThingToBeRendered(token);
 	}
 
 	@Override
@@ -223,7 +229,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 			new JavascriptToken("Wicket.Event.add(" + target + ", \"" + event
 				+ "\", function(event) { " + javascript + ";});", Integer.toString(javascript
 				.hashCode()));
-		thingsToBeRendered.add(token);
+		addThingToBeRendered(token);
 
 		renderJavaScriptReference(WicketEventReference.INSTANCE);
 	}
@@ -337,7 +343,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		return true;
 	}
 
-	private abstract class AbstractToken
+	protected abstract class AbstractToken
 	{
 		private CharSequence value;
 
@@ -373,7 +379,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		public abstract void render(Response response);
 	}
 
-	private class StringToken extends AbstractToken
+	public final class StringToken extends AbstractToken
 	{
 		public StringToken(CharSequence value, String id)
 		{
@@ -387,7 +393,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		}
 	}
 
-	private class JavascriptToken extends AbstractToken
+	public final class JavascriptToken extends AbstractToken
 	{
 		public JavascriptToken(CharSequence value, String id)
 		{
@@ -401,7 +407,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		}
 	}
 
-	private class CssToken extends AbstractToken
+	public final class CssToken extends AbstractToken
 	{
 		public CssToken(CharSequence value, String id)
 		{
