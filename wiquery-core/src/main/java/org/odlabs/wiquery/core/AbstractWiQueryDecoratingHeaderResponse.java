@@ -202,7 +202,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	{
 		Args.notNull(string, "string");
 
-		AbstractToken token = new StringToken(string, Integer.toString(string.hashCode()));
+		AbstractToken token = new StringToken(string);
 		addThingToBeRendered(token);
 	}
 
@@ -358,9 +358,16 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		public AbstractToken(CharSequence value, String id)
 		{
 			this.value = value;
-			this.id =
-				!Strings.isEmpty(id) ? id : (!Strings.isEmpty(value) ? Integer.toString(value
-					.subSequence(0, Math.min(15, value.length())).hashCode()) : "-1");
+
+			if (!Strings.isEmpty(id))
+				this.id = id;
+			else if (!Strings.isEmpty(value))
+				this.id =
+					"wiquery-"
+						+ Integer.toString(value.subSequence(0, Math.min(15, value.length()))
+							.hashCode());
+			else
+				this.id = "wiquery-1";
 		}
 
 		public CharSequence getValue()
@@ -381,9 +388,9 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 
 	public final class StringToken extends AbstractToken
 	{
-		public StringToken(CharSequence value, String id)
+		public StringToken(CharSequence value)
 		{
-			super(value, id);
+			super(value, null);
 		}
 
 		@Override
