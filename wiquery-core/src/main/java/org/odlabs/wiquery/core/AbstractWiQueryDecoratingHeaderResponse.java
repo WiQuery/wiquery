@@ -18,7 +18,6 @@ import org.apache.wicket.resource.dependencies.AbstractResourceDependentResource
 import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.CssUtils;
 import org.apache.wicket.util.string.JavaScriptUtils;
-import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryStyleSheetResourceReference;
@@ -256,10 +255,10 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		{
 			AbstractToken token = jsIter.next();
 			{
-				if (wasRendered(token.getId()) == false)
+				if (wasRendered(token) == false)
 				{
 					token.render(getResponse());
-					markRendered(token.getId());
+					markRendered(token);
 				}
 			}
 		}
@@ -358,16 +357,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		public AbstractToken(CharSequence value, String id)
 		{
 			this.value = value;
-
-			if (!Strings.isEmpty(id))
-				this.id = id;
-			else if (!Strings.isEmpty(value))
-				this.id =
-					"wiquery-"
-						+ Integer.toString(value.subSequence(0, Math.min(15, value.length()))
-							.hashCode());
-			else
-				this.id = "wiquery-1";
+			this.id = id;
 		}
 
 		public CharSequence getValue()
@@ -378,6 +368,23 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		public String getId()
 		{
 			return id;
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return value.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object obj)
+		{
+			if (obj instanceof AbstractToken)
+			{
+				return ((AbstractToken) obj).getValue().equals(value)
+					&& getClass().equals(obj.getClass());
+			}
+			return false;
 		}
 
 		/**

@@ -139,8 +139,7 @@ public class JsQuery extends Behavior implements Serializable
 			onreadyStatement.document().ready(JsScope.quickScope(js));
 
 			response.renderJavaScript(WiqueryGeneratedJavaScriptResource
-				.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), Integer.toString(js
-				.hashCode()));
+				.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), null);
 		}
 		else
 		{
