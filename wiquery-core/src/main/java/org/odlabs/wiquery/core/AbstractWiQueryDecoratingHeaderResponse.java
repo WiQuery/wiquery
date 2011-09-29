@@ -226,8 +226,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 
 		AbstractToken token =
 			new JavascriptToken("Wicket.Event.add(" + target + ", \"" + event
-				+ "\", function(event) { " + javascript + ";});", Integer.toString(javascript
-				.hashCode()));
+				+ "\", function(event) { " + javascript + ";});", null);
 		addThingToBeRendered(token);
 
 		renderJavaScriptReference(WicketEventReference.INSTANCE);
