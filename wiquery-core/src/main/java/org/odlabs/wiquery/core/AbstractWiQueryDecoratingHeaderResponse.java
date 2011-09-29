@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.WicketEventReference;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ResourceReference;
@@ -23,6 +22,7 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryStyleSheetResourceReference;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.core.ui.IWiQueryCoreThemeResourceReference;
+import org.odlabs.wiquery.core.util.WiQueryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -208,13 +208,19 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	@Override
 	public void renderOnDomReadyJavaScript(String javascript)
 	{
-		renderOnEventJavaScript("window", "domready", javascript);
+		if (WiQueryUtil.isCurrentRequestAjax())
+			super.renderOnDomReadyJavaScript(javascript);
+		else
+			renderOnEventJavaScript("document", "ready", javascript);
 	}
 
 	@Override
 	public void renderOnLoadJavaScript(String javascript)
 	{
-		renderOnEventJavaScript("window", "load", javascript);
+		if (WiQueryUtil.isCurrentRequestAjax())
+			super.renderOnLoadJavaScript(javascript);
+		else
+			renderOnEventJavaScript("window", "load", javascript);
 	}
 
 	@Override
@@ -225,11 +231,9 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		Args.notNull(javascript, "javascript");
 
 		AbstractToken token =
-			new JavascriptToken("Wicket.Event.add(" + target + ", \"" + event
-				+ "\", function(event) { " + javascript + ";});", null);
+			new JavascriptToken("$(" + target + ")." + event + "(function(event){" + javascript
+				+ "});", null);
 		addThingToBeRendered(token);
-
-		renderJavaScriptReference(WicketEventReference.INSTANCE);
 	}
 
 	/**
