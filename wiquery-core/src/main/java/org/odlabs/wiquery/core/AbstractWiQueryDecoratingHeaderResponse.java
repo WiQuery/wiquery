@@ -273,6 +273,9 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	@Override
 	protected String newGroupingKey(ResourceReferenceAndStringData ref)
 	{
+		if (ref.getReference() == null || ref.getReference().getScope() == null)
+			return null;
+
 		String packageName = ref.getReference().getScope().getPackage().getName();
 		String preconfiguredKey = WiQuerySettings.get().findResourceGroupingKey(packageName);
 		if (preconfiguredKey != null)
