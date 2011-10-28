@@ -10,6 +10,8 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.request.IRequestHandler;
+import org.apache.wicket.request.IRequestHandlerDelegate;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.IPageRequestHandler;
 import org.apache.wicket.resource.aggregation.ResourceReferenceAndStringData;
@@ -74,11 +76,12 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		log.debug("WiQuery contribution starts!");
 
 		AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
+		final IRequestHandler activeRequestHandler = getActiveRequestHandler();
 		if (ajaxRequestTarget != null)
 		{
 			renderAjaxResponse(ajaxRequestTarget);
 		}
-		else if (RequestCycle.get().getActiveRequestHandler() instanceof IPageRequestHandler)
+		else if (activeRequestHandler instanceof IPageRequestHandler)
 		{
 			renderResponse();
 		}
@@ -92,6 +95,14 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 			+ "ms!");
 	}
 
+	private IRequestHandler getActiveRequestHandler()
+	{
+		IRequestHandler ret = RequestCycle.get().getActiveRequestHandler();
+		while (ret instanceof IRequestHandlerDelegate)
+			ret = ((IRequestHandlerDelegate) ret).getDelegateHandler();
+		return ret;
+	}
+
 	/**
 	 * Contribute the ondomready statement to the response.
 	 */
@@ -99,7 +110,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 	protected void onAllCollectionsRendered(
 			List<ResourceReferenceAndStringData> allTopLevelReferences)
 	{
-		jsq.renderHead(this, RequestCycle.get().getActiveRequestHandler());
+		jsq.renderHead(this, getActiveRequestHandler());
 		jsq = new JsQuery();
 
 		super.onAllCollectionsRendered(allTopLevelReferences);
@@ -107,8 +118,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 
 	private void renderResponse()
 	{
-		Page page =
-			(Page) ((IPageRequestHandler) RequestCycle.get().getActiveRequestHandler()).getPage();
+		Page page = (Page) ((IPageRequestHandler) getActiveRequestHandler()).getPage();
 		Long renderTime = page.getMetaData(WIQUERY_PAGE_KEY);
 		Boolean rendered =
 			renderTime != null && renderTime.equals(RequestCycle.get().getStartTime());
