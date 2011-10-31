@@ -301,7 +301,14 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 				int o2index = settings.getResourceGroupingKeys().indexOf(o2);
 
 				if (o1index < 0 && o2index < 0)
-					return o1.compareToIgnoreCase(o2);
+				{
+					if (o1 == null)
+						return o2 == null ? 0 : 1;
+					else if (o2 == null)
+						return -1;
+					else
+						return o1.compareToIgnoreCase(o2);
+				}
 				else if (o1index < 0)
 					o1index = Integer.MAX_VALUE;
 				else if (o2index < 0)
