@@ -155,7 +155,7 @@ public class SliderRange implements IComplexOption
 	/**
 	 * Set's the literal parameter
 	 * 
-	 * @param literalParam
+	 * @param rangeEnumParam
 	 *            the literal to set
 	 */
 	public void setRangeEnumParam(RangeEnum rangeEnumParam)
