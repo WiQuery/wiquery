@@ -185,6 +185,15 @@ public class SliderTestCase extends WiQueryTestCase
 		assertEquals(slider.getValues().getJavascriptOption().toString(), "[5]");
 	}
 
+	@Test
+	public void testGetValues1()
+	{
+		assertNull(slider.getValues());
+		slider.setValues(4, 5);
+		assertNotNull(slider.getValues());
+		assertEquals(slider.getValues().getJavascriptOption().toString(), "[4,5]");
+	}
+
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#isAnimate()}.
 	 */
