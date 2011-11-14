@@ -108,24 +108,6 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	}
 
 	@Override
-	public void renderCSSReference(String url)
-	{
-		super.renderCSSReference(url);
-	}
-
-	@Override
-	public void renderCSSReference(String url, String media)
-	{
-		super.renderCSSReference(url, media);
-	}
-
-	@Override
-	public void renderCSSReference(String url, String media, String condition)
-	{
-		super.renderCSSReference(url, media, condition);
-	}
-
-	@Override
 	public void renderJavaScript(CharSequence javascript, String id)
 	{
 		Args.notNull(javascript, "javascript");
@@ -170,39 +152,6 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 	{
 		if (isReferenceAllowed(reference))
 			super.renderJavaScriptReference(reference, pageParameters, id, defer, charset);
-	}
-
-	@Override
-	public void renderJavaScriptReference(String url)
-	{
-		super.renderJavaScriptReference(url);
-	}
-
-	@Override
-	public void renderJavaScriptReference(String url, String id)
-	{
-		super.renderJavaScriptReference(url, id);
-	}
-
-	@Override
-	public void renderJavaScriptReference(String url, String id, boolean defer)
-	{
-		super.renderJavaScriptReference(url, id, defer);
-	}
-
-	@Override
-	public void renderJavaScriptReference(String url, String id, boolean defer, String charset)
-	{
-		super.renderJavaScriptReference(url, id, defer, charset);
-	}
-
-	@Override
-	public void renderString(CharSequence string)
-	{
-		Args.notNull(string, "string");
-
-		AbstractToken token = new StringToken(string);
-		addThingToBeRendered(token);
 	}
 
 	@Override
