@@ -82,7 +82,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin
 	{
 		VERTICAL,
 		HORIZONTAL
-	};
+	}
 
 	// Properties
 	private Options options;
@@ -418,6 +418,27 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin
 	}
 
 	/**
+	 * This option can be used to specify multiple handles. If range is set to true, the
+	 * length of 'values' should be 2.
+	 * 
+	 * @param value1
+	 * @param value2
+	 * @return instance of the current component
+	 */
+	public Slider setValues(Integer value1, Integer value2)
+	{
+		if (value1 != null && value2 != null)
+		{
+			ArrayItemOptions<IntegerItemOptions> options =
+				new ArrayItemOptions<IntegerItemOptions>();
+			options.add(new IntegerItemOptions(value1));
+			options.add(new IntegerItemOptions(value2));
+			this.options.put("values", options);
+		}
+		return this;
+	}
+
+	/**
 	 * @return the values option value
 	 */
 	public ICollectionItemOptions getValues()
@@ -460,7 +481,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin
 	 * (single-handled sliders) to obtain the value of the current handle,
 	 * $(..).slider('value', index) to get another handles' value.
 	 * 
-	 * @param start
+	 * @param slide
 	 * @return instance of the current component
 	 */
 	public Slider setSlideEvent(JsScopeUiEvent slide)
