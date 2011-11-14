@@ -275,7 +275,7 @@ public class AjaxSlider extends Slider
 		}
 		catch (NumberFormatException e)
 		{
-			return 0;
+			return defaultValue;
 		}
 	}
 
