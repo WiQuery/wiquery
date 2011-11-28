@@ -23,12 +23,11 @@ package org.odlabs.wiquery.ui.autocomplete;
 
 import java.util.List;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.WicketAjaxReference;
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.WicketEventReference;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.HiddenField;
@@ -87,8 +86,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		@Override
 		public void renderHead(IHeaderResponse response)
 		{
-			response.renderJavaScriptReference(WicketEventReference.INSTANCE);
-			response.renderJavaScriptReference(WicketAjaxReference.INSTANCE);
+			response.renderJavaScriptReference(Application.get().getAjaxSettings()
+				.getWicketAjaxReference());
 			response
 				.renderJavaScriptReference(WiQueryAutocompleteJavaScriptResourceReference.get());
 		}
