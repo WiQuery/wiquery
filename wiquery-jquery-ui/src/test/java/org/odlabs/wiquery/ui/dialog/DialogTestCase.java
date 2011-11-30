@@ -266,8 +266,21 @@ public class DialogTestCase extends WiQueryTestCase
 		dialog.setTitle(new Model<String>("a title2"));
 		assertEquals(dialog.getTitle(), "a title2");
 
-		DialogTestPage page = (DialogTestPage) tester.startPage(DialogTestPage.class);
+		DialogTestPage page = tester.startPage(DialogTestPage.class);
 		assertEquals(page.getDialog().getTitle(), "This is a title");
+	}
+
+	@Test
+	public void testAjaxButton()
+	{
+
+		AjaxDialogTestPage page = tester.startPage(AjaxDialogTestPage.class);
+		String realValue = page.getOk().getJavascriptOption().toString();
+		String expectedOk =
+			"'Ok':function() {\n\t"
+				+ "var url = '../page?1-1.IBehaviorListener.0-dialog&BUTTON_ID=Ok';var wcall=wicketAjaxGet(url,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('dialog1') != null;}.bind(this));"
+				+ "\n}";
+		assertEquals(realValue, expectedOk);
 	}
 
 	/**
