@@ -21,9 +21,11 @@
  */
 package org.odlabs.wiquery.ui.dialog;
 
+import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.protocol.http.WebRequestCycle;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -33,6 +35,7 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.button.ButtonJavascriptResourceReference;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.dialog.AjaxDialogButton.AjaxDialogScope;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
 import org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference;
@@ -60,6 +63,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
  * </p>
  * 
  * @author Lionel Armanet
+ * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 0.5
  */
 @WiQueryUIPlugin
@@ -76,11 +80,39 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public static enum WindowPosition {
 		TOP, BOTTOM, CENTER, LEFT, RIGHT
 	};
-
+	
 	/**
 	 * Some options can be set on a {@link Dialog}.
 	 */
 	private Options options;
+	
+	public static final String BUTTON_ID = "BUTTON_ID";
+	
+	/**
+	 * This class is only need to make public the method generateCallbackScript.
+	 * 
+	 * @author Ernesto Reinaldo Barreiro
+	 */
+	public static abstract class DialogAjaxBehavior extends AbstractDefaultAjaxBehavior
+	{
+
+		private static final long serialVersionUID = 1L;
+
+		public DialogAjaxBehavior()
+		{
+		}
+
+		@Override
+		public CharSequence generateCallbackScript(CharSequence partialCall)
+		{
+			return super.generateCallbackScript(partialCall);
+		}
+	}
+	
+	/**
+	 * Ajax behavior used to handle buttons events.
+	 */
+	private DialogAjaxBehavior ajaxBehavior;
 
 	/**
 	 * Builds a new instance of {@link Dialog} for the given wicket id.
@@ -90,12 +122,47 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Dialog(String id) {
 		super(id);
+		setOutputMarkupId(true);
+		add(ajaxBehavior = new DialogAjaxBehavior()
+		{
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void respond(AjaxRequestTarget target)
+			{
+				String buttonTitle = WebRequestCycle.get().getRequest().getParameter(BUTTON_ID).toString();
+				// if an AJAX button was clicked we find it and delegate execution.
+				if (!isEmpty(buttonTitle))
+				{
+					ListItemOptions<DialogButton> buttons = getButtons();
+					if (buttons != null)
+					{
+						for (DialogButton button : buttons)
+						{
+							if (button.getTitle().equals(buttonTitle)
+								&& button instanceof AjaxDialogButton)
+							{
+								AjaxDialogButton ajaxDialogButton = (AjaxDialogButton) button;
+								// delegate handling of event to button class.
+								ajaxDialogButton.onButtonClicked(target);
+							}
+						}
+					}
+				}
+			}
+		});
 		options = new Options(this);
 		// default settings
 		this.setAutoOpen(false);
 		this.setPosition(WindowPosition.CENTER);
 	}
 
+	public static boolean isEmpty(String str)
+	{
+		return (str == null || str.trim().length() == 0);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see org.apache.wicket.Component#detachModel()
@@ -661,12 +728,46 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		return 1000;
 	}
 	
-	/**Set's a list of dialog button
+	/**
+	 * Set's a list of dialog button
+	 * 
 	 * @param buttons
 	 * @return instance of the current component
 	 */
-	public Dialog setButtons(ListItemOptions<DialogButton> buttons) {
+	public Dialog setButtons(ListItemOptions<DialogButton> buttons)
+	{
+		for (DialogButton button : buttons)
+		{
+			if (button instanceof AjaxDialogButton)
+			{
+				button.setJsScope(new AjaxDialogScope(button.getTitle(), this));
+			}
+		}
 		this.options.put("buttons", buttons);
+		return this;
+	}
+
+	/**
+	 * Set's a list of dialog button
+	 * 
+	 * @param buttons
+	 * @return instance of the current component
+	 */
+	public Dialog setButtons(DialogButton... buttons)
+	{
+		if (buttons != null && buttons.length > 0)
+		{
+			ListItemOptions<DialogButton> buttons2 = new ListItemOptions<DialogButton>();
+			for (DialogButton button : buttons)
+			{
+				if (button instanceof AjaxDialogButton)
+				{
+					button.setJsScope(new AjaxDialogScope(button.getTitle(), this));
+				}
+				buttons2.add(button);
+			}
+			this.options.put("buttons", buttons2);
+		}
 		return this;
 	}
 	
@@ -852,5 +953,9 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void widget(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
+	}
+
+	public DialogAjaxBehavior getAjaxBehavior() {
+		return ajaxBehavior;
 	}
 }
