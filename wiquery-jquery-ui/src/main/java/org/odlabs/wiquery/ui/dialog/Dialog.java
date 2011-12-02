@@ -116,7 +116,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin
 	private Options options;
 
 	/**
-	 * Ajaxx behavior used to handle buttons events.
+	 * Ajax behavior used to handle buttons events.
 	 */
 	private DialogAjaxBehavior ajaxBehavior;
 
