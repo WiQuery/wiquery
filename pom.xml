@@ -357,7 +357,7 @@
 							!org.mozilla.javascript*,
 							org.codehaus.jackson*;version="${jackson.version}",
 							org.apache.wicket*;version="${wicket.version}",
-							org.slf4j*version="${slf4j.version}",
+							org.slf4j*;version="${slf4j.version}",
 							*
 						</Import-Package>
 						<Export-Package>
