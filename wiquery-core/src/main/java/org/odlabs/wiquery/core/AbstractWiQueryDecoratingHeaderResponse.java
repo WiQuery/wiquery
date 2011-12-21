@@ -179,6 +179,8 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		Args.notNull(event, "event");
 		Args.notNull(javascript, "javascript");
 
+		renderJavaScriptReference(CoreJavaScriptResourceReference.get());
+
 		AbstractToken token =
 			new JavascriptToken("$(" + target + ")." + event + "(function(event){" + javascript
 				+ "});", null);
