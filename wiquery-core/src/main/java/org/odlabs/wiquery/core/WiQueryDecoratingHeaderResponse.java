@@ -53,7 +53,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		private static final long serialVersionUID = 1L;
 	};
 
-	private static final MetaDataKey<Long> WIQUERY_PAGE_KEY = new MetaDataKey<Long>()
+	private static final MetaDataKey<String> WIQUERY_PAGE_KEY = new MetaDataKey<String>()
 	{
 		private static final long serialVersionUID = 1L;
 	};
@@ -119,10 +119,11 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 	private void renderResponse()
 	{
 		Page page = (Page) ((IPageRequestHandler) getActiveRequestHandler()).getPage();
-		Long renderTime = page.getMetaData(WIQUERY_PAGE_KEY);
-		Boolean rendered =
-			renderTime != null && renderTime.equals(RequestCycle.get().getStartTime());
-		page.setMetaData(WIQUERY_PAGE_KEY, RequestCycle.get().getStartTime());
+		String targetUrl = RequestCycle.get().getUrlRenderer().getBaseUrl().toString();
+		String curRender = RequestCycle.get().getStartTime() + ":" + targetUrl;
+		String lastRender = page.getMetaData(WIQUERY_PAGE_KEY);
+		Boolean rendered = lastRender != null && curRender.equals(lastRender);
+ 		page.setMetaData(WIQUERY_PAGE_KEY, curRender);
 		RequestCycle.get().setMetaData(WIQUERY_KEY, Boolean.TRUE);
 
 		// return when response has already been rendered.
