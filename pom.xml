@@ -210,8 +210,7 @@
 						</Import-Package>
 						<Export-Package>
                             org.odlabs.wiquery*,
-                            com.yahoo.platform.yui.compressor*,
-                            org.mozilla.javascript*
+                            com.yahoo.platform.yui.compressor*
 						</Export-Package>
 					</instructions>
 				</configuration>
