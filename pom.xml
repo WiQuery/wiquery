@@ -23,7 +23,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<wicket.version>1.4-SNAPSHOT</wicket.version>
-		<jackson.version>[1.8,1.8.6]</jackson.version>
+		<jackson.version>[1.8,1.8.6],[1.9,1.9.3]</jackson.version>
 		<slf4j.version>[1.6,1.6.4]</slf4j.version>
 		<rhino.version>1.7R2</rhino.version>
 		<junit.version>4.10</junit.version>
