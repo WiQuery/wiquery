@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.ui.themes;
 
 import org.odlabs.wiquery.core.resources.WiQueryStyleSheetResourceReference;
-import org.odlabs.wiquery.core.ui.IWiQueryCoreThemeResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIStyleSheetResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 
 /**
@@ -36,7 +36,7 @@ import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
  * @since 1.0
  */
 public class WiQueryCoreThemeResourceReference extends WiQueryStyleSheetResourceReference implements
-		IWiQueryCoreThemeResourceReference
+		ICoreUIStyleSheetResourceReference
 {
 	private static final long serialVersionUID = 6795863553105608280L;
 

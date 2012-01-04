@@ -22,6 +22,7 @@
 package org.odlabs.wiquery.ui.widget;
 
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
  * $Id: WidgetJavascriptResourceReference.java 869 2011-05-04 12:26:32Z
@@ -33,7 +34,8 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class WidgetJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+public class WidgetJavaScriptResourceReference extends WiQueryJavaScriptResourceReference implements
+		ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 

@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.resizable;
 
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 
@@ -36,6 +37,7 @@ import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
  * @since 0.5
  */
 public class ResizableJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */

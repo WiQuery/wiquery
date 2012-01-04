@@ -23,11 +23,13 @@ package org.odlabs.wiquery.ui.progressbar;
 
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id$
+ * $Id: ProgressBarJavaScriptResourceReference.java 1714 2011-09-22 20:38:30Z hielke.hoeve
+ * $
  * <p>
  * References the JavaScript resource to get the ProgressBar component.
  * </p>
@@ -36,6 +38,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 0.5
  */
 public class ProgressBarJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */

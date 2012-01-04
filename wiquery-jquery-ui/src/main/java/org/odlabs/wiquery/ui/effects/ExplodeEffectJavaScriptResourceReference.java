@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.effects;
 
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
  * $Id: ExplodeEffectJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
@@ -35,6 +36,7 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @since 1.0
  */
 public class ExplodeEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */

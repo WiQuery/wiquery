@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.accordion;
 
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
@@ -37,6 +38,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 1.0
  */
 public class AccordionJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 

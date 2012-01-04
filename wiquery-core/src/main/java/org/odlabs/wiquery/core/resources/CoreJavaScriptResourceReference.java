@@ -21,6 +21,8 @@
  */
 package org.odlabs.wiquery.core.resources;
 
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
+
 /**
  * $Id: CoreJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z lionel.armanet $
  * <p>
@@ -30,7 +32,8 @@ package org.odlabs.wiquery.core.resources;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class CoreJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+public class CoreJavaScriptResourceReference extends WiQueryJavaScriptResourceReference implements
+		ICoreUIJavaScriptResourceReference
 {
 
 	private static final long serialVersionUID = -2918665261694523156L;

@@ -22,6 +22,7 @@
 package org.odlabs.wiquery.ui.position;
 
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
  * $Id: PositionJavaScriptResourceReference.java 1150 2011-08-02 10:09:02Z
@@ -34,6 +35,7 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @since 1.1
  */
 public class PositionJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 

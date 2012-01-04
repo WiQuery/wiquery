@@ -22,6 +22,7 @@
 package org.odlabs.wiquery.ui.effects;
 
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
  * $Id: CoreEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
@@ -34,6 +35,7 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @since 1.0
  */
 public class CoreEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */

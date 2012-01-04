@@ -9,7 +9,7 @@ import org.odlabs.wiquery.core.AbstractWiQueryDecoratingHeaderResponse;
  * 
  * @author Hielke Hoeve
  */
-public interface IWiQueryCoreThemeResourceReference
+public interface ICoreUIStyleSheetResourceReference
 {
 
 }

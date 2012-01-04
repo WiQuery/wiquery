@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.droppable;
 
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
@@ -40,6 +41,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 0.5
  */
 public class DroppableJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */

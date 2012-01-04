@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.dialog;
 
 import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.button.ButtonJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
@@ -38,7 +39,8 @@ import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class DialogJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+public class DialogJavaScriptResourceReference extends WiQueryJavaScriptResourceReference implements
+		ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 

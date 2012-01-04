@@ -21,7 +21,7 @@ import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.WiQueryStyleSheetResourceReference;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
-import org.odlabs.wiquery.core.ui.IWiQueryCoreThemeResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIStyleSheetResourceReference;
 import org.odlabs.wiquery.core.util.WiQueryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -297,7 +297,7 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 		{
 			return false;
 		}
-		else if (reference instanceof IWiQueryCoreThemeResourceReference
+		else if (reference instanceof ICoreUIStyleSheetResourceReference
 			&& !settings.isAutoImportJQueryUIStyleSheetResource())
 		{
 			return false;
