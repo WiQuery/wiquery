@@ -96,8 +96,8 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 			WiQueryCoreThemeResourceReference.class.getName());
 		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
 			CoreUIJavaScriptResourceReference.class.getName());
-		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
-
+		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
+			WidgetJavaScriptResourceReference.class.getName());
 	}
 
 	@Test
