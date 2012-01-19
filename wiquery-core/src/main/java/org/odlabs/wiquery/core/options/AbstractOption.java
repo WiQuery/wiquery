@@ -43,7 +43,7 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 	/**
 	 * Builds a new instance of {@link AbstractOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped value
 	 */
 	public AbstractOption(T value)
@@ -54,7 +54,7 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 	/**
 	 * Builds a new instance of {@link AbstractOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped value
 	 */
 	public AbstractOption(IModel<T> value)

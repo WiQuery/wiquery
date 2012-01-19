@@ -47,7 +47,7 @@ public class LongOption extends AbstractOption<Long>
 	/**
 	 * Builds a new instance of {@link LongOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Long}
 	 */
 	public LongOption(Long value)
@@ -58,7 +58,7 @@ public class LongOption extends AbstractOption<Long>
 	/**
 	 * Builds a new instance of {@link LongOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Long}
 	 */
 	public LongOption(IModel<Long> value)

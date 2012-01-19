@@ -47,7 +47,7 @@ public class StringOption extends AbstractOption<String>
 	/**
 	 * Builds a new instance of {@link StringOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link String}
 	 */
 	public StringOption(String value)
@@ -58,7 +58,7 @@ public class StringOption extends AbstractOption<String>
 	/**
 	 * Builds a new instance of {@link StringOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link String}
 	 */
 	public StringOption(IModel<String> value)

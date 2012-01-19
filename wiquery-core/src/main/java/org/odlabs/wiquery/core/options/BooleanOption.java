@@ -47,7 +47,7 @@ public class BooleanOption extends AbstractOption<Boolean>
 	/**
 	 * Builds a new instance of {@link BooleanOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Boolean}
 	 */
 	public BooleanOption(Boolean value)
@@ -58,7 +58,7 @@ public class BooleanOption extends AbstractOption<Boolean>
 	/**
 	 * Builds a new instance of {@link BooleanOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link String}
 	 */
 	public BooleanOption(IModel<Boolean> value)

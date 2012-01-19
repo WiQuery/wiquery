@@ -47,7 +47,7 @@ public class FloatOption extends AbstractOption<Float>
 	/**
 	 * Builds a new instance of {@link FloatOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Float}
 	 */
 	public FloatOption(Float value)
@@ -58,7 +58,7 @@ public class FloatOption extends AbstractOption<Float>
 	/**
 	 * Builds a new instance of {@link FloatOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Float}
 	 */
 	public FloatOption(IModel<Float> value)

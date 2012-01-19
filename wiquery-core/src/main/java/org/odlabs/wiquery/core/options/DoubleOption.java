@@ -47,7 +47,7 @@ public class DoubleOption extends AbstractOption<Double>
 	/**
 	 * Builds a new instance of {@link DoubleOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Double}
 	 */
 	public DoubleOption(Double value)
@@ -58,7 +58,7 @@ public class DoubleOption extends AbstractOption<Double>
 	/**
 	 * Builds a new instance of {@link DoubleOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Double}
 	 */
 	public DoubleOption(IModel<Double> value)

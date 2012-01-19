@@ -47,7 +47,7 @@ public class ShortOption extends AbstractOption<Short>
 	/**
 	 * Builds a new instance of {@link ShortOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Short}
 	 */
 	public ShortOption(Short value)
@@ -58,7 +58,7 @@ public class ShortOption extends AbstractOption<Short>
 	/**
 	 * Builds a new instance of {@link ShortOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Short}
 	 */
 	public ShortOption(IModel<Short> value)

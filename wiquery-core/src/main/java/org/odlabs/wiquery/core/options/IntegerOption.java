@@ -47,7 +47,7 @@ public class IntegerOption extends AbstractOption<Integer>
 	/**
 	 * Builds a new instance of {@link IntegerOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Integer}
 	 */
 	public IntegerOption(Integer value)
@@ -58,7 +58,7 @@ public class IntegerOption extends AbstractOption<Integer>
 	/**
 	 * Builds a new instance of {@link IntegerOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link Integer}
 	 */
 	public IntegerOption(IModel<Integer> value)

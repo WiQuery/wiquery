@@ -50,7 +50,7 @@ public class LiteralOption extends AbstractOption<String>
 	/**
 	 * Builds a new instance of {@link LiteralOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link String}
 	 */
 	public LiteralOption(String value)
@@ -61,7 +61,7 @@ public class LiteralOption extends AbstractOption<String>
 	/**
 	 * Builds a new instance of {@link LiteralOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link String}
 	 */
 	public LiteralOption(IModel<String> value)
@@ -72,8 +72,9 @@ public class LiteralOption extends AbstractOption<String>
 	/**
 	 * Builds a new instance of {@link LiteralOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link String}
+	 * 
 	 */
 	public LiteralOption(String value, boolean doubleQuote)
 	{
@@ -84,7 +85,7 @@ public class LiteralOption extends AbstractOption<String>
 	/**
 	 * Builds a new instance of {@link LiteralOption}.
 	 * 
-	 * @param literal
+	 * @param value
 	 *            the wrapped {@link String}
 	 */
 	public LiteralOption(IModel<String> value, boolean doubleQuote)
