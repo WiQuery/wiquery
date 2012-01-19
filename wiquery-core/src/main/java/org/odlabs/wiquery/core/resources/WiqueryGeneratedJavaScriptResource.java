@@ -15,7 +15,6 @@ import org.apache.wicket.util.template.PackageTextTemplate;
  */
 public class WiqueryGeneratedJavaScriptResource
 {
-	private static final long serialVersionUID = 1L;
 
 	public static String wiqueryGeneratedJavascriptCode(CharSequence javaScriptCode)
 	{
