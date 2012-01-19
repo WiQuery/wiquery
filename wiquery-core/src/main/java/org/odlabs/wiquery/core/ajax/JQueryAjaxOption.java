@@ -138,7 +138,7 @@ public class JQueryAjaxOption extends Object implements IComplexOption, IModel<J
 	 * Array, jQuery serializes multiple values with same key i.e. {foo:["bar1", "bar2"]}
 	 * becomes '&foo=bar1&foo=bar2'.
 	 * 
-	 * @param contentType
+	 * @param data
 	 */
 	public JQueryAjaxOption setData(String data)
 	{
