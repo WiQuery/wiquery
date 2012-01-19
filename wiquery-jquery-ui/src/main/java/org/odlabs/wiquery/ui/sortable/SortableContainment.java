@@ -176,7 +176,7 @@ public class SortableContainment implements IComplexOption
 	/**
 	 * Set's the literal parameter
 	 * 
-	 * @param literalParam
+	 * @param elementEnumParam
 	 *            the literal to set
 	 */
 	public void setElementEnumParam(ElementEnum elementEnumParam)
