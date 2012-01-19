@@ -32,7 +32,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * </p>
  * 
  * @author Lionel Armanet
- * @see http://docs.jquery.com/Traversing
+ * @see "http://docs.jquery.com/Traversing"
  */
 public class TraversingHelper
 {

@@ -33,7 +33,7 @@ import org.odlabs.wiquery.core.options.Options;
  * </p>
  * 
  * @author Lionel Armanet
- * @see http://docs.jquery.com/CSS
+ * @see "http://docs.jquery.com/CSS"
  */
 public class CssHelper
 {

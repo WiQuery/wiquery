@@ -33,7 +33,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * 
  * @author Lionel Armanet
  * @since 0.7
- * @see http://docs.jquery.com/Manipulation
+ * @see "http://docs.jquery.com/Manipulation"
  */
 public class ManipulatingHelper
 {
