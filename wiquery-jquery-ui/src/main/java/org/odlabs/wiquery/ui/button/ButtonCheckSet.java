@@ -148,7 +148,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * 
 	 * @param id
 	 *            Wicket identifiant
-	 * @param radios
+	 * @param checks
 	 *            List of checks
 	 */
 	public ButtonCheckSet(String id, List< ? extends ButtonElement<T>> checks)
@@ -161,7 +161,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * 
 	 * @param id
 	 *            Wicket identifiant
-	 * @param radios
+	 * @param checks
 	 *            List of checks
 	 * @param model
 	 *            Model of the default object
