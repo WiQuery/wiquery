@@ -68,8 +68,6 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	 *            Wicket identifiant
 	 * @param radios
 	 *            List of radios
-	 * @param model
-	 *            Model of the default object
 	 */
 	public ButtonRadioSet(String id, IModel<List< ? extends ButtonElement<T>>> radios)
 	{
