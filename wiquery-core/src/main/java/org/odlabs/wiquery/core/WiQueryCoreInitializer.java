@@ -19,7 +19,6 @@ public class WiQueryCoreInitializer implements IWiQueryInitializer
 		// into the head of the page.
 		application.setHeaderResponseDecorator(new IHeaderResponseDecorator()
 		{
-			private static final long serialVersionUID = 1L;
 
 			public IHeaderResponse decorate(IHeaderResponse response)
 			{
