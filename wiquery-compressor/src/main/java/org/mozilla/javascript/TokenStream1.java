@@ -49,6 +49,7 @@ class TokenStream1
 	 */
 	private final static int EOF_CHAR = -1;
 
+	@SuppressWarnings("null")
 	TokenStream1(final Parser1 parser, final Reader sourceReader, final String sourceString,
 			final int lineno)
 	{

@@ -128,6 +128,7 @@ public class Parser1
 		this.errorReporter = errorReporter;
 	}
 
+	@SuppressWarnings("unused")
 	protected Decompiler createDecompiler(final CompilerEnvirons compilerEnv)
 	{
 		return new Decompiler();
@@ -1623,6 +1624,7 @@ public class Parser1
 		return result;
 	}
 
+	@SuppressWarnings("null")
 	void defineSymbol(final int declType, final boolean ignoreNotInBlock, final String name)
 	{
 		final Node.Scope definingScope = currentScope.getDefiningScope(name);
@@ -2195,7 +2197,7 @@ public class Parser1
 					switch (tt)
 					{
 
-						// needed for generator.throw();
+					// needed for generator.throw();
 						case Token1.THROW:
 							decompiler.addName("throw");
 							pn = propertyName(pn, "throw", memberTypeFlags);
@@ -2274,7 +2276,7 @@ public class Parser1
 
 		switch (tt)
 		{
-			// handles: @name, @ns::name, @ns::*, @ns::[expr]
+		// handles: @name, @ns::name, @ns::*, @ns::[expr]
 			case Token1.NAME:
 			{
 				final String s = ts.getString();
@@ -2321,7 +2323,7 @@ public class Parser1
 			final int tt = nextToken();
 			switch (tt)
 			{
-				// handles name::name
+			// handles name::name
 				case Token1.NAME:
 					name = ts.getString();
 					decompiler.addName(name);

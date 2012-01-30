@@ -26,6 +26,7 @@ public class YUIStyleSheetCompressor implements ICssCompressor
 {
 	private static final Logger log = LoggerFactory.getLogger(YUIStyleSheetCompressor.class);
 
+	@Override
 	public String compress(String original)
 	{
 		long startMillis = 0;

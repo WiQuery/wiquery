@@ -64,7 +64,7 @@ class ScriptOrFnScope
 
 	JavaScriptIdentifier getIdentifier(String symbol)
 	{
-		return (JavaScriptIdentifier) identifiers.get(symbol);
+		return identifiers.get(symbol);
 	}
 
 	void addHint(String variableName, String variableType)
@@ -88,7 +88,7 @@ class ScriptOrFnScope
 		Enumeration<JavaScriptIdentifier> elements = identifiers.elements();
 		while (elements.hasMoreElements())
 		{
-			JavaScriptIdentifier identifier = (JavaScriptIdentifier) elements.nextElement();
+			JavaScriptIdentifier identifier = elements.nextElement();
 			String mungedValue = identifier.getMungedValue();
 			if (mungedValue == null)
 			{
@@ -196,7 +196,7 @@ class ScriptOrFnScope
 
 		for (int i = 0; i < subScopes.size(); i++)
 		{
-			ScriptOrFnScope scope = (ScriptOrFnScope) subScopes.get(i);
+			ScriptOrFnScope scope = subScopes.get(i);
 			scope.munge();
 		}
 	}

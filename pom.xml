@@ -58,6 +58,7 @@
 
 	<modules>
 		<module>wiquery-core</module>
+		<module>wiquery-compressor</module>
 		<module>wiquery-jquery-ui</module>
 	</modules>
 

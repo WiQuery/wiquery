@@ -31,23 +31,27 @@ public class YUIJavaScriptCompressor implements IJavaScriptCompressor
 	/** Wrapper to let JavaScript parser report his errors, avoids nullpointers */
 	private static final ErrorReporter logWrap = new ErrorReporter()
 	{
+		@Override
 		public void error(String arg0, String arg1, int arg2, String arg3, int arg4)
 		{
 			log.error(arg0);
 		}
 
+		@Override
 		public EvaluatorException runtimeError(String arg0, String arg1, int arg2, String arg3,
 				int arg4)
 		{
 			return new EvaluatorException(arg0, arg1, arg2, arg3, arg4);
 		}
 
+		@Override
 		public void warning(String arg0, String arg1, int arg2, String arg3, int arg4)
 		{
 			log.warn(arg0);
 		}
 	};
 
+	@Override
 	public String compress(String original)
 	{
 		long startMillis = 0;

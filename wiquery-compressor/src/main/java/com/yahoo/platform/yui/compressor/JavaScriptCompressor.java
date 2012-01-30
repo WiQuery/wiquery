@@ -61,7 +61,7 @@ public class JavaScriptCompressor
 		twos = new ArrayList<String>();
 		for (int i = 0; i < ones.size(); i++)
 		{
-			final String one = (String) ones.get(i);
+			final String one = ones.get(i);
 			for (char c = 'a'; c <= 'z'; c++)
 				twos.add(one + Character.toString(c));
 			for (char c = 'A'; c <= 'Z'; c++)
@@ -81,7 +81,7 @@ public class JavaScriptCompressor
 		threes = new ArrayList<String>();
 		for (int i = 0; i < twos.size(); i++)
 		{
-			final String two = (String) twos.get(i);
+			final String two = twos.get(i);
 			for (char c = 'a'; c <= 'z'; c++)
 				threes.add(two + Character.toString(c));
 			for (char c = 'A'; c <= 'Z'; c++)
@@ -318,7 +318,7 @@ public class JavaScriptCompressor
 				lbits = (long) source.charAt(offset) << 48;
 				lbits |= (long) source.charAt(offset + 1) << 32;
 				lbits |= (long) source.charAt(offset + 2) << 16;
-				lbits |= (long) source.charAt(offset + 3);
+				lbits |= source.charAt(offset + 3);
 				if (type == 'J')
 				{
 					number = lbits;
@@ -362,8 +362,8 @@ public class JavaScriptCompressor
 			switch (tt)
 			{
 
-				// case Token.CONDCOMMENT:
-				// case Token.KEEPCOMMENT:
+			// case Token.CONDCOMMENT:
+			// case Token.KEEPCOMMENT:
 				case Token1.NAME:
 				case Token1.REGEXP:
 				case Token1.STRING:
@@ -379,7 +379,7 @@ public class JavaScriptCompressor
 					break;
 
 				default:
-					final String literal = (String) literals.get(new Integer(tt));
+					final String literal = literals.get(new Integer(tt));
 					if (literal != null)
 					{
 						tokens.add(new JavaScriptToken(tt, literal));
@@ -408,19 +408,18 @@ public class JavaScriptCompressor
 
 			for (i = 0; i < length; i++)
 			{
-				token = (JavaScriptToken) tokens.get(i);
+				token = tokens.get(i);
 				switch (token.getType())
 				{
 
 					case Token1.ADD:
 						if (i > 0 && i < length)
 						{
-							prevToken = (JavaScriptToken) tokens.get(i - 1);
-							nextToken = (JavaScriptToken) tokens.get(i + 1);
+							prevToken = tokens.get(i - 1);
+							nextToken = tokens.get(i + 1);
 							if (prevToken.getType() == Token1.STRING
 								&& nextToken.getType() == Token1.STRING
-								&& (i == length - 1 || ((JavaScriptToken) tokens.get(i + 2))
-									.getType() != Token1.DOT))
+								&& (i == length - 1 || tokens.get(i + 2).getType() != Token1.DOT))
 							{
 								tokens.set(i - 1,
 									new JavaScriptToken(Token1.STRING, prevToken.getValue()
@@ -441,7 +440,7 @@ public class JavaScriptCompressor
 
 		for (i = 0; i < length; i++)
 		{
-			token = (JavaScriptToken) tokens.get(i);
+			token = tokens.get(i);
 			if (token.getType() == Token1.STRING)
 			{
 				tv = token.getValue();
@@ -538,12 +537,12 @@ public class JavaScriptCompressor
 		for (i = 0, length = tokens.size(); i < length; i++)
 		{
 
-			if (((JavaScriptToken) tokens.get(i)).getType() == Token1.LB && i > 0 && i < length - 2
-				&& ((JavaScriptToken) tokens.get(i - 1)).getType() == Token1.NAME
-				&& ((JavaScriptToken) tokens.get(i + 1)).getType() == Token1.STRING
-				&& ((JavaScriptToken) tokens.get(i + 2)).getType() == Token1.RB)
+			if (tokens.get(i).getType() == Token1.LB && i > 0 && i < length - 2
+				&& tokens.get(i - 1).getType() == Token1.NAME
+				&& tokens.get(i + 1).getType() == Token1.STRING
+				&& tokens.get(i + 2).getType() == Token1.RB)
 			{
-				token = (JavaScriptToken) tokens.get(i + 1);
+				token = tokens.get(i + 1);
 				tv = token.getValue();
 				tv = tv.substring(1, tv.length() - 1);
 				if (isValidIdentifier(tv))
@@ -570,10 +569,10 @@ public class JavaScriptCompressor
 
 		for (i = 0, length = tokens.size(); i < length; i++)
 		{
-			if (((JavaScriptToken) tokens.get(i)).getType() == Token1.OBJECTLIT && i > 0
-				&& ((JavaScriptToken) tokens.get(i - 1)).getType() == Token1.STRING)
+			if (tokens.get(i).getType() == Token1.OBJECTLIT && i > 0
+				&& tokens.get(i - 1).getType() == Token1.STRING)
 			{
-				token = (JavaScriptToken) tokens.get(i - 1);
+				token = tokens.get(i - 1);
 				tv = token.getValue();
 				tv = tv.substring(1, tv.length() - 1);
 				if (isValidIdentifier(tv))
@@ -644,7 +643,7 @@ public class JavaScriptCompressor
 
 	private ScriptOrFnScope getCurrentScope()
 	{
-		return (ScriptOrFnScope) scopes.peek();
+		return scopes.peek();
 	}
 
 	private void enterScope(final ScriptOrFnScope scope)
@@ -659,12 +658,12 @@ public class JavaScriptCompressor
 
 	private JavaScriptToken consumeToken()
 	{
-		return (JavaScriptToken) tokens.get(offset++);
+		return tokens.get(offset++);
 	}
 
 	private JavaScriptToken getToken(final int delta)
 	{
-		return (JavaScriptToken) tokens.get(offset + delta);
+		return tokens.get(offset + delta);
 	}
 
 	/*
@@ -721,7 +720,7 @@ public class JavaScriptCompressor
 		final int end = Math.min(offset + max, tokens.size());
 		for (int i = start; i < end; i++)
 		{
-			final JavaScriptToken token = (JavaScriptToken) tokens.get(i);
+			final JavaScriptToken token = tokens.get(i);
 			if (i == offset - 1)
 			{
 				result.append(" ---> ");
@@ -783,7 +782,7 @@ public class JavaScriptCompressor
 		}
 		else
 		{
-			fnScope = (ScriptOrFnScope) indexedScopes.get(new Integer(offset));
+			fnScope = indexedScopes.get(new Integer(offset));
 		}
 
 		// Parse function arguments.
@@ -1281,7 +1280,6 @@ public class JavaScriptCompressor
 	}
 
 	private StringBuffer printSymbolTree(final int linebreakpos, final boolean preserveAllSemiColons)
-			throws IOException
 	{
 
 		offset = 0;
@@ -1357,7 +1355,7 @@ public class JavaScriptCompressor
 
 				case Token1.ADD:
 				case Token1.SUB:
-					result.append((String) literals.get(new Integer(token.getType())));
+					result.append(literals.get(new Integer(token.getType())));
 					if (offset < length)
 					{
 						token = getToken(0);
@@ -1413,7 +1411,7 @@ public class JavaScriptCompressor
 					}
 					assert token.getType() == Token1.LP;
 					result.append('(');
-					currentScope = (ScriptOrFnScope) indexedScopes.get(new Integer(offset));
+					currentScope = indexedScopes.get(new Integer(offset));
 					enterScope(currentScope);
 					while ((token = consumeToken()).getType() != Token1.RP)
 					{
@@ -1539,7 +1537,7 @@ public class JavaScriptCompressor
 				// break;
 
 				default:
-					final String literal = (String) literals.get(new Integer(token.getType()));
+					final String literal = literals.get(new Integer(token.getType()));
 					if (literal != null)
 					{
 						result.append(literal);

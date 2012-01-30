@@ -9,9 +9,9 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>org.odlabs.wiquery</groupId>
-	<artifactId>wiquery-core</artifactId>
+	<artifactId>wiquery-compressor</artifactId>
 	<packaging>jar</packaging>
-	<name>WiQuery Core Project</name>
+	<name>WiQuery Compressor Project</name>
 
 	<dependencies>
 		<!-- System dependencies -->
@@ -27,20 +27,8 @@
 			<artifactId>wicket-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-		</dependency>
-
-		<!-- Test dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<scope>test</scope>
+			<groupId>rhino</groupId>
+			<artifactId>js</artifactId>
 		</dependency>
 	</dependencies>
 
