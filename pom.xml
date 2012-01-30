@@ -2,28 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.5-SNAPSHOT</version>
+	<version>6.0-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
-
-	<scm>
-		<developerConnection>scm:svn:https://wiquery.googlecode.com/svn/trunk</developerConnection>
-	</scm>
-
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>wiquery-maven-repo</id>
-			<url>svn:https://wiquery.googlecode.com/svn/repo</url>
-		</repository>
-	</distributionManagement>
+	<description>WiQuery is a Wicket - jQuery binding component</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>1.5-SNAPSHOT</wicket.version>
-		<jackson.version>[1.8,1.8.6],[1.9,1.9.3]</jackson.version>
+		<wicket.version>6.0-SNAPSHOT</wicket.version>
+		<jackson.version>[1.9,1.9.3]</jackson.version>
 		<slf4j.version>[1.6,1.6.4]</slf4j.version>
 		<rhino.version>1.7R2</rhino.version>
 		<junit.version>4.10</junit.version>
@@ -45,6 +40,21 @@
 
 		<wagon-svn-extension.version>1.9</wagon-svn-extension.version>
 	</properties>
+	
+	<url>https://github.com/hielkehoeve/wiquery-highcharts/wiki</url>
+	<scm>
+		<url>git@github.com:hielkehoeve/wiquery-highcharts.git</url>
+		<connection>scm:git:git@github.com:hielkehoeve/wiquery-highcharts.git</connection>
+		<developerConnection>scm:git:git@github.com:hielkehoeve/wiquery-highcharts.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>wiquery-maven-repo</id>
+			<url>svn:https://wiquery.googlecode.com/svn/repo</url>
+		</repository>
+	</distributionManagement>
 
 	<modules>
 		<module>wiquery-core</module>
@@ -68,11 +78,7 @@
 				<classifier>tests</classifier>
 				<scope>test</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.odlabs.wiquery</groupId>
-				<artifactId>wiquery-jquery-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+
 			<!-- WICKET DEPENDENCIES -->
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
@@ -280,7 +286,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
-					<projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
 					<wtpmanifest>true</wtpmanifest>
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>1.5</wtpversion>
@@ -292,8 +297,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
 				</configuration>
