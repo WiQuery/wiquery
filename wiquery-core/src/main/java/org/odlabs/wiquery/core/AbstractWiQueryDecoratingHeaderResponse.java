@@ -1,10 +1,10 @@
 package org.odlabs.wiquery.core;
 
 import java.util.Comparator;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.Response;
@@ -55,8 +55,8 @@ public abstract class AbstractWiQueryDecoratingHeaderResponse
 
 	protected WiQuerySettings settings = WiQuerySettings.get();
 
-	private final Deque<AbstractToken> thingsToBeRendered =
-		new LinkedBlockingDeque<AbstractToken>();
+	private final Queue<AbstractToken> thingsToBeRendered =
+		new ConcurrentLinkedQueue<AbstractToken>();
 
 	public AbstractWiQueryDecoratingHeaderResponse(IHeaderResponse real)
 	{
