@@ -95,6 +95,9 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin
 	{
 		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
 		response.renderJavaScriptReference(TabsJavaScriptResourceReference.get());
+
+		if (getCookie() != null)
+			response.renderJavaScriptReference(CookieJavaScriptResourceReference.get());
 	}
 
 	/*
