@@ -73,6 +73,7 @@ public class FloatOption extends AbstractOption<Float>
 		return value != null ? Float.toString(value) : null;
 	}
 
+	@Override
 	public IModelOption<Float> wrapOnAssignment(Component component)
 	{
 		if (getModel() instanceof IComponentAssignedModel< ? >)

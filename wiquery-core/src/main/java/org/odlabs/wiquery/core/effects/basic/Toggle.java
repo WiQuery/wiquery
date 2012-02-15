@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
- * $Id$
+ * $Id: Toggle.java 1714M 2012-01-17 08:28:23Z (local) $
  * <p>
  * Defines the toggle {@link Effect}. A toggle consists to show a component when it's
  * hidden, and to hide it when it's displayed.
@@ -57,6 +57,7 @@ public class Toggle extends Effect
 		super(effectSpeed);
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "toggle";

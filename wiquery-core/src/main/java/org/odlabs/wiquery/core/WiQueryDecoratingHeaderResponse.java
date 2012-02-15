@@ -1,235 +1,73 @@
 package org.odlabs.wiquery.core;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.MetaDataKey;
-import org.apache.wicket.Page;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.request.IRequestHandler;
-import org.apache.wicket.request.IRequestHandlerDelegate;
-import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.request.handler.IPageRequestHandler;
-import org.apache.wicket.resource.aggregation.ResourceReferenceAndStringData;
-import org.apache.wicket.util.visit.IVisit;
-import org.apache.wicket.util.visit.IVisitor;
-import org.apache.wicket.util.visit.Visit;
-import org.odlabs.wiquery.core.javascript.JsQuery;
-import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.wicket.markup.head.HeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.IReferenceHeaderItem;
+import org.apache.wicket.markup.head.ResourceAggregator;
+import org.apache.wicket.request.resource.ResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUICssResourceReference;
+import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
- * <p>
- * An implementation of AbstractDependencyRespectingResourceAggregatingHeaderResponse that
- * renders uses {@link AbstractWiQueryDecoratingHeaderResponse} to render references in
- * the correct order.
- * </p>
- * 
- * <p>
- * Just before the response is closed we visit all implementations of
- * {@link IWiQueryPlugin} that are present on the page or in the {@link AjaxRequestTarget}
- * and render their {@link IWiQueryPlugin#statement()} results in a ondomready jquery
- * statement.
- * </p>
- * 
- * @see AbstractWiQueryDecoratingHeaderResponse
- * @see WiQuerySettings#getResourceGroupingKeys()
- * @see WiQuerySettings#findResourceGroupingKey(String)
+ * All that is left for WiQuery to do is check whether the added resources should be added
+ * according to {@link WiQuerySettings}.
  * 
  * @author Hielke Hoeve
  */
-public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHeaderResponse
+public class WiQueryDecoratingHeaderResponse extends ResourceAggregator
 {
-	private static final Logger log = LoggerFactory
-		.getLogger(WiQueryDecoratingHeaderResponse.class);
-
-	private static final MetaDataKey<Boolean> WIQUERY_KEY = new MetaDataKey<Boolean>()
-	{
-		private static final long serialVersionUID = 1L;
-	};
-
-	private static final MetaDataKey<String> WIQUERY_PAGE_KEY = new MetaDataKey<String>()
-	{
-		private static final long serialVersionUID = 1L;
-	};
-
-	JsQuery jsq = new JsQuery();
+	protected WiQuerySettings settings = WiQuerySettings.get();
 
 	public WiQueryDecoratingHeaderResponse(IHeaderResponse real)
 	{
 		super(real);
 	}
 
-	/**
-	 * Perform a scan over all components so all components and listeners have contributed
-	 * their resources and WiQuery has generated the ondomready statement.
-	 */
 	@Override
-	public void close()
+	public void render(HeaderItem item)
 	{
-		long startTime = System.currentTimeMillis();
-		log.debug("WiQuery contribution starts!");
-
-		AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
-		final IRequestHandler activeRequestHandler = getActiveRequestHandler();
-		if (ajaxRequestTarget != null)
+		if (item instanceof IReferenceHeaderItem)
 		{
-			renderAjaxResponse(ajaxRequestTarget);
-		}
-		else if (activeRequestHandler instanceof IPageRequestHandler)
-		{
-			renderResponse();
-		}
-
-		log.debug("WiQuery plugin contribution finished in "
-			+ (System.currentTimeMillis() - startTime) + "ms!");
-
-		super.close();
-
-		log.debug("WiQuery contribution finished in " + (System.currentTimeMillis() - startTime)
-			+ "ms!");
-	}
-
-	private IRequestHandler getActiveRequestHandler()
-	{
-		IRequestHandler ret = RequestCycle.get().getActiveRequestHandler();
-		while (ret instanceof IRequestHandlerDelegate)
-			ret = ((IRequestHandlerDelegate) ret).getDelegateHandler();
-		return ret;
-	}
-
-	/**
-	 * Contribute the ondomready statement to the response.
-	 */
-	@Override
-	protected void onAllCollectionsRendered(
-			List<ResourceReferenceAndStringData> allTopLevelReferences)
-	{
-		jsq.renderHead(this, getActiveRequestHandler());
-		jsq = new JsQuery();
-
-		super.onAllCollectionsRendered(allTopLevelReferences);
-	}
-
-	private void renderResponse()
-	{
-		Page page = (Page) ((IPageRequestHandler) getActiveRequestHandler()).getPage();
-		String targetUrl = RequestCycle.get().getUrlRenderer().getBaseUrl().toString();
-		String curRender = RequestCycle.get().getStartTime() + ":" + targetUrl;
-		String lastRender = page.getMetaData(WIQUERY_PAGE_KEY);
-		Boolean rendered = lastRender != null && curRender.equals(lastRender);
- 		page.setMetaData(WIQUERY_PAGE_KEY, curRender);
-		RequestCycle.get().setMetaData(WIQUERY_KEY, Boolean.TRUE);
-
-		// return when response has already been rendered.
-		if (rendered)
-			return;
-
-		final List<WiQueryPluginRenderingListener> pluginRenderingListeners =
-			settings.getListeners();
-
-		WiQueryPluginCollector visitor = new WiQueryPluginCollector();
-		visitor.component(page, new Visit<Void>());
-		page.visitChildren(visitor);
-
-		JsStatement jsStatement = new JsStatement();
-		for (IWiQueryPlugin plugin : visitor.getPlugins())
-		{
-			JsStatement tempStatement = plugin.statement();
-
-			if (tempStatement != null)
+			IReferenceHeaderItem refItem = (IReferenceHeaderItem) item;
+			if (isReferenceAllowed(refItem.getReference()))
 			{
-				jsStatement.append("\t").append(tempStatement.render()).append("\n");
-			}
-
-			// calling listeners to compute specific stuff
-			for (WiQueryPluginRenderingListener listener : pluginRenderingListeners)
-			{
-				listener.onRender(plugin, this);
-			}
-		}
-
-		jsq.setStatement(jsStatement);
-	}
-
-	private void renderAjaxResponse(AjaxRequestTarget ajaxRequestTarget)
-	{
-		final List<WiQueryPluginRenderingListener> pluginRenderingListeners =
-			settings.getListeners();
-
-		for (Component owner : ajaxRequestTarget.getComponents())
-		{
-			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
-			visitor.component(owner, new Visit<Void>());
-
-			if (owner instanceof WebMarkupContainer)
-			{
-				((WebMarkupContainer) owner).visitChildren(visitor);
-			}
-
-			for (IWiQueryPlugin plugin : visitor.getPlugins())
-			{
-				renderPlugin(ajaxRequestTarget, plugin, pluginRenderingListeners, this);
+				super.render(item);
 			}
 		}
 	}
 
-	private void renderPlugin(AjaxRequestTarget ajaxRequestTarget, IWiQueryPlugin plugin,
-			final List<WiQueryPluginRenderingListener> pluginRenderingListeners,
-			IHeaderResponse headerResponse)
+	protected boolean isReferenceAllowed(ResourceReference reference)
 	{
-		JsStatement statement = plugin.statement();
-		if (statement != null)
+		if (reference == null)
 		{
-			JsQuery jsq = new JsQuery();
-			jsq.setStatement(statement.append("\n"));
-			jsq.renderHead(this, ajaxRequestTarget);
+			throw new IllegalStateException("ResourceReference can not be null");
 		}
-		for (WiQueryPluginRenderingListener listener : pluginRenderingListeners)
+		else if (!settings.isEnableWiqueryResourceManagement()
+			&& (reference instanceof IWiQueryJavaScriptResourceReference || reference instanceof IWiQueryCssResourceReference))
 		{
-			listener.onRender(plugin, headerResponse);
+			return false;
 		}
-	}
-
-	private static class WiQueryPluginCollector implements IVisitor<Component, Void>
-	{
-		private final LinkedList<IWiQueryPlugin> plugins = new LinkedList<IWiQueryPlugin>();
-
-		private WiQueryPluginCollector()
+		else if (!settings.isAutoImportWiQueryJavaScriptResource()
+			&& reference instanceof IWiQueryJavaScriptResourceReference)
 		{
+			return false;
 		}
-
-		public LinkedList<IWiQueryPlugin> getPlugins()
+		else if (!settings.isAutoImportWiQueryStyleSheetResource()
+			&& reference instanceof IWiQueryCssResourceReference)
 		{
-			return plugins;
+			return false;
 		}
-
-		public void component(Component component, IVisit<Void> visit)
+		else if (!settings.isAutoImportJQueryUIJavaScriptResource()
+			&& reference instanceof ICoreUIJavaScriptResourceReference)
 		{
-			if (component.determineVisibility())
-			{
-				if (component instanceof IWiQueryPlugin)
-				{
-					plugins.add(0, (IWiQueryPlugin) component);
-				}
-
-				for (Behavior behavior : component.getBehaviors())
-				{
-					if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(component))
-					{
-						plugins.add(0, (IWiQueryPlugin) behavior);
-					}
-				}
-			}
-			else
-			{
-				visit.dontGoDeeper();
-			}
+			return false;
 		}
+		else if (!settings.isAutoImportJQueryUIStyleSheetResource()
+			&& reference instanceof ICoreUICssResourceReference)
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -29,14 +29,9 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderContributor;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.util.tester.ITestPageSource;
-import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
@@ -83,79 +78,6 @@ public class WiQueryTester extends WicketTester
 		getLastRequest().setParameter(input.getInputName(), value);
 	}
 
-	/**
-	 * Renders a <code>Panel</code> defined in <code>TestPanelSource</code> inside a
-	 * {@link Form}. The usage is similar to {@link #startPage(ITestPageSource)}. Please
-	 * note that testing <code>Panel</code> must use the supplied
-	 * <code>panelId<code> as a <code>Component</code> id.
-	 * 
-	 * <pre>
-	 * tester.startFormPanel(new TestPanelSource()
-	 * {
-	 * 	public Panel getTestPanel(String panelId)
-	 * 	{
-	 * 		MyData mockMyData = new MyData();
-	 * 		return new MyPanel(panelId, mockMyData);
-	 * 	}
-	 * });
-	 * </pre>
-	 * 
-	 * @param factory
-	 *            a <code>Panel</code> factory that creates test <code>Panel</code>
-	 *            instances
-	 * @return a rendered <code>Panel</code>
-	 */
-	public Panel startFormPanel(final ITestPanelSource factory)
-	{
-		FormTestPage page = (FormTestPage) startPage(new ITestPageSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Page getTestPage()
-			{
-				return new FormTestPage(factory);
-			}
-		});
-		return (Panel) page.get(page.getPanelComponentPath());
-	}
-
-	/**
-	 * Renders a <code>FormComponentPanel</code> defined in
-	 * <code>TestFormComponentPanelSource</code> inside a {@link Form}. The usage is
-	 * similar to {@link #startPage(ITestPageSource)}. Please note that testing
-	 * <code>Panel</code> must use the supplied
-	 * <code>panelId<code> as a <code>Component</code> id.
-	 * 
-	 * <pre>
-	 * tester.startFormPanel(new TestPanelSource()
-	 * {
-	 * 	public FormComponentPanel getTestPanel(String panelId)
-	 * 	{
-	 * 		MyData mockMyData = new MyData();
-	 * 		return new MyPanel(panelId, mockMyData);
-	 * 	}
-	 * });
-	 * </pre>
-	 * 
-	 * @param factory
-	 *            a <code>Panel</code> factory that creates test <code>Panel</code>
-	 *            instances
-	 * @return a rendered <code>Panel</code>
-	 */
-	public FormComponentPanel< ? > startFormPanel(final TestFormComponentPanelSource factory)
-	{
-		FormTestPage page = (FormTestPage) startPage(new ITestPageSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Page getTestPage()
-			{
-				return new FormTestPage(factory);
-			}
-		});
-		return (FormComponentPanel< ? >) page.get(page.getPanelComponentPath());
-	}
-
 	public RepeatingView getRepeatingView(String path)
 	{
 		Page renderedPage = getLastRenderedPage();
@@ -179,6 +101,7 @@ public class WiQueryTester extends WicketTester
 
 		renderedPage.visitChildren(new IVisitor<Component, Void>()
 		{
+			@Override
 			public void component(Component component, IVisit<Void> visit)
 			{
 				for (Behavior behavior : component.getBehaviors())

@@ -22,7 +22,8 @@
 package org.odlabs.wiquery.ui.progressbar;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -72,8 +73,8 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(ProgressBarJavaScriptResourceReference.get());
+		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(ProgressBarJavaScriptResourceReference.get()));
 	}
 
 	public JsStatement statement()

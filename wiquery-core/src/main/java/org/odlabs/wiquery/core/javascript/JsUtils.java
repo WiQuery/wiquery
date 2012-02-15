@@ -24,7 +24,7 @@ package org.odlabs.wiquery.core.javascript;
 import org.odlabs.wiquery.core.events.EventLabel;
 
 /**
- * $Id$
+ * $Id: JsUtils.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
  * Helper class to ease JavaScript integration.
  * </p>

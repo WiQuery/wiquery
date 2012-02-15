@@ -19,6 +19,7 @@ public class ChildMatches implements ComponentMatcher
 		this.childMatcher = childMatcher;
 	}
 
+	@Override
 	public boolean matches(Component component)
 	{
 		// alleen markupcontainers hebben kinderen
@@ -36,6 +37,7 @@ public class ChildMatches implements ComponentMatcher
 	{
 		boolean matches = false;
 
+		@Override
 		public void component(Component child, IVisit<Void> visit)
 		{
 			if (childMatcher.matches(child))

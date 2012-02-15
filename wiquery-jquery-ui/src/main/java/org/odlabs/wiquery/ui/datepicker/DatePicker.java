@@ -22,10 +22,12 @@
 package org.odlabs.wiquery.ui.datepicker;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
+import org.odlabs.wiquery.components.WiQueryTextField;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -72,7 +74,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 0.6
  */
 @WiQueryUIPlugin
-public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin
+public class DatePicker<T> extends WiQueryTextField<T>
 {
 	/**
 	 * ShowOn option enumeration
@@ -160,19 +162,17 @@ public class DatePicker<T> extends TextField<T> implements IWiQueryPlugin
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(DatePickerJavaScriptResourceReference.get());
+		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(DatePickerJavaScriptResourceReference
+			.get()));
 
 		DatePickerLanguageResourceReference dpl =
 			DatePickerLanguageResourceReference.get(getLocale());
 		if (dpl != null)
-			response.renderJavaScriptReference(dpl);
-	}
+			response.render(JavaScriptHeaderItem.forReference(dpl));
 
-	public JsStatement statement()
-	{
-		return new JsQuery(this).$().chain("datepicker",
-			options.getOptions().getJavaScriptOptions());
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this).$()
+			.chain("datepicker", options.getOptions().getJavaScriptOptions()).render().toString()));
 	}
 
 	/**

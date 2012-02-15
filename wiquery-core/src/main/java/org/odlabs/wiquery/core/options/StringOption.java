@@ -72,6 +72,7 @@ public class StringOption extends AbstractOption<String>
 		return getValue();
 	}
 
+	@Override
 	public IModelOption<String> wrapOnAssignment(Component component)
 	{
 		if (getModel() instanceof IComponentAssignedModel< ? >)

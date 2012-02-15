@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
- * $Id$
+ * $Id: FadeIn.java 1714M 2012-01-17 08:28:36Z (local) $
  * <p>
  * Defines the fade in {@link Effect}. A fade in consists to make a component appear with
  * a fade effect.
@@ -56,6 +56,7 @@ public class FadeIn extends Effect
 		super(effectSpeed);
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "fadeIn";

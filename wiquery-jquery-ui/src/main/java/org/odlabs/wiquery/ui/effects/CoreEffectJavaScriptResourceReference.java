@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
@@ -34,7 +34,7 @@ import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class CoreEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+public class CoreEffectJavaScriptResourceReference extends MinifiedAwareJavaScriptResourceReference
 		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants

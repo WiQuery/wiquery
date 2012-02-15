@@ -27,7 +27,7 @@
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
-
+		
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>

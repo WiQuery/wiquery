@@ -54,6 +54,7 @@ public class Delay extends Effect
 		super(String.valueOf(delay));
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "delay";

@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.javascript.helper.ManipulatingHelper;
 import org.odlabs.wiquery.core.options.Options;
 
 /**
- * $Id$
+ * $Id: JsStatement.java 1714M 2012-01-17 08:35:15Z (local) $
  * <p>
  * A {@link JsStatement} defines a whole executable JavaScript statement. The generator
  * eases "jQuery oriented" code, but you can still use another JavaScript coding style
@@ -204,7 +204,7 @@ public class JsStatement implements Serializable
 	 * a ChainableStatement. (eases JavaScript integration).
 	 * 
 	 * @return {@link JsStatement} this instance.
-	 * @see #chain(CharSequence, CharSequence...).
+	 * @see #chain(CharSequence, CharSequence...)
 	 */
 	public JsStatement chain(ChainableStatement chainableStatement)
 	{

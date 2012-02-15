@@ -25,15 +25,15 @@ import java.io.Serializable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.IHeaderContributor;
-import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.IRequestHandler;
-import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
-import org.odlabs.wiquery.core.resources.WiqueryGeneratedJavaScriptResource;
 import org.odlabs.wiquery.core.util.WiQueryUtil;
 
 /**
- * $Id$
+ * $Id: JsQuery.java 1721M 2012-01-17 17:43:37Z (local) $
  * <p>
  * {@link JsQuery} is the main entry point of WickeXt's JavaScript integration. This class
  * is used to link JavaScript to a component and to render it.
@@ -129,21 +129,14 @@ public class JsQuery extends Behavior implements Serializable
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(CoreJavaScriptResourceReference.get());
+		final String js = statement == null ? null : statement.render().toString();
 
-		if (!WiQueryUtil.isCurrentRequestAjax())
+		if (js != null && js.trim().length() > 0)
 		{
-			// appending component statement on dom ready, the code is executed.
-			JsStatement onreadyStatement = new JsStatement();
-			String js = statement.render().toString();
-			onreadyStatement.document().ready(JsScope.quickScope(js));
+			response.render(JavaScriptHeaderItem.forReference(WiQueryUtil
+				.getJQueryResourceReference()));
 
-			response.renderJavaScript(WiqueryGeneratedJavaScriptResource
-				.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), null);
-		}
-		else
-		{
-			response.renderOnDomReadyJavaScript(statement.render().toString());
+			response.render(OnDomReadyHeaderItem.forScript(js));
 		}
 	}
 
@@ -208,27 +201,14 @@ public class JsQuery extends Behavior implements Serializable
 	/**
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
+	@SuppressWarnings("unused")
 	public void renderHead(IHeaderResponse response, IRequestHandler requestHandler)
 	{
 		final String js = statement == null ? null : statement.render().toString();
 
 		if (js != null && js.trim().length() > 0)
 		{
-			if (!WiQueryUtil.isCurrentRequestAjax())
-			{
-				// appending component statement
-				// on dom ready, the code is executed.
-				JsStatement onreadyStatement = new JsStatement();
-				onreadyStatement.document().ready(JsScope.quickScope(js));
-				response.renderJavaScript(WiqueryGeneratedJavaScriptResource
-					.wiqueryGeneratedJavascriptCode(onreadyStatement.render()), "wiquery-gen-"
-					+ System.currentTimeMillis());
-
-			}
-			else
-			{
-				response.renderOnDomReadyJavaScript(js);
-			}
+			response.render(OnDomReadyHeaderItem.forScript(js));
 		}
 	}
 }

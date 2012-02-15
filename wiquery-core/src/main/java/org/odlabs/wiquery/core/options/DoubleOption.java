@@ -73,6 +73,7 @@ public class DoubleOption extends AbstractOption<Double>
 		return value != null ? Double.toString(value) : null;
 	}
 
+	@Override
 	public IModelOption<Double> wrapOnAssignment(Component component)
 	{
 		if (getModel() instanceof IComponentAssignedModel< ? >)

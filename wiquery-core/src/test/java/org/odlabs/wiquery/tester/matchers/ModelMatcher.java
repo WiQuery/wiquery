@@ -11,6 +11,7 @@ public class ModelMatcher implements ComponentMatcher
 		this.modelObject = object;
 	}
 
+	@Override
 	public boolean matches(Component component)
 	{
 		return modelObject.equals(component.getDefaultModelObject());

@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.events;
 
 /**
- * $Id$
+ * $Id: FormEvent.java 1714M 2012-01-17 08:29:21Z (local) $
  * <p>
  * Defines standard form events.
  * </p>
@@ -36,6 +36,7 @@ public enum FormEvent implements EventLabel
 	RESET,
 	SUBMIT;
 
+	@Override
 	public String getEventLabel()
 	{
 		return this.name().toLowerCase();

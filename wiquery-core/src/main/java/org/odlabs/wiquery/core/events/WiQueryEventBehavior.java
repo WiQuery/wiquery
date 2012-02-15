@@ -26,7 +26,7 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
- * $Id$
+ * $Id: WiQueryEventBehavior.java 1714M 2012-01-19 16:56:55Z (local) $
  * <p>
  * Calls a JavaScript statement when the given {@link Event} is triggered.
  * </p>
@@ -56,6 +56,7 @@ public class WiQueryEventBehavior extends WiQueryAbstractBehavior
 		this.event = event;
 	}
 
+	@Deprecated
 	@Override
 	public JsStatement statement()
 	{

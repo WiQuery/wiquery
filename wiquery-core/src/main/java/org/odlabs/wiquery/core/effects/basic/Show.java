@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
- * $Id$
+ * $Id: Show.java 1714M 2012-01-17 08:28:22Z (local) $
  * <p>
  * Defines the show {@link Effect}.
  * </p>
@@ -56,6 +56,7 @@ public class Show extends Effect
 		super(effectSpeed);
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "show";

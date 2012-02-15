@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * $Id$
+ * $Id: DateHelper.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
  * Helper to create javascript Date instance.
  * </p>

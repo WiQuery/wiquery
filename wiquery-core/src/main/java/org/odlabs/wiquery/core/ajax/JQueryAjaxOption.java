@@ -41,6 +41,7 @@ public class JQueryAjaxOption extends Object implements IComplexOption, IModel<J
 		options = new Options();
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		return options.getJavaScriptOptions();
@@ -501,17 +502,20 @@ public class JQueryAjaxOption extends Object implements IComplexOption, IModel<J
 		return this;
 	}
 
+	@Override
 	public JQueryAjaxOption getObject()
 	{
 		return this;
 	}
 
+	@Override
 	public void setObject(JQueryAjaxOption object)
 	{
 		throw new UnsupportedOperationException(
 			"The setObject() function is not supported for object JQueryAjaxOption.");
 	}
 
+	@Override
 	public void detach()
 	{
 		options.detach();

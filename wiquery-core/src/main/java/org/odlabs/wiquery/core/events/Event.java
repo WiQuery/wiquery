@@ -28,7 +28,7 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
+ * $Id: Event.java 1714M 2012-01-17 08:29:18Z (local) $
  * <p>
  * Executes the given {@link JsScope} statement when a given list of {@link EventLabel}
  * happened.
@@ -57,12 +57,14 @@ public abstract class Event implements ChainableStatement, Serializable
 		this.eventLabels = eventLabels;
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		// all effects are bound with the bind method
 		return "bind";
 	}
 
+	@Override
 	public CharSequence[] statementArgs()
 	{
 		String firstArg = JsUtils.implode(eventLabels);

@@ -27,7 +27,7 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
+ * $Id: AttributesHelper.java 1714M 2012-01-17 08:35:28Z (local) $
  * <p>
  * Helper to bind attributes functions.
  * </p>

@@ -26,7 +26,6 @@ import static org.junit.Assert.*;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.commons.DivTestPanel;
@@ -53,21 +52,14 @@ public class EffectBehaviorTestCase extends WiQueryTestCase
 
 		effectBehavior = new EffectBehavior(new Hide());
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
+		Panel panel = new DivTestPanel("panelId");
+		component = new WebMarkupContainer("anId");
+		component.setMarkupId(component.getId());
+		component.setOutputMarkupId(true);
+		component.add(effectBehavior);
+		panel.add(component);
 
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				component = new WebMarkupContainer("anId");
-				component.setMarkupId(component.getId());
-				component.setOutputMarkupId(true);
-				component.add(effectBehavior);
-				panel.add(component);
-				return panel;
-			}
-		});
+		tester.startComponent(panel);
 	}
 
 	/**

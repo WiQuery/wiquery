@@ -21,8 +21,9 @@
  */
 package org.odlabs.wiquery.ui.selectable;
 
-import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.head.HeaderItem;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
@@ -37,7 +38,7 @@ import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class SelectableJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+public class SelectableJavaScriptResourceReference extends MinifiedAwareJavaScriptResourceReference
 		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants
@@ -67,13 +68,9 @@ public class SelectableJavaScriptResourceReference extends WiQueryJavaScriptReso
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	public Iterable< ? extends HeaderItem> getDependencies()
 	{
-		AbstractResourceDependentResourceReference[] list =
-			new AbstractResourceDependentResourceReference[2];
-		list[0] = CoreUIJavaScriptResourceReference.get();
-		list[1] = MouseJavaScriptResourceReference.get();
-
-		return list;
+		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
+			MouseJavaScriptResourceReference.get());
 	}
 }

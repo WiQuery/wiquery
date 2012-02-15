@@ -32,7 +32,7 @@ import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.javascript.JsScope;
 
 /**
- * $Id$
+ * $Id: Options.java 1714M 2012-01-17 08:38:19Z (local) $
  * <p>
  * Wraps a set of options possibly defined for a WiQuery {@link Component}.
  * </p>
@@ -658,17 +658,20 @@ public class Options implements IModel<Options>
 		this.optionsRenderer = optionsRenderer;
 	}
 
+	@Override
 	public Options getObject()
 	{
 		return this;
 	}
 
+	@Override
 	public void setObject(Options object)
 	{
 		throw new UnsupportedOperationException(
 			"The setObject() function is not supported for object Options.");
 	}
 
+	@Override
 	public void detach()
 	{
 		onDetach(this.options);

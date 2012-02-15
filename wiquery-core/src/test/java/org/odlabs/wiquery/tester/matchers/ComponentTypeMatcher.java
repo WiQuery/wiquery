@@ -11,6 +11,7 @@ public class ComponentTypeMatcher implements ComponentMatcher
 		this.componentType = componentType;
 	}
 
+	@Override
 	public boolean matches(Component component)
 	{
 		return componentType.isAssignableFrom(component.getClass());

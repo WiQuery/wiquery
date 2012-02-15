@@ -53,6 +53,7 @@ public class CollectingVisitor<X extends Component> implements IVisitor<Componen
 		return matchedComponents;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void component(Component component, IVisit<Void> visit)
 	{

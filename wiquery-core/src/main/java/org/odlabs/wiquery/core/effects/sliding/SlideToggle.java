@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
- * $Id$
+ * $Id: SlideToggle.java 1714M 2012-01-17 08:29:10Z (local) $
  * <p>
  * Defines the slideToggle {@link Effect}. A slide down effect consists to slide toggle
  * the visibility of all matched elements by adjusting their height
@@ -56,6 +56,7 @@ public class SlideToggle extends Effect
 		super(effectSpeed);
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "slideToggle";

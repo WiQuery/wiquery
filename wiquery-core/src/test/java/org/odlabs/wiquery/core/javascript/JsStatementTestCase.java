@@ -23,7 +23,6 @@ package org.odlabs.wiquery.core.javascript;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.commons.DivTestPanel;
@@ -73,18 +72,13 @@ public class JsStatementTestCase extends WiQueryTestCase
 	public void test$Component()
 	{
 		final WebMarkupContainer component = new WebMarkupContainer("anId");
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
 
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				component.setMarkupId("anId");
-				panel.add(component);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		component.setMarkupId("anId");
+		panel.add(component);
+
+		tester.startComponent(panel);
+
 		assertAndLog("$('#anId');", jsStatement.$(component).render());
 	}
 
@@ -100,18 +94,13 @@ public class JsStatementTestCase extends WiQueryTestCase
 		jsStatement = new JsStatement();
 
 		final WebMarkupContainer component = new WebMarkupContainer("anId");
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
 
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				component.setMarkupId("anId");
-				panel.add(component);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		component.setMarkupId("anId");
+		panel.add(component);
+
+		tester.startComponent(panel);
+
 		assertAndLog("$('#anId span');", jsStatement.$(component, "span").render());
 	}
 

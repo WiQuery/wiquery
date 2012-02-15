@@ -32,7 +32,7 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.Options;
 
 /**
- * $Id$
+ * $Id: Animate.java 1714M 2012-01-17 08:23:29Z (local) $
  * 
  * <p>
  * {@link ChainableStatement} to bind the animate method on the wicket elements with
@@ -145,6 +145,7 @@ public class Animate implements ChainableStatement, Serializable
 	 * 
 	 * @see org.odlabs.wiquery.core.javascript.ChainableStatement#chainLabel()
 	 */
+	@Override
 	public String chainLabel()
 	{
 		return "animate";
@@ -289,6 +290,7 @@ public class Animate implements ChainableStatement, Serializable
 		return this;
 	}
 
+	@Override
 	public CharSequence[] statementArgs()
 	{
 		CharSequence[] argsArray = new CharSequence[2];

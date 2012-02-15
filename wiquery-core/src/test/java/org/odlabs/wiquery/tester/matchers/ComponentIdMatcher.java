@@ -11,6 +11,7 @@ public class ComponentIdMatcher implements ComponentMatcher
 		this.id = id;
 	}
 
+	@Override
 	public boolean matches(Component component)
 	{
 		return component.getId().equals(id);

@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.options;
 
 /**
- * $Id$
+ * $Id: DefaultOptionsRenderer.java 1714M 2012-01-17 08:37:04Z (local) $
  * <p>
  * Renders the a {@link Options} object as a JavaScript object, e.g.: *
  * 
@@ -66,16 +66,19 @@ public class DefaultOptionsRenderer implements IOptionsRenderer
 
 	}
 
+	@Override
 	public void renderAfter(StringBuilder stringBuilder)
 	{
 		stringBuilder.append("}");
 	}
 
+	@Override
 	public void renderBefore(StringBuilder stringBuilder)
 	{
 		stringBuilder.append("{");
 	}
 
+	@Override
 	public CharSequence renderOption(String name, Object value, boolean isLast)
 	{
 		StringBuilder stringBuilder = new StringBuilder();

@@ -14,6 +14,7 @@ public class OrMatcher implements ComponentMatcher
 		this.right = right;
 	}
 
+	@Override
 	public boolean matches(Component component)
 	{
 		return left.matches(component) || right.matches(component);

@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
- * $Id$
+ * $Id: SlideUp.java 1714M 2012-01-17 08:29:11Z (local) $
  * <p>
  * Defines the slideup {@link Effect}. A slide down effect consists to slide a component
  * in a bottom-top direction (the component disapears).
@@ -56,6 +56,7 @@ public class SlideUp extends Effect
 		super(effectSpeed);
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "slideUp";

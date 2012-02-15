@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.effects;
 
 /**
- * $Id$
+ * $Id: EffectSpeed.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
  * Defines how much an {@link Effect} speeds.
  * </p>

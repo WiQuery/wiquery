@@ -24,7 +24,8 @@ package org.odlabs.wiquery.ui.button;
 import java.io.Serializable;
 import java.util.List;
 
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.form.Radio;
 import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.form.SimpleFormComponentLabel;
@@ -156,8 +157,8 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
+		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
 	}
 
 	/**

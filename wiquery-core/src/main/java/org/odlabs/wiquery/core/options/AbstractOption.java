@@ -62,6 +62,7 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 		this.value = value;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		return toString();
@@ -70,6 +71,7 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 	@Override
 	abstract public String toString();
 
+	@Override
 	public void detach()
 	{
 		if (value != null)
@@ -78,16 +80,19 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 		}
 	}
 
+	@Override
 	public IModel<T> getModel()
 	{
 		return value;
 	}
 
+	@Override
 	public void setModel(IModel<T> model)
 	{
 		this.value = model;
 	}
 
+	@Override
 	public T getValue()
 	{
 		if (value != null)

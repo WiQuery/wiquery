@@ -57,6 +57,7 @@ public class IntegerItemOptions extends Object implements IListItemOption
 		return integer;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		return Integer.toString(integer);

@@ -36,6 +36,7 @@ public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> im
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1779802328333735627L;
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		StringBuffer javascript = new StringBuffer();
@@ -58,6 +59,7 @@ public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> im
 		return javascript;
 	}
 
+	@Override
 	public IListItemOption[] values()
 	{
 		return this.toArray(new IListItemOption[this.size()]);

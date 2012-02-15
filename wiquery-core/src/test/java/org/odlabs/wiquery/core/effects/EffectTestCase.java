@@ -88,6 +88,7 @@ public class EffectTestCase extends WiQueryTestCase
 			// TODO Auto-generated constructor stub
 		}
 
+		@Override
 		public String chainLabel()
 		{
 			return "anEffect";

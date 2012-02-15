@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.form.Check;
 import org.apache.wicket.markup.html.form.CheckGroup;
 import org.apache.wicket.markup.html.form.SimpleFormComponentLabel;
@@ -175,8 +176,8 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
+		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
 	}
 
 	/**

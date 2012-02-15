@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * $Id$
+ * $Id: JsScopeContext.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
  * {@link JsScopeContext} defines the following {@link JsScope} contents:
  * <ul>

@@ -22,12 +22,14 @@
 package org.odlabs.wiquery.core.events;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.attributes.JavaScriptPrecondition;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 
 /**
- * $Id$
+ * $Id: WiQueryAjaxEventBehavior.java 1714M 2012-01-17 08:32:44Z (local) $
  * <p>
  * Binds the given {@link Event} to an Ajax request.
  * </p>
@@ -53,9 +55,9 @@ public abstract class WiQueryAjaxEventBehavior extends WiQueryAbstractAjaxBehavi
 	}
 
 	@Override
-	protected CharSequence getPreconditionScript()
+	protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
 	{
-		return "return true";
+		attributes.getPreconditions().add(new JavaScriptPrecondition("return true"));
 	}
 
 	@Override

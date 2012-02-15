@@ -26,20 +26,19 @@ import java.util.List;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.WicketAjaxReference;
-import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.WicketEventReference;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
 import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
@@ -87,10 +86,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		@Override
 		public void renderHead(IHeaderResponse response)
 		{
-			response.renderJavaScriptReference(WicketEventReference.INSTANCE);
-			response.renderJavaScriptReference(WicketAjaxReference.INSTANCE);
-			response
-				.renderJavaScriptReference(WiQueryAutocompleteJavaScriptResourceReference.get());
+			response.render(JavaScriptHeaderItem
+				.forReference(WiQueryAutocompleteJavaScriptResourceReference.get()));
 		}
 
 		@Override
@@ -148,8 +145,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	private static final long serialVersionUID = -3377109382248062940L;
 
 	/** Constant of wiQuery Autocomplete resource */
-	public static final WiQueryJavaScriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
-		new WiQueryJavaScriptResourceReference(AutocompleteAjaxComponent.class,
+	public static final MinifiedAwareJavaScriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
+		new MinifiedAwareJavaScriptResourceReference(AutocompleteAjaxComponent.class,
 			"wiquery-autocomplete.js");
 
 	// Wicket components
@@ -204,6 +201,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			@SuppressWarnings("unchecked")
 			public String getObject()
 			{
@@ -233,10 +231,12 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 				}
 			}
 
+			@Override
 			public void setObject(String object)
 			{
 			}
 
+			@Override
 			public void detach()
 			{
 			}

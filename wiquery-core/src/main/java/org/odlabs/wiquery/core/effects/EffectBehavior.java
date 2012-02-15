@@ -26,7 +26,7 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
- * $Id$
+ * $Id: EffectBehavior.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
  * Attach an effect to the given component.
  * </p>
@@ -55,6 +55,7 @@ public class EffectBehavior extends WiQueryAbstractBehavior
 		this.effect = effect;
 	}
 
+	@Deprecated
 	@Override
 	public JsStatement statement()
 	{

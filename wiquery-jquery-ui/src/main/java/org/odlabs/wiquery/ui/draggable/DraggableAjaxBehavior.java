@@ -27,8 +27,10 @@ import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -36,7 +38,6 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.AxisEnum;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.SnapModeEnum;
@@ -117,7 +118,7 @@ public abstract class DraggableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 		public void renderHead(Component component, IHeaderResponse response)
 		{
 			super.renderHead(component, response);
-			response.renderJavaScriptReference(wiQueryDraggableJs);
+			response.render(JavaScriptHeaderItem.forReference(wiQueryDraggableJs));
 			DraggableAjaxBehavior.this.renderHead(component, response);
 		}
 
@@ -285,8 +286,8 @@ public abstract class DraggableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 	private static final long serialVersionUID = 3L;
 
 	/** ResourceReference for the wiQuery Draggable javascript */
-	public static final WiQueryJavaScriptResourceReference wiQueryDraggableJs =
-		new WiQueryJavaScriptResourceReference(DraggableJavaScriptResourceReference.class,
+	public static final MinifiedAwareJavaScriptResourceReference wiQueryDraggableJs =
+		new MinifiedAwareJavaScriptResourceReference(DraggableJavaScriptResourceReference.class,
 			"wiquery-draggable.js");
 
 	/** Drag type into the request */

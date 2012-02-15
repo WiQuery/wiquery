@@ -21,7 +21,11 @@
  */
 package org.odlabs.wiquery.core.behavior;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
@@ -35,6 +39,7 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Julien Roche
  * @since 1.1
  */
+@SuppressWarnings("deprecation")
 public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBehavior implements
 		IWiQueryPlugin
 {
@@ -42,5 +47,59 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 	/** Constant of serialization */
 	private static final long serialVersionUID = 6498661892490365888L;
 
-	public abstract JsStatement statement();
+	/**
+	 * <p>
+	 * Since wicket 6.0 {@link #statement()} is no longer needed, nearly all of WiQuery
+	 * core's inner workings have been ported to Wicket 6.0. Use
+	 * {@link #renderHead(Component, IHeaderResponse)} to render your statement.
+	 * </p>
+	 * <p>
+	 * For backward compatibility we render the output of this function in an
+	 * {@link OnDomReadyHeaderItem} if it is not empty. For your convenience this abstract
+	 * class returns null so that nothing is rendered.
+	 * <p>
+	 */
+	@Override
+	public void renderHead(Component component, IHeaderResponse response)
+	{
+		super.renderHead(component, response);
+
+		JsStatement statement = statement();
+		if (statement != null)
+		{
+			String statementString = statement.render().toString();
+			if (!Strings.isEmpty(statementString))
+			{
+				response.render(OnDomReadyHeaderItem.forScript(statementString));
+			}
+		}
+	}
+
+	/**
+	 * <p>
+	 * Since wicket 6.0 this function is no longer needed, nearly all of WiQuery core's
+	 * inner workings have been ported to Wicket 6.0. Use
+	 * {@link #renderHead(Component, IHeaderResponse)} to render your statement.
+	 * </p>
+	 * <p>
+	 * For backward compatibility we render the output of this function in an
+	 * {@link OnDomReadyHeaderItem} if it is not empty. For your convenience this abstract
+	 * class returns null so that nothing is rendered.
+	 * <p>
+	 * <p>
+	 * If you decide to use this class and to override this function then make sure you do
+	 * call this class' {@link #renderHead(Component, IHeaderResponse)} otherwise no
+	 * statement will be rendered.
+	 * <p>
+	 * 
+	 * @return The {@link JsStatement} corresponding to this component.
+	 * @deprecated use {@link #renderHead(Component, IHeaderResponse)} to render your
+	 *             statement.
+	 */
+	@Deprecated
+	@Override
+	public JsStatement statement()
+	{
+		return null;
+	}
 }

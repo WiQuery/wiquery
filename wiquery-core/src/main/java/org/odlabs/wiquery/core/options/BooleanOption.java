@@ -73,6 +73,7 @@ public class BooleanOption extends AbstractOption<Boolean>
 		return value != null ? Boolean.toString(value) : null;
 	}
 
+	@Override
 	public IModelOption<Boolean> wrapOnAssignment(Component component)
 	{
 		if (getModel() instanceof IComponentAssignedModel< ? >)

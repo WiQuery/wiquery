@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.events;
 
 /**
- * $Id$
+ * $Id: EventLabel.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
  * Defines a kind of "toString" method for all effects.
  * </p>

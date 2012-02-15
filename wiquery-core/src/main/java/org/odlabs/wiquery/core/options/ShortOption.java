@@ -73,6 +73,7 @@ public class ShortOption extends AbstractOption<Short>
 		return value != null ? Short.toString(value) : null;
 	}
 
+	@Override
 	public IModelOption<Short> wrapOnAssignment(Component component)
 	{
 		if (getModel() instanceof IComponentAssignedModel< ? >)

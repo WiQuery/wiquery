@@ -28,7 +28,7 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
- * $Id$
+ * $Id: WiqueryAjaxEffectBehavior.java 1714M 2012-01-17 08:27:15Z (local) $
  * <p>
  * Defines an {@link Effect} behavior triggering the {@link #respond(AjaxRequestTarget)}
  * method with an Ajax query.
@@ -70,12 +70,7 @@ public abstract class WiqueryAjaxEffectBehavior extends WiQueryAbstractAjaxBehav
 		return super.getCallbackScript();
 	}
 
-	@Override
-	protected CharSequence getPreconditionScript()
-	{
-		return null;
-	}
-
+	@Deprecated
 	@Override
 	public JsStatement statement()
 	{

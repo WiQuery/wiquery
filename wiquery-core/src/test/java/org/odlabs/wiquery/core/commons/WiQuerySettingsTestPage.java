@@ -1,17 +1,18 @@
 package org.odlabs.wiquery.core.commons;
 
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
-import org.odlabs.wiquery.core.javascript.JsStatement;
 
-public class WiQuerySettingsTestPage extends WebPage implements IWiQueryPlugin
+public class WiQuerySettingsTestPage extends WebPage
 {
-
 	private static final long serialVersionUID = 1L;
 
-	public JsStatement statement()
+	@Override
+	public void renderHead(IHeaderResponse response)
 	{
-		return new JsStatement();
+		response.render(JavaScriptHeaderItem.forReference(WiQueryTestResourceReference.get()));
+		response.render(OnDomReadyHeaderItem.forScript("alert('test');"));
 	}
-
 }

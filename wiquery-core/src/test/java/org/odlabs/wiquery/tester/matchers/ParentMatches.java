@@ -12,6 +12,7 @@ public class ParentMatches implements ComponentMatcher
 		this.parentMatcher = parentMatcher;
 	}
 
+	@Override
 	public boolean matches(Component component)
 	{
 		if (component == null)

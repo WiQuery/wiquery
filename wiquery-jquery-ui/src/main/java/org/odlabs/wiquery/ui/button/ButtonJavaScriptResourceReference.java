@@ -21,11 +21,9 @@
  */
 package org.odlabs.wiquery.ui.button;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.head.HeaderItem;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
@@ -40,8 +38,8 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class ButtonJavaScriptResourceReference extends WiQueryJavaScriptResourceReference implements
-		ICoreUIJavaScriptResourceReference
+public class ButtonJavaScriptResourceReference extends MinifiedAwareJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
@@ -68,13 +66,9 @@ public class ButtonJavaScriptResourceReference extends WiQueryJavaScriptResource
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	public Iterable< ? extends HeaderItem> getDependencies()
 	{
-		List<AbstractResourceDependentResourceReference> list =
-			new ArrayList<AbstractResourceDependentResourceReference>();
-		list.add(CoreUIJavaScriptResourceReference.get());
-		list.add(WidgetJavaScriptResourceReference.get());
-
-		return list.toArray(new AbstractResourceDependentResourceReference[0]);
+		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
+			WidgetJavaScriptResourceReference.get());
 	}
 }

@@ -14,6 +14,7 @@ public class PropertyExpressionMatcher implements ComponentMatcher
 		this.expression = expression;
 	}
 
+	@Override
 	public boolean matches(Component component)
 	{
 		IModel< ? > checkModel = component.getDefaultModel();

@@ -133,7 +133,7 @@ public class OptionsTestCase extends WiQueryTestCase
 		options.putString("test1", new Model<String>("Test1"));
 		options.put("test2", false);
 		OptionsTestPage page = new OptionsTestPage(panel);
-		page = (OptionsTestPage) tester.startPage(page);
+		page = tester.startPage(page);
 		String expectedResult = "Test";
 		// result should has been read from resources.
 		String result = options.get("test");
@@ -341,6 +341,7 @@ public class OptionsTestCase extends WiQueryTestCase
 	{
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		public CharSequence getJavascriptOption()
 		{
 			return "alert('complex option');";

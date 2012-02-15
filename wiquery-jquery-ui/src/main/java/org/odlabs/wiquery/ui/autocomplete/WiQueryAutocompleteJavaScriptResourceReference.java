@@ -21,8 +21,10 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.head.HeaderItem;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
+import org.odlabs.wiquery.core.util.WiQueryUtil;
 
 /**
  * $Id: AutocompleteJavascriptResourceReference.java 457 2010-10-15 07:14:28Z
@@ -35,7 +37,7 @@ import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
  * @since 1.1
  */
 public class WiQueryAutocompleteJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference
+		MinifiedAwareJavaScriptResourceReference
 {
 	private static final long serialVersionUID = 1L;
 
@@ -62,12 +64,9 @@ public class WiQueryAutocompleteJavaScriptResourceReference extends
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	public Iterable< ? extends HeaderItem> getDependencies()
 	{
-		AbstractResourceDependentResourceReference[] list =
-			new AbstractResourceDependentResourceReference[1];
-		list[0] = AutocompleteJavaScriptResourceReference.get();
-
-		return list;
+		return JavaScriptHeaderItems.forReferences(WiQueryUtil.getWicketEventReference(),
+			WiQueryUtil.getWicketAjaxReference(), AutocompleteJavaScriptResourceReference.get());
 	}
 }

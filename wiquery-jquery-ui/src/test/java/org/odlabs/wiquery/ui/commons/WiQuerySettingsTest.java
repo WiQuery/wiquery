@@ -1,7 +1,8 @@
 package org.odlabs.wiquery.ui.commons;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.util.tester.Result;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import org.odlabs.wiquery.core.events.Event;
 import org.odlabs.wiquery.core.events.WiQueryEventBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
-import org.odlabs.wiquery.core.resources.CoreJavaScriptResourceReference;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
@@ -37,7 +37,8 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 		@Override
 		public void renderHead(Component component, IHeaderResponse response)
 		{
-			response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
+			response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference
+				.get()));
 		}
 	}
 

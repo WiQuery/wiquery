@@ -23,7 +23,8 @@ package org.odlabs.wiquery.ui.tabs;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
@@ -93,8 +94,8 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(TabsJavaScriptResourceReference.get());
+		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(TabsJavaScriptResourceReference.get()));
 	}
 
 	/*

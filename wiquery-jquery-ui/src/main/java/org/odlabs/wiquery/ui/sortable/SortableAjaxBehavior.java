@@ -26,7 +26,7 @@ import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;

@@ -27,7 +27,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
 import org.odlabs.wiquery.core.options.Options;
 
 /**
- * $Id$
+ * $Id: CssHelper.java 1714M 2012-01-17 08:35:36Z (local) $
  * <p>
  * Helper to bind css functions.
  * </p>

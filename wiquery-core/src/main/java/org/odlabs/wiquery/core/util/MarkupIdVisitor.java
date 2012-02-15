@@ -6,7 +6,7 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
 /**
- * $Id$
+ * $Id: MarkupIdVisitor.java 1714M 2012-01-17 08:57:27Z (local) $
  * <p>
  * Class to retrieve the Wicket component with the specified markup identifiant
  * </p>
@@ -32,6 +32,7 @@ public class MarkupIdVisitor implements IVisitor<Component, Void>
 		this.id = id;
 	}
 
+	@Override
 	public void component(Component component, IVisit<Void> visit)
 	{
 		if (component.getMarkupId().equals(this.id))

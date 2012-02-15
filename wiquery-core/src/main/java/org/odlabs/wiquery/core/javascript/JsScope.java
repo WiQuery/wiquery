@@ -26,7 +26,7 @@ import java.io.Serializable;
 import org.codehaus.jackson.annotate.JsonValue;
 
 /**
- * $Id$
+ * $Id: JsScope.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
  * {@link JsScope} are used to define anonymous JavaScript functions. For example, let's
  * take the <code>each</code> statement:

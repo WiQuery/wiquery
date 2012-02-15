@@ -27,7 +27,7 @@ import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
+ * $Id: LiteralOption.java 1714M 2012-01-17 08:38:39Z (local) $
  * <p>
  * Wraps a {@link String} to be generated as a JavaScript string.
  * <p>
@@ -74,7 +74,6 @@ public class LiteralOption extends AbstractOption<String>
 	 * 
 	 * @param value
 	 *            the wrapped {@link String}
-	 * 
 	 */
 	public LiteralOption(String value, boolean doubleQuote)
 	{
@@ -94,21 +93,13 @@ public class LiteralOption extends AbstractOption<String>
 		this.doubleQuote = doubleQuote;
 	}
 
-	/**
-	 * @deprecated Use getValue()
-	 */
-	@Deprecated
-	public String getLiteral()
-	{
-		return getValue();
-	}
-
 	@Override
 	public String toString()
 	{
 		return doubleQuote ? JsUtils.doubleQuotes(getValue()) : JsUtils.quotes(getValue());
 	}
 
+	@Override
 	public IModelOption<String> wrapOnAssignment(Component component)
 	{
 		if (getModel() instanceof IComponentAssignedModel< ? >)

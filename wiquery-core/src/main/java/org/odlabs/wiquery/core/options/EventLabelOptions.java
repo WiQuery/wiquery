@@ -59,6 +59,7 @@ public class EventLabelOptions extends Object implements IComplexOption
 		return eventLabel;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		return new LiteralOption(eventLabel.getEventLabel()).toString();

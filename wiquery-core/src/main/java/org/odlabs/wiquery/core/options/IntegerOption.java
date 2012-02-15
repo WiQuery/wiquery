@@ -73,6 +73,7 @@ public class IntegerOption extends AbstractOption<Integer>
 		return value != null ? Integer.toString(value) : null;
 	}
 
+	@Override
 	public IModelOption<Integer> wrapOnAssignment(Component component)
 	{
 		if (getModel() instanceof IComponentAssignedModel< ? >)

@@ -23,11 +23,13 @@ package org.odlabs.wiquery.ui.dialog;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
+import org.odlabs.wiquery.components.WiQueryWebMarkupContainer;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
@@ -66,7 +68,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 0.5
  */
 @WiQueryUIPlugin
-public class Dialog extends WebMarkupContainer implements IWiQueryPlugin
+public class Dialog extends WiQueryWebMarkupContainer
 {
 	// Constants
 	/** Constant of serialization */
@@ -182,21 +184,18 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(PositionJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(DialogJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(DraggableJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(ResizableJavaScriptResourceReference.get());
-	}
+		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(PositionJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(DialogJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(DraggableJavaScriptResourceReference
+			.get()));
+		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference
+			.get()));
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.commons.JavaScriptCallable#statement()
-	 */
-	public JsStatement statement()
-	{
-		return new JsQuery(this).$().chain("dialog", options.getJavaScriptOptions());
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this).$()
+			.chain("dialog", options.getJavaScriptOptions()).render().toString()));
 	}
 
 	/**

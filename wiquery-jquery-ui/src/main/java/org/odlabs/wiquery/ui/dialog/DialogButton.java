@@ -60,6 +60,7 @@ public class DialogButton extends Object implements IListItemOption
 		setJsScope(jsScope);
 	}
 
+	@Override
 	public final CharSequence getJavascriptOption()
 	{
 		return new LiteralOption(getTitle()) + ":" + getJsScope().render();

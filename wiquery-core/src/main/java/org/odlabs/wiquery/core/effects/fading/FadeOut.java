@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
- * $Id$
+ * $Id: FadeOut.java 1714M 2012-01-17 08:28:36Z (local) $
  * <p>
  * Defines the fade out {@link Effect}. A fade out consists to make a component disappear
  * with a fade effect.
@@ -56,6 +56,7 @@ public class FadeOut extends Effect
 		super(effectSpeed);
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "fadeOut";

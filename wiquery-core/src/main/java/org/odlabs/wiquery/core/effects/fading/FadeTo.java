@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
- * $Id$
+ * $Id: FadeTo.java 1714M 2012-01-17 08:29:01Z (local) $
  * <p>
  * Defines the fade to {@link Effect}. A fade to consists to fade a component to a
  * specified opacity value.
@@ -51,12 +51,16 @@ public class FadeTo extends Effect
 	/**
 	 * Constructs a new fadeto effect executing at the given {@link EffectSpeed} and
 	 * fading to the given opacity.
+	 * 
+	 * @param effectSpeed
+	 * @param opacity
 	 */
 	public FadeTo(EffectSpeed effectSpeed, float opacity)
 	{
 		super(effectSpeed);
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "fadeTo";

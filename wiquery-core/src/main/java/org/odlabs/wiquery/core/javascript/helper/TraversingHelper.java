@@ -26,7 +26,7 @@ import org.odlabs.wiquery.core.javascript.DefaultChainableStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
+ * $Id: TraversingHelper.java 1714M 2012-01-17 08:35:47Z (local) $
  * <p>
  * Helper to bind traversing functions.
  * </p>

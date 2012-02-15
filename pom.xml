@@ -79,7 +79,7 @@
 				<classifier>tests</classifier>
 				<scope>test</scope>
 			</dependency>
-
+			
 			<!-- WICKET DEPENDENCIES -->
 			<dependency>
 				<groupId>org.apache.wicket</groupId>

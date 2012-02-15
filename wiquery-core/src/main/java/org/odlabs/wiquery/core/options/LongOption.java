@@ -73,6 +73,7 @@ public class LongOption extends AbstractOption<Long>
 		return value != null ? Long.toString(value) : null;
 	}
 
+	@Override
 	public IModelOption<Long> wrapOnAssignment(Component component)
 	{
 		if (getModel() instanceof IComponentAssignedModel< ? >)

@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.javascript;
 
 /**
- * $Id$
+ * $Id: DefaultChainableStatement.java 1714M 2012-01-17 08:33:01Z (local) $
  * <p>
  * Default implementation of ChainableStatement.
  * </p>
@@ -53,11 +53,13 @@ public class DefaultChainableStatement implements ChainableStatement
 		this.args = args;
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return label;
 	}
 
+	@Override
 	public CharSequence[] statementArgs()
 	{
 		return args;

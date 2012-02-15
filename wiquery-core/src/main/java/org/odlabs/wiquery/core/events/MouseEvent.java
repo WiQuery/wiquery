@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.events;
 
 /**
- * $Id$
+ * $Id: MouseEvent.java 1714M 2012-01-17 08:29:30Z (local) $
  * <p>
  * Defines standard mouse events.
  * </p>
@@ -44,6 +44,7 @@ public enum MouseEvent implements EventLabel
 	MOUSEUP,
 	SCROLL;
 
+	@Override
 	public String getEventLabel()
 	{
 		return this.name().toLowerCase();

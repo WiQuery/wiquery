@@ -24,7 +24,6 @@ package org.odlabs.wiquery.ui.progressbar;
 import static org.junit.Assert.*;
 
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;

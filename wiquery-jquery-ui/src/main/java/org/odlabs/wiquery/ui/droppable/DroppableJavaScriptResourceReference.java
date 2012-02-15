@@ -21,8 +21,9 @@
  */
 package org.odlabs.wiquery.ui.droppable;
 
-import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.head.HeaderItem;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
@@ -40,7 +41,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class DroppableJavaScriptResourceReference extends WiQueryJavaScriptResourceReference
+public class DroppableJavaScriptResourceReference extends MinifiedAwareJavaScriptResourceReference
 		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants
@@ -70,15 +71,10 @@ public class DroppableJavaScriptResourceReference extends WiQueryJavaScriptResou
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	public Iterable< ? extends HeaderItem> getDependencies()
 	{
-		AbstractResourceDependentResourceReference[] list =
-			new AbstractResourceDependentResourceReference[4];
-		list[0] = CoreUIJavaScriptResourceReference.get();
-		list[1] = WidgetJavaScriptResourceReference.get();
-		list[2] = MouseJavaScriptResourceReference.get();
-		list[3] = DraggableJavaScriptResourceReference.get();
-
-		return list;
+		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
+			WidgetJavaScriptResourceReference.get(), MouseJavaScriptResourceReference.get(),
+			DraggableJavaScriptResourceReference.get());
 	}
 }

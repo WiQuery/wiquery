@@ -25,7 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.effects.EffectSpeed;
 
 /**
- * $Id$
+ * $Id: Hide.java 1714M 2012-01-17 08:28:22Z (local) $
  * <p>
  * Defines the hide {@link Effect}.
  * </p>
@@ -56,6 +56,7 @@ public class Hide extends Effect
 		super(effectSpeed);
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "hide";

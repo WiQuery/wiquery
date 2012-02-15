@@ -32,7 +32,7 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
+ * $Id: EventsHelper.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
  * Helper to bind javascript scope and events
  * </p>

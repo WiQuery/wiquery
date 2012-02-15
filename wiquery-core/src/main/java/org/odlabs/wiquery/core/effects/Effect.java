@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$
+ * $Id: Effect.java 1714M 2012-01-17 08:26:19Z (local) $
  * <p>
  * Defines an abstract effect. Any jQuery effect has the same format:
  * <code>.effectName(speed, [callback])</code>
@@ -103,6 +103,7 @@ public abstract class Effect implements ChainableStatement, Serializable
 		this.callback = callback;
 	}
 
+	@Override
 	public CharSequence[] statementArgs()
 	{
 		List<CharSequence> ret = new ArrayList<CharSequence>(this.parameters);

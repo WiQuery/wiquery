@@ -53,7 +53,7 @@ public class ManipulatingHelperTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test {@link ManipulatingHelper#insertAfter(CharSequence)}
+	 * Test {@link ManipulatingHelper#insertAfter(String)}
 	 */
 	@Test
 	public void testInsertAfter()
@@ -70,7 +70,7 @@ public class ManipulatingHelperTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test {@link ManipulatingHelper#insertBefore(CharSequence)}
+	 * Test {@link ManipulatingHelper#insertBefore(String)}
 	 */
 	@Test
 	public void testInsertBefore()

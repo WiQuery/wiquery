@@ -21,8 +21,9 @@
  */
 package org.odlabs.wiquery.ui.dialog;
 
-import org.apache.wicket.resource.dependencies.AbstractResourceDependentResourceReference;
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.head.HeaderItem;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.button.ButtonJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
@@ -39,8 +40,8 @@ import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class DialogJavaScriptResourceReference extends WiQueryJavaScriptResourceReference implements
-		ICoreUIJavaScriptResourceReference
+public class DialogJavaScriptResourceReference extends MinifiedAwareJavaScriptResourceReference
+		implements ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
@@ -67,15 +68,10 @@ public class DialogJavaScriptResourceReference extends WiQueryJavaScriptResource
 	}
 
 	@Override
-	public AbstractResourceDependentResourceReference[] getDependentResourceReferences()
+	public Iterable< ? extends HeaderItem> getDependencies()
 	{
-		AbstractResourceDependentResourceReference[] list =
-			new AbstractResourceDependentResourceReference[4];
-		list[0] = ButtonJavaScriptResourceReference.get();
-		list[1] = DraggableJavaScriptResourceReference.get();
-		list[2] = PositionJavaScriptResourceReference.get();
-		list[3] = ResizableJavaScriptResourceReference.get();
-
-		return list;
+		return JavaScriptHeaderItems.forReferences(ButtonJavaScriptResourceReference.get(),
+			DraggableJavaScriptResourceReference.get(), PositionJavaScriptResourceReference.get(),
+			ResizableJavaScriptResourceReference.get());
 	}
 }

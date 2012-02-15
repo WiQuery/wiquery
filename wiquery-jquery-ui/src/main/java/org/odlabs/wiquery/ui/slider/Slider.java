@@ -22,7 +22,8 @@
 package org.odlabs.wiquery.ui.slider;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
@@ -115,9 +116,9 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(SliderJavaScriptResourceReference.get());
+		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(SliderJavaScriptResourceReference.get()));
 	}
 
 	public JsStatement statement()

@@ -28,7 +28,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
 import org.odlabs.wiquery.core.options.IComplexOption;
 
 /**
- * $Id$
+ * $Id: AnimateDuration.java 1714M 2012-01-17 08:23:38Z (local) $
  * 
  * <p>
  * Animate duration
@@ -78,6 +78,7 @@ public class AnimateDuration implements Serializable, IComplexOption
 		return effectSpeed;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (speed == null && effectSpeed == null)

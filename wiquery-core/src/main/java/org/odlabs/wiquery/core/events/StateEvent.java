@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.events;
 
 /**
- * $Id$
+ * $Id: StateEvent.java 1714M 2012-01-17 08:29:30Z (local) $
  * <p>
  * Defines standard state events.
  * </p>
@@ -43,6 +43,7 @@ public enum StateEvent implements EventLabel
 	SELECT,
 	UNLOAD;
 
+	@Override
 	public String getEventLabel()
 	{
 		return this.name().toLowerCase();

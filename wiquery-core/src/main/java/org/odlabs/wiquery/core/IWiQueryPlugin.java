@@ -23,11 +23,27 @@ package org.odlabs.wiquery.core;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
  * $Id: IWiQueryPlugin.java 412 2010-09-17 21:23:25Z lionel.armanet $
+ * 
+ * <p>
+ * Since wicket 6.0 this interface is no longer needed, nearly all of WiQuery core's inner
+ * workings have been ported to Wicket 6.0.
+ * </p>
+ * 
+ * <p>
+ * You can use an OnDomReadyHeaderItem to render the CharSequence that statement()
+ * returns.
+ * </p>
+ * 
+ * <p>
+ * <b> This class will be removed in the next version. </b>
+ * </p>
+ * 
+ * <strike>
  * <p>
  * The {@link IWiQueryPlugin} interface defines all WiQuery plugins, e.g. all
  * components/behaviors outputting jQuery statements to function.
@@ -43,19 +59,32 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * {@link Component#renderHead(IHeaderResponse)} or
  * {@link Behavior#renderHead(Component, IHeaderResponse)}).
  * </p>
+ * </strike>
  * 
  * @author Lionel Armanet
  * @since 0.5
  * @see JsStatement
+ * @deprecated Since wicket 6.0 this interface is no longer needed, nearly all of WiQuery
+ *             core's inner workings have been ported to Wicket 6.0. Use
+ *             {@link Component#renderHead(IHeaderResponse)} to render your statement.
  */
+@Deprecated
 public interface IWiQueryPlugin
 {
 
 	/**
-	 * Returns the main {@link JsStatement} used to create the plugin.
+	 * <strike>Returns the main {@link JsStatement} used to create the plugin.</strike>
+	 * <p>
+	 * Since wicket 6.0 this interface is no longer needed, nearly all of WiQuery core's
+	 * inner workings have been ported to Wicket 6.0. Use
+	 * {@link Component#renderHead(IHeaderResponse)} to render your statement.
+	 * </p>
 	 * 
 	 * @return The {@link JsStatement} corresponding to this component.
+	 * @deprecated use {@link Component#renderHead(IHeaderResponse)} to render your
+	 *             statement.
 	 */
+	@Deprecated
 	JsStatement statement();
 
 }

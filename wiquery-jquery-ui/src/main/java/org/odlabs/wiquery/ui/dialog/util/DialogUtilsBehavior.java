@@ -25,13 +25,15 @@ import java.util.Locale;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.Session;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.SharedResourceReference;
+import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
-import org.odlabs.wiquery.core.resources.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.button.ButtonJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.dialog.Dialog;
@@ -198,12 +200,12 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior
 		}
 
 		/**
-		 * Method calculating the {@link WiQueryJavaScriptResourceReference} language
+		 * Method calculating the {@link JavaScriptResourceReference} language
 		 * 
 		 * @param language
 		 * @return the resource
 		 */
-		public static WiQueryJavaScriptResourceReference getDialogUtilsResource(
+		public static JavaScriptResourceReference getDialogUtilsResource(
 				DialogUtilsLanguages language)
 		{
 			Locale locale = language.getLocale();
@@ -224,7 +226,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior
 
 			buffer.append(".js");
 
-			return new WiQueryJavaScriptResourceReference(DialogUtilsBehavior.class, "i18n/"
+			return new MinifiedAwareJavaScriptResourceReference(DialogUtilsBehavior.class, "i18n/"
 				+ buffer);
 		}
 
@@ -304,23 +306,26 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior
 		DialogUtilsBehavior.class, "warning.png");
 
 	/** Constant of wiQuery Dialog resource */
-	public static final WiQueryJavaScriptResourceReference WIQUERY_DIALOG_JS =
-		new WiQueryJavaScriptResourceReference(DialogUtilsBehavior.class, "wiquery-dialog.js");
+	public static final JavaScriptResourceReference WIQUERY_DIALOG_JS =
+		new MinifiedAwareJavaScriptResourceReference(DialogUtilsBehavior.class, "wiquery-dialog.js");
 
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.renderJavaScriptReference(WidgetJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(MouseJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(PositionJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(DialogJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(ButtonJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(DraggableJavaScriptResourceReference.get());
-		response.renderJavaScriptReference(ResizableJavaScriptResourceReference.get());
+		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(PositionJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(DialogJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(DraggableJavaScriptResourceReference
+			.get()));
+		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference
+			.get()));
 
-		response.renderJavaScriptReference(WIQUERY_DIALOG_JS);
-		response.renderJavaScriptReference(DialogUtilsLanguages
-			.getDialogUtilsResource(DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())));
+		response.render(JavaScriptHeaderItem.forReference(WIQUERY_DIALOG_JS));
+		response.render(JavaScriptHeaderItem.forReference(DialogUtilsLanguages
+			.getDialogUtilsResource(DialogUtilsLanguages.getDialogUtilsLanguages(getLocale()))));
 	}
 
 	/**
@@ -392,12 +397,6 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior
 		statement.append(JsUtils.doubleQuotes(message, true) + ")");
 
 		return statement;
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsStatement();
 	}
 
 	/**

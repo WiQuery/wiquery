@@ -23,7 +23,6 @@ package org.odlabs.wiquery.core.javascript;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.ITestPanelSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.commons.DivTestPanel;
@@ -51,20 +50,13 @@ public class JsQueryTestCase extends WiQueryTestCase
 	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
+		Panel panel = new DivTestPanel("panelId");
+		WebMarkupContainer component = new WebMarkupContainer("anId");
+		component.setMarkupId("anId");
+		panel.add(component);
+		jsQuery = new JsQuery(component);
 
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				WebMarkupContainer component = new WebMarkupContainer("anId");
-				component.setMarkupId("anId");
-				panel.add(component);
-				jsQuery = new JsQuery(component);
-				return panel;
-			}
-		});
+		tester.startComponent(panel);
 	}
 
 	/**
