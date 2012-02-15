@@ -5,7 +5,7 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.5.4</version>
+	<version>1.5-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
 
 	<scm>
