@@ -35,14 +35,18 @@ public class WiQueryJavaScriptResourceReference extends
 	private static final long serialVersionUID = 1L;
 
 	public WiQueryJavaScriptResourceReference(Class<?> scope, String name) {
-		super(scope, processName(name), null, null);
+		super(scope, processName(scope, name), null, null);
 	}
 
-	private static String processName(String name) {
+	private static String processName(Class<?> scope, String name) {
 		if (isMinifiedJavascript())
 			return name.substring(0, name.length() - 2) + "min.js";
 
-		return name;
+		if (scope.getName().contains("org.odlabs.wiquery.ui")) {
+			return name + "?ui=1.8.18";
+		} else {
+			return name;
+		}
 	}
 
 	public static boolean isMinifiedJavascript() {
