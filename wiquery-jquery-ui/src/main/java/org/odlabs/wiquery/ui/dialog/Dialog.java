@@ -27,6 +27,7 @@ import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -602,7 +603,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin
 	 */
 	public Dialog setTitle(String title)
 	{
-		options.putLiteral("title", title);
+		options.putLiteral("title", Strings.escapeMarkup(title).toString());
 		return this;
 	}
 
