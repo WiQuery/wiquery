@@ -3,7 +3,7 @@ package org.odlabs.wiquery.core;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.IReferenceHeaderItem;
-import org.apache.wicket.markup.head.ResourceAggregator;
+import org.apache.wicket.markup.html.DecoratingHeaderResponse;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.odlabs.wiquery.core.ui.ICoreUICssResourceReference;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
@@ -14,7 +14,7 @@ import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
  * 
  * @author Hielke Hoeve
  */
-public class WiQueryDecoratingHeaderResponse extends ResourceAggregator
+public class WiQueryDecoratingHeaderResponse extends DecoratingHeaderResponse
 {
 	protected WiQuerySettings settings = WiQuerySettings.get();
 
@@ -34,6 +34,8 @@ public class WiQueryDecoratingHeaderResponse extends ResourceAggregator
 				super.render(item);
 			}
 		}
+		else
+			super.render(item);
 	}
 
 	protected boolean isReferenceAllowed(ResourceReference reference)
