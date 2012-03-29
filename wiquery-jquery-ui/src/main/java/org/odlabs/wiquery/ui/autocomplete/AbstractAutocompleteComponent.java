@@ -296,12 +296,14 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		if (valueId == null && Strings.isEmpty(input))
 		{
 			setConvertedInput(null);
-
 		}
 		else if (valueId == null)
 		{
 			setConvertedInput(getValueOnSearchFail(input));
-
+		}
+		else if (Strings.isEmpty(input))
+		{
+			setConvertedInput(null);
 		}
 		else if (object == null || input.compareTo((String) renderer.getDisplayValue(object)) != 0)
 		{
