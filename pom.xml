@@ -9,7 +9,7 @@
 	<name>WiQuery Parent</name>
 
 	<scm>
-		<developerConnection>scm:svn:https://wiquery.googlecode.com/svn/trunk</developerConnection>
+		<developerConnection>scm:git:git@github.com:wiquery/wiquery.git</developerConnection>
 	</scm>
 
 	<distributionManagement>
@@ -22,8 +22,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>1.5.4</wicket.version>
-		<jackson.version>[1.8,1.8.6],[1.9,1.9.3]</jackson.version>
+		<wicket.version>1.5.5</wicket.version>
+		<jackson.version>[1.8,1.8.6],[1.9,1.9.6]</jackson.version>
 		<slf4j.version>[1.6,1.6.4]</slf4j.version>
 		<rhino.version>1.7R2</rhino.version>
 		<junit.version>4.10</junit.version>
@@ -317,9 +317,10 @@
 					</execution>
 				</executions>
 				<configuration>
-					<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/trunk</scmConnection>
-					<doCheck>false</doCheck>
+					<scmConnection>scm:git:git@github.com:wiquery/wiquery.git</scmConnection>
+					<doCheck>true</doCheck>
 					<doUpdate>false</doUpdate>
+					<shortRevisionLength>5</shortRevisionLength>
 				</configuration>
 			</plugin>
 			<plugin>
