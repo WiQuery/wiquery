@@ -58,7 +58,7 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param model
 	 *            Model of the default value
 	 * @param list
@@ -75,7 +75,7 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param model
 	 *            Model of the default value
 	 * @param list

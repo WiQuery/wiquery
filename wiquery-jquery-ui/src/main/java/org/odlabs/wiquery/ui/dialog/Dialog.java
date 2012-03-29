@@ -29,7 +29,6 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.odlabs.wiquery.components.WiQueryWebMarkupContainer;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
@@ -44,7 +43,6 @@ import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id$
  * <p>
  * Displays a window wrapping this {@link WebMarkupContainer} markup.
  * </p>
@@ -68,7 +66,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 0.5
  */
 @WiQueryUIPlugin
-public class Dialog extends WiQueryWebMarkupContainer
+public class Dialog extends WebMarkupContainer
 {
 	// Constants
 	/** Constant of serialization */
@@ -661,7 +659,6 @@ public class Dialog extends WiQueryWebMarkupContainer
 	 * 
 	 * @param bgiframe
 	 * @return instance of the current component
-	 * @deprecated will be removed in 1.3
 	 */
 	@Deprecated
 	public Dialog setBgiframe(boolean bgiframe)
@@ -671,10 +668,8 @@ public class Dialog extends WiQueryWebMarkupContainer
 	}
 
 	/**
-	 * @deprecated will be removed in 1.3
 	 * @returns <code>true</code> if the bgiframe plugin will be used
 	 */
-	@Deprecated
 	public boolean isBgiframe()
 	{
 		if (this.options.containsKey("bgiframe"))
@@ -750,21 +745,6 @@ public class Dialog extends WiQueryWebMarkupContainer
 	 * @returns <code>true</code> if the dialog is draggable
 	 */
 	public boolean isDraggable()
-	{
-		if (this.options.containsKey("draggable"))
-		{
-			return this.options.getBoolean("draggable");
-		}
-
-		return true;
-	}
-
-	/**
-	 * @returns <code>true</code> if the dialog is draggable
-	 * @deprecated will be removed is 1.2
-	 */
-	@Deprecated
-	public boolean isDraggrable()
 	{
 		if (this.options.containsKey("draggable"))
 		{
@@ -888,10 +868,7 @@ public class Dialog extends WiQueryWebMarkupContainer
 	 * 
 	 * @param beforeclose
 	 * @return instance of the current component
-	 * @deprecated will be removed when we will used jquery ui 1.9 (see ticket
-	 *             http://dev.jqueryui.com/ticket/4669)
 	 */
-	@Deprecated
 	public Dialog setBeforeCloseEvent(JsScopeUiEvent beforeclose)
 	{
 		this.options.put("beforeClose", beforeclose);

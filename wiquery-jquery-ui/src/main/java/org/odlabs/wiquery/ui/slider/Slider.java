@@ -92,7 +92,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Markup identifiant
+	 *            Markup identifier
 	 * @param min
 	 *            Minimum value
 	 * @param max

@@ -8,7 +8,7 @@ import org.apache.wicket.util.visit.IVisitor;
 /**
  * $Id: MarkupIdVisitor.java 1714M 2012-01-17 08:57:27Z (local) $
  * <p>
- * Class to retrieve the Wicket component with the specified markup identifiant
+ * Class to retrieve the Wicket component with the specified markup identifier
  * </p>
  * 
  * @author Julien Roche
@@ -25,7 +25,7 @@ public class MarkupIdVisitor implements IVisitor<Component, Void>
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Markup identifiant
+	 *            Markup identifier
 	 */
 	public MarkupIdVisitor(String id)
 	{
@@ -47,7 +47,7 @@ public class MarkupIdVisitor implements IVisitor<Component, Void>
 	}
 
 	/**
-	 * @return the markup identifiant
+	 * @return the markup identifier
 	 */
 	public String getId()
 	{

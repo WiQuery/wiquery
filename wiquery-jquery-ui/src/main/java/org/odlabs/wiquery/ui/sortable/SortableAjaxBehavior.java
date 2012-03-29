@@ -315,13 +315,13 @@ public abstract class SortableAjaxBehavior<E extends Component> extends WiQueryA
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
 
-	/** Sorted identifiant into the request */
+	/** Sorted identifier into the request */
 	private static final String SORTED_ID = "sortedId";
 
 	/** Sorted index into the request */
 	private static final String SORTED_INDEX = "sortedIndex";
 
-	/** Sorted parent identifiant into the request */
+	/** Sorted parent identifier into the request */
 	private static final String SORTED_PARENT_ID = "sortedParentId";
 
 	/** Sorted type into the request */

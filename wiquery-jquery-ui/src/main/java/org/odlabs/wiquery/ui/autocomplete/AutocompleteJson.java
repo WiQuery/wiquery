@@ -48,7 +48,7 @@ public class AutocompleteJson implements Serializable
 	 * Default constructor
 	 * 
 	 * @param valueId
-	 *            Identifiant of the model
+	 *            identifier of the model
 	 * @param label
 	 *            Label to display
 	 */
@@ -68,7 +68,7 @@ public class AutocompleteJson implements Serializable
 	}
 
 	/**
-	 * @return the identifiant of the model
+	 * @return the identifier of the model
 	 */
 	public String getValueId()
 	{
@@ -86,7 +86,7 @@ public class AutocompleteJson implements Serializable
 	}
 
 	/**
-	 * Set the identifiant of the model
+	 * Set the identifier of the model
 	 * 
 	 * @param valueId
 	 */

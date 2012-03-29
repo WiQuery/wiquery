@@ -63,7 +63,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 */
 	public Autocomplete(String id)
 	{
@@ -75,7 +75,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param model
 	 *            Model
 	 */

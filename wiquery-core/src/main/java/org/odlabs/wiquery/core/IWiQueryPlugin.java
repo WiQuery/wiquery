@@ -27,8 +27,6 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
- * $Id: IWiQueryPlugin.java 412 2010-09-17 21:23:25Z lionel.armanet $
- * 
  * <p>
  * Since wicket 6.0 this interface is no longer needed, nearly all of WiQuery core's inner
  * workings have been ported to Wicket 6.0.

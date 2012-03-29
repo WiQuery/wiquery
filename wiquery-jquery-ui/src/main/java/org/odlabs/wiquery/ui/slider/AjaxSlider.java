@@ -177,7 +177,7 @@ public class AjaxSlider extends Slider
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Markup identifiant
+	 *            Markup identifier
 	 * @param min
 	 *            Minimum value
 	 * @param max

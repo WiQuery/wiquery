@@ -74,7 +74,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		 * Constructor
 		 * 
 		 * @param id
-		 *            Wicket identifiant
+		 *            Wicket identifier
 		 * @param model
 		 *            Model
 		 */
@@ -164,7 +164,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param model
 	 *            Model of the default value
 	 */
@@ -349,7 +349,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	}
 
 	/**
-	 * @return Hidden field storing the identifiant of the Wicket model
+	 * @return Hidden field storing the identifier of the Wicket model
 	 */
 	public HiddenField<String> getAutocompleteHidden()
 	{

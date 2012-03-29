@@ -27,7 +27,6 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
-import org.odlabs.wiquery.components.WiQueryTextField;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -42,7 +41,6 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id$
  * <p>
  * Extends the {@link TextField} to provide a date picker.
  * </p>
@@ -65,16 +63,11 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * </ul>
  * </p>
  * 
- * Missing functionnalities
- * <ul>
- * <li>Method : dialog</li>
- * </ul>
- * 
  * @author Lionel Armanet
  * @since 0.6
  */
 @WiQueryUIPlugin
-public class DatePicker<T> extends WiQueryTextField<T>
+public class DatePicker<T> extends TextField<T>
 {
 	/**
 	 * ShowOn option enumeration
@@ -100,7 +93,7 @@ public class DatePicker<T> extends WiQueryTextField<T>
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Markup identifiant
+	 *            Markup identifier
 	 * @param type
 	 *            Class type
 	 */
@@ -114,7 +107,7 @@ public class DatePicker<T> extends WiQueryTextField<T>
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Markup identifiant
+	 *            Markup identifier
 	 * @param model
 	 *            Model to use
 	 * @param type
@@ -130,7 +123,7 @@ public class DatePicker<T> extends WiQueryTextField<T>
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Markup identifiant
+	 *            Markup identifier
 	 * @param model
 	 *            Model to use
 	 */
@@ -144,7 +137,7 @@ public class DatePicker<T> extends WiQueryTextField<T>
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Markup identifiant
+	 *            Markup identifier
 	 */
 	public DatePicker(String id)
 	{
@@ -759,16 +752,6 @@ public class DatePicker<T> extends WiQueryTextField<T>
 	{
 		options.setShowOtherMonths(showOtherMonths);
 		return this;
-	}
-
-	/**
-	 * @deprecated will be removed in 1.2 Returns if the next/previous months are showed
-	 *             in the calendar.
-	 */
-	@Deprecated
-	public boolean getShowOtherMonths()
-	{
-		return options.getShowOtherMonths();
 	}
 
 	/**

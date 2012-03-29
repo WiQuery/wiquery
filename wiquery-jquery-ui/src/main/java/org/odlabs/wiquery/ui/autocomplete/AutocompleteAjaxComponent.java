@@ -114,7 +114,7 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param model
 	 *            Model of the default value
 	 */

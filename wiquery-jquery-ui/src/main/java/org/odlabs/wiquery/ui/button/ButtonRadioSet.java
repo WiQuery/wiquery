@@ -66,7 +66,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param radios
 	 *            List of radios
 	 */
@@ -79,7 +79,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param radios
 	 *            List of radios
 	 */
@@ -130,7 +130,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param radios
 	 *            List of radios
 	 */
@@ -143,7 +143,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param radios
 	 *            List of radios
 	 * @param model
@@ -173,7 +173,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	 * Method creating a new {@link Radio}
 	 * 
 	 * @param wicketId
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param model
 	 *            Model to use
 	 * @param group

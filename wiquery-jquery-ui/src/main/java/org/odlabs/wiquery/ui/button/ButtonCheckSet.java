@@ -69,7 +69,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param checks
 	 *            List of checks
 	 */
@@ -82,7 +82,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param checks
 	 *            List of checks
 	 * @param model
@@ -148,7 +148,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param checks
 	 *            List of checks
 	 */
@@ -161,7 +161,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param checks
 	 *            List of checks
 	 * @param model
@@ -192,7 +192,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel implements IWi
 	 * Method creating a new {@link Check}
 	 * 
 	 * @param wicketId
-	 *            Wicket identifiant
+	 *            Wicket identifier
 	 * @param model
 	 *            Model to use
 	 * @param group

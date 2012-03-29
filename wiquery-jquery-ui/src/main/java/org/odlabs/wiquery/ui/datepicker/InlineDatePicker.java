@@ -25,7 +25,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.odlabs.wiquery.components.WiQueryWebMarkupContainer;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -53,7 +53,7 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
  * @since 1.0.2
  */
 @WiQueryUIPlugin
-public class InlineDatePicker<T> extends WiQueryWebMarkupContainer
+public class InlineDatePicker<T> extends WebMarkupContainer
 {
 	// Constants
 	/** Constant of serialization */
@@ -66,7 +66,7 @@ public class InlineDatePicker<T> extends WiQueryWebMarkupContainer
 	 * Constructor
 	 * 
 	 * @param id
-	 *            Markup identifiant
+	 *            Markup identifier
 	 */
 	public InlineDatePicker(String id)
 	{
@@ -681,16 +681,6 @@ public class InlineDatePicker<T> extends WiQueryWebMarkupContainer
 	{
 		this.options.setShowOtherMonths(showOtherMonths);
 		return this;
-	}
-
-	/**
-	 * @deprecated will be removed in 1.2 Returns if the next/previous months are showed
-	 *             in the calendar.
-	 */
-	@Deprecated
-	public boolean getShowOtherMonths()
-	{
-		return options.getShowOtherMonths();
 	}
 
 	/**
