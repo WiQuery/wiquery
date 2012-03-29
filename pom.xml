@@ -22,8 +22,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>1.4-SNAPSHOT</wicket.version>
-		<jackson.version>[1.8,1.8.6],[1.9,1.9.3]</jackson.version>
+		<wicket.version>1.4.20</wicket.version>
+		<jackson.version>[1.8,1.8.6],[1.9,1.9.6]</jackson.version>
 		<slf4j.version>[1.6,1.6.4]</slf4j.version>
 		<rhino.version>1.7R2</rhino.version>
 		<junit.version>4.10</junit.version>
@@ -328,7 +328,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wicket-14-trunk</scmConnection>
+					<scmConnection>scm:git:git@github.com:hielkehoeve/wiquery-highcharts.git</scmConnection>
 					<doCheck>false</doCheck>
 					<doUpdate>false</doUpdate>
 				</configuration>
