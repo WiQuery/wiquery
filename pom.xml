@@ -5,11 +5,11 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.2.5</version>
 	<name>WiQuery</name>
 
 	<scm>
-		<developerConnection>scm:svn:https://wiquery.googlecode.com/svn/branches/wicket-14-trunk</developerConnection>
+		<developerConnection>scm:git:git@github.com:wiquery/wiquery.git</developerConnection>
 	</scm>
 
 	<distributionManagement>
@@ -328,9 +328,10 @@
 					</execution>
 				</executions>
 				<configuration>
-					<scmConnection>scm:git:git@github.com:hielkehoeve/wiquery-highcharts.git</scmConnection>
-					<doCheck>false</doCheck>
+					<scmConnection>scm:git:git@github.com:wiquery/wiquery.git</scmConnection>
+					<doCheck>true</doCheck>
 					<doUpdate>false</doUpdate>
+					 <shortRevisionLength>5</shortRevisionLength>
 				</configuration>
 			</plugin>
 			<plugin>

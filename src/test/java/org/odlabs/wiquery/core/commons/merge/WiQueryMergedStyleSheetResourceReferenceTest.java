@@ -28,8 +28,8 @@ import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 
 /**
- * $Id: WiQueryMergedStyleSheetResourceReferenceTest.java 562 2010-11-19
- * 14:10:10Z hielke.hoeve@gmail.com $
+ * $Id: WiQueryMergedStyleSheetResourceReferenceTest.java 562 2010-11-19 14:10:10Z
+ * hielke.hoeve@gmail.com $
  * <p>
  * Tests for methods from the {@link WiQueryMergedStyleSheetResourceReference}
  * </p>
@@ -37,123 +37,97 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
  * @author Julien
  * @since 1.1
  */
-public class WiQueryMergedStyleSheetResourceReferenceTest extends
-		WiQueryTestCase {
+public class WiQueryMergedStyleSheetResourceReferenceTest extends WiQueryTestCase
+{
 	/**
 	 * Test the
 	 * {@link WiQueryMergedStyleSheetResourceReference#fixCssUrls(String, String) }
 	 */
 	@Test
-	public void testfixCssUrls() {
+	public void testfixCssUrls()
+	{
 		ResourceReference baseReference = new ResourceReference("no_name");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(img.png)", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(img.png)", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(./img.png)", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/./img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(./img.png)", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/./img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(../img.png)", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/../img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(../img.png)", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/../img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(http://www.a.com/img.png)", baseReference).trim(),
-				"url(\"http://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(http://www.a.com/img.png)", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"http://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(https://www.a.com/img.png)", baseReference).trim(),
-				"url(\"https://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(https://www.a.com/img.png)", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"https://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(ftp://www.a.com/img.png)", baseReference).trim(),
-				"url(\"ftp://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(ftp://www.a.com/img.png)", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"ftp://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(file://img.png)", baseReference).trim(), "url(\"file://img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(file://img.png)", baseReference).trim().replaceAll("\\\\", "/"), "url(\"file://img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url('img.png')", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url('img.png')", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url('./img.png')", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/./img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url('./img.png')", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/./img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url('../img.png')", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/../img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url('../img.png')", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/../img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url('http://www.a.com/img.png')", baseReference).trim(),
-				"url(\"http://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url('http://www.a.com/img.png')", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"http://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url('https://www.a.com/img.png')", baseReference).trim(),
-				"url(\"https://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url('https://www.a.com/img.png')", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"https://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url('ftp://www.a.com/img.png')", baseReference).trim(),
-				"url(\"ftp://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url('ftp://www.a.com/img.png')", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"ftp://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url('file://img.png')", baseReference).trim(), "url(\"file://img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url('file://img.png')", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"file://img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(\"img.png\")", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(\"img.png\")", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(\"./img.png\")", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/./img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(\"./img.png\")", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/./img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(\"../img.png\")", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/../img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(\"../img.png\")", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/../img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(\"http://www.a.com/img.png\")", baseReference).trim(),
-				"url(\"http://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(\"http://www.a.com/img.png\")", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"http://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(\"https://www.a.com/img.png\")", baseReference).trim(),
-				"url(\"https://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(\"https://www.a.com/img.png\")", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"https://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(\"ftp://www.a.com/img.png\")", baseReference).trim(),
-				"url(\"ftp://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(\"ftp://www.a.com/img.png\")", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"ftp://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url(\"file://img.png\")", baseReference).trim(), "url(\"file://img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url(\"file://img.png\")", baseReference).trim(), "url(\"file://img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"   url(   \"   img.png   \"   )   ", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("   url(   \"   img.png   \"   )   ", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"   url(   \"./img.png\"   )  ", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/./img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("   url(   \"./img.png\"   )  ", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/./img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				" url( \"../img.png\"  )  ", baseReference).trim(),
-				"url(\"resources/org.apache.wicket.Application/../img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(" url( \"../img.png\"  )  ", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"resources/org.apache.wicket.Application/../img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				" url( \"http://www.a.com/img.png\"  )", baseReference).trim(),
-				"url(\"http://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(" url( \"http://www.a.com/img.png\"  )", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"http://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"  url   (\"https://www.a.com/img.png\"  )  ", baseReference).trim(),
-				"url(\"https://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("  url   (\"https://www.a.com/img.png\"  )  ", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"https://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"   url (\"ftp://www.a.com/img.png\")", baseReference).trim(),
-				"url(\"ftp://www.a.com/img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("   url (\"ftp://www.a.com/img.png\")", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"ftp://www.a.com/img.png\")");
 
-		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls(
-				"url     (\"file://img.png\")", baseReference).trim(),
-				"url(\"file://img.png\")");
+		assertEquals(WiQueryMergedStyleSheetResourceReference.fixCssUrls("url     (\"file://img.png\")", baseReference).trim().replaceAll("\\\\", "/"),
+			"url(\"file://img.png\")");
 	}
 }
