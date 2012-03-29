@@ -49,21 +49,12 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 		super.setUp();
 
 		selectableBehavior = new SelectableBehavior();
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				WebMarkupContainer component = new WebMarkupContainer("anId");
-				component.setMarkupId("anId");
-				component.add(selectableBehavior);
-				panel.add(component);
-				return panel;
-			}
-		});
-
+		Panel panel = new DivTestPanel("panelId");
+		WebMarkupContainer component = new WebMarkupContainer("anId");
+		component.setMarkupId("anId");
+		component.add(selectableBehavior);
+		panel.add(component);
+		tester.startComponent(panel);
 	}
 
 	/**

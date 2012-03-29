@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.ui.autocomplete;
 
 import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
 import org.odlabs.wiquery.core.util.WiQueryUtil;
 
@@ -36,8 +36,7 @@ import org.odlabs.wiquery.core.util.WiQueryUtil;
  * @author Julien Roche
  * @since 1.1
  */
-public class WiQueryAutocompleteJavaScriptResourceReference extends
-		MinifiedAwareJavaScriptResourceReference
+public class WiQueryAutocompleteJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = 1L;
 

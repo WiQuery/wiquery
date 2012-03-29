@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.droppable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -162,10 +163,16 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
 	@Override
-	protected CharSequence getCallbackScript()
+	public CharSequence getCallbackScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&droppedId='+"
-			+ DroppableBehavior.UI_DRAGGABLE + "[0].id");
+		AjaxRequestAttributes attributes = getAttributes();
+		StringBuilder sb =
+			new StringBuilder("var attrs = ").append(
+				renderAjaxAttributes(getComponent(), attributes)).append(";");
+		sb.append("attrs.ep['droppedId'] = ").append(DroppableBehavior.UI_DRAGGABLE)
+			.append("[0].id;");
+		sb.append("Wicket.Ajax.ajax(attrs);");
+		return sb;
 	}
 
 	/**

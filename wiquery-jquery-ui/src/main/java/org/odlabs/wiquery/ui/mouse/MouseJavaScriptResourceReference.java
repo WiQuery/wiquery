@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.ui.mouse;
 
 import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
@@ -37,8 +37,8 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class MouseJavaScriptResourceReference extends MinifiedAwareJavaScriptResourceReference
-		implements ICoreUIJavaScriptResourceReference
+public class MouseJavaScriptResourceReference extends JavaScriptResourceReference implements
+		ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 

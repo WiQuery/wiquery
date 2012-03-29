@@ -51,19 +51,11 @@ public class AccordionTestCase extends WiQueryTestCase
 	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				accordion = new Accordion("anId");
-				accordion.setMarkupId(accordion.getId());
-				panel.add(accordion);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		accordion = new Accordion("anId");
+		accordion.setMarkupId(accordion.getId());
+		panel.add(accordion);
+		tester.startComponent(panel);
 	}
 
 	/**

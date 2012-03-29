@@ -104,12 +104,6 @@ public class Dialog extends WiQueryWebMarkupContainer
 		public DialogAjaxBehavior()
 		{
 		}
-
-		@Override
-		public CharSequence generateCallbackScript(CharSequence partialCall)
-		{
-			return super.generateCallbackScript(partialCall);
-		}
 	}
 
 	/**

@@ -23,7 +23,6 @@ package org.odlabs.wiquery.core.events;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.attributes.JavaScriptPrecondition;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -57,7 +56,7 @@ public abstract class WiQueryAjaxEventBehavior extends WiQueryAbstractAjaxBehavi
 	@Override
 	protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
 	{
-		attributes.getPreconditions().add(new JavaScriptPrecondition("return true"));
+		// attributes.getPreconditions().add(new JavaScriptPrecondition("return true"));
 	}
 
 	@Override

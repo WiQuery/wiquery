@@ -30,7 +30,6 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.SharedResourceReference;
-import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
@@ -226,8 +225,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior
 
 			buffer.append(".js");
 
-			return new MinifiedAwareJavaScriptResourceReference(DialogUtilsBehavior.class, "i18n/"
-				+ buffer);
+			return new JavaScriptResourceReference(DialogUtilsBehavior.class, "i18n/" + buffer);
 		}
 
 		// Properties
@@ -307,7 +305,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior
 
 	/** Constant of wiQuery Dialog resource */
 	public static final JavaScriptResourceReference WIQUERY_DIALOG_JS =
-		new MinifiedAwareJavaScriptResourceReference(DialogUtilsBehavior.class, "wiquery-dialog.js");
+		new JavaScriptResourceReference(DialogUtilsBehavior.class, "wiquery-dialog.js");
 
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)

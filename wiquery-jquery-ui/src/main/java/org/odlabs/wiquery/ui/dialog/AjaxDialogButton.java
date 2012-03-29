@@ -34,12 +34,10 @@ public abstract class AjaxDialogButton extends DialogButton
 		{
 			scopeContext.append(new StringBuffer().append("var url = '")
 				.append(getDialog().getAjaxBehavior().getCallbackUrl()).append("&")
-				.append(Dialog.BUTTON_ID).append("=").append(title)
-				.append("';")
+				.append(Dialog.BUTTON_ID).append("=").append(title).append("';")
 				// delegating call-back generation to AJAX behavior
 				// so that we don't miss 'decorator' related functionality.
-				.append(getDialog().getAjaxBehavior().generateCallbackScript("wicketAjaxGet(url"))
-				.toString());
+				.append(getDialog().getAjaxBehavior().getCallbackScript()).toString());
 
 		}
 

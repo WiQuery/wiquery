@@ -34,7 +34,7 @@ import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -145,9 +145,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	private static final long serialVersionUID = -3377109382248062940L;
 
 	/** Constant of wiQuery Autocomplete resource */
-	public static final MinifiedAwareJavaScriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
-		new MinifiedAwareJavaScriptResourceReference(AutocompleteAjaxComponent.class,
-			"wiquery-autocomplete.js");
+	public static final JavaScriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
+		new JavaScriptResourceReference(AutocompleteAjaxComponent.class, "wiquery-autocomplete.js");
 
 	// Wicket components
 	private final Autocomplete<String> autocompleteField;

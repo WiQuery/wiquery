@@ -68,12 +68,6 @@ public class AjaxSlider extends Slider
 		public SliderAjaxBehavior()
 		{
 		}
-
-		@Override
-		public CharSequence generateCallbackScript(CharSequence partialCall)
-		{
-			return super.generateCallbackScript(partialCall);
-		}
 	}
 
 	// class members
@@ -164,12 +158,10 @@ public class AjaxSlider extends Slider
 				.append(slider.sliderContext.getCallbackUrl()).append("&").append(SLIDER_EVENT)
 				.append("=").append(event.name()).append("&").append(SLIDER_VALUE).append("=")
 				.append("'+").append(Slider.UI_VALUE).append("+'&").append(SLIDER_VALUES)
-				.append("=").append("'+").append(Slider.UI_VALUES)
-				.append(";")
+				.append("=").append("'+").append(Slider.UI_VALUES).append(";")
 				// delegating call-back generation to AJAX behavior
 				// so that we don't miss 'decorator' related functionality.
-				.append(slider.sliderContext.generateCallbackScript("wicketAjaxGet(url"))
-				.toString());
+				.append(slider.sliderContext.getCallbackScript()).toString());
 
 		}
 

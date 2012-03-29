@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.ui.datepicker;
 
 import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
@@ -37,8 +37,8 @@ import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class DatePickerJavaScriptResourceReference extends MinifiedAwareJavaScriptResourceReference
-		implements ICoreUIJavaScriptResourceReference
+public class DatePickerJavaScriptResourceReference extends JavaScriptResourceReference implements
+		ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 

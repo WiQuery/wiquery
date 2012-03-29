@@ -54,19 +54,11 @@ public class TabsTestCase extends WiQueryTestCase
 	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				tabs = new Tabs("anId");
-				tabs.setMarkupId(tabs.getId());
-				panel.add(tabs);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		tabs = new Tabs("anId");
+		tabs.setMarkupId(tabs.getId());
+		panel.add(tabs);
+		tester.startComponent(panel);
 	}
 
 	/**
@@ -89,17 +81,9 @@ public class TabsTestCase extends WiQueryTestCase
 	{
 		final WebMarkupContainer container = new WebMarkupContainer("anId");
 		container.setMarkupId(container.getId());
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				panel.add(container);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		panel.add(container);
+		tester.startComponent(panel);
 		assertNotNull(tabs.add(5, "a title", container));
 		assertEquals(tabs.add(5, "a title", container).render().toString(),
 			"$('#anId').tabs('add', '#anId', 'a title', 5);");
@@ -115,17 +99,9 @@ public class TabsTestCase extends WiQueryTestCase
 	{
 		final WebMarkupContainer container = new WebMarkupContainer("anId");
 		container.setMarkupId(container.getId());
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				panel.add(container);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		panel.add(container);
+		tester.startComponent(panel);
 		assertNotNull(tabs.add("a title", container));
 		assertEquals(tabs.add("a title", container).render().toString(),
 			"$('#anId').tabs('add', '#anId', 'a title');");
@@ -286,6 +262,7 @@ public class TabsTestCase extends WiQueryTestCase
 		{
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public CharSequence getJavascriptOption()
 			{
 				return "opacity: 'toggle'";

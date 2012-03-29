@@ -50,19 +50,11 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new InputTestPanel(panelId);
-				autocomplete = new Autocomplete<String>("anId");
-				autocomplete.setMarkupId(autocomplete.getId());
-				panel.add(autocomplete);
-				return panel;
-			}
-		});
+		Panel panel = new InputTestPanel("panelId");
+		autocomplete = new Autocomplete<String>("anId");
+		autocomplete.setMarkupId(autocomplete.getId());
+		panel.add(autocomplete);
+		tester.startComponent(panel);
 	}
 
 	/**

@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.ui.effects;
 
 import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
@@ -36,8 +36,8 @@ import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class DropEffectJavaScriptResourceReference extends MinifiedAwareJavaScriptResourceReference
-		implements ICoreUIJavaScriptResourceReference
+public class DropEffectJavaScriptResourceReference extends JavaScriptResourceReference implements
+		ICoreUIJavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */

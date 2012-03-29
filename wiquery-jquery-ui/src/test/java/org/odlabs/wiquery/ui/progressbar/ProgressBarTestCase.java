@@ -46,19 +46,11 @@ public class ProgressBarTestCase extends WiQueryTestCase
 	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				progressBar = new ProgressBar("anId");
-				progressBar.setMarkupId(progressBar.getId());
-				panel.add(progressBar);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		progressBar = new ProgressBar("anId");
+		progressBar.setMarkupId(progressBar.getId());
+		panel.add(progressBar);
+		tester.startComponent(panel);
 	}
 
 	/**

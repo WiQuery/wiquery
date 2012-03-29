@@ -50,19 +50,11 @@ public class DialogTestCase extends WiQueryTestCase
 	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				dialog = new Dialog("anId");
-				dialog.setMarkupId(dialog.getId());
-				panel.add(dialog);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		dialog = new Dialog("anId");
+		dialog.setMarkupId(dialog.getId());
+		panel.add(dialog);
+		tester.startComponent(panel);
 	}
 
 	/**

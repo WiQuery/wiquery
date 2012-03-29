@@ -3,6 +3,7 @@ package org.odlabs.wiquery.ui.commons;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.resource.JQueryResourceReference;
 import org.apache.wicket.util.tester.Result;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
@@ -66,20 +67,7 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 	{
 		startTestPage();
 		tester.dumpPage();
-		tester.assertContains(CoreJavaScriptResourceReference.class.getName());
-		tester.assertContains(WiQueryCoreThemeResourceReference.class.getName());
-		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
-		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
-
-	}
-
-	@Test
-	public void testWiquerySettingsCoreLibraryDisabled()
-	{
-		WiQuerySettings.get().setAutoImportJQueryResource(false);
-		startTestPage();
-		assertNotContains("Core library is disabled. Resource reference shouldn't be rendered",
-			CoreJavaScriptResourceReference.class.getName());
+		tester.assertContains(JQueryResourceReference.class.getName());
 		tester.assertContains(WiQueryCoreThemeResourceReference.class.getName());
 		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
 		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
@@ -92,7 +80,7 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 		WiQuerySettings.get().setAutoImportJQueryUIStyleSheetResource(false);
 		WiQuerySettings.get().setAutoImportJQueryUIJavaScriptResource(false);
 		startTestPage();
-		tester.assertContains(CoreJavaScriptResourceReference.class.getName());
+		tester.assertContains(JQueryResourceReference.class.getName());
 		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
 			WiQueryCoreThemeResourceReference.class.getName());
 		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
@@ -106,8 +94,7 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 	{
 		WiQuerySettings.get().setEnableWiqueryResourceManagement(false);
 		startTestPage();
-		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
-			CoreJavaScriptResourceReference.class.getName());
+		tester.assertContains(JQueryResourceReference.class.getName());
 		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
 			WiQueryCoreThemeResourceReference.class.getName());
 		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",

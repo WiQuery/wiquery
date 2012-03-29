@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -231,11 +232,22 @@ public abstract class SortableAjaxBehavior<E extends Component> extends WiQueryA
 	 */
 	protected CharSequence getCallbackScriptReceive()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + SORTED_TYPE
-			+ "=" + SortedEvent.RECEIVE.toString().toLowerCase() + "&" + SORTED_INDEX
-			+ "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
-			+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')" + "+'&"
-			+ SORTED_PARENT_ID + "='+ $(" + SortableBehavior.UI_SENDER + ").attr('id')");
+		AjaxRequestAttributes attributes = getAttributes();
+		StringBuilder sb =
+			new StringBuilder("var attrs = ").append(
+				renderAjaxAttributes(getComponent(), attributes)).append(";");
+		sb.append("attrs.ep['").append(SORTED_TYPE).append("'] = '")
+			.append(SortedEvent.RECEIVE.toString().toLowerCase()).append("';");
+		sb.append("attrs.ep['")
+			.append(SORTED_INDEX)
+			.append("'] = ")
+			.append("$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ");");
+		sb.append("attrs.ep['").append(SORTED_ID).append("'] = ")
+			.append("$(" + SortableBehavior.UI_ITEM + ").attr('id');");
+		sb.append("attrs.ep['").append(SORTED_PARENT_ID).append("'] = ")
+			.append("$(" + SortableBehavior.UI_SENDER + ").attr('id');");
+		sb.append("Wicket.Ajax.ajax(attrs);");
+		return sb;
 	}
 
 	/**
@@ -248,9 +260,16 @@ public abstract class SortableAjaxBehavior<E extends Component> extends WiQueryA
 	 */
 	protected CharSequence getCallbackScriptRemove()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + SORTED_TYPE
-			+ "=" + SortedEvent.REMOVE.toString().toLowerCase() + "&" + SORTED_ID + "='+ $("
-			+ SortableBehavior.UI_ITEM + ").attr('id')");
+		AjaxRequestAttributes attributes = getAttributes();
+		StringBuilder sb =
+			new StringBuilder("var attrs = ").append(
+				renderAjaxAttributes(getComponent(), attributes)).append(";");
+		sb.append("attrs.ep['").append(SORTED_TYPE).append("'] = '")
+			.append(SortedEvent.REMOVE.toString().toLowerCase()).append("';");
+		sb.append("attrs.ep['").append(SORTED_ID).append("'] = ")
+			.append("$(" + SortableBehavior.UI_ITEM + ").attr('id');");
+		sb.append("Wicket.Ajax.ajax(attrs);");
+		return sb;
 	}
 
 	/**
@@ -263,10 +282,20 @@ public abstract class SortableAjaxBehavior<E extends Component> extends WiQueryA
 	 */
 	protected CharSequence getCallbackScriptUpdate()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + SORTED_TYPE
-			+ "=" + SortedEvent.UPDATE.toString().toLowerCase() + "&" + SORTED_INDEX
-			+ "='+$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")+'"
-			+ "&" + SORTED_ID + "='+ $(" + SortableBehavior.UI_ITEM + ").attr('id')");
+		AjaxRequestAttributes attributes = getAttributes();
+		StringBuilder sb =
+			new StringBuilder("var attrs = ").append(
+				renderAjaxAttributes(getComponent(), attributes)).append(";");
+		sb.append("attrs.ep['").append(SORTED_TYPE).append("'] = '")
+			.append(SortedEvent.UPDATE.toString().toLowerCase()).append("';");
+		sb.append("attrs.ep['")
+			.append(SORTED_INDEX)
+			.append("'] = ")
+			.append("$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ");");
+		sb.append("attrs.ep['").append(SORTED_ID).append("'] = ")
+			.append("$(" + SortableBehavior.UI_ITEM + ").attr('id');");
+		sb.append("Wicket.Ajax.ajax(attrs);");
+		return sb;
 	}
 
 	/**

@@ -56,20 +56,12 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 
 		draggableBehavior = new DraggableBehavior();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				WebMarkupContainer component = new WebMarkupContainer("anId");
-				component.setMarkupId("anId");
-				component.add(draggableBehavior);
-				panel.add(component);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		WebMarkupContainer component = new WebMarkupContainer("anId");
+		component.setMarkupId("anId");
+		component.add(draggableBehavior);
+		panel.add(component);
+		tester.startComponent(panel);
 	}
 
 	/**

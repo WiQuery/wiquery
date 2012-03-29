@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.resizable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -214,11 +215,18 @@ public abstract class ResizableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
 	@Override
-	protected CharSequence getCallbackScript()
+	public CharSequence getCallbackScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + RESIZED_HEIGHT
-			+ "='+" + ResizableBehavior.UI_SIZE + ".height+'" + "&" + RESIZED_WIDTH + "='+"
-			+ ResizableBehavior.UI_SIZE + ".width");
+		AjaxRequestAttributes attributes = getAttributes();
+		StringBuilder sb =
+			new StringBuilder("var attrs = ").append(
+				renderAjaxAttributes(getComponent(), attributes)).append(";");
+		sb.append("attrs.ep['").append(RESIZED_HEIGHT).append("'] = ")
+			.append(ResizableBehavior.UI_SIZE).append(".height;");
+		sb.append("attrs.ep['").append(RESIZED_WIDTH).append("'] = ")
+			.append(ResizableBehavior.UI_SIZE).append(".width;");
+		sb.append("Wicket.Ajax.ajax(attrs);");
+		return sb;
 	}
 
 	// //////////////////////////////////////////////////////////////////////////

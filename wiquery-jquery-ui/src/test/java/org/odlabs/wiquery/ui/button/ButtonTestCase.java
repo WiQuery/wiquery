@@ -50,21 +50,13 @@ public class ButtonTestCase extends WiQueryTestCase
 	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new InputTestPanel(panelId);
-				button = new WebMarkupContainer("anId");
-				buttonBehavior = new ButtonBehavior();
-				button.add(buttonBehavior);
-				button.setMarkupId(button.getId());
-				panel.add(button);
-				return panel;
-			}
-		});
+		Panel panel = new InputTestPanel("panelId");
+		button = new WebMarkupContainer("anId");
+		buttonBehavior = new ButtonBehavior();
+		button.add(buttonBehavior);
+		button.setMarkupId(button.getId());
+		panel.add(button);
+		tester.startComponent(panel);
 	}
 
 	/**
@@ -156,11 +148,11 @@ public class ButtonTestCase extends WiQueryTestCase
 	public void testSetLabelModel()
 	{
 		// Options is added before bind.
-		ButtonTestPage page = (ButtonTestPage) tester.startPage(new ButtonTestPage(true));
+		ButtonTestPage page = tester.startPage(new ButtonTestPage(true));
 		assertNotNull(page.getBehavior().getLabel());
 		assertEquals(page.getBehavior().getLabel(), "This is a link");
 
-		page = (ButtonTestPage) tester.startPage(new ButtonTestPage(false));
+		page = tester.startPage(new ButtonTestPage(false));
 		assertNotNull(page.getBehavior().getLabel());
 		assertEquals(page.getBehavior().getLabel(), "This is a link");
 	}

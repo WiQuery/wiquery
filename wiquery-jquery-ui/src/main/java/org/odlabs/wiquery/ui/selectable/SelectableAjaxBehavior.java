@@ -25,6 +25,7 @@ import java.util.StringTokenizer;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -152,10 +153,16 @@ public abstract class SelectableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#getCallbackUrl()
 	 */
 	@Override
-	protected CharSequence getCallbackScript()
+	public CharSequence getCallbackScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + SELECTED_ARRAY
-			+ "='+ jQuery.unique(selected).toString()");
+		AjaxRequestAttributes attributes = getAttributes();
+		StringBuilder sb =
+			new StringBuilder("var attrs = ").append(
+				renderAjaxAttributes(getComponent(), attributes)).append(";");
+		sb.append("attrs.ep['").append(SELECTED_ARRAY).append("'] = ")
+			.append("jQuery.unique(selected).toString();");
+		sb.append("Wicket.Ajax.ajax(attrs);");
+		return sb;
 	}
 
 	/**

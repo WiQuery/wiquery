@@ -50,20 +50,11 @@ public class SliderTestCase extends WiQueryTestCase
 	public void setUp()
 	{
 		super.setUp();
-
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new DivTestPanel(panelId);
-				slider = new Slider("anId", 5, 10);
-				slider.setMarkupId(slider.getId());
-				panel.add(slider);
-				return panel;
-			}
-		});
+		Panel panel = new DivTestPanel("panelId");
+		slider = new Slider("anId", 5, 10);
+		slider.setMarkupId(slider.getId());
+		panel.add(slider);
+		tester.startComponent(panel);
 	}
 
 	/**

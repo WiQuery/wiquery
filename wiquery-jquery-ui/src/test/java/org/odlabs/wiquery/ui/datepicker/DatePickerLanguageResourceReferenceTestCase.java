@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Locale;
 
 import org.apache.wicket.Application;
+import org.apache.wicket.core.util.resource.locator.IResourceStreamLocator;
 import org.apache.wicket.util.lang.Packages;
-import org.apache.wicket.util.resource.locator.IResourceStreamLocator;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.datepicker.DatePickerLanguageResourceReference.DatePickerLanguages;

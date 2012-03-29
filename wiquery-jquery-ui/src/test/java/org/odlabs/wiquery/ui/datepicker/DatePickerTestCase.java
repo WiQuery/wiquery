@@ -54,19 +54,11 @@ public class DatePickerTestCase extends WiQueryTestCase
 	{
 		super.setUp();
 
-		tester.startPanel(new ITestPanelSource()
-		{
-			private static final long serialVersionUID = 1L;
-
-			public Panel getTestPanel(String panelId)
-			{
-				Panel panel = new InputTestPanel(panelId);
-				datePicker = new DatePicker<Date>("anId");
-				datePicker.setMarkupId(datePicker.getId());
-				panel.add(datePicker);
-				return panel;
-			}
-		});
+		Panel panel = new InputTestPanel("panelId");
+		datePicker = new DatePicker<Date>("anId");
+		datePicker.setMarkupId(datePicker.getId());
+		panel.add(datePicker);
+		tester.startComponent(panel);
 	}
 
 	/**

@@ -21,8 +21,8 @@
  */
 package org.odlabs.wiquery.tester;
 
-import org.apache.wicket.IClusterable;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
+import org.apache.wicket.util.io.IClusterable;
 
 public interface TestFormComponentPanelSource extends IClusterable
 {

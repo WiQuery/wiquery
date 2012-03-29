@@ -27,10 +27,11 @@ import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.Request;
-import org.apache.wicket.resource.MinifiedAwareJavaScriptResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -286,8 +287,8 @@ public abstract class DraggableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 	private static final long serialVersionUID = 3L;
 
 	/** ResourceReference for the wiQuery Draggable javascript */
-	public static final MinifiedAwareJavaScriptResourceReference wiQueryDraggableJs =
-		new MinifiedAwareJavaScriptResourceReference(DraggableJavaScriptResourceReference.class,
+	public static final JavaScriptResourceReference wiQueryDraggableJs =
+		new JavaScriptResourceReference(DraggableJavaScriptResourceReference.class,
 			"wiquery-draggable.js");
 
 	/** Drag type into the request */
@@ -512,8 +513,15 @@ public abstract class DraggableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 	 */
 	protected CharSequence getCallbackStopEventScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + DRAG_TYPE + "="
-			+ DraggableEvent.STOP.toString().toLowerCase() + "&" + DRAG_STATUS + "='+isInvalid");
+		AjaxRequestAttributes attributes = getAttributes();
+		attributes.getExtraParameters()
+			.put(DRAG_TYPE, DraggableEvent.STOP.toString().toLowerCase());
+		StringBuilder sb =
+			new StringBuilder("var attrs = ").append(
+				renderAjaxAttributes(getComponent(), attributes)).append(";");
+		sb.append("attrs.ep[").append(DRAG_STATUS).append("] = isInvalid;");
+		sb.append("Wicket.Ajax.ajax(attrs);");
+		return sb;
 	}
 
 	/**
@@ -527,8 +535,10 @@ public abstract class DraggableAjaxBehavior extends WiQueryAbstractAjaxBehavior
 	 */
 	protected CharSequence getCallbackScript(String dragType)
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&" + DRAG_TYPE + "="
-			+ dragType + "'");
+		AjaxRequestAttributes attributes = getAttributes();
+		attributes.getExtraParameters().put(DRAG_TYPE, dragType);
+		CharSequence attrsJson = renderAjaxAttributes(getComponent(), attributes);
+		return "Wicket.Ajax.get(" + attrsJson + ")";
 	}
 
 	// //////////////////////////////////////////////////////////////////////////
