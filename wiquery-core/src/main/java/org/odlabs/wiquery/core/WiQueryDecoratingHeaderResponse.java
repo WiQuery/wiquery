@@ -110,7 +110,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 	protected void onAllCollectionsRendered(
 			List<ResourceReferenceAndStringData> allTopLevelReferences)
 	{
-		jsq.renderHead(this, getActiveRequestHandler());
+		jsq.renderHead(getRealResponse(), getActiveRequestHandler());
 		jsq = new JsQuery();
 
 		super.onAllCollectionsRendered(allTopLevelReferences);
@@ -123,7 +123,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		String curRender = RequestCycle.get().getStartTime() + ":" + targetUrl;
 		String lastRender = page.getMetaData(WIQUERY_PAGE_KEY);
 		Boolean rendered = lastRender != null && curRender.equals(lastRender);
- 		page.setMetaData(WIQUERY_PAGE_KEY, curRender);
+		page.setMetaData(WIQUERY_PAGE_KEY, curRender);
 		RequestCycle.get().setMetaData(WIQUERY_KEY, Boolean.TRUE);
 
 		// return when response has already been rendered.
@@ -150,7 +150,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 			// calling listeners to compute specific stuff
 			for (WiQueryPluginRenderingListener listener : pluginRenderingListeners)
 			{
-				listener.onRender(plugin, this);
+				listener.onRender(plugin, getRealResponse());
 			}
 		}
 
@@ -174,7 +174,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 
 			for (IWiQueryPlugin plugin : visitor.getPlugins())
 			{
-				renderPlugin(ajaxRequestTarget, plugin, pluginRenderingListeners, this);
+				renderPlugin(ajaxRequestTarget, plugin, pluginRenderingListeners, getRealResponse());
 			}
 		}
 	}
@@ -188,7 +188,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		{
 			JsQuery jsq = new JsQuery();
 			jsq.setStatement(statement.append("\n"));
-			jsq.renderHead(this, ajaxRequestTarget);
+			jsq.renderHead(getRealResponse(), ajaxRequestTarget);
 		}
 		for (WiQueryPluginRenderingListener listener : pluginRenderingListeners)
 		{
