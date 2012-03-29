@@ -44,7 +44,7 @@ public class WiQueryDecoratingHeaderResponse extends DecoratingHeaderResponse
 		{
 			throw new IllegalStateException("ResourceReference can not be null");
 		}
-		else if (!settings.isEnableWiqueryResourceManagement()
+		else if (!settings.isEnableWiQueryResourceManagement()
 			&& (reference instanceof IWiQueryJavaScriptResourceReference || reference instanceof IWiQueryCssResourceReference))
 		{
 			return false;

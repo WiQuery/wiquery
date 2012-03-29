@@ -30,9 +30,8 @@ import org.apache.wicket.javascript.IJavaScriptCompressor;
 import org.apache.wicket.settings.def.ResourceSettings;
 
 /**
- * $Id: WiQuerySettings.java 1050 2011-06-22 11:18:55Z hielke.hoeve@gmail.com $
  * <p>
- * Bean to get the wiQuery settings
+ * Bean to get the WiQuery settings
  * </p>
  * 
  * @author Julien Roche
@@ -70,13 +69,12 @@ public class WiQuerySettings implements Serializable
 
 	private boolean autoImportJQueryUIStyleSheetResource;
 
-	private boolean enableWiqueryResourceManagement;
+	private boolean enableWiQueryResourceManagement;
 
 	public WiQuerySettings()
 	{
 		super();
-
-		setEnableWiqueryResourceManagement(true);
+		setEnableWiQueryResourceManagement(true);
 	}
 
 	public boolean isAutoImportWiQueryJavaScriptResource()
@@ -98,7 +96,7 @@ public class WiQuerySettings implements Serializable
 	 *            <code>true</code> to let the framework import required resources.
 	 *            <code>false</code> to disable automatic resources contribution by the
 	 *            framework.
-	 * @see #setEnableWiqueryResourceManagement(boolean)
+	 * @see #setEnableWiQueryResourceManagement(boolean)
 	 */
 	public void setAutoImportWiQueryJavaScriptResource(boolean autoImportWiQueryJavaScriptResource)
 	{
@@ -124,7 +122,7 @@ public class WiQuerySettings implements Serializable
 	 *            <code>true</code> to let the framework import required resources.
 	 *            <code>false</code> to disable automatic resources contribution by the
 	 *            framework.
-	 * @see #setEnableWiqueryResourceManagement(boolean)
+	 * @see #setEnableWiQueryResourceManagement(boolean)
 	 */
 	public void setAutoImportWiQueryStyleSheetResource(boolean autoImportWiQueryStyleSheetResource)
 	{
@@ -149,7 +147,7 @@ public class WiQuerySettings implements Serializable
 	 *            <code>true</code> to let the framework import required resources.
 	 *            <code>false</code> to disable automatic resources contribution by the
 	 *            framework.
-	 * @see #setEnableWiqueryResourceManagement(boolean)
+	 * @see #setEnableWiQueryResourceManagement(boolean)
 	 */
 	public void setAutoImportJQueryUIJavaScriptResource(boolean autoImportJQueryUIJavaScriptResource)
 	{
@@ -174,7 +172,7 @@ public class WiQuerySettings implements Serializable
 	 *            <code>true</code> to let the framework import required resources.
 	 *            <code>false</code> to disable automatic resources contribution by the
 	 *            framework.
-	 * @see #setEnableWiqueryResourceManagement(boolean)
+	 * @see #setEnableWiQueryResourceManagement(boolean)
 	 */
 	public void setAutoImportJQueryUIStyleSheetResource(boolean autoImportJQueryUIStyleSheetResource)
 	{
@@ -191,9 +189,9 @@ public class WiQuerySettings implements Serializable
 	 * (or parts of it) is not guaranteed anymore! Activate only if you know what you do
 	 * and import required resources manually.
 	 */
-	public boolean isEnableWiqueryResourceManagement()
+	public boolean isEnableWiQueryResourceManagement()
 	{
-		return enableWiqueryResourceManagement;
+		return enableWiQueryResourceManagement;
 	}
 
 	/**
@@ -206,15 +204,15 @@ public class WiQuerySettings implements Serializable
 	 * (or parts of it) is not guaranteed anymore! Activate only if you know what you do
 	 * and import required resources manually.
 	 */
-	public void setEnableWiqueryResourceManagement(boolean enableWiqueryResourceManagement)
+	public void setEnableWiQueryResourceManagement(boolean enableWiQueryResourceManagement)
 	{
-		this.autoImportWiQueryJavaScriptResource = enableWiqueryResourceManagement;
-		this.autoImportWiQueryStyleSheetResource = enableWiqueryResourceManagement;
+		this.autoImportWiQueryJavaScriptResource = enableWiQueryResourceManagement;
+		this.autoImportWiQueryStyleSheetResource = enableWiQueryResourceManagement;
 
-		this.autoImportJQueryUIJavaScriptResource = enableWiqueryResourceManagement;
-		this.autoImportJQueryUIStyleSheetResource = enableWiqueryResourceManagement;
+		this.autoImportJQueryUIJavaScriptResource = enableWiQueryResourceManagement;
+		this.autoImportJQueryUIStyleSheetResource = enableWiQueryResourceManagement;
 
-		this.enableWiqueryResourceManagement = enableWiqueryResourceManagement;
+		this.enableWiQueryResourceManagement = enableWiQueryResourceManagement;
 	}
 
 	/**
@@ -251,7 +249,7 @@ public class WiQuerySettings implements Serializable
 	/**
 	 * Since wicket 6.0 this interface is no longer needed, nearly all of WiQuery core's
 	 * inner workings have been ported to Wicket 6.0. Use
-	 * {@link ResourceSettings#setUseMinifiedResources(Boolean)} to use minified
+	 * {@link ResourceSettings#setUseMinifiedResources(boolean)} to use minified
 	 * resources.
 	 * 
 	 * <strike>Sets the minifiedJavaScriptResources option</strike>
@@ -260,7 +258,7 @@ public class WiQuerySettings implements Serializable
 	 * @see ResourceSettings#getUseMinifiedResources()
 	 * @deprecated Since wicket 6.0 this interface is no longer needed, nearly all of
 	 *             WiQuery core's inner workings have been ported to Wicket 6.0. Use
-	 *             {@link ResourceSettings#setUseMinifiedResources(Boolean)} to use
+	 *             {@link ResourceSettings#setUseMinifiedResources(boolean)} to use
 	 *             minified resources.
 	 */
 	@Deprecated
@@ -304,7 +302,7 @@ public class WiQuerySettings implements Serializable
 	/**
 	 * Since wicket 6.0 this interface is no longer needed, nearly all of WiQuery core's
 	 * inner workings have been ported to Wicket 6.0. Use
-	 * {@link ResourceSettings#setUseMinifiedResources(Boolean)} to use minified
+	 * {@link ResourceSettings#setUseMinifiedResources(boolean)} to use minified
 	 * resources.
 	 * 
 	 * <strike>Sets the minifiedStyleSheetResources option</strike>
@@ -313,7 +311,7 @@ public class WiQuerySettings implements Serializable
 	 * @see ResourceSettings#getUseMinifiedResources()
 	 * @deprecated Since wicket 6.0 this interface is no longer needed, nearly all of
 	 *             WiQuery core's inner workings have been ported to Wicket 6.0. Use
-	 *             {@link ResourceSettings#setUseMinifiedResources(Boolean)} to use
+	 *             {@link ResourceSettings#setUseMinifiedResources(boolean)} to use
 	 *             minified resources.
 	 */
 	@Deprecated
