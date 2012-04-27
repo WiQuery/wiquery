@@ -31,12 +31,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.InputTestPanel;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.datepicker.DatePicker.ShowOnEnum;
 import org.odlabs.wiquery.ui.datepicker.DatePickerDuration.DurationEnum;
-import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
-import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
-import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
 
 /**
  * Test on {@link DatePicker}
@@ -694,34 +690,6 @@ public class DatePickerTestCase extends WiQueryTestCase
 	 * .
 	 */
 	@Test
-	public void testSetBeforeShowDayEvent()
-	{
-		assertEquals(datePicker.statement().render().toString(), "$('#anId').datepicker({});");
-		datePicker.setBeforeShowDayEvent(JsScopeUiDatePickerEvent.quickScope("alert('event');"));
-		assertEquals(datePicker.statement().render().toString(),
-			"$('#anId').datepicker({beforeShowDay: function(date) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.datepicker.DatePicker#setBeforeShowEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetBeforeShowEvent()
-	{
-		assertEquals(datePicker.statement().render().toString(), "$('#anId').datepicker({});");
-		datePicker.setBeforeShowEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(datePicker.statement().render().toString(),
-			"$('#anId').datepicker({beforeShow: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.datepicker.DatePicker#setDate(org.odlabs.wiquery.ui.datepicker.DateOption)}
-	 * .
-	 */
-	@Test
 	public void testSetDateDateOption()
 	{
 		assertNotNull(datePicker.setDate(new DateOption(new GregorianCalendar(2009, 11, 1)
@@ -730,69 +698,6 @@ public class DatePickerTestCase extends WiQueryTestCase
 			datePicker.setDate(new DateOption(new GregorianCalendar(2009, 11, 1).getTime()))
 				.render().toString(),
 			"$('#anId').datepicker('setDate', new Date(2009,11,1,0,0,0,0));");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.datepicker.DatePicker#setOnChangeMonthYearEvent(org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetOnChangeMonthYearEvent()
-	{
-		assertEquals(datePicker.statement().render().toString(), "$('#anId').datepicker({});");
-		datePicker.setOnChangeMonthYearEvent(JsScopeUiDatePickerOnChangeEvent
-			.quickScope("alert('event');"));
-		assertEquals(datePicker.statement().render().toString(),
-			"$('#anId').datepicker({onChangeMonthYear: function(year, month, inst) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.datepicker.DatePicker#setOnCloseEvent(org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetOnCloseEvent()
-	{
-		assertEquals(datePicker.statement().render().toString(), "$('#anId').datepicker({});");
-		datePicker.setOnCloseEvent(JsScopeUiDatePickerDateTextEvent.quickScope("alert('event');"));
-		assertEquals(datePicker.statement().render().toString(),
-			"$('#anId').datepicker({onClose: function(dateText, inst) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.datepicker.DatePicker#setOnSelectEvent(org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetOnSelectEvent()
-	{
-		assertEquals(datePicker.statement().render().toString(), "$('#anId').datepicker({});");
-		datePicker.setOnSelectEvent(JsScopeUiDatePickerDateTextEvent.quickScope("alert('event');"));
-		assertEquals(datePicker.statement().render().toString(),
-			"$('#anId').datepicker({onSelect: function(dateText, inst) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#show()}.
-	 */
-	@Test
-	public void testShow()
-	{
-		assertNotNull(datePicker.show());
-		assertEquals(datePicker.show().render().toString(), "$('#anId').datepicker('show');");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.datepicker.DatePicker#statement()}.
-	 */
-	@Test
-	public void testStatement()
-	{
-		assertNotNull(datePicker.statement());
-		assertEquals(datePicker.statement().render().toString(), "$('#anId').datepicker({});");
 	}
 
 	/**

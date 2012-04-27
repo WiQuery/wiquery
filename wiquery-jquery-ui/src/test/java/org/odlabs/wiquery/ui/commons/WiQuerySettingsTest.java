@@ -89,21 +89,6 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 			WidgetJavaScriptResourceReference.class.getName());
 	}
 
-	@Test
-	public void testWiqueryResourceManagementDisabled()
-	{
-		WiQuerySettings.get().setEnableWiqueryResourceManagement(false);
-		startTestPage();
-		tester.assertContains(JQueryResourceReference.class.getName());
-		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
-			WiQueryCoreThemeResourceReference.class.getName());
-		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
-			CoreUIJavaScriptResourceReference.class.getName());
-		assertNotContains("Resource Management is disabled. Reference shouldn't be rendered",
-			WidgetJavaScriptResourceReference.class.getName());
-
-	}
-
 	private void startTestPage()
 	{
 		WiQuerySettingsTestPage p = new WiQuerySettingsTestPage();
