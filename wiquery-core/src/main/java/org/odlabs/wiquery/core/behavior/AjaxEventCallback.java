@@ -28,7 +28,6 @@ public class AjaxEventCallback implements IComplexOption
 		StringBuilder callback = new StringBuilder();
 		callback.append("function (eventObj, ui) {\n");
 		callback.append("var eventName = '").append(event).append("';\n");
-		callback.append("var event = window.JSON.stringify(eventObj);\n");
 		callback.append(behavior.getCallbackFunctionBody("eventName", "event"));
 		callback.append("}\n");
 		return callback;
