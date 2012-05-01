@@ -34,9 +34,9 @@ import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.position.PositionCollision;
 import org.odlabs.wiquery.ui.position.PositionOptions;
-import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
-import org.odlabs.wiquery.ui.position.PositionOptions.Position;
+import org.odlabs.wiquery.ui.position.PositionRelation;
 
 /**
  * $Id$
@@ -95,7 +95,8 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(AutocompleteJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(AutocompleteJavaScriptResourceReference
+			.get()));
 	}
 
 	/**
@@ -217,9 +218,9 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 		}
 
 		PositionOptions pos = new PositionOptions();
-		pos.setAt(Position.LEFT_BOTTOM);
-		pos.setCollision(Collision.NONE);
-		pos.setMy(Position.LEFT_TOP);
+		pos.setAt(PositionRelation.LEFT_BOTTOM);
+		pos.setCollision(PositionCollision.NONE);
+		pos.setMy(PositionRelation.LEFT_TOP);
 		return pos;
 	}
 

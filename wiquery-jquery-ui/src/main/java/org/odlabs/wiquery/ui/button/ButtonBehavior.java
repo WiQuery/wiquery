@@ -27,14 +27,13 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.model.IModel;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.themes.UiIcon;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -51,14 +50,11 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 1.1
  */
 @WiQueryUIPlugin
-public class ButtonBehavior extends WiQueryAbstractBehavior
+public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -4079980500720298690L;
-
-	// Properties
-	private Options options;
 
 	/**
 	 * Default constructor
@@ -66,7 +62,6 @@ public class ButtonBehavior extends WiQueryAbstractBehavior
 	public ButtonBehavior()
 	{
 		super();
-		options = new Options();
 	}
 
 	@Override
@@ -86,22 +81,14 @@ public class ButtonBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
+		super.renderHead(component, response);
 		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(getComponent()).$()
+			.chain("button", options.getJavaScriptOptions()).render()));
 	}
 
 	@Override
-	public void onComponentTag(Component component, ComponentTag tag)
+	public void onComponentTag(ComponentTag tag)
 	{
 		String tagname = tag.getName();
 
@@ -109,18 +96,12 @@ public class ButtonBehavior extends WiQueryAbstractBehavior
 			&& !tagname.equalsIgnoreCase("submit") && !tagname.equalsIgnoreCase("reset")
 			&& !tagname.equalsIgnoreCase("a"))
 		{
-			throw new WicketRuntimeException("Component " + component.getId()
+			throw new WicketRuntimeException("Component " + getComponent().getId()
 				+ " must be applied to a tag of type 'input', 'button' or 'a', not "
 				+ tag.toUserDebugString());
 		}
 
-		super.onComponentTag(component, tag);
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(getComponent()).$().chain("button", options.getJavaScriptOptions());
+		super.onComponentTag(tag);
 	}
 
 	/*---- Options section ---*/

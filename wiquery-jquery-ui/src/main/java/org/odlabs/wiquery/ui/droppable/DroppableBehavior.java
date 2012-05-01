@@ -25,14 +25,13 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
-import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -43,7 +42,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class DroppableBehavior extends WiQueryAbstractBehavior
+public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * Enumeration for the tolerance option
@@ -87,9 +86,6 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 	 */
 	public static final String UI_OFFSET = "ui.offset";
 
-	// Properties
-	private Options options = new Options();
-
 	@Override
 	public void onBind()
 	{
@@ -107,26 +103,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(DroppableJavaScriptResourceReference.get()));
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(getComponent()).$().chain("droppable",
-			this.options.getJavaScriptOptions());
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
+		super.renderHead(component, response);
+		response.render(JavaScriptHeaderItem.forReference(DroppableJavaScriptResourceReference
+			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(getComponent()).$()
+			.chain("droppable", this.options.getJavaScriptOptions()).render()));
 	}
 
 	/*---- Options section ---*/
@@ -346,6 +327,12 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public DroppableBehavior setActivateEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("activate", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when an accepted draggable stops dragging.
 	 * 
@@ -355,6 +342,12 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 	public DroppableBehavior setDeactivateEvent(JsScopeUiEvent deactivate)
 	{
 		this.options.put("deactivate", deactivate);
+		return this;
+	}
+
+	public DroppableBehavior setDeactivateEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("deactivate", listener);
 		return this;
 	}
 
@@ -372,6 +365,12 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public DroppableBehavior setDropEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("drop", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when an accepted draggable is dragged out (within the tolerance
 	 * of) this droppable.
@@ -385,6 +384,12 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public DroppableBehavior setOutEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("out", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when an accepted draggable is dragged 'over' (within the
 	 * tolerance of) this droppable.
@@ -395,6 +400,12 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 	public DroppableBehavior setOverEvent(JsScopeUiEvent over)
 	{
 		this.options.put("over", over);
+		return this;
+	}
+
+	public DroppableBehavior setOverEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("over", listener);
 		return this;
 	}
 

@@ -23,11 +23,16 @@ package org.odlabs.wiquery.core.behavior;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.IComplexOption;
+import org.odlabs.wiquery.core.options.Options;
 
 /**
  * $Id: WiQueryAbstractAjaxBehavior.java 1143 2011-07-29 11:51:49Z hielke.hoeve@gmail.com
@@ -46,6 +51,13 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 6498661892490365888L;
+
+	protected Options options = new Options();
+
+	public final Options getOptions()
+	{
+		return options;
+	}
 
 	/**
 	 * <p>
@@ -101,5 +113,28 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 	public JsStatement statement()
 	{
 		return null;
+	}
+
+	@Override
+	public CharSequence getCallbackFunctionBody(String... extraParameters)
+	{
+		return super.getCallbackFunctionBody(extraParameters);
+	}
+
+	public void setEventListener(String event, IWiqueryEventListener listener)
+	{
+		options.put(event, new AjaxEventCallback(this, event, listener));
+	}
+
+	@Override
+	protected void respond(AjaxRequestTarget target)
+	{
+		IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+		String eventName = req.getParameterValue("eventName").toString();
+		IComplexOption callback = options.getComplexOption(eventName);
+		if (callback instanceof AjaxEventCallback)
+		{
+			((AjaxEventCallback) callback).call(target, getComponent());
+		}
 	}
 }

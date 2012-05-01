@@ -25,18 +25,17 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
-import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.sortable.SortableHelper.HelperEnum;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -70,7 +69,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 1.0
  */
 @WiQueryUIPlugin
-public class SortableBehavior extends WiQueryAbstractBehavior
+public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * Enumeration for the axis option
@@ -155,16 +154,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	 */
 	public static final String UI_SENDER = "ui.sender";
 
-	// Properties
-	private Options options;
-
 	/**
 	 * Default constructor
 	 */
 	public SortableBehavior()
 	{
 		super();
-		options = new Options();
 	}
 
 	@Override
@@ -184,16 +179,11 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(SortableJavaScriptResourceReference.get()));
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(this.getComponent()).$().chain("sortable",
-			this.options.getJavaScriptOptions());
+		super.renderHead(component, response);
+		response
+			.render(JavaScriptHeaderItem.forReference(SortableJavaScriptResourceReference.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this.getComponent()).$()
+			.chain("sortable", this.options.getJavaScriptOptions()).render()));
 	}
 
 	/*---- Options section ---*/
@@ -390,16 +380,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		}
 
 		return 0F;
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
 	}
 
 	/**
@@ -937,6 +917,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SortableBehavior setActivateEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("activate", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when sorting stops, but when the placeholder/helper is still
 	 * available.
@@ -950,6 +936,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SortableBehavior setBeforeStopEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("beforeStop", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback during sorting, but only when the DOM position has changed.
 	 * 
@@ -959,6 +951,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	public SortableBehavior setChangeEvent(JsScopeUiEvent change)
 	{
 		this.options.put("change", change);
+		return this;
+	}
+
+	public SortableBehavior setChangeEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("change", listener);
 		return this;
 	}
 
@@ -975,6 +973,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SortableBehavior setDeactivateEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("deactivate", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when a sortable item is moved away from a connected list.
 	 * 
@@ -987,6 +991,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SortableBehavior setOutEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("out", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when a sortable item is moved into a connected list.
 	 * 
@@ -996,6 +1006,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	public SortableBehavior setOverEvent(JsScopeUiEvent over)
 	{
 		this.options.put("over", over);
+		return this;
+	}
+
+	public SortableBehavior setOverEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("over", listener);
 		return this;
 	}
 
@@ -1012,6 +1028,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SortableBehavior setReceiveEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("receive", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when a sortable item has been dragged out from the list and into
 	 * another.
@@ -1022,6 +1044,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	public SortableBehavior setRemoveEvent(JsScopeUiEvent remove)
 	{
 		this.options.put("remove", remove);
+		return this;
+	}
+
+	public SortableBehavior setRemoveEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("remove", listener);
 		return this;
 	}
 
@@ -1037,6 +1065,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SortableBehavior setSortEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("sort", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when sorting starts
 	 * 
@@ -1046,6 +1080,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	public SortableBehavior setStartEvent(JsScopeUiEvent start)
 	{
 		this.options.put("start", start);
+		return this;
+	}
+
+	public SortableBehavior setStartEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("start", listener);
 		return this;
 	}
 
@@ -1061,6 +1101,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SortableBehavior setStopEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("stop", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when the user stopped sorting and the DOM position has changed.
 	 * 
@@ -1070,6 +1116,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	public SortableBehavior setUpdateEvent(JsScopeUiEvent update)
 	{
 		this.options.put("update", update);
+		return this;
+	}
+
+	public SortableBehavior setUpdateEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("update", listener);
 		return this;
 	}
 

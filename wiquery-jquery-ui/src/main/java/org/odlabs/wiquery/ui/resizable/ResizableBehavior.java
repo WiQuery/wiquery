@@ -25,7 +25,9 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
@@ -33,12 +35,9 @@ import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
-import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableAnimeDuration.DurationEnum;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -50,7 +49,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 1.0
  */
 @WiQueryUIPlugin
-public class ResizableBehavior extends WiQueryAbstractBehavior
+public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	// Constants
 	/** Constant of serialization */
@@ -86,9 +85,6 @@ public class ResizableBehavior extends WiQueryAbstractBehavior
 	 */
 	public static final String UI_SIZE = "ui.size";
 
-	// Properties
-	private Options options = new Options();
-
 	@Override
 	public void onBind()
 	{
@@ -106,26 +102,11 @@ public class ResizableBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference.get()));
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(this.getComponent()).$().chain("resizable",
-			this.options.getJavaScriptOptions());
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
+		super.renderHead(component, response);
+		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference
+			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this.getComponent()).$()
+			.chain("resizable", this.options.getJavaScriptOptions()).render()));
 	}
 
 	/*---- Options section ---*/
@@ -648,6 +629,12 @@ public class ResizableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public ResizableBehavior setResizeEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("resize", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when the event is triggered at the start of a resize operation.
 	 * 
@@ -660,6 +647,12 @@ public class ResizableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public ResizableBehavior setStartEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("start", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when the event is triggered at the end of a resize operation.
 	 * 
@@ -669,6 +662,12 @@ public class ResizableBehavior extends WiQueryAbstractBehavior
 	public ResizableBehavior setStopEvent(JsScopeUiEvent stop)
 	{
 		this.options.put("stop", stop);
+		return this;
+	}
+
+	public ResizableBehavior setStopEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("stop", listener);
 		return this;
 	}
 

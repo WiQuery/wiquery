@@ -25,14 +25,13 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -68,7 +67,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @since 1.0
  */
 @WiQueryUIPlugin
-public class SelectableBehavior extends WiQueryAbstractBehavior
+public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * Enumeration for the tolerance option
@@ -86,16 +85,12 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 	/** Constant of serialization */
 	private static final long serialVersionUID = 2L;
 
-	// Properties
-	private Options options;
-
 	/**
 	 * Default constructor
 	 */
 	public SelectableBehavior()
 	{
 		super();
-		options = new Options();
 	}
 
 	@Override
@@ -115,9 +110,11 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(SelectableJavaScriptResourceReference.get()));
+		super.renderHead(component, response);
+		response.render(JavaScriptHeaderItem.forReference(SelectableJavaScriptResourceReference
+			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this.getComponent()).$()
+			.chain("selectable", this.options.getJavaScriptOptions()).render()));
 	}
 
 	/**
@@ -162,16 +159,6 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 	{
 		String filter = this.options.getLiteral("filter");
 		return filter == null ? "*" : filter;
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
 	}
 
 	/**
@@ -303,13 +290,6 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(this.getComponent()).$().chain("selectable",
-			this.options.getJavaScriptOptions());
-	}
-
 	/*---- Events section ----*/
 	/**
 	 * Set's the selected event This event is triggered at the end of the select
@@ -322,6 +302,12 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 	public SelectableBehavior setSelectedEvent(JsScopeUiEvent selected)
 	{
 		this.options.put("selected", selected);
+		return this;
+	}
+
+	public SelectableBehavior setSelectedEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("selected", listener);
 		return this;
 	}
 
@@ -339,6 +325,12 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SelectableBehavior setSelectingEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("selecting", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the start event This event is triggered at the beginning of the select
 	 * operation.
@@ -353,6 +345,12 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SelectableBehavior setStartEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("start", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the stop event This event is triggered at the end of the select operation.
 	 * 
@@ -363,6 +361,12 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 	public SelectableBehavior setStopEvent(JsScopeUiEvent stop)
 	{
 		this.options.put("stop", stop);
+		return this;
+	}
+
+	public SelectableBehavior setStopEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("stop", listener);
 		return this;
 	}
 
@@ -380,6 +384,12 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SelectableBehavior setUnselectedEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("unselected", listener);
+		return this;
+	}
+
 	/**
 	 * Set's the unselecting event This event is triggered during the select operation, on
 	 * each element removed from the selection.
@@ -391,6 +401,12 @@ public class SelectableBehavior extends WiQueryAbstractBehavior
 	public SelectableBehavior setUnselectingEvent(JsScopeUiEvent unselecting)
 	{
 		this.options.put("unselecting", unselecting);
+		return this;
+	}
+
+	public SelectableBehavior setUnselectingEvent(IWiqueryEventListener listener)
+	{
+		setEventListener("unselecting", listener);
 		return this;
 	}
 

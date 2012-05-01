@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.widget;
 
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.resource.JQueryPluginResourceReference;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
@@ -34,7 +34,7 @@ import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class WidgetJavaScriptResourceReference extends JavaScriptResourceReference implements
+public class WidgetJavaScriptResourceReference extends JQueryPluginResourceReference implements
 		ICoreUIJavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;

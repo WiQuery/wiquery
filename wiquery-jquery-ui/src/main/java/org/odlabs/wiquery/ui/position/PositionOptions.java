@@ -37,86 +37,6 @@ import org.odlabs.wiquery.core.options.Options;
  */
 public class PositionOptions implements IComplexOption
 {
-	/**
-	 * Enumeration of collision values
-	 * 
-	 * @author Julien Roche
-	 * @since 1.1
-	 * 
-	 */
-	public enum Collision
-	{
-		FIT,
-		FIT_FIT,
-		FIT_FLIP,
-		FIT_NONE,
-		FLIP,
-		FLIP_FIT,
-		FLIP_FLIP,
-		FLIP_NONE,
-		NONE,
-		NONE_FLIT,
-		NONE_FLIP,
-		NONE_NONE;
-
-		/**
-		 * Method searching the collision value
-		 * 
-		 * @param value
-		 * @return
-		 */
-		public static Collision getCollision(String value)
-		{
-			return valueOf(value.toUpperCase().replace(" ", "_"));
-		}
-
-		@Override
-		public String toString()
-		{
-			return super.toString().toLowerCase().replace("_", " ");
-		}
-	}
-
-	/**
-	 * Enumeration of position values
-	 * 
-	 * @author Julien Roche
-	 * @since 1.1
-	 * 
-	 */
-	public enum Position
-	{
-		BOTTOM,
-		CENTER,
-		CENTER_BOTTOM,
-		CENTER_CENTER,
-		CENTER_TOP,
-		LEFT,
-		LEFT_BOTTOM,
-		LEFT_CENTER,
-		LEFT_TOP,
-		RIGHT_BOTTOM,
-		RIGHT_CENTER,
-		RIGHT_TOP,
-		TOP;
-
-		/**
-		 * Method searching the Position value
-		 * 
-		 * @param value
-		 * @return
-		 */
-		public static Position getPosition(String value)
-		{
-			return valueOf(value.toUpperCase().replace(" ", "_"));
-		}
-
-		@Override
-		public String toString()
-		{
-			return super.toString().toLowerCase().replace("_", " ");
-		}
-	}
 
 	// Constants
 	/** Constant of serialization */
@@ -134,6 +54,7 @@ public class PositionOptions implements IComplexOption
 		options = new Options();
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		return options.getJavaScriptOptions();
@@ -161,7 +82,7 @@ public class PositionOptions implements IComplexOption
 	 * @param at
 	 * @return the instance
 	 */
-	public PositionOptions setAt(Position at)
+	public PositionOptions setAt(PositionRelation at)
 	{
 		options.putLiteral("at", at.toString());
 		return this;
@@ -170,10 +91,10 @@ public class PositionOptions implements IComplexOption
 	/**
 	 * @return the at option
 	 */
-	public Position getAt()
+	public PositionRelation getAt()
 	{
 		String value = options.getLiteral("at");
-		return value == null ? null : Position.getPosition(value);
+		return value == null ? null : PositionRelation.getPosition(value);
 	}
 
 	/**
@@ -218,7 +139,7 @@ public class PositionOptions implements IComplexOption
 	 * @param collision
 	 * @return the instance
 	 */
-	public PositionOptions setCollision(Collision collision)
+	public PositionOptions setCollision(PositionCollision collision)
 	{
 		options.putLiteral("collision", collision.toString());
 		return this;
@@ -227,10 +148,10 @@ public class PositionOptions implements IComplexOption
 	/**
 	 * @return the collision option
 	 */
-	public Collision getCollision()
+	public PositionCollision getCollision()
 	{
 		String value = options.getLiteral("collision");
-		return value == null ? null : Collision.getCollision(value);
+		return value == null ? null : PositionCollision.getCollision(value);
 	}
 
 	/**
@@ -243,7 +164,7 @@ public class PositionOptions implements IComplexOption
 	 * @param my
 	 * @return the instance
 	 */
-	public PositionOptions setMy(Position my)
+	public PositionOptions setMy(PositionRelation my)
 	{
 		options.putLiteral("my", my.toString());
 		return this;
@@ -252,10 +173,10 @@ public class PositionOptions implements IComplexOption
 	/**
 	 * @return the my option
 	 */
-	public Position getMy()
+	public PositionRelation getMy()
 	{
 		String value = options.getLiteral("my");
-		return value == null ? null : Position.getPosition(value);
+		return value == null ? null : PositionRelation.getPosition(value);
 	}
 
 	/**
