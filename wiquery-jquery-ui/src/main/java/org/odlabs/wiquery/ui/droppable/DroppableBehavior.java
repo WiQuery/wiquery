@@ -21,12 +21,16 @@
  */
 package org.odlabs.wiquery.ui.droppable;
 
+import java.util.Map;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -85,6 +89,35 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	 * position of the draggable helper { top: , left: }
 	 */
 	public static final String UI_OFFSET = "ui.offset";
+
+	public abstract static class AjaxDropCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxDropCallback()
+		{
+			super("drop");
+		}
+
+		@Override
+		protected Map<String, String> getExtraParameters()
+		{
+			Map<String, String> ret = super.getExtraParameters();
+			ret.put("droppedId", "$(" + DroppableBehavior.UI_DRAGGABLE + ").attr('id')");
+			return ret;
+		}
+
+		@Override
+		public final void call(AjaxRequestTarget target, Component source)
+		{
+			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+
+			Component dropped = findComponentById(req.getParameterValue("droppedId").toString());
+			drop(target, source, dropped);
+		}
+
+		protected abstract void drop(AjaxRequestTarget target, Component source, Component dropped);
+	}
 
 	@Override
 	public void onBind()
@@ -327,12 +360,6 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public DroppableBehavior setActivateEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("activate", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback when an accepted draggable stops dragging.
 	 * 
@@ -342,12 +369,6 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	public DroppableBehavior setDeactivateEvent(JsScopeUiEvent deactivate)
 	{
 		this.options.put("deactivate", deactivate);
-		return this;
-	}
-
-	public DroppableBehavior setDeactivateEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("deactivate", listener);
 		return this;
 	}
 
@@ -365,9 +386,9 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public DroppableBehavior setDropEvent(IWiqueryEventListener listener)
+	public DroppableBehavior setDropEvent(AjaxDropCallback callback)
 	{
-		setEventListener("drop", listener);
+		setEventListener(callback);
 		return this;
 	}
 
@@ -384,12 +405,6 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public DroppableBehavior setOutEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("out", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback when an accepted draggable is dragged 'over' (within the
 	 * tolerance of) this droppable.
@@ -400,12 +415,6 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	public DroppableBehavior setOverEvent(JsScopeUiEvent over)
 	{
 		this.options.put("over", over);
-		return this;
-	}
-
-	public DroppableBehavior setOverEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("over", listener);
 		return this;
 	}
 

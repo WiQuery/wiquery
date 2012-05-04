@@ -121,9 +121,16 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 		return super.getCallbackFunctionBody(extraParameters);
 	}
 
-	public void setEventListener(String event, IWiqueryEventListener listener)
+	public Component getBehaviorComponent()
 	{
-		options.put(event, new AjaxEventCallback(this, event, listener));
+		return super.getComponent();
+
+	}
+
+	public void setEventListener(AbstractAjaxEventCallback callback)
+	{
+		callback.setBehavior(this);
+		options.put(callback.getEvent(), callback);
 	}
 
 	@Override
@@ -132,9 +139,9 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 		IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
 		String eventName = req.getParameterValue("eventName").toString();
 		IComplexOption callback = options.getComplexOption(eventName);
-		if (callback instanceof AjaxEventCallback)
+		if (callback instanceof AbstractAjaxEventCallback)
 		{
-			((AjaxEventCallback) callback).call(target, getComponent());
+			((AbstractAjaxEventCallback) callback).call(target, getComponent());
 		}
 	}
 }

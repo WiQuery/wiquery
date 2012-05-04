@@ -21,12 +21,16 @@
  */
 package org.odlabs.wiquery.ui.resizable;
 
+import java.util.Map;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -84,6 +88,38 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	 * current size
 	 */
 	public static final String UI_SIZE = "ui.size";
+
+	public abstract static class AjaxResizeCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxResizeCallback()
+		{
+			super("resize");
+		}
+
+		@Override
+		protected Map<String, String> getExtraParameters()
+		{
+			Map<String, String> ret = super.getExtraParameters();
+			ret.put("resizeHeight", ResizableBehavior.UI_SIZE + ".height");
+			ret.put("resizeWidth", ResizableBehavior.UI_SIZE + ".width");
+			return ret;
+		}
+
+		@Override
+		public final void call(AjaxRequestTarget target, Component source)
+		{
+			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+
+			int resizeHeight = req.getParameterValue("resizeHeight").toInt(-1);
+			int resizeWidth = req.getParameterValue("resizeWidth").toInt(-1);
+			resize(target, source, resizeHeight, resizeWidth);
+		}
+
+		protected abstract void resize(AjaxRequestTarget target, Component source,
+				int resizeHeight, int resizeWidth);
+	}
 
 	@Override
 	public void onBind()
@@ -629,9 +665,9 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public ResizableBehavior setResizeEvent(IWiqueryEventListener listener)
+	public ResizableBehavior setResizeEvent(AjaxResizeCallback callback)
 	{
-		setEventListener("resize", listener);
+		setEventListener(callback);
 		return this;
 	}
 
@@ -647,12 +683,6 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public ResizableBehavior setStartEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("start", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback when the event is triggered at the end of a resize operation.
 	 * 
@@ -662,12 +692,6 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	public ResizableBehavior setStopEvent(JsScopeUiEvent stop)
 	{
 		this.options.put("stop", stop);
-		return this;
-	}
-
-	public ResizableBehavior setStopEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("stop", listener);
 		return this;
 	}
 

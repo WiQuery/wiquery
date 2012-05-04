@@ -21,12 +21,16 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
+import java.util.Map;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -153,6 +157,101 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	 * another)
 	 */
 	public static final String UI_SENDER = "ui.sender";
+
+	private abstract static class AbstractAjaxSortCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AbstractAjaxSortCallback(String event)
+		{
+			super(event);
+		}
+
+		@Override
+		protected Map<String, String> getExtraParameters()
+		{
+			Map<String, String> ret = super.getExtraParameters();
+			ret.put("sortIndex", "$(this).find(':data(sortable-item)').index("
+				+ SortableBehavior.UI_ITEM + ")");
+			ret.put("sortItemId", "$(" + SortableBehavior.UI_ITEM + ").attr('id')");
+			ret.put("sortSenderId", "$(" + SortableBehavior.UI_SENDER + ").attr('id')");
+			return ret;
+		}
+
+		@Override
+		public final void call(AjaxRequestTarget target, Component source)
+		{
+			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+
+			int sortIndex = req.getParameterValue("sortIndex").toInt(-1);
+			Component sortItem = findComponentById(req.getParameterValue("sortItemId").toString());
+			Component sortSender =
+				findComponentById(req.getParameterValue("sortSenderId").toString());
+			call(target, source, sortIndex, sortItem, sortSender);
+		}
+
+		protected abstract void call(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender);
+	}
+
+	public abstract static class AjaxReceiveCallback extends AbstractAjaxSortCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxReceiveCallback()
+		{
+			super("recieve");
+		}
+
+		@Override
+		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender)
+		{
+			receive(target, source, sortIndex, sortItem, sortSender);
+		}
+
+		public abstract void receive(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender);
+	}
+
+	public abstract static class AjaxRemoveCallback extends AbstractAjaxSortCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxRemoveCallback()
+		{
+			super("remove");
+		}
+
+		@Override
+		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender)
+		{
+			remove(target, source, sortItem);
+		}
+
+		public abstract void remove(AjaxRequestTarget target, Component source, Component sortItem);
+	}
+
+	public abstract static class AjaxUpdateCallback extends AbstractAjaxSortCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxUpdateCallback()
+		{
+			super("update");
+		}
+
+		@Override
+		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender)
+		{
+			update(target, source, sortIndex, sortItem);
+		}
+
+		public abstract void update(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem);
+	}
 
 	/**
 	 * Default constructor
@@ -917,12 +1016,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setActivateEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("activate", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback when sorting stops, but when the placeholder/helper is still
 	 * available.
@@ -936,12 +1029,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setBeforeStopEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("beforeStop", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback during sorting, but only when the DOM position has changed.
 	 * 
@@ -951,12 +1038,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	public SortableBehavior setChangeEvent(JsScopeUiEvent change)
 	{
 		this.options.put("change", change);
-		return this;
-	}
-
-	public SortableBehavior setChangeEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("change", listener);
 		return this;
 	}
 
@@ -973,12 +1054,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setDeactivateEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("deactivate", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback when a sortable item is moved away from a connected list.
 	 * 
@@ -991,12 +1066,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setOutEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("out", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback when a sortable item is moved into a connected list.
 	 * 
@@ -1006,12 +1075,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	public SortableBehavior setOverEvent(JsScopeUiEvent over)
 	{
 		this.options.put("over", over);
-		return this;
-	}
-
-	public SortableBehavior setOverEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("over", listener);
 		return this;
 	}
 
@@ -1028,9 +1091,9 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setReceiveEvent(IWiqueryEventListener listener)
+	public SortableBehavior setReceiveEvent(AjaxReceiveCallback callback)
 	{
-		setEventListener("receive", listener);
+		setEventListener(callback);
 		return this;
 	}
 
@@ -1047,9 +1110,9 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setRemoveEvent(IWiqueryEventListener listener)
+	public SortableBehavior setRemoveEvent(AjaxRemoveCallback callback)
 	{
-		setEventListener("remove", listener);
+		setEventListener(callback);
 		return this;
 	}
 
@@ -1065,12 +1128,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setSortEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("sort", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback when sorting starts
 	 * 
@@ -1080,12 +1137,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	public SortableBehavior setStartEvent(JsScopeUiEvent start)
 	{
 		this.options.put("start", start);
-		return this;
-	}
-
-	public SortableBehavior setStartEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("start", listener);
 		return this;
 	}
 
@@ -1101,12 +1152,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setStopEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("stop", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the callback when the user stopped sorting and the DOM position has changed.
 	 * 
@@ -1119,9 +1164,9 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SortableBehavior setUpdateEvent(IWiqueryEventListener listener)
+	public SortableBehavior setUpdateEvent(AjaxUpdateCallback callback)
 	{
-		setEventListener("update", listener);
+		setEventListener(callback);
 		return this;
 	}
 

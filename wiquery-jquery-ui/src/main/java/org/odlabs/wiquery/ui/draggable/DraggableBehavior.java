@@ -26,7 +26,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -130,6 +130,36 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	 * position of the helper as { top, left } object, relative to page
 	 */
 	public static final String UI_OFFSET = "ui.offset";
+
+	public static abstract class AjaxDragCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxDragCallback()
+		{
+			super("drag");
+		}
+	}
+
+	public static abstract class AjaxDragStartCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxDragStartCallback()
+		{
+			super("start");
+		}
+	}
+
+	public static abstract class AjaxDragStopCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxDragStopCallback()
+		{
+			super("stop");
+		}
+	}
 
 	/**
 	 * Default constructor
@@ -924,9 +954,9 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public DraggableBehavior setDragEvent(IWiqueryEventListener listener)
+	public DraggableBehavior setDragEvent(AjaxDragCallback callback)
 	{
-		setEventListener("drag", listener);
+		setEventListener(callback);
 		return this;
 	}
 
@@ -942,9 +972,9 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public DraggableBehavior setStartEvent(IWiqueryEventListener listener)
+	public DraggableBehavior setStartEvent(AjaxDragStartCallback callback)
 	{
-		setEventListener("start", listener);
+		setEventListener(callback);
 		return this;
 	}
 
@@ -960,9 +990,9 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public DraggableBehavior setStopEvent(IWiqueryEventListener listener)
+	public DraggableBehavior setStopEvent(AjaxDragStopCallback callback)
 	{
-		setEventListener("stop", listener);
+		setEventListener(callback);
 		return this;
 	}
 

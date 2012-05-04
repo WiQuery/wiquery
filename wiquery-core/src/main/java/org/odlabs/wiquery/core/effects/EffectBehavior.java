@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -39,6 +39,15 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  */
 public class EffectBehavior extends WiQueryAbstractAjaxBehavior
 {
+	public abstract static class AjaxEffectCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxEffectCallback()
+		{
+			super("callback");
+		}
+	}
 
 	private static final long serialVersionUID = 3597955113451275208L;
 
@@ -65,8 +74,8 @@ public class EffectBehavior extends WiQueryAbstractAjaxBehavior
 		return query.getStatement();
 	}
 
-	public void setCallback(IWiqueryEventListener listener)
+	public void setCallback(AjaxEffectCallback callback)
 	{
-		setEventListener("callback", listener);
+		setEventListener(callback);
 	}
 }

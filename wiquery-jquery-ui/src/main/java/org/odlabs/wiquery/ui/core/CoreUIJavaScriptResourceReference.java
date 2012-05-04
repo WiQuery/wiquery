@@ -21,8 +21,14 @@
  */
 package org.odlabs.wiquery.ui.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
 import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
 /**
  * $Id: CoreUIJavaScriptResourceReference.java 1145 2011-08-02 08:57:23Z
@@ -53,5 +59,16 @@ public class CoreUIJavaScriptResourceReference extends JQueryPluginResourceRefer
 	private CoreUIJavaScriptResourceReference()
 	{
 		super(CoreUIJavaScriptResourceReference.class, "jquery.ui.core.js");
+	}
+
+	@Override
+	public Iterable< ? extends HeaderItem> getDependencies()
+	{
+		Iterable< ? extends HeaderItem> jquery = super.getDependencies();
+		List<HeaderItem> ret = new ArrayList<HeaderItem>();
+		for (HeaderItem curItem : jquery)
+			ret.add(curItem);
+		ret.add(CssHeaderItem.forReference(WiQueryCoreThemeResourceReference.get()));
+		return ret;
 	}
 }

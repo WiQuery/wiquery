@@ -21,12 +21,18 @@
  */
 package org.odlabs.wiquery.ui.selectable;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.odlabs.wiquery.core.behavior.IWiqueryEventListener;
+import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -39,29 +45,32 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * Wicket behabior to use the JQuery UI Selectable behavior
  * </p>
  * 
- * * Example : Java code: <code>
- * 	    List<String> values = Arrays.asList(
-	    		"Value 1", 
-	    		"Value 2",
-	    		"Value 3",
-	    		"Value 4",
-	    		"Value 5");
-	    
-	    ListView<String> listView = new ListView<String>("listView", values) {
+ * * Example : Java code:
  * 
- * @Override protected void populateItem(ListItem<String> item) { item.add(new
- *           Label("item", item.getModel())); } };
+ * <pre>
+ * List&lt;String&gt; values = Arrays.asList(&quot;Value 1&quot;, &quot;Value 2&quot;, &quot;Value 3&quot;, &quot;Value 4&quot;, &quot;Value 5&quot;);
+ * ListView&lt;String&gt; listView = new ListView&lt;String&gt;(&quot;listView&quot;, values)
+ * {
+ * 	&#064;Override
+ * 	protected void populateItem(ListItem&lt;String&gt; item)
+ * 	{
+ * 		item.add(new Label(&quot;item&quot;, item.getModel()));
+ * 	}
+ * };
  * 
- *           WebMarkupContainer selectableWicket = new
- *           WebMarkupContainer("selectableWicket"); selectableWicket.add(new
- *           SelectableBehavior()); selectableWicket.add(listView); add(selectableWicket);
- *           </code>
+ * WebMarkupContainer selectableWicket = new WebMarkupContainer(&quot;selectableWicket&quot;);
+ * selectableWicket.add(new SelectableBehavior());
+ * selectableWicket.add(listView);
+ * add(selectableWicket);
+ * </pre>
  * 
- *           HTML code: <code>
- * 		<ol wicket:id="selectableWicket">
-			<li wicket:id="listView"><span wicket:id="item"></span></li>
-		</ol>
- * </code>
+ * HTML code:
+ * 
+ * <pre>
+ * 	&lt;ol wicket:id=&quot;selectableWicket&quot;&gt;
+ * 		&lt;li wicket:id=&quot;listView&quot;&gt;&lt;span wicket:id=&quot;item&quot;&gt;&lt;/span>&lt;/li&gt;
+ * 	&lt;/ol&gt;
+ * </pre>
  * 
  * @author Julien Roche
  * @since 1.0
@@ -84,6 +93,42 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 2L;
+
+	public abstract static class AjaxSelectionCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxSelectionCallback()
+		{
+			super("stop");
+		}
+
+		@Override
+		protected Map<String, String> getExtraParameters()
+		{
+			Map<String, String> ret = super.getExtraParameters();
+			ret.put("selectedItems", "$.unique($.map($(this).children('.ui-selectee.ui-selected'),"
+				+ "function(elem) {return $(elem).attr('id');})).toString()");
+			return ret;
+		}
+
+		@Override
+		public final void call(AjaxRequestTarget target, Component source)
+		{
+			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+
+			String[] selectedItems = req.getParameterValue("selectedItems").toString("").split(",");
+			System.out.println(req.getParameterValue("selectedItems"));
+			List<Component> selectedComponents = new ArrayList<Component>();
+			for (String curId : selectedItems)
+				if (!curId.isEmpty())
+					selectedComponents.add(findComponentById(curId));
+			selection(target, source, selectedComponents);
+		}
+
+		protected abstract void selection(AjaxRequestTarget target, Component source,
+				List<Component> selectedComponents);
+	}
 
 	/**
 	 * Default constructor
@@ -305,12 +350,6 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SelectableBehavior setSelectedEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("selected", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the selecting event This event is triggered during the select operation, on
 	 * each element added to the selection.
@@ -322,12 +361,6 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	public SelectableBehavior setSelectingEvent(JsScopeUiEvent selecting)
 	{
 		this.options.put("selecting", selecting);
-		return this;
-	}
-
-	public SelectableBehavior setSelectingEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("selecting", listener);
 		return this;
 	}
 
@@ -345,12 +378,6 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SelectableBehavior setStartEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("start", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the stop event This event is triggered at the end of the select operation.
 	 * 
@@ -364,9 +391,9 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SelectableBehavior setStopEvent(IWiqueryEventListener listener)
+	public SelectableBehavior setStopEvent(AjaxSelectionCallback callback)
 	{
-		setEventListener("stop", listener);
+		setEventListener(callback);
 		return this;
 	}
 
@@ -384,12 +411,6 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	public SelectableBehavior setUnselectedEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("unselected", listener);
-		return this;
-	}
-
 	/**
 	 * Set's the unselecting event This event is triggered during the select operation, on
 	 * each element removed from the selection.
@@ -401,12 +422,6 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	public SelectableBehavior setUnselectingEvent(JsScopeUiEvent unselecting)
 	{
 		this.options.put("unselecting", unselecting);
-		return this;
-	}
-
-	public SelectableBehavior setUnselectingEvent(IWiqueryEventListener listener)
-	{
-		setEventListener("unselecting", listener);
 		return this;
 	}
 
