@@ -7,7 +7,6 @@ import org.apache.wicket.resource.JQueryResourceReference;
 import org.apache.wicket.util.tester.Result;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
-import org.odlabs.wiquery.core.WiQuerySettings;
 import org.odlabs.wiquery.core.events.Event;
 import org.odlabs.wiquery.core.events.WiQueryEventBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
@@ -72,21 +71,6 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
 		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
 
-	}
-
-	@Test
-	public void testWiquerySettingsUILibraryDisabled()
-	{
-		WiQuerySettings.get().setAutoImportJQueryUIStyleSheetResource(false);
-		WiQuerySettings.get().setAutoImportJQueryUIJavaScriptResource(false);
-		startTestPage();
-		tester.assertContains(JQueryResourceReference.class.getName());
-		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
-			WiQueryCoreThemeResourceReference.class.getName());
-		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
-			CoreUIJavaScriptResourceReference.class.getName());
-		assertNotContains("UI library is disabled. Resource reference shouldn't be rendered",
-			WidgetJavaScriptResourceReference.class.getName());
 	}
 
 	private void startTestPage()

@@ -27,7 +27,6 @@ import java.util.List;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
-import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
 /**
@@ -40,8 +39,7 @@ import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class CoreUIJavaScriptResourceReference extends JQueryPluginResourceReference implements
-		ICoreUIJavaScriptResourceReference
+public class CoreUIJavaScriptResourceReference extends JQueryPluginResourceReference
 {
 	private static final long serialVersionUID = 4585057795574929263L;
 

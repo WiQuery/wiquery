@@ -22,7 +22,6 @@
 package org.odlabs.wiquery.ui.themes;
 
 import org.apache.wicket.request.resource.CssResourceReference;
-import org.odlabs.wiquery.core.ui.ICoreUICssResourceReference;
 import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 
 /**
@@ -35,8 +34,7 @@ import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class WiQueryCoreThemeResourceReference extends CssResourceReference implements
-		ICoreUICssResourceReference
+public class WiQueryCoreThemeResourceReference extends CssResourceReference
 {
 	private static final long serialVersionUID = 6795863553105608280L;
 
