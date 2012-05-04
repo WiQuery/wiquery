@@ -116,6 +116,7 @@ public class SliderRange implements IComplexOption
 		return rangeEnumParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (booleanParam == null && rangeEnumParam == null)

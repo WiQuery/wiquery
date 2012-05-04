@@ -96,6 +96,7 @@ public class AccordionAnimated implements IComplexOption
 		return effectParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (booleanParam == null && effectParam == null)

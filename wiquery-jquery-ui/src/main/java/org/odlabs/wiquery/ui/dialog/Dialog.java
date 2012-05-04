@@ -33,7 +33,6 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.dialog.AjaxDialogButton.AjaxDialogScope;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
@@ -65,7 +64,6 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 0.5
  */
-@WiQueryUIPlugin
 public class Dialog extends WebMarkupContainer
 {
 	// Constants

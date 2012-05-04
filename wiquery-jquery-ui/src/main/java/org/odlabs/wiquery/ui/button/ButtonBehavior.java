@@ -32,7 +32,6 @@ import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.themes.UiIcon;
 
 /**
@@ -49,7 +48,6 @@ import org.odlabs.wiquery.ui.themes.UiIcon;
  * @author Ernesto Reinaldo
  * @since 1.1
  */
-@WiQueryUIPlugin
 public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 {
 	// Constants

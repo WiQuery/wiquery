@@ -36,7 +36,6 @@ import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
@@ -75,7 +74,6 @@ import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
  * @author Julien Roche
  * @since 1.0
  */
-@WiQueryUIPlugin
 public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**

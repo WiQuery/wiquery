@@ -133,6 +133,7 @@ public class SliderAnimate implements IComplexOption
 		return animateEnumParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (booleanParam == null && animateEnumParam == null && numberParam == null)

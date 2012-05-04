@@ -25,8 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$ Helper class to
- * implement the shake effect as in
+ * $Id$ Helper class to implement the shake effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Shake
  * 
@@ -106,6 +105,7 @@ public class BounceEffect extends Effect
 			+ "}", Integer.toString(duration));
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "effect";

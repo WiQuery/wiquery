@@ -24,15 +24,14 @@ package org.odlabs.wiquery.ui.autocomplete;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.position.PositionCollision;
 import org.odlabs.wiquery.ui.position.PositionOptions;
@@ -49,8 +48,7 @@ import org.odlabs.wiquery.ui.position.PositionRelation;
  *            The model object type
  * @since 1.1
  */
-@WiQueryUIPlugin
-public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
+public class Autocomplete<T> extends TextField<T>
 {
 	// Constants
 	/** Constant of serialization */
@@ -97,6 +95,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 	{
 		response.render(JavaScriptHeaderItem.forReference(AutocompleteJavaScriptResourceReference
 			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
 	/**
@@ -109,7 +108,6 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin
 		return options;
 	}
 
-	@Override
 	public JsStatement statement()
 	{
 		return new JsQuery(this).$().chain("autocomplete", options.getJavaScriptOptions());

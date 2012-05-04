@@ -97,6 +97,7 @@ public class DroppableAccept implements IComplexOption
 		return functionParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (literalParam == null && functionParam == null)

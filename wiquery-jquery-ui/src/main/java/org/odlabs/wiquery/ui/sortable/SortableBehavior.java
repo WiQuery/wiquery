@@ -37,7 +37,6 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.sortable.SortableHelper.HelperEnum;
 
@@ -72,7 +71,6 @@ import org.odlabs.wiquery.ui.sortable.SortableHelper.HelperEnum;
  * @author Julien Roche
  * @since 1.0
  */
-@WiQueryUIPlugin
 public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**

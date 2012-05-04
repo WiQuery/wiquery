@@ -117,6 +117,7 @@ public class ResizableAnimeDuration implements IComplexOption
 		return integerParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (integerParam == null && durationEnumParam == null)

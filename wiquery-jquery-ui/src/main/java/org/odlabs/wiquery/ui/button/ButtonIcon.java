@@ -97,6 +97,7 @@ public class ButtonIcon extends Object implements IComplexOption
 		return secondary;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		StringBuffer buffer = new StringBuffer();

@@ -51,14 +51,17 @@ public class UiOptionsRenderer implements IOptionsRenderer
 		this.component = component;
 	}
 
+	@Override
 	public void renderAfter(StringBuilder stringBuilder)
 	{
 	}
 
+	@Override
 	public void renderBefore(StringBuilder stringBuilder)
 	{
 	}
 
+	@Override
 	public CharSequence renderOption(String name, Object value, boolean isLast)
 	{
 		JsStatement jsStatement =

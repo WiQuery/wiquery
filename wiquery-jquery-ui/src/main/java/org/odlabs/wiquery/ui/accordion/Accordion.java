@@ -24,15 +24,14 @@ package org.odlabs.wiquery.ui.accordion;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.themes.UiIcon;
 
@@ -45,8 +44,7 @@ import org.odlabs.wiquery.ui.themes.UiIcon;
  * @author Lionel Armanet
  * @since 0.6
  */
-@WiQueryUIPlugin
-public class Accordion extends WebMarkupContainer implements IWiQueryPlugin
+public class Accordion extends WebMarkupContainer
 {
 
 	private static final long serialVersionUID = 2L;
@@ -89,9 +87,9 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin
 	{
 		response.render(JavaScriptHeaderItem.forReference(AccordionJavaScriptResourceReference
 			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
-	@Override
 	public JsStatement statement()
 	{
 		return new JsQuery(this).$().chain("accordion", options.getJavaScriptOptions());
@@ -215,7 +213,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin
 	 * Returns the {@link AccordionTriggerEvent}.
 	 * 
 	 * @deprecated will be removed in 1.2
-	 * @see #setTriggerEvent(org.objetdirect.wickext.ui.accordion.Accordion.AccordionTriggerEvent)
+	 * @see #setTriggerEvent(AccordionTriggerEvent)
 	 */
 	@Deprecated
 	public AccordionTriggerEvent getTriggerEvent()
@@ -237,7 +235,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin
 	/**
 	 * Returns the {@link AccordionTriggerEvent}.
 	 * 
-	 * @see #setTriggerEvent(org.objetdirect.wickext.ui.accordion.Accordion.AccordionTriggerEvent)
+	 * @see #setTriggerEvent(AccordionTriggerEvent)
 	 */
 	public AccordionTriggerEvent getEvent()
 	{
@@ -418,7 +416,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin
 	}
 
 	/**
-	 * @see #setIcon(AccordionIcon)
+	 * @see #setIcons(AccordionIcon)
 	 */
 	public AccordionIcon getIcons()
 	{
@@ -437,7 +435,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin
 	 * by jQuery UI ThemeRoller Default: { 'header': 'ui-icon-triangle-1-e',
 	 * 'headerSelected': 'ui-icon-triangle-1-s' }
 	 * 
-	 * @param icon
+	 * @param icons
 	 * @return instance of the current component
 	 */
 	public Accordion setIcons(AccordionIcon icons)

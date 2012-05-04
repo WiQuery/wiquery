@@ -21,10 +21,9 @@
  */
 package org.odlabs.wiquery.ui.themes;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
@@ -257,8 +256,7 @@ public abstract class ThemeUiHelper
 	 */
 	public static void errorText(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>(
-			"ui-state-error ui-corner-all"), " "));
+		component.add(AttributeModifier.append("class", "ui-state-error ui-corner-all"));
 	}
 
 	/**
@@ -269,8 +267,7 @@ public abstract class ThemeUiHelper
 	 */
 	public static void buttonRounded(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>(
-			"ui-state-default ui-corner-all"), " "));
+		component.add(AttributeModifier.append("class", "ui-state-default ui-corner-all"));
 	}
 
 	/**
@@ -281,8 +278,8 @@ public abstract class ThemeUiHelper
 	 */
 	public static void buttonRoundedFocused(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>(
-			"ui-state-default ui-corner-all ui-state-focus"), " "));
+		component.add(AttributeModifier.append("class",
+			"ui-state-default ui-corner-all ui-state-focus"));
 	}
 
 	/**
@@ -293,8 +290,8 @@ public abstract class ThemeUiHelper
 	 */
 	public static void componentRounded(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>(
-			"ui-widget ui-widget-content ui-corner-all"), " "));
+		component.add(AttributeModifier
+			.append("class", "ui-widget ui-widget-content ui-corner-all"));
 	}
 
 	/**
@@ -305,8 +302,7 @@ public abstract class ThemeUiHelper
 	 */
 	public static void highlightedText(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>(
-			"ui-state-highlight ui-corner-all"), " "));
+		component.add(AttributeModifier.append("class", "ui-state-highlight ui-corner-all"));
 	}
 
 	/**
@@ -348,8 +344,7 @@ public abstract class ThemeUiHelper
 	 */
 	public static void iconComponent(Component component, IconEnum iconEnum)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>("ui-icon "
-			+ iconEnum.getCssClass()), " "));
+		component.add(AttributeModifier.append("class", "ui-icon " + iconEnum.getCssClass()));
 	}
 
 	/**
@@ -357,13 +352,12 @@ public abstract class ThemeUiHelper
 	 * 
 	 * @param component
 	 *            Wicket component
-	 * @param iconEnum
+	 * @param icon
 	 *            Icon to display
 	 */
 	public static void iconComponent(Component component, UiIcon icon)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>("ui-icon "
-			+ icon.getCssClass()), " "));
+		component.add(AttributeModifier.append("class", "ui-icon " + icon.getCssClass()));
 	}
 
 	/**
@@ -374,8 +368,8 @@ public abstract class ThemeUiHelper
 	 */
 	public static void overlayComponent(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>(
-			"ui-overlay ui-widget-overlay ui-widget-shadow ui-corner-all"), " "));
+		component.add(AttributeModifier.append("class",
+			"ui-overlay ui-widget-overlay ui-widget-shadow ui-corner-all"));
 	}
 
 	/**
@@ -386,8 +380,8 @@ public abstract class ThemeUiHelper
 	 */
 	public static void titleComponent(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>(
-			"ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"), " "));
+		component.add(AttributeModifier.append("class",
+			"ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"));
 	}
 
 	/**
@@ -395,8 +389,7 @@ public abstract class ThemeUiHelper
 	 */
 	public static void headerComponent(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>("ui-widget-header"),
-			" "));
+		component.add(AttributeModifier.append("class", "ui-widget-header"));
 	}
 
 	/**
@@ -404,8 +397,6 @@ public abstract class ThemeUiHelper
 	 */
 	public static void shadowComponent(Component component)
 	{
-		component.add(new AttributeAppender("class", true, new Model<String>("ui-widget-shadow"),
-			" "));
+		component.add(AttributeModifier.append("class", "ui-widget-shadow"));
 	}
-
 }

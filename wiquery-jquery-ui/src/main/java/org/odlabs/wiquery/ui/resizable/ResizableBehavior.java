@@ -39,7 +39,6 @@ import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.resizable.ResizableAnimeDuration.DurationEnum;
 
@@ -52,7 +51,6 @@ import org.odlabs.wiquery.ui.resizable.ResizableAnimeDuration.DurationEnum;
  * @author Lionel Armanet
  * @since 1.0
  */
-@WiQueryUIPlugin
 public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	// Constants

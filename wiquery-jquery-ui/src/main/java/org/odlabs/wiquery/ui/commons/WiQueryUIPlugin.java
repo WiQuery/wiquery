@@ -27,19 +27,20 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.odlabs.wiquery.core.IWiQueryPlugin;
-
 /**
  * $Id$
  * <p>
- * Annotates a {@link IWiQueryPlugin} to be considered as a jQuery UI plugin.
+ * Annotates a WiQuery plugin to be considered as a jQuery UI plugin.
  * </p>
  * 
+ * @deprecated jQuery UI plugins no longer have a special meaning. Resources have to
+ *             define the correct dependencies in order for UI resources to be loaded.
  * @author Lionel Armanet
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = ElementType.TYPE)
 @Inherited
+@Deprecated
 public @interface WiQueryUIPlugin
 {
 

@@ -126,6 +126,7 @@ public class DraggableRevert implements IComplexOption
 		return revertEnumParameter;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (booleanParam == null && revertEnumParameter == null)

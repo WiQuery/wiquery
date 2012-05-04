@@ -33,7 +33,6 @@ import org.apache.wicket.request.resource.SharedResourceReference;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.dialog.Dialog;
 import org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference;
 
@@ -46,7 +45,6 @@ import org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-@WiQueryUIPlugin
 public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**

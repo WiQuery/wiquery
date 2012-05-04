@@ -33,7 +33,6 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
@@ -66,7 +65,6 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.6
  */
-@WiQueryUIPlugin
 public class DatePicker<T> extends TextField<T>
 {
 	/**

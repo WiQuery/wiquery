@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.Radio;
 import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.form.SimpleFormComponentLabel;
@@ -34,10 +35,8 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
@@ -52,8 +51,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-@WiQueryUIPlugin
-public class ButtonRadioSet<T extends Serializable> extends Panel implements IWiQueryPlugin
+public class ButtonRadioSet<T extends Serializable> extends Panel
 {
 	// Constants
 	/** Constant of serialization */
@@ -159,6 +157,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel implements IWi
 	{
 		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
 		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
+		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
 	/**

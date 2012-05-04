@@ -96,6 +96,7 @@ public class AccordionHeader implements IComplexOption
 		return objectParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (objectParam == null && literalParam == null)

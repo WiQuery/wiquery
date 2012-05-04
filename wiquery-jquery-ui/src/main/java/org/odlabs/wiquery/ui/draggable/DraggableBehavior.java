@@ -36,7 +36,6 @@ import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableHelper.HelperEnum;
 
@@ -49,7 +48,6 @@ import org.odlabs.wiquery.ui.draggable.DraggableHelper.HelperEnum;
  * @author Lionel Armanet
  * @since 1.0
  */
-@WiQueryUIPlugin
 public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
