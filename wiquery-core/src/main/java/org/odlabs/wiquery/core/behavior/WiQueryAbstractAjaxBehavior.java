@@ -115,12 +115,6 @@ public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBeh
 		return null;
 	}
 
-	@Override
-	public CharSequence getCallbackFunctionBody(String... extraParameters)
-	{
-		return super.getCallbackFunctionBody(extraParameters);
-	}
-
 	public Component getBehaviorComponent()
 	{
 		return super.getComponent();
