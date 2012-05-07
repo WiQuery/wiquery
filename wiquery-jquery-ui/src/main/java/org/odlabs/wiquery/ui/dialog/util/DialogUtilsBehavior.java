@@ -30,18 +30,11 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.SharedResourceReference;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
-import org.odlabs.wiquery.ui.button.ButtonJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.dialog.Dialog;
 import org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id: DialogResourcesBehavior.java
@@ -52,8 +45,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-@WiQueryUIPlugin
-public class DialogUtilsBehavior extends WiQueryAbstractBehavior
+public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * Enumeration of possibles alternatives languages for the Dailog (Default local : EN)
@@ -310,16 +302,8 @@ public class DialogUtilsBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response
-			.render(JavaScriptHeaderItem.forReference(PositionJavaScriptResourceReference.get()));
+		super.renderHead(component, response);
 		response.render(JavaScriptHeaderItem.forReference(DialogJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(DraggableJavaScriptResourceReference
-			.get()));
-		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference
-			.get()));
 
 		response.render(JavaScriptHeaderItem.forReference(WIQUERY_DIALOG_JS));
 		response.render(JavaScriptHeaderItem.forReference(DialogUtilsLanguages

@@ -145,6 +145,7 @@ public class AccordionActive implements IComplexOption
 		return selector;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (booleanParam == null && intParam == null && jQueryParam == null && selector == null)

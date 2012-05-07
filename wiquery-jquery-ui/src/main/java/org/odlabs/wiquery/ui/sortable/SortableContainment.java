@@ -142,6 +142,7 @@ public class SortableContainment implements IComplexOption
 		return selector;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (objectParam == null && elementEnumParam == null && selector == null)

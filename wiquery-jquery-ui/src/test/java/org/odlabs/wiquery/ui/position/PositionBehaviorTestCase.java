@@ -29,8 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
-import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
-import org.odlabs.wiquery.ui.position.PositionOptions.Position;
 
 /**
  * Test for {@link PositionBehavior}
@@ -65,8 +63,8 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	public void testGetAt()
 	{
 		assertNull(positionBehavior.getAt());
-		positionBehavior.setAt(Position.CENTER_TOP);
-		assertEquals(positionBehavior.getAt(), Position.CENTER_TOP);
+		positionBehavior.setAt(PositionRelation.CENTER_TOP);
+		assertEquals(positionBehavior.getAt(), PositionRelation.CENTER_TOP);
 	}
 
 	/**
@@ -77,8 +75,8 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	public void testGetCollision()
 	{
 		assertNull(positionBehavior.getCollision());
-		positionBehavior.setCollision(Collision.FIT_NONE);
-		assertEquals(positionBehavior.getCollision(), Collision.FIT_NONE);
+		positionBehavior.setCollision(PositionCollision.FIT_NONE);
+		assertEquals(positionBehavior.getCollision(), PositionCollision.FIT_NONE);
 	}
 
 	/**
@@ -88,8 +86,8 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	public void testGetMy()
 	{
 		assertNull(positionBehavior.getMy());
-		positionBehavior.setMy(Position.CENTER_TOP);
-		assertEquals(positionBehavior.getMy(), Position.CENTER_TOP);
+		positionBehavior.setMy(PositionRelation.CENTER_TOP);
+		assertEquals(positionBehavior.getMy(), PositionRelation.CENTER_TOP);
 	}
 
 	/**
@@ -140,30 +138,5 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 		assertTrue(positionBehavior.isBgiframe());
 		positionBehavior.setBgiframe(false);
 		assertFalse(positionBehavior.isBgiframe());
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#setBy(org.odlabs.wiquery.ui.position.JsScopePositionEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetBy()
-	{
-		assertEquals(positionBehavior.statement().render().toString(), "$('#anId').position({});");
-		positionBehavior.setBy(JsScopePositionEvent.quickScope("alert('event');"));
-		assertEquals(positionBehavior.statement().render().toString(),
-			"$('#anId').position({by: function(params) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#statement()}
-	 * .
-	 */
-	@Test
-	public void testStatement()
-	{
-		assertNotNull(positionBehavior.statement());
-		assertEquals(positionBehavior.statement().render().toString(), "$('#anId').position({});");
 	}
 }

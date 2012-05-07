@@ -70,6 +70,7 @@ public class PositionOffset extends Object implements IComplexOption
 		this.offsetTop = offsetTop;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		return new LiteralOption(offsetLeft + " " + offsetTop).toString();
@@ -104,7 +105,7 @@ public class PositionOffset extends Object implements IComplexOption
 	/**
 	 * Set the offset top
 	 * 
-	 * @param offserTop
+	 * @param offsetTop
 	 */
 	public void setOffsetTop(int offsetTop)
 	{

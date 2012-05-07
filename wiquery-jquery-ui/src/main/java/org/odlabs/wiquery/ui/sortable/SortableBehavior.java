@@ -21,22 +21,24 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
+import java.util.Map;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
-import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.sortable.SortableHelper.HelperEnum;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -69,8 +71,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-@WiQueryUIPlugin
-public class SortableBehavior extends WiQueryAbstractBehavior
+public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * Enumeration for the axis option
@@ -155,8 +156,100 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	 */
 	public static final String UI_SENDER = "ui.sender";
 
-	// Properties
-	private Options options;
+	private abstract static class AbstractAjaxSortCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AbstractAjaxSortCallback(String event)
+		{
+			super(event);
+		}
+
+		@Override
+		protected Map<String, String> getExtraParameters()
+		{
+			Map<String, String> ret = super.getExtraParameters();
+			ret.put("sortIndex", "$(this).find(':data(sortable-item)').index("
+				+ SortableBehavior.UI_ITEM + ")");
+			ret.put("sortItemId", "$(" + SortableBehavior.UI_ITEM + ").attr('id')");
+			ret.put("sortSenderId", "$(" + SortableBehavior.UI_SENDER + ").attr('id')");
+			return ret;
+		}
+
+		@Override
+		public final void call(AjaxRequestTarget target, Component source)
+		{
+			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+
+			int sortIndex = req.getParameterValue("sortIndex").toInt(-1);
+			Component sortItem = findComponentById(req.getParameterValue("sortItemId").toString());
+			Component sortSender =
+				findComponentById(req.getParameterValue("sortSenderId").toString());
+			call(target, source, sortIndex, sortItem, sortSender);
+		}
+
+		protected abstract void call(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender);
+	}
+
+	public abstract static class AjaxReceiveCallback extends AbstractAjaxSortCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxReceiveCallback()
+		{
+			super("recieve");
+		}
+
+		@Override
+		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender)
+		{
+			receive(target, source, sortIndex, sortItem, sortSender);
+		}
+
+		public abstract void receive(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender);
+	}
+
+	public abstract static class AjaxRemoveCallback extends AbstractAjaxSortCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxRemoveCallback()
+		{
+			super("remove");
+		}
+
+		@Override
+		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender)
+		{
+			remove(target, source, sortItem);
+		}
+
+		public abstract void remove(AjaxRequestTarget target, Component source, Component sortItem);
+	}
+
+	public abstract static class AjaxUpdateCallback extends AbstractAjaxSortCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxUpdateCallback()
+		{
+			super("update");
+		}
+
+		@Override
+		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem, Component sortSender)
+		{
+			update(target, source, sortIndex, sortItem);
+		}
+
+		public abstract void update(AjaxRequestTarget target, Component source, int sortIndex,
+				Component sortItem);
+	}
 
 	/**
 	 * Default constructor
@@ -164,7 +257,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	public SortableBehavior()
 	{
 		super();
-		options = new Options();
 	}
 
 	@Override
@@ -184,16 +276,11 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(SortableJavaScriptResourceReference.get()));
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(this.getComponent()).$().chain("sortable",
-			this.options.getJavaScriptOptions());
+		super.renderHead(component, response);
+		response
+			.render(JavaScriptHeaderItem.forReference(SortableJavaScriptResourceReference.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this.getComponent()).$()
+			.chain("sortable", this.options.getJavaScriptOptions()).render()));
 	}
 
 	/*---- Options section ---*/
@@ -390,16 +477,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		}
 
 		return 0F;
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
 	}
 
 	/**
@@ -1012,6 +1089,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public SortableBehavior setReceiveEvent(AjaxReceiveCallback callback)
+	{
+		setEventListener(callback);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when a sortable item has been dragged out from the list and into
 	 * another.
@@ -1022,6 +1105,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	public SortableBehavior setRemoveEvent(JsScopeUiEvent remove)
 	{
 		this.options.put("remove", remove);
+		return this;
+	}
+
+	public SortableBehavior setRemoveEvent(AjaxRemoveCallback callback)
+	{
+		setEventListener(callback);
 		return this;
 	}
 
@@ -1070,6 +1159,12 @@ public class SortableBehavior extends WiQueryAbstractBehavior
 	public SortableBehavior setUpdateEvent(JsScopeUiEvent update)
 	{
 		this.options.put("update", update);
+		return this;
+	}
+
+	public SortableBehavior setUpdateEvent(AjaxUpdateCallback callback)
+	{
+		setEventListener(callback);
 		return this;
 	}
 

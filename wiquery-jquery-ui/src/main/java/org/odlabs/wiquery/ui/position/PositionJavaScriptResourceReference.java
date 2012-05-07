@@ -21,8 +21,7 @@
  */
 package org.odlabs.wiquery.ui.position;
 
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
+import org.apache.wicket.resource.JQueryPluginResourceReference;
 
 /**
  * $Id: PositionJavaScriptResourceReference.java 1150 2011-08-02 10:09:02Z
@@ -34,8 +33,7 @@ import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class PositionJavaScriptResourceReference extends JavaScriptResourceReference implements
-		ICoreUIJavaScriptResourceReference
+public class PositionJavaScriptResourceReference extends JQueryPluginResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 

@@ -21,21 +21,18 @@
  */
 package org.odlabs.wiquery.ui.dialog;
 
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.request.cycle.RequestCycle;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.dialog.AjaxDialogButton.AjaxDialogScope;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
@@ -65,7 +62,6 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 0.5
  */
-@WiQueryUIPlugin
 public class Dialog extends WebMarkupContainer
 {
 	// Constants
@@ -87,16 +83,13 @@ public class Dialog extends WebMarkupContainer
 		RIGHT
 	}
 
-	public static final String BUTTON_ID = "BUTTON_ID";
-
 	/**
 	 * This class is only need to make public the method generateCallbackScript.
 	 * 
 	 * @author Ernesto Reinaldo Barreiro
 	 */
-	public static abstract class DialogAjaxBehavior extends AbstractDefaultAjaxBehavior
+	private static class DialogAjaxBehavior extends WiQueryAbstractAjaxBehavior
 	{
-
 		private static final long serialVersionUID = 1L;
 
 		public DialogAjaxBehavior()
@@ -124,37 +117,7 @@ public class Dialog extends WebMarkupContainer
 	{
 		super(id);
 		setOutputMarkupId(true);
-		add(ajaxBehavior = new DialogAjaxBehavior()
-		{
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void respond(AjaxRequestTarget target)
-			{
-				String buttonTitle =
-					RequestCycle.get().getRequest().getQueryParameters()
-						.getParameterValue(BUTTON_ID).toString();
-				// if an AJAX button was clicked we find it and delegate execution.
-				if (!isEmpty(buttonTitle))
-				{
-					ListItemOptions<DialogButton> buttons = getButtons();
-					if (buttons != null)
-					{
-						for (DialogButton button : buttons)
-						{
-							if (button.getTitle().equals(buttonTitle)
-								&& button instanceof AjaxDialogButton)
-							{
-								AjaxDialogButton ajaxDialogButton = (AjaxDialogButton) button;
-								// delegate handling of event to button class.
-								ajaxDialogButton.onButtonClicked(target);
-							}
-						}
-					}
-				}
-			}
-		});
+		add(ajaxBehavior = new DialogAjaxBehavior());
 		options = new Options(this);
 		// default settings
 		this.setAutoOpen(false);
@@ -817,7 +780,7 @@ public class Dialog extends WebMarkupContainer
 		{
 			if (button instanceof AjaxDialogButton)
 			{
-				button.setJsScope(new AjaxDialogScope(button.getTitle(), this));
+				((AjaxDialogButton) button).activateCallback(ajaxBehavior);
 			}
 		}
 		this.options.put("buttons", buttons);
@@ -839,7 +802,7 @@ public class Dialog extends WebMarkupContainer
 			{
 				if (button instanceof AjaxDialogButton)
 				{
-					button.setJsScope(new AjaxDialogScope(button.getTitle(), this));
+					((AjaxDialogButton) button).activateCallback(ajaxBehavior);
 				}
 				buttons2.add(button);
 			}

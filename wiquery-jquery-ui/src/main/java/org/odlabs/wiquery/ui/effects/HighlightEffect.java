@@ -25,8 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$ Helper class to
- * implement the hightlight effect as in
+ * $Id$ Helper class to implement the hightlight effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Hightlight
  * 
@@ -70,12 +69,10 @@ public class HighlightEffect extends Effect
 	/**
 	 * Constructor.
 	 * 
-	 * @param direction
-	 *            The direction
-	 * @param scale
-	 *            The scale
-	 * @param percent
-	 *            The percent
+	 * @param mode
+	 *            The mode
+	 * @param color
+	 *            The color
 	 * @param duration
 	 *            The duration.
 	 */
@@ -86,6 +83,7 @@ public class HighlightEffect extends Effect
 			+ (color != null ? ", color: " + color : "") + "}", Integer.toString(duration));
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "effect";

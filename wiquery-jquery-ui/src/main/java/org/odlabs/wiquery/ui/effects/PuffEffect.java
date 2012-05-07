@@ -25,8 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$ Helper class to
- * implement the puff effect as in
+ * $Id$ Helper class to implement the puff effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Puff
  * 
@@ -83,7 +82,7 @@ public class PuffEffect extends Effect
 	/**
 	 * 
 	 * @param mode
-	 * @param pieces
+	 * @param percent
 	 * @param duration
 	 */
 	public PuffEffect(Mode mode, int percent, int duration)
@@ -93,6 +92,7 @@ public class PuffEffect extends Effect
 		this.mode = mode;
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return getMode().name();

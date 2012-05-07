@@ -76,6 +76,7 @@ public class JQueryCookieOption extends Object implements IComplexOption
 		setName(name);
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		return options.getJavaScriptOptions();

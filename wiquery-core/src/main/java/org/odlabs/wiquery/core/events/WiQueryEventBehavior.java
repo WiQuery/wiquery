@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.events;
 
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
@@ -34,7 +34,7 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class WiQueryEventBehavior extends WiQueryAbstractBehavior
+public class WiQueryEventBehavior extends WiQueryAbstractAjaxBehavior
 {
 
 	private static final long serialVersionUID = -5984090566307323188L;

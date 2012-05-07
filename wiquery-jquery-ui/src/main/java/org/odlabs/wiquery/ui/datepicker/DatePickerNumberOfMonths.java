@@ -98,6 +98,7 @@ public class DatePickerNumberOfMonths implements IComplexOption
 		return shortParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (shortParam == null && arrayParam == null)

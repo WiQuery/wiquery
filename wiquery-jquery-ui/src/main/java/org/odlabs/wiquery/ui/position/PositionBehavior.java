@@ -24,12 +24,9 @@ package org.odlabs.wiquery.ui.position;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
-import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
-import org.odlabs.wiquery.ui.position.PositionOptions.Position;
 
 /**
  * $Id$
@@ -45,44 +42,20 @@ import org.odlabs.wiquery.ui.position.PositionOptions.Position;
  * @author Julien Roche
  * @since 1.1
  */
-public class PositionBehavior extends WiQueryAbstractBehavior
+public class PositionBehavior extends WiQueryAbstractAjaxBehavior
 {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 5096222396743839504L;
 
-	// Properties
-	private PositionOptions options;
-
-	/**
-	 * Default constructor
-	 */
-	public PositionBehavior()
-	{
-		super();
-		options = new PositionOptions();
-	}
-
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(PositionJavaScriptResourceReference.get()));
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options.getOptions();
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(getComponent()).$().chain("position", options.getJavascriptOption());
+		super.renderHead(component, response);
+		response
+			.render(JavaScriptHeaderItem.forReference(PositionJavaScriptResourceReference.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(getComponent()).$()
+			.chain("position", options.getJavaScriptOptions()).render()));
 	}
 
 	/*---- Options section ---*/
@@ -97,18 +70,19 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 * @param at
 	 * @return the instance
 	 */
-	public PositionBehavior setAt(Position at)
+	public PositionBehavior setAt(PositionRelation at)
 	{
-		options.setAt(at);
+		options.putLiteral("at", at.toString());
 		return this;
 	}
 
 	/**
 	 * @return the at option
 	 */
-	public Position getAt()
+	public PositionRelation getAt()
 	{
-		return options.getAt();
+		String value = options.getLiteral("at");
+		return value == null ? null : PositionRelation.getPosition(value);
 	}
 
 	/**
@@ -120,7 +94,7 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 */
 	public PositionBehavior setBgiframe(boolean bgiframe)
 	{
-		options.setBgiframe(bgiframe);
+		options.put("bgiframe", bgiframe);
 		return this;
 	}
 
@@ -129,7 +103,12 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 */
 	public boolean isBgiframe()
 	{
-		return options.isBgiframe();
+		if (options.containsKey("bgiframe"))
+		{
+			return options.getBoolean("bgiframe");
+		}
+
+		return true;
 	}
 
 	/**
@@ -148,18 +127,19 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 * @param collision
 	 * @return the instance
 	 */
-	public PositionBehavior setCollision(Collision collision)
+	public PositionBehavior setCollision(PositionCollision collision)
 	{
-		options.setCollision(collision);
+		options.putLiteral("collision", collision.toString());
 		return this;
 	}
 
 	/**
 	 * @return the collision option
 	 */
-	public Collision getCollision()
+	public PositionCollision getCollision()
 	{
-		return options.getCollision();
+		String value = options.getLiteral("collision");
+		return value == null ? null : PositionCollision.getCollision(value);
 	}
 
 	/**
@@ -172,18 +152,19 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 * @param my
 	 * @return the instance
 	 */
-	public PositionBehavior setMy(Position my)
+	public PositionBehavior setMy(PositionRelation my)
 	{
-		options.setMy(my);
+		options.putLiteral("my", my.toString());
 		return this;
 	}
 
 	/**
 	 * @return the my option
 	 */
-	public Position getMy()
+	public PositionRelation getMy()
 	{
-		return options.getMy();
+		String value = options.getLiteral("my");
+		return value == null ? null : PositionRelation.getPosition(value);
 	}
 
 	/**
@@ -195,7 +176,7 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 */
 	public PositionBehavior setOf(String of)
 	{
-		options.setOf(of);
+		options.putLiteral("of", of);
 		return this;
 	}
 
@@ -204,7 +185,7 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 */
 	public String getOf()
 	{
-		return options.getOf();
+		return options.getLiteral("of");
 	}
 
 	/**
@@ -216,7 +197,7 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 */
 	public PositionBehavior setOffset(PositionOffset offset)
 	{
-		options.setOffset(offset);
+		options.put("offset", offset);
 		return this;
 	}
 
@@ -225,7 +206,7 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 */
 	public PositionOffset getOffset()
 	{
-		return options.getOffset();
+		return (PositionOffset) options.getComplexOption("offset");
 	}
 
 	/*---- Events section ---*/
@@ -240,7 +221,7 @@ public class PositionBehavior extends WiQueryAbstractBehavior
 	 */
 	public PositionBehavior setBy(JsScopePositionEvent by)
 	{
-		options.setBy(by);
+		options.put("by", by);
 		return this;
 	}
 }

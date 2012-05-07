@@ -25,14 +25,13 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
 import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.*;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
@@ -45,8 +44,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.9
  */
-@WiQueryUIPlugin
-public class Tabs extends WebMarkupContainer implements IWiQueryPlugin
+public class Tabs extends WebMarkupContainer
 {
 	// Constantes
 	/** Constant of serialization */
@@ -96,12 +94,9 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin
 	{
 		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
 		response.render(JavaScriptHeaderItem.forReference(TabsJavaScriptResourceReference.get()));
+		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.objetdirect.wickext.core.commons.JavaScriptCallable#statement()
-	 */
 	public JsStatement statement()
 	{
 		return new JsQuery(this).$().chain("tabs", options.getJavaScriptOptions());

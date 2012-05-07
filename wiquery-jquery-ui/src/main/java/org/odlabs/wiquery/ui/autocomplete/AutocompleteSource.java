@@ -107,6 +107,7 @@ public class AutocompleteSource implements IComplexOption
 		return array;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (array == null && jsScope == null && string == null)

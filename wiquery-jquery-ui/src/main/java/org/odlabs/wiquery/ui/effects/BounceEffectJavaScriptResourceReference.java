@@ -24,7 +24,6 @@ package org.odlabs.wiquery.ui.effects;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
-import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
  * $Id: BounceEffectJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
@@ -36,8 +35,7 @@ import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class BounceEffectJavaScriptResourceReference extends JavaScriptResourceReference implements
-		ICoreUIJavaScriptResourceReference
+public class BounceEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */

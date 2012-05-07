@@ -21,18 +21,21 @@
  */
 package org.odlabs.wiquery.ui.droppable;
 
+import java.util.Map;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
-import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -43,7 +46,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class DroppableBehavior extends WiQueryAbstractBehavior
+public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * Enumeration for the tolerance option
@@ -87,8 +90,34 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 	 */
 	public static final String UI_OFFSET = "ui.offset";
 
-	// Properties
-	private Options options = new Options();
+	public abstract static class AjaxDropCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxDropCallback()
+		{
+			super("drop");
+		}
+
+		@Override
+		protected Map<String, String> getExtraParameters()
+		{
+			Map<String, String> ret = super.getExtraParameters();
+			ret.put("droppedId", "$(" + DroppableBehavior.UI_DRAGGABLE + ").attr('id')");
+			return ret;
+		}
+
+		@Override
+		public final void call(AjaxRequestTarget target, Component source)
+		{
+			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+
+			Component dropped = findComponentById(req.getParameterValue("droppedId").toString());
+			drop(target, source, dropped);
+		}
+
+		protected abstract void drop(AjaxRequestTarget target, Component source, Component dropped);
+	}
 
 	@Override
 	public void onBind()
@@ -107,26 +136,11 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(DroppableJavaScriptResourceReference.get()));
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(getComponent()).$().chain("droppable",
-			this.options.getJavaScriptOptions());
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
+		super.renderHead(component, response);
+		response.render(JavaScriptHeaderItem.forReference(DroppableJavaScriptResourceReference
+			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(getComponent()).$()
+			.chain("droppable", this.options.getJavaScriptOptions()).render()));
 	}
 
 	/*---- Options section ---*/
@@ -369,6 +383,12 @@ public class DroppableBehavior extends WiQueryAbstractBehavior
 	public DroppableBehavior setDropEvent(JsScopeUiEvent drop)
 	{
 		this.options.put("drop", drop);
+		return this;
+	}
+
+	public DroppableBehavior setDropEvent(AjaxDropCallback callback)
+	{
+		setEventListener(callback);
 		return this;
 	}
 

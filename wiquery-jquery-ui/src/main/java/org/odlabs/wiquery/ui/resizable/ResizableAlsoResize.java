@@ -96,6 +96,7 @@ public class ResizableAlsoResize implements IComplexOption
 		return objectParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (objectParam == null && literalParam == null)

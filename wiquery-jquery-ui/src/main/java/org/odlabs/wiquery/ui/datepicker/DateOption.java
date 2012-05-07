@@ -122,6 +122,7 @@ public class DateOption implements IComplexOption
 		return shortParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (shortParam == null && literalParam == null && dateParam == null)

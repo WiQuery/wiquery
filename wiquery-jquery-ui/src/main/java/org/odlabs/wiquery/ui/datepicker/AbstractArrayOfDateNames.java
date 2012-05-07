@@ -60,6 +60,7 @@ public abstract class AbstractArrayOfDateNames extends Object implements IComple
 		}
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (itemOptions.isEmpty())

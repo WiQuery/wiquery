@@ -68,6 +68,7 @@ public class DraggableCursorAt extends Object implements IListItemOption
 		return gap;
 	}
 
+	@Override
 	public final CharSequence getJavascriptOption()
 	{
 		return getCursorAtEnum().toString() + ":" + getGap();

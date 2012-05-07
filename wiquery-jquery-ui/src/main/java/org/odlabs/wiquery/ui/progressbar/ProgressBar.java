@@ -24,12 +24,11 @@ package org.odlabs.wiquery.ui.progressbar;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.odlabs.wiquery.core.IWiQueryPlugin;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.options.UiOptionsRenderer;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
@@ -43,8 +42,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-@WiQueryUIPlugin
-public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin
+public class ProgressBar extends WebMarkupContainer
 {
 	// Constants
 	/** Constant of serialization */
@@ -74,7 +72,9 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin
 	public void renderHead(IHeaderResponse response)
 	{
 		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(ProgressBarJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(ProgressBarJavaScriptResourceReference
+			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
 	public JsStatement statement()
