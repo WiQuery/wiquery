@@ -193,16 +193,6 @@ public class ButtonTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link ButtonBehavior#statement()}.
-	 */
-	@Test
-	public void testStatement()
-	{
-		assertNotNull(buttonBehavior.statement());
-		assertEquals(buttonBehavior.statement().render().toString(), "$('#anId').button({});");
-	}
-
-	/**
 	 * Test method for {@link ButtonBehavior#widget()}.
 	 */
 	@Test

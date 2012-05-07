@@ -139,29 +139,4 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 		positionBehavior.setBgiframe(false);
 		assertFalse(positionBehavior.isBgiframe());
 	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#setBy(org.odlabs.wiquery.ui.position.JsScopePositionEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetBy()
-	{
-		assertEquals(positionBehavior.statement().render().toString(), "$('#anId').position({});");
-		positionBehavior.setBy(JsScopePositionEvent.quickScope("alert('event');"));
-		assertEquals(positionBehavior.statement().render().toString(),
-			"$('#anId').position({by: function(params) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#statement()}
-	 * .
-	 */
-	@Test
-	public void testStatement()
-	{
-		assertNotNull(positionBehavior.statement());
-		assertEquals(positionBehavior.statement().render().toString(), "$('#anId').position({});");
-	}
 }

@@ -29,7 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.droppable.DroppableBehavior.ToleranceEnum;
 
 /**
@@ -204,87 +203,6 @@ public class DroppableBehaviorTestCase extends WiQueryTestCase
 		assertFalse(droppableBehavior.isGreedy());
 		droppableBehavior.setGreedy(true);
 		assertTrue(droppableBehavior.isGreedy());
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#setActivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetActivateEvent()
-	{
-		assertEquals(droppableBehavior.statement().render().toString(), "$('#anId').droppable({});");
-		droppableBehavior.setActivateEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(droppableBehavior.statement().render().toString(),
-			"$('#anId').droppable({activate: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#setDeactivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetDeactivateEvent()
-	{
-		assertEquals(droppableBehavior.statement().render().toString(), "$('#anId').droppable({});");
-		droppableBehavior.setDeactivateEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(droppableBehavior.statement().render().toString(),
-			"$('#anId').droppable({deactivate: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#setDropEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetDropEvent()
-	{
-		assertEquals(droppableBehavior.statement().render().toString(), "$('#anId').droppable({});");
-		droppableBehavior.setDropEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(droppableBehavior.statement().render().toString(),
-			"$('#anId').droppable({drop: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#setOutEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetOutEvent()
-	{
-		assertEquals(droppableBehavior.statement().render().toString(), "$('#anId').droppable({});");
-		droppableBehavior.setOutEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(droppableBehavior.statement().render().toString(),
-			"$('#anId').droppable({out: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#setOverEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetOverEvent()
-	{
-		assertEquals(droppableBehavior.statement().render().toString(), "$('#anId').droppable({});");
-		droppableBehavior.setOverEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(droppableBehavior.statement().render().toString(),
-			"$('#anId').droppable({over: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.droppable.DroppableBehavior#statement()}.
-	 */
-	@Test
-	public void testStatement()
-	{
-		assertNotNull(droppableBehavior.statement());
-		assertEquals(droppableBehavior.statement().render().toString(), "$('#anId').droppable({});");
 	}
 
 	/**

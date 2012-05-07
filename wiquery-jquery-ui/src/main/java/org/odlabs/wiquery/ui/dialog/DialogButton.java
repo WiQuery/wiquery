@@ -22,6 +22,7 @@
 package org.odlabs.wiquery.ui.dialog;
 
 import org.odlabs.wiquery.core.javascript.JsScope;
+import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IListItemOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 
@@ -45,6 +46,8 @@ public class DialogButton extends Object implements IListItemOption
 
 	private JsScope jsScope;
 
+	private IComplexOption callback;
+
 	/**
 	 * Build a new instance of a dialog button
 	 * 
@@ -63,7 +66,8 @@ public class DialogButton extends Object implements IListItemOption
 	@Override
 	public final CharSequence getJavascriptOption()
 	{
-		return new LiteralOption(getTitle()) + ":" + getJsScope().render();
+		return new LiteralOption(getTitle()) + ":"
+			+ (getJsScope() == null ? getCallback().getJavascriptOption() : getJsScope().render());
 	}
 
 	/**
@@ -86,6 +90,11 @@ public class DialogButton extends Object implements IListItemOption
 		return title;
 	}
 
+	public IComplexOption getCallback()
+	{
+		return callback;
+	}
+
 	/**
 	 * Method setting the JsScope of the button
 	 * 
@@ -104,5 +113,10 @@ public class DialogButton extends Object implements IListItemOption
 	public void setTitle(String title)
 	{
 		this.title = title;
+	}
+
+	public void setCallback(IComplexOption callback)
+	{
+		this.callback = callback;
 	}
 }

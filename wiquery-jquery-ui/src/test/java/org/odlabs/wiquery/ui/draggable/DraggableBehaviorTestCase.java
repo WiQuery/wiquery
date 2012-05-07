@@ -30,7 +30,6 @@ import org.junit.Test;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.AxisEnum;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.CursorAtEnum;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior.SnapModeEnum;
@@ -455,59 +454,6 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 		assertTrue(draggableBehavior.isScroll());
 		draggableBehavior.setScroll(false);
 		assertFalse(draggableBehavior.isScroll());
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#setDragEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetDragEvent()
-	{
-		assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
-		draggableBehavior.setDragEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(draggableBehavior.statement().render().toString(),
-			"$('#anId').draggable({drag: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetStartEvent()
-	{
-		assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
-		draggableBehavior.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(draggableBehavior.statement().render().toString(),
-			"$('#anId').draggable({start: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetStopEvent()
-	{
-		assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
-		draggableBehavior.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(draggableBehavior.statement().render().toString(),
-			"$('#anId').draggable({stop: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggable.DraggableBehavior#statement()}.
-	 */
-	@Test
-	public void testStatement()
-	{
-		assertNotNull(draggableBehavior.statement());
-		assertEquals(draggableBehavior.statement().render().toString(), "$('#anId').draggable({});");
 	}
 
 	/**
