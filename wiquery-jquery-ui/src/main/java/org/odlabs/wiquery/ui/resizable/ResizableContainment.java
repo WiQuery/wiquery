@@ -144,6 +144,7 @@ public class ResizableContainment implements IComplexOption
 		return selector;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (objectParam == null && elementEnumParam == null && selector == null)
@@ -178,7 +179,7 @@ public class ResizableContainment implements IComplexOption
 	/**
 	 * Set's the literal parameter
 	 * 
-	 * @param literalParam
+	 * @param elementEnumParam
 	 *            the literal to set
 	 */
 	public void setElementEnumParam(ElementEnum elementEnumParam)

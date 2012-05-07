@@ -204,6 +204,7 @@ public class DraggableContainment implements IComplexOption
 		return stringParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (containmentEnumParam == null && arrayParam == null && stringParam == null

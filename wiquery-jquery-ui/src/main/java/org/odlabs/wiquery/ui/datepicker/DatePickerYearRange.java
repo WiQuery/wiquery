@@ -127,6 +127,7 @@ public class DatePickerYearRange extends Object implements IComplexOption
 				: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (yearFrom == null || yearTo == null || controlTo == null || controlFrom == null)

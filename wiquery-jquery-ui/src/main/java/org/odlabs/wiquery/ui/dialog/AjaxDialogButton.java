@@ -1,8 +1,9 @@
 package org.odlabs.wiquery.ui.dialog;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.odlabs.wiquery.core.javascript.JsScope;
-import org.odlabs.wiquery.core.javascript.JsScopeContext;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 
 /**
  * A version of DialogButton that integrates with wicket AJAX.
@@ -14,41 +15,19 @@ public abstract class AjaxDialogButton extends DialogButton
 
 	private static final long serialVersionUID = 1L;
 
-	public static class AjaxDialogScope extends JsScope
+	private class AjaxDialogButtonCallback extends AbstractAjaxEventCallback
 	{
-
 		private static final long serialVersionUID = 1L;
 
-		private Dialog dialog;
-
-		private String title;
-
-		public AjaxDialogScope(String title, Dialog dialog)
+		public AjaxDialogButtonCallback()
 		{
-			this.title = title;
-			this.dialog = dialog;
+			super(getTitle());
 		}
 
 		@Override
-		protected void execute(JsScopeContext scopeContext)
+		public void call(AjaxRequestTarget target, Component source)
 		{
-			scopeContext.append(new StringBuffer().append("var url = '")
-				.append(getDialog().getAjaxBehavior().getCallbackUrl()).append("&")
-				.append(Dialog.BUTTON_ID).append("=").append(title).append("';")
-				// delegating call-back generation to AJAX behavior
-				// so that we don't miss 'decorator' related functionality.
-				.append(getDialog().getAjaxBehavior().getCallbackScript()).toString());
-
-		}
-
-		public Dialog getDialog()
-		{
-			return dialog;
-		}
-
-		public void setDialog(Dialog dialog)
-		{
-			this.dialog = dialog;
+			onButtonClicked(target);
 		}
 	}
 
@@ -58,6 +37,13 @@ public abstract class AjaxDialogButton extends DialogButton
 	public AjaxDialogButton(String title)
 	{
 		super(title, null);
+	}
+
+	public void activateCallback(WiQueryAbstractAjaxBehavior ajaxBehavior)
+	{
+		AjaxDialogButtonCallback callback = new AjaxDialogButtonCallback();
+		callback.setBehavior(ajaxBehavior);
+		setCallback(callback);
 	}
 
 	protected abstract void onButtonClicked(AjaxRequestTarget target);

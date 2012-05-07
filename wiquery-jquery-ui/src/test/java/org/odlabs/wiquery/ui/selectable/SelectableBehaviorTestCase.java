@@ -29,7 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.selectable.SelectableBehavior.ToleranceEnum;
 
 /**
@@ -197,108 +196,6 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 		assertNotNull(selectableBehavior.refresh());
 		assertEquals(selectableBehavior.refresh().render().toString(),
 			"$('#anId').selectable('refresh');");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#setSelectedEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetSelectedEvent()
-	{
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({});");
-		selectableBehavior.setSelectedEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({selected: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#setSelectingEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetSelectingEvent()
-	{
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({});");
-		selectableBehavior.setSelectingEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({selecting: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetStartEvent()
-	{
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({});");
-		selectableBehavior.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({start: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetStopEvent()
-	{
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({});");
-		selectableBehavior.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({stop: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#setUnselectedEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetUnselectedEvent()
-	{
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({});");
-		selectableBehavior.setUnselectedEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({unselected: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#setUnselectingEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetUnselectingEvent()
-	{
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({});");
-		selectableBehavior.setUnselectingEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({unselecting: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SelectableBehavior#statement()}.
-	 */
-	@Test
-	public void testStatement()
-	{
-		assertNotNull(selectableBehavior.statement());
-		assertEquals(selectableBehavior.statement().render().toString(),
-			"$('#anId').selectable({});");
 	}
 
 	/**

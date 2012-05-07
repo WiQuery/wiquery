@@ -25,8 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$ Helper class to
- * implement the scale effect as in
+ * $Id$ Helper class to implement the scale effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Scale
  * 
@@ -97,6 +96,7 @@ public class ScaleEffect extends Effect
 			+ JsUtils.quotes(scale.name()) + "}", Integer.toString(duration));
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "effect";

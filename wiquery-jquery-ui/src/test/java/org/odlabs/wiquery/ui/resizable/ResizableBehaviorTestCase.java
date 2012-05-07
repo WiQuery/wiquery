@@ -30,7 +30,6 @@ import org.junit.Test;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.resizable.ResizableContainment.ElementEnum;
 
 /**
@@ -344,59 +343,6 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 		assertFalse(resizableBehavior.isGhost());
 		resizableBehavior.setGhost(true);
 		assertTrue(resizableBehavior.isGhost());
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setResizeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetResizeEvent()
-	{
-		assertEquals(resizableBehavior.statement().render().toString(), "$('#anId').resizable({});");
-		resizableBehavior.setResizeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(resizableBehavior.statement().render().toString(),
-			"$('#anId').resizable({resize: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetStartEvent()
-	{
-		assertEquals(resizableBehavior.statement().render().toString(), "$('#anId').resizable({});");
-		resizableBehavior.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(resizableBehavior.statement().render().toString(),
-			"$('#anId').resizable({start: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetStopEvent()
-	{
-		assertEquals(resizableBehavior.statement().render().toString(), "$('#anId').resizable({});");
-		resizableBehavior.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(resizableBehavior.statement().render().toString(),
-			"$('#anId').resizable({stop: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.resizable.ResizableBehavior#statement()}.
-	 */
-	@Test
-	public void testStatement()
-	{
-		assertNotNull(resizableBehavior.statement());
-		assertEquals(resizableBehavior.statement().render().toString(), "$('#anId').resizable({});");
 	}
 
 	/**

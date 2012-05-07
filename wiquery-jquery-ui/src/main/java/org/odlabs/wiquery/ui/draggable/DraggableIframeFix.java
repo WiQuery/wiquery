@@ -96,6 +96,7 @@ public class DraggableIframeFix implements IComplexOption
 		return selectorParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (booleanParam == null && selectorParam == null)

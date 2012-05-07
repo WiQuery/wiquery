@@ -117,6 +117,7 @@ public class DatePickerDuration implements IComplexOption
 		return shortParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (shortParam == null && durationEnumParam == null)

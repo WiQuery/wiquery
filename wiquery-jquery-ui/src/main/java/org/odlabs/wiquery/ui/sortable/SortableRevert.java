@@ -95,6 +95,7 @@ public class SortableRevert implements IComplexOption
 		return intParameter;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (booleanParam == null && intParameter == null)

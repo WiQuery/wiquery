@@ -25,7 +25,9 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
@@ -34,11 +36,8 @@ import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableHelper.HelperEnum;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -49,8 +48,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-@WiQueryUIPlugin
-public class DraggableBehavior extends WiQueryAbstractBehavior
+public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	/**
 	 * Enumeration for the axis option
@@ -131,8 +129,35 @@ public class DraggableBehavior extends WiQueryAbstractBehavior
 	 */
 	public static final String UI_OFFSET = "ui.offset";
 
-	// Properties
-	private Options options;
+	public static abstract class AjaxDragCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxDragCallback()
+		{
+			super("drag");
+		}
+	}
+
+	public static abstract class AjaxDragStartCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxDragStartCallback()
+		{
+			super("start");
+		}
+	}
+
+	public static abstract class AjaxDragStopCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxDragStopCallback()
+		{
+			super("stop");
+		}
+	}
 
 	/**
 	 * Default constructor
@@ -160,25 +185,11 @@ public class DraggableBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(DraggableJavaScriptResourceReference.get()));
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(getComponent()).$().chain("draggable", options.getJavaScriptOptions());
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
+		super.renderHead(component, response);
+		response.render(JavaScriptHeaderItem.forReference(DraggableJavaScriptResourceReference
+			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(getComponent()).$()
+			.chain("draggable", options.getJavaScriptOptions()).render()));
 	}
 
 	/*---- Options section ---*/
@@ -941,6 +952,12 @@ public class DraggableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public DraggableBehavior setDragEvent(AjaxDragCallback callback)
+	{
+		setEventListener(callback);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when the user starts dragging.
 	 * 
@@ -953,6 +970,12 @@ public class DraggableBehavior extends WiQueryAbstractBehavior
 		return this;
 	}
 
+	public DraggableBehavior setStartEvent(AjaxDragStartCallback callback)
+	{
+		setEventListener(callback);
+		return this;
+	}
+
 	/**
 	 * Set's the callback when the user stops dragging.
 	 * 
@@ -962,6 +985,12 @@ public class DraggableBehavior extends WiQueryAbstractBehavior
 	public DraggableBehavior setStopEvent(JsScopeUiEvent stop)
 	{
 		this.options.put("stop", stop);
+		return this;
+	}
+
+	public DraggableBehavior setStopEvent(AjaxDragStopCallback callback)
+	{
+		setEventListener(callback);
 		return this;
 	}
 

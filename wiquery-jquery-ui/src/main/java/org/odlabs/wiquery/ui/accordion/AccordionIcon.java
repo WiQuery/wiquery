@@ -108,6 +108,7 @@ public class AccordionIcon extends Object implements IComplexOption
 		return headerSelectedClass;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (wantIcons != null)

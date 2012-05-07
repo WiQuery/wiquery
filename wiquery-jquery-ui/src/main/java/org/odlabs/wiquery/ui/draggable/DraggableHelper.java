@@ -127,6 +127,7 @@ public class DraggableHelper implements IComplexOption
 		return functionParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (helperEnumParam == null && functionParam == null)

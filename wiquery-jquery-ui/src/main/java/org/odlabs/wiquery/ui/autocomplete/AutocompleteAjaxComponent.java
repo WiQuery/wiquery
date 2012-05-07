@@ -65,6 +65,7 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 		/** Constant of serialization */
 		private static final long serialVersionUID = -5411632961744455568L;
 
+		@Override
 		public void onRequest()
 		{
 			term =

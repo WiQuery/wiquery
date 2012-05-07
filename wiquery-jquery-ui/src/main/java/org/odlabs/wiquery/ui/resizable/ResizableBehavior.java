@@ -21,11 +21,17 @@
  */
 package org.odlabs.wiquery.ui.resizable;
 
+import java.util.Map;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.odlabs.wiquery.core.behavior.AbstractAjaxEventCallback;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
@@ -33,12 +39,8 @@ import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
-import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableAnimeDuration.DurationEnum;
-import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -49,8 +51,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-@WiQueryUIPlugin
-public class ResizableBehavior extends WiQueryAbstractBehavior
+public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 {
 	// Constants
 	/** Constant of serialization */
@@ -86,8 +87,37 @@ public class ResizableBehavior extends WiQueryAbstractBehavior
 	 */
 	public static final String UI_SIZE = "ui.size";
 
-	// Properties
-	private Options options = new Options();
+	public abstract static class AjaxResizeCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxResizeCallback()
+		{
+			super("resize");
+		}
+
+		@Override
+		protected Map<String, String> getExtraParameters()
+		{
+			Map<String, String> ret = super.getExtraParameters();
+			ret.put("resizeHeight", ResizableBehavior.UI_SIZE + ".height");
+			ret.put("resizeWidth", ResizableBehavior.UI_SIZE + ".width");
+			return ret;
+		}
+
+		@Override
+		public final void call(AjaxRequestTarget target, Component source)
+		{
+			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+
+			int resizeHeight = req.getParameterValue("resizeHeight").toInt(-1);
+			int resizeWidth = req.getParameterValue("resizeWidth").toInt(-1);
+			resize(target, source, resizeHeight, resizeWidth);
+		}
+
+		protected abstract void resize(AjaxRequestTarget target, Component source,
+				int resizeHeight, int resizeWidth);
+	}
 
 	@Override
 	public void onBind()
@@ -106,26 +136,11 @@ public class ResizableBehavior extends WiQueryAbstractBehavior
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference.get()));
-	}
-
-	@Override
-	public JsStatement statement()
-	{
-		return new JsQuery(this.getComponent()).$().chain("resizable",
-			this.options.getJavaScriptOptions());
-	}
-
-	/**
-	 * Method retrieving the options of the component
-	 * 
-	 * @return the options
-	 */
-	protected Options getOptions()
-	{
-		return options;
+		super.renderHead(component, response);
+		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference
+			.get()));
+		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this.getComponent()).$()
+			.chain("resizable", this.options.getJavaScriptOptions()).render()));
 	}
 
 	/*---- Options section ---*/
@@ -645,6 +660,12 @@ public class ResizableBehavior extends WiQueryAbstractBehavior
 	public ResizableBehavior setResizeEvent(JsScopeUiEvent resize)
 	{
 		this.options.put("resize", resize);
+		return this;
+	}
+
+	public ResizableBehavior setResizeEvent(AjaxResizeCallback callback)
+	{
+		setEventListener(callback);
 		return this;
 	}
 

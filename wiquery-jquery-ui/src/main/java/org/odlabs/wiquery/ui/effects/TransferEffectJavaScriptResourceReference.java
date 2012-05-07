@@ -24,7 +24,6 @@ package org.odlabs.wiquery.ui.effects;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
-import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
 
 /**
  * $Id: TransferEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
@@ -37,7 +36,6 @@ import org.odlabs.wiquery.core.ui.ICoreUIJavaScriptResourceReference;
  * @since 1.0
  */
 public class TransferEffectJavaScriptResourceReference extends JavaScriptResourceReference
-		implements ICoreUIJavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */

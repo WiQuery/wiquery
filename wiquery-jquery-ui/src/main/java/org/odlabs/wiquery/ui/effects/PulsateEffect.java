@@ -25,8 +25,7 @@ import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
- * $Id$ Helper class to
- * implement the pulsate effect as in
+ * $Id$ Helper class to implement the pulsate effect as in
  * 
  * http://docs.jquery.com/UI/Effects/Pulsate
  * 
@@ -86,6 +85,7 @@ public class PulsateEffect extends Effect
 			+ Integer.toString(times) + "}", Integer.toString(duration));
 	}
 
+	@Override
 	public String chainLabel()
 	{
 		return "effect";

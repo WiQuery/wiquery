@@ -63,7 +63,6 @@ public class DatePickerOptions extends Options
 	 * date within this field. Leave as blank for no alternate field.
 	 * 
 	 * @param altField
-	 * @return instance of the current component
 	 */
 	public void setAltField(String altField)
 	{
@@ -105,7 +104,6 @@ public class DatePickerOptions extends Options
 	 * </ul>
 	 * 
 	 * @param altFormat
-	 * @return instance of the current component
 	 */
 	public void setAltFormat(String altFormat)
 	{
@@ -125,7 +123,6 @@ public class DatePickerOptions extends Options
 	 * Set's the text to display after each date field, e.g. to show the required format.
 	 * 
 	 * @param appendText
-	 * @return instance of the current component
 	 */
 	public void setAppendText(String appendText)
 	{
@@ -144,8 +141,6 @@ public class DatePickerOptions extends Options
 	/**
 	 * Set to true to automatically resize the input field to accomodate dates in the
 	 * current dateFormat.
-	 * 
-	 * @return instance of the current component
 	 */
 	public void setAutoSize(boolean autoSize)
 	{
@@ -170,7 +165,6 @@ public class DatePickerOptions extends Options
 	 * is not directly displayed.
 	 * 
 	 * @param buttonImage
-	 * @return instance of the current component
 	 */
 	public void setButtonImage(String buttonImage)
 	{
@@ -191,7 +185,6 @@ public class DatePickerOptions extends Options
 	 * appearing on a button.
 	 * 
 	 * @param buttonImageOnly
-	 * @return instance of the current component
 	 */
 	public void setButtonImageOnly(boolean buttonImageOnly)
 	{
@@ -216,7 +209,6 @@ public class DatePickerOptions extends Options
 	 * equal to 'button' or 'both'.
 	 * 
 	 * @param buttonText
-	 * @return instance of the current component
 	 */
 	public void setButtonText(String buttonText)
 	{
@@ -240,7 +232,6 @@ public class DatePickerOptions extends Options
 	 * Default: $.datepicker.iso8601Week
 	 * 
 	 * @param calculateWeek
-	 * @return instance of the current component
 	 */
 	public void setCalculateWeek(JsScope calculateWeek)
 	{
@@ -249,8 +240,6 @@ public class DatePickerOptions extends Options
 
 	/**
 	 * Sets if the date's month is selectable in a drop down list or not.
-	 * 
-	 * @return instance of the current component
 	 */
 	public void setChangeMonth(boolean changeMonth)
 	{
@@ -276,7 +265,6 @@ public class DatePickerOptions extends Options
 	 * of the regionalisation attributes. Use showWeek to display this column.
 	 * 
 	 * @param weekHeader
-	 * @return instance of the current component
 	 */
 	public void setWeekHeader(String weekHeader)
 	{
@@ -298,7 +286,6 @@ public class DatePickerOptions extends Options
 	 * date (like current-10 to current+10).
 	 * 
 	 * @param yearRange
-	 * @return instance of the current component
 	 */
 	public void setYearRange(DatePickerYearRange yearRange)
 	{
@@ -324,7 +311,6 @@ public class DatePickerOptions extends Options
 	 * one of the regionalisation attributes.
 	 * 
 	 * @param yearSuffix
-	 * @return instance of the current component
 	 */
 	public void setYearSuffix(String yearSuffix)
 	{
@@ -342,8 +328,6 @@ public class DatePickerOptions extends Options
 
 	/**
 	 * Sets if the date's year is selectable in a drop down list or not.
-	 * 
-	 * @return instance of the current component
 	 */
 	public void setChangeYear(boolean changeYear)
 	{
@@ -369,7 +353,6 @@ public class DatePickerOptions extends Options
 	 * regionalisation attributes. Use the showButtonPanel to display this button.
 	 * 
 	 * @param closeText
-	 * @return instance of the current component
 	 */
 	public void setCloseText(String closeText)
 	{
@@ -389,7 +372,6 @@ public class DatePickerOptions extends Options
 	 * True if the input field is constrained to the current date format.
 	 * 
 	 * @param constrainInput
-	 * @return instance of the current component
 	 */
 	public void setConstrainInput(boolean constrainInput)
 	{
@@ -414,7 +396,6 @@ public class DatePickerOptions extends Options
 	 * regionalisation attributes. Use the showButtonPanel to display this button.
 	 * 
 	 * @param currentText
-	 * @return instance of the current component
 	 */
 	public void setCurrentText(String currentText)
 	{
@@ -434,7 +415,6 @@ public class DatePickerOptions extends Options
 	 * Sets the calendar's starting day. 0 is for sunday, 1 for monday ...
 	 * 
 	 * @param firstDay
-	 * @return instance of the current component
 	 */
 	public void setFirstDay(short firstDay)
 	{
@@ -459,7 +439,6 @@ public class DatePickerOptions extends Options
 	 * today.
 	 * 
 	 * @param gotoCurrent
-	 * @return instance of the current component
 	 */
 	public void setGotoCurrent(boolean gotoCurrent)
 	{
@@ -484,7 +463,6 @@ public class DatePickerOptions extends Options
 	 * minDate/maxDate). You can hide them altogether by setting this attribute to true.
 	 * 
 	 * @param hideIfNoPrevNext
-	 * @return instance of the current component
 	 */
 	public void setHideIfNoPrevNext(boolean hideIfNoPrevNext)
 	{
@@ -509,7 +487,6 @@ public class DatePickerOptions extends Options
 	 * the regionalisation attributes.
 	 * 
 	 * @param isRTL
-	 * @return instance of the current component
 	 */
 	public void setIsRTL(boolean isRTL)
 	{
@@ -535,7 +512,6 @@ public class DatePickerOptions extends Options
 	 * weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
 	 * 
 	 * @param maxDate
-	 * @return instance of the current component
 	 */
 	public void setMaxDate(DateOption maxDate)
 	{
@@ -563,7 +539,6 @@ public class DatePickerOptions extends Options
 	 * weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
 	 * 
 	 * @param minDate
-	 * @return instance of the current component
 	 */
 	public void setMinDate(DateOption minDate)
 	{
@@ -591,7 +566,6 @@ public class DatePickerOptions extends Options
 	 * regionalisation attributes.
 	 * 
 	 * @param monthNames
-	 * @return instance of the current component
 	 */
 	public void setMonthNames(ArrayOfMonthNames monthNames)
 	{
@@ -619,7 +593,6 @@ public class DatePickerOptions extends Options
 	 * setting. This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param monthNamesShort
-	 * @return instance of the current component
 	 */
 	public void setMonthNamesShort(ArrayOfMonthNames monthNamesShort)
 	{
@@ -648,7 +621,6 @@ public class DatePickerOptions extends Options
 	 * for example.
 	 * 
 	 * @param navigationAsDateFormat
-	 * @return instance of the current component
 	 */
 	public void setNavigationAsDateFormat(boolean navigationAsDateFormat)
 	{
@@ -674,7 +646,6 @@ public class DatePickerOptions extends Options
 	 * replaced by an icon.
 	 * 
 	 * @param nextText
-	 * @return instance of the current component
 	 */
 	public void setNextText(String nextText)
 	{
@@ -692,8 +663,6 @@ public class DatePickerOptions extends Options
 
 	/**
 	 * Sets if the next/previous months are showed in the calendar.
-	 * 
-	 * @return instance of the current component
 	 */
 	public void setShowOtherMonths(boolean showOtherMonths)
 	{
@@ -704,6 +673,7 @@ public class DatePickerOptions extends Options
 	 * @deprecated will be removed in 1.2 Returns if the next/previous months are showed
 	 *             in the calendar.
 	 */
+	@Deprecated
 	public boolean getShowOtherMonths()
 	{
 		return getBoolean("showOtherMonths");
@@ -725,7 +695,6 @@ public class DatePickerOptions extends Options
 	/**
 	 * Sets the number of months displayed on the date picker.
 	 * 
-	 * @return instance of the current component
 	 */
 	public void setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths)
 	{
@@ -753,7 +722,6 @@ public class DatePickerOptions extends Options
 	 * replaced by an icon.
 	 * 
 	 * @param prevText
-	 * @return instance of the current component
 	 */
 	public void setPrevText(String prevText)
 	{
@@ -774,7 +742,6 @@ public class DatePickerOptions extends Options
 	 * selectable. This only applies if showOtherMonths is also true.
 	 * 
 	 * @param selectOtherMonths
-	 * @return instance of the current behavior
 	 */
 	public void setSelectOtherMonths(boolean selectOtherMonths)
 	{
@@ -798,7 +765,6 @@ public class DatePickerOptions extends Options
 	 * Set the cutoff year for determining the century for a date
 	 * 
 	 * @param shortYearCutoff
-	 * @return instance of the current component
 	 */
 	public void setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff)
 	{
@@ -825,7 +791,6 @@ public class DatePickerOptions extends Options
 	 * default), 'slideDown', 'fadeIn', or any of the show/hide jQuery UI effects
 	 * 
 	 * @param showAnim
-	 * @return instance of the current component
 	 */
 	public void setShowAnim(String showAnim)
 	{
@@ -845,7 +810,6 @@ public class DatePickerOptions extends Options
 	 * Whether to show the button panel.
 	 * 
 	 * @param showButtonPanel
-	 * @return instance of the current component
 	 */
 	public void setShowButtonPanel(boolean showButtonPanel)
 	{
@@ -870,7 +834,6 @@ public class DatePickerOptions extends Options
 	 * the top/left.
 	 * 
 	 * @param showCurrentAtPos
-	 * @return instance of the current component
 	 */
 	public void setShowCurrentAtPos(short showCurrentAtPos)
 	{
@@ -894,7 +857,6 @@ public class DatePickerOptions extends Options
 	 * Whether to show the month after the year in the header.
 	 * 
 	 * @param showMonthAfterYear
-	 * @return instance of the current component
 	 */
 	public void setShowMonthAfterYear(boolean showMonthAfterYear)
 	{
@@ -920,7 +882,6 @@ public class DatePickerOptions extends Options
 	 * place ('both').
 	 * 
 	 * @param showOn
-	 * @return instance of the current component
 	 */
 	public void setShowOn(ShowOnEnum showOn)
 	{
@@ -941,7 +902,6 @@ public class DatePickerOptions extends Options
 	 * settings for that animation via this option.
 	 * 
 	 * @param showOptions
-	 * @return instance of the current component
 	 */
 	public void setShowOptions(ListItemOptions<LiteralOption> showOptions)
 	{
@@ -968,8 +928,6 @@ public class DatePickerOptions extends Options
 	 * When true a column is added to show the week of the year. The calculateWeek option
 	 * determines how the week of the year is calculated. You may also want to change the
 	 * firstDay option.
-	 * 
-	 * @return instance of the current component
 	 */
 	public void setShowWeek(boolean showWeek)
 	{
@@ -991,8 +949,6 @@ public class DatePickerOptions extends Options
 
 	/**
 	 * Sets the number of months stepped when the next/previous button are hit.
-	 * 
-	 * @return instance of the current component
 	 */
 	public void setStepMonths(short stepMonths)
 	{
@@ -1034,8 +990,6 @@ public class DatePickerOptions extends Options
 	 * <li>'' - single quote</li>
 	 * <li>anything else - literal text</li>
 	 * </ul>
-	 * 
-	 * @return instance of the current component
 	 */
 	public void setDateFormat(String dateFormat)
 	{
@@ -1058,7 +1012,6 @@ public class DatePickerOptions extends Options
 	 * attributes.
 	 * 
 	 * @param dayNames
-	 * @return instance of the current component
 	 */
 	public void setDayNames(ArrayOfDayNames dayNames)
 	{
@@ -1087,7 +1040,6 @@ public class DatePickerOptions extends Options
 	 * attributes.
 	 * 
 	 * @param dayNamesMin
-	 * @return instance of the current component
 	 */
 	public void setDayNamesMin(ArrayOfDayNames dayNamesMin)
 	{
@@ -1115,7 +1067,6 @@ public class DatePickerOptions extends Options
 	 * attributes.
 	 * 
 	 * @param dayNamesShort
-	 * @return instance of the current component
 	 */
 	public void setDayNamesShort(ArrayOfDayNames dayNamesShort)
 	{
@@ -1144,7 +1095,6 @@ public class DatePickerOptions extends Options
 	 * e.g. '+1m +7d'), or null for today.
 	 * 
 	 * @param defaultDate
-	 * @return instance of the current component
 	 */
 	public void setDefaultDate(DateOption defaultDate)
 	{
@@ -1171,7 +1121,6 @@ public class DatePickerOptions extends Options
 	 * (first creating) the datepicker.
 	 * 
 	 * @param disabled
-	 * @return instance of the current behavior
 	 */
 	public void setDisabled(boolean disabled)
 	{
@@ -1197,7 +1146,6 @@ public class DatePickerOptions extends Options
 	 * "normal", "fast"), or '' for immediately.
 	 * 
 	 * @param duration
-	 * @return instance of the current component
 	 */
 	public void setDuration(DatePickerDuration duration)
 	{
@@ -1225,7 +1173,6 @@ public class DatePickerOptions extends Options
 	 * Set's the callback before the datepicker is displayed.
 	 * 
 	 * @param beforeShow
-	 * @return instance of the current component
 	 */
 	public void setBeforeShowEvent(JsScopeUiEvent beforeShow)
 	{
@@ -1239,7 +1186,6 @@ public class DatePickerOptions extends Options
 	 * for this date. It is called for each day in the datepicker before is it displayed.
 	 * 
 	 * @param beforeShowDay
-	 * @return instance of the current component
 	 */
 	public void setBeforeShowDayEvent(JsScopeUiDatePickerEvent beforeShowDay)
 	{
@@ -1252,7 +1198,6 @@ public class DatePickerOptions extends Options
 	 * instance as parameters. this refers to the associated input field.
 	 * 
 	 * @param onChangeMonthYear
-	 * @return instance of the current component
 	 */
 	public void setOnChangeMonthYearEvent(JsScopeUiDatePickerOnChangeEvent onChangeMonthYear)
 	{
@@ -1265,7 +1210,6 @@ public class DatePickerOptions extends Options
 	 * datepicker instance as parameters. this refers to the associated input field.
 	 * 
 	 * @param onClose
-	 * @return instance of the current component
 	 */
 	public void setOnCloseEvent(JsScopeUiDatePickerDateTextEvent onClose)
 	{
@@ -1278,7 +1222,6 @@ public class DatePickerOptions extends Options
 	 * refers to the associated input field.
 	 * 
 	 * @param onSelect
-	 * @return instance of the current component
 	 */
 	public void setOnSelectEvent(JsScopeUiDatePickerDateTextEvent onSelect)
 	{

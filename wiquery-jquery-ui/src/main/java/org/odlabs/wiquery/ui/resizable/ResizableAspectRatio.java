@@ -95,6 +95,7 @@ public class ResizableAspectRatio implements IComplexOption
 		return floatParam;
 	}
 
+	@Override
 	public CharSequence getJavascriptOption()
 	{
 		if (booleanParam == null && floatParam == null)
