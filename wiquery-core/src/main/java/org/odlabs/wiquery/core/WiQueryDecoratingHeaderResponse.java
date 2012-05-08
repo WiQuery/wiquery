@@ -130,12 +130,38 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 		if (rendered)
 			return;
 
-		final List<WiQueryPluginRenderingListener> pluginRenderingListeners =
-			settings.getListeners();
-
 		WiQueryPluginCollector visitor = new WiQueryPluginCollector();
 		visitor.component(page, new Visit<Void>());
 		page.visitChildren(visitor);
+
+		JsStatement jsStatement = renderPlugins(visitor);
+		jsq.setStatement(jsStatement);
+	}
+
+	private void renderAjaxResponse(AjaxRequestTarget ajaxRequestTarget)
+	{
+		for (Component owner : ajaxRequestTarget.getComponents())
+		{
+			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
+			visitor.component(owner, new Visit<Void>());
+
+			if (owner instanceof WebMarkupContainer)
+			{
+				((WebMarkupContainer) owner).visitChildren(visitor);
+			}
+
+			JsStatement jsStatement = renderPlugins(visitor);
+
+			JsQuery jsq = new JsQuery();
+			jsq.setStatement(jsStatement.append("\n"));
+			jsq.renderHead(getRealResponse(), ajaxRequestTarget);
+		}
+	}
+
+	private JsStatement renderPlugins(WiQueryPluginCollector visitor)
+	{
+		final List<WiQueryPluginRenderingListener> pluginRenderingListeners =
+			settings.getListeners();
 
 		JsStatement jsStatement = new JsStatement();
 		for (IWiQueryPlugin plugin : visitor.getPlugins())
@@ -153,47 +179,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 				listener.onRender(plugin, getRealResponse());
 			}
 		}
-
-		jsq.setStatement(jsStatement);
-	}
-
-	private void renderAjaxResponse(AjaxRequestTarget ajaxRequestTarget)
-	{
-		final List<WiQueryPluginRenderingListener> pluginRenderingListeners =
-			settings.getListeners();
-
-		for (Component owner : ajaxRequestTarget.getComponents())
-		{
-			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
-			visitor.component(owner, new Visit<Void>());
-
-			if (owner instanceof WebMarkupContainer)
-			{
-				((WebMarkupContainer) owner).visitChildren(visitor);
-			}
-
-			for (IWiQueryPlugin plugin : visitor.getPlugins())
-			{
-				renderPlugin(ajaxRequestTarget, plugin, pluginRenderingListeners, getRealResponse());
-			}
-		}
-	}
-
-	private void renderPlugin(AjaxRequestTarget ajaxRequestTarget, IWiQueryPlugin plugin,
-			final List<WiQueryPluginRenderingListener> pluginRenderingListeners,
-			IHeaderResponse headerResponse)
-	{
-		JsStatement statement = plugin.statement();
-		if (statement != null)
-		{
-			JsQuery jsq = new JsQuery();
-			jsq.setStatement(statement.append("\n"));
-			jsq.renderHead(getRealResponse(), ajaxRequestTarget);
-		}
-		for (WiQueryPluginRenderingListener listener : pluginRenderingListeners)
-		{
-			listener.onRender(plugin, headerResponse);
-		}
+		return jsStatement;
 	}
 
 	private static class WiQueryPluginCollector implements IVisitor<Component, Void>
