@@ -21,10 +21,11 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
-import java.util.Map;
+import java.util.List;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.CallbackParameter;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -166,13 +167,15 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		}
 
 		@Override
-		protected Map<String, String> getExtraParameters()
+		protected List<CallbackParameter> getExtraParameters()
 		{
-			Map<String, String> ret = super.getExtraParameters();
-			ret.put("sortIndex", "$(this).find(':data(sortable-item)').index("
-				+ SortableBehavior.UI_ITEM + ")");
-			ret.put("sortItemId", "$(" + SortableBehavior.UI_ITEM + ").attr('id')");
-			ret.put("sortSenderId", "$(" + SortableBehavior.UI_SENDER + ").attr('id')");
+			List<CallbackParameter> ret = super.getExtraParameters();
+			ret.add(CallbackParameter.resolved("sortIndex",
+				"$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")"));
+			ret.add(CallbackParameter.resolved("sortItemId", "$(" + SortableBehavior.UI_ITEM
+				+ ").attr('id')"));
+			ret.add(CallbackParameter.resolved("sortSenderId", "$(" + SortableBehavior.UI_SENDER
+				+ ").attr('id')"));
 			return ret;
 		}
 

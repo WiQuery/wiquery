@@ -23,10 +23,10 @@ package org.odlabs.wiquery.ui.selectable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.CallbackParameter;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -102,11 +102,12 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 		}
 
 		@Override
-		protected Map<String, String> getExtraParameters()
+		protected List<CallbackParameter> getExtraParameters()
 		{
-			Map<String, String> ret = super.getExtraParameters();
-			ret.put("selectedItems", "$.unique($.map($(this).children('.ui-selectee.ui-selected'),"
-				+ "function(elem) {return $(elem).attr('id');})).toString()");
+			List<CallbackParameter> ret = super.getExtraParameters();
+			ret.add(CallbackParameter.resolved("selectedItems",
+				"$.unique($.map($(this).children('.ui-selectee.ui-selected'),"
+					+ "function(elem) {return $(elem).attr('id');})).toString()"));
 			return ret;
 		}
 
