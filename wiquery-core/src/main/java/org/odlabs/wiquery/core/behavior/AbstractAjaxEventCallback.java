@@ -1,13 +1,11 @@
 package org.odlabs.wiquery.core.behavior;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.CallbackParameter;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.util.MarkupIdVisitor;
 
@@ -42,19 +40,9 @@ public abstract class AbstractAjaxEventCallback implements IComplexOption
 	@Override
 	public CharSequence getJavascriptOption()
 	{
-		StringBuilder callback = new StringBuilder();
-		callback.append("function (event, ui) {\n");
-		Map<String, String> extraParameters = getExtraParameters();
-		extraParameters.put("eventName", "'" + event + "'");
-		List<String> names = new ArrayList<String>(extraParameters.keySet());
-		for (Entry<String, String> curParameter : extraParameters.entrySet())
-		{
-			callback.append("var ").append(curParameter.getKey()).append(" = ")
-				.append(curParameter.getValue()).append(";\n");
-		}
-		callback.append(behavior.getCallbackFunctionBody(names.toArray(new String[names.size()])));
-		callback.append("}\n");
-		return callback;
+		List<CallbackParameter> extraParameters = getExtraParameters();
+		return behavior.getCallbackFunction(extraParameters
+			.toArray(new CallbackParameter[extraParameters.size()]));
 	}
 
 	protected Component findComponentById(String id)
@@ -67,9 +55,13 @@ public abstract class AbstractAjaxEventCallback implements IComplexOption
 		return visitor.getFoundComponent();
 	}
 
-	protected Map<String, String> getExtraParameters()
+	protected List<CallbackParameter> getExtraParameters()
 	{
-		return new HashMap<String, String>();
+		List<CallbackParameter> ret = new ArrayList<CallbackParameter>();
+		ret.add(CallbackParameter.context("event"));
+		ret.add(CallbackParameter.context("ui"));
+		ret.add(CallbackParameter.resolved("eventName", "'" + event + "'"));
+		return ret;
 	}
 
 	public abstract void call(AjaxRequestTarget target, Component source);
