@@ -55,7 +55,7 @@ public class ResizableAjaxBehaviorTestCase extends WiQueryTestCase
 		String generateAjaxStatment = resizableAjaxBehavior.statement().render().toString();
 		String expectedAjaxStatement =
 			"$('#anId').resizable({stop: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&resizedHeight='+ui.size.height+'&resizedWidth='+ui.size.width,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var wcall=wicketAjaxGet('./wicket/page?0-0.IBehaviorListener.1-anId&resizedHeight='+ui.size.height+'&resizedWidth='+ui.size.width,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}});";
 		assertNotNull(resizableAjaxBehavior.getResizableBehavior());
 		assertEquals(expectedAjaxStatement, generateAjaxStatment);

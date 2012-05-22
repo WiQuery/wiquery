@@ -54,11 +54,11 @@ public class SortableAjaxBehaviorTestCase extends WiQueryTestCase
 		String generateAjaxStatment = sortableAjaxBehavior.statement().render().toString();
 		String expectedAjaxStatement =
 			"$('#anId').sortable({receive: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&sortedType=receive&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id')+'&sortedParentId='+ $(ui.sender).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var wcall=wicketAjaxGet('./wicket/page?0-0.IBehaviorListener.1-anId&sortedType=receive&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id')+'&sortedParentId='+ $(ui.sender).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}, remove: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&sortedType=remove&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var wcall=wicketAjaxGet('./wicket/page?0-0.IBehaviorListener.1-anId&sortedType=remove&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}, update: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&sortedType=update&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var wcall=wicketAjaxGet('./wicket/page?0-0.IBehaviorListener.1-anId&sortedType=update&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}});";
 		assertNotNull(sortableAjaxBehavior.getSortableBehavior());
 		assertEquals(expectedAjaxStatement, generateAjaxStatment);

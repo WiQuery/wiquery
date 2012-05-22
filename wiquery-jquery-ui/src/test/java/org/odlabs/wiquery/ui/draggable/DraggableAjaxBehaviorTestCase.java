@@ -62,11 +62,11 @@ public class DraggableAjaxBehaviorTestCase extends WiQueryTestCase
 		String generateAjaxStatment = draggableAjaxBehavior.statement().render().toString();
 		String expectedAjaxStatement =
 			"$('#anId').draggable({stop: function(event, ui) {\n\t"
-				+ "var isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&dragType=stop&dragStatus='+isInvalid,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);var wcall=wicketAjaxGet('./wicket/page?0-0.IBehaviorListener.1-anId&dragType=stop&dragStatus='+isInvalid,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}, start: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&dragType=start',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var wcall=wicketAjaxGet('./wicket/page?0-0.IBehaviorListener.1-anId&dragType=start',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}, drag: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&dragType=drag',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var wcall=wicketAjaxGet('./wicket/page?0-0.IBehaviorListener.1-anId&dragType=drag',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}, revert: function(dropped) {\n\t"
 				+ "return $.ui.draggable._dragElementWasDropped(this, dropped);\n" + "}});";
 		assertNotNull(draggableAjaxBehavior.getDraggableBehavior());

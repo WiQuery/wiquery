@@ -27,7 +27,6 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 
@@ -57,7 +56,7 @@ public class DroppableAjaxBehaviorTestCase extends WiQueryTestCase
 		String ajaxCallResult = droppableAjaxBehavior.statement().render().toString();
 		String expectedResult =
 			"$('#anId').droppable({drop: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('wicket/page?0-0.IBehaviorListener.1-anId&droppedId='+ui.draggable[0].id,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
+				+ "var wcall=wicketAjaxGet('./wicket/page?0-0.IBehaviorListener.1-anId&droppedId='+ui.draggable[0].id,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
 				+ "}});";
 		assertNotNull(droppableAjaxBehavior.getDroppableBehavior());
 		assertEquals(expectedResult, ajaxCallResult);
