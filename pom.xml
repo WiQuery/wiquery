@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
 		<version>7</version>
 	</parent>
+
+	<prerequisites>
+		<maven>2.2.1</maven>
+	</prerequisites>
 	
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
 	<version>6.0-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
-	<description>WiQuery is a Wicket - jQuery binding component</description>
 
+	<url>https://github.com/wiquery/wiquery</url>
+	<scm>
+		<url>git://github.com/WiQuery/wiquery.git</url>
+		<connection>scm:git:git://github.com/WiQuery/wiquery.git</connection>
+		<developerConnection>scm:git:git@github.com:WiQuery/wiquery.git</developerConnection>
+	</scm>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<wicket.version>6.0-SNAPSHOT</wicket.version>
@@ -24,37 +33,20 @@
 		<junit.version>4.10</junit.version>
 		<servlet-api.version>2.5</servlet-api.version>
 
-		<maven-buildnumber-plugin.version>1.0</maven-buildnumber-plugin.version>
-		<maven-bundle-plugin.version>2.3.6</maven-bundle-plugin.version>
+		<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
 		<maven-clean-plugin.version>2.4.1</maven-clean-plugin.version>
-		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>2.4</maven-compiler-plugin.version>
 		<maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
-		<maven-eclipse-plugin.version>2.9-SNAPSHOT</maven-eclipse-plugin.version>
+		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
+		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
 		<maven-install-plugin.version>2.3.1</maven-install-plugin.version>
-		<maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
-		<maven-javadoc-plugin.version>2.8</maven-javadoc-plugin.version>
+		<maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+		<maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
 		<maven-resources-plugin.version>2.5</maven-resources-plugin.version>
-		<maven-site-plugin.version>3.0</maven-site-plugin.version>
+		<maven-site-plugin.version>3.1</maven-site-plugin.version>
 		<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
-		<maven-surefire-plugin.version>2.9</maven-surefire-plugin.version>
-
-		<wagon-svn-extension.version>1.9</wagon-svn-extension.version>
+		<maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
 	</properties>
-	
-	<url>https://github.com/wiquery/wiquery</url>
-	<scm>
-		<url>git://github.com/WiQuery/wiquery.git</url>
-		<connection>scm:git:git://github.com/WiQuery/wiquery.git</connection>
-		<developerConnection>scm:git:git@github.com:WiQuery/wiquery.git</developerConnection>
-	</scm>
-
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>wiquery-maven-repo</id>
-			<url>svn:https://wiquery.googlecode.com/svn/repo</url>
-		</repository>
-	</distributionManagement>
 
 	<modules>
 		<module>wiquery-core</module>
@@ -79,7 +71,11 @@
 				<classifier>tests</classifier>
 				<scope>test</scope>
 			</dependency>
-			
+			<dependency>
+				<groupId>org.odlabs.wiquery</groupId>
+				<artifactId>wiquery-jquery-ui</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<!-- WICKET DEPENDENCIES -->
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
@@ -134,7 +130,6 @@
 				<filtering>false</filtering>
 				<excludes>
 					<exclude>**/*.java</exclude>
-					<exclude>**/.svn/**</exclude>
 				</excludes>
 				<includes>
 					<include>**/*</include>
@@ -145,7 +140,6 @@
 				<filtering>false</filtering>
 				<excludes>
 					<exclude>**/*.java</exclude>
-					<exclude>**/.svn/**</exclude>
 				</excludes>
 				<includes>
 					<include>**/*</include>
@@ -157,7 +151,6 @@
 				<directory>src/test/java</directory>
 				<excludes>
 					<exclude>**/*.java</exclude>
-					<exclude>**/.svn/**</exclude>
 				</excludes>
 				<includes>
 					<include>**/*</include>
@@ -167,7 +160,6 @@
 				<directory>src/test/resources</directory>
 				<excludes>
 					<exclude>**/*.java</exclude>
-					<exclude>**/.svn/**</exclude>
 				</excludes>
 				<includes>
 					<include>**/*</include>
@@ -176,14 +168,6 @@
 		</testResources>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>buildnumber-maven-plugin</artifactId>
-					<version>${maven-buildnumber-plugin.version}</version>
-					<configuration>
-						<encoding>${project.build.sourceEncoding}</encoding>
-					</configuration>
-				</plugin>
 				<plugin>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>maven-bundle-plugin</artifactId>
@@ -280,6 +264,14 @@
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -311,23 +303,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>buildnumber-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>create</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<scmConnection>scm:git:git://github.com/wiquery/wiquery.git</scmConnection>
-					<doCheck>true</doCheck>
-					<doUpdate>false</doUpdate>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -373,13 +348,19 @@
 					</instructions>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>${wagon-svn-extension.version}</version>
-			</extension>
-		</extensions>
 	</build>
 </project>
