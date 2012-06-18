@@ -176,7 +176,7 @@ public class WiQueryDecoratingHeaderResponse extends AbstractWiQueryDecoratingHe
 			// calling listeners to compute specific stuff
 			for (WiQueryPluginRenderingListener listener : pluginRenderingListeners)
 			{
-				listener.onRender(plugin, getRealResponse());
+				listener.onRender(plugin, this);
 			}
 		}
 		return jsStatement;
