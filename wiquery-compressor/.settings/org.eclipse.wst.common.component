@@ -3,5 +3,6 @@
   <wb-module deploy-name="wiquery-compressor">
     <wb-resource deploy-path="/" source-path="src/main/java"/>
     <wb-resource deploy-path="/" source-path="target/generated-resources/eclipse"/>
+        <wb-resource deploy-path="/" source-path="/target/generated-sources/annotations"/>
   </wb-module>
 </project-modules>
