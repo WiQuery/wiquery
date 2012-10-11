@@ -19,12 +19,15 @@
 package org.odlabs.wiquery.ui.slider;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
@@ -64,10 +67,22 @@ public class AjaxSlider extends Slider
 	{
 
 		private static final long serialVersionUID = 1L;
+		
+		private List<String> extraDynParams;
 
 		public SliderAjaxBehavior()
 		{
 		}
+		
+		@Override
+		protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+			attributes.getDynamicExtraParameters().addAll(extraDynParams);
+		}
+		
+		protected void setDynParams(List<String> list) {
+			this.extraDynParams = list;
+		}
+
 	}
 
 	// class members
@@ -154,14 +169,15 @@ public class AjaxSlider extends Slider
 		@Override
 		protected void execute(JsScopeContext scopeContext)
 		{
-			scopeContext.append(new StringBuffer().append("var url = '")
-				.append(slider.sliderContext.getCallbackUrl()).append("&").append(SLIDER_EVENT)
-				.append("=").append(event.name()).append("&").append(SLIDER_VALUE).append("=")
-				.append("'+").append(Slider.UI_VALUE).append("+'&").append(SLIDER_VALUES)
-				.append("=").append("'+").append(Slider.UI_VALUES).append(";")
+			
+			slider.sliderContext.setDynParams(Arrays.asList(
+				String.format("return {'%s': '%s', '%s': %s, '%s': %s}",
+						SLIDER_EVENT, event.name(), SLIDER_VALUE, UI_VALUE, SLIDER_VALUES, UI_VALUES)));
+						
+			scopeContext.append(
 				// delegating call-back generation to AJAX behavior
 				// so that we don't miss 'decorator' related functionality.
-				.append(slider.sliderContext.getCallbackScript()).toString());
+				slider.sliderContext.getCallbackScript());
 
 		}
 
