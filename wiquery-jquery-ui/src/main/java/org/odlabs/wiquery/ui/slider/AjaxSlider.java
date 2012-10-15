@@ -67,22 +67,23 @@ public class AjaxSlider extends Slider
 	{
 
 		private static final long serialVersionUID = 1L;
-		
+
 		private List<String> extraDynParams;
 
 		public SliderAjaxBehavior()
 		{
 		}
-		
+
 		@Override
-		protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+		protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
+		{
 			attributes.getDynamicExtraParameters().addAll(extraDynParams);
 		}
-		
-		protected void setDynParams(List<String> list) {
+
+		protected void setDynParams(List<String> list)
+		{
 			this.extraDynParams = list;
 		}
-
 	}
 
 	// class members
@@ -169,18 +170,15 @@ public class AjaxSlider extends Slider
 		@Override
 		protected void execute(JsScopeContext scopeContext)
 		{
-			
-			slider.sliderContext.setDynParams(Arrays.asList(
-				String.format("return {'%s': '%s', '%s': %s, '%s': %s}",
-						SLIDER_EVENT, event.name(), SLIDER_VALUE, UI_VALUE, SLIDER_VALUES, UI_VALUES)));
-						
+			slider.sliderContext.setDynParams(Arrays.asList(String.format(
+				"return {'%s': '%s', '%s': %s, '%s': %s}", SLIDER_EVENT, event.name(),
+				SLIDER_VALUE, UI_VALUE, SLIDER_VALUES, UI_VALUES)));
+
 			scopeContext.append(
-				// delegating call-back generation to AJAX behavior
-				// so that we don't miss 'decorator' related functionality.
+			// delegating call-back generation to AJAX behavior
+			// so that we don't miss 'decorator' related functionality.
 				slider.sliderContext.getCallbackScript());
-
 		}
-
 	}
 
 	/*
