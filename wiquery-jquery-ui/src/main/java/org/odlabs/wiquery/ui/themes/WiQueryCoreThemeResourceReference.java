@@ -51,7 +51,7 @@ public class WiQueryCoreThemeResourceReference extends CssResourceReference
 	 */
 	private WiQueryCoreThemeResourceReference()
 	{
-		this("uilightness");
+		this("smoothness");
 	}
 
 	/**
@@ -60,6 +60,6 @@ public class WiQueryCoreThemeResourceReference extends CssResourceReference
 	 */
 	public WiQueryCoreThemeResourceReference(String theme)
 	{
-		super(WiQueryCoreThemeResourceReference.class, theme + "/jquery-ui-1.8.16.custom.css");
+		super(WiQueryCoreThemeResourceReference.class, theme + "/jquery-ui-1.8.24.custom.css");
 	}
 }
