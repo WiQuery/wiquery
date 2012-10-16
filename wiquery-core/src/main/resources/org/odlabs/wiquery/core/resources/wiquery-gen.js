@@ -1,5 +1,0 @@
-(function($) {
-
-${wiqueryoutput}
-
-})(jQuery);
