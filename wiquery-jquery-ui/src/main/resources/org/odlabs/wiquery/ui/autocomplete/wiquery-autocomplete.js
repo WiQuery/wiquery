@@ -60,8 +60,11 @@
 			$('#' + hiddenId).val(data == undefined ? '' : data.valueId);
 		}
 		if(updateUrl){
-			var update = $(event.target).serialize() +"&"+ $('#'+hiddenId).serialize();
-			var wcall = Wicket.Ajax.post(updateUrl, update);
+			var attrs = { u: updateUrl };
+			attrs.ep = {};
+			attrs.ep[$('#'+hiddenId).attr('name')] = $('#'+hiddenId).val();
+			attrs.ep[$(event.target).attr('name')] = $(event.target).val();
+			var wcall = Wicket.Ajax.post(attrs);
 		}
 	};
 })(jQuery);
