@@ -61,7 +61,7 @@
 		}
 		if(updateUrl){
 			var update = $(event.target).serialize() +"&"+ $('#'+hiddenId).serialize();
-			var wcall = wicketAjaxPost(updateUrl, update);
+			var wcall = Wicket.Ajax.post(updateUrl, update);
 		}
 	};
 })(jQuery);
