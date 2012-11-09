@@ -86,6 +86,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		@Override
 		public void renderHead(IHeaderResponse response)
 		{
+			super.renderHead(response);
 			response.render(JavaScriptHeaderItem
 				.forReference(WiQueryAutocompleteJavaScriptResourceReference.get()));
 		}
