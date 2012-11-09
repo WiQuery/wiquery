@@ -164,7 +164,9 @@ public abstract class DroppableAjaxBehavior<E extends Component> extends
 	@Override
 	protected CharSequence getCallbackScript()
 	{
-		return generateCallbackScript("wicketAjaxGet('" + getCallbackUrl() + "&droppedId='+"
+		CharSequence callback = getCallbackUrl();
+		char sep = callback.toString().indexOf('?') == -1 ? '?' : '&';
+		return generateCallbackScript("wicketAjaxGet('" + callback + sep + "droppedId='+"
 			+ DroppableBehavior.UI_DRAGGABLE + "[0].id");
 	}
 
