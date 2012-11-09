@@ -18,13 +18,14 @@ The jQuery javascript is not included in WiQuery but in Wicket. In order to use 
 getJavaScriptLibrarySettings().setJQueryReference(...);
 ```
 
-where ... is the instance of your custom jquery resource reference.
-Alternatively you can register a resource replacement.
+or alternatively you can register a resource replacement:
 
 
 ```java
-addResourceReplacement(WiQueryCoreThemeResourceReference.get(), new WiQueryCoreThemeResourceReference("foo"));
+addResourceReplacement(JQueryResourceReference.get(), ...);
 ```
+
+where ... is the instance of your resource reference.
 
 WiQuery JQuery UI
 ======
