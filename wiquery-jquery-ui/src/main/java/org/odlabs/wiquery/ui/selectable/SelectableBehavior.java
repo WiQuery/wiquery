@@ -106,7 +106,7 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 		{
 			List<CallbackParameter> ret = super.getExtraParameters();
 			ret.add(CallbackParameter.resolved("selectedItems",
-				"$.unique($.map($(this).children('.ui-selectee.ui-selected'),"
+				"$.unique($.map($(this).find('.ui-selectee.ui-selected'),"
 					+ "function(elem) {return $(elem).attr('id');})).toString()"));
 			return ret;
 		}
