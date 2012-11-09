@@ -53,9 +53,8 @@
 		<wicket.version>6.2.0</wicket.version>
 		<jackson.version>[1.9,1.9.11]</jackson.version>
 		<slf4j.version>[1.7,1.7.2]</slf4j.version>
-		<log4j.version>[1.2.4,1.2.17]</log4j.version>
 		<junit.version>4.10</junit.version>
-		<servlet-api.version>2.5</servlet-api.version>
+		<javax.servlet-api.version>3.0.1</javax.servlet-api.version>
 		<jetty.version>8.1.8.v20121106</jetty.version>
 
 		<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
@@ -109,14 +108,12 @@
 				<version>${wicket.version}</version>
 			</dependency>
 
-			<!-- System dependencies -->
+			<!-- External dependencies -->
 			<dependency>
 				<groupId>javax.servlet</groupId>
-				<artifactId>servlet-api</artifactId>
-				<version>${servlet-api.version}</version>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>${javax.servlet-api.version}</version>
 			</dependency>
-
-			<!-- External dependencies -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
@@ -138,11 +135,6 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${log4j.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

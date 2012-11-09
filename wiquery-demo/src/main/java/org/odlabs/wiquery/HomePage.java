@@ -7,10 +7,10 @@ import org.odlabs.wiquery.slider.SliderPanel;
 public class HomePage extends WebPage {
 	private static final long serialVersionUID = 1L;
 
-    public HomePage(final PageParameters parameters) {
-    	super(parameters);
+	public HomePage(final PageParameters parameters) {
+		super(parameters);
 
-    	add(new SliderPanel("panel"));
+		add(new SliderPanel("panel"));
 
-    }
+	}
 }
