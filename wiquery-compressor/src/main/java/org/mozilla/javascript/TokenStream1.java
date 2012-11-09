@@ -40,7 +40,7 @@ import java.io.Reader;
  * @author Mike McCabe
  * @author Brendan Eich
  */
-
+@Deprecated
 class TokenStream1
 {
 	/*

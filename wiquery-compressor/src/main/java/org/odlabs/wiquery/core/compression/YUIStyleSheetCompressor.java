@@ -22,6 +22,7 @@ import com.yahoo.platform.yui.compressor.CssCompressor;
  * 
  * @author Vincent Heet
  */
+@Deprecated
 public class YUIStyleSheetCompressor implements ICssCompressor
 {
 	private static final Logger log = LoggerFactory.getLogger(YUIStyleSheetCompressor.class);

@@ -24,6 +24,7 @@ import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
  * 
  * @author Vincent Heet
  */
+@Deprecated
 public class YUIJavaScriptCompressor implements IJavaScriptCompressor
 {
 	private static final Logger log = LoggerFactory.getLogger(YUIJavaScriptCompressor.class);

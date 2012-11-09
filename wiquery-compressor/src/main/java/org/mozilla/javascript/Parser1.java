@@ -61,7 +61,7 @@ import java.util.Map;
  * @author Mike McCabe
  * @author Brendan Eich
  */
-
+@Deprecated
 public class Parser1
 {
 	// TokenInformation flags : currentFlaggedToken stores them together

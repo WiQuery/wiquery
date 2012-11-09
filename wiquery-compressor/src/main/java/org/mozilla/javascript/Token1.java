@@ -52,7 +52,7 @@ package org.mozilla.javascript;
  * @author Mike McCabe
  * @author Brendan Eich
  */
-
+@Deprecated
 public class Token1
 {
 	// debug flags

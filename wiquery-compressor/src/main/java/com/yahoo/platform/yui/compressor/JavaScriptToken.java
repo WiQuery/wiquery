@@ -8,6 +8,7 @@
  */
 package com.yahoo.platform.yui.compressor;
 
+@Deprecated
 public class JavaScriptToken
 {
 
