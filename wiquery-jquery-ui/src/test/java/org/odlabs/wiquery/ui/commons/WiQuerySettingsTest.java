@@ -24,7 +24,6 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  */
 public class WiQuerySettingsTest extends WiQueryTestCase
 {
-	@WiQueryUIPlugin
 	private final class TestEventBehavior extends WiQueryEventBehavior
 	{
 		private static final long serialVersionUID = 1L;

@@ -128,7 +128,6 @@ public class Parser1
 		this.errorReporter = errorReporter;
 	}
 
-	@SuppressWarnings("unused")
 	protected Decompiler createDecompiler(final CompilerEnvirons compilerEnv)
 	{
 		return new Decompiler();
@@ -1624,7 +1623,6 @@ public class Parser1
 		return result;
 	}
 
-	@SuppressWarnings("null")
 	void defineSymbol(final int declType, final boolean ignoreNotInBlock, final String name)
 	{
 		final Node.Scope definingScope = currentScope.getDefiningScope(name);

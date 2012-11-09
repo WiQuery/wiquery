@@ -201,7 +201,6 @@ public class JsQuery extends Behavior implements Serializable
 	/**
 	 * FOR FRAMEWORK'S INTERNAL USE ONLY
 	 */
-	@SuppressWarnings("unused")
 	public void renderHead(IHeaderResponse response, IRequestHandler requestHandler)
 	{
 		final String js = statement == null ? null : statement.render().toString();

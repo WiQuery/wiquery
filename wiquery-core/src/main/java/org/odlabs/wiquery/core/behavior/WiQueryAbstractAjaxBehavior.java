@@ -43,6 +43,7 @@ import org.odlabs.wiquery.core.options.Options;
  * 
  * @author Julien Roche
  * @since 1.1
+ * @deprecated you should really use AbstractDefaultAjaxBehavior and render the statement in your {@link #renderHead(Component, IHeaderResponse)} implementation.
  */
 @SuppressWarnings("deprecation")
 public abstract class WiQueryAbstractAjaxBehavior extends AbstractDefaultAjaxBehavior implements
