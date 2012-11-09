@@ -28,6 +28,7 @@ import org.mozilla.javascript.Parser1;
 import org.mozilla.javascript.ScriptRuntime;
 import org.mozilla.javascript.Token1;
 
+@Deprecated
 public class JavaScriptCompressor
 {
 

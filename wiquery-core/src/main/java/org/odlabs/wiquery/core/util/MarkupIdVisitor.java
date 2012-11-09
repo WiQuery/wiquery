@@ -1,7 +1,6 @@
 package org.odlabs.wiquery.core.util;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
@@ -21,12 +20,6 @@ public class MarkupIdVisitor implements IVisitor<Component, Void>
 
 	private Component foundComponent;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param id
-	 *            Markup identifier
-	 */
 	public MarkupIdVisitor(String id)
 	{
 		this.id = id;
@@ -40,15 +33,8 @@ public class MarkupIdVisitor implements IVisitor<Component, Void>
 			this.foundComponent = component;
 			visit.stop();
 		}
-		if (component instanceof MarkupContainer)
-		{
-			((MarkupContainer) component).visitChildren(Component.class, this);
-		}
 	}
 
-	/**
-	 * @return the markup identifier
-	 */
 	public String getId()
 	{
 		return id;

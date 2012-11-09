@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -8,13 +9,13 @@
 	</parent>
 
 	<prerequisites>
-		<maven>2.2.1</maven>
+		<maven>3.0.4</maven>
 	</prerequisites>
-	
+
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>6.0-SNAPSHOT</version>
+	<version>6.2-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
 
 	<url>https://github.com/wiquery/wiquery</url>
@@ -23,37 +24,61 @@
 		<connection>scm:git:git://github.com/WiQuery/wiquery.git</connection>
 		<developerConnection>scm:git:git@github.com:WiQuery/wiquery.git</developerConnection>
 	</scm>
-	
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>6.1.1</wicket.version>
-		<jackson.version>[1.9,1.9.9]</jackson.version>
-		<slf4j.version>[1.6,1.6.7]</slf4j.version>
+		<wicket.version>6.2.0</wicket.version>
+		<jackson.version>[1.9,1.9.11]</jackson.version>
+		<slf4j.version>[1.7,1.7.2]</slf4j.version>
 		<log4j.version>[1.2.4,1.2.17]</log4j.version>
-		<rhino.version>1.7R2</rhino.version>
 		<junit.version>4.10</junit.version>
 		<servlet-api.version>2.5</servlet-api.version>
+		<jetty.version>8.1.8.v20121106</jetty.version>
 
 		<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<maven-compiler-plugin.version>2.5.1</maven-compiler-plugin.version>
 		<maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
 		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
-		<maven-install-plugin.version>2.3.1</maven-install-plugin.version>
+		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
+		<maven-install-plugin.version>2.4</maven-install-plugin.version>
 		<maven-jar-plugin.version>2.4</maven-jar-plugin.version>
-		<maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
+		<maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
-		<maven-site-plugin.version>3.1</maven-site-plugin.version>
-		<maven-source-plugin.version>2.2</maven-source-plugin.version>
-		<maven-surefire-plugin.version>2.12.3</maven-surefire-plugin.version>
+		<maven-site-plugin.version>3.2</maven-site-plugin.version>
+		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
 	</properties>
 
 	<modules>
 		<module>wiquery-core</module>
 		<module>wiquery-compressor</module>
 		<module>wiquery-jquery-ui</module>
-    	<module>wiquery-demo</module>
-  </modules>
+		<module>wiquery-demo</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -83,7 +108,7 @@
 				<artifactId>wicket-core</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
-		
+
 			<!-- System dependencies -->
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -101,11 +126,6 @@
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-mapper-asl</artifactId>
 				<version>${jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>rhino</groupId>
-				<artifactId>js</artifactId>
-				<version>${rhino.version}</version>
 			</dependency>
 
 			<!-- Test dependencies -->
@@ -210,6 +230,14 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-eclipse-plugin</artifactId>
 					<version>${maven-eclipse-plugin.version}</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
 					<configuration>
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>

@@ -13,6 +13,7 @@ import org.mozilla.javascript.Token1;
 /**
  * JavaScriptIdentifier represents a variable/function identifier.
  */
+@Deprecated
 class JavaScriptIdentifier extends JavaScriptToken
 {
 

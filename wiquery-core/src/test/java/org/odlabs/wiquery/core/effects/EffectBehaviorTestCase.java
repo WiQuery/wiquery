@@ -65,6 +65,7 @@ public class EffectBehaviorTestCase extends WiQueryTestCase
 	/**
 	 * Test method for {@link org.odlabs.wiquery.core.effects.EffectBehavior#statement()}.
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testStatement()
 	{
