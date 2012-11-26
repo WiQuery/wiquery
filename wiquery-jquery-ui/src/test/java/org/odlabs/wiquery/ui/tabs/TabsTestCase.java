@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.tabs;
 
 import static org.junit.Assert.*;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.ITestPanelSource;
@@ -38,6 +39,7 @@ import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.tabs.Tabs.ITabsAjaxEvent;
 
 /**
  * Test on {@link Tabs}
@@ -530,6 +532,30 @@ public class TabsTestCase extends WiQueryTestCase
 		tabs.setSelectEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(tabs.statement().render().toString(),
 			"$('#anId').tabs({select: function(event, ui) {\n\talert('event');\n}});");
+	}
+
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setAjaxSelectEvent(org.odlabs.wiquery.ui.tabs.Tabs.ITabsAjaxEvent)}
+	 * .
+	 */
+	@Test
+	public void testSetAjaxSelectEvent()
+	{
+		assertEquals(tabs.statement().render().toString(), "$('#anId').tabs({});");
+		tabs.setAjaxSelectEvent(new ITabsAjaxEvent()
+		{
+			private static final long serialVersionUID = 1L;
+
+			public void onEvent(AjaxRequestTarget target, Tabs tabs, int index)
+			{
+				// TODO Auto-generated method stub
+
+			}
+		});
+		assertEquals(
+			tabs.statement().render().toString(),
+			"$('#anId').tabs({select: function(event, ui) {\n\tvar url = './wicket/page?0-1.IBehaviorListener.0-panel-anId&tabEvent=select&tabIndex='+ui.index+';var wcall=wicketAjaxGet(url,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n\treturn true;\n}});");
 	}
 
 	/**
