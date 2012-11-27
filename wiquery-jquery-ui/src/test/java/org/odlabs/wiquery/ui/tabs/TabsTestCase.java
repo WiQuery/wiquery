@@ -555,7 +555,7 @@ public class TabsTestCase extends WiQueryTestCase
 		});
 		assertEquals(
 			tabs.statement().render().toString(),
-			"$('#anId').tabs({select: function(event, ui) {\n\tvar url = './wicket/page?0-1.IBehaviorListener.0-panel-anId&tabEvent=select&tabIndex='+ui.index+';var wcall=wicketAjaxGet(url,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n\treturn true;\n}});");
+			"$('#anId').tabs({select: function(event, ui) {\n\tvar url = './wicket/page?0-1.IBehaviorListener.0-panel-anId&tabEvent=select&tabIndex='+ui.index;var wcall=wicketAjaxGet(url,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n\treturn true;\n}});");
 	}
 
 	/**
