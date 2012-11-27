@@ -155,7 +155,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin
 				.append(tabs.tabsAjaxBehavior.getCallbackUrl()).append("&").append(TAB_EVENT)
 				.append("=").append(event.name()).append("&").append(TAB_INDEX).append("=")
 				.append("'+").append(UI_TAB_INDEX)
-				.append("+';")
+				.append(";")
 				// delegating call-back generation to AJAX behavior
 				// so that we don't miss 'decorator' related functionality.
 				.append(tabs.tabsAjaxBehavior.generateCallbackScript("wicketAjaxGet(url"))
