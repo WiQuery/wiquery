@@ -21,17 +21,35 @@
  */
 package org.odlabs.wiquery.ui.tabs;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
 import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.javascript.JsQuery;
+import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.options.*;
+import org.odlabs.wiquery.core.options.ArrayItemOptions;
+import org.odlabs.wiquery.core.options.EventLabelOptions;
+import org.odlabs.wiquery.core.options.ICollectionItemOptions;
+import org.odlabs.wiquery.core.options.IComplexOption;
+import org.odlabs.wiquery.core.options.IListItemOption;
+import org.odlabs.wiquery.core.options.IntegerItemOptions;
+import org.odlabs.wiquery.core.options.ListItemOptions;
+import org.odlabs.wiquery.core.options.LiteralOption;
+import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
@@ -73,6 +91,149 @@ public class Tabs extends WebMarkupContainer
 	 */
 	private Options options;
 
+	public static enum TabEvent
+	{
+		add,
+		enable,
+		disable,
+		show,
+		select,
+		remove,
+		load,
+	}
+
+	/**
+	 * This class is only needed to make public the method generateCallbackScript.
+	 * 
+	 * @author Ernesto Reinaldo Barreiro
+	 */
+	private static abstract class TabsAjaxBehavior extends AbstractDefaultAjaxBehavior
+	{
+
+		private static final long serialVersionUID = 1L;
+		
+		private List<String> extraDynParams;
+		
+
+		public TabsAjaxBehavior()
+		{
+		}
+		
+
+		@Override
+		protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
+		{
+			attributes.getDynamicExtraParameters().addAll(extraDynParams);
+		}
+		
+		protected void setDynParams(List<String> list)
+		{
+			this.extraDynParams = list;
+		}		
+	}
+
+	/*
+	 * AJAX behavior needed for AJAX call-backs.
+	 */
+	private TabsAjaxBehavior tabsAjaxBehavior;
+
+	/*
+	 * The slider event.
+	 */
+	public static final String TAB_EVENT = "tabEvent";
+
+	public static final String TAB_INDEX = "tabIndex";
+
+	public static final String UI_TAB_INDEX = "ui.index";
+
+	/**
+	 * Utility class for handling tabs AJAX events.
+	 * 
+	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
+	 */
+	private static class TabsAjaxJsScopeUiEvent extends JsScopeUiEvent
+	{
+
+		private static final long serialVersionUID = 1L;
+
+		private TabEvent event;
+
+		private Tabs tabs;
+
+		public TabsAjaxJsScopeUiEvent(Tabs tabs, TabEvent event)
+		{
+			super();
+			this.tabs = tabs;
+			this.event = event;
+		}
+
+		@Override
+		protected void execute(JsScopeContext scopeContext)
+		{
+			tabs.tabsAjaxBehavior.setDynParams(Arrays.asList(String.format(
+					"return {'%s': '%s', '%s': %s}", TAB_EVENT, event.name(),
+					TAB_INDEX, UI_TAB_INDEX)));
+
+				scopeContext.append(
+				// delegating call-back generation to AJAX behavior
+				// so that we don't miss 'decorator' related functionality.
+				tabs.tabsAjaxBehavior.getCallbackScript());
+
+		}
+	}
+
+	/**
+	 * Specific function for select event.
+	 * 
+	 * @author reiern70
+	 */
+	public static class TabsAjaxSelectJsScopeUiEvent extends TabsAjaxJsScopeUiEvent
+	{
+		private static final long serialVersionUID = 1L;
+
+		private boolean cancelSelect = false;
+
+		public TabsAjaxSelectJsScopeUiEvent(Tabs tabs, TabEvent event, boolean cancelSelect)
+		{
+			super(tabs, event);
+			this.cancelSelect = cancelSelect;
+		}
+
+		@Override
+		protected void execute(JsScopeContext scopeContext)
+		{
+			super.execute(scopeContext);
+			scopeContext.append("return " + !cancelSelect);
+		}
+	}
+
+	/**
+	 * Call back interface for AJAX Events.
+	 * 
+	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
+	 * 
+	 */
+	public static interface ITabsAjaxEvent extends Serializable
+	{
+
+		/**
+		 * Call-back method for slider AJAX events.
+		 * 
+		 * @param target
+		 *            The AjaxRequestTarget.
+		 * @param tabs
+		 *            The tabs to which the event is attached.
+		 * @param index
+		 *            Of the tab event
+		 */
+		public void onEvent(AjaxRequestTarget target, Tabs tabs, int index);
+	}
+
+	/*
+	 * Map of AJAX events.
+	 */
+	private Map<TabEvent, ITabsAjaxEvent> ajaxEvents = new HashMap<TabEvent, ITabsAjaxEvent>();
+
 	/**
 	 * Builds a new tabs container with the given wicket id.
 	 */
@@ -80,6 +241,58 @@ public class Tabs extends WebMarkupContainer
 	{
 		super(id);
 		options = new Options(this);
+		tabsAjaxBehavior = new TabsAjaxBehavior()
+		{
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void respond(AjaxRequestTarget target)
+			{
+				String tabEvent =
+					RequestCycle.get().getRequest().getQueryParameters()
+						.getParameterValue(TAB_EVENT).toString();
+				// if we have an event execute it.
+				if (!isEmpty(tabEvent))
+				{
+					// calculate the index
+					int index =
+						parseInteger(RequestCycle.get().getRequest().getQueryParameters()
+							.getParameterValue(TAB_INDEX).toString(), 0);
+
+					ITabsAjaxEvent ajaxEvent = ajaxEvents.get(TabEvent.valueOf(tabEvent));
+					if (ajaxEvent != null)
+					{
+						ajaxEvent.onEvent(target, Tabs.this, index);
+					}
+				}
+			}
+		};
+		add(tabsAjaxBehavior);
+	}
+
+	/**
+	 * Parses an integer.
+	 * 
+	 * @param value
+	 *            The value to parse.
+	 * @return The parsed integer.
+	 */
+	private int parseInteger(String value, int defaultValue)
+	{
+		try
+		{
+			return Integer.parseInt(value);
+		}
+		catch (NumberFormatException e)
+		{
+			return defaultValue;
+		}
+	}
+
+	public static boolean isEmpty(String str)
+	{
+		return (str == null || str.trim().length() == 0);
 	}
 
 	@Override
@@ -467,6 +680,19 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
+	 * Sets the call-back for the AJAX add event.
+	 * 
+	 * @param addEvent
+	 *            The ITabsAjaxEvent.
+	 */
+	public Tabs setAjaxAddEvent(ITabsAjaxEvent addEvent)
+	{
+		this.ajaxEvents.put(TabEvent.add, addEvent);
+		setAddEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.add));
+		return this;
+	}
+
+	/**
 	 * Set the callback when a tab is disabled
 	 * 
 	 * @param disable
@@ -475,6 +701,19 @@ public class Tabs extends WebMarkupContainer
 	public Tabs setDisableEvent(JsScopeUiEvent disable)
 	{
 		this.options.put("disable", disable);
+		return this;
+	}
+
+	/**
+	 * Sets the call-back for the AJAX disable event.
+	 * 
+	 * @param disableEvent
+	 *            The ITabsAjaxEvent.
+	 */
+	public Tabs setAjaxDisableEvent(ITabsAjaxEvent disableEvent)
+	{
+		this.ajaxEvents.put(TabEvent.disable, disableEvent);
+		setDisableEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.disable));
 		return this;
 	}
 
@@ -491,6 +730,19 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
+	 * Sets the call-back for the AJAX enable event.
+	 * 
+	 * @param enableEvent
+	 *            The ITabsAjaxEvent.
+	 */
+	public Tabs setAjaxEnableEvent(ITabsAjaxEvent enableEvent)
+	{
+		this.ajaxEvents.put(TabEvent.enable, enableEvent);
+		setEnableEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.enable));
+		return this;
+	}
+
+	/**
 	 * Set the callback when the content of a remote tab has been loaded
 	 * 
 	 * @param load
@@ -499,6 +751,19 @@ public class Tabs extends WebMarkupContainer
 	public Tabs setLoadEvent(JsScopeUiEvent load)
 	{
 		this.options.put("load", load);
+		return this;
+	}
+
+	/**
+	 * Sets the call-back for the AJAX Load event.
+	 * 
+	 * @param loadEvent
+	 *            The ITabsAjaxEvent.
+	 */
+	public Tabs setAjaxLoadEvent(ITabsAjaxEvent loadEvent)
+	{
+		this.ajaxEvents.put(TabEvent.load, loadEvent);
+		setLoadEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.load));
 		return this;
 	}
 
@@ -515,6 +780,19 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
+	 * Sets the call-back for the AJAX remove event.
+	 * 
+	 * @param removeEvent
+	 *            The ITabsAjaxEvent.
+	 */
+	public Tabs setAjaxRemoveEvent(ITabsAjaxEvent removeEvent)
+	{
+		this.ajaxEvents.put(TabEvent.remove, removeEvent);
+		setRemoveEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.remove));
+		return this;
+	}
+
+	/**
 	 * Set the callback when the user is clicking the tab
 	 * 
 	 * @param select
@@ -527,6 +805,34 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
+	 * Sets the call-back for the AJAX select.
+	 * 
+	 * @param selectEvent
+	 *            The ITabsAjaxEvent.
+	 */
+	public Tabs setAjaxSelectEvent(ITabsAjaxEvent selectEvent)
+	{
+		this.ajaxEvents.put(TabEvent.select, selectEvent);
+		setSelectEvent(new TabsAjaxSelectJsScopeUiEvent(this, TabEvent.select, false));
+		return this;
+	}
+
+	/**
+	 * Sets the call-back for the AJAX select.
+	 * 
+	 * @param selectEvent
+	 *            The ITabsAjaxEvent.
+	 * @param cancelSelect
+	 *            If select should be cancelled.
+	 */
+	public Tabs setAjaxSelectEvent(ITabsAjaxEvent selectEvent, boolean cancelSelect)
+	{
+		this.ajaxEvents.put(TabEvent.select, selectEvent);
+		setSelectEvent(new TabsAjaxSelectJsScopeUiEvent(this, TabEvent.select, cancelSelect));
+		return this;
+	}
+
+	/**
 	 * Set the callback when a tab is shown
 	 * 
 	 * @param show
@@ -535,6 +841,19 @@ public class Tabs extends WebMarkupContainer
 	public Tabs setShowEvent(JsScopeUiEvent show)
 	{
 		this.options.put("show", show);
+		return this;
+	}
+
+	/**
+	 * Sets the call-back for the AJAX show event.
+	 * 
+	 * @param showEvent
+	 *            The ITabsAjaxEvent.
+	 */
+	public Tabs setAjaxShowEvent(ITabsAjaxEvent showEvent)
+	{
+		this.ajaxEvents.put(TabEvent.show, showEvent);
+		setShowEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.show));
 		return this;
 	}
 
