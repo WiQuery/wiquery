@@ -43,6 +43,7 @@ public abstract class AjaxDialogButton extends DialogButton
 	{
 		AjaxDialogButtonCallback callback = new AjaxDialogButtonCallback();
 		callback.setBehavior(ajaxBehavior);
+		ajaxBehavior.setEventListener(callback);
 		setCallback(callback);
 	}
 
