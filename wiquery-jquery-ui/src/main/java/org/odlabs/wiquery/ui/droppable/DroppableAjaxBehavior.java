@@ -25,7 +25,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
- * Convenience DroppableBehavior will AJAX functionality already plugged in. 
+ * Convenience DroppableBehavior with AJAX functionality already plugged in. 
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70gmail.com)
  */
