@@ -19,12 +19,20 @@ public class ButtonTestPage extends WebPage
 	private static final long serialVersionUID = 1L;
 
 	private ButtonBehavior behavior;
+	
+	private boolean addBefore = false;
 
 	/**
 	 * Construtor.
 	 */
-	public ButtonTestPage(boolean addBefore)
+	public ButtonTestPage()
 	{
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+
 		behavior = new ButtonBehavior();
 		if (addBefore)
 			behavior.setLabel(new ResourceModel("key"));
@@ -38,5 +46,13 @@ public class ButtonTestPage extends WebPage
 	public ButtonBehavior getBehavior()
 	{
 		return behavior;
+	}
+
+	public boolean isAddBefore() {
+		return addBefore;
+	}
+
+	public void setAddBefore(boolean addBefore) {
+		this.addBefore = addBefore;
 	}
 }

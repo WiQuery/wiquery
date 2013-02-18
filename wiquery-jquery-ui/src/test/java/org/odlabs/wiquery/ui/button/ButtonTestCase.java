@@ -148,11 +148,11 @@ public class ButtonTestCase extends WiQueryTestCase
 	public void testSetLabelModel()
 	{
 		// Options is added before bind.
-		ButtonTestPage page = tester.startPage(new ButtonTestPage(true));
+		ButtonTestPage page = tester.startPage(ButtonAfterTestPage.class);
 		assertNotNull(page.getBehavior().getLabel());
 		assertEquals(page.getBehavior().getLabel(), "This is a link");
 
-		page = tester.startPage(new ButtonTestPage(false));
+		page = tester.startPage(ButtonTestPage.class);
 		assertNotNull(page.getBehavior().getLabel());
 		assertEquals(page.getBehavior().getLabel(), "This is a link");
 	}
