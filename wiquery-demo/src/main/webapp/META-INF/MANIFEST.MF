@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: wicket-core-6.2.0.jar wicket-util-6.2.0.jar slf4j-api-1.6.
- 4.jar wicket-request-6.2.0.jar wiquery-core.jar jackson-mapper-asl-1.
- 9.11.jar jackson-core-asl-1.9.11.jar wiquery-jquery-ui.jar
-
