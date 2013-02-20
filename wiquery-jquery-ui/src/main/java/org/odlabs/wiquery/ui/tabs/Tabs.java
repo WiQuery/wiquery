@@ -123,7 +123,10 @@ public class Tabs extends WebMarkupContainer
 		@Override
 		protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
 		{
-			attributes.getDynamicExtraParameters().addAll(extraDynParams);
+			if (extraDynParams != null)
+			{
+				attributes.getDynamicExtraParameters().addAll(extraDynParams);
+			}
 		}
 		
 		protected void setDynParams(List<String> list)
