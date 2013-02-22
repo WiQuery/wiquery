@@ -201,7 +201,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 
 		public AjaxReceiveCallback()
 		{
-			super("recieve");
+			super("receive");
 		}
 
 		@Override
