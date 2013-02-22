@@ -91,6 +91,9 @@ public class Tabs extends WebMarkupContainer
 	 */
 	private Options options;
 
+	/**
+	 * 	 The tab event.
+	 */
 	public static enum TabEvent
 	{
 		add,
