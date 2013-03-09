@@ -112,14 +112,54 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		{
 			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
 
-			int resizeHeight = req.getParameterValue("resizeHeight").toInt(-1);
-			int resizeWidth = req.getParameterValue("resizeWidth").toInt(-1);
+			double resizeHeight = req.getParameterValue("resizeHeight").toDouble(-1);
+			double resizeWidth = req.getParameterValue("resizeWidth").toDouble(-1);
 			resize(target, source, resizeHeight, resizeWidth);
 		}
 
 		protected abstract void resize(AjaxRequestTarget target, Component source,
-				int resizeHeight, int resizeWidth);
+				double resizeHeight, double resizeWidth);
 	}
+	
+	/**
+	 * Resize stop AJAX handler.
+	 * 
+	 * @author reiern70
+	 *
+	 */
+	public abstract static class AjaxResizeTopCallback extends AbstractAjaxEventCallback
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AjaxResizeTopCallback()
+		{
+			super("stop");
+		}
+
+		@Override
+		protected List<CallbackParameter> getExtraParameters()
+		{
+			List<CallbackParameter> ret = super.getExtraParameters();
+			ret.add(CallbackParameter.resolved("resizeHeight", ResizableBehavior.UI_SIZE
+				+ ".height"));
+			ret.add(CallbackParameter.resolved("resizeWidth", ResizableBehavior.UI_SIZE + ".width"));
+			return ret;
+		}
+
+		@Override
+		public final void call(AjaxRequestTarget target, Component source)
+		{
+			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
+
+			double resizeHeight = req.getParameterValue("resizeHeight").toDouble(-1);
+			double resizeWidth = req.getParameterValue("resizeWidth").toDouble(-1);
+			resizeTop(target, source, resizeHeight, resizeWidth);
+		}
+
+		protected abstract void resizeTop(AjaxRequestTarget target, Component source,
+				double resizeHeight, double resizeWidth);
+	}
+	
 
 	@Override
 	public void onBind()
@@ -670,6 +710,8 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		setEventListener(callback);
 		return this;
 	}
+	
+	
 
 	/**
 	 * Set's the callback when the event is triggered at the start of a resize operation.
@@ -692,6 +734,17 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	public ResizableBehavior setStopEvent(JsScopeUiEvent stop)
 	{
 		this.options.put("stop", stop);
+		return this;
+	}
+	
+	/**
+	 * Set and AJAX callback for on stop event.
+	 * @param callback
+	 * @return
+	 */
+	public ResizableBehavior setStopEvent(AjaxResizeTopCallback callback)
+	{
+		setEventListener(callback);
 		return this;
 	}
 
