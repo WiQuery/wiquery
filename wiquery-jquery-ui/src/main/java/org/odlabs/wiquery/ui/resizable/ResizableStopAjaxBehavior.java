@@ -38,7 +38,7 @@ public abstract class ResizableStopAjaxBehavior extends ResizableBehavior {
 	 * Constructor.
 	 */
 	public ResizableStopAjaxBehavior() {
-		setStopEvent(new AjaxResizeTopCallback() {
+		setStopEvent(new AjaxResizeStopCallback() {
 			
 						private static final long serialVersionUID = 1L;
 

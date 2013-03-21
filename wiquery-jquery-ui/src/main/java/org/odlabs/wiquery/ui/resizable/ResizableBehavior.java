@@ -127,11 +127,11 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author reiern70
 	 *
 	 */
-	public abstract static class AjaxResizeTopCallback extends AbstractAjaxEventCallback
+	public abstract static class AjaxResizeStopCallback extends AbstractAjaxEventCallback
 	{
 		private static final long serialVersionUID = 1L;
 
-		public AjaxResizeTopCallback()
+		public AjaxResizeStopCallback()
 		{
 			super("stop");
 		}
@@ -742,7 +742,7 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @param callback
 	 * @return
 	 */
-	public ResizableBehavior setStopEvent(AjaxResizeTopCallback callback)
+	public ResizableBehavior setStopEvent(AjaxResizeStopCallback callback)
 	{
 		setEventListener(callback);
 		return this;
