@@ -14,7 +14,7 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>6.9.0-SNAPSHOT</version>
+	<version>6.9.1-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
 
 	<url>https://github.com/wiquery/wiquery</url>
@@ -49,26 +49,26 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>6.9.0</wicket.version>
-		<jackson.version>[1.9,1.9.12]</jackson.version>
-		<slf4j.version>[1.7,1.7.2]</slf4j.version>
+		<wicket.version>6.9.1</wicket.version>
+		<jackson.version>[1.9,1.9.13]</jackson.version>
+		<slf4j.version>[1.7,1.7.5]</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<javax.servlet-api.version>3.0.1</javax.servlet-api.version>
 		<jetty.version>8.1.8.v20121106</jetty.version>
 
-		<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
+		<maven-bundle-plugin.version>2.4.0</maven-bundle-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
-		<maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
 		<maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
 		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
 		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
 		<maven-install-plugin.version>2.4</maven-install-plugin.version>
 		<maven-jar-plugin.version>2.4</maven-jar-plugin.version>
-		<maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
+		<maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
-		<maven-site-plugin.version>3.2</maven-site-plugin.version>
+		<maven-site-plugin.version>3.3</maven-site-plugin.version>
 		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-		<maven-surefire-plugin.version>2.13</maven-surefire-plugin.version>
+		<maven-surefire-plugin.version>2.15</maven-surefire-plugin.version>
 	</properties>
 
 	<modules>
