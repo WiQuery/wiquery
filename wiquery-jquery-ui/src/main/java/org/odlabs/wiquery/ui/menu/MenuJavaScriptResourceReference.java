@@ -19,45 +19,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.autocomplete;
+package org.odlabs.wiquery.ui.menu;
 
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
-import org.odlabs.wiquery.ui.menu.MenuJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
- * $Id: AutocompleteJavascriptResourceReference.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
  * <p>
- * References the JavaScript resource to get the Autocomplete component.
+ * References the JavaScript resource to get the menu component.
  * </p>
  * 
- * @author Julien Roche
- * @since 1.1
+ * @author Stephane Gleizes
+ * @since 6.9.2
  */
-public class AutocompleteJavaScriptResourceReference extends JavaScriptResourceReference
+public class MenuJavaScriptResourceReference extends JavaScriptResourceReference
 {
-	private static final long serialVersionUID = -4771815414204892357L;
-
+	private static final long serialVersionUID = 6440705391676875137L;
+	
 	/**
 	 * Singleton instance.
 	 */
-	private static AutocompleteJavaScriptResourceReference instance =
-		new AutocompleteJavaScriptResourceReference();
+	private static MenuJavaScriptResourceReference instance =
+		new MenuJavaScriptResourceReference();
 
 	/**
-	 * Builds a new instance of {@link AutocompleteJavaScriptResourceReference}.
+	 * Builds a new instance of {@link MenuJavaScriptResourceReference}.
 	 */
-	private AutocompleteJavaScriptResourceReference()
+	private MenuJavaScriptResourceReference()
 	{
-		super(AutocompleteJavaScriptResourceReference.class, "jquery.ui.autocomplete.js");
+		super(MenuJavaScriptResourceReference.class, "jquery.ui.menu.js");
 	}
 
 	/**
-	 * Returns the {@link AutocompleteJavaScriptResourceReference} instance.
+	 * Returns the {@link MenuJavaScriptResourceReference} instance.
 	 */
-	public static AutocompleteJavaScriptResourceReference get()
+	public static MenuJavaScriptResourceReference get()
 	{
 		return instance;
 	}
@@ -65,6 +65,7 @@ public class AutocompleteJavaScriptResourceReference extends JavaScriptResourceR
 	@Override
 	public Iterable< ? extends HeaderItem> getDependencies()
 	{
-		return JavaScriptHeaderItems.forReferences(MenuJavaScriptResourceReference.get());
+		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
+				WidgetJavaScriptResourceReference.get(), PositionJavaScriptResourceReference.get());
 	}
 }
