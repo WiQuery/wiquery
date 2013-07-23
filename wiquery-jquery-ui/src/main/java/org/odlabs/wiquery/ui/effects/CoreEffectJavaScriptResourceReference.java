@@ -50,7 +50,7 @@ public class CoreEffectJavaScriptResourceReference extends JQueryPluginResourceR
 	 */
 	private CoreEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.core.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect.js");
 	}
 
 	/**

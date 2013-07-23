@@ -52,7 +52,7 @@ public class TransferEffectJavaScriptResourceReference extends JavaScriptResourc
 	 */
 	private TransferEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.transfer.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-transfer.js");
 	}
 
 	/**

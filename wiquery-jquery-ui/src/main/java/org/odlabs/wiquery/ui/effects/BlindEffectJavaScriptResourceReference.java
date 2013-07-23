@@ -52,7 +52,7 @@ public class BlindEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	 */
 	private BlindEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.blind.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-blind.js");
 	}
 
 	/**

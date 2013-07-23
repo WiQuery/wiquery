@@ -52,7 +52,7 @@ public class ClipEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	 */
 	private ClipEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.clip.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-clip.js");
 	}
 
 	/**

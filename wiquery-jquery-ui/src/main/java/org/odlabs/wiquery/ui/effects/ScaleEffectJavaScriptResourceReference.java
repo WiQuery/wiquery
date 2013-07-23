@@ -52,7 +52,7 @@ public class ScaleEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	 */
 	private ScaleEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.scale.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-scale.js");
 	}
 
 	/**

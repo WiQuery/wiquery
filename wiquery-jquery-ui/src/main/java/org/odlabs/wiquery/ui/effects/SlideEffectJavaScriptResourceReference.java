@@ -52,7 +52,7 @@ public class SlideEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	 */
 	private SlideEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.slide.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-slide.js");
 	}
 
 	/**
