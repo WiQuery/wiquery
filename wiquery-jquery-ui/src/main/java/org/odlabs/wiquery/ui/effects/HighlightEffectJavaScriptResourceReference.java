@@ -52,7 +52,7 @@ public class HighlightEffectJavaScriptResourceReference extends JavaScriptResour
 	 */
 	private HighlightEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.highlight.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-highlight.js");
 	}
 
 	/**

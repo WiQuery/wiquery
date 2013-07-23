@@ -52,7 +52,7 @@ public class ShakeEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	 */
 	private ShakeEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.shake.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-shake.js");
 	}
 
 	/**

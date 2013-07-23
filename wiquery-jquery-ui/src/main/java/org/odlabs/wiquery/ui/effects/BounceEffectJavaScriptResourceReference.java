@@ -52,7 +52,7 @@ public class BounceEffectJavaScriptResourceReference extends JavaScriptResourceR
 	 */
 	private BounceEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.bounce.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-bounce.js");
 	}
 
 	/**

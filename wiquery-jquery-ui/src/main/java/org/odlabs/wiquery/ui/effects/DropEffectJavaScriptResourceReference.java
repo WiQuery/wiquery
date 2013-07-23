@@ -52,7 +52,7 @@ public class DropEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	 */
 	private DropEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.drop.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-drop.js");
 	}
 
 	/**

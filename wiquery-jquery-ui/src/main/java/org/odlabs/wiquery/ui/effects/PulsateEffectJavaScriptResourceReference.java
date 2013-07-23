@@ -52,7 +52,7 @@ public class PulsateEffectJavaScriptResourceReference extends JavaScriptResource
 	 */
 	private PulsateEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.pulsate.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-pulsate.js");
 	}
 
 	/**

@@ -52,7 +52,7 @@ public class FoldEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	 */
 	private FoldEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.fold.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-fold.js");
 	}
 
 	/**

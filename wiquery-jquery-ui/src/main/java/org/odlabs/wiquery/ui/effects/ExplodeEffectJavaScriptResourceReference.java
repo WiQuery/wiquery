@@ -52,7 +52,7 @@ public class ExplodeEffectJavaScriptResourceReference extends JavaScriptResource
 	 */
 	private ExplodeEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.explode.js");
+		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-explode.js");
 	}
 
 	/**
