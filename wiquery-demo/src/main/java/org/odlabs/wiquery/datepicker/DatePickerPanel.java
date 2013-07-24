@@ -22,7 +22,7 @@ public class DatePickerPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 	
 	private final IModel<String> rangeDateModel = new Model<String>(null);
-	private final IModel<String> endDateModel = new Model<String>(null);
+	private final IModel<String> withDropDownDateModel = new Model<String>(null);
 
 	public DatePickerPanel(String id) {
 		super(id);
@@ -66,7 +66,7 @@ public class DatePickerPanel extends Panel {
 			}
 		});
 		
-		final DatePicker<String> withDropDownDatePicker = new DatePicker<String>("withDropDownDatePicker", endDateModel);
+		final DatePicker<String> withDropDownDatePicker = new DatePicker<String>("withDropDownDatePicker", withDropDownDateModel);
 		withDropDownDatePicker.setChangeMonth(true);
 		withDropDownDatePicker.setChangeYear(true);
 		withDropDownDatePicker.setYearRange(new DatePickerYearRange(new Short("-20"), new Short("20"), true));
@@ -75,23 +75,23 @@ public class DatePickerPanel extends Panel {
 		withDropDownDatePicker.setLabel(Model.of("Year/month dropdown"));
 		form.add(withDropDownDatePicker);
 		
-		final Label endDateLabel = new Label("withDropDownDateLabel", new AbstractReadOnlyModel<String>() {
+		final Label withDropDownDateLabel = new Label("withDropDownDateLabel", new AbstractReadOnlyModel<String>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public String getObject() {
-				return endDateModel.getObject();
+				return withDropDownDateModel.getObject();
 			}
 		});
-		endDateLabel.setOutputMarkupId(true);
-		form.add(endDateLabel);
+		withDropDownDateLabel.setOutputMarkupId(true);
+		form.add(withDropDownDateLabel);
 		
 		withDropDownDatePicker.add(new AjaxFormSubmitBehavior(form, "onchange") {
 			private static final long serialVersionUID = 1L;
 			
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
-				target.add(endDateLabel);
+				target.add(withDropDownDateLabel);
 			}
 		});
 	}
@@ -100,6 +100,6 @@ public class DatePickerPanel extends Panel {
 	protected void onDetach() {
 		super.onDetach();
 		rangeDateModel.detach();
-		endDateModel.detach();
+		withDropDownDateModel.detach();
 	}
 }
