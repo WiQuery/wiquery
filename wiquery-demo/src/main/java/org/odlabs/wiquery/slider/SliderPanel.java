@@ -44,6 +44,7 @@ public class SliderPanel extends Panel {
 
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void onEvent(AjaxRequestTarget target, AjaxSlider slider,
 					int value, int[] values) {
 				SliderPanel.this.x = value;
@@ -61,6 +62,7 @@ public class SliderPanel extends Panel {
 
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void onEvent(AjaxRequestTarget target, AjaxSlider slider,
 					int value, int[] values) {
 				SliderPanel.this.y = value;
@@ -96,6 +98,7 @@ public class SliderPanel extends Panel {
 
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void onEvent(AjaxRequestTarget target, AjaxSlider slider,
 					int value, int[] values) {
 				SliderPanel.this.values = values;
