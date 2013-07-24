@@ -23,6 +23,7 @@ package org.odlabs.wiquery.ui.effects;
 
 import org.odlabs.wiquery.core.effects.Effect;
 import org.odlabs.wiquery.core.javascript.JsUtils;
+import org.odlabs.wiquery.core.options.Options;
 
 /**
  * $Id$ Helper class to implement the pulsate effect as in
@@ -54,7 +55,7 @@ public class PulsateEffect extends Effect
 	 */
 	public PulsateEffect()
 	{
-		this(PulsateMode.show, 5, 500);
+		this(null, 5, 500);
 	}
 
 	/**
@@ -63,10 +64,22 @@ public class PulsateEffect extends Effect
 	 * @param mode
 	 *            The mode (show or hide).
 	 */
-
 	public PulsateEffect(PulsateMode mode)
 	{
 		this(mode, 5, 500);
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param times
+	 *            show many time to shake it.
+	 * @param duration
+	 *            The duration
+	 */
+	public PulsateEffect(int times, int duration)
+	{
+		this(null, times, duration);
 	}
 
 	/**
@@ -81,14 +94,25 @@ public class PulsateEffect extends Effect
 	 */
 	public PulsateEffect(PulsateMode mode, int times, int duration)
 	{
-		super(JsUtils.quotes("pulsate"), "{mode:" + JsUtils.quotes(mode.name()) + ", times: "
-			+ Integer.toString(times) + "}", Integer.toString(duration));
+		super(JsUtils.quotes("pulsate"), getOptions(mode, times), Integer.toString(duration));
 	}
 
 	@Override
 	public String chainLabel()
 	{
 		return "effect";
+	}
+
+	private static CharSequence getOptions(PulsateMode mode, int times)
+	{
+		Options options = new Options();
+		if (mode != null)
+		{
+			options.put("mode", JsUtils.quotes(mode.name()));
+		}
+		options.put("times", times);
+
+		return options.getJavaScriptOptions();
 	}
 
 }
