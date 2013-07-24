@@ -63,7 +63,7 @@
 		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
 		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
 		<maven-install-plugin.version>2.4</maven-install-plugin.version>
-		<maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+		<maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
 		<maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-site-plugin.version>3.3</maven-site-plugin.version>
