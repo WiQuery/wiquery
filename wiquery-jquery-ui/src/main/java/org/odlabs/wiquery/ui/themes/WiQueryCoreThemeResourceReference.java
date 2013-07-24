@@ -60,6 +60,6 @@ public class WiQueryCoreThemeResourceReference extends CssResourceReference
 	 */
 	public WiQueryCoreThemeResourceReference(String theme)
 	{
-		super(WiQueryCoreThemeResourceReference.class, theme + "/jquery-ui-1.8.24.custom.css");
+		super(WiQueryCoreThemeResourceReference.class, theme + "/jquery-ui-1.10.3.custom.css");
 	}
 }
