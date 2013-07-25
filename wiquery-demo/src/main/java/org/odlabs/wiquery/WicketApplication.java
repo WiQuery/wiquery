@@ -5,6 +5,7 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
+import org.odlabs.wiquery.sortable.SortablePage;
 import org.odlabs.wiquery.tab.TabsPage;
 
 /**
@@ -30,5 +31,6 @@ public class WicketApplication extends WebApplication {
 		mountPage("/resize/", ResizePage.class);
 		mountPage("/slider/", SliderPage.class);
 		mountPage("/tabs/", TabsPage.class);
+		mountPage("/sortable/", SortablePage.class);
 	}
 }

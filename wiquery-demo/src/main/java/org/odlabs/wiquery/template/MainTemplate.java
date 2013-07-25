@@ -22,8 +22,10 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
+import org.odlabs.wiquery.sortable.SortablePage;
 import org.odlabs.wiquery.tab.TabsPage;
 import org.odlabs.wiquery.template.style.BootstrapCdnCssResourceReference;
+import org.odlabs.wiquery.template.style.StylesCssResourceReference;
 
 public abstract class MainTemplate extends WebPage {
 
@@ -63,6 +65,7 @@ public abstract class MainTemplate extends WebPage {
 		super.renderHead(response);
 		
 		response.render(CssHeaderItem.forReference(BootstrapCdnCssResourceReference.get()));
+		response.render(CssHeaderItem.forReference(StylesCssResourceReference.get()));
 	}
 
 	protected abstract Class<? extends WebPage> getMenuPage();
@@ -115,6 +118,9 @@ public abstract class MainTemplate extends WebPage {
 	}
 	
 	private enum NavigationMenuItem {
+		// Interactions
+		SORTABLE("Sortable", NavigationCategory.INTERACTIONS, SortablePage.class),
+		// Widgets
 		DATEPICKER("DatePicker", NavigationCategory.WIDGETS, DatePickerPage.class),
 		RESIZE("Resize", NavigationCategory.WIDGETS, ResizePage.class),
 		SLIDER("Slider", NavigationCategory.WIDGETS, SliderPage.class),
