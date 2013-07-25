@@ -183,7 +183,8 @@ public enum UiIcon
 	GRIP_SOLID_HORIZONTAL("grip-solid-horizontal"),
 	GRIPSMALL_DIAGONAL_SE("gripsmall-diagonal-se"),
 	GRIP_DIAGONAL_SE("grip-diagonal-se"),
-	INFO("info");
+	INFO("info"),
+	BLANK("blank");
 
 	// --------
 	// Properties

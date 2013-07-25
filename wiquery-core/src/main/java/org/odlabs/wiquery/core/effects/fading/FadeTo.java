@@ -57,7 +57,7 @@ public class FadeTo extends Effect
 	 */
 	public FadeTo(EffectSpeed effectSpeed, float opacity)
 	{
-		super(effectSpeed);
+		super(effectSpeed, Float.toString(opacity));
 	}
 
 	@Override

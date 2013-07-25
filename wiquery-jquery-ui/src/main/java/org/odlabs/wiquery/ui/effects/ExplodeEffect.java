@@ -50,6 +50,14 @@ public class ExplodeEffect extends Effect
 	}
 
 	private Mode mode;
+	
+	/**
+	 * Constructor.
+	 */
+	public ExplodeEffect()
+	{
+		this(Mode.hide, 1000);
+	}
 
 	/**
 	 * Constructor.

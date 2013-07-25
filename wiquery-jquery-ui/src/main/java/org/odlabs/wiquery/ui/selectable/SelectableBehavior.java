@@ -117,7 +117,6 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
 
 			String[] selectedItems = req.getParameterValue("selectedItems").toString("").split(",");
-			System.out.println(req.getParameterValue("selectedItems"));
 			List<Component> selectedComponents = new ArrayList<Component>();
 			for (String curId : selectedItems)
 				if (!curId.isEmpty())
