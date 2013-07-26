@@ -303,6 +303,31 @@ public class Autocomplete<T> extends TextField<T>
 
 		return false;
 	}
+	
+	/**
+	 * If set to true the first item will automatically be focused when the menu is shown.
+	 * 
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Autocomplete<T> setAutoFocus(boolean autoFocus)
+	{
+		this.options.put("autoFocus", autoFocus);
+		return this;
+	}
+
+	/**
+	 * @return the autoFocus option
+	 */
+	public boolean isAutoFocus()
+	{
+		if (this.options.containsKey("autoFocus"))
+		{
+			return this.options.getBoolean("autoFocus");
+		}
+
+		return false;
+	}
 
 	/*---- Events section ---*/
 
@@ -356,6 +381,18 @@ public class Autocomplete<T> extends TextField<T>
 	public Autocomplete<T> setOpenEvent(JsScopeUiEvent open)
 	{
 		this.options.put("open", open);
+		return this;
+	}
+	
+	/**
+	 * After a search completes, before the menu is shown.
+	 * 
+	 * @param response
+	 * @return instance of the current component
+	 */
+	public Autocomplete<T> setResponseEvent(JsScopeUiEvent response)
+	{
+		this.options.put("response", response);
 		return this;
 	}
 

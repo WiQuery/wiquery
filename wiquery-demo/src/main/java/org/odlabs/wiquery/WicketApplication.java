@@ -3,6 +3,7 @@ package org.odlabs.wiquery;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.odlabs.wiquery.accordion.AccordionPage;
+import org.odlabs.wiquery.autocomplete.AutocompletePage;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
@@ -33,6 +34,7 @@ public class WicketApplication extends WebApplication {
 		
 		// Widgets
 		mountPage("/accordion/", AccordionPage.class);
+		mountPage("/autocomplete/", AutocompletePage.class);
 		mountPage("/datePicker/", DatePickerPage.class);
 		mountPage("/resize/", ResizePage.class);
 		mountPage("/slider/", SliderPage.class);

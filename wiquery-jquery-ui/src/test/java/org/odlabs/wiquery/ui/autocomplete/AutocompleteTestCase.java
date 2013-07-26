@@ -191,6 +191,18 @@ public class AutocompleteTestCase extends WiQueryTestCase
 		autocomplete.setDisabled(true);
 		assertTrue(autocomplete.isDisabled());
 	}
+	
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#isAutoFocus()}.
+	 */
+	@Test
+	public void testIsAutoFocus()
+	{
+		assertFalse(autocomplete.isAutoFocus());
+		autocomplete.setAutoFocus(true);
+		assertTrue(autocomplete.isAutoFocus());
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#search()}.
@@ -283,6 +295,19 @@ public class AutocompleteTestCase extends WiQueryTestCase
 		autocomplete.setSearchEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(autocomplete.statement().render().toString(),
 			"$('#anId').autocomplete({search: function(event, ui) {\n\talert('event');\n}});");
+	}
+	
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setResponseEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 */
+	@Test
+	public void testSetResponseEvent()
+	{
+		assertEquals(autocomplete.statement().render().toString(), "$('#anId').autocomplete({});");
+		autocomplete.setResponseEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(autocomplete.statement().render().toString(),
+			"$('#anId').autocomplete({response: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
