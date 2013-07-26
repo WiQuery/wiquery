@@ -46,6 +46,7 @@ import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.options.HeightStyleEnum;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
@@ -95,16 +96,6 @@ public class Tabs extends WebMarkupContainer
 		beforeActivate,
 		beforeLoad,
 		load
-	}
-	
-	/**
-	 * Helper enumeration
-	 */
-	public static enum HeightStyleEnum
-	{
-		AUTO,
-		CONTENT,
-		FILL
 	}
 
 	/**

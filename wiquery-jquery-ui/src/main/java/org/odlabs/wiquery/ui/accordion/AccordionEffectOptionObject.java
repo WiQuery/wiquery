@@ -19,23 +19,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.tabs;
+package org.odlabs.wiquery.ui.accordion;
 
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 
 /**
- * $Id EffectOptions.java$
+ * $Id AccordionEffectOptions.java$
  * 
  * <p>
  * Complex option to store the possible options for the effect. This is used too for the
- * option show/hide into the Tabs component
+ * option animate into the Accordion component.
  * </p>
  * 
  * @author Stephane Gleizes
  * @since 6.9.2
  */
-public class EffectOptions implements IComplexOption
+public class AccordionEffectOptionObject implements IComplexOption
 {
 	// Constants
 	/** Constant of serialization */
@@ -47,7 +47,7 @@ public class EffectOptions implements IComplexOption
 	/**
 	 * Default constructor
 	 */
-	public EffectOptions()
+	public AccordionEffectOptionObject()
 	{
 		super();
 		options = new Options();
@@ -72,54 +72,12 @@ public class EffectOptions implements IComplexOption
 	/*---- Options section ---*/
 
 	/**
-	 * If the effect property contains the name of a jQuery method, then that method will be used;
-	 * otherwise it is assumed to be the name of a jQuery UI effect.
-	 * If omitted, then "fadeIn" will be used.
-	 * 
-	 * @param effect
-	 * @return the instance
-	 */
-	public EffectOptions setEffect(String effect)
-	{
-		options.putLiteral("effect", effect);
-		return this;
-	}
-	
-	/**
-	 * @return the effect option
-	 */
-	public String getEffect()
-	{
-		return options.getLiteral("effect");
-	}
-	
-	/**
-	 * The delay before rendering the effect. If omitted, no delay is used.
-	 * 
-	 * @param delay
-	 * @return the instance
-	 */
-	public EffectOptions setDelay(Integer delay)
-	{
-		options.put("delay", delay);
-		return this;
-	}
-	
-	/**
-	 * @return the delay option
-	 */
-	public Integer getDelay()
-	{
-		return options.getInt("delay");
-	}
-	
-	/**
 	 * The duration of the effect. If omitted, the default value will be used.
 	 * 
 	 * @param duration
 	 * @return the instance
 	 */
-	public EffectOptions setDuration(Integer duration)
+	public AccordionEffectOptionObject setDuration(Integer duration)
 	{
 		options.put("duration", duration);
 		return this;
@@ -139,7 +97,7 @@ public class EffectOptions implements IComplexOption
 	 * @param easing
 	 * @return the instance
 	 */
-	public EffectOptions setEasing(String easing)
+	public AccordionEffectOptionObject setEasing(String easing)
 	{
 		options.putLiteral("easing", easing);
 		return this;
@@ -151,5 +109,31 @@ public class EffectOptions implements IComplexOption
 	public String getEasing()
 	{
 		return options.getLiteral("easing");
+	}
+	
+	/**
+	 * "Down" animations occur when the panel being activated has a lower index than the currently active panel.
+	 * 
+	 * @param downEffect
+	 * @return the instance
+	 */
+	public AccordionEffectOptionObject setDown(AccordionDownEffectOptionObject downEffect)
+	{
+		options.put("down", downEffect);
+		return this;
+	}
+	
+	/**
+	 * @return the down option
+	 */
+	public AccordionDownEffectOptionObject getDown()
+	{
+		IComplexOption downEffect = this.options.getComplexOption("down");
+		if (downEffect instanceof AccordionDownEffectOptionObject)
+		{
+			return (AccordionDownEffectOptionObject) downEffect;
+		}
+		
+		return null;
 	}
 }

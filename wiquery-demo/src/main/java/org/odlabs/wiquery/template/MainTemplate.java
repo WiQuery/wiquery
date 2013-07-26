@@ -19,6 +19,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.odlabs.wiquery.accordion.AccordionPage;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
@@ -121,6 +122,7 @@ public abstract class MainTemplate extends WebPage {
 		// Interactions
 		SORTABLE("Sortable", NavigationCategory.INTERACTIONS, SortablePage.class),
 		// Widgets
+		ACCORDION("Accordion", NavigationCategory.WIDGETS, AccordionPage.class),
 		DATEPICKER("DatePicker", NavigationCategory.WIDGETS, DatePickerPage.class),
 		RESIZE("Resize", NavigationCategory.WIDGETS, ResizePage.class),
 		SLIDER("Slider", NavigationCategory.WIDGETS, SliderPage.class),

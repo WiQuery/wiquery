@@ -9,7 +9,7 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.odlabs.wiquery.ui.effects.DropEffectJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.effects.SlideEffectJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.tabs.TabsAnimateOption;
-import org.odlabs.wiquery.ui.tabs.EffectOptions;
+import org.odlabs.wiquery.ui.tabs.TabsEffectOptionObject;
 import org.odlabs.wiquery.ui.tabs.Tabs;
 
 /**
@@ -39,11 +39,11 @@ public class TabsPanel extends Panel {
 		});
 		tabs.setCollapsible(true);
 		tabs.setActive(false);
-		tabs.setHide(new TabsAnimateOption(new EffectOptions()
+		tabs.setHide(new TabsAnimateOption(new TabsEffectOptionObject()
 				.setEffect("drop")
 				.setDuration(200)
 		));
-		tabs.setShow(new TabsAnimateOption(new EffectOptions()
+		tabs.setShow(new TabsAnimateOption(new TabsEffectOptionObject()
 				.setEffect("slide")
 				.setDuration(200)
 		));
