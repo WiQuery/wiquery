@@ -21,22 +21,23 @@
  */
 package org.odlabs.wiquery.ui.tabs;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.junit.Before;
 import org.junit.Test;
-import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
 import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.EventLabelOptions;
-import org.odlabs.wiquery.core.options.IListItemOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
-import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.tabs.Tabs.HeightStyleEnum;
 
 /**
  * Test on {@link Tabs}
@@ -48,6 +49,7 @@ public class TabsTestCase extends WiQueryTestCase
 	// Properties
 	private Tabs tabs;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@Before
 	public void setUp()
@@ -62,74 +64,13 @@ public class TabsTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#abort()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#destroy()}.
 	 */
 	@Test
-	public void testAbort()
+	public void testRefresh()
 	{
-		assertNotNull(tabs.abort());
-		assertEquals(tabs.abort().render().toString(), "$('#anId').tabs('abort');");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#add(int, java.lang.String, org.apache.wicket.Component)}
-	 * .
-	 */
-	@Test
-	public void testAddIntStringComponent()
-	{
-		final WebMarkupContainer container = new WebMarkupContainer("anId");
-		container.setMarkupId(container.getId());
-		Panel panel = new DivTestPanel("panelId");
-		panel.add(container);
-		tester.startComponent(panel);
-		assertNotNull(tabs.add(5, "a title", container));
-		assertEquals(tabs.add(5, "a title", container).render().toString(),
-			"$('#anId').tabs('add', '#anId', 'a title', 5);");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#add(java.lang.String, org.apache.wicket.Component)}
-	 * .
-	 */
-	@Test
-	public void testAddStringComponent()
-	{
-		final WebMarkupContainer container = new WebMarkupContainer("anId");
-		container.setMarkupId(container.getId());
-		Panel panel = new DivTestPanel("panelId");
-		panel.add(container);
-		tester.startComponent(panel);
-		assertNotNull(tabs.add("a title", container));
-		assertEquals(tabs.add("a title", container).render().toString(),
-			"$('#anId').tabs('add', '#anId', 'a title');");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#add(java.lang.String, java.lang.String)} .
-	 */
-	@Test
-	public void testAddStringString()
-	{
-		assertNotNull(tabs.add("an url", "a label"));
-		assertEquals(tabs.add("an url", "a label").render().toString(),
-			"$('#anId').tabs('add', 'an url', 'a label');");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#add(java.lang.String, java.lang.String, int)}
-	 * .
-	 */
-	@Test
-	public void testAddStringStringInt()
-	{
-		assertNotNull(tabs.add("an url", "a label", 5));
-		assertEquals(tabs.add("an url", "a label", 5).render().toString(),
-			"$('#anId').tabs('add', 'an url', 'a label', 5);");
+		assertNotNull(tabs.refresh());
+		assertEquals(tabs.refresh().render().toString(), "$('#anId').tabs('refresh');");
 	}
 
 	/**
@@ -183,43 +124,29 @@ public class TabsTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getAjaxOptions()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#getActive()}.
 	 */
 	@Test
-	public void testGetAjaxOptions()
+	public void testGetActive()
 	{
-		assertNull(tabs.getAjaxOptions());
-		JQueryAjaxOption ajaxOption = new JQueryAjaxOption();
-		ajaxOption.setAsync(true);
-		tabs.setAjaxOptions(ajaxOption);
-		assertNotNull(tabs.getAjaxOptions());
-		assertEquals(tabs.getAjaxOptions().getJavascriptOption().toString(), "{async: true}");
+		assertEquals(tabs.getActive(), 0);
+		tabs.setActive(1);
+		assertEquals(tabs.getActive(), 1);
+		tabs.setActive(true);
+		assertEquals(tabs.getActive(), 0);
 	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getCookie()}.
-	 */
-	@Test
-	public void testGetCookie()
-	{
-		assertNull(tabs.getCookie());
-		JQueryCookieOption cookieOption = new JQueryCookieOption("aName");
-		cookieOption.setSecure(true);
-		tabs.setCookie(cookieOption);
-		assertNotNull(tabs.getCookie());
-		assertEquals(tabs.getCookie().getJavascriptOption().toString(), "{secure: true}");
-	}
-
+	
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#getDefaultSelectedTabIndex()}.
+	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#getHeightStyle()}.
 	 */
 	@Test
-	public void testGetDefaultSelectedTabIndex()
+	public void testGetHeightStyle()
 	{
-		assertEquals(tabs.getDefaultSelectedTabIndex(), 0);
-		tabs.setDefaultSelectedTabIndex(1);
-		assertEquals(tabs.getDefaultSelectedTabIndex(), 1);
+		assertEquals(tabs.getHeightStyle(), HeightStyleEnum.CONTENT);
+		tabs.setHeightStyle(HeightStyleEnum.AUTO);
+		assertEquals(tabs.getHeightStyle(), HeightStyleEnum.AUTO);
 	}
 
 	/**
@@ -249,39 +176,38 @@ public class TabsTestCase extends WiQueryTestCase
 		assertEquals(tabs.getEvent().getEventLabel().toString().toLowerCase(), MouseEvent.DBLCLICK
 			.getEventLabel().toString().toLowerCase());
 	}
-
+	
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getFx()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getHide()}.
 	 */
 	@Test
-	public void testGetFx()
+	public void testGetHide()
 	{
-		assertNull(tabs.getFx());
-		ListItemOptions<IListItemOption> fx = new ListItemOptions<IListItemOption>();
-		fx.add(new IListItemOption()
-		{
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public CharSequence getJavascriptOption()
-			{
-				return "opacity: 'toggle'";
-			}
-		});
-		tabs.setFx(fx);
-		assertNotNull(tabs.getFx());
-		assertEquals(tabs.getFx().getJavascriptOption().toString(), "{opacity: 'toggle'}");
+		assertNull(tabs.getHide());
+		tabs.setHide(new TabsAnimateOption(new EffectOptions()
+				.setEffect("anEffect")
+				.setEasing("swing")
+				.setDelay(50)
+		));
+		assertNotNull(tabs.getHide());
+		assertEquals(tabs.getHide().getJavascriptOption().toString(),
+				"{effect: 'anEffect', easing: 'swing', delay: 50}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getIdPrefix()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getShow()}.
 	 */
 	@Test
-	public void testGetIdPrefix()
+	public void testGetShow()
 	{
-		assertEquals(tabs.getIdPrefix(), "ui-tabs-");
-		tabs.setIdPrefix("tabs-");
-		assertEquals(tabs.getIdPrefix(), "tabs-");
+		assertNull(tabs.getShow());
+		tabs.setShow(new TabsAnimateOption(new EffectOptions()
+				.setEffect("anEffect")
+				.setDuration(200)
+		));
+		assertNotNull(tabs.getShow());
+		assertEquals(tabs.getShow().getJavascriptOption().toString(),
+				"{effect: 'anEffect', duration: 200}");
 	}
 
 	/**
@@ -292,53 +218,8 @@ public class TabsTestCase extends WiQueryTestCase
 	{
 		assertNotNull(tabs.getOptions());
 		assertEquals(tabs.getOptions().getJavaScriptOptions().toString(), "{}");
-		tabs.setCache(true);
-		assertEquals(tabs.getOptions().getJavaScriptOptions().toString(), "{cache: true}");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getPanelTemplate()}.
-	 */
-	@Test
-	public void testGetPanelTemplate()
-	{
-		assertEquals(tabs.getPanelTemplate(), "<div></div>");
-		tabs.setPanelTemplate("<span></span>");
-		assertEquals(tabs.getPanelTemplate(), "<span></span>");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getSpinner()}.
-	 */
-	@Test
-	public void testGetSpinner()
-	{
-		assertEquals(tabs.getSpinner(), "<em>Loading&#8230;</em>");
-		tabs.setSpinner("<em>Load</em>");
-		assertEquals(tabs.getSpinner(), "<em>Load</em>");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#getTabTemplate()}.
-	 */
-	@Test
-	public void testGetTabTemplate()
-	{
-		assertEquals(tabs.getTabTemplate(),
-			"<li><a href=\"#{href}\"><span>#{label}</span></a></li>");
-		tabs.setTabTemplate("<span>#{label}</span>");
-		assertEquals(tabs.getTabTemplate(), "<span>#{label}</span>");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#isCache()}.
-	 */
-	@Test
-	public void testIsCache()
-	{
-		assertFalse(tabs.isCache());
-		tabs.setCache(true);
-		assertTrue(tabs.isCache());
+		tabs.setDisabled(true);
+		assertEquals(tabs.getOptions().getJavaScriptOptions().toString(), "{disabled: true}");
 	}
 
 	/**
@@ -364,16 +245,6 @@ public class TabsTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.slider.Slider#length()}.
-	 */
-	@Test
-	public void testLength()
-	{
-		assertNotNull(tabs.length());
-		assertEquals(tabs.length().render().toString(), "$('#anId').tabs('length');");
-	}
-
-	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#load(int)}.
 	 */
 	@Test
@@ -384,86 +255,17 @@ public class TabsTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#remove(int)}.
-	 */
-	@Test
-	public void testRemoveInt()
-	{
-		assertNotNull(tabs.remove(5));
-		assertEquals(tabs.remove(5).render().toString(), "$('#anId').tabs('remove', 5);");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#rotate(int)}.
-	 */
-	@Test
-	public void testRotateInt()
-	{
-		assertNotNull(tabs.rotate(5));
-		assertEquals(tabs.rotate(5).render().toString(), "$('#anId').tabs('rotate', 5);");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#rotate(int, boolean)}.
-	 */
-	@Test
-	public void testRotateIntBoolean()
-	{
-		assertNotNull(tabs.rotate(5, true));
-		assertEquals(tabs.rotate(5, true).render().toString(),
-			"$('#anId').tabs('rotate', 5, true);");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#select(int)}.
-	 */
-	@Test
-	public void testSelectInt()
-	{
-		assertNotNull(tabs.select(5));
-		assertEquals(tabs.select(5).render().toString(), "$('#anId').tabs('select', 5);");
-	}
-
-	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setAddEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setBeforeLoadEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
 	 * .
 	 */
 	@Test
-	public void testSetAddEvent()
+	public void testSetBeforeLoadEvent()
 	{
 		assertEquals(tabs.statement().render().toString(), "$('#anId').tabs({});");
-		tabs.setAddEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		tabs.setBeforeLoadEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(tabs.statement().render().toString(),
-			"$('#anId').tabs({add: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setDisableEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetDisableEvent()
-	{
-		assertEquals(tabs.statement().render().toString(), "$('#anId').tabs({});");
-		tabs.setDisableEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(tabs.statement().render().toString(),
-			"$('#anId').tabs({disable: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setEnableEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetEnableEvent()
-	{
-		assertEquals(tabs.statement().render().toString(), "$('#anId').tabs({});");
-		tabs.setEnableEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(tabs.statement().render().toString(),
-			"$('#anId').tabs({enable: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').tabs({beforeLoad: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -482,44 +284,30 @@ public class TabsTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setRemoveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setBeforeActivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
 	 * .
 	 */
 	@Test
-	public void testSetRemoveEvent()
+	public void testSetBeforeActivateEvent()
 	{
 		assertEquals(tabs.statement().render().toString(), "$('#anId').tabs({});");
-		tabs.setRemoveEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		tabs.setBeforeActivateEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(tabs.statement().render().toString(),
-			"$('#anId').tabs({remove: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').tabs({beforeActivate: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setSelectEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setActivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
 	 * .
 	 */
 	@Test
-	public void testSetSelectEvent()
+	public void testSetActivateEvent()
 	{
 		assertEquals(tabs.statement().render().toString(), "$('#anId').tabs({});");
-		tabs.setSelectEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		tabs.setActivateEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(tabs.statement().render().toString(),
-			"$('#anId').tabs({select: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.tabs.Tabs#setShowEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetShowEvent()
-	{
-		assertEquals(tabs.statement().render().toString(), "$('#anId').tabs({});");
-		tabs.setShowEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(tabs.statement().render().toString(),
-			"$('#anId').tabs({show: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').tabs({activate: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
@@ -530,17 +318,6 @@ public class TabsTestCase extends WiQueryTestCase
 	{
 		assertNotNull(tabs.statement());
 		assertEquals(tabs.statement().render().toString(), "$('#anId').tabs({});");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.tabs.Tabs#url(int, java.lang.String)}.
-	 */
-	@Test
-	public void testUrlIntString()
-	{
-		assertNotNull(tabs.url(5, "a label"));
-		assertEquals(tabs.url(5, "a label").render().toString(),
-			"$('#anId').tabs('url', 5, 'a label');");
 	}
 
 	/**

@@ -1,9 +1,15 @@
 package org.odlabs.wiquery.tab;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.odlabs.wiquery.ui.effects.DropEffectJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.effects.SlideEffectJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.tabs.TabsAnimateOption;
+import org.odlabs.wiquery.ui.tabs.EffectOptions;
 import org.odlabs.wiquery.ui.tabs.Tabs;
 
 /**
@@ -13,43 +19,52 @@ import org.odlabs.wiquery.ui.tabs.Tabs;
  */
 public class TabsPanel extends Panel {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7431432083554551959L;
 
-	private int index = 0;
+	private int index = -1;
 	
-	private Label label;
-
-	/**
-	 * 
-	 * @param id
-	 */
+	private Label indexLabel;
+	
 	public TabsPanel(String id) {
 		super(id);
 		Tabs tabs = new Tabs("tabs");
-		tabs.setAjaxSelectEvent(new Tabs.ITabsAjaxEvent() {
-			
+		tabs.setAjaxBeforeActivateEvent(new Tabs.ITabsAjaxEvent() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void onEvent(AjaxRequestTarget target, Tabs tabs, int index) {
 				TabsPanel.this.index = index;
-				target.add(label);
+				target.add(indexLabel);
 			}
 		});
+		tabs.setCollapsible(true);
+		tabs.setActive(false);
+		tabs.setHide(new TabsAnimateOption(new EffectOptions()
+				.setEffect("drop")
+				.setDuration(200)
+		));
+		tabs.setShow(new TabsAnimateOption(new EffectOptions()
+				.setEffect("slide")
+				.setDuration(200)
+		));
 		add(tabs);
 		
-		label = new Label("label", new AbstractReadOnlyModel<String>() {
-
+		indexLabel = new Label("indexLabel", new AbstractReadOnlyModel<String>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public String getObject() {
 				return "Selected index is: " + index;
 			}
-
 		});
-		
-		label.setOutputMarkupId(true);
-		add(label);
+		indexLabel.setOutputMarkupId(true);
+		add(indexLabel);
+	}
+
+	@Override
+	public void renderHead(IHeaderResponse response) {
+		super.renderHead(response);
+		response.render(JavaScriptHeaderItem.forReference(SlideEffectJavaScriptResourceReference.get()));
+		response.render(JavaScriptHeaderItem.forReference(DropEffectJavaScriptResourceReference.get()));
 	}
 }
