@@ -408,7 +408,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	{
 		if (this.options.containsKey("cursorAt"))
 		{
-			return (ListItemOptions<DraggableCursorAt>) this.options.getListItemOptions("cursorAt");
+			return (ListItemOptions<DraggableCursorAt>) this.options.getCollectionItemOptions("cursorAt");
 		}
 
 		return null;
@@ -514,7 +514,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	 */
 	public ICollectionItemOptions getGrid()
 	{
-		return this.options.getListItemOptions("grid");
+		return this.options.getCollectionItemOptions("grid");
 	}
 
 	/**

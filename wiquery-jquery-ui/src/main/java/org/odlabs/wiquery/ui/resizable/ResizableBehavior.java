@@ -536,7 +536,7 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	 */
 	public ICollectionItemOptions getGrid()
 	{
-		return this.options.getListItemOptions("grid");
+		return this.options.getCollectionItemOptions("grid");
 	}
 
 	/**

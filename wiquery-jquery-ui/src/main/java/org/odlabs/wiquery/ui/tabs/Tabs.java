@@ -394,7 +394,7 @@ public class Tabs extends WebMarkupContainer
 	 */
 	public ICollectionItemOptions getDisabled()
 	{
-		return this.options.getListItemOptions("disabled");
+		return this.options.getCollectionItemOptions("disabled");
 	}
 
 	/**

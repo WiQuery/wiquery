@@ -268,7 +268,7 @@ public class Options implements IModel<Options>
 	 *            the option name.
 	 * @return the list
 	 */
-	public ICollectionItemOptions getListItemOptions(String key)
+	public ICollectionItemOptions getCollectionItemOptions(String key)
 	{
 		Object object = this.options.get(key);
 		if (object instanceof ICollectionItemOptions)

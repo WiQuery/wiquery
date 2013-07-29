@@ -697,7 +697,7 @@ public class Dialog extends WebMarkupContainer
 	{
 		if (this.options.containsKey("buttons"))
 		{
-			return (ArrayItemOptions<DialogButton>) this.options.getListItemOptions("buttons");
+			return (ArrayItemOptions<DialogButton>) this.options.getCollectionItemOptions("buttons");
 		}
 
 		return null;

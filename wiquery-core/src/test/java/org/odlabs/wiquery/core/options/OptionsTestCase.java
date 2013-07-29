@@ -169,7 +169,7 @@ public class OptionsTestCase extends WiQueryTestCase
 
 		assertFalse(options.isEmpty());
 
-		ICollectionItemOptions temp = options.getListItemOptions("keyOptions");
+		ICollectionItemOptions temp = options.getCollectionItemOptions("keyOptions");
 		assertNotNull(temp);
 		assertEquals(2, temp.values().length);
 	}
