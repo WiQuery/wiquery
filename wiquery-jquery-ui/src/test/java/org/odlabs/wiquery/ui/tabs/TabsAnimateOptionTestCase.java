@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.ui.options.EffectOptionObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +45,7 @@ public class TabsAnimateOptionTestCase extends WiQueryTestCase
 		assertEquals(generatedJavascript, expectedJavascript);
 		
 		// Object param
-		snap.setObjectParam(new TabsEffectOptionObject()
+		snap.setObjectParam(new EffectOptionObject()
 				.setEasing("linear")
 				.setDelay(50)
 				.setDuration(200)

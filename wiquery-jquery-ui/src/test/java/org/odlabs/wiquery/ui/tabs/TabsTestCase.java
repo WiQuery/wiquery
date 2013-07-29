@@ -38,6 +38,7 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.options.HeightStyleEnum;
+import org.odlabs.wiquery.ui.options.EffectOptionObject;
 
 /**
  * Test on {@link Tabs}
@@ -184,7 +185,7 @@ public class TabsTestCase extends WiQueryTestCase
 	public void testGetHide()
 	{
 		assertNull(tabs.getHide());
-		tabs.setHide(new TabsAnimateOption(new TabsEffectOptionObject()
+		tabs.setHide(new TabsAnimateOption(new EffectOptionObject()
 				.setEffect("anEffect")
 				.setEasing("swing")
 				.setDelay(50)
@@ -201,7 +202,7 @@ public class TabsTestCase extends WiQueryTestCase
 	public void testGetShow()
 	{
 		assertNull(tabs.getShow());
-		tabs.setShow(new TabsAnimateOption(new TabsEffectOptionObject()
+		tabs.setShow(new TabsAnimateOption(new EffectOptionObject()
 				.setEffect("anEffect")
 				.setDuration(200)
 		));

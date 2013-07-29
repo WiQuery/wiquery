@@ -22,6 +22,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.odlabs.wiquery.accordion.AccordionPage;
 import org.odlabs.wiquery.autocomplete.AutocompletePage;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
+import org.odlabs.wiquery.dialog.DialogPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
 import org.odlabs.wiquery.sortable.SortablePage;
@@ -126,6 +127,7 @@ public abstract class MainTemplate extends WebPage {
 		ACCORDION("Accordion", NavigationCategory.WIDGETS, AccordionPage.class),
 		AUTOCOMPLETE("Autocomplete", NavigationCategory.WIDGETS, AutocompletePage.class),
 		DATEPICKER("DatePicker", NavigationCategory.WIDGETS, DatePickerPage.class),
+		DIALOG("Dialog", NavigationCategory.WIDGETS, DialogPage.class),
 		RESIZE("Resize", NavigationCategory.WIDGETS, ResizePage.class),
 		SLIDER("Slider", NavigationCategory.WIDGETS, SliderPage.class),
 		TABS("Tabs", NavigationCategory.WIDGETS, TabsPage.class);

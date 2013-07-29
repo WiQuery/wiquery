@@ -33,6 +33,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.position.PositionAlignmentOptions;
 import org.odlabs.wiquery.ui.position.PositionCollision;
 import org.odlabs.wiquery.ui.position.PositionOptions;
 import org.odlabs.wiquery.ui.position.PositionRelation;
@@ -215,10 +216,10 @@ public class Autocomplete<T> extends TextField<T>
 			return (PositionOptions) position;
 		}
 
-		PositionOptions pos = new PositionOptions();
-		pos.setAt(PositionRelation.LEFT_BOTTOM);
-		pos.setCollision(PositionCollision.NONE);
-		pos.setMy(PositionRelation.LEFT_TOP);
+		PositionOptions pos = new PositionOptions()
+				.setMy(new PositionAlignmentOptions(PositionRelation.LEFT, PositionRelation.TOP))
+				.setAt(new PositionAlignmentOptions(PositionRelation.LEFT, PositionRelation.BOTTOM))
+				.setCollision(PositionCollision.NONE);
 		return pos;
 	}
 

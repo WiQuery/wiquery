@@ -21,7 +21,11 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.junit.Before;
@@ -29,6 +33,7 @@ import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.InputTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.position.PositionCollision;
 import org.odlabs.wiquery.ui.position.PositionOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -144,13 +149,13 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	{
 		assertNotNull(autocomplete.getPosition());
 		assertEquals(autocomplete.getPosition().getJavascriptOption().toString(),
-			"{at: 'left bottom', collision: 'none', my: 'left top'}");
+			"{my: 'left top', at: 'left bottom', collision: 'none'}");
 		PositionOptions position = new PositionOptions();
-		position.setBgiframe(true);
+		position.setCollision(PositionCollision.FIT);
 		autocomplete.setPosition(position);
 		assertNotNull(autocomplete.getPosition());
 		assertEquals(autocomplete.getPosition().getJavascriptOption().toString(),
-			"{bgiframe: true}");
+			"{collision: 'fit'}");
 	}
 
 	/**

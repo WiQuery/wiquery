@@ -19,37 +19,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.tabs;
+package org.odlabs.wiquery.ui.dialog;
 
 
-import org.odlabs.wiquery.ui.options.GenericAnimateOption;
 import org.odlabs.wiquery.ui.options.EffectOptionObject;
+import org.odlabs.wiquery.ui.options.GenericAnimateOption;
 
 /**
- * $Id: TabsAnimateOption.java
+ * $Id: DialogAnimateOption.java
  * <p>
- * Bean for the show, hide options for the Tabs component
+ * Bean for the show, hide options for the Dialog component
  * </p>
  * Multiple types supported:
  * <ul>
- * 	<li>Boolean: When set to false, no animation will be used and the panel will be shown immediately.
- * When set to true, the panel will fade in with the default duration and the default easing. </li>
- * 	<li>Number: The panel will fade in with the specified duration and the default easing. </li>
- * 	<li>String: The panel will be shown using the specified effect.
- * The value can either be the name of a built-in jQuery animation method, such as "slideDown", or the
- * name of a jQuery UI effect, such as "fold".
- * In either case the effect will be used with the default duration and the default easing. </li>
+ * 	<li>Number: The dialog will fade in while animating the height and width for the specified duration. </li>
+ * 	<li>String: The dialog will be shown using the specified jQuery UI effect.
  * 	<li>Object: If the value is an object, then effect, delay, duration, and easing properties may be provided.
- * If the effect property contains the name of a jQuery method, then that method will be used;
- * otherwise it is assumed to be the name of a jQuery UI effect.
- * If duration or easing is omitted, then the default values will be used.
- * If effect is omitted, then "fadeIn" will be used. If delay is omitted, then no delay is used.
+ * The effect property must be the name of a jQuery UI effect. If duration or easing is omitted, then the
+ * default values will be used. If effect is omitted, then "fadeIn" will be used. If delay is omitted,
+ * then no delay is used.
  * </ul>
  * 
  * @author Stephane Gleizes
  * @since 6.9.2
  */
-public class TabsAnimateOption extends GenericAnimateOption<EffectOptionObject>
+public class DialogAnimateOption extends GenericAnimateOption<EffectOptionObject>
 {
 	// Constants
 	/** Constant of serialization */
@@ -58,21 +52,10 @@ public class TabsAnimateOption extends GenericAnimateOption<EffectOptionObject>
 	/**
 	 * Constructor
 	 * 
-	 * @param booleanParam
-	 *            Short parameter
-	 */
-	public TabsAnimateOption(Boolean booleanParam)
-	{
-		super(booleanParam);
-	}
-
-	/**
-	 * Constructor
-	 * 
 	 * @param integerParam
 	 *            integer parameter
 	 */
-	public TabsAnimateOption(Integer integerParam)
+	public DialogAnimateOption(Integer integerParam)
 	{
 		super(integerParam);
 	}
@@ -83,7 +66,7 @@ public class TabsAnimateOption extends GenericAnimateOption<EffectOptionObject>
 	 * @param literalParam
 	 *            literal parameter
 	 */
-	public TabsAnimateOption(String literalParam)
+	public DialogAnimateOption(String literalParam)
 	{
 		super(literalParam);
 	}
@@ -94,7 +77,7 @@ public class TabsAnimateOption extends GenericAnimateOption<EffectOptionObject>
 	 * @param objectParam
 	 *            object parameter
 	 */
-	public TabsAnimateOption(EffectOptionObject objectParam)
+	public DialogAnimateOption(EffectOptionObject objectParam)
 	{
 		super(objectParam);
 	}

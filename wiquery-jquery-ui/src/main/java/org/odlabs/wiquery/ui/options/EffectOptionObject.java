@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.odlabs.wiquery.ui.tabs;
+package org.odlabs.wiquery.ui.options;
 
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.options.Options;
  * @author Stephane Gleizes
  * @since 6.9.2
  */
-public class TabsEffectOptionObject implements IComplexOption
+public class EffectOptionObject implements IComplexOption
 {
 	// Constants
 	/** Constant of serialization */
@@ -47,7 +47,7 @@ public class TabsEffectOptionObject implements IComplexOption
 	/**
 	 * Default constructor
 	 */
-	public TabsEffectOptionObject()
+	public EffectOptionObject()
 	{
 		super();
 		options = new Options();
@@ -79,7 +79,7 @@ public class TabsEffectOptionObject implements IComplexOption
 	 * @param effect
 	 * @return the instance
 	 */
-	public TabsEffectOptionObject setEffect(String effect)
+	public EffectOptionObject setEffect(String effect)
 	{
 		getOptions().putLiteral("effect", effect);
 		return this;
@@ -99,7 +99,7 @@ public class TabsEffectOptionObject implements IComplexOption
 	 * @param delay
 	 * @return the instance
 	 */
-	public TabsEffectOptionObject setDelay(Integer delay)
+	public EffectOptionObject setDelay(Integer delay)
 	{
 		options.put("delay", delay);
 		return this;
@@ -119,7 +119,7 @@ public class TabsEffectOptionObject implements IComplexOption
 	 * @param duration
 	 * @return the instance
 	 */
-	public TabsEffectOptionObject setDuration(Integer duration)
+	public EffectOptionObject setDuration(Integer duration)
 	{
 		options.put("duration", duration);
 		return this;
@@ -139,7 +139,7 @@ public class TabsEffectOptionObject implements IComplexOption
 	 * @param easing
 	 * @return the instance
 	 */
-	public TabsEffectOptionObject setEasing(String easing)
+	public EffectOptionObject setEasing(String easing)
 	{
 		options.putLiteral("easing", easing);
 		return this;

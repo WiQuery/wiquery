@@ -30,12 +30,17 @@ import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.ArrayItemOptions;
+import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionAlignmentOptions;
 import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
+import org.odlabs.wiquery.ui.position.PositionOptions;
+import org.odlabs.wiquery.ui.position.PositionRelation;
 import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
@@ -67,21 +72,6 @@ public class Dialog extends WebMarkupContainer
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Eumeration of possible window position
-	 * 
-	 * @author Lionel Armanet
-	 * 
-	 */
-	public static enum WindowPosition
-	{
-		TOP,
-		BOTTOM,
-		CENTER,
-		LEFT,
-		RIGHT
-	}
 
 	/**
 	 * This class is only need to make public the method generateCallbackScript.
@@ -121,7 +111,6 @@ public class Dialog extends WebMarkupContainer
 		options = new Options(this);
 		// default settings
 		this.setAutoOpen(false);
-		this.setPosition(WindowPosition.CENTER);
 	}
 
 	public static boolean isEmpty(String str)
@@ -149,8 +138,7 @@ public class Dialog extends WebMarkupContainer
 		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference
 			.get()));
 
-		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this).$()
-			.chain("dialog", options.getJavaScriptOptions()).render().toString()));
+		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
 	/**
@@ -162,45 +150,33 @@ public class Dialog extends WebMarkupContainer
 	{
 		return options;
 	}
+	
+	public JsStatement statement()
+	{
+		return new JsQuery(this).$().chain("dialog", options.getJavaScriptOptions());
+	}
+
+	/*---- Options section ---*/
 
 	/**
-	 * Method to open the dialog
+	 * Which element the dialog (and overlay, if modal) should be appended to.
 	 * 
-	 * @return the associated JsStatement
+	 * @param appendTo
+	 * @return instance of the current component
 	 */
-	public JsStatement open()
+	public Dialog setAppendTo(String appendTo)
 	{
-		return new JsQuery(this).$().chain("dialog", "'open'");
+		this.options.putLiteral("appendTo", appendTo);
+		return this;
 	}
 
 	/**
-	 * Method to close the dialog
-	 * 
-	 * @return the associated JsStatement
+	 * @return the appendTo option value
 	 */
-	public JsStatement close()
+	public String getAppendTo()
 	{
-		return new JsQuery(this).$().chain("dialog", "'close'");
-	}
-
-	/**
-	 * Method to open the dialog within the ajax request
-	 * 
-	 * @param ajaxRequestTarget
-	 */
-	public void open(AjaxRequestTarget ajaxRequestTarget)
-	{
-		ajaxRequestTarget.appendJavaScript(this.open().render().toString());
-	}
-
-	/**
-	 * Method to close the dialog within the ajax request
-	 * 
-	 * @param ajaxRequestTarget
-	 */
-	public void close(AjaxRequestTarget ajaxRequestTarget)
-	{
-		ajaxRequestTarget.appendJavaScript(this.close().render().toString());
+		String appendTo = this.options.getLiteral("appendTo");
+		return appendTo == null ? "body" : appendTo;
 	}
 
 	/**
@@ -217,36 +193,6 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets if this window is modal or not.
-	 * 
-	 * @param modal
-	 *            true if the window is modal, false otherwise
-	 * @return instance of the current component
-	 */
-	public Dialog setModal(boolean modal)
-	{
-		options.put("modal", modal);
-		return this;
-	}
-
-	/**
-	 * Sets the overlay under the window. This parameter will take effect only if the
-	 * {@link #setModal(boolean)} method is call with true.
-	 * 
-	 * @param ratio
-	 *            a float value between 0 and 1 (1 is 100% black overlay)
-	 * @return instance of the current component
-	 * @deprecated will be removed in 1.3
-	 */
-	@Deprecated
-	public Dialog setOverlayRatio(float ratio)
-	{
-		// TODO nested options !
-		options.put("overlay", "{opacity: " + ratio + ", background: 'black'}");
-		return this;
-	}
-
-	/**
 	 * @return if this window auto opens on page loading.
 	 */
 	public boolean isAutoOpen()
@@ -257,6 +203,19 @@ public class Dialog extends WebMarkupContainer
 		}
 
 		return true;
+	}
+	
+	/**
+	 * Sets if this window is modal or not.
+	 * 
+	 * @param modal
+	 *            true if the window is modal, false otherwise
+	 * @return instance of the current component
+	 */
+	public Dialog setModal(boolean modal)
+	{
+		options.put("modal", modal);
+		return this;
 	}
 
 	/**
@@ -325,21 +284,28 @@ public class Dialog extends WebMarkupContainer
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setPosition(WindowPosition windowPosition)
+	public Dialog setPosition(PositionOptions position)
 	{
-		options.putLiteral("position", windowPosition.name().toLowerCase());
+		options.put("position", position);
 		return this;
-		// TODO change the parameter of this method
 	}
 
 	/**
-	 * Returns the {@link WindowPosition}.
+	 * Returns the {@link PositionOptions}.
 	 */
-	public WindowPosition getPosition()
+	public PositionOptions getPosition()
 	{
-		String literal = options.getLiteral("position");
-		return literal == null ? WindowPosition.CENTER : WindowPosition.valueOf(literal
-			.toUpperCase());
+		IComplexOption position = options.getComplexOption("position");
+		
+		if (position instanceof PositionOptions)
+		{
+			return (PositionOptions) position;
+		}
+		
+		return new PositionOptions()
+				.setMy(new PositionAlignmentOptions(PositionRelation.CENTER))
+				.setAt(new PositionAlignmentOptions(PositionRelation.CENTER))
+				.setOf("window");
 	}
 
 	/**
@@ -363,65 +329,57 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets a css class to customize the window's display.
+	 * If and how to animate the hiding of the dialog.
 	 * 
+	 * @param hideOptions
 	 * @return instance of the current component
 	 */
-	public Dialog setCssClass(String cssClass)
+	public Dialog setHide(DialogAnimateOption hideOptions)
 	{
-		options.putLiteral("dialogClass", cssClass);
+		this.options.put("hide", hideOptions);
 		return this;
 	}
-
-	/**
-	 * Returns the css class applied to customize this window.
-	 */
-	public String getCssClass()
-	{
-		String dialogClass = options.getLiteral("dialogClass");
-		return dialogClass == null ? "*" : dialogClass;
-	}
-
-	/**
-	 * Sets the effect used when the window closes.
-	 * 
-	 * @param hideEffect
-	 *            {@link String} with the given effect's name.
-	 * @return instance of the current component
-	 */
-	public Dialog setHideEffect(String hideEffect)
-	{
-		options.putLiteral("hide", hideEffect);
-		return this;
-	}
-
+	
 	/**
 	 * @return the hide option value
 	 */
-	public String getHideEffect()
+	public DialogAnimateOption getHide()
 	{
-		return this.options.getLiteral("hide");
+		IComplexOption hideOptions = this.options.getComplexOption("hide");
+		
+		if (hideOptions instanceof DialogAnimateOption)
+		{
+			return (DialogAnimateOption) hideOptions;
+		}
+		
+		return null;
 	}
 
 	/**
-	 * Sets the effect used when the window shows itself.
+	 * If and how to animate the showing of the dialog.
 	 * 
-	 * @param hideEffect
-	 *            {@link String} with the given effect's name.
+	 * @param showOptions
 	 * @return instance of the current component
 	 */
-	public Dialog setShowEffect(String hideEffect)
+	public Dialog setShow(DialogAnimateOption showOptions)
 	{
-		options.putLiteral("show", hideEffect);
+		this.options.put("show", showOptions);
 		return this;
 	}
-
+	
 	/**
 	 * @return the show option value
 	 */
-	public String getShowEffect()
+	public DialogAnimateOption getShow()
 	{
-		return this.options.getLiteral("show");
+		IComplexOption showOptions = this.options.getComplexOption("show");
+		
+		if (showOptions instanceof DialogAnimateOption)
+		{
+			return (DialogAnimateOption) showOptions;
+		}
+		
+		return null;
 	}
 
 	/**
@@ -615,35 +573,6 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the bgiframe plugin. When true, the bgiframe plugin will be used, to fix the
-	 * issue in IE6 where select boxes show on top of other elements, regardless of
-	 * zIndex. Requires including the bgiframe plugin. Future versions may not require a
-	 * separate plugin.
-	 * 
-	 * @param bgiframe
-	 * @return instance of the current component
-	 */
-	@Deprecated
-	public Dialog setBgiframe(boolean bgiframe)
-	{
-		this.options.put("bgiframe", bgiframe);
-		return this;
-	}
-
-	/**
-	 * @returns <code>true</code> if the bgiframe plugin will be used
-	 */
-	public boolean isBgiframe()
-	{
-		if (this.options.containsKey("bgiframe"))
-		{
-			return this.options.getBoolean("bgiframe");
-		}
-
-		return false;
-	}
-
-	/**
 	 * The specified class name(s) will be added to the dialog, for additional theming.
 	 * 
 	 * @return instance of the current component
@@ -667,7 +596,7 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Disables (true) or enables (false) the dialog. Can be set when initialising (first
+	 * Disables (true) or enables (false) the dialog. Can be set when initializing (first
 	 * creating) the dialog.
 	 * 
 	 * @param disabled
@@ -718,63 +647,12 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Specifies whether the dialog will stack on top of other dialogs. This will cause
-	 * the dialog to move to the front of other dialogs when it gains focus.
-	 * 
-	 * @param stack
-	 * @return instance of the current component
-	 */
-	public Dialog setStack(boolean stack)
-	{
-		this.options.put("stack", stack);
-		return this;
-	}
-
-	/**
-	 * @returns <code>true</code> if the dialog will be stack
-	 */
-	public boolean isStack()
-	{
-		if (this.options.containsKey("stack"))
-		{
-			return this.options.getBoolean("stack");
-		}
-
-		return true;
-	}
-
-	/**
-	 * Set's the starting z-index
-	 * 
-	 * @param zIndex
-	 * @return instance of the current component
-	 */
-	public Dialog setZIndex(int zIndex)
-	{
-		this.options.put("zIndex", zIndex);
-		return this;
-	}
-
-	/**
-	 * @return the starting z-index (default : 1000)
-	 */
-	public int getZIndex()
-	{
-		if (this.options.containsKey("zIndex"))
-		{
-			return this.options.getInt("zIndex");
-		}
-
-		return 1000;
-	}
-
-	/**
 	 * Set's a list of dialog button
 	 * 
 	 * @param buttons
 	 * @return instance of the current component
 	 */
-	public Dialog setButtons(ListItemOptions<DialogButton> buttons)
+	public Dialog setButtons(ArrayItemOptions<DialogButton> buttons)
 	{
 		for (DialogButton button : buttons)
 		{
@@ -797,7 +675,7 @@ public class Dialog extends WebMarkupContainer
 	{
 		if (buttons != null && buttons.length > 0)
 		{
-			ListItemOptions<DialogButton> buttons2 = new ListItemOptions<DialogButton>();
+			ArrayItemOptions<DialogButton> buttons2 = new ArrayItemOptions<DialogButton>();
 			for (DialogButton button : buttons)
 			{
 				if (button instanceof AjaxDialogButton)
@@ -815,15 +693,17 @@ public class Dialog extends WebMarkupContainer
 	 * @return the list of buttons
 	 */
 	@SuppressWarnings("unchecked")
-	public ListItemOptions<DialogButton> getButtons()
+	public ArrayItemOptions<DialogButton> getButtons()
 	{
 		if (this.options.containsKey("buttons"))
 		{
-			return (ListItemOptions<DialogButton>) this.options.getListItemOptions("buttons");
+			return (ArrayItemOptions<DialogButton>) this.options.getListItemOptions("buttons");
 		}
 
 		return null;
 	}
+	
+	/*---- Events section ---*/
 
 	/**
 	 * Set's the callback before the dialog is closing. If the beforeclose event handler
@@ -945,6 +825,48 @@ public class Dialog extends WebMarkupContainer
 		this.options.put("resizeStop", resizeStop);
 		return this;
 	}
+	
+	/*---- Methods section ---*/
+	
+	/**
+	 * Method to open the dialog
+	 * 
+	 * @return the associated JsStatement
+	 */
+	public JsStatement open()
+	{
+		return new JsQuery(this).$().chain("dialog", "'open'");
+	}
+	
+	/**
+	 * Method to open the dialog within the ajax request
+	 * 
+	 * @param ajaxRequestTarget
+	 */
+	public void open(AjaxRequestTarget ajaxRequestTarget)
+	{
+		ajaxRequestTarget.appendJavaScript(this.open().render().toString());
+	}
+
+	/**
+	 * Method to close the dialog
+	 * 
+	 * @return the associated JsStatement
+	 */
+	public JsStatement close()
+	{
+		return new JsQuery(this).$().chain("dialog", "'close'");
+	}
+
+	/**
+	 * Method to close the dialog within the ajax request
+	 * 
+	 * @param ajaxRequestTarget
+	 */
+	public void close(AjaxRequestTarget ajaxRequestTarget)
+	{
+		ajaxRequestTarget.appendJavaScript(this.close().render().toString());
+	}
 
 	/**
 	 * Method to destroy the dialog This will return the element back to its pre-init
@@ -965,46 +887,6 @@ public class Dialog extends WebMarkupContainer
 	public void destroy(AjaxRequestTarget ajaxRequestTarget)
 	{
 		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
-	}
-
-	/**
-	 * Method to disable the dialog
-	 * 
-	 * @return the associated JsStatement
-	 */
-	public JsStatement disable()
-	{
-		return new JsQuery(this).$().chain("dialog", "'disable'");
-	}
-
-	/**
-	 * Method to disable the dialog within the ajax request
-	 * 
-	 * @param ajaxRequestTarget
-	 */
-	public void disable(AjaxRequestTarget ajaxRequestTarget)
-	{
-		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
-	}
-
-	/**
-	 * Method to enable the dialog
-	 * 
-	 * @return the associated JsStatement
-	 */
-	public JsStatement enable()
-	{
-		return new JsQuery(this).$().chain("dialog", "'enable'");
-	}
-
-	/**
-	 * Method to enable the dialog within the ajax request
-	 * 
-	 * @param ajaxRequestTarget
-	 */
-	public void enable(AjaxRequestTarget ajaxRequestTarget)
-	{
-		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 
 	/**
