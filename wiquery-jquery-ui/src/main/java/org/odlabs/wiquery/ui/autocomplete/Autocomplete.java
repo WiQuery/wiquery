@@ -33,6 +33,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.position.PositionAlignmentOptions;
 import org.odlabs.wiquery.ui.position.PositionCollision;
 import org.odlabs.wiquery.ui.position.PositionOptions;
 import org.odlabs.wiquery.ui.position.PositionRelation;
@@ -215,10 +216,10 @@ public class Autocomplete<T> extends TextField<T>
 			return (PositionOptions) position;
 		}
 
-		PositionOptions pos = new PositionOptions();
-		pos.setAt(PositionRelation.LEFT_BOTTOM);
-		pos.setCollision(PositionCollision.NONE);
-		pos.setMy(PositionRelation.LEFT_TOP);
+		PositionOptions pos = new PositionOptions()
+				.setMy(new PositionAlignmentOptions(PositionRelation.LEFT, PositionRelation.TOP))
+				.setAt(new PositionAlignmentOptions(PositionRelation.LEFT, PositionRelation.BOTTOM))
+				.setCollision(PositionCollision.NONE);
 		return pos;
 	}
 
@@ -303,6 +304,31 @@ public class Autocomplete<T> extends TextField<T>
 
 		return false;
 	}
+	
+	/**
+	 * If set to true the first item will automatically be focused when the menu is shown.
+	 * 
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Autocomplete<T> setAutoFocus(boolean autoFocus)
+	{
+		this.options.put("autoFocus", autoFocus);
+		return this;
+	}
+
+	/**
+	 * @return the autoFocus option
+	 */
+	public boolean isAutoFocus()
+	{
+		if (this.options.containsKey("autoFocus"))
+		{
+			return this.options.getBoolean("autoFocus");
+		}
+
+		return false;
+	}
 
 	/*---- Events section ---*/
 
@@ -356,6 +382,18 @@ public class Autocomplete<T> extends TextField<T>
 	public Autocomplete<T> setOpenEvent(JsScopeUiEvent open)
 	{
 		this.options.put("open", open);
+		return this;
+	}
+	
+	/**
+	 * After a search completes, before the menu is shown.
+	 * 
+	 * @param response
+	 * @return instance of the current component
+	 */
+	public Autocomplete<T> setResponseEvent(JsScopeUiEvent response)
+	{
+		this.options.put("response", response);
 		return this;
 	}
 

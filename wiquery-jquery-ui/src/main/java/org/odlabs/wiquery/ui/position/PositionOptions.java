@@ -79,24 +79,30 @@ public class PositionOptions implements IComplexOption
 	 * convention). Acceptable values: "top", "center", "bottom", "left", "right".
 	 * Example: "left top" or "center center"
 	 * 
-	 * @param at
+	 * @param position
 	 * @return the instance
 	 */
-	public PositionOptions setAt(PositionRelation at)
+	public PositionOptions setAt(PositionAlignmentOptions position)
 	{
-		options.putLiteral("at", at.toString());
+		options.put("at", position);
 		return this;
 	}
 
 	/**
 	 * @return the at option
 	 */
-	public PositionRelation getAt()
+	public PositionAlignmentOptions getAt()
 	{
-		String value = options.getLiteral("at");
-		return value == null ? null : PositionRelation.getPosition(value);
+		IComplexOption at = options.getComplexOption("at");
+		
+		if (at instanceof PositionAlignmentOptions)
+		{
+			return (PositionAlignmentOptions) at;
+		}
+		
+		return null;
 	}
-
+	
 	/**
 	 * Applies the bgiframe plugin when set to true. Only applies when bgiframe is
 	 * actually loaded, nothing happens otherwise.
@@ -111,12 +117,11 @@ public class PositionOptions implements IComplexOption
 	}
 
 	/**
-	 * @return the bgiframe option
+	 * @returns <code>true</code> if the bgiframe plugin will be used
 	 */
 	public boolean isBgiframe()
 	{
-		if (options.containsKey("bgiframe"))
-		{
+		if (options.containsKey("bgiframe")) {
 			return options.getBoolean("bgiframe");
 		}
 
@@ -133,6 +138,9 @@ public class PositionOptions implements IComplexOption
 	 * as a fall back.</li>
 	 * <li>fit: so the element keeps in the desired direction, but is re-positioned so it
 	 * fits.</li>
+	 * <li>flipfit: applies the flip logic, placing the element on whichever side allows
+	 * more of the element to be visible. Then the fit logic is applied to ensure as much
+	 * of the element is visible as possible.</li>
 	 * <li>none: not do collision detection.</li>
 	 * </ul>
 	 * 
@@ -164,19 +172,25 @@ public class PositionOptions implements IComplexOption
 	 * @param my
 	 * @return the instance
 	 */
-	public PositionOptions setMy(PositionRelation my)
+	public PositionOptions setMy(PositionAlignmentOptions my)
 	{
-		options.putLiteral("my", my.toString());
+		options.put("my", my);
 		return this;
 	}
 
 	/**
 	 * @return the my option
 	 */
-	public PositionRelation getMy()
+	public PositionAlignmentOptions getMy()
 	{
-		String value = options.getLiteral("my");
-		return value == null ? null : PositionRelation.getPosition(value);
+		IComplexOption my = options.getComplexOption("my");
+		
+		if (my instanceof PositionAlignmentOptions)
+		{
+			return (PositionAlignmentOptions) my;
+		}
+		
+		return null;
 	}
 
 	/**
@@ -199,41 +213,42 @@ public class PositionOptions implements IComplexOption
 	{
 		return options.getLiteral("of");
 	}
-
+	
 	/**
-	 * Add these left-top values to the calculated position, eg. "50 50" (left top) A
-	 * single value such as "50" will apply to both.
+	 * Element to position within, affecting collision detection. If you provide a selector
+	 * or jQuery object, the first matching element will be used.
 	 * 
-	 * @param offset
+	 * @param within
 	 * @return the instance
 	 */
-	public PositionOptions setOffset(PositionOffset offset)
+	public PositionOptions setWithin(String within)
 	{
-		options.put("offset", offset);
+		options.putLiteral("within", within);
 		return this;
 	}
 
 	/**
-	 * @return the offset option
+	 * @return the within option
 	 */
-	public PositionOffset getOffset()
+	public String getWithin()
 	{
-		return (PositionOffset) options.getComplexOption("offset");
+		return options.getLiteral("within");
 	}
 
 	/*---- Events section ---*/
 
 	/**
-	 * When specified the actual property setting is delegated to this callback. Receives
-	 * a single parameter which is a hash of top and left values for the position that
-	 * should be set.
+	 * When specified, the actual property setting is delegated to this callback.
+	 * Receives two parameters: The first is a hash of top and left values for the position
+	 * that should be set. The second provides feedback about the position and dimensions of
+	 * both elements, as well as calculations to their relative position.
 	 * 
-	 * @param by
+	 * @param using
 	 * @return the instance
 	 */
-	public PositionOptions setBy(JsScopePositionEvent by)
+	public PositionOptions setUsing(JsScopePositionEvent using)
 	{
-		options.put("by", by);
+		options.put("using", using);
 		return this;
 	}
 }

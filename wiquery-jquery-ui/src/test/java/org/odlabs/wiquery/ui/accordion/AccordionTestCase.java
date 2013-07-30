@@ -21,7 +21,10 @@
  */
 package org.odlabs.wiquery.ui.accordion;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.junit.Before;
@@ -31,6 +34,7 @@ import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.accordion.Accordion.AccordionTriggerEvent;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.options.HeightStyleEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +49,7 @@ public class AccordionTestCase extends WiQueryTestCase
 
 	private Accordion accordion;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@Before
 	public void setUp()
@@ -56,17 +61,6 @@ public class AccordionTestCase extends WiQueryTestCase
 		accordion.setMarkupId(accordion.getId());
 		panel.add(accordion);
 		tester.startComponent(panel);
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#activate(int)}.
-	 */
-	@Test
-	public void testActivateInt()
-	{
-		assertNotNull(accordion.activate(5));
-		assertEquals(accordion.activate(5).render().toString(),
-			"$('#anId').accordion('activate', 5);");
 	}
 
 	/**
@@ -98,6 +92,16 @@ public class AccordionTestCase extends WiQueryTestCase
 		assertNotNull(accordion.enable());
 		assertEquals(accordion.enable().render().toString(), "$('#anId').accordion('enable');");
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#refresh()}.
+	 */
+	@Test
+	public void testRefresh()
+	{
+		assertNotNull(accordion.refresh());
+		assertEquals(accordion.refresh().render().toString(), "$('#anId').accordion('refresh');");
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getActive()}.
@@ -105,22 +109,32 @@ public class AccordionTestCase extends WiQueryTestCase
 	@Test
 	public void testGetActive()
 	{
-		assertNull(accordion.getActive());
-		accordion.setActive(new AccordionActive(true));
-		assertNotNull(accordion.getActive());
-		assertEquals(accordion.getActive().getJavascriptOption().toString(), "true");
+		assertEquals(accordion.getActive(), 0);
+		accordion.setActive(1);
+		assertEquals(accordion.getActive(), 1);
+		accordion.setActive(true);
+		assertEquals(accordion.getActive(), 0);
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getAnimated()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getAnimate()}.
 	 */
 	@Test
-	public void testGetAnimationEffect()
+	public void testGetAnimate()
 	{
-		assertNotNull(accordion.getAnimated());
-		assertEquals(accordion.getAnimated().getJavascriptOption().toString(), "'slide'");
-		accordion.setAnimated(new AccordionAnimated(true));
-		assertEquals(accordion.getAnimated().getJavascriptOption().toString(), "true");
+		assertNotNull(accordion.getAnimate());
+		assertEquals(accordion.getAnimate().getJavascriptOption().toString(), "{}");
+		accordion.setAnimate(new AccordionAnimateOption(true));
+		assertEquals(accordion.getAnimate().getJavascriptOption().toString(), "true");
+		accordion.setAnimate(new AccordionAnimateOption(new AccordionEffectOptionObject()
+				.setDuration(200)
+				.setDown(new AccordionDownEffectOptionObject()
+						.setEasing("linear")
+						.setDuration(200)
+				)
+		));
+		assertEquals(accordion.getAnimate().getJavascriptOption().toString(),
+				"{duration: 200, down: {easing: 'linear', duration: 200}}");
 	}
 
 	/**
@@ -157,11 +171,11 @@ public class AccordionTestCase extends WiQueryTestCase
 		assertNotNull(accordion.getIcons());
 
 		assertEquals(accordion.getIcons().getJavascriptOption().toString(),
-			"{'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s'}");
+			"{'header': 'ui-icon-triangle-1-e', 'activeHeader': 'ui-icon-triangle-1-s'}");
 		accordion.setIcons(new AccordionIcon("ui-icon-triangle-1-s", "ui-icon-triangle-1-e"));
 
 		assertEquals(accordion.getIcons().getJavascriptOption().toString(),
-			"{'header': 'ui-icon-triangle-1-s', 'headerSelected': 'ui-icon-triangle-1-e'}");
+			"{'header': 'ui-icon-triangle-1-s', 'activeHeader': 'ui-icon-triangle-1-e'}");
 	}
 
 	/**
@@ -172,30 +186,19 @@ public class AccordionTestCase extends WiQueryTestCase
 	{
 		assertNotNull(accordion.getOptions());
 		assertEquals(accordion.getOptions().getJavaScriptOptions().toString(), "{}");
-		accordion.setAutoHeight(true);
-		assertEquals(accordion.getOptions().getJavaScriptOptions().toString(), "{autoHeight: true}");
+		accordion.setCollapsible(true);
+		assertEquals(accordion.getOptions().getJavaScriptOptions().toString(), "{collapsible: true}");
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isAutoHeight()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#getHeightStyle()}.
 	 */
 	@Test
-	public void testIsAutoHeight()
+	public void testGetHeightStyle()
 	{
-		assertTrue(accordion.isAutoHeight());
-		accordion.setAutoHeight(false);
-		assertFalse(accordion.isAutoHeight());
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isClearStyle()}.
-	 */
-	@Test
-	public void testIsClearStyle()
-	{
-		assertFalse(accordion.isClearStyle());
-		accordion.setClearStyle(true);
-		assertTrue(accordion.isClearStyle());
+		assertEquals(accordion.getHeightStyle(), HeightStyleEnum.CONTENT);
+		accordion.setHeightStyle(HeightStyleEnum.AUTO);
+		assertEquals(accordion.getHeightStyle(), HeightStyleEnum.AUTO);
 	}
 
 	/**
@@ -221,55 +224,33 @@ public class AccordionTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isFillSpace()}.
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#setActivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
 	 */
 	@Test
-	public void testIsFillSpace()
+	public void testSetActivateEvent()
 	{
-		assertFalse(accordion.isFillSpace());
-		accordion.setFillSpace(true);
-		assertTrue(accordion.isFillSpace());
-	}
+		assertEquals(accordion.statement().render().toString(), "$('#anId').accordion({});");
+		accordion.setActivateEvent(JsScopeUiEvent.quickScope("alert('event');"));
 
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.accordion.Accordion#isNavigation()}.
-	 */
-	@Test
-	public void testIsNavigation()
-	{
-		assertFalse(accordion.isNavigation());
-		accordion.setNavigation(true);
-		assertTrue(accordion.isNavigation());
+		assertEquals(accordion.statement().render().toString(),
+			"$('#anId').accordion({activate: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#setBeforeActivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
 	 * .
 	 */
 	@Test
-	public void testSetChangeEvent()
+	public void testSetBeforeActivateEvent()
 	{
 		assertEquals(accordion.statement().render().toString(), "$('#anId').accordion({});");
-		accordion.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		accordion.setBeforeActivateEvent(JsScopeUiEvent.quickScope("alert('event');"));
 
 		assertEquals(accordion.statement().render().toString(),
-			"$('#anId').accordion({change: function(event, ui) {\n\talert('event');\n}});");
-	}
-
-	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.accordion.Accordion#setChangeStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
-	 */
-	@Test
-	public void testSetChangeStartEvent()
-	{
-		assertEquals(accordion.statement().render().toString(), "$('#anId').accordion({});");
-		accordion.setChangeStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
-
-		assertEquals(accordion.statement().render().toString(),
-			"$('#anId').accordion({changestart: function(event, ui) {\n\talert('event');\n}});");
+			"$('#anId').accordion({beforeActivate: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**

@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -36,7 +35,6 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
 import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScopeContext;
@@ -45,12 +43,10 @@ import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.EventLabelOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
-import org.odlabs.wiquery.core.options.IListItemOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
-import org.odlabs.wiquery.core.options.ListItemOptions;
-import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.options.HeightStyleEnum;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
@@ -72,20 +68,20 @@ public class Tabs extends WebMarkupContainer
 	 * Properties on the ui parameter (use it into callback functions) : anchor element of
 	 * the selected tab
 	 */
-	public static final String UI_TAB = "ui.tab";
+	public static final String UI_TAB = "ui.newTab";
 
 	/**
 	 * Properties on the ui parameter (use it into callback functions) : element, that
 	 * contains the selected tab contents
 	 */
-	public static final String UI_PANEL = "ui.panel";
+	public static final String UI_PANEL = "ui.newPanel";
 
 	/**
 	 * Properties on the ui parameter (use it into callback functions) : zero-based index
 	 * of the selected tab
 	 */
-	public static final String UI_INDEX = "ui.index";
-
+	public static final String UI_INDEX = "ui.newTab.index()";
+	
 	/**
 	 * Options are used to customize this component.
 	 */
@@ -96,13 +92,10 @@ public class Tabs extends WebMarkupContainer
 	 */
 	public static enum TabEvent
 	{
-		add,
-		enable,
-		disable,
-		show,
-		select,
-		remove,
-		load,
+		activate,
+		beforeActivate,
+		beforeLoad,
+		load
 	}
 
 	/**
@@ -144,13 +137,11 @@ public class Tabs extends WebMarkupContainer
 	private TabsAjaxBehavior tabsAjaxBehavior;
 
 	/*
-	 * The slider event.
+	 * The tab event.
 	 */
 	public static final String TAB_EVENT = "tabEvent";
 
 	public static final String TAB_INDEX = "tabIndex";
-
-	public static final String UI_TAB_INDEX = "ui.index";
 
 	/**
 	 * Utility class for handling tabs AJAX events.
@@ -178,7 +169,7 @@ public class Tabs extends WebMarkupContainer
 		{
 			tabs.tabsAjaxBehavior.setDynParams(Arrays.asList(String.format(
 					"return {'%s': '%s', '%s': %s}", TAB_EVENT, event.name(),
-					TAB_INDEX, UI_TAB_INDEX)));
+					TAB_INDEX, UI_INDEX)));
 
 				scopeContext.append(
 				// delegating call-back generation to AJAX behavior
@@ -189,17 +180,17 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
-	 * Specific function for select event.
+	 * Specific function for beforeActivate event.
 	 * 
 	 * @author reiern70
 	 */
-	public static class TabsAjaxSelectJsScopeUiEvent extends TabsAjaxJsScopeUiEvent
+	public static class TabsAjaxBeforeActivateJsScopeUiEvent extends TabsAjaxJsScopeUiEvent
 	{
 		private static final long serialVersionUID = 1L;
 
 		private boolean cancelSelect = false;
 
-		public TabsAjaxSelectJsScopeUiEvent(Tabs tabs, TabEvent event, boolean cancelSelect)
+		public TabsAjaxBeforeActivateJsScopeUiEvent(Tabs tabs, TabEvent event, boolean cancelSelect)
 		{
 			super(tabs, event);
 			this.cancelSelect = cancelSelect;
@@ -334,91 +325,6 @@ public class Tabs extends WebMarkupContainer
 	/*---- Options section ---*/
 
 	/**
-	 * Additional Ajax options to consider when loading tab content (see $.ajax).
-	 * 
-	 * @param ajaxOptions
-	 */
-	public void setAjaxOptions(JQueryAjaxOption ajaxOptions)
-	{
-		this.options.put("ajaxOptions", ajaxOptions);
-	}
-
-	/**
-	 * @return the ajaxOptions option value
-	 */
-	public JQueryAjaxOption getAjaxOptions()
-	{
-		IComplexOption ajaxOptions = this.options.getComplexOption("ajaxOptions");
-
-		if (ajaxOptions != null && ajaxOptions instanceof JQueryAjaxOption)
-		{
-			return (JQueryAjaxOption) ajaxOptions;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Method to store the latest selected tab in a cookie. The cookie is then used to
-	 * determine the initially selected tab if the selected option is not defined.
-	 * Requires cookie plugin. The object needs to have key/value pairs of the form the
-	 * cookie plugin expects as options. Available options (example): { expires: 7, path:
-	 * '/', domain: 'jquery.com', secure: true }.
-	 * 
-	 * Since jQuery UI 1.7 it is also possible to define the cookie name being used via
-	 * name property.
-	 * 
-	 * @param cookie
-	 */
-	public void setCookie(JQueryCookieOption cookie)
-	{
-		this.options.put("cookie", cookie);
-	}
-
-	/**
-	 * @return the cookie option value
-	 */
-	public JQueryCookieOption getCookie()
-	{
-		IComplexOption cookie = this.options.getComplexOption("cookie");
-
-		if (cookie != null && cookie instanceof JQueryCookieOption)
-		{
-			return (JQueryCookieOption) cookie;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Whether or not to cache remote tabs content, e.g. load only once or with every
-	 * click. Cached content is being lazy loaded, e.g once and only once for the first
-	 * click. Note that to prevent the actual Ajax requests from being cached by the
-	 * browser you need to provide an extra cache: false flag to ajaxOptions.
-	 * 
-	 * @param cache
-	 * @return instance of the current component
-	 */
-	public Tabs setCache(boolean cache)
-	{
-		options.put("cache", cache);
-		return this;
-	}
-
-	/**
-	 * @return the cache option value
-	 */
-	public boolean isCache()
-	{
-		if (this.options.containsKey("cache"))
-		{
-			return options.getBoolean("cache");
-		}
-
-		return false;
-	}
-
-	/**
 	 * Set to true to allow an already selected tab to become unselected again upon
 	 * reselection. (Old version of this option : deselectable)
 	 * 
@@ -442,30 +348,6 @@ public class Tabs extends WebMarkupContainer
 		}
 
 		return false;
-	}
-
-	/**
-	 * Sets which tab is displayed.
-	 * 
-	 * @return instance of the current component
-	 */
-	public Tabs setDefaultSelectedTabIndex(int selectedTabIndex)
-	{
-		this.options.put("selected", selectedTabIndex);
-		return this;
-	}
-
-	/**
-	 * Returns the which tab is selected by default.
-	 */
-	public int getDefaultSelectedTabIndex()
-	{
-		if (this.options.containsKey("selected"))
-		{
-			return this.options.getInt("selected");
-		}
-
-		return 0;
 	}
 
 	/**
@@ -512,7 +394,7 @@ public class Tabs extends WebMarkupContainer
 	 */
 	public ICollectionItemOptions getDisabled()
 	{
-		return this.options.getListItemOptions("disabled");
+		return this.options.getCollectionItemOptions("disabled");
 	}
 
 	/**
@@ -534,7 +416,7 @@ public class Tabs extends WebMarkupContainer
 	{
 		IComplexOption event = this.options.getComplexOption("event");
 
-		if (event != null && event instanceof EventLabelOptions)
+		if (event instanceof EventLabelOptions)
 		{
 			return (EventLabelOptions) event;
 		}
@@ -543,213 +425,151 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
-	 * Enable animations for hiding and showing tab panels. The duration option can be a
-	 * string representing one of the three predefined speeds ("slow", "normal", "fast")
-	 * or the duration in milliseconds to run an animation (default is "normal").
+	 * If and how to animate the hiding of the panel.
 	 * 
-	 * @param fx
+	 * @param hideOptions
 	 * @return instance of the current component
 	 */
-	public Tabs setFx(ListItemOptions<IListItemOption> fx)
+	public Tabs setHide(TabsAnimateOption hideOptions)
 	{
-		this.options.put("fx", fx);
-		return this;
-		// TODO change this method
-	}
-
-	/**
-	 * @return the fx option value
-	 */
-	public ICollectionItemOptions getFx()
-	{
-		return this.options.getListItemOptions("fx");
-	}
-
-	/**
-	 * If the remote tab, its anchor element that is, has no title attribute to generate
-	 * an id from, an id/fragment identifier is created from this prefix and a unique id
-	 * returned by $.data(el), for example "ui-tabs-54".
-	 * 
-	 * @param idPrefix
-	 * @return instance of the current component
-	 */
-	public Tabs setIdPrefix(String idPrefix)
-	{
-		this.options.putLiteral("idPrefix", idPrefix);
+		this.options.put("hide", hideOptions);
 		return this;
 	}
-
+	
 	/**
-	 * @return the idPrefix value
+	 * @return the hide option value
 	 */
-	public String getIdPrefix()
+	public TabsAnimateOption getHide()
 	{
-		if (this.options.containsKey("idPrefix"))
+		IComplexOption hideOptions = this.options.getComplexOption("hide");
+		if (hideOptions instanceof TabsAnimateOption)
 		{
-			return this.options.getLiteral("idPrefix");
+			return (TabsAnimateOption) hideOptions;
 		}
-
-		return "ui-tabs-";
+		
+		return null;
 	}
-
+	
 	/**
-	 * Set the HTML template from which a new tab panel is created in case of adding a tab
-	 * with the add method or when creating a panel for a remote tab on the fly.
+	 * If and how to animate the showing of the panel.
 	 * 
-	 * @param panelTemplate
+	 * @param showOptions
 	 * @return instance of the current component
 	 */
-	public Tabs setPanelTemplate(String panelTemplate)
+	public Tabs setShow(TabsAnimateOption showOptions)
 	{
-		this.options.putLiteral("panelTemplate", panelTemplate);
+		this.options.put("show", showOptions);
 		return this;
 	}
-
+	
 	/**
-	 * @return the panelTemplate value
+	 * @return the show option value
 	 */
-	public String getPanelTemplate()
+	public TabsAnimateOption getShow()
 	{
-		if (this.options.containsKey("panelTemplate"))
+		IComplexOption showOptions = this.options.getComplexOption("show");
+		if (showOptions instanceof TabsAnimateOption)
 		{
-			return this.options.getLiteral("panelTemplate");
+			return (TabsAnimateOption) showOptions;
 		}
-
-		return "<div></div>";
+		
+		return null;
 	}
 
 	/**
-	 * Set the HTML content of this string is shown in a tab title while remote content is
-	 * loading. Pass in empty string to deactivate that behavior.
+	 * @return the active option value
+	 */
+	public int getActive()
+	{
+		Integer index = this.options.getInt("active");
+		if (index != null)
+		{
+			return index;
+		}
+		
+		return 0;
+	}
+	
+	/**
+	 * The zero-based index of the panel that is active (open).
+	 * A negative value selects panels going backward from the last panel.
 	 * 
-	 * @param spinner
+	 * @param index
 	 * @return instance of the current component
 	 */
-	public Tabs setSpinner(String spinner)
+	public Tabs setActive(int index)
 	{
-		this.options.putLiteral("spinner", spinner);
+		this.options.put("active", index);
 		return this;
 	}
-
+	
 	/**
-	 * @return the spinner value
-	 */
-	public String getSpinner()
-	{
-		if (this.options.containsKey("spinner"))
-		{
-			return this.options.getLiteral("spinner");
-		}
-
-		return "<em>Loading&#8230;</em>";
-	}
-
-	/**
-	 * Set the HTML template from which a new tab is created and added. The placeholders
-	 * #{href} and #{label} are replaced with the url and tab label that are passed as
-	 * arguments to the add method.
+	 * Setting active to false will collapse all panels.
+	 * This requires the collapsible option to be true.
 	 * 
-	 * @param tabTemplate
+	 * @param isActive
 	 * @return instance of the current component
 	 */
-	public Tabs setTabTemplate(String tabTemplate)
+	public Tabs setActive(boolean isActive)
 	{
-		this.options.putLiteral("tabTemplate", tabTemplate);
+		this.options.put("active", isActive);
 		return this;
 	}
-
+	
 	/**
-	 * @return the tabTemplate value
+	 * @return the heightStyle option value
 	 */
-	public String getTabTemplate()
+	public HeightStyleEnum getHeightStyle()
 	{
-		if (this.options.containsKey("tabTemplate"))
-		{
-			return this.options.getLiteral("tabTemplate");
-		}
-
-		return "<li><a href=\"#{href}\"><span>#{label}</span></a></li>";
+		String literal = this.options.getLiteral("heightStyle");
+		return literal == null ? HeightStyleEnum.CONTENT : HeightStyleEnum.valueOf(literal.toUpperCase());
 	}
-
+	
+	/**
+	 * Controls the height of the tabs widget and each panel. Possible values:
+	 * <ul>
+	 * 	<li>AUTO: All panels will be set to the height of the tallest panel.</li>
+	 * 	<li>FILL: Expand to the available height based on the tabs' parent height.</li>
+	 * 	<li>CONTENT: Each panel will be only as tall as its content.</li>
+	 * </ul>
+	 * @param heightStyle
+	 * @return
+	 */
+	public Tabs setHeightStyle(HeightStyleEnum heightStyle)
+	{
+		this.options.putLiteral("heightStyle", heightStyle.name().toLowerCase());
+		return this;
+	}
+	
 	/*---- Events section ---*/
 
 	/**
-	 * Set the callback when a tab is added
+	 * Set the callback when the content of a remote tab is about to load.
 	 * 
-	 * @param add
+	 * @param beforeLoad
 	 * @return instance of the current component
 	 */
-	public Tabs setAddEvent(JsScopeUiEvent add)
+	public Tabs setBeforeLoadEvent(JsScopeUiEvent beforeLoad)
 	{
-		this.options.put("add", add);
+		this.options.put("beforeLoad", beforeLoad);
 		return this;
 	}
 
 	/**
-	 * Sets the call-back for the AJAX add event.
+	 * Sets the call-back for the AJAX beforeLoad event.
 	 * 
-	 * @param addEvent
+	 * @param beforeLoadEvent
 	 *            The ITabsAjaxEvent.
 	 */
-	public Tabs setAjaxAddEvent(ITabsAjaxEvent addEvent)
+	public Tabs setAjaxBeforeLoadEvent(ITabsAjaxEvent beforeLoadEvent)
 	{
-		this.ajaxEvents.put(TabEvent.add, addEvent);
-		setAddEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.add));
+		this.ajaxEvents.put(TabEvent.beforeLoad, beforeLoadEvent);
+		setBeforeLoadEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.beforeLoad));
 		return this;
 	}
-
+	
 	/**
-	 * Set the callback when a tab is disabled
-	 * 
-	 * @param disable
-	 * @return instance of the current component
-	 */
-	public Tabs setDisableEvent(JsScopeUiEvent disable)
-	{
-		this.options.put("disable", disable);
-		return this;
-	}
-
-	/**
-	 * Sets the call-back for the AJAX disable event.
-	 * 
-	 * @param disableEvent
-	 *            The ITabsAjaxEvent.
-	 */
-	public Tabs setAjaxDisableEvent(ITabsAjaxEvent disableEvent)
-	{
-		this.ajaxEvents.put(TabEvent.disable, disableEvent);
-		setDisableEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.disable));
-		return this;
-	}
-
-	/**
-	 * Set the callback when a tab is enabled
-	 * 
-	 * @param enable
-	 * @return instance of the current component
-	 */
-	public Tabs setEnableEvent(JsScopeUiEvent enable)
-	{
-		this.options.put("enable", enable);
-		return this;
-	}
-
-	/**
-	 * Sets the call-back for the AJAX enable event.
-	 * 
-	 * @param enableEvent
-	 *            The ITabsAjaxEvent.
-	 */
-	public Tabs setAjaxEnableEvent(ITabsAjaxEvent enableEvent)
-	{
-		this.ajaxEvents.put(TabEvent.enable, enableEvent);
-		setEnableEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.enable));
-		return this;
-	}
-
-	/**
-	 * Set the callback when the content of a remote tab has been loaded
+	 * Set the callback when the content of a remote tab has been loaded.
 	 * 
 	 * @param load
 	 * @return instance of the current component
@@ -774,246 +594,71 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
-	 * Set the callback when a tab is removed
-	 * 
-	 * @param remove
-	 * @return instance of the current component
-	 */
-	public Tabs setRemoveEvent(JsScopeUiEvent remove)
-	{
-		this.options.put("remove", remove);
-		return this;
-	}
-
-	/**
-	 * Sets the call-back for the AJAX remove event.
-	 * 
-	 * @param removeEvent
-	 *            The ITabsAjaxEvent.
-	 */
-	public Tabs setAjaxRemoveEvent(ITabsAjaxEvent removeEvent)
-	{
-		this.ajaxEvents.put(TabEvent.remove, removeEvent);
-		setRemoveEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.remove));
-		return this;
-	}
-
-	/**
 	 * Set the callback when the user is clicking the tab
 	 * 
-	 * @param select
+	 * @param beforeActivate
 	 * @return instance of the current component
 	 */
-	public Tabs setSelectEvent(JsScopeUiEvent select)
+	public Tabs setBeforeActivateEvent(JsScopeUiEvent beforeActivate)
 	{
-		this.options.put("select", select);
+		this.options.put("beforeActivate", beforeActivate);
 		return this;
 	}
 
 	/**
-	 * Sets the call-back for the AJAX select.
+	 * Sets the call-back for the AJAX beforeActivate event.
 	 * 
-	 * @param selectEvent
+	 * @param beforeActivateEvent
 	 *            The ITabsAjaxEvent.
 	 */
-	public Tabs setAjaxSelectEvent(ITabsAjaxEvent selectEvent)
+	public Tabs setAjaxBeforeActivateEvent(ITabsAjaxEvent beforeActivateEvent)
 	{
-		this.ajaxEvents.put(TabEvent.select, selectEvent);
-		setSelectEvent(new TabsAjaxSelectJsScopeUiEvent(this, TabEvent.select, false));
+		this.ajaxEvents.put(TabEvent.beforeActivate, beforeActivateEvent);
+		setBeforeActivateEvent(new TabsAjaxBeforeActivateJsScopeUiEvent(this, TabEvent.beforeActivate, false));
 		return this;
 	}
 
 	/**
-	 * Sets the call-back for the AJAX select.
+	 * Sets the call-back for the AJAX beforeActivate event.
 	 * 
-	 * @param selectEvent
+	 * @param beforeActivateEvent
 	 *            The ITabsAjaxEvent.
 	 * @param cancelSelect
 	 *            If select should be cancelled.
 	 */
-	public Tabs setAjaxSelectEvent(ITabsAjaxEvent selectEvent, boolean cancelSelect)
+	public Tabs setAjaxBeforeActivateEvent(ITabsAjaxEvent beforeActivateEvent, boolean cancelSelect)
 	{
-		this.ajaxEvents.put(TabEvent.select, selectEvent);
-		setSelectEvent(new TabsAjaxSelectJsScopeUiEvent(this, TabEvent.select, cancelSelect));
+		this.ajaxEvents.put(TabEvent.beforeActivate, beforeActivateEvent);
+		setBeforeActivateEvent(new TabsAjaxBeforeActivateJsScopeUiEvent(this, TabEvent.beforeActivate, cancelSelect));
 		return this;
 	}
 
 	/**
-	 * Set the callback when a tab is shown
+	 * Set the callback when a tab is activated.
 	 * 
-	 * @param show
+	 * @param activate
 	 * @return instance of the current component
 	 */
-	public Tabs setShowEvent(JsScopeUiEvent show)
+	public Tabs setActivateEvent(JsScopeUiEvent activate)
 	{
-		this.options.put("show", show);
+		this.options.put("activate", activate);
 		return this;
 	}
 
 	/**
-	 * Sets the call-back for the AJAX show event.
+	 * Sets the call-back for the AJAX activate event.
 	 * 
-	 * @param showEvent
+	 * @param activateEvent
 	 *            The ITabsAjaxEvent.
 	 */
-	public Tabs setAjaxShowEvent(ITabsAjaxEvent showEvent)
+	public Tabs setAjaxActivateEvent(ITabsAjaxEvent activateEvent)
 	{
-		this.ajaxEvents.put(TabEvent.show, showEvent);
-		setShowEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.show));
+		this.ajaxEvents.put(TabEvent.activate, activateEvent);
+		setActivateEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.activate));
 		return this;
 	}
 
 	/*---- Methods section ---*/
-
-	/**
-	 * Returns the {@link JsStatement} to add the given component in the tab panel.
-	 * 
-	 * @param index
-	 *            the insertion index.
-	 * @param title
-	 *            the tab title.
-	 * @param contentToAdd
-	 *            the {@link Component} to add.
-	 * @return a non null {@link JsStatement}.
-	 */
-	public JsStatement add(int index, String title, Component contentToAdd)
-	{
-		contentToAdd.setOutputMarkupId(true);
-		return new JsQuery(this).$().chain("tabs", "'add'",
-			"'#" + contentToAdd.getMarkupId() + "'", "'" + title + "'", "" + index);
-	}
-
-	/**
-	 * Add the given component in the tab panel.
-	 * 
-	 * @param ajaxRequestTarget
-	 * @param index
-	 *            the insertion index.
-	 * @param title
-	 *            the tab title.
-	 * @param contentToAdd
-	 *            the {@link Component} to add.
-	 */
-	public void add(AjaxRequestTarget ajaxRequestTarget, int index, String title,
-			Component contentToAdd)
-	{
-		ajaxRequestTarget.appendJavaScript(add(index, title, contentToAdd).render().toString());
-	}
-
-	/**
-	 * Returns the {@link JsStatement} to add the given component at the end of the tab
-	 * panel.
-	 * 
-	 * @param title
-	 *            the tab title.
-	 * @param contentToAdd
-	 *            the {@link Component} to add.
-	 * @return a non null {@link JsStatement}.
-	 */
-	public JsStatement add(String title, Component contentToAdd)
-	{
-		contentToAdd.setOutputMarkupId(true);
-		return new JsQuery(this).$().chain("tabs", "'add'",
-			"'#" + contentToAdd.getMarkupId() + "'", "'" + title + "'");
-	}
-
-	/**
-	 * Add the given component in the tab panel.
-	 * 
-	 * @param ajaxRequestTarget
-	 * @param title
-	 *            the tab title.
-	 * @param contentToAdd
-	 *            the {@link Component} to add.
-	 */
-	public void add(AjaxRequestTarget ajaxRequestTarget, String title, Component contentToAdd)
-	{
-		ajaxRequestTarget.appendJavaScript(add(title, contentToAdd).render().toString());
-	}
-
-	/**
-	 * Method to add a new tab This will return the element back to its pre-init state.
-	 * 
-	 * @param url
-	 *            URL
-	 * @param label
-	 *            Label of the tab
-	 * @return the associated JsStatement
-	 */
-	public JsStatement add(String url, String label)
-	{
-		return new JsQuery(this).$().chain("tabs", "'add'", new LiteralOption(url).toString(),
-			new LiteralOption(label).toString());
-	}
-
-	/**
-	 * Method to add a new tab within the ajax request
-	 * 
-	 * @param ajaxRequestTarget
-	 * @param url
-	 *            URL
-	 * @param label
-	 *            Label of the tab
-	 */
-	public void add(AjaxRequestTarget ajaxRequestTarget, String url, String label)
-	{
-		ajaxRequestTarget.appendJavaScript(this.add(url, label).render().toString());
-	}
-
-	/**
-	 * Method to add a new tab This will return the element back to its pre-init state.
-	 * 
-	 * @param url
-	 *            URL
-	 * @param label
-	 *            Label of the tab
-	 * @param index
-	 *            Index of insertion
-	 * @return the associated JsStatement
-	 */
-	public JsStatement add(String url, String label, int index)
-	{
-		return new JsQuery(this).$().chain("tabs", "'add'", new LiteralOption(url).toString(),
-			new LiteralOption(label).toString(), Integer.toString(index));
-	}
-
-	/**
-	 * Method to add a new tab within the ajax request
-	 * 
-	 * @param ajaxRequestTarget
-	 * @param url
-	 *            URL
-	 * @param label
-	 *            Label of the tab
-	 * @param index
-	 *            Index of insertion
-	 */
-	public void add(AjaxRequestTarget ajaxRequestTarget, String url, String label, int index)
-	{
-		ajaxRequestTarget.appendJavaScript(this.add(url, label, index).render().toString());
-	}
-
-	/**
-	 * Method to terminate all running tab ajax requests and animations This will return
-	 * the element back to its pre-init state.
-	 * 
-	 * @return the associated JsStatement
-	 */
-	public JsStatement abort()
-	{
-		return new JsQuery(this).$().chain("tabs", "'abort'");
-	}
-
-	/**
-	 * Method to terminate all running tab ajax requests and animations within the ajax
-	 * request
-	 * 
-	 * @param ajaxRequestTarget
-	 */
-	public void abort(AjaxRequestTarget ajaxRequestTarget)
-	{
-		ajaxRequestTarget.appendJavaScript(this.abort().render().toString());
-	}
 
 	/**
 	 * Method to destroy the tabs This will return the element back to its pre-init state.
@@ -1124,16 +769,6 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
-	 * Method retrieving the number of tabs of the first matched tab pane
-	 * 
-	 * @return the associated JsStatement
-	 */
-	public JsStatement length()
-	{
-		return new JsQuery(this).$().chain("tabs", "'length'");
-	}
-
-	/**
 	 * Method to reload the content of an Ajax tab programmatically
 	 * 
 	 * @param index
@@ -1159,136 +794,23 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
-	 * Returns the {@link JsStatement} to remove the tab at the given index.
+	 * Returns the {@link JsStatement} to refresh tabs.
 	 * 
-	 * @param index
-	 *            the remove index.
 	 * @return a non null {@link JsStatement}.
 	 */
-	public JsStatement remove(int index)
+	public JsStatement refresh()
 	{
-		return new JsQuery(this).$().chain("tabs", "'remove'", "" + index);
+		return new JsQuery(this).$().chain("tabs", "'refresh'");
 	}
 
 	/**
-	 * Method to remove a tab within the ajax request
+	 * Method to refresh tabs within the ajax request
 	 * 
-	 * @param index
-	 *            the remove index
 	 * @param ajaxRequestTarget
 	 */
-	public void remove(AjaxRequestTarget ajaxRequestTarget, int index)
+	public void refresh(AjaxRequestTarget ajaxRequestTarget)
 	{
-		ajaxRequestTarget.appendJavaScript(this.remove(index).render().toString());
-	}
-
-	/**
-	 * Method to set up an automatic rotation through tabs of a tab pane
-	 * 
-	 * @param ms
-	 *            Amount of time in milliseconds
-	 * @return the associated JsStatement
-	 */
-	public JsStatement rotate(int ms)
-	{
-		return new JsQuery(this).$().chain("tabs", "'rotate'", Integer.toString(ms));
-	}
-
-	/**
-	 * Method to set up an automatic rotation through tabs of a tab pane within the ajax
-	 * request
-	 * 
-	 * @param ms
-	 *            Amount of time in milliseconds
-	 * @param ajaxRequestTarget
-	 */
-	public void rotate(AjaxRequestTarget ajaxRequestTarget, int ms)
-	{
-		ajaxRequestTarget.appendJavaScript(this.rotate(ms).render().toString());
-	}
-
-	/**
-	 * Method to set up an automatic rotation through tabs of a tab pane
-	 * 
-	 * @param ms
-	 *            Amount of time in milliseconds
-	 * @param continuing
-	 *            Continue the rotation after a tab has been selected by a user
-	 * @return the associated JsStatement
-	 */
-	public JsStatement rotate(int ms, boolean continuing)
-	{
-		return new JsQuery(this).$().chain("tabs", "'rotate'", Integer.toString(ms),
-			Boolean.toString(continuing));
-	}
-
-	/**
-	 * Method to set up an automatic rotation through tabs of a tab pane within the ajax
-	 * request
-	 * 
-	 * @param ms
-	 *            Amount of time in milliseconds
-	 * @param continuing
-	 *            Continue the rotation after a tab has been selected by a user
-	 * @param ajaxRequestTarget
-	 */
-	public void rotate(AjaxRequestTarget ajaxRequestTarget, int ms, boolean continuing)
-	{
-		ajaxRequestTarget.appendJavaScript(this.rotate(ms).render().toString());
-	}
-
-	/**
-	 * Method to select a tab
-	 * 
-	 * @param index
-	 *            Index tab to select
-	 * @return the associated JsStatement
-	 */
-	public JsStatement select(int index)
-	{
-		return new JsQuery(this).$().chain("tabs", "'select'", Integer.toString(index));
-	}
-
-	/**
-	 * Method to select a tab within the ajax request
-	 * 
-	 * @param index
-	 *            Index tab to select
-	 * @param ajaxRequestTarget
-	 */
-	public void select(AjaxRequestTarget ajaxRequestTarget, int index)
-	{
-		ajaxRequestTarget.appendJavaScript(this.select(index).render().toString());
-	}
-
-	/**
-	 * Method to change the url from which an Ajax (remote) tab will be loaded
-	 * 
-	 * @param index
-	 *            Index tab to select
-	 * @param url
-	 *            URL
-	 * @return the associated JsStatement
-	 */
-	public JsStatement url(int index, String url)
-	{
-		return new JsQuery(this).$().chain("tabs", "'url'", Integer.toString(index),
-			new LiteralOption(url).toString());
-	}
-
-	/**
-	 * Method to change the url from which an Ajax (remote) tab will be loaded within the
-	 * ajax request
-	 * 
-	 * @param index
-	 *            Index tab to select
-	 * @param url
-	 *            URL
-	 * @param ajaxRequestTarget
-	 */
-	public void url(AjaxRequestTarget ajaxRequestTarget, int index, String url)
-	{
-		ajaxRequestTarget.appendJavaScript(this.url(index, url).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.refresh().render().toString());
 	}
 
 	/**

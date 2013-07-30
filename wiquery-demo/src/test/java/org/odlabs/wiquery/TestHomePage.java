@@ -18,9 +18,9 @@ public class TestHomePage {
 	@Test
 	public void homepageRendersSuccessfully() {
 		// start and render the test page
-		tester.startPage(HomePage.class);
+		tester.startPage(WicketApplication.get().getHomePage());
 
 		// assert rendered page class
-		tester.assertRenderedPage(HomePage.class);
+		tester.assertRenderedPage(WicketApplication.get().getHomePage());
 	}
 }

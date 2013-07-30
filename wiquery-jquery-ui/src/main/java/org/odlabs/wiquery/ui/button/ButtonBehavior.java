@@ -302,6 +302,26 @@ public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 	{
 		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
+	
+	/**
+	 * Returns the {@link JsStatement} to refresh the button.
+	 * 
+	 * @return a non null {@link JsStatement}.
+	 */
+	public JsStatement refresh()
+	{
+		return new JsQuery(getComponent()).$().chain("button", "'refresh'");
+	}
+
+	/**
+	 * Method to refresh tabs within the ajax request
+	 * 
+	 * @param ajaxRequestTarget
+	 */
+	public void refresh(AjaxRequestTarget ajaxRequestTarget)
+	{
+		ajaxRequestTarget.appendJavaScript(this.refresh().render().toString());
+	}
 
 	/**
 	 * Method to returns the .ui-autocomplete element

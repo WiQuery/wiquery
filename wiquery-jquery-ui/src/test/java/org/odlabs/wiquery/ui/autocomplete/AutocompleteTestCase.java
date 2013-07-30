@@ -21,7 +21,11 @@
  */
 package org.odlabs.wiquery.ui.autocomplete;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.junit.Before;
@@ -29,6 +33,7 @@ import org.junit.Test;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.InputTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.position.PositionCollision;
 import org.odlabs.wiquery.ui.position.PositionOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -144,13 +149,13 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	{
 		assertNotNull(autocomplete.getPosition());
 		assertEquals(autocomplete.getPosition().getJavascriptOption().toString(),
-			"{at: 'left bottom', collision: 'none', my: 'left top'}");
+			"{my: 'left top', at: 'left bottom', collision: 'none'}");
 		PositionOptions position = new PositionOptions();
-		position.setBgiframe(true);
+		position.setCollision(PositionCollision.FIT);
 		autocomplete.setPosition(position);
 		assertNotNull(autocomplete.getPosition());
 		assertEquals(autocomplete.getPosition().getJavascriptOption().toString(),
-			"{bgiframe: true}");
+			"{collision: 'fit'}");
 	}
 
 	/**
@@ -190,6 +195,18 @@ public class AutocompleteTestCase extends WiQueryTestCase
 		assertFalse(autocomplete.isDisabled());
 		autocomplete.setDisabled(true);
 		assertTrue(autocomplete.isDisabled());
+	}
+	
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#isAutoFocus()}.
+	 */
+	@Test
+	public void testIsAutoFocus()
+	{
+		assertFalse(autocomplete.isAutoFocus());
+		autocomplete.setAutoFocus(true);
+		assertTrue(autocomplete.isAutoFocus());
 	}
 
 	/**
@@ -283,6 +300,19 @@ public class AutocompleteTestCase extends WiQueryTestCase
 		autocomplete.setSearchEvent(JsScopeUiEvent.quickScope("alert('event');"));
 		assertEquals(autocomplete.statement().render().toString(),
 			"$('#anId').autocomplete({search: function(event, ui) {\n\talert('event');\n}});");
+	}
+	
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.autocomplete.Autocomplete#setResponseEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
+	 */
+	@Test
+	public void testSetResponseEvent()
+	{
+		assertEquals(autocomplete.statement().render().toString(), "$('#anId').autocomplete({});");
+		autocomplete.setResponseEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(autocomplete.statement().render().toString(),
+			"$('#anId').autocomplete({response: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**

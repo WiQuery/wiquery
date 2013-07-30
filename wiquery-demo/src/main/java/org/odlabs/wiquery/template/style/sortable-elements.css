@@ -1,0 +1,46 @@
+.list-elements {
+	border-top: 1px solid #CCC;
+	margin-top: 15px;
+}
+
+.list-elements.sortable.ui-sortable-disabled .element {
+	cursor: default;
+}
+
+.list-elements.sortable .element-placeholder {
+	background: #A1CEF7;
+	border: none;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 3px;
+}
+
+.list-elements.sortable .element {
+	cursor: move;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 3px;
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.list-elements.sortable .element .title-outer {
+	padding: 2px 0;
+}
+
+.list-elements.sortable .element .title-outer .position-label {
+	display: inline-block;
+	width: 25px;
+	margin-left: 10px;
+	color: #0066CC;
+}
+
+.list-elements.sortable .element .title-outer .title {
+	margin: 0;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 20px;
+	margin-left: 5px;
+	vertical-align: middle;
+}
+
+.list-elements.sortable .element .title-outer input.position {
+	display: none;
+}

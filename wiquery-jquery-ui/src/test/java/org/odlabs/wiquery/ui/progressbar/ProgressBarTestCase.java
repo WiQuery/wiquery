@@ -21,7 +21,10 @@
  */
 package org.odlabs.wiquery.ui.progressbar;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.junit.Before;
@@ -107,6 +110,17 @@ public class ProgressBarTestCase extends WiQueryTestCase
 		assertNotNull(progressBar.enable());
 		assertEquals(progressBar.enable().render().toString(), "$('#anId').progressbar('enable');");
 	}
+	
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#getMax()}.
+	 */
+	@Test
+	public void testGetMax()
+	{
+		assertEquals(progressBar.getMax(), 100);
+		progressBar.setMax(150);
+		assertEquals(progressBar.getMax(), 150);
+	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#getOptions()}.
@@ -130,6 +144,8 @@ public class ProgressBarTestCase extends WiQueryTestCase
 		assertEquals(progressBar.getValue(), 0);
 		progressBar.setValue(5);
 		assertEquals(progressBar.getValue(), 5);
+		progressBar.setValue(false);
+		assertEquals(progressBar.getValue(), 0);
 	}
 
 	/**
@@ -179,6 +195,21 @@ public class ProgressBarTestCase extends WiQueryTestCase
 		assertEquals(
 			progressBar.statement().render().toString(),
 			"$('#anId').progressbar();$('#anId').progressbar('option', 'change', function(event, ui) {\n\talert('event');\n});");
+	}
+
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.progressbar.ProgressBar#setCompleteEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
+	 * .
+	 */
+	@Test
+	public void testSetCompleteEvent()
+	{
+		assertEquals(progressBar.statement().render().toString(), "$('#anId').progressbar();");
+		progressBar.setCompleteEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		assertEquals(
+			progressBar.statement().render().toString(),
+			"$('#anId').progressbar();$('#anId').progressbar('option', 'complete', function(event, ui) {\n\talert('event');\n});");
 	}
 
 	/**

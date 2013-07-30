@@ -21,17 +21,24 @@
  */
 package org.odlabs.wiquery.ui.dialog;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.junit.Before;
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScope;
-import org.odlabs.wiquery.core.options.ListItemOptions;
+import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
-import org.odlabs.wiquery.ui.dialog.Dialog.WindowPosition;
+import org.odlabs.wiquery.ui.options.EffectOptionObject;
+import org.odlabs.wiquery.ui.position.PositionAlignmentOptions;
+import org.odlabs.wiquery.ui.position.PositionOptions;
+import org.odlabs.wiquery.ui.position.PositionRelation;
 
 /**
  * Test on {@link Dialog}
@@ -55,45 +62,16 @@ public class DialogTestCase extends WiQueryTestCase
 		panel.add(dialog);
 		tester.startComponent(panel);
 	}
-
+	
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#close()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#getAppendTo()}.
 	 */
 	@Test
-	public void testClose()
+	public void testGetAppendTo()
 	{
-		assertNotNull(dialog.close());
-		assertEquals(dialog.close().render().toString(), "$('#anId').dialog('close');");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#destroy()}.
-	 */
-	@Test
-	public void testDestroy()
-	{
-		assertNotNull(dialog.destroy());
-		assertEquals(dialog.destroy().render().toString(), "$('#anId').dialog('destroy');");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#disable()}.
-	 */
-	@Test
-	public void testDisable()
-	{
-		assertNotNull(dialog.disable());
-		assertEquals(dialog.disable().render().toString(), "$('#anId').dialog('disable');");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#enable()}.
-	 */
-	@Test
-	public void testEnable()
-	{
-		assertNotNull(dialog.enable());
-		assertEquals(dialog.enable().render().toString(), "$('#anId').dialog('enable');");
+		assertEquals(dialog.getAppendTo(), "body");
+		dialog.setAppendTo("html > div.myClasss");
+		assertEquals(dialog.getAppendTo(), "html > div.myClasss");
 	}
 
 	/**
@@ -103,12 +81,12 @@ public class DialogTestCase extends WiQueryTestCase
 	public void testGetButtons()
 	{
 		assertNull(dialog.getButtons());
-		ListItemOptions<DialogButton> list = new ListItemOptions<DialogButton>();
-		list.add(new DialogButton("a title", JsScope.quickScope("alert('a test');")));
-		dialog.setButtons(list);
+		ArrayItemOptions<DialogButton> array = new ArrayItemOptions<DialogButton>();
+		array.add(new DialogButton("a title", JsScope.quickScope("alert('a test');")));
+		dialog.setButtons(array);
 		assertNotNull(dialog.getButtons());
 		assertEquals(dialog.getButtons().getJavascriptOption().toString(),
-			"{'a title':function() {\n\talert('a test');\n}}");
+			"[{text: 'a title', click: function() {\n\talert('a test');\n}}]");
 	}
 
 	/**
@@ -120,17 +98,6 @@ public class DialogTestCase extends WiQueryTestCase
 		assertEquals(dialog.getCloseText(), "close");
 		dialog.setCloseText("a text");
 		assertEquals(dialog.getCloseText(), "a text");
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#getCssClass()} .
-	 */
-	@Test
-	public void testGetCssClass()
-	{
-		assertEquals(dialog.getCssClass(), "*");
-		dialog.setCssClass(".aClass");
-		assertEquals(dialog.getCssClass(), ".aClass");
 	}
 
 	/**
@@ -159,11 +126,20 @@ public class DialogTestCase extends WiQueryTestCase
 	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#getHideEffect()}.
 	 */
 	@Test
-	public void testGetHideEffect()
+	public void testGetHide()
 	{
-		assertNull(dialog.getHideEffect());
-		dialog.setHideEffect("fold");
-		assertEquals(dialog.getHideEffect(), "fold");
+		assertNull(dialog.getHide());
+		dialog.setHide(new DialogAnimateOption(200));
+		assertEquals(dialog.getHide().getJavascriptOption().toString(), "200");
+		dialog.setHide(new DialogAnimateOption("fold"));
+		assertEquals(dialog.getHide().getJavascriptOption().toString(), "'fold'");
+		dialog.setHide(new DialogAnimateOption(new EffectOptionObject()
+				.setEffect("blind")
+				.setDuration(200)
+				.setEasing("linear")
+		));
+		assertEquals(dialog.getHide().getJavascriptOption().toString(),
+				"{effect: 'blind', duration: 200, easing: 'linear'}");
 	}
 
 	/**
@@ -218,7 +194,7 @@ public class DialogTestCase extends WiQueryTestCase
 	{
 		assertNotNull(dialog.getOptions());
 		assertEquals(dialog.getOptions().getJavaScriptOptions().toString(),
-			"{autoOpen: false, position: 'center'}");
+			"{autoOpen: false}");
 	}
 
 	/**
@@ -227,20 +203,35 @@ public class DialogTestCase extends WiQueryTestCase
 	@Test
 	public void testGetPosition()
 	{
-		assertEquals(dialog.getPosition(), WindowPosition.CENTER);
-		dialog.setPosition(WindowPosition.TOP);
-		assertEquals(dialog.getPosition(), WindowPosition.TOP);
+		assertEquals(dialog.getPosition().getJavascriptOption().toString(),
+				"{my: 'center', at: 'center', of: 'window'}");
+		dialog.setPosition(new PositionOptions()
+				.setMy(new PositionAlignmentOptions(PositionRelation.RIGHT))
+				.setAt(new PositionAlignmentOptions(PositionRelation.CENTER, 10, PositionRelation.BOTTOM, -10))
+				.setOf("#someId")
+		);
+		assertEquals(dialog.getPosition().getJavascriptOption().toString(),
+				"{my: 'right', at: 'center+10 bottom-10', of: '#someId'}");
 	}
 
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#getShowEffect()}.
 	 */
 	@Test
-	public void testGetShowEffect()
+	public void testGetShow()
 	{
-		assertNull(dialog.getShowEffect());
-		dialog.setShowEffect("fold");
-		assertEquals(dialog.getShowEffect(), "fold");
+		assertNull(dialog.getShow());
+		dialog.setShow(new DialogAnimateOption(200));
+		assertEquals(dialog.getShow().getJavascriptOption().toString(), "200");
+		dialog.setShow(new DialogAnimateOption("fold"));
+		assertEquals(dialog.getShow().getJavascriptOption().toString(), "'fold'");
+		dialog.setShow(new DialogAnimateOption(new EffectOptionObject()
+				.setEffect("blind")
+				.setDuration(200)
+				.setEasing("linear")
+		));
+		assertEquals(dialog.getShow().getJavascriptOption().toString(),
+				"{effect: 'blind', duration: 200, easing: 'linear'}");
 	}
 
 	/**
@@ -263,14 +254,13 @@ public class DialogTestCase extends WiQueryTestCase
 	@Test
 	public void testAjaxButton()
 	{
-
 		AjaxDialogTestPage page = tester.startPage(AjaxDialogTestPage.class);
 		String realValue = page.getOk().getJavascriptOption().toString();
 		String expectedOk =
-			"'Ok':function (event,ui) {\n"
+			"{text: 'Ok', click: function (event,ui) {\n"
 				+ "var attrs = {\"u\":\"./wicket/page?0-1.IBehaviorListener.0-dialog\","
 				+ "\"c\":\"dialog1\"};\nvar params = {'eventName': 'Ok'};\n"
-				+ "attrs.ep = params;\nWicket.Ajax.ajax(attrs);\n}\n";
+				+ "attrs.ep = params;\nWicket.Ajax.ajax(attrs);\n}\n}";
 		assertEquals(expectedOk, realValue);
 	}
 
@@ -283,17 +273,6 @@ public class DialogTestCase extends WiQueryTestCase
 		assertEquals(dialog.getWidth(), 300);
 		dialog.setWidth(5);
 		assertEquals(dialog.getWidth(), 5);
-	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#getZIndex()}.
-	 */
-	@Test
-	public void testGetZIndex()
-	{
-		assertEquals(dialog.getZIndex(), 1000);
-		dialog.setZIndex(5);
-		assertEquals(dialog.getZIndex(), 5);
 	}
 
 	/**
@@ -350,17 +329,7 @@ public class DialogTestCase extends WiQueryTestCase
 		dialog.setModal(true);
 		assertTrue(dialog.isModal());
 	}
-
-	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#isOpen()}.
-	 */
-	@Test
-	public void testIsOpen()
-	{
-		assertNotNull(dialog.isOpen());
-		assertEquals(dialog.isOpen().render().toString(), "$('#anId').dialog('isOpen');");
-	}
-
+	
 	/**
 	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#isResizable()} .
 	 */
@@ -371,16 +340,36 @@ public class DialogTestCase extends WiQueryTestCase
 		dialog.setResizable(false);
 		assertFalse(dialog.isResizable());
 	}
+	
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#isStack()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#close()}.
 	 */
 	@Test
-	public void testIsStack()
+	public void testClose()
 	{
-		assertTrue(dialog.isStack());
-		dialog.setStack(false);
-		assertFalse(dialog.isStack());
+		assertNotNull(dialog.close());
+		assertEquals(dialog.close().render().toString(), "$('#anId').dialog('close');");
+	}
+
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#destroy()}.
+	 */
+	@Test
+	public void testDestroy()
+	{
+		assertNotNull(dialog.destroy());
+		assertEquals(dialog.destroy().render().toString(), "$('#anId').dialog('destroy');");
+	}
+
+	/**
+	 * Test method for {@link org.odlabs.wiquery.ui.dialog.Dialog#isOpen()}.
+	 */
+	@Test
+	public void testIsOpen()
+	{
+		assertNotNull(dialog.isOpen());
+		assertEquals(dialog.isOpen().render().toString(), "$('#anId').dialog('isOpen');");
 	}
 
 	/**

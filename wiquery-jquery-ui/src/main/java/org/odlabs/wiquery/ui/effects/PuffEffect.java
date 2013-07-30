@@ -75,7 +75,7 @@ public class PuffEffect extends Effect
 	 */
 	public PuffEffect(Mode mode, int duration)
 	{
-		super(JsUtils.quotes("explode"), Integer.toString(duration));
+		super(JsUtils.quotes("puff"), Integer.toString(duration));
 		this.mode = mode;
 	}
 
@@ -87,7 +87,7 @@ public class PuffEffect extends Effect
 	 */
 	public PuffEffect(Mode mode, int percent, int duration)
 	{
-		super(JsUtils.quotes("explode"), "{percent: " + Integer.toString(percent) + "}", Integer
+		super(JsUtils.quotes("puff"), "{percent: " + Integer.toString(percent) + "}", Integer
 			.toString(duration));
 		this.mode = mode;
 	}

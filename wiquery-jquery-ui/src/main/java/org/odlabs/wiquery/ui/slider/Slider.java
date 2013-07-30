@@ -443,7 +443,7 @@ public class Slider extends WebMarkupContainer
 	 */
 	public ICollectionItemOptions getValues()
 	{
-		return this.options.getListItemOptions("values");
+		return this.options.getCollectionItemOptions("values");
 	}
 
 	/*---- Events section ---*/

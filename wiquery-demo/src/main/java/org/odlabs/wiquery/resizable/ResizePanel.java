@@ -17,7 +17,7 @@ public class ResizePanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
 
-	private String index = "";
+	private String size = "";
 	
 	private Label label;
 
@@ -37,7 +37,7 @@ public class ResizePanel extends Panel {
 			@Override
 			protected void resizeTop(AjaxRequestTarget target, Component source,
 					double resizeHeight, double resizeWidth) {
-				index = "resizeHeight="+resizeHeight+", resizeWidth=" + resizeWidth;
+				size = "resizeHeight="+resizeHeight+", resizeWidth=" + resizeWidth;
 				target.add(label);
 			}
 		});
@@ -48,7 +48,7 @@ public class ResizePanel extends Panel {
 
 			@Override
 			public String getObject() {
-				return "Selected index is: " + index;
+				return "Size is: " + size;
 			}
 
 		});

@@ -21,7 +21,11 @@
  */
 package org.odlabs.wiquery.ui.position;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -63,8 +67,10 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	public void testGetAt()
 	{
 		assertNull(positionBehavior.getAt());
-		positionBehavior.setAt(PositionRelation.CENTER_TOP);
-		assertEquals(positionBehavior.getAt(), PositionRelation.CENTER_TOP);
+		positionBehavior.setAt(new PositionAlignmentOptions(PositionRelation.CENTER, PositionRelation.TOP));
+		assertEquals(positionBehavior.getAt().getJavascriptOption().toString(), "'center top'");
+		positionBehavior.setAt(new PositionAlignmentOptions(PositionRelation.RIGHT, 20, PositionRelation.BOTTOM, -20));
+		assertEquals(positionBehavior.getAt().getJavascriptOption().toString(), "'right+20 bottom-20'");
 	}
 
 	/**
@@ -86,8 +92,10 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	public void testGetMy()
 	{
 		assertNull(positionBehavior.getMy());
-		positionBehavior.setMy(PositionRelation.CENTER_TOP);
-		assertEquals(positionBehavior.getMy(), PositionRelation.CENTER_TOP);
+		positionBehavior.setMy(new PositionAlignmentOptions(PositionRelation.CENTER, PositionRelation.TOP));
+		assertEquals(positionBehavior.getMy().getJavascriptOption().toString(), "'center top'");
+		positionBehavior.setMy(new PositionAlignmentOptions(PositionRelation.LEFT, 0, PositionRelation.CENTER, -20));
+		assertEquals(positionBehavior.getMy().getJavascriptOption().toString(), "'left center-20'");
 	}
 
 	/**
@@ -102,19 +110,6 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.odlabs.wiquery.ui.position.PositionBehavior#getOffset()}
-	 * .
-	 */
-	@Test
-	public void testGetOffset()
-	{
-		assertNull(positionBehavior.getOffset());
-		positionBehavior.setOffset(new PositionOffset(5));
-		assertNotNull(positionBehavior.getOffset());
-		assertEquals(positionBehavior.getOffset().getJavascriptOption().toString(), "'5 5'");
-	}
-
-	/**
 	 * Test method for
 	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#getOptions()}.
 	 */
@@ -123,11 +118,11 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	{
 		assertNotNull(positionBehavior.getOptions());
 		assertEquals(positionBehavior.getOptions().getJavaScriptOptions().toString(), "{}");
-		positionBehavior.setBgiframe(false);
+		positionBehavior.setCollision(PositionCollision.FIT);
 		assertEquals(positionBehavior.getOptions().getJavaScriptOptions().toString(),
-			"{bgiframe: false}");
+			"{collision: 'fit'}");
 	}
-
+	
 	/**
 	 * Test method for
 	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#isBgiframe()}.

@@ -43,7 +43,7 @@ public class AccordionIcon extends Object implements IComplexOption
 	// Properties
 	private String headerClass;
 
-	private String headerSelectedClass;
+	private String activeHeaderClass;
 
 	private Boolean wantIcons;
 
@@ -51,15 +51,15 @@ public class AccordionIcon extends Object implements IComplexOption
 	 * Constructor
 	 * 
 	 * @param header
-	 * @param headerSelected
+	 * @param activeHeader
 	 */
-	public AccordionIcon(UiIcon header, UiIcon headerSelected)
+	public AccordionIcon(UiIcon header, UiIcon activeHeader)
 	{
 		super();
 		if (header != null)
 			this.headerClass = header.getCssClass();
-		if (headerSelected != null)
-			this.headerSelectedClass = headerSelected.getCssClass();
+		if (activeHeader != null)
+			this.activeHeaderClass = activeHeader.getCssClass();
 		this.wantIcons = null;
 	}
 
@@ -67,13 +67,13 @@ public class AccordionIcon extends Object implements IComplexOption
 	 * Constructor
 	 * 
 	 * @param headerClass
-	 * @param headerSelectedClass
+	 * @param activeHeaderClass
 	 */
-	public AccordionIcon(String headerClass, String headerSelectedClass)
+	public AccordionIcon(String headerClass, String activeHeaderClass)
 	{
 		super();
 		this.headerClass = headerClass;
-		this.headerSelectedClass = headerSelectedClass;
+		this.activeHeaderClass = activeHeaderClass;
 		this.wantIcons = null;
 	}
 
@@ -99,13 +99,13 @@ public class AccordionIcon extends Object implements IComplexOption
 	}
 
 	/**
-	 * Method retrieving the class for the headerSelected
+	 * Method retrieving the class for the activeHeader
 	 * 
-	 * @return the class for the headerSelected
+	 * @return the class for the activeHeader
 	 */
-	public String getHeaderSelectedClass()
+	public String getActiveHeaderClass()
 	{
-		return headerSelectedClass;
+		return activeHeaderClass;
 	}
 
 	@Override
@@ -113,8 +113,8 @@ public class AccordionIcon extends Object implements IComplexOption
 	{
 		if (wantIcons != null)
 			return wantIcons.toString();
-		return "{'header': " + new LiteralOption(headerClass) + ", 'headerSelected': "
-			+ new LiteralOption(headerSelectedClass) + "}";
+		return "{'header': " + new LiteralOption(headerClass) + ", 'activeHeader': "
+			+ new LiteralOption(activeHeaderClass) + "}";
 	}
 
 	/**
@@ -128,13 +128,13 @@ public class AccordionIcon extends Object implements IComplexOption
 	}
 
 	/**
-	 * Method setting the class for the headerSelected
+	 * Method setting the class for the activeHeader
 	 * 
-	 * @param headerSelectedClass
+	 * @param activeHeaderClass
 	 */
-	public void setHeaderSelectedClass(String headerSelectedClass)
+	public void setHeaderSelectedClass(String activeHeaderClass)
 	{
-		this.headerSelectedClass = headerSelectedClass;
+		this.activeHeaderClass = activeHeaderClass;
 	}
 
 	public Boolean getWantIcons()
