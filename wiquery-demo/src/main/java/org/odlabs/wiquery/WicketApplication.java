@@ -7,6 +7,7 @@ import org.odlabs.wiquery.autocomplete.AutocompletePage;
 import org.odlabs.wiquery.button.ButtonPage;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
 import org.odlabs.wiquery.dialog.DialogPage;
+import org.odlabs.wiquery.progressbar.ProgressBarPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
 import org.odlabs.wiquery.sortable.SortablePage;
@@ -40,6 +41,7 @@ public class WicketApplication extends WebApplication {
 		mountPage("/button/", ButtonPage.class);
 		mountPage("/datePicker/", DatePickerPage.class);
 		mountPage("/dialog/", DialogPage.class);
+		mountPage("/progressBar/", ProgressBarPage.class);
 		mountPage("/resize/", ResizePage.class);
 		mountPage("/slider/", SliderPage.class);
 		mountPage("/tabs/", TabsPage.class);

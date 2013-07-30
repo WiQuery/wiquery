@@ -96,13 +96,6 @@ public class ProgressBar extends WebMarkupContainer
 		return options;
 	}
 
-	public JsStatement update()
-	{
-		JsStatement wholeStatement = new JsStatement();
-		wholeStatement.append(options.getJavaScriptOptions());
-		return wholeStatement;
-	}
-
 	/*---- Options section ---*/
 
 	/**
@@ -132,6 +125,18 @@ public class ProgressBar extends WebMarkupContainer
 	}
 
 	/**
+	 * Sets the progressBar as determinate/indeterminate
+	 * 
+	 * @param determinate
+	 * @return instance of the current component
+	 */
+	public ProgressBar setValue(boolean determinate)
+	{
+		this.options.put("value", determinate);
+		return this;
+	}
+
+	/**
 	 * Sets the current value of the progressBar
 	 * 
 	 * @param value
@@ -148,12 +153,39 @@ public class ProgressBar extends WebMarkupContainer
 	 */
 	public int getValue()
 	{
-		if (this.options.containsKey("value"))
+		Integer value = this.options.getInt("value");
+		if (value != null)
 		{
-			return options.getInt("value");
+			return value;
 		}
-
+		
 		return 0;
+	}
+	
+	/**
+	 * Sets the maximum value of the progressBar
+	 * 
+	 * @param max
+	 * @return instance of the current component
+	 */
+	public ProgressBar setMax(int max)
+	{
+		this.options.put("max", max);
+		return this;
+	}
+
+	/**
+	 * @return the maximum value of the progressBar
+	 */
+	public int getMax()
+	{
+		Integer value = this.options.getInt("max");
+		if (value != null)
+		{
+			return value;
+		}
+		
+		return 100;
 	}
 
 	/*---- Events section ---*/
@@ -167,6 +199,18 @@ public class ProgressBar extends WebMarkupContainer
 	public ProgressBar setChangeEvent(JsScopeUiEvent change)
 	{
 		this.options.put("change", change);
+		return this;
+	}
+	
+	/**
+	 * Set's the callback when the value of the progressBar reaches the maximum value.
+	 * 
+	 * @param complete
+	 * @return instance of the current component
+	 */
+	public ProgressBar setCompleteEvent(JsScopeUiEvent complete)
+	{
+		this.options.put("complete", complete);
 		return this;
 	}
 
@@ -263,6 +307,26 @@ public class ProgressBar extends WebMarkupContainer
 	public void value(AjaxRequestTarget ajaxRequestTarget, int value)
 	{
 		ajaxRequestTarget.appendJavaScript(this.value(value).render().toString());
+	}
+	
+	/**
+	 * Method to returns the .ui-progressbar element
+	 * 
+	 * @return the associated JsStatement
+	 */
+	public JsStatement widget()
+	{
+		return new JsQuery(this).$().chain("progressbar", "'widget'");
+	}
+
+	/**
+	 * Method to returns the .ui-progressbar element within the ajax request
+	 * 
+	 * @param ajaxRequestTarget
+	 */
+	public void widget(AjaxRequestTarget ajaxRequestTarget)
+	{
+		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 
 	/*---- wiQuery Methods section ---*/
@@ -372,24 +436,11 @@ public class ProgressBar extends WebMarkupContainer
 	{
 		ajaxRequestTarget.appendJavaScript(this.decrement(decrement).render().toString());
 	}
-
-	/**
-	 * Method to returns the .ui-progressbar element
-	 * 
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget()
+	
+	public JsStatement update()
 	{
-		return new JsQuery(this).$().chain("progressbar", "'widget'");
-	}
-
-	/**
-	 * Method to returns the .ui-progressbar element within the ajax request
-	 * 
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget)
-	{
-		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
+		JsStatement wholeStatement = new JsStatement();
+		wholeStatement.append(options.getJavaScriptOptions());
+		return wholeStatement;
 	}
 }

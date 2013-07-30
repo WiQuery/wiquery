@@ -24,6 +24,7 @@ import org.odlabs.wiquery.autocomplete.AutocompletePage;
 import org.odlabs.wiquery.button.ButtonPage;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
 import org.odlabs.wiquery.dialog.DialogPage;
+import org.odlabs.wiquery.progressbar.ProgressBarPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
 import org.odlabs.wiquery.sortable.SortablePage;
@@ -130,6 +131,7 @@ public abstract class MainTemplate extends WebPage {
 		BUTTON("Button", NavigationCategory.WIDGETS, ButtonPage.class),
 		DATEPICKER("DatePicker", NavigationCategory.WIDGETS, DatePickerPage.class),
 		DIALOG("Dialog", NavigationCategory.WIDGETS, DialogPage.class),
+		PROGRESSBAR("Progress bar", NavigationCategory.WIDGETS, ProgressBarPage.class),
 		RESIZE("Resize", NavigationCategory.WIDGETS, ResizePage.class),
 		SLIDER("Slider", NavigationCategory.WIDGETS, SliderPage.class),
 		TABS("Tabs", NavigationCategory.WIDGETS, TabsPage.class);
