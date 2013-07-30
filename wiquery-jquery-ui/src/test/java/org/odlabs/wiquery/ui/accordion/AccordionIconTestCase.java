@@ -18,7 +18,7 @@ public class AccordionIconTestCase extends WiQueryTestCase
 		AccordionIcon accordionIcon = new AccordionIcon("classA", "classB");
 
 		// Int param
-		String expectedJavascript = "{'header': 'classA', 'headerSelected': 'classB'}";
+		String expectedJavascript = "{'header': 'classA', 'activeHeader': 'classB'}";
 		String generatedJavascript = accordionIcon.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);
@@ -37,7 +37,7 @@ public class AccordionIconTestCase extends WiQueryTestCase
 		accordionIcon = new AccordionIcon(UiIcon.ARROW_1_EAST, UiIcon.ARROW_1_NORTH);
 
 		expectedJavascript =
-			"{'header': '" + UiIcon.ARROW_1_EAST.getCssClass() + "', 'headerSelected': '"
+			"{'header': '" + UiIcon.ARROW_1_EAST.getCssClass() + "', 'activeHeader': '"
 				+ UiIcon.ARROW_1_NORTH.getCssClass() + "'}";
 		generatedJavascript = accordionIcon.getJavascriptOption().toString();
 

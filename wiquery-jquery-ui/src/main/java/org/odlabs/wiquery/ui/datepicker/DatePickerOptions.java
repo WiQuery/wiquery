@@ -914,7 +914,7 @@ public class DatePickerOptions extends Options
 	@SuppressWarnings("unchecked")
 	public ListItemOptions<LiteralOption> getShowOptions()
 	{
-		ICollectionItemOptions showOptions = getListItemOptions("showOptions");
+		ICollectionItemOptions showOptions = getCollectionItemOptions("showOptions");
 
 		if (showOptions != null && showOptions instanceof ListItemOptions)
 		{

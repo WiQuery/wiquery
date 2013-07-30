@@ -27,12 +27,12 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.javascript.JsQuery;
-import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
+import org.odlabs.wiquery.ui.options.HeightStyleEnum;
 import org.odlabs.wiquery.ui.themes.UiIcon;
 
 /**
@@ -47,7 +47,7 @@ import org.odlabs.wiquery.ui.themes.UiIcon;
 public class Accordion extends WebMarkupContainer
 {
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = -3832846396234668551L;
 
 	/**
 	 * $Id$
@@ -108,93 +108,54 @@ public class Accordion extends WebMarkupContainer
 	/*---- Options section ---*/
 
 	/**
-	 * Sets the effect to apply when the accordion's content is switched.
+	 * If and how to animate changing panels.
 	 * 
-	 * @param animationEffect
-	 *            the effect name to apply. Set it empty if you don't want to apply any
-	 *            effect.
+	 * @param animate see {@link AccordionAnimateOption}
 	 * @return instance of the current component
 	 */
-	public Accordion setAnimated(AccordionAnimated animationEffect)
+	public Accordion setAnimate(AccordionAnimateOption animate)
 	{
-		this.options.put("animated", animationEffect);
+		this.options.put("animate", animate);
 		return this;
 	}
 
 	/**
-	 * @return the animated option value
+	 * @return the animate option value
 	 */
-	public AccordionAnimated getAnimated()
+	public AccordionAnimateOption getAnimate()
 	{
-		IComplexOption animated = this.options.getComplexOption("animated");
-		if (animated != null && animated instanceof AccordionAnimated)
+		IComplexOption animate = this.options.getComplexOption("animate");
+		if (animate instanceof AccordionAnimateOption)
 		{
-			return (AccordionAnimated) animated;
+			return (AccordionAnimateOption) animate;
 		}
 
-		return new AccordionAnimated("slide");
+		return new AccordionAnimateOption(new AccordionEffectOptionObject());
 	}
-
+	
 	/**
-	 * Sets the effect to apply when the accordion's content is switched.
-	 * 
-	 * @param animationEffect
-	 *            the effect name to apply. Set it empty if you don't want to apply any
-	 *            effect.
-	 * @return instance of the current component
-	 * @deprecated will be removed in 1.2
-	 * @see Accordion#setAnimated(AccordionAnimated)
+	 * @return the heightStyle option value
 	 */
-	@Deprecated
-	public Accordion setAnimationEffect(AccordionAnimated animationEffect)
+	public HeightStyleEnum getHeightStyle()
 	{
-		this.options.put("animated", animationEffect);
+		String literal = this.options.getLiteral("heightStyle");
+		return literal == null ? HeightStyleEnum.CONTENT : HeightStyleEnum.valueOf(literal.toUpperCase());
+	}
+	
+	/**
+	 * Controls the height of the accordion and each panel. Possible values:
+	 * <ul>
+	 * 	<li>AUTO: All panels will be set to the height of the tallest panel.</li>
+	 * 	<li>FILL: Expand to the available height based on the accordion's parent height.</li>
+	 * 	<li>CONTENT: Each panel will be only as tall as its content.</li>
+	 * </ul>
+	 * @param heightStyle
+	 * @return
+	 */
+	public Accordion setHeightStyle(HeightStyleEnum heightStyle)
+	{
+		this.options.putLiteral("heightStyle", heightStyle.name().toLowerCase());
 		return this;
-	}
-
-	/**
-	 * @return the animated option value
-	 * @deprecated will be removed in 1.2
-	 * @see Accordion#getAnimated()
-	 */
-	@Deprecated
-	public AccordionAnimated getAnimationEffect()
-	{
-		IComplexOption animated = this.options.getComplexOption("animated");
-		if (animated != null && animated instanceof AccordionAnimated)
-		{
-			return (AccordionAnimated) animated;
-		}
-
-		return new AccordionAnimated("slide");
-	}
-
-	/**
-	 * Sets if the accordion's height is fixed to the highest content part.
-	 * 
-	 * @param autoHeight
-	 *            true if this accordion's height is the highest content's one.
-	 * @return instance of the current component
-	 */
-	public Accordion setAutoHeight(boolean autoHeight)
-	{
-		this.options.put("autoHeight", autoHeight);
-		return this;
-	}
-
-	/**
-	 * Returns true if this accordion is auto height.
-	 * 
-	 * @see #setAutoHeight(boolean)
-	 */
-	public boolean isAutoHeight()
-	{
-		if (this.options.containsKey("autoHeight"))
-		{
-			return this.options.getBoolean("autoHeight");
-		}
-
-		return true;
 	}
 
 	/**
@@ -242,36 +203,6 @@ public class Accordion extends WebMarkupContainer
 		String literal = this.options.getLiteral("event");
 		return literal == null ? AccordionTriggerEvent.CLICK : AccordionTriggerEvent
 			.valueOf(literal.toUpperCase());
-	}
-
-	/**
-	 * Makes this accordion's height to the maximum size possible in this' parent
-	 * container.
-	 * <p>
-	 * <em>Overrides {@link #setAutoHeight(boolean)} behavior</em>
-	 * </p>
-	 * 
-	 * @return instance of the current component
-	 */
-	public Accordion setFillSpace(boolean fillSpace)
-	{
-		this.options.put("fillSpace", fillSpace);
-		return this;
-	}
-
-	/**
-	 * Returns if this accordion fill space.
-	 * 
-	 * @see #setFillSpace(boolean)
-	 */
-	public boolean isFillSpace()
-	{
-		if (this.options.containsKey("fillSpace"))
-		{
-			return this.options.getBoolean("fillSpace");
-		}
-
-		return false;
 	}
 
 	/**
@@ -326,33 +257,6 @@ public class Accordion extends WebMarkupContainer
 	}
 
 	/**
-	 * If set, clears height and overflow styles after finishing animations. This enables
-	 * accordions to work with dynamic content. <b>Won't work together with
-	 * autoHeight.</b>
-	 * 
-	 * @param clearStyle
-	 * @return instance of the current component
-	 */
-	public Accordion setClearStyle(boolean clearStyle)
-	{
-		this.options.put("clearStyle", clearStyle);
-		return this;
-	}
-
-	/**
-	 * @see #setClearStyle(boolean)
-	 */
-	public boolean isClearStyle()
-	{
-		if (this.options.containsKey("clearStyle"))
-		{
-			return this.options.getBoolean("clearStyle");
-		}
-
-		return false;
-	}
-
-	/**
 	 * Whether all the sections can be closed at once. Allows collapsing the active
 	 * section by the triggering event (click is the default).
 	 * 
@@ -375,44 +279,6 @@ public class Accordion extends WebMarkupContainer
 		}
 
 		return false;
-	}
-
-	/**
-	 * If set, looks for the anchor that matches location.href and activates it. Great for
-	 * href-based state-saving. Use navigationFilter to implement your own matcher.
-	 * 
-	 * @param navigation
-	 * @return instance of the current component
-	 */
-	public Accordion setNavigation(boolean navigation)
-	{
-		this.options.put("navigation", navigation);
-		return this;
-	}
-
-	/**
-	 * @see #setNavigation(boolean)
-	 */
-	public boolean isNavigation()
-	{
-		if (this.options.containsKey("navigation"))
-		{
-			return this.options.getBoolean("navigation");
-		}
-
-		return false;
-	}
-
-	/**
-	 * Overwrite the default location.href-matching with your own matcher.
-	 * 
-	 * @param navigationFilter
-	 * @return instance of the current component
-	 */
-	public Accordion setNavigationFilter(JsScope navigationFilter)
-	{
-		this.options.put("navigationFilter", navigationFilter);
-		return this;
 	}
 
 	/**
@@ -470,92 +336,74 @@ public class Accordion extends WebMarkupContainer
 		setIcons(new AccordionIcon(false));
 		return this;
 	}
-
+	
 	/**
-	 * @see #setActive(AccordionActive)
+	 * @return the active option value
 	 */
-	public AccordionActive getActive()
+	public int getActive()
 	{
-		IComplexOption active = this.options.getComplexOption("active");
-		if (active != null && active instanceof AccordionActive)
+		Integer index = this.options.getInt("active");
+		if (index != null)
 		{
-			return (AccordionActive) active;
+			return index;
 		}
-
-		return null;
+		
+		return 0;
 	}
-
+	
 	/**
-	 * Selector for the active element. Set to false to display none at start. Needs
-	 * collapsible: true.
+	 * The zero-based index of the panel that is active (open).
+	 * A negative value selects panels going backward from the last panel.
 	 * 
-	 * Type of element : Selector, Element, jQuery, Boolean, Number
-	 * 
-	 * Default: first child
-	 * 
-	 * @param active
+	 * @param index
 	 * @return instance of the current component
 	 */
-	public Accordion setActive(AccordionActive active)
+	public Accordion setActive(int index)
 	{
-		this.options.put("active", active);
+		this.options.put("active", index);
+		return this;
+	}
+	
+	/**
+	 * Setting active to false will collapse all panels.
+	 * This requires the collapsible option to be true.
+	 * 
+	 * @param isActive
+	 * @return instance of the current component
+	 */
+	public Accordion setActive(boolean isActive)
+	{
+		this.options.put("active", isActive);
 		return this;
 	}
 
 	/*---- Events section ---*/
 
 	/**
-	 * Set's the callback when the accordion changes. If the accordion is animated, the
-	 * event will be triggered upon completion of the animation; otherwise, it is
-	 * triggered immediately.
+	 * Set's the callback triggered after a panel has been activated (after animation completes).
 	 * 
-	 * @param change
+	 * @param activate
 	 * @return instance of the current component
 	 */
-	public Accordion setChangeEvent(JsScopeUiEvent change)
+	public Accordion setActivateEvent(JsScopeUiEvent activate)
 	{
-		this.options.put("change", change);
+		this.options.put("activate", activate);
 		return this;
 	}
 
 	/**
-	 * Set's the callback when the accordion starts to change.
+	 * Set's the callback triggered directly before a panel is activated.
 	 * 
-	 * @param changestart
+	 * @param beforeActivate
 	 * @return instance of the current component
 	 */
-	public Accordion setChangeStartEvent(JsScopeUiEvent changestart)
+	public Accordion setBeforeActivateEvent(JsScopeUiEvent beforeActivate)
 	{
-		this.options.put("changestart", changestart);
+		this.options.put("beforeActivate", beforeActivate);
 		return this;
 	}
 
 	/*---- Methods section ---*/
-
-	/**
-	 * Method to activate a content part of the Accordion programmatically. The index can
-	 * be a zero-indexed number to match the position of the header to close or a Selector
-	 * matching an element. Pass false to close all (only possible with collapsible:true).
-	 * This will return the element back to its pre-init state.
-	 * 
-	 * @param index
-	 * @return the associated JsStatement
-	 */
-	public JsStatement activate(int index)
-	{
-		return new JsQuery(this).$().chain("accordion", "'activate'", Integer.toString(index));
-	}
-
-	/**
-	 * Method to destroy the accordion within the ajax request
-	 * 
-	 * @param ajaxRequestTarget
-	 * @param index
-	 */
-	public void activate(AjaxRequestTarget ajaxRequestTarget, int index)
-	{
-		ajaxRequestTarget.appendJavaScript(this.activate(index).render().toString());
-	}
 
 	/**
 	 * Method to destroy the accordion This will return the element back to its pre-init
@@ -616,6 +464,26 @@ public class Accordion extends WebMarkupContainer
 	public void enable(AjaxRequestTarget ajaxRequestTarget)
 	{
 		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
+	}
+	
+	/**
+	 * Method to refresh the accordion
+	 * 
+	 * @return the associated JsStatement
+	 */
+	public JsStatement refresh()
+	{
+		return new JsQuery(this).$().chain("accordion", "'refresh'");
+	}
+
+	/**
+	 * Method to refresh the accordion within the ajax request
+	 * 
+	 * @param ajaxRequestTarget
+	 */
+	public void refresh(AjaxRequestTarget ajaxRequestTarget)
+	{
+		ajaxRequestTarget.appendJavaScript(this.refresh().render().toString());
 	}
 
 	/**

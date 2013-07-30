@@ -11,16 +11,8 @@ public enum PositionRelation
 {
 	BOTTOM,
 	CENTER,
-	CENTER_BOTTOM,
-	CENTER_CENTER,
-	CENTER_TOP,
 	LEFT,
-	LEFT_BOTTOM,
-	LEFT_CENTER,
-	LEFT_TOP,
-	RIGHT_BOTTOM,
-	RIGHT_CENTER,
-	RIGHT_TOP,
+	RIGHT,
 	TOP;
 
 	/**
@@ -31,12 +23,12 @@ public enum PositionRelation
 	 */
 	public static PositionRelation getPosition(String value)
 	{
-		return valueOf(value.toUpperCase().replace(" ", "_"));
+		return valueOf(value.toUpperCase());
 	}
 
 	@Override
 	public String toString()
 	{
-		return super.toString().toLowerCase().replace("_", " ");
+		return super.toString().toLowerCase();
 	}
 }
