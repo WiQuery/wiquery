@@ -86,6 +86,31 @@ public class PositionBehavior extends WiQueryAbstractAjaxBehavior
 		
 		return null;
 	}
+	
+	/**
+	 * Applies the bgiframe plugin when set to true. Only applies when bgiframe is
+	 * actually loaded, nothing happens otherwise.
+	 * 
+	 * @param bgiframe
+	 * @return the instance
+	 */
+	public PositionBehavior setBgiframe(boolean bgiframe)
+	{
+		options.put("bgiframe", bgiframe);
+		return this;
+	}
+
+	/**
+	 * @returns <code>true</code> if the bgiframe plugin will be used
+	 */
+	public boolean isBgiframe()
+	{
+		if (options.containsKey("bgiframe")) {
+			return options.getBoolean("bgiframe");
+		}
+
+		return true;
+	}
 
 	/**
 	 * When the positioned element overflows the window in some direction, move it to an

@@ -122,4 +122,16 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 		assertEquals(positionBehavior.getOptions().getJavaScriptOptions().toString(),
 			"{collision: 'fit'}");
 	}
+	
+	/**
+	 * Test method for
+	 * {@link org.odlabs.wiquery.ui.position.PositionBehavior#isBgiframe()}.
+	 */
+	@Test
+	public void testIsBgiframe()
+	{
+		assertTrue(positionBehavior.isBgiframe());
+		positionBehavior.setBgiframe(false);
+		assertFalse(positionBehavior.isBgiframe());
+	}
 }

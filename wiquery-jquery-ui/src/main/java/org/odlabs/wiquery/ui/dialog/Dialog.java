@@ -32,7 +32,6 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
-import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
@@ -570,6 +569,34 @@ public class Dialog extends WebMarkupContainer
 		}
 
 		return true;
+	}
+	
+	/**
+	 * Set's the bgiframe plugin. When true, the bgiframe plugin will be used,
+	 * to fix the issue in IE6 where select boxes show on top of other elements,
+	 * regardless of zIndex. Requires including the bgiframe plugin. Future
+	 * versions may not require a separate plugin.
+	 * 
+	 * @param bgiframe
+	 * @return instance of the current component
+	 */
+	@Deprecated
+	public Dialog setBgiframe(boolean bgiframe)
+	{
+		this.options.put("bgiframe", bgiframe);
+		return this;
+	}
+
+	/**
+	 * @returns <code>true</code> if the bgiframe plugin will be used
+	 */
+	public boolean isBgiframe()
+	{
+		if (this.options.containsKey("bgiframe")) {
+			return this.options.getBoolean("bgiframe");
+		}
+
+		return false;
 	}
 
 	/**
