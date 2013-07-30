@@ -21,7 +21,12 @@
  */
 package org.odlabs.wiquery.ui.button;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -79,36 +84,6 @@ public class ButtonTestCase extends WiQueryTestCase
 				"Component failedButton must be applied to a tag of type 'input', 'button' or 'a', not  '<table wicket:id=\"failedButton\" id=\"failedButton1\">' (line 0, column 0)",
 				e.getMessage());
 		}
-	}
-
-	/**
-	 * Test method for {@link ButtonBehavior#destroy()}.
-	 */
-	@Test
-	public void testDestroy()
-	{
-		assertNotNull(buttonBehavior.destroy());
-		assertEquals(buttonBehavior.destroy().render().toString(), "$('#anId').button('destroy');");
-	}
-
-	/**
-	 * Test method for {@link ButtonBehavior#disable()}.
-	 */
-	@Test
-	public void testDisable()
-	{
-		assertNotNull(buttonBehavior.disable());
-		assertEquals(buttonBehavior.disable().render().toString(), "$('#anId').button('disable');");
-	}
-
-	/**
-	 * Test method for {@link ButtonBehavior#enable()}.
-	 */
-	@Test
-	public void testEnable()
-	{
-		assertNotNull(buttonBehavior.enable());
-		assertEquals(buttonBehavior.enable().render().toString(), "$('#anId').button('enable');");
 	}
 
 	/**
@@ -190,6 +165,46 @@ public class ButtonTestCase extends WiQueryTestCase
 		assertTrue(buttonBehavior.isText());
 		buttonBehavior.setText(false);
 		assertFalse(buttonBehavior.isText());
+	}
+	
+	/**
+	 * Test method for {@link ButtonBehavior#destroy()}.
+	 */
+	@Test
+	public void testDestroy()
+	{
+		assertNotNull(buttonBehavior.destroy());
+		assertEquals(buttonBehavior.destroy().render().toString(), "$('#anId').button('destroy');");
+	}
+
+	/**
+	 * Test method for {@link ButtonBehavior#disable()}.
+	 */
+	@Test
+	public void testDisable()
+	{
+		assertNotNull(buttonBehavior.disable());
+		assertEquals(buttonBehavior.disable().render().toString(), "$('#anId').button('disable');");
+	}
+
+	/**
+	 * Test method for {@link ButtonBehavior#enable()}.
+	 */
+	@Test
+	public void testEnable()
+	{
+		assertNotNull(buttonBehavior.enable());
+		assertEquals(buttonBehavior.enable().render().toString(), "$('#anId').button('enable');");
+	}
+	
+	/**
+	 * Test method for {@link ButtonBehavior#refresh()}.
+	 */
+	@Test
+	public void testRefresh()
+	{
+		assertNotNull(buttonBehavior.refresh());
+		assertEquals(buttonBehavior.refresh().render().toString(), "$('#anId').button('refresh');");
 	}
 
 	/**
