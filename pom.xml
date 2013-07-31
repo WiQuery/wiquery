@@ -50,7 +50,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<wicket.version>6.9.1</wicket.version>
-		<jackson.version>[1.9,1.9.13]</jackson.version>
+		<jackson.version>2.2.2</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<javax.servlet-api.version>3.0.1</javax.servlet-api.version>
@@ -119,8 +119,8 @@
 				<version>${slf4j.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-mapper-asl</artifactId>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
 

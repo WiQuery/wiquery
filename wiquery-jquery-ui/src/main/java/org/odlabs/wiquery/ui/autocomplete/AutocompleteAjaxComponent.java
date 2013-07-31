@@ -33,9 +33,10 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.TextRequestHandler;
 import org.apache.wicket.util.string.Strings;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * $Id$
@@ -77,7 +78,7 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 				StringWriter sw = new StringWriter();
 				try
 				{
-					JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
+					JsonGenerator gen = new JsonFactory().createGenerator(sw);
 
 					AutocompleteJson value = null;
 					Integer index = 0;
