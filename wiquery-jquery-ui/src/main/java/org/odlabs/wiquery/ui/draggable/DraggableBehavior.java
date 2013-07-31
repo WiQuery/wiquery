@@ -129,7 +129,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	 */
 	public static final String UI_OFFSET = "ui.offset";
 
-	public static abstract class AjaxDragCallback extends AbstractAjaxEventCallback
+	public abstract static class AjaxDragCallback extends AbstractAjaxEventCallback
 	{
 		private static final long serialVersionUID = 1L;
 
@@ -139,7 +139,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		}
 	}
 
-	public static abstract class AjaxDragStartCallback extends AbstractAjaxEventCallback
+	public abstract static class AjaxDragStartCallback extends AbstractAjaxEventCallback
 	{
 		private static final long serialVersionUID = 1L;
 
@@ -149,7 +149,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		}
 	}
 
-	public static abstract class AjaxDragStopCallback extends AbstractAjaxEventCallback
+	public abstract static class AjaxDragStopCallback extends AbstractAjaxEventCallback
 	{
 		private static final long serialVersionUID = 1L;
 

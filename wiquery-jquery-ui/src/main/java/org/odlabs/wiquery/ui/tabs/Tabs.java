@@ -103,7 +103,7 @@ public class Tabs extends WebMarkupContainer
 	 * 
 	 * @author Ernesto Reinaldo Barreiro
 	 */
-	private static abstract class TabsAjaxBehavior extends AbstractDefaultAjaxBehavior
+	private abstract static class TabsAjaxBehavior extends AbstractDefaultAjaxBehavior
 	{
 
 		private static final long serialVersionUID = 1L;

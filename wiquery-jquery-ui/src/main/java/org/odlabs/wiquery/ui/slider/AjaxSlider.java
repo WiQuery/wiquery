@@ -63,7 +63,7 @@ public class AjaxSlider extends Slider
 	 * 
 	 * @author Ernesto Reinaldo Barreiro
 	 */
-	private static abstract class SliderAjaxBehavior extends AbstractDefaultAjaxBehavior
+	private abstract static class SliderAjaxBehavior extends AbstractDefaultAjaxBehavior
 	{
 
 		private static final long serialVersionUID = 1L;
