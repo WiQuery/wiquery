@@ -225,6 +225,7 @@ public class DialogButton extends Object implements IListItemOption
 	 */
 	public DialogButton setCallback(IComplexOption callback) {
 		options.put("click", callback);
+		this.callback = callback;
 		return this;
 	}
 
