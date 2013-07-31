@@ -18,8 +18,6 @@ public class TooltipBehavior extends Behavior
 
 	protected Options options = new Options();
 
-	private Component component;
-
 	/**
 	 * Default constructor
 	 */
@@ -30,10 +28,9 @@ public class TooltipBehavior extends Behavior
 	}
 
 	@Override
-	public void bind(Component _component)
+	public void bind(Component component)
 	{
-		this.component = _component;
-		this.component.setOutputMarkupId(true);
+		component.setOutputMarkupId(true);
 	}
 
 	@Override
@@ -133,10 +130,10 @@ public class TooltipBehavior extends Behavior
 		super.renderHead(component, response);
 		response
 			.render(JavaScriptHeaderItem.forReference(TooltipJavaScriptResourceReference.get()));
-		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
+		response.render(OnDomReadyHeaderItem.forScript(statement(component).render()));
 	}
 
-	private JsStatement statement()
+	private JsStatement statement(Component component)
 	{
 		if (options.isEmpty())
 		{
