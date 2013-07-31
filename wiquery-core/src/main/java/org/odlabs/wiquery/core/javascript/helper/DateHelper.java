@@ -33,7 +33,7 @@ import java.util.Date;
  * @author Julien Roche
  * @since 1.0
  */
-public class DateHelper
+public final class DateHelper
 {
 	/**
 	 * Method to generate a javascript sequence to create an instance of date
@@ -81,5 +81,9 @@ public class DateHelper
 		calendar.setTime(date);
 
 		return getJSDate(calendar);
+	}
+	
+	private DateHelper()
+	{
 	}
 }

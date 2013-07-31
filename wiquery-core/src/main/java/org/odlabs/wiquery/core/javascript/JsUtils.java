@@ -32,7 +32,7 @@ import org.odlabs.wiquery.core.events.EventLabel;
  * @author Lionel Armanet
  * @since 0.7
  */
-public class JsUtils
+public final class JsUtils
 {
 
 	/**
@@ -134,5 +134,9 @@ public class JsUtils
 	public static String string(int value)
 	{
 		return String.valueOf(value);
+	}
+	
+	private JsUtils()
+	{
 	}
 }

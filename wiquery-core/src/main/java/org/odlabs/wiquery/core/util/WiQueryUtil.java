@@ -10,7 +10,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.resource.JQueryResourceReference;
 
-public class WiQueryUtil
+public final class WiQueryUtil
 {
 	public static Page getCurrentPage()
 	{
@@ -84,5 +84,9 @@ public class WiQueryUtil
 			reference = WicketEventJQueryResourceReference.get();
 		}
 		return reference;
+	}
+	
+	private WiQueryUtil()
+	{
 	}
 }
