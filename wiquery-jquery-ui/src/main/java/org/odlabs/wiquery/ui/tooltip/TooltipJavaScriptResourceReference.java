@@ -7,14 +7,14 @@ import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.position.PositionJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
-public class TooltipJavaScriptResourceReference extends JavaScriptResourceReference
+public final class TooltipJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static TooltipJavaScriptResourceReference instance =
+	private static final TooltipJavaScriptResourceReference INSTANCE =
 		new TooltipJavaScriptResourceReference();
 
 	/**
@@ -30,7 +30,7 @@ public class TooltipJavaScriptResourceReference extends JavaScriptResourceRefere
 	 */
 	public static TooltipJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override
