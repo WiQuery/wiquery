@@ -33,7 +33,7 @@ import org.apache.wicket.resource.JQueryPluginResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class CoreEffectJavaScriptResourceReference extends JQueryPluginResourceReference
+public final class CoreEffectJavaScriptResourceReference extends JQueryPluginResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -42,7 +42,7 @@ public class CoreEffectJavaScriptResourceReference extends JQueryPluginResourceR
 	/**
 	 * Singleton instance.
 	 */
-	private static CoreEffectJavaScriptResourceReference instance =
+	private static final CoreEffectJavaScriptResourceReference INSTANCE =
 		new CoreEffectJavaScriptResourceReference();
 
 	/**
@@ -58,6 +58,6 @@ public class CoreEffectJavaScriptResourceReference extends JQueryPluginResourceR
 	 */
 	public static CoreEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 }

@@ -37,7 +37,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class ProgressBarJavaScriptResourceReference extends JavaScriptResourceReference
+public final class ProgressBarJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -46,7 +46,7 @@ public class ProgressBarJavaScriptResourceReference extends JavaScriptResourceRe
 	/**
 	 * Singleton instance.
 	 */
-	private static ProgressBarJavaScriptResourceReference instance =
+	private static final ProgressBarJavaScriptResourceReference INSTANCE =
 		new ProgressBarJavaScriptResourceReference();
 
 	/**
@@ -62,7 +62,7 @@ public class ProgressBarJavaScriptResourceReference extends JavaScriptResourceRe
 	 */
 	public static ProgressBarJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

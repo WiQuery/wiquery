@@ -36,14 +36,14 @@ import org.odlabs.wiquery.core.util.WiQueryUtil;
  * @author Julien Roche
  * @since 1.1
  */
-public class WiQueryAutocompleteJavaScriptResourceReference extends JavaScriptResourceReference
+public final class WiQueryAutocompleteJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static WiQueryAutocompleteJavaScriptResourceReference instance =
+	private static final WiQueryAutocompleteJavaScriptResourceReference INSTANCE =
 		new WiQueryAutocompleteJavaScriptResourceReference();
 
 	/**
@@ -59,7 +59,7 @@ public class WiQueryAutocompleteJavaScriptResourceReference extends JavaScriptRe
 	 */
 	public static WiQueryAutocompleteJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

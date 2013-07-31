@@ -36,14 +36,14 @@ import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class WidgetJavaScriptResourceReference extends JavaScriptResourceReference
+public final class WidgetJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static WidgetJavaScriptResourceReference instance =
+	private static final WidgetJavaScriptResourceReference INSTANCE =
 		new WidgetJavaScriptResourceReference();
 
 	/**
@@ -59,7 +59,7 @@ public class WidgetJavaScriptResourceReference extends JavaScriptResourceReferen
 	 */
 	public static WidgetJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

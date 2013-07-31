@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class ShakeEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class ShakeEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class ShakeEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	/**
 	 * Singleton instance.
 	 */
-	private static ShakeEffectJavaScriptResourceReference instance =
+	private static final ShakeEffectJavaScriptResourceReference INSTANCE =
 		new ShakeEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class ShakeEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	 */
 	public static ShakeEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override
