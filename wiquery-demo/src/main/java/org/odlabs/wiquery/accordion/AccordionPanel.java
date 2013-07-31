@@ -15,8 +15,6 @@ public class AccordionPanel extends Panel {
 
 	private static final long serialVersionUID = 261756719214828133L;
 
-	private Label indexLabel;
-	
 	public AccordionPanel(String id) {
 		super(id);
 		Accordion accordion = new Accordion("accordion");
@@ -25,7 +23,7 @@ public class AccordionPanel extends Panel {
 		accordion.setAnimate(new AccordionAnimateOption(200));
 		add(accordion);
 		
-		indexLabel = new Label("indexLabel");
+		Label indexLabel = new Label("indexLabel");
 		indexLabel.setOutputMarkupId(true);
 		add(indexLabel);
 		
