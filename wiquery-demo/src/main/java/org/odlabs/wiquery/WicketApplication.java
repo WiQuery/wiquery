@@ -32,8 +32,6 @@ public class WicketApplication extends WebApplication {
 		super.init();
 		getMarkupSettings().setStripWicketTags(true);
 		
-		mountPage("/", HomePage.class);
-		
 		// Interactions
 		mountPage("/sortable/", SortablePage.class);
 		
