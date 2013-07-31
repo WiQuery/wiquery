@@ -53,7 +53,7 @@ public abstract class MainTemplate extends WebPage {
 		add(new Label("headPageTitle", DEMO_TITLE_MODEL));
 		
 		Link<Void> homePageLink = new BookmarkablePageLink<Void>("homePageLink", HomePage.class);
-		homePageLink.add(new Label("title", DEMO_TITLE_MODEL));
+		homePageLink.setBody(DEMO_TITLE_MODEL);
 		add(homePageLink);
 		
 		// Main navigation list
