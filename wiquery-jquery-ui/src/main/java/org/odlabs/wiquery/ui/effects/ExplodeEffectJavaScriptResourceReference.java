@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class ExplodeEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class ExplodeEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class ExplodeEffectJavaScriptResourceReference extends JavaScriptResource
 	/**
 	 * Singleton instance.
 	 */
-	private static ExplodeEffectJavaScriptResourceReference instance =
+	private static final ExplodeEffectJavaScriptResourceReference INSTANCE =
 		new ExplodeEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class ExplodeEffectJavaScriptResourceReference extends JavaScriptResource
 	 */
 	public static ExplodeEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

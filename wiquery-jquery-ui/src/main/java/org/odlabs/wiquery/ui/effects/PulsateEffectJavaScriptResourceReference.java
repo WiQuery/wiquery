@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class PulsateEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class PulsateEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class PulsateEffectJavaScriptResourceReference extends JavaScriptResource
 	/**
 	 * Singleton instance.
 	 */
-	private static PulsateEffectJavaScriptResourceReference instance =
+	private static final PulsateEffectJavaScriptResourceReference INSTANCE =
 		new PulsateEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class PulsateEffectJavaScriptResourceReference extends JavaScriptResource
 	 */
 	public static PulsateEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

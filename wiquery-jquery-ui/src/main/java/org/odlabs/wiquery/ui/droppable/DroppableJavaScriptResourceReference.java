@@ -40,7 +40,7 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class DroppableJavaScriptResourceReference extends JavaScriptResourceReference
+public final class DroppableJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -49,7 +49,7 @@ public class DroppableJavaScriptResourceReference extends JavaScriptResourceRefe
 	/**
 	 * Singleton instance.
 	 */
-	private static DroppableJavaScriptResourceReference instance =
+	private static final DroppableJavaScriptResourceReference INSTANCE =
 		new DroppableJavaScriptResourceReference();
 
 	/**
@@ -65,7 +65,7 @@ public class DroppableJavaScriptResourceReference extends JavaScriptResourceRefe
 	 */
 	public static DroppableJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

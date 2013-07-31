@@ -36,14 +36,14 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Stephane Gleizes
  * @since 6.9.2
  */
-public class MenuJavaScriptResourceReference extends JavaScriptResourceReference
+public final class MenuJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = 6440705391676875137L;
 	
 	/**
 	 * Singleton instance.
 	 */
-	private static MenuJavaScriptResourceReference instance =
+	private static final MenuJavaScriptResourceReference INSTANCE =
 		new MenuJavaScriptResourceReference();
 
 	/**
@@ -59,7 +59,7 @@ public class MenuJavaScriptResourceReference extends JavaScriptResourceReference
 	 */
 	public static MenuJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

@@ -37,14 +37,14 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class AccordionJavaScriptResourceReference extends JavaScriptResourceReference
+public final class AccordionJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static AccordionJavaScriptResourceReference instance =
+	private static final AccordionJavaScriptResourceReference INSTANCE =
 		new AccordionJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class AccordionJavaScriptResourceReference extends JavaScriptResourceRefe
 	 */
 	public static AccordionJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

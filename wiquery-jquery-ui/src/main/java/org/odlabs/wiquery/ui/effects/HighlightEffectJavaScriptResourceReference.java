@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class HighlightEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class HighlightEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class HighlightEffectJavaScriptResourceReference extends JavaScriptResour
 	/**
 	 * Singleton instance.
 	 */
-	private static HighlightEffectJavaScriptResourceReference instance =
+	private static final HighlightEffectJavaScriptResourceReference INSTANCE =
 		new HighlightEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class HighlightEffectJavaScriptResourceReference extends JavaScriptResour
 	 */
 	public static HighlightEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

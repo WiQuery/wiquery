@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class SlideEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class SlideEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class SlideEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	/**
 	 * Singleton instance.
 	 */
-	private static SlideEffectJavaScriptResourceReference instance =
+	private static final SlideEffectJavaScriptResourceReference INSTANCE =
 		new SlideEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class SlideEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	 */
 	public static SlideEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

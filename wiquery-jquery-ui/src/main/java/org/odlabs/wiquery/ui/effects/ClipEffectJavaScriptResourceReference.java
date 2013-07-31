@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class ClipEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class ClipEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class ClipEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	/**
 	 * Singleton instance.
 	 */
-	private static ClipEffectJavaScriptResourceReference instance =
+	private static final ClipEffectJavaScriptResourceReference INSTANCE =
 		new ClipEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class ClipEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	 */
 	public static ClipEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override
