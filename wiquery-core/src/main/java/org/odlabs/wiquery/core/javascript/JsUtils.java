@@ -101,13 +101,15 @@ public class JsUtils
 		{
 			return "''";
 		}
-		String output = "'" + eventLabels[0].getEventLabel();
+		StringBuilder output = new StringBuilder();
+		output.append("'").append(eventLabels[0].getEventLabel());
 		for (int i = 1; i < eventLabels.length; i++)
 		{
 			EventLabel eventLabel = eventLabels[i];
-			output += " " + eventLabel.getEventLabel();
+			output.append(" ").append(eventLabel.getEventLabel());
 		}
-		return output + "'";
+		output.append("'");
+		return output.toString();
 	}
 
 	/**
