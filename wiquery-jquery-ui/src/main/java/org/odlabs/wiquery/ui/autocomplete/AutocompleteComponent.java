@@ -29,9 +29,10 @@ import java.util.List;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * $Id: AutocompleteComponent.java 463 2010-10-19 12:14:45Z richardjohnwilkinson@gmail.com
@@ -96,7 +97,7 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 
 		try
 		{
-			JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
+			JsonGenerator gen = new JsonFactory().createGenerator(sw);
 
 			List<Object> json = new ArrayList<Object>();
 			T defaultValue = AutocompleteComponent.this.getModelObject();
