@@ -1,6 +1,8 @@
 package org.odlabs.wiquery.autocomplete;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -11,6 +13,7 @@ import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.IListItemOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.ui.autocomplete.Autocomplete;
+import org.odlabs.wiquery.ui.autocomplete.AutocompleteAjaxComponent;
 import org.odlabs.wiquery.ui.autocomplete.AutocompleteSource;
 
 /**
@@ -36,6 +39,8 @@ public class AutocompletePanel extends Panel {
 	};
 	
 	private final IModel<String> autocompleteFieldModel = new Model<String>(null);
+	
+	private final IModel<String> autocompleteAjaxFieldModel = new Model<String>(null);
 
 	public AutocompletePanel(String id) {
 		super(id);
@@ -56,11 +61,42 @@ public class AutocompletePanel extends Panel {
 		
 		// Month model label
 		form.add(new Label("monthLabel", autocompleteFieldModel));
+		
+		// AJAX Autocomplete field
+		final AutocompleteAjaxComponent<String> autocompleteAjaxField =
+				new AutocompleteAjaxComponent<String>("autocompleteAjaxField", autocompleteAjaxFieldModel) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public List<String> getValues(String term) {
+				List<String> values = new ArrayList<String>(AUTOCOMPLETE_SOURCE.length);
+				for (IListItemOption option : AUTOCOMPLETE_SOURCE) {
+					if (option instanceof LiteralOption) {
+						LiteralOption literal = (LiteralOption) option;
+						if (literal.getValue().toLowerCase().contains(term.toLowerCase())) {
+							values.add(literal.getValue());
+						}
+					}
+				}
+				return values;
+			}
+
+			@Override
+			public String getValueOnSearchFail(String input) {
+				return null;
+			}
+		};
+		autocompleteAjaxField.setLabel(Model.of("AJAX autocomplete on months"));
+		form.add(autocompleteAjaxField);
+		
+		// AJAX month model label
+		form.add(new Label("ajaxMonthLabel", autocompleteAjaxFieldModel));
 	}
 	
 	@Override
 	protected void onDetach() {
 		super.onDetach();
 		autocompleteFieldModel.detach();
+		autocompleteAjaxFieldModel.detach();
 	}
 }
