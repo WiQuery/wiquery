@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
@@ -24,6 +25,7 @@ import org.odlabs.wiquery.autocomplete.AutocompletePage;
 import org.odlabs.wiquery.button.ButtonPage;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
 import org.odlabs.wiquery.dialog.DialogPage;
+import org.odlabs.wiquery.home.HomePage;
 import org.odlabs.wiquery.progressbar.ProgressBarPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
@@ -49,7 +51,10 @@ public abstract class MainTemplate extends WebPage {
 		add(bodyElement);
 		
 		add(new Label("headPageTitle", DEMO_TITLE_MODEL));
-		add(new Label("title", DEMO_TITLE_MODEL));
+		
+		Link<Void> homePageLink = new BookmarkablePageLink<Void>("homePageLink", HomePage.class);
+		homePageLink.add(new Label("title", DEMO_TITLE_MODEL));
+		add(homePageLink);
 		
 		// Main navigation list
 		add(new ListView<NavigationCategory>("navigation", Arrays.asList(NavigationCategory.values())) {
