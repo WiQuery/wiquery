@@ -43,19 +43,19 @@ package org.odlabs.wiquery.core.options;
  * @author Lionel Armanet
  * @since 1.0
  */
-public class DefaultOptionsRenderer implements IOptionsRenderer
+public final class DefaultOptionsRenderer implements IOptionsRenderer
 {
 
 	private static final long serialVersionUID = 6303118317934309154L;
 
-	private static IOptionsRenderer instance = new DefaultOptionsRenderer();
+	private static final IOptionsRenderer INSTANCE = new DefaultOptionsRenderer();
 
 	/**
 	 * @return the {@link IOptionsRenderer} instance.
 	 */
 	public static IOptionsRenderer get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	/**
