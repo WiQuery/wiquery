@@ -34,7 +34,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @author Lionel Armanet
  * @see "http://docs.jquery.com/Traversing"
  */
-public class TraversingHelper
+public final class TraversingHelper
 {
 
 	/**
@@ -164,5 +164,9 @@ public class TraversingHelper
 	{
 		return new DefaultChainableStatement("siblings", JsUtils.quotes(expression));
 	}
-
+	
+	private TraversingHelper()
+	{
+	}
+	
 }

@@ -36,6 +36,6 @@ public interface JavaScriptCallable
 	/**
 	 * @return a {@link CharSequence} containing the JavaScript statement to call
 	 */
-	public CharSequence statement();
+	CharSequence statement();
 
 }

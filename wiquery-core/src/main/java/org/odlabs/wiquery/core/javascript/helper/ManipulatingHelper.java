@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @since 0.7
  * @see "http://docs.jquery.com/Manipulation"
  */
-public class ManipulatingHelper
+public final class ManipulatingHelper
 {
 
 	/**
@@ -68,6 +68,10 @@ public class ManipulatingHelper
 	public static ChainableStatement insertBefore(String expression)
 	{
 		return new DefaultChainableStatement("insertBefore", JsUtils.quotes(expression));
+	}
+	
+	private ManipulatingHelper()
+	{
 	}
 
 }

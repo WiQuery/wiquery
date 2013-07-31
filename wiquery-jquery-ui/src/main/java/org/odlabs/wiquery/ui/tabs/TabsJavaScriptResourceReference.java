@@ -37,14 +37,14 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class TabsJavaScriptResourceReference extends JavaScriptResourceReference
+public final class TabsJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static TabsJavaScriptResourceReference instance = new TabsJavaScriptResourceReference();
+	private static final TabsJavaScriptResourceReference INSTANCE = new TabsJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link TabsJavaScriptResourceReference}.
@@ -59,7 +59,7 @@ public class TabsJavaScriptResourceReference extends JavaScriptResourceReference
 	 */
 	public static TabsJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

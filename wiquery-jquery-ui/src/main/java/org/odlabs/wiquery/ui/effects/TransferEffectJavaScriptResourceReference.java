@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class TransferEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class TransferEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class TransferEffectJavaScriptResourceReference extends JavaScriptResourc
 	/**
 	 * Singleton instance.
 	 */
-	private static TransferEffectJavaScriptResourceReference instance =
+	private static final TransferEffectJavaScriptResourceReference INSTANCE =
 		new TransferEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class TransferEffectJavaScriptResourceReference extends JavaScriptResourc
 	 */
 	public static TransferEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

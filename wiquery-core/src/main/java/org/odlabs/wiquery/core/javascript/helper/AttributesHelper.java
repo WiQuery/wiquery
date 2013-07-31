@@ -36,7 +36,7 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @since 0.7
  * @see "http://docs.jquery.com/Attributes"
  */
-public class AttributesHelper
+public final class AttributesHelper
 {
 
 	/**
@@ -93,6 +93,10 @@ public class AttributesHelper
 	public static ChainableStatement html(CharSequence htmlContents)
 	{
 		return new DefaultChainableStatement("html", JsUtils.quotes(htmlContents));
+	}
+	
+	private AttributesHelper()
+	{
 	}
 
 }

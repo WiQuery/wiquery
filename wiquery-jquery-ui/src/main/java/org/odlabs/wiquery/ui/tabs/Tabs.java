@@ -103,7 +103,7 @@ public class Tabs extends WebMarkupContainer
 	 * 
 	 * @author Ernesto Reinaldo Barreiro
 	 */
-	private static abstract class TabsAjaxBehavior extends AbstractDefaultAjaxBehavior
+	private abstract static class TabsAjaxBehavior extends AbstractDefaultAjaxBehavior
 	{
 
 		private static final long serialVersionUID = 1L;
@@ -210,7 +210,7 @@ public class Tabs extends WebMarkupContainer
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 * 
 	 */
-	public static interface ITabsAjaxEvent extends Serializable
+	public interface ITabsAjaxEvent extends Serializable
 	{
 
 		/**
@@ -223,7 +223,7 @@ public class Tabs extends WebMarkupContainer
 		 * @param index
 		 *            Of the tab event
 		 */
-		public void onEvent(AjaxRequestTarget target, Tabs tabs, int index);
+		void onEvent(AjaxRequestTarget target, Tabs tabs, int index);
 	}
 
 	/*

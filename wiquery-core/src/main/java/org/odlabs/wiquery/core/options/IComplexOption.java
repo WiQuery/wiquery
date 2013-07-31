@@ -39,5 +39,5 @@ public interface IComplexOption extends Serializable
 	 * 
 	 * @return the javascript
 	 */
-	public CharSequence getJavascriptOption();
+	CharSequence getJavascriptOption();
 }

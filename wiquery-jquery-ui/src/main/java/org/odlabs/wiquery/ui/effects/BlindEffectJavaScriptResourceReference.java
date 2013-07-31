@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class BlindEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class BlindEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class BlindEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	/**
 	 * Singleton instance.
 	 */
-	private static BlindEffectJavaScriptResourceReference instance =
+	private static final BlindEffectJavaScriptResourceReference INSTANCE =
 		new BlindEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class BlindEffectJavaScriptResourceReference extends JavaScriptResourceRe
 	 */
 	public static BlindEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

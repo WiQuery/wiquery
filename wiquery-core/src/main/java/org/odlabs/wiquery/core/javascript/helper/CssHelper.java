@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.options.Options;
  * @author Lionel Armanet
  * @see "http://docs.jquery.com/CSS"
  */
-public class CssHelper
+public final class CssHelper
 {
 
 	/**
@@ -52,6 +52,10 @@ public class CssHelper
 	public static ChainableStatement css(String name, String value)
 	{
 		return new DefaultChainableStatement("css", JsUtils.quotes(name), JsUtils.quotes(value));
+	}
+	
+	private CssHelper()
+	{
 	}
 
 }

@@ -36,6 +36,6 @@ public interface EventLabel
 	/**
 	 * @return The event string label
 	 */
-	public String getEventLabel();
+	String getEventLabel();
 
 }

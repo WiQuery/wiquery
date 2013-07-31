@@ -36,14 +36,14 @@ import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class DatePickerJavaScriptResourceReference extends JavaScriptResourceReference
+public final class DatePickerJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static DatePickerJavaScriptResourceReference instance =
+	private static final DatePickerJavaScriptResourceReference INSTANCE =
 		new DatePickerJavaScriptResourceReference();
 
 	/**
@@ -59,7 +59,7 @@ public class DatePickerJavaScriptResourceReference extends JavaScriptResourceRef
 	 */
 	public static DatePickerJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

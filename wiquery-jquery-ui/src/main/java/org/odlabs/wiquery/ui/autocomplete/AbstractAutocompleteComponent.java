@@ -130,7 +130,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 				JsUtils.quotes(autocompleteHidden.getMarkupId()));
 			if (isAutoUpdate())
 			{
-				js.append(",'").append(updateAjax.getCallbackUrl()).append("'");
+				js.append(",'").append(updateAjax.getCallbackUrl()).append('\'');
 			}
 			js.append(");");
 			super.setChangeEvent(JsScopeUiEvent.quickScope(js.toString()));

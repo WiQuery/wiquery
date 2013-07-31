@@ -91,7 +91,7 @@ public class JsStatement implements Serializable
 	 */
 	public JsStatement $()
 	{
-		statement.append("$");
+		statement.append('$');
 		return this;
 	}
 
@@ -106,7 +106,7 @@ public class JsStatement implements Serializable
 		if (context == null)
 			dollarSelector.append("");
 		else
-			dollarSelector.append("#").append(context.getMarkupId());
+			dollarSelector.append('#').append(context.getMarkupId());
 
 		statement.append("$('");
 		statement.append(dollarSelector);
@@ -133,7 +133,7 @@ public class JsStatement implements Serializable
 		if (context == null)
 			dollarSelector.append(selector);
 		else
-			dollarSelector.append("#").append(context.getMarkupId()).append(" ").append(selector);
+			dollarSelector.append('#').append(context.getMarkupId()).append(' ').append(selector);
 
 		statement.append("$('");
 		statement.append(dollarSelector);
@@ -225,7 +225,7 @@ public class JsStatement implements Serializable
 	public JsStatement chain(CharSequence statementLabel, CharSequence... statementArgs)
 	{
 		// appending statement label
-		statement.append(".").append(statementLabel).append("(");
+		statement.append('.').append(statementLabel).append('(');
 
 		// appending arguments
 		if (statementArgs.length > 0)
@@ -237,7 +237,7 @@ public class JsStatement implements Serializable
 				statement.append(", ").append(charSequence);
 			}
 		}
-		statement.append(")");
+		statement.append(')');
 		return this;
 	}
 

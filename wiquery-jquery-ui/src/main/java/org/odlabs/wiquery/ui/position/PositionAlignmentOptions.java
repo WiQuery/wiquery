@@ -117,7 +117,7 @@ public class PositionAlignmentOptions implements IComplexOption
 		{
 			if (sb.length() > 0)
 			{
-				sb.append(" ");
+				sb.append(' ');
 			}
 			sb.append(verticalAlignment.toString());
 			if (offsetTop != 0)

@@ -69,7 +69,7 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 	}
 
 	@Override
-	abstract public String toString();
+	public abstract String toString();
 
 	@Override
 	public void detach()

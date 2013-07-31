@@ -39,16 +39,16 @@ import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class CoreUIJavaScriptResourceReference extends JQueryPluginResourceReference
+public final class CoreUIJavaScriptResourceReference extends JQueryPluginResourceReference
 {
 	private static final long serialVersionUID = 4585057795574929263L;
 
-	private static CoreUIJavaScriptResourceReference instance =
+	private static final CoreUIJavaScriptResourceReference INSTANCE =
 		new CoreUIJavaScriptResourceReference();
 
 	public static CoreUIJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	/**

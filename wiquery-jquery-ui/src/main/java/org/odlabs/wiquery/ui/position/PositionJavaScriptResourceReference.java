@@ -33,14 +33,14 @@ import org.apache.wicket.resource.JQueryPluginResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class PositionJavaScriptResourceReference extends JQueryPluginResourceReference
+public final class PositionJavaScriptResourceReference extends JQueryPluginResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static PositionJavaScriptResourceReference instance =
+	private static final PositionJavaScriptResourceReference INSTANCE =
 		new PositionJavaScriptResourceReference();
 
 	/**
@@ -56,6 +56,6 @@ public class PositionJavaScriptResourceReference extends JQueryPluginResourceRef
 	 */
 	public static PositionJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 }
