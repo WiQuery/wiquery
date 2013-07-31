@@ -39,7 +39,7 @@ public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> im
 	@Override
 	public CharSequence getJavascriptOption()
 	{
-		StringBuffer javascript = new StringBuffer();
+		StringBuilder javascript = new StringBuilder();
 		javascript.append("[");
 
 		if (!isEmpty())
@@ -56,7 +56,7 @@ public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> im
 		}
 
 		javascript.append("]");
-		return javascript;
+		return javascript.toString();
 	}
 
 	@Override
