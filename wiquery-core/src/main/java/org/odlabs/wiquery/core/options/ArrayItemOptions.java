@@ -40,14 +40,14 @@ public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> im
 	public CharSequence getJavascriptOption()
 	{
 		StringBuilder javascript = new StringBuilder();
-		javascript.append("[");
+		javascript.append('[');
 
 		if (!isEmpty())
 		{
 			for (IListItemOption itemOption : this)
 			{
 				javascript.append(itemOption.getJavascriptOption());
-				javascript.append(",");
+				javascript.append(',');
 			}
 			javascript.replace(javascript.length() - 1, javascript.length(), ""); // Remove
 																					// the
@@ -55,7 +55,7 @@ public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> im
 																					// ','
 		}
 
-		javascript.append("]");
+		javascript.append(']');
 		return javascript.toString();
 	}
 
