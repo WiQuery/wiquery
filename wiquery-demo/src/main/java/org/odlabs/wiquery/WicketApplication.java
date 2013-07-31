@@ -7,6 +7,7 @@ import org.odlabs.wiquery.autocomplete.AutocompletePage;
 import org.odlabs.wiquery.button.ButtonPage;
 import org.odlabs.wiquery.datepicker.DatePickerPage;
 import org.odlabs.wiquery.dialog.DialogPage;
+import org.odlabs.wiquery.home.HomePage;
 import org.odlabs.wiquery.progressbar.ProgressBarPage;
 import org.odlabs.wiquery.resizable.ResizePage;
 import org.odlabs.wiquery.slider.SliderPage;
@@ -23,14 +24,15 @@ public class WicketApplication extends WebApplication {
 
 	@Override
 	public Class<? extends WebPage> getHomePage() {
-		return DatePickerPage.class;
+		return HomePage.class;
 	}
 
 	@Override
 	public void init() {
 		super.init();
-		
 		getMarkupSettings().setStripWicketTags(true);
+		
+		mountPage("/", HomePage.class);
 		
 		// Interactions
 		mountPage("/sortable/", SortablePage.class);
