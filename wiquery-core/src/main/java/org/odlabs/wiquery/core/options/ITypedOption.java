@@ -14,6 +14,6 @@ public interface ITypedOption<T> extends IListItemOption
 	/**
 	 * @return Returns the value or null if no value is set.
 	 */
-	public T getValue();
+	T getValue();
 
 }
