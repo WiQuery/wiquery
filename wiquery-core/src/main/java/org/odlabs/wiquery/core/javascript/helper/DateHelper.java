@@ -56,14 +56,14 @@ public final class DateHelper
 	{
 		StringBuilder dateJavascript = new StringBuilder();
 		dateJavascript.append("new Date(");
-		dateJavascript.append(calendar.get(Calendar.YEAR)).append(",");
-		dateJavascript.append(calendar.get(Calendar.MONTH)).append(",");
-		dateJavascript.append(calendar.get(Calendar.DAY_OF_MONTH)).append(",");
-		dateJavascript.append(calendar.get(Calendar.HOUR_OF_DAY)).append(",");
-		dateJavascript.append(calendar.get(Calendar.MINUTE)).append(",");
-		dateJavascript.append(calendar.get(Calendar.SECOND)).append(",");
+		dateJavascript.append(calendar.get(Calendar.YEAR)).append(',');
+		dateJavascript.append(calendar.get(Calendar.MONTH)).append(',');
+		dateJavascript.append(calendar.get(Calendar.DAY_OF_MONTH)).append(',');
+		dateJavascript.append(calendar.get(Calendar.HOUR_OF_DAY)).append(',');
+		dateJavascript.append(calendar.get(Calendar.MINUTE)).append(',');
+		dateJavascript.append(calendar.get(Calendar.SECOND)).append(',');
 		dateJavascript.append(calendar.get(Calendar.MILLISECOND));
-		dateJavascript.append(")");
+		dateJavascript.append(')');
 
 		return dateJavascript.toString();
 	}

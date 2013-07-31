@@ -258,11 +258,11 @@ public class DatePickerLanguageResourceReference extends JavaScriptResourceRefer
 
 			if (country != null && country.trim().length() > 0)
 			{
-				js.append("-").append(country);
+				js.append('-').append(country);
 
 				if (variant != null && variant.trim().length() > 0)
 				{
-					js.append("-").append(variant);
+					js.append('-').append(variant);
 				}
 			}
 

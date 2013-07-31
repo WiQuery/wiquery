@@ -142,7 +142,7 @@ public abstract class JsScope implements Serializable
 	 */
 	private JsScope closeScope()
 	{
-		statement.append("}");
+		statement.append('}');
 		return this;
 	}
 

@@ -101,7 +101,7 @@ public class ButtonIcon extends Object implements IComplexOption
 	public CharSequence getJavascriptOption()
 	{
 		StringBuilder buffer = new StringBuilder();
-		buffer.append("{");
+		buffer.append('{');
 
 		if (primary != null && secondary != null)
 		{
@@ -119,7 +119,7 @@ public class ButtonIcon extends Object implements IComplexOption
 			buffer.append("secondary: " + new LiteralOption(secondary));
 		}
 
-		buffer.append("}");
+		buffer.append('}');
 
 		return buffer.toString();
 	}

@@ -41,7 +41,7 @@ public final class JsUtils
 	public static CharSequence array(CharSequence... args)
 	{
 		StringBuilder array = new StringBuilder();
-		array.append("[");
+		array.append('[');
 
 		if (args.length > 0)
 		{
@@ -53,7 +53,7 @@ public final class JsUtils
 			}
 		}
 
-		array.append("]");
+		array.append(']');
 		return array.toString();
 	}
 
@@ -102,13 +102,13 @@ public final class JsUtils
 			return "''";
 		}
 		StringBuilder output = new StringBuilder();
-		output.append("'").append(eventLabels[0].getEventLabel());
+		output.append('\'').append(eventLabels[0].getEventLabel());
 		for (int i = 1; i < eventLabels.length; i++)
 		{
 			EventLabel eventLabel = eventLabels[i];
-			output.append(" ").append(eventLabel.getEventLabel());
+			output.append(' ').append(eventLabel.getEventLabel());
 		}
-		output.append("'");
+		output.append('\'');
 		return output.toString();
 	}
 

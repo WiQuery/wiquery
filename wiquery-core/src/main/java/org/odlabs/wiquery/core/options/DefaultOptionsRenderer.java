@@ -69,13 +69,13 @@ public final class DefaultOptionsRenderer implements IOptionsRenderer
 	@Override
 	public void renderAfter(StringBuilder stringBuilder)
 	{
-		stringBuilder.append("}");
+		stringBuilder.append('}');
 	}
 
 	@Override
 	public void renderBefore(StringBuilder stringBuilder)
 	{
-		stringBuilder.append("{");
+		stringBuilder.append('{');
 	}
 
 	@Override
