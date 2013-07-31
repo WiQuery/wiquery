@@ -251,7 +251,7 @@ public class DatePickerLanguageResourceReference extends JavaScriptResourceRefer
 			Locale locale = dpl.getLocale();
 			String country = locale.getCountry();
 			String variant = locale.getVariant();
-			StringBuffer js = new StringBuffer();
+			StringBuilder js = new StringBuilder();
 
 			js.append("i18n/jquery.ui.datepicker-");
 			js.append(locale.getLanguage());

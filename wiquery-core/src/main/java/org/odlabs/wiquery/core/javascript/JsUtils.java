@@ -40,7 +40,7 @@ public class JsUtils
 	 */
 	public static CharSequence array(CharSequence... args)
 	{
-		StringBuffer array = new StringBuffer();
+		StringBuilder array = new StringBuilder();
 		array.append("[");
 
 		if (args.length > 0)
@@ -54,7 +54,7 @@ public class JsUtils
 		}
 
 		array.append("]");
-		return array;
+		return array.toString();
 	}
 
 	/**

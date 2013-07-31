@@ -54,7 +54,7 @@ public class DateHelper
 	 */
 	public static CharSequence getJSDate(Calendar calendar)
 	{
-		StringBuffer dateJavascript = new StringBuffer();
+		StringBuilder dateJavascript = new StringBuilder();
 		dateJavascript.append("new Date(");
 		dateJavascript.append(calendar.get(Calendar.YEAR)).append(",");
 		dateJavascript.append(calendar.get(Calendar.MONTH)).append(",");
@@ -65,7 +65,7 @@ public class DateHelper
 		dateJavascript.append(calendar.get(Calendar.MILLISECOND));
 		dateJavascript.append(")");
 
-		return dateJavascript;
+		return dateJavascript.toString();
 	}
 
 	/**

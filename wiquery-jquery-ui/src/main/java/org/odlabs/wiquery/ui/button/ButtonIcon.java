@@ -100,7 +100,7 @@ public class ButtonIcon extends Object implements IComplexOption
 	@Override
 	public CharSequence getJavascriptOption()
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append("{");
 
 		if (primary != null && secondary != null)
@@ -121,7 +121,7 @@ public class ButtonIcon extends Object implements IComplexOption
 
 		buffer.append("}");
 
-		return buffer;
+		return buffer.toString();
 	}
 
 	/**

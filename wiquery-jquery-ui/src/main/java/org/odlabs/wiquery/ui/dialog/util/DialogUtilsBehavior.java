@@ -174,7 +174,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		{
 			Locale locale = language.getLocale();
 
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			buffer.append(locale.getLanguage());
 
 			if (locale.getCountry() != null && !locale.getCountry().equals(""))
@@ -187,7 +187,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 				}
 			}
 
-			return JsUtils.quotes(buffer);
+			return JsUtils.quotes(buffer.toString());
 		}
 
 		/**
@@ -201,7 +201,8 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		{
 			Locale locale = language.getLocale();
 
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
+			buffer.append("i18n/");
 			buffer.append("wiquery-dialog_");
 			buffer.append(locale.getLanguage());
 
@@ -217,7 +218,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 
 			buffer.append(".js");
 
-			return new JavaScriptResourceReference(DialogUtilsBehavior.class, "i18n/" + buffer);
+			return new JavaScriptResourceReference(DialogUtilsBehavior.class, buffer.toString());
 		}
 
 		// Properties
