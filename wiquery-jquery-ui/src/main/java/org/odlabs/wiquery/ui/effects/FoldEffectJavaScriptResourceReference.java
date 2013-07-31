@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class FoldEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class FoldEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class FoldEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	/**
 	 * Singleton instance.
 	 */
-	private static FoldEffectJavaScriptResourceReference instance =
+	private static final FoldEffectJavaScriptResourceReference INSTANCE =
 		new FoldEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class FoldEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	 */
 	public static FoldEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

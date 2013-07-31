@@ -37,14 +37,14 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class ButtonJavaScriptResourceReference extends JavaScriptResourceReference
+public final class ButtonJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static ButtonJavaScriptResourceReference instance =
+	private static final ButtonJavaScriptResourceReference INSTANCE =
 		new ButtonJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class ButtonJavaScriptResourceReference extends JavaScriptResourceReferen
 	 */
 	public static ButtonJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

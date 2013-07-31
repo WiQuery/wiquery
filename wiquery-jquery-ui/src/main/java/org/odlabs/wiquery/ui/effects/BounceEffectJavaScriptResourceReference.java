@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class BounceEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class BounceEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class BounceEffectJavaScriptResourceReference extends JavaScriptResourceR
 	/**
 	 * Singleton instance.
 	 */
-	private static BounceEffectJavaScriptResourceReference instance =
+	private static final BounceEffectJavaScriptResourceReference INSTANCE =
 		new BounceEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class BounceEffectJavaScriptResourceReference extends JavaScriptResourceR
 	 */
 	public static BounceEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

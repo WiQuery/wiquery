@@ -32,7 +32,7 @@ import org.odlabs.wiquery.core.events.EventLabel;
  * @author Lionel Armanet
  * @since 0.7
  */
-public class JsUtils
+public final class JsUtils
 {
 
 	/**
@@ -40,8 +40,8 @@ public class JsUtils
 	 */
 	public static CharSequence array(CharSequence... args)
 	{
-		StringBuffer array = new StringBuffer();
-		array.append("[");
+		StringBuilder array = new StringBuilder();
+		array.append('[');
 
 		if (args.length > 0)
 		{
@@ -53,8 +53,8 @@ public class JsUtils
 			}
 		}
 
-		array.append("]");
-		return array;
+		array.append(']');
+		return array.toString();
 	}
 
 	/**
@@ -101,13 +101,15 @@ public class JsUtils
 		{
 			return "''";
 		}
-		String output = "'" + eventLabels[0].getEventLabel();
+		StringBuilder output = new StringBuilder();
+		output.append('\'').append(eventLabels[0].getEventLabel());
 		for (int i = 1; i < eventLabels.length; i++)
 		{
 			EventLabel eventLabel = eventLabels[i];
-			output += " " + eventLabel.getEventLabel();
+			output.append(' ').append(eventLabel.getEventLabel());
 		}
-		return output + "'";
+		output.append('\'');
+		return output.toString();
 	}
 
 	/**
@@ -132,5 +134,9 @@ public class JsUtils
 	public static String string(int value)
 	{
 		return String.valueOf(value);
+	}
+	
+	private JsUtils()
+	{
 	}
 }

@@ -36,5 +36,5 @@ public interface IListItemOption extends Serializable
 	 * 
 	 * @return
 	 */
-	public CharSequence getJavascriptOption();
+	CharSequence getJavascriptOption();
 }

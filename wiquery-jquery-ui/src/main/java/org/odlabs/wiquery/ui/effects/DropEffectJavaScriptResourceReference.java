@@ -35,7 +35,7 @@ import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
  * @author Julien Roche
  * @since 1.0
  */
-public class DropEffectJavaScriptResourceReference extends JavaScriptResourceReference
+public final class DropEffectJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -44,7 +44,7 @@ public class DropEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	/**
 	 * Singleton instance.
 	 */
-	private static DropEffectJavaScriptResourceReference instance =
+	private static final DropEffectJavaScriptResourceReference INSTANCE =
 		new DropEffectJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class DropEffectJavaScriptResourceReference extends JavaScriptResourceRef
 	 */
 	public static DropEffectJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

@@ -34,5 +34,5 @@ public interface ICollectionItemOptions extends IComplexOption
 	 * 
 	 * @return the list
 	 */
-	public IListItemOption[] values();
+	IListItemOption[] values();
 }

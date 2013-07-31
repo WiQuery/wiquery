@@ -37,14 +37,14 @@ import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class SortableJavaScriptResourceReference extends JavaScriptResourceReference
+public final class SortableJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static SortableJavaScriptResourceReference instance =
+	private static final SortableJavaScriptResourceReference INSTANCE =
 		new SortableJavaScriptResourceReference();
 
 	/**
@@ -60,7 +60,7 @@ public class SortableJavaScriptResourceReference extends JavaScriptResourceRefer
 	 */
 	public static SortableJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public class AjaxSlider extends Slider
 	 * 
 	 * @author Ernesto Reinaldo Barreiro
 	 */
-	private static abstract class SliderAjaxBehavior extends AbstractDefaultAjaxBehavior
+	private abstract static class SliderAjaxBehavior extends AbstractDefaultAjaxBehavior
 	{
 
 		private static final long serialVersionUID = 1L;
@@ -127,7 +127,7 @@ public class AjaxSlider extends Slider
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 * 
 	 */
-	public static interface ISliderAjaxEvent extends Serializable
+	public interface ISliderAjaxEvent extends Serializable
 	{
 
 		/**
@@ -143,7 +143,7 @@ public class AjaxSlider extends Slider
 		 *            In case with have more than one handle an array with handle values.
 		 *            Otherwise it is null.
 		 */
-		public void onEvent(AjaxRequestTarget target, AjaxSlider slider, int value, int[] values);
+		void onEvent(AjaxRequestTarget target, AjaxSlider slider, int value, int[] values);
 	}
 
 	/**

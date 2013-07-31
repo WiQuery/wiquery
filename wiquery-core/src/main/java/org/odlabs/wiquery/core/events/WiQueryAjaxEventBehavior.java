@@ -83,7 +83,7 @@ public abstract class WiQueryAjaxEventBehavior extends WiQueryAbstractAjaxBehavi
 						StringBuilder callback = new StringBuilder();
 						callback.append("if (").append(getPrecondition()).append(") {");
 						callback.append(WiQueryAjaxEventBehavior.this.getCallbackScript());
-						callback.append("}");
+						callback.append('}');
 						scopeContext.append(callback);
 					}
 				};

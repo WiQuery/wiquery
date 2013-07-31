@@ -36,14 +36,14 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.1
  */
-public class MouseJavaScriptResourceReference extends JavaScriptResourceReference
+public final class MouseJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static MouseJavaScriptResourceReference instance =
+	private static final MouseJavaScriptResourceReference INSTANCE =
 		new MouseJavaScriptResourceReference();
 
 	/**
@@ -59,7 +59,7 @@ public class MouseJavaScriptResourceReference extends JavaScriptResourceReferenc
 	 */
 	public static MouseJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

@@ -39,14 +39,14 @@ import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class DialogJavaScriptResourceReference extends JavaScriptResourceReference
+public final class DialogJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = -4771815414204892357L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static DialogJavaScriptResourceReference instance =
+	private static final DialogJavaScriptResourceReference INSTANCE =
 		new DialogJavaScriptResourceReference();
 
 	/**
@@ -62,7 +62,7 @@ public class DialogJavaScriptResourceReference extends JavaScriptResourceReferen
 	 */
 	public static DialogJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

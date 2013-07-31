@@ -39,15 +39,15 @@ public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> im
 	@Override
 	public CharSequence getJavascriptOption()
 	{
-		StringBuffer javascript = new StringBuffer();
-		javascript.append("[");
+		StringBuilder javascript = new StringBuilder();
+		javascript.append('[');
 
 		if (!isEmpty())
 		{
 			for (IListItemOption itemOption : this)
 			{
 				javascript.append(itemOption.getJavascriptOption());
-				javascript.append(",");
+				javascript.append(',');
 			}
 			javascript.replace(javascript.length() - 1, javascript.length(), ""); // Remove
 																					// the
@@ -55,8 +55,8 @@ public class ArrayItemOptions<E extends IListItemOption> extends ArrayList<E> im
 																					// ','
 		}
 
-		javascript.append("]");
-		return javascript;
+		javascript.append(']');
+		return javascript.toString();
 	}
 
 	@Override

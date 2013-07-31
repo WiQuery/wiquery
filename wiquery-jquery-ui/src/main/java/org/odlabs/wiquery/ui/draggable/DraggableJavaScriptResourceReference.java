@@ -36,7 +36,7 @@ import org.odlabs.wiquery.ui.mouse.MouseJavaScriptResourceReference;
  * @author Lionel Armanet
  * @since 0.5
  */
-public class DraggableJavaScriptResourceReference extends JavaScriptResourceReference
+public final class DraggableJavaScriptResourceReference extends JavaScriptResourceReference
 {
 	// Constants
 	/** Constant of serialization */
@@ -45,7 +45,7 @@ public class DraggableJavaScriptResourceReference extends JavaScriptResourceRefe
 	/**
 	 * Singleton instance.
 	 */
-	private static DraggableJavaScriptResourceReference instance =
+	private static final DraggableJavaScriptResourceReference INSTANCE =
 		new DraggableJavaScriptResourceReference();
 
 	/**
@@ -61,7 +61,7 @@ public class DraggableJavaScriptResourceReference extends JavaScriptResourceRefe
 	 */
 	public static DraggableJavaScriptResourceReference get()
 	{
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override
