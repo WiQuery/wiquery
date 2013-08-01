@@ -21,7 +21,7 @@ public enum UiIcon
 	CARAT_1_NORTH_WEST("carat-1-nw"),
 	CARAT_2_NORTH_SOUTH("carat-2-n-s"),
 	CARAT_2_EAST_WEST("carat-2-e-w"),
-	TRIANGLE_1_NORTH("carat-1-n"),
+	TRIANGLE_1_NORTH("triangle-1-n"),
 	TRIANGLE_1_NORTH_EAST("triangle-1-ne"),
 	TRIANGLE_1_EAST("triangle-1-e"),
 	TRIANGLE_1_SOUTH_EAST("triangle-1-se"),
