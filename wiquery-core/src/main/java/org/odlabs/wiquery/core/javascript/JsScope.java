@@ -23,7 +23,7 @@ package org.odlabs.wiquery.core.javascript;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.annotate.JsonValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * $Id: JsScope.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
