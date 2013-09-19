@@ -49,8 +49,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>6.9.1</wicket.version>
-		<jackson.version>2.2.2</jackson.version>
+		<wicket.version>6.10.0</wicket.version>
+		<jackson.version>2.2.3</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<javax.servlet-api.version>3.0.1</javax.servlet-api.version>
@@ -62,13 +62,13 @@
 		<maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
 		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
 		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
-		<maven-install-plugin.version>2.4</maven-install-plugin.version>
-		<maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
+		<maven-install-plugin.version>2.5</maven-install-plugin.version>
+		<maven-jar-plugin.version>2.4</maven-jar-plugin.version>
 		<maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-site-plugin.version>3.3</maven-site-plugin.version>
 		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-		<maven-surefire-plugin.version>2.15</maven-surefire-plugin.version>
+		<maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
 		<maven-war-plugin.version>2.4</maven-war-plugin.version>
 	</properties>
 
