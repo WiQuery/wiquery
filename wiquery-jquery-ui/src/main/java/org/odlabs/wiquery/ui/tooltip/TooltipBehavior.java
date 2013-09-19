@@ -6,6 +6,7 @@ import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.options.EffectOptionObject;
@@ -42,7 +43,17 @@ public class TooltipBehavior extends Behavior
 
 	public TooltipBehavior setContent(String content)
 	{
-		options.put("content", "\"" + JavaScriptUtils.escapeQuotes(content).toString() + "\"");
+		String formattedContent = ""; 
+		if (content != null && !content.isEmpty())
+		{
+			formattedContent = 
+					JavaScriptUtils.escapeQuotes(
+						Strings.toMultilineMarkup(
+							Strings.toEscapedUnicode(content)
+						)
+					).toString();
+		}
+		options.put("content", "\"" + formattedContent  + "\"");
 		return this;
 	}
 
