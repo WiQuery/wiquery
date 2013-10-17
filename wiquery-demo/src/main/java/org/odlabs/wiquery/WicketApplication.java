@@ -18,7 +18,6 @@ import org.odlabs.wiquery.tab.TabsPage;
  * Application object for the wiQuery-demo web application. If you want to run this
  * application without deploying, run the WiqueryDemo class.
  * 
- * @see org.odlabs.wiquery.WiqueryDemo#main(String[])
  */
 public class WicketApplication extends WebApplication {
 

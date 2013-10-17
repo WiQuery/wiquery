@@ -31,8 +31,7 @@ public class SliderPanel extends Panel {
 	/**
 	 * Constructor that is invoked when page is invoked without a session.
 	 * 
-	 * @param parameters
-	 *            Page parameters
+	 * @param id
 	 */
 	public SliderPanel(String id) {
 		super(id);

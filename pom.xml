@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -14,7 +15,7 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>6.9.3-SNAPSHOT</version>
+	<version>6.11.0-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
 
 	<url>https://github.com/wiquery/wiquery</url>
@@ -49,7 +50,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>6.10.0</wicket.version>
+		<wicket.version>6.11.0</wicket.version>
 		<jackson.version>2.2.3</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
 		<junit.version>4.11</junit.version>
@@ -59,7 +60,7 @@
 		<maven-bundle-plugin.version>2.4.0</maven-bundle-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
-		<maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
+		<maven-deploy-plugin.version>2.8</maven-deploy-plugin.version>
 		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
 		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
 		<maven-install-plugin.version>2.5</maven-install-plugin.version>
@@ -114,6 +115,7 @@
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${javax.servlet-api.version}</version>
 			</dependency>
+
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
