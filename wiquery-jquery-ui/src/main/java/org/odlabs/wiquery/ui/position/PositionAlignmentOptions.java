@@ -26,11 +26,11 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 
 /**
  * $Id PositionAlignmentOptions.java$
- * 
+ *
  * <p>
  * Complex option to store the possible values for the position my/at options.
  * </p>
- * 
+ *
  * @author Stephane Gleizes
  * @since 6.9.2
  */
@@ -42,12 +42,16 @@ public class PositionAlignmentOptions implements IComplexOption
 
 	// Properties
 	private PositionRelation horizontalAlignment;
-	
+
 	private int offsetLeft;
-	
+
+	private boolean offsetLeftPa = false;
+
 	private PositionRelation verticalAlignment;
 
 	private int offsetTop;
+
+	private boolean offsetTopPa = false;
 
 	/**
 	 * Default constructor
@@ -59,7 +63,7 @@ public class PositionAlignmentOptions implements IComplexOption
 
 	/**
 	 * Constructor with single alignment.
-	 * 
+	 *
 	 * @param alignment
 	 */
 	public PositionAlignmentOptions(PositionRelation alignment)
@@ -70,49 +74,95 @@ public class PositionAlignmentOptions implements IComplexOption
 
 	/**
 	 * Constructor with both horizontal and vertical alignment.
-	 * 
+	 *
 	 * @param horizontalAlignment
 	 * @param verticalAlignment
 	 */
 	public PositionAlignmentOptions(PositionRelation horizontalAlignment, PositionRelation verticalAlignment)
 	{
-		super();
-		this.horizontalAlignment = horizontalAlignment;
-		this.verticalAlignment = verticalAlignment;
+		this(horizontalAlignment, 0, false, verticalAlignment, 0, false);
 	}
-	
+
 	/**
 	 * Constructor with horizontal, vertical alignment and offsets.
-	 * 
+	 *
 	 * @param horizontalAlignment
 	 * @param offsetLeft
 	 * @param verticalAlignment
 	 * @param offsetTop
 	 */
 	public PositionAlignmentOptions(PositionRelation horizontalAlignment, int offsetLeft,
-			PositionRelation verticalAlignment, int offsetTop)
+									PositionRelation verticalAlignment, int offsetTop)
+	{
+		this(horizontalAlignment, offsetLeft, false, verticalAlignment, offsetTop, false);
+	}
+
+	/**
+	 * Constructor with horizontal, vertical alignment, offsets and offsetLeft percentage
+	 *
+	 * @param horizontalAlignment
+	 * @param offsetLeft
+	 * @param offsetLeftPa
+	 * @param verticalAlignment
+	 * @param offsetTop
+	 */
+	public PositionAlignmentOptions(PositionRelation horizontalAlignment, int offsetLeft, boolean offsetLeftPa,
+									PositionRelation verticalAlignment, int offsetTop)
+	{
+		this(horizontalAlignment, offsetLeft, offsetLeftPa, verticalAlignment, offsetTop, false);
+	}
+
+	/**
+	 * Constructor with horizontal, vertical alignment, offsets and offsetTop percentage
+	 *
+	 * @param horizontalAlignment
+	 * @param offsetLeft
+	 * @param verticalAlignment
+	 * @param offsetTop
+	 * @param offsetTopPa
+	 */
+	public PositionAlignmentOptions(PositionRelation horizontalAlignment, int offsetLeft,
+									PositionRelation verticalAlignment, int offsetTop, boolean offsetTopPa)
+	{
+		this(horizontalAlignment, offsetLeft, false, verticalAlignment, offsetTop, offsetTopPa);
+	}
+
+	/**
+	 * Constructor with horizontal, vertical alignment, offsets and offsetsPercentage
+	 *
+	 * @param horizontalAlignment
+	 * @param offsetLeft
+	 * @param offsetLeftPa
+	 * @param verticalAlignment
+	 * @param offsetTop
+	 * @param offsetTopPa
+	 */
+	public PositionAlignmentOptions(PositionRelation horizontalAlignment, int offsetLeft, boolean offsetLeftPa,
+									PositionRelation verticalAlignment, int offsetTop, boolean offsetTopPa)
 	{
 		super();
 		this.horizontalAlignment = horizontalAlignment;
 		this.offsetLeft = offsetLeft;
+		this.offsetLeftPa = offsetLeftPa;
 		this.verticalAlignment = verticalAlignment;
 		this.offsetTop = offsetTop;
+		this.offsetTopPa = offsetTopPa;
 	}
 
 	@Override
 	public CharSequence getJavascriptOption()
 	{
 		StringBuilder sb = new StringBuilder();
-		
+
 		if (horizontalAlignment != null)
 		{
 			sb.append(horizontalAlignment.toString());
 			if (offsetLeft != 0)
 			{
-				sb.append(offsetLeft > 0 ? "+" + offsetLeft : offsetLeft);
+				sb.append(offsetLeft > 0 ? "+" + offsetLeft : offsetLeft).append(offsetLeftPa ? "%" : "");
 			}
 		}
-		
+
 		if (verticalAlignment != null)
 		{
 			if (sb.length() > 0)
@@ -122,10 +172,10 @@ public class PositionAlignmentOptions implements IComplexOption
 			sb.append(verticalAlignment.toString());
 			if (offsetTop != 0)
 			{
-				sb.append(offsetTop > 0 ? "+" + offsetTop : offsetTop);
+				sb.append(offsetTop > 0 ? "+" + offsetTop : offsetTop).append(offsetTopPa ? "%" : "");
 			}
 		}
-		
+
 		return new LiteralOption(sb.toString()).toString();
 	}
 
@@ -136,10 +186,10 @@ public class PositionAlignmentOptions implements IComplexOption
 	{
 		return horizontalAlignment;
 	}
-	
+
 	/**
 	 * Set the horizontalAlignment property. One of LEFT, CENTER, RIGHT.
-	 * 
+	 *
 	 * @param horizontalAlignment
 	 * @return the instance
 	 */
@@ -147,10 +197,10 @@ public class PositionAlignmentOptions implements IComplexOption
 	{
 		return setHorizontalAlignment(horizontalAlignment, 0);
 	}
-	
+
 	/**
 	 * Set the horizontalAlignment property with an offset. One of LEFT, CENTER, RIGHT.
-	 * 
+	 *
 	 * @param horizontalAlignment
 	 * @param offsetLeft
 	 * @return the instance
@@ -159,19 +209,19 @@ public class PositionAlignmentOptions implements IComplexOption
 	{
 		switch (horizontalAlignment)
 		{
-		case LEFT:
-		case CENTER:
-		case RIGHT:
-			break;
-		default:
-			throw new IllegalArgumentException("Illegal value for the horizontal alignment property");
+			case LEFT:
+			case CENTER:
+			case RIGHT:
+				break;
+			default:
+				throw new IllegalArgumentException("Illegal value for the horizontal alignment property");
 		}
-		
+
 		this.horizontalAlignment = horizontalAlignment;
 		this.offsetLeft = offsetLeft;
 		return this;
 	}
-	
+
 	/**
 	 * @return the offsetLeft property
 	 */
@@ -179,15 +229,34 @@ public class PositionAlignmentOptions implements IComplexOption
 	{
 		return offsetLeft;
 	}
-	
+
 	/**
 	 * Set the offsetLeft property.
-	 * 
+	 *
 	 * @param offsetLeft
 	 * @return the instance
 	 */
 	public PositionAlignmentOptions setOffsetLeft(int offsetLeft) {
 		this.offsetLeft = offsetLeft;
+		return this;
+	}
+
+	/**
+	 * @return the offsetLeftPa property
+	 */
+	public boolean isOffsetLeftPa() {
+		return offsetLeftPa;
+	}
+
+
+	/**
+	 * Set the offsetLeftPa property.
+	 *
+	 * @param offsetLeftPa use offset left in percentage
+	 * @return the instance
+	 */
+	public PositionAlignmentOptions setOffsetLeftPa(boolean offsetLeftPa) {
+		this.offsetLeftPa = offsetLeftPa;
 		return this;
 	}
 
@@ -198,10 +267,10 @@ public class PositionAlignmentOptions implements IComplexOption
 	{
 		return verticalAlignment;
 	}
-	
+
 	/**
 	 * Set the verticalAlignment property. One of TOP, CENTER, BOTTOM.
-	 * 
+	 *
 	 * @param verticalAlignment
 	 * @return the instance
 	 */
@@ -209,10 +278,10 @@ public class PositionAlignmentOptions implements IComplexOption
 	{
 		return setVerticalAlignment(verticalAlignment, 0);
 	}
-	
+
 	/**
 	 * Set the verticalAlignment property with an offset. One of TOP, CENTER, BOTTOM.
-	 * 
+	 *
 	 * @param verticalAlignment
 	 * @param offsetTop
 	 * @return the instance
@@ -221,34 +290,52 @@ public class PositionAlignmentOptions implements IComplexOption
 	{
 		switch (verticalAlignment)
 		{
-		case TOP:
-		case CENTER:
-		case BOTTOM:
-			break;
-		default:
-			throw new IllegalArgumentException("Illegal value for the vertical alignment property");
+			case TOP:
+			case CENTER:
+			case BOTTOM:
+				break;
+			default:
+				throw new IllegalArgumentException("Illegal value for the vertical alignment property");
 		}
-		
+
 		this.verticalAlignment = verticalAlignment;
 		this.offsetTop = offsetTop;
 		return this;
 	}
-	
+
 	/**
 	 * @return the offsetTop property
 	 */
 	public int getOffsetTop() {
 		return offsetTop;
 	}
-	
+
 	/**
 	 * Set the offsetTop property.
-	 * 
+	 *
 	 * @param offsetTop
 	 * @return the instance
 	 */
 	public PositionAlignmentOptions setOffsetTop(int offsetTop) {
 		this.offsetTop = offsetTop;
+		return this;
+	}
+
+	/**
+	 * @return the offsetTopPa property
+	 */
+	public boolean isOffsetTopPa() {
+		return offsetTopPa;
+	}
+
+	/**
+	 * Set the offsetTop property.
+	 *
+	 * @param offsetTopPa use offset top in percentage
+	 * @return the instance
+	 */
+	public PositionAlignmentOptions setOffsetTopPa(boolean offsetTopPa) {
+		this.offsetTopPa = offsetTopPa;
 		return this;
 	}
 }
