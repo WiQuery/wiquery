@@ -758,6 +758,18 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
+	 * Set's the callback when the dialog is created. .
+	 *
+	 * @param create
+	 * @return instance of the current component
+	 */
+	public Dialog setCreateEvent(JsScopeUiEvent create)
+	{
+		this.options.put("create", create);
+		return this;
+	}
+
+	/**
 	 * Set's the callback when the dialog is dragged.
 	 * 
 	 * @param drag
