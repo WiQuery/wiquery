@@ -30,12 +30,12 @@ import org.odlabs.wiquery.ui.themes.UiIcon;
  * <p>
  * Bean for the icon option into the Button component
  * </p>
- * 
+ *
  * @author Julien Roche
  * @author Ernesto Reinaldo
  * @since 1.1
  */
-public class ButtonIcon extends Object implements IComplexOption
+public class ButtonIcon implements IComplexOption
 {
 	// Constants
 	/** Constant of serialization */
@@ -48,7 +48,7 @@ public class ButtonIcon extends Object implements IComplexOption
 
 	/**
 	 * Default constructor
-	 * 
+	 *
 	 * @param primary
 	 *            (can be null)
 	 * @param secondary
@@ -63,23 +63,22 @@ public class ButtonIcon extends Object implements IComplexOption
 
 	/**
 	 * Constructor accepting enumeration.
-	 * 
+	 *
 	 * @param primary
 	 * @param secondary
 	 */
 	public ButtonIcon(UiIcon primary, UiIcon secondary)
 	{
 		super();
-		if (primary == null)
-			throw new IllegalArgumentException("Primary UI icon should be non-null");
-		this.primary = primary.getCssClass();
+		if (primary != null)
+			this.primary = primary.getCssClass();
 		if (secondary != null)
 			this.secondary = secondary.getCssClass();
 	}
 
 	/**
 	 * Method retrieving the class for the primary icon
-	 * 
+	 *
 	 * @return the class for the primary icon
 	 */
 	public String getPrimary()
@@ -89,7 +88,7 @@ public class ButtonIcon extends Object implements IComplexOption
 
 	/**
 	 * Method retrieving the class for the secondary icon
-	 * 
+	 *
 	 * @return the class for the secondary icon
 	 */
 	public String getSecondary()
@@ -126,7 +125,7 @@ public class ButtonIcon extends Object implements IComplexOption
 
 	/**
 	 * Method setting the class for the primary icon
-	 * 
+	 *
 	 * @param primary
 	 */
 	public void setHeaderClass(String primary)
@@ -136,7 +135,7 @@ public class ButtonIcon extends Object implements IComplexOption
 
 	/**
 	 * Method setting the class for the secondary icon
-	 * 
+	 *
 	 * @param secondary
 	 */
 	public void setHeaderSelectedClass(String secondary)
