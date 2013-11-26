@@ -235,4 +235,28 @@ public class DialogButton extends Object implements IListItemOption
 	public IComplexOption getCallback() {
 		return callback;
 	}
+
+
+	/**
+	 * Disable the button.
+	 *
+	 *
+	 * @param disabled
+	 *              set to true to disable the button
+	 * @return the button
+	 */
+	public DialogButton setDisabled(boolean disabled) {
+		options.put("disabled", disabled);
+		return this;
+	}
+
+	/**
+	 * @return the disabled value option
+	 */
+	public boolean getDisabled() {
+		if (options.containsKey("disabled")) {
+			return options.getBoolean("disabled");
+		}
+		return false;
+	}
 }
