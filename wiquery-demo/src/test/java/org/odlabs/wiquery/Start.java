@@ -1,20 +1,22 @@
 package org.odlabs.wiquery;
 
 import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.bio.SocketConnector;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-public class WiqueryDemo {
-	public static void main(String[] args) {
+public class Start
+{
+	public static void main(String[] args)
+	{
 		Server server = new Server();
-		SocketConnector connector = new SocketConnector();
-
+		ServerConnector connector = new ServerConnector(server, new HttpConnectionFactory());
 		// Set some timeout options to make debugging easier.
-		connector.setMaxIdleTime(1000 * 60 * 60);
+		connector.setIdleTimeout(1000 * 60 * 60);
 		connector.setSoLingerTime(-1);
 		connector.setPort(8080);
-		server.setConnectors(new Connector[] { connector });
+		server.setConnectors(new Connector[] {connector});
 
 		WebAppContext bb = new WebAppContext();
 		bb.setServer(server);
@@ -23,15 +25,17 @@ public class WiqueryDemo {
 
 		server.setHandler(bb);
 
-		try {
-			System.out
-					.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
+		try
+		{
+			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
 			server.start();
 			System.in.read();
 			System.out.println(">>> STOPPING EMBEDDED JETTY SERVER");
 			server.stop();
 			server.join();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			System.exit(100);
 		}
