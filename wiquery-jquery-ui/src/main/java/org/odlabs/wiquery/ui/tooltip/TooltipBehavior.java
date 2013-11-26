@@ -6,17 +6,19 @@ import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.options.EffectOptionObject;
 import org.odlabs.wiquery.ui.position.PositionOptions;
-import org.odlabs.wiquery.ui.tooltip.TooltipJavaScriptResourceReference;
 
 public class TooltipBehavior extends Behavior
 {
 	private static final long serialVersionUID = 1L;
 
+	protected IModel<String> model;
+	
 	protected Options options = new Options();
 
 	/**
@@ -43,17 +45,13 @@ public class TooltipBehavior extends Behavior
 
 	public TooltipBehavior setContent(String content)
 	{
-		String formattedContent = ""; 
-		if (content != null && !content.isEmpty())
-		{
-			formattedContent = 
-					JavaScriptUtils.escapeQuotes(
-						Strings.toMultilineMarkup(
-							Strings.toEscapedUnicode(content)
-						)
-					).toString();
-		}
-		options.put("content", "\"" + formattedContent  + "\"");
+		options.put("content", "\"" + formatContent(content)  + "\"");
+		return this;
+	}
+	
+	public TooltipBehavior setContent(IModel<String> model)
+	{
+		this.model = model;
 		return this;
 	}
 
@@ -146,16 +144,36 @@ public class TooltipBehavior extends Behavior
 
 	private JsStatement statement(Component component)
 	{
+		if (model != null )
+		{
+			setContent(model.getObject());
+		}
+		
 		if (options.isEmpty())
 		{
 			return new JsStatement().$(component).chain("tooltip");
 		}
-
+		
 		if (options.containsKey("content") && !options.containsKey("items"))
 		{
 			setItems("#" + component.getMarkupId());
 		}
 
 		return new JsStatement().$(component).chain("tooltip", options.getJavaScriptOptions());
+	}
+	
+	private String formatContent(String content)
+	{		
+		String formattedContent = ""; 
+		if (content != null && !content.isEmpty())
+		{
+			formattedContent = 
+					JavaScriptUtils.escapeQuotes(
+						Strings.toMultilineMarkup(
+							Strings.toEscapedUnicode(content)
+						)
+					).toString();
+		}
+		return formattedContent;
 	}
 }
