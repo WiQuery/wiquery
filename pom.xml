@@ -53,8 +53,7 @@
 		<jackson.version>2.3.0</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
 		<junit.version>4.11</junit.version>
-		<servlet-api.version>2.5</servlet-api.version>
-		<jetty.version>9.1.0.v20131115</jetty.version>
+		<jetty.version>9.0.7.v20131107</jetty.version>
 
 		<maven-bundle-plugin.version>2.4.0</maven-bundle-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
@@ -108,11 +107,6 @@
 			</dependency>
 
 			<!-- External dependencies -->
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>servlet-api</artifactId>
-				<version>${servlet-api.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>

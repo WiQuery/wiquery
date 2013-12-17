@@ -16,6 +16,9 @@
     <dependent-module archiveName="wicket-request-6.12.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/apache/wicket/wicket-request/6.12.0/wicket-request-6.12.0.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <dependent-module archiveName="wiquery-jquery-ui.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wiquery-jquery-ui/wiquery-jquery-ui">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
     <dependent-module archiveName="wiquery-core.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wiquery-core/wiquery-core">
       <dependency-type>uses</dependency-type>
     </dependent-module>
@@ -26,9 +29,6 @@
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module archiveName="jackson-core-2.3.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/fasterxml/jackson/core/jackson-core/2.3.0/jackson-core-2.3.0.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="wiquery-jquery-ui.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wiquery-jquery-ui/wiquery-jquery-ui">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
