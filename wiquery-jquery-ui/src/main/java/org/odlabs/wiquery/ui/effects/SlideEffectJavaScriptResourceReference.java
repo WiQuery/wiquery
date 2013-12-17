@@ -21,6 +21,8 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
+import java.util.List;
+
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
@@ -64,7 +66,7 @@ public final class SlideEffectJavaScriptResourceReference extends JavaScriptReso
 	}
 
 	@Override
-	public Iterable< ? extends HeaderItem> getDependencies()
+	public List<HeaderItem> getDependencies()
 	{
 		return JavaScriptHeaderItems.forReferences(CoreEffectJavaScriptResourceReference.get());
 	}

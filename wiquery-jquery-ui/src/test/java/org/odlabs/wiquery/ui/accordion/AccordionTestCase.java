@@ -60,7 +60,7 @@ public class AccordionTestCase extends WiQueryTestCase
 		accordion = new Accordion("anId");
 		accordion.setMarkupId(accordion.getId());
 		panel.add(accordion);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

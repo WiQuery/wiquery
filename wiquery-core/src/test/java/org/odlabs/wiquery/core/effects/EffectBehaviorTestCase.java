@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.effects;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -59,7 +59,7 @@ public class EffectBehaviorTestCase extends WiQueryTestCase
 		component.add(effectBehavior);
 		panel.add(component);
 
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

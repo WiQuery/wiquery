@@ -22,8 +22,8 @@
 package org.odlabs.wiquery.ui.tabs;
 
 
-import org.odlabs.wiquery.ui.options.GenericAnimateOption;
 import org.odlabs.wiquery.ui.options.EffectOptionObject;
+import org.odlabs.wiquery.ui.options.GenericAnimateOption;
 
 /**
  * $Id: TabsAnimateOption.java

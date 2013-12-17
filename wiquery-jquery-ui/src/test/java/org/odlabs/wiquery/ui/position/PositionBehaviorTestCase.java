@@ -57,7 +57,7 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 		component.setMarkupId("anId");
 		component.add(positionBehavior);
 		panel.add(component);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

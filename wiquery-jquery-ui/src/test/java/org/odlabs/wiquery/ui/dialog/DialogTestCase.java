@@ -60,7 +60,7 @@ public class DialogTestCase extends WiQueryTestCase
 		dialog = new Dialog("anId");
 		dialog.setMarkupId(dialog.getId());
 		panel.add(dialog);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 	
 	/**

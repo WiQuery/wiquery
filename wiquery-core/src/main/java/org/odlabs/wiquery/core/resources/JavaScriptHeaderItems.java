@@ -3,12 +3,15 @@ package org.odlabs.wiquery.core.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.request.resource.ResourceReference;
 
 public abstract class JavaScriptHeaderItems extends JavaScriptHeaderItem
 {
+	private static final long serialVersionUID = 1L;
+
 	protected JavaScriptHeaderItems(String condition)
 	{
 		super(condition);
@@ -18,14 +21,14 @@ public abstract class JavaScriptHeaderItems extends JavaScriptHeaderItem
 	 * @return a list of {@link JavaScriptReferenceHeaderItem}s in the order of and
 	 *         containing the given references
 	 */
-	public static Iterable< ? extends JavaScriptReferenceHeaderItem> forReferences(
+	public static List<HeaderItem> forReferences(
 			ResourceReference... references)
 	{
 		if (references == null || references.length == 0)
-			return new ArrayList<JavaScriptReferenceHeaderItem>(0);
+			return new ArrayList<HeaderItem>(0);
 
-		List<JavaScriptReferenceHeaderItem> list =
-			new ArrayList<JavaScriptReferenceHeaderItem>(references.length);
+		List<HeaderItem> list =
+			new ArrayList<HeaderItem>(references.length);
 
 		for (ResourceReference reference : references)
 			list.add(forReference(reference));

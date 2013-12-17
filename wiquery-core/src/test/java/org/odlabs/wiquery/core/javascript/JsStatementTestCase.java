@@ -77,7 +77,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 		component.setMarkupId("anId");
 		panel.add(component);
 
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 
 		assertAndLog("$('#anId');", jsStatement.$(component).render());
 	}
@@ -99,7 +99,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 		component.setMarkupId("anId");
 		panel.add(component);
 
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 
 		assertAndLog("$('#anId span');", jsStatement.$(component, "span").render());
 	}

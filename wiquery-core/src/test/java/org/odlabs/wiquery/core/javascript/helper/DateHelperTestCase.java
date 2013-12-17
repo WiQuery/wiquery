@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core.javascript.helper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.GregorianCalendar;
 

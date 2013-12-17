@@ -53,7 +53,7 @@ public class ProgressBarTestCase extends WiQueryTestCase
 		progressBar = new ProgressBar("anId");
 		progressBar.setMarkupId(progressBar.getId());
 		panel.add(progressBar);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

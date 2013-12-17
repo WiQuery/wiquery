@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.ui.dialog;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsScope;

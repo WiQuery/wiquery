@@ -21,7 +21,11 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -54,7 +58,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 		datePicker = new DatePicker<Date>("anId");
 		datePicker.setMarkupId(datePicker.getId());
 		panel.add(datePicker);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

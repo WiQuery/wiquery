@@ -56,7 +56,7 @@ public class JsQueryTestCase extends WiQueryTestCase
 		panel.add(component);
 		jsQuery = new JsQuery(component);
 
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

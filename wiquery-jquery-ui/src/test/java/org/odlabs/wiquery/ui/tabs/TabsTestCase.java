@@ -37,8 +37,8 @@ import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.odlabs.wiquery.ui.DivTestPanel;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.options.HeightStyleEnum;
 import org.odlabs.wiquery.ui.options.EffectOptionObject;
+import org.odlabs.wiquery.ui.options.HeightStyleEnum;
 
 /**
  * Test on {@link Tabs}
@@ -61,7 +61,7 @@ public class TabsTestCase extends WiQueryTestCase
 		tabs = new Tabs("anId");
 		tabs.setMarkupId(tabs.getId());
 		panel.add(tabs);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

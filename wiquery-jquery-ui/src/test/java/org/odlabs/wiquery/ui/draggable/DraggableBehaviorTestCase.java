@@ -21,7 +21,11 @@
  */
 package org.odlabs.wiquery.ui.draggable;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -60,7 +64,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 		component.setMarkupId("anId");
 		component.add(draggableBehavior);
 		panel.add(component);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

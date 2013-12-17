@@ -60,7 +60,7 @@ public final class CoreUIJavaScriptResourceReference extends JQueryPluginResourc
 	}
 
 	@Override
-	public Iterable< ? extends HeaderItem> getDependencies()
+	public List<HeaderItem> getDependencies()
 	{
 		Iterable< ? extends HeaderItem> jquery = super.getDependencies();
 		List<HeaderItem> ret = new ArrayList<HeaderItem>();

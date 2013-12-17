@@ -21,6 +21,8 @@
  */
 package org.odlabs.wiquery.ui.droppable;
 
+import java.util.List;
+
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.odlabs.wiquery.core.resources.JavaScriptHeaderItems;
@@ -69,7 +71,7 @@ public final class DroppableJavaScriptResourceReference extends JavaScriptResour
 	}
 
 	@Override
-	public Iterable< ? extends HeaderItem> getDependencies()
+	public List<HeaderItem> getDependencies()
 	{
 		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
 			WidgetJavaScriptResourceReference.get(), MouseJavaScriptResourceReference.get(),

@@ -21,7 +21,11 @@
  */
 package org.odlabs.wiquery.ui.slider;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.junit.Before;
@@ -54,7 +58,7 @@ public class SliderTestCase extends WiQueryTestCase
 		slider = new Slider("anId", 5, 10);
 		slider.setMarkupId(slider.getId());
 		panel.add(slider);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

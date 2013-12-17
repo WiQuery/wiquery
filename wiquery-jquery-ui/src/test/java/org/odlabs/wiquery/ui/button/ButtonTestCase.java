@@ -61,7 +61,7 @@ public class ButtonTestCase extends WiQueryTestCase
 		button.add(buttonBehavior);
 		button.setMarkupId(button.getId());
 		panel.add(button);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**

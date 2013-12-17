@@ -1,6 +1,6 @@
 package org.odlabs.wiquery.core.options;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.odlabs.wiquery.core.events.MouseEvent;

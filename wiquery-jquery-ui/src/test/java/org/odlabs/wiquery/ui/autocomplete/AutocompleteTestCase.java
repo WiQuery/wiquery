@@ -59,7 +59,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 		autocomplete = new Autocomplete<String>("anId");
 		autocomplete.setMarkupId(autocomplete.getId());
 		panel.add(autocomplete);
-		tester.startComponent(panel);
+		tester.startComponentInPage(panel);
 	}
 
 	/**
