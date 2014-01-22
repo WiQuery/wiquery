@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>wiquery-parent</artifactId>
 		<groupId>org.odlabs.wiquery</groupId>
-		<version>6.13-SNAPSHOT</version>
+		<version>6.13.0</version>
 	</parent>
 
 	<artifactId>wiquery-demo</artifactId>
