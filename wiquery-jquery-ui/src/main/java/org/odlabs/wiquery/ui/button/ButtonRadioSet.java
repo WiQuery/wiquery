@@ -91,7 +91,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 			private static final long serialVersionUID = 8265281439115476364L;
 
 			@Override
-			protected void onSelectionChanged(Object newSelection)
+			protected void onSelectionChanged(T newSelection)
 			{
 				ButtonRadioSet.this.onSelectionChanged(newSelection);
 			}

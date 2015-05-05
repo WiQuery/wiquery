@@ -283,7 +283,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	}
 
 	@Override
-	protected final void convertInput()
+	public final void convertInput()
 	{
 		String valueId = autocompleteHidden.getConvertedInput();
 		String input = autocompleteField.getConvertedInput();
