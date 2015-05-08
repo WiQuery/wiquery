@@ -96,7 +96,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 			private static final long serialVersionUID = 8265281439115476364L;
 
 			@Override
-			protected void onSelectionChanged(final Collection< ? extends T> newSelection)
+			protected void onSelectionChanged(final Collection<T> newSelection)
 			{
 				ButtonCheckSet.this.onSelectionChanged(newSelection);
 			}

@@ -394,7 +394,7 @@
 							!org.odlabs.wiquery*,
 							!com.yahoo.platform.yui.compressor*,
 							!org.mozilla.javascript*,
-							org.codehaus.jackson*;version="${jackson.version}",
+							com.fasterxml.jackson*;version="${jackson.version}",
 							org.apache.wicket*;version="${wicket.version}",
 							org.slf4j*;version="${slf4j.version}",
 							*
@@ -408,4 +408,18 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<distributionManagement>
+		<repository>
+			<id>nexus-owsi-core</id>
+			<name>Nexus OWSI Core</name>
+			<url>https://projects.openwide.fr/services/nexus/content/repositories/owsi-core</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-owsi-core-snapshots</id>
+			<name>Nexus OWSI Core Snapshots</name>
+			<url>https://projects.openwide.fr/services/nexus/content/repositories/owsi-core-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
 </project>

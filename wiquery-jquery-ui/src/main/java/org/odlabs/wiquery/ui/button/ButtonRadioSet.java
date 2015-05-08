@@ -68,7 +68,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	 * @param radios
 	 *            List of radios
 	 */
-	public ButtonRadioSet(String id, IModel<List< ? extends ButtonElement<T>>> radios)
+	public ButtonRadioSet(String id, IModel<? extends List< ? extends ButtonElement<T>>> radios)
 	{
 		this(id, radios, new Model<T>());
 	}
@@ -81,7 +81,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	 * @param radios
 	 *            List of radios
 	 */
-	public ButtonRadioSet(String id, IModel<List< ? extends ButtonElement<T>>> radios,
+	public ButtonRadioSet(String id, IModel<? extends List< ? extends ButtonElement<T>>> radios,
 			IModel<T> model)
 	{
 		super(id);
@@ -91,7 +91,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 			private static final long serialVersionUID = 8265281439115476364L;
 
 			@Override
-			protected void onSelectionChanged(Object newSelection)
+			protected void onSelectionChanged(T newSelection)
 			{
 				ButtonRadioSet.this.onSelectionChanged(newSelection);
 			}
