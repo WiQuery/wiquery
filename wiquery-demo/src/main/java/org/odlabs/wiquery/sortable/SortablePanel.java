@@ -37,11 +37,11 @@ public class SortablePanel extends Panel {
 	
 	private boolean sortMode;
 
-	public SortablePanel(String id, IModel<List<? extends SimpleSortableElement>> listModel) {
+	public SortablePanel(String id, IModel<List<SimpleSortableElement>> listModel) {
 		super(id);
 		setOutputMarkupId(true);
 		
-		Form<List<? extends SimpleSortableElement>> form = new Form<List<? extends SimpleSortableElement>>("form", listModel) {
+		Form<List<SimpleSortableElement>> form = new Form<List<SimpleSortableElement>>("form", listModel) {
 			private static final long serialVersionUID = 1L;
 
 			@Override

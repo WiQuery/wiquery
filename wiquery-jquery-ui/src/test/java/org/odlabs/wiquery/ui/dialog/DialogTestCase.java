@@ -258,9 +258,9 @@ public class DialogTestCase extends WiQueryTestCase
 		String realValue = page.getOk().getJavascriptOption().toString();
 		String expectedOk =
 			"{text: 'Ok', click: function (event,ui) {\n"
-				+ "var attrs = {\"u\":\"./wicket/page?0-1.IBehaviorListener.0-dialog\","
-				+ "\"c\":\"dialog1\"};\nvar params = {'eventName': 'Ok'};\n"
-				+ "attrs.ep = params;\nWicket.Ajax.ajax(attrs);\n}\n}";
+					+ "var attrs = {\"u\":\"./wicket/bookmarkable/org.odlabs.wiquery.ui.dialog.AjaxDialogTestPage?1-1.IBehaviorListener.0-dialog\",\"c\":\"dialog1\"};\n"
+					+ "var params = [{\"name\":\"eventName\",\"value\":'Ok'}];\n" + "attrs.ep = params.concat(attrs.ep || []);\n"
+					+ "Wicket.Ajax.ajax(attrs);\n" + "}\n" + "}";
 		assertEquals(expectedOk, realValue);
 	}
 

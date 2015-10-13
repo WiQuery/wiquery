@@ -68,7 +68,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	 * @param radios
 	 *            List of radios
 	 */
-	public ButtonRadioSet(String id, IModel<? extends List< ? extends ButtonElement<T>>> radios)
+	public ButtonRadioSet(String id, IModel<? extends List<ButtonElement<T>>> radios)
 	{
 		this(id, radios, new Model<T>());
 	}
@@ -81,7 +81,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	 * @param radios
 	 *            List of radios
 	 */
-	public ButtonRadioSet(String id, IModel<? extends List< ? extends ButtonElement<T>>> radios,
+	public ButtonRadioSet(String id, IModel<? extends List<ButtonElement<T>>> radios,
 			IModel<T> model)
 	{
 		super(id);
@@ -132,7 +132,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	 * @param radios
 	 *            List of radios
 	 */
-	public ButtonRadioSet(String id, List< ? extends ButtonElement<T>> radios)
+	public ButtonRadioSet(String id, List<ButtonElement<T>> radios)
 	{
 		this(id, Model.ofList(radios));
 	}
@@ -147,7 +147,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	 * @param model
 	 *            Model of the default object
 	 */
-	public ButtonRadioSet(String id, List< ? extends ButtonElement<T>> radios, IModel<T> model)
+	public ButtonRadioSet(String id, List<ButtonElement<T>> radios, IModel<T> model)
 	{
 		this(id, Model.ofList(radios), model);
 	}

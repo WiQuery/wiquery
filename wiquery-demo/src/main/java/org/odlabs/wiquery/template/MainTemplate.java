@@ -84,7 +84,7 @@ public abstract class MainTemplate extends WebPage {
 
 		private static final long serialVersionUID = -7806328643699956632L;
 
-		public NavigationMenuItemListView(String id, List<? extends NavigationMenuItem> list) {
+		public NavigationMenuItemListView(String id, List<NavigationMenuItem> list) {
 			super(id, list);
 		}
 		
