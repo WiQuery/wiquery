@@ -19,7 +19,7 @@ public class SortablePage extends MainTemplate {
 
 	private static final long serialVersionUID = 1L;
 	
-	private List<? extends SimpleSortableElement> elementList = Arrays.asList(
+	private List<SimpleSortableElement> elementList = Arrays.asList(
 			new SimpleSortableElement(1, "Lorem ipsum"),
 			new SimpleSortableElement(2, "dolor sit"),
 			new SimpleSortableElement(3, "consectetur"),
@@ -33,11 +33,11 @@ public class SortablePage extends MainTemplate {
 	public SortablePage(final PageParameters parameters) {
 		super(parameters);
 
-		IModel<List<? extends SimpleSortableElement>> listModel = new LoadableDetachableModel<List<? extends SimpleSortableElement>>() {
+		IModel<List<SimpleSortableElement>> listModel = new LoadableDetachableModel<List<SimpleSortableElement>>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected List<? extends SimpleSortableElement> load() {
+			protected List<SimpleSortableElement> load() {
 				Collections.sort(elementList, new Comparator<SimpleSortableElement>() {
 					@Override
 					public int compare(SimpleSortableElement o1, SimpleSortableElement o2) {

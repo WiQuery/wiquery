@@ -47,10 +47,10 @@ import org.odlabs.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * <p>
  * Creates a set of button checkbox UI component from this {@link Panel}'s HTML markup.
  * </p>
- * 
+ *
  * @param <T>
  *            The model object type
- * 
+ *
  * @author Julien Roche
  * @since 1.1
  */
@@ -65,20 +65,20 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param id
 	 *            Wicket identifier
 	 * @param checks
 	 *            List of checks
 	 */
-	public ButtonCheckSet(String id, IModel< ? extends List< ? extends ButtonElement<T>>> checks)
+	public ButtonCheckSet(String id, IModel< ? extends List<ButtonElement<T>>> checks)
 	{
 		this(id, checks, new CollectionModel<T>(new ArrayList<T>()));
 	}
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param id
 	 *            Wicket identifier
 	 * @param checks
@@ -86,7 +86,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	 * @param model
 	 *            Model of the default object
 	 */
-	public ButtonCheckSet(String id, IModel< ? extends List< ? extends ButtonElement<T>>> checks,
+	public ButtonCheckSet(String id, IModel< ? extends List<ButtonElement<T>>> checks,
 			IModel< ? extends Collection<T>> model)
 	{
 		super(id);
@@ -104,7 +104,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 			/**
 			 * This method should be overridden to return true if it is desirable to have
 			 * on-selection-changed notification.
-			 * 
+			 *
 			 * @return true if component should receive on-selection-changed
 			 *         notifications, false otherwise
 			 */
@@ -144,20 +144,20 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param id
 	 *            Wicket identifier
 	 * @param checks
 	 *            List of checks
 	 */
-	public ButtonCheckSet(String id, List< ? extends ButtonElement<T>> checks)
+	public ButtonCheckSet(String id, List<ButtonElement<T>> checks)
 	{
 		this(id, Model.ofList(checks));
 	}
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param id
 	 *            Wicket identifier
 	 * @param checks
@@ -165,7 +165,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	 * @param model
 	 *            Model of the default object
 	 */
-	public ButtonCheckSet(String id, List< ? extends ButtonElement<T>> checks,
+	public ButtonCheckSet(String id, List<ButtonElement<T>> checks,
 			IModel< ? extends Collection<T>> model)
 	{
 		this(id, Model.ofList(checks), model);
@@ -189,7 +189,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 
 	/**
 	 * Method creating a new {@link Check}
-	 * 
+	 *
 	 * @param wicketId
 	 *            Wicket identifier
 	 * @param model
@@ -212,7 +212,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	 * Called when a {@link Check} is clicked in a {@link CheckGroup} that wants to be
 	 * notified of this event. This method is to be implemented by clients that want to be
 	 * notified of selection events.
-	 * 
+	 *
 	 * @param newSelection
 	 *            The new selection of the {@link CheckGroup}. NOTE this is the same as
 	 *            you would get by calling getModelObject() if the new selection were
@@ -225,7 +225,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	/**
 	 * This method should be overridden to return true if it is desirable to have
 	 * on-selection-changed notification.
-	 * 
+	 *
 	 * @return true if component should receive on-selection-changed notifications, false
 	 *         otherwise
 	 */
