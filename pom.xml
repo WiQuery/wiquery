@@ -60,20 +60,20 @@
 		<servlet-api.version>3.0.1</servlet-api.version>
 		<jetty.version>9.3.5.v20151012</jetty.version>
 
-		<maven-bundle-plugin.version>2.4.0</maven-bundle-plugin.version>
-		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
-		<maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
+		<maven-bundle-plugin.version>3.0.0</maven-bundle-plugin.version>
+		<maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
-		<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
-		<maven-install-plugin.version>2.5.1</maven-install-plugin.version>
-		<maven-jar-plugin.version>2.4</maven-jar-plugin.version>
-		<maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
-		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
-		<maven-site-plugin.version>3.3</maven-site-plugin.version>
-		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-		<maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
-		<maven-war-plugin.version>2.4</maven-war-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+		<maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+		<maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
+		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+		<maven-site-plugin.version>3.4</maven-site-plugin.version>
+		<maven-source-plugin.version>2.4</maven-source-plugin.version>
+		<maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
+		<maven-war-plugin.version>2.6</maven-war-plugin.version>
 	</properties>
 
 	<modules>
