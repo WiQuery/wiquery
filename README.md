@@ -17,7 +17,7 @@ WiQuery requires the following:
 - Servlet 3.1 
 - Wicket 7.x
 
-Newer or older releases of Wicket are not compatible with this version of WiQuery.
+Newer or older major releases of Wicket are not compatible with this version of WiQuery.
 
 ## Migration from WiQuery 6.x
 
