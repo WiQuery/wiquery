@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+	<wicket:panel>
+		<form wicket:id="form" class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" wicket:for="autocompleteField"><wicket:label /></label>
+				<div class="controls">
+					<input wicket:id="autocompleteField" type="text" />
+					 &#8594;
+					<span wicket:id="monthLabel" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" wicket:for="autocompleteAjaxField"><wicket:label /></label>
+				<div class="controls">
+					<span wicket:id="autocompleteAjaxField" class="inline" />
+					&#8594;
+					<span wicket:id="ajaxMonthLabel" />
+				</div>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+	</form>
+	</wicket:panel>
+</html>
