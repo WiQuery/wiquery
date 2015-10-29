@@ -17,7 +17,19 @@ WiQuery requires the following:
 - Servlet 3.1 
 - Wicket 8.0 or newer
 
-## WiQuery Core
+Newer or older major releases of Wicket are not compatible with this version of WiQuery.
+
+## Migration from WiQuery 6.x
+
+- You have to change the groupId of the dependency from `org.odlabs.wiquery` to `org.wicketstuff.wiquery`
+- You have to change the version of your wiquery dependency to the current version that is compatible with your Wicket version. 
+- You have to rename the imports for the WiQuery components because the Java package was renamed from `org.odlabs.wiquery` to `org.wicketstuff.wiquery`
+
+## Projects
+
+Below is a short description of the projects of WiQuery.
+
+### WiQuery Core
 
 The core project does not contain much:
  * some interfaces and classes which were used with Wicket before 6.0 and are now deprecated.
@@ -39,7 +51,7 @@ addResourceReplacement(JQueryResourceReference.get(), ...);
 
 where ... is the instance of your resource reference.
 
-## WiQuery JQuery UI
+### WiQuery JQuery UI
 
 Here is where the fun starts, this project contains components and behaviors for enriching your application with jQuery UI.
 
