@@ -1,4 +1,4 @@
-# WiQuery for Wicket 7.x
+# WiQuery for Apache Wicket 7.x
 
 WiQuery is a project to simply Wicket integration with jQuery and jQuery UI.
 
