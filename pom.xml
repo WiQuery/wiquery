@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<version>9</version>
 	</parent>
 
 	<prerequisites>
@@ -53,9 +53,9 @@
 		<wicket.version>7.0.0</wicket.version>
 		<jackson.version>2.3.0</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
-		<junit.version>4.11</junit.version>
+		<junit.version>4.12</junit.version>
 		<servlet-api.version>3.0.1</servlet-api.version>
-		<jetty.version>9.1.0.v20131115</jetty.version>
+		<jetty.version>9.3.5.v20151012</jetty.version>
 
 		<maven-bundle-plugin.version>2.4.0</maven-bundle-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
@@ -421,5 +421,4 @@
 			<url>https://projects.openwide.fr/services/nexus/content/repositories/owsi-core-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-	
 </project>
