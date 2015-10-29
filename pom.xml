@@ -50,10 +50,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.target>1.7</maven.compiler.target>
-		<maven.source.target>1.7</maven.source.target>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.source.target>1.8</maven.source.target>
 
-		<wicket.version>7.0.0</wicket.version>
+		<wicket.version>8.0.0-SNAPSHOT</wicket.version>
 		<jackson.version>2.3.0</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
 		<junit.version>4.12</junit.version>
