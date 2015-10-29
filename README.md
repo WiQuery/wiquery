@@ -1,4 +1,4 @@
-= WiQuery for Wicket 7.x
+# WiQuery for Wicket 7.x
 
 WiQuery is a project to simply Wicket integration with jQuery and jQuery UI.
 
@@ -7,9 +7,9 @@ This branch follows the development of Apache Wicket 7.x.
 WiQuery consists of 3 subprojects:
 - core - the core library
 - ui - Wicket components for JQuery UI components
-- demo
+- demo - examples
 
-== Requirements
+## Requirements
 
 WiQuery requires the following:
 
@@ -17,7 +17,7 @@ WiQuery requires the following:
 - Servlet 3.1 
 - Wicket 7.0 or newer
 
-== WiQuery Core
+## WiQuery Core
 
 The core project does not contain much:
  * some interfaces and classes which were used with Wicket before 6.0 and are now deprecated.
@@ -39,7 +39,7 @@ addResourceReplacement(JQueryResourceReference.get(), ...);
 
 where ... is the instance of your resource reference.
 
-== WiQuery JQuery UI
+## WiQuery JQuery UI
 
 Here is where the fun starts, this project contains components and behaviors for enriching your application with jQuery UI.
 
