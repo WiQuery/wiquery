@@ -17,6 +17,13 @@
 	<packaging>pom</packaging>
 	<version>7.0.0-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
+	
+	<licenses>
+	   <license>
+	      <name>MIT</name>
+	      <url>http://choosealicense.com/licenses/mit/</url>
+	   </license>
+	</licenses>
 
 	<url>https://github.com/wiquery/wiquery</url>
 	<scm>
