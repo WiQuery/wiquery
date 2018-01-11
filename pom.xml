@@ -15,7 +15,7 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>7.0.0-SNAPSHOT</version>
+	<version>7.9.0-topicus0</version>
 	<name>WiQuery Parent</name>
 	
 	<licenses>
@@ -57,11 +57,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>7.0.0</wicket.version>
-		<jackson.version>2.3.0</jackson.version>
+		<wicket.version>7.9.0</wicket.version>
+		<jackson.version>2.9.3</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
-		<junit.version>4.11</junit.version>
-		<servlet-api.version>3.0.1</servlet-api.version>
+		<junit.version>4.12</junit.version>
+		<servlet-api.version>3.1.0</servlet-api.version>
 		<jetty.version>9.1.0.v20131115</jetty.version>
 
 		<maven-bundle-plugin.version>2.4.0</maven-bundle-plugin.version>
