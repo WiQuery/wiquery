@@ -91,29 +91,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	{
 		super(id);
 
-		checkGroup = new CheckGroup<T>("buttonCheckSetGroup", model)
-		{
-			private static final long serialVersionUID = 8265281439115476364L;
-
-			@Override
-			protected void onSelectionChanged(final Collection<T> newSelection)
-			{
-				ButtonCheckSet.this.onSelectionChanged(newSelection);
-			}
-
-			/**
-			 * This method should be overridden to return true if it is desirable to have
-			 * on-selection-changed notification.
-			 *
-			 * @return true if component should receive on-selection-changed
-			 *         notifications, false otherwise
-			 */
-			@Override
-			protected boolean wantOnSelectionChangedNotifications()
-			{
-				return ButtonCheckSet.this.wantOnSelectionChangedNotifications();
-			}
-		};
+		checkGroup = new CheckGroup<T>("buttonCheckSetGroup", model);
 		checkGroup.setOutputMarkupId(true);
 		checkGroup.setRenderBodyOnly(false);
 		add(checkGroup);
@@ -202,36 +180,6 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	{
 		Check<T> check = new Check<T>(wicketId, model, group);
 		return check;
-	}
-
-	/**
-	 * Template method that can be overridden by clients that implement IOnChangeListener
-	 * to be notified by onChange events of a select element. This method does nothing by
-	 * default.
-	 * <p>
-	 * Called when a {@link Check} is clicked in a {@link CheckGroup} that wants to be
-	 * notified of this event. This method is to be implemented by clients that want to be
-	 * notified of selection events.
-	 *
-	 * @param newSelection
-	 *            The new selection of the {@link CheckGroup}. NOTE this is the same as
-	 *            you would get by calling getModelObject() if the new selection were
-	 *            current
-	 */
-	protected void onSelectionChanged(final Collection< ? extends T> newSelection)
-	{
-	}
-
-	/**
-	 * This method should be overridden to return true if it is desirable to have
-	 * on-selection-changed notification.
-	 *
-	 * @return true if component should receive on-selection-changed notifications, false
-	 *         otherwise
-	 */
-	protected boolean wantOnSelectionChangedNotifications()
-	{
-		return false;
 	}
 
 	public JsStatement statement()
