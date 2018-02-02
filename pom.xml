@@ -17,6 +17,13 @@
 	<packaging>pom</packaging>
 	<version>8.0-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
+	
+	<licenses>
+	   <license>
+	      <name>MIT</name>
+	      <url>http://choosealicense.com/licenses/mit/</url>
+	   </license>
+	</licenses>
 
 	<url>https://github.com/wicketstuff/wiquery</url>
 	<scm>
@@ -53,11 +60,11 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 
-		<wicket.version>8.0.0-SNAPSHOT</wicket.version>
-		<jackson.version>2.3.0</jackson.version>
+		<wicket.version>8.0.0-M8</wicket.version>
+		<jackson.version>2.9.3</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
 		<junit.version>4.12</junit.version>
-		<servlet-api.version>3.0.1</servlet-api.version>
+		<servlet-api.version>3.1.0</servlet-api.version>
 		<jetty.version>9.3.5.v20151012</jetty.version>
 
 		<maven-bundle-plugin.version>3.0.0</maven-bundle-plugin.version>
