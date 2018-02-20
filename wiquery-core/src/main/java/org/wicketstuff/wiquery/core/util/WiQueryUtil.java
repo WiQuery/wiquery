@@ -3,7 +3,7 @@ package org.wicketstuff.wiquery.core.util;
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.WicketEventJQueryResourceReference;
+import org.apache.wicket.ajax.WicketAjaxJQueryResourceReference;
 import org.apache.wicket.core.request.handler.IPageRequestHandler;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -58,19 +58,6 @@ public final class WiQueryUtil
 		return reference;
 	}
 
-	public static ResourceReference getWicketEventReference()
-	{
-		ResourceReference reference;
-		if (Application.exists())
-		{
-			reference = Application.get().getJavaScriptLibrarySettings().getWicketEventReference();
-		}
-		else
-		{
-			reference = WicketEventJQueryResourceReference.get();
-		}
-		return reference;
-	}
 
 	public static ResourceReference getWicketAjaxReference()
 	{
@@ -81,7 +68,7 @@ public final class WiQueryUtil
 		}
 		else
 		{
-			reference = WicketEventJQueryResourceReference.get();
+			reference = WicketAjaxJQueryResourceReference.get();
 		}
 		return reference;
 	}

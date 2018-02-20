@@ -67,7 +67,7 @@ public final class WiQueryAutocompleteJavaScriptResourceReference extends JavaSc
 	@Override
 	public List<HeaderItem> getDependencies()
 	{
-		return JavaScriptHeaderItems.forReferences(WiQueryUtil.getWicketEventReference(),
-			WiQueryUtil.getWicketAjaxReference(), AutocompleteJavaScriptResourceReference.get());
+		return JavaScriptHeaderItems.forReferences(WiQueryUtil.getWicketAjaxReference(),
+				AutocompleteJavaScriptResourceReference.get());
 	}
 }
