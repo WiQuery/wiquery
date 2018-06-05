@@ -16,12 +16,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.javascript.JsScope;
-import org.wicketstuff.wiquery.core.options.ArrayItemOptions;
-import org.wicketstuff.wiquery.core.options.ICollectionItemOptions;
-import org.wicketstuff.wiquery.core.options.IComplexOption;
-import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
-import org.wicketstuff.wiquery.core.options.ListItemOptions;
-import org.wicketstuff.wiquery.core.options.Options;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
 /**
@@ -91,31 +85,31 @@ public class OptionsTestCase extends WiQueryTestCase
 	public void testOptionsDetachment()
 	{
 		Options options = new Options();
-		WithMemoryModel<Float> iRemeberFloat = new WithMemoryModel<Float>(new Model<Float>(1F));
+		WithMemoryModel<Float> iRemeberFloat = new WithMemoryModel<>(new Model<>(1F));
 		options.putFloat("keyFloat", iRemeberFloat);
 		assertFalse(options.isEmpty());
 
-		WithMemoryModel<Short> iRemeberShort =
-			new WithMemoryModel<Short>(new Model<Short>((short) 1));
+		WithMemoryModel<Short> iRemeberShort = new WithMemoryModel<>(
+			new Model<>((short)1));
 		options.putShort("keyShort", iRemeberShort);
 
-		WithMemoryModel<Integer> iRemeberInteger =
-			new WithMemoryModel<Integer>(new Model<Integer>(1));
+		WithMemoryModel<Integer> iRemeberInteger = new WithMemoryModel<>(
+			new Model<>(1));
 		options.putInteger("keyInteger", iRemeberInteger);
 
-		WithMemoryModel<Double> iRemeberDouble = new WithMemoryModel<Double>(new Model<Double>(1D));
+		WithMemoryModel<Double> iRemeberDouble = new WithMemoryModel<>(new Model<>(1D));
 		options.putDouble("keyDouble", iRemeberDouble);
 
-		WithMemoryModel<String> iRemeberString =
-			new WithMemoryModel<String>(new Model<String>("String"));
+		WithMemoryModel<String> iRemeberString = new WithMemoryModel<>(
+			new Model<>("String"));
 		options.putString("keyString", iRemeberString);
 
-		WithMemoryModel<String> iRemeberLiteral =
-			new WithMemoryModel<String>(new Model<String>("String"));
+		WithMemoryModel<String> iRemeberLiteral = new WithMemoryModel<>(
+			new Model<>("String"));
 		options.putString("keyLiteral", iRemeberLiteral);
 
-		WithMemoryModel<Boolean> iRemeberBoolean =
-			new WithMemoryModel<Boolean>(new Model<Boolean>(true));
+		WithMemoryModel<Boolean> iRemeberBoolean = new WithMemoryModel<>(
+			new Model<>(true));
 		options.putBoolean("keyBoolean", iRemeberBoolean);
 
 		assertFalse(options.isEmpty());
@@ -139,7 +133,7 @@ public class OptionsTestCase extends WiQueryTestCase
 		Options options = panel.getOptions();
 		// put an IComponentAssignedModel
 		options.putString("test", new ResourceModel("key"));
-		options.putString("test1", new Model<String>("Test1"));
+		options.putString("test1", new Model<>("Test1"));
 		options.put("test2", false);
 		OptionsTestPage page = new OptionsTestPage(panel);
 		page = tester.startPage(page);
@@ -161,13 +155,13 @@ public class OptionsTestCase extends WiQueryTestCase
 		options.put("keyFloat", 1F);
 
 		assertFalse(options.isEmpty());
-		assertEquals((Object) 1F, (Object) options.getFloat("keyFloat"));
+		assertEquals((Object)1F, (Object)options.getFloat("keyFloat"));
 	}
 
 	@Test
 	public void testGetICollectionItemOptions()
 	{
-		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(23);
 		array.add(o1);
@@ -196,7 +190,7 @@ public class OptionsTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOptions()
 	{
-		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(23);
 		array.add(o1);
@@ -208,15 +202,15 @@ public class OptionsTestCase extends WiQueryTestCase
 
 		Options options = new Options();
 		options.put("keyBoolean", true);
-		options.putBoolean("keyBooleanModel", new Model<Boolean>(false));
+		options.putBoolean("keyBooleanModel", new Model<>(false));
 		options.put("keyFloat", 1F);
-		options.putFloat("keyFloatModel", new Model<Float>(2F));
+		options.putFloat("keyFloatModel", new Model<>(2F));
 		options.put("keyInt", 1);
-		options.putInteger("keyIntModel", new Model<Integer>(2));
+		options.putInteger("keyIntModel", new Model<>(2));
 		options.putLiteral("keyLiteral", "literal");
-		options.putLiteral("keyLiteralModel", new Model<String>("literal1"));
+		options.putLiteral("keyLiteralModel", new Model<>("literal1"));
 		options.put("keyString", "string");
-		options.putString("keyStringModel", new Model<String>("string1"));
+		options.putString("keyStringModel", new Model<>("string1"));
 		options.put("keyOptions", array);
 		options.put("keyScope", jsScope);
 		options.put("keyComplexOption", impl);
@@ -252,7 +246,7 @@ public class OptionsTestCase extends WiQueryTestCase
 	{
 		Options options = new Options();
 		options.putLiteral("keyLiteral", "literal");
-		options.putLiteral("keyLiteralModel", new Model<String>("literal1"));
+		options.putLiteral("keyLiteralModel", new Model<>("literal1"));
 
 		assertFalse(options.isEmpty());
 		assertEquals("literal", options.getLiteral("keyLiteral"));
@@ -264,7 +258,7 @@ public class OptionsTestCase extends WiQueryTestCase
 	{
 		Options options = new Options();
 		options.put("keyString", "string");
-		options.putString("keyStringModel", new Model<String>("string"));
+		options.putString("keyStringModel", new Model<>("string"));
 
 		assertFalse(options.isEmpty());
 		assertEquals("string", options.get("keyString"));
@@ -276,7 +270,7 @@ public class OptionsTestCase extends WiQueryTestCase
 	{
 		Options options = new Options();
 		options.put("keyBoolean", true);
-		options.putBoolean("keyBooleanModel", new Model<Boolean>(true));
+		options.putBoolean("keyBooleanModel", new Model<>(true));
 
 		assertFalse(options.isEmpty());
 		assertTrue(options.containsKey("keyBoolean"));
@@ -298,7 +292,7 @@ public class OptionsTestCase extends WiQueryTestCase
 	{
 		Options options = new Options();
 		options.put("keyFloat", 1F);
-		options.putFloat("keyFloatModel", new Model<Float>(1F));
+		options.putFloat("keyFloatModel", new Model<>(1F));
 
 		assertFalse(options.isEmpty());
 		assertTrue(options.containsKey("keyFloat"));

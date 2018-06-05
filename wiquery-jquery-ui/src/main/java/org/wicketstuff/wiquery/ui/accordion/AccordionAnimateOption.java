@@ -31,14 +31,15 @@ import org.wicketstuff.wiquery.ui.options.GenericAnimateOption;
  * </p>
  * Multiple types supported:
  * <ul>
- * 	<li>Boolean: A value of false will disable animations.</li>
- * 	<li>Number: Duration in milliseconds with default easing.</li>
- * 	<li>String: Name of easing to use with default duration.</li>
- * 	<li>Object: Animation settings with easing and duration properties.</li>
- * 	<ul>
- * 		<li>Can also contain a down property with any of the above options.</li>
- * 		<li>"Down" animations occur when the panel being activated has a lower index than the currently active panel.</li>
- * 	</ul>
+ * <li>Boolean: A value of false will disable animations.</li>
+ * <li>Number: Duration in milliseconds with default easing.</li>
+ * <li>String: Name of easing to use with default duration.</li>
+ * <li>Object: Animation settings with easing and duration properties.</li>
+ * <ul>
+ * <li>Can also contain a down property with any of the above options.</li>
+ * <li>"Down" animations occur when the panel being activated has a lower index than the currently
+ * active panel.</li>
+ * </ul>
  * </ul>
  * 
  * @author Stephane Gleizes

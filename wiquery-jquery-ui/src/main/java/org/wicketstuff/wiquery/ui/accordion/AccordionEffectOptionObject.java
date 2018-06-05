@@ -28,8 +28,8 @@ import org.wicketstuff.wiquery.core.options.Options;
  * $Id AccordionEffectOptions.java$
  * 
  * <p>
- * Complex option to store the possible options for the effect. This is used too for the
- * option animate into the Accordion component.
+ * Complex option to store the possible options for the effect. This is used too for the option
+ * animate into the Accordion component.
  * </p>
  * 
  * @author Stephane Gleizes
@@ -82,7 +82,7 @@ public class AccordionEffectOptionObject implements IComplexOption
 		options.put("duration", duration);
 		return this;
 	}
-	
+
 	/**
 	 * @return the duration option
 	 */
@@ -90,7 +90,7 @@ public class AccordionEffectOptionObject implements IComplexOption
 	{
 		return options.getInt("duration");
 	}
-	
+
 	/**
 	 * The easing to use with the effect. If omitted, the default value will be used.
 	 * 
@@ -102,7 +102,7 @@ public class AccordionEffectOptionObject implements IComplexOption
 		options.putLiteral("easing", easing);
 		return this;
 	}
-	
+
 	/**
 	 * @return the easing option
 	 */
@@ -110,9 +110,10 @@ public class AccordionEffectOptionObject implements IComplexOption
 	{
 		return options.getLiteral("easing");
 	}
-	
+
 	/**
-	 * "Down" animations occur when the panel being activated has a lower index than the currently active panel.
+	 * "Down" animations occur when the panel being activated has a lower index than the currently
+	 * active panel.
 	 * 
 	 * @param downEffect
 	 * @return the instance
@@ -122,7 +123,7 @@ public class AccordionEffectOptionObject implements IComplexOption
 		options.put("down", downEffect);
 		return this;
 	}
-	
+
 	/**
 	 * @return the down option
 	 */
@@ -131,9 +132,9 @@ public class AccordionEffectOptionObject implements IComplexOption
 		IComplexOption downEffect = this.options.getComplexOption("down");
 		if (downEffect instanceof AccordionDownEffectOptionObject)
 		{
-			return (AccordionDownEffectOptionObject) downEffect;
+			return (AccordionDownEffectOptionObject)downEffect;
 		}
-		
+
 		return null;
 	}
 }

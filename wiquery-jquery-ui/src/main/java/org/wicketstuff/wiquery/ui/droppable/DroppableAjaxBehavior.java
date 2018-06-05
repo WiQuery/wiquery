@@ -25,25 +25,28 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
- * Convenience DroppableBehavior with AJAX functionality already plugged in. 
+ * Convenience DroppableBehavior with AJAX functionality already plugged in.
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70gmail.com)
  */
-public abstract class DroppableAjaxBehavior extends DroppableBehavior {
+public abstract class DroppableAjaxBehavior extends DroppableBehavior
+{
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	public DroppableAjaxBehavior() {
-		setDropEvent(new AjaxDropCallback() {
-			
+	public DroppableAjaxBehavior()
+	{
+		setDropEvent(new AjaxDropCallback()
+		{
+
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void drop(AjaxRequestTarget target, Component source,
-					Component dropped) {
+			protected void drop(AjaxRequestTarget target, Component source, Component dropped)
+			{
 				DroppableAjaxBehavior.this.drop(target, source, dropped);
 			}
 		});
@@ -51,10 +54,10 @@ public abstract class DroppableAjaxBehavior extends DroppableBehavior {
 
 	/**
 	 * Called when component is dropped.
+	 * 
 	 * @param target
 	 * @param source
 	 * @param dropped
 	 */
-	protected abstract void drop(AjaxRequestTarget target, Component source,
-			Component dropped);
+	protected abstract void drop(AjaxRequestTarget target, Component source, Component dropped);
 }

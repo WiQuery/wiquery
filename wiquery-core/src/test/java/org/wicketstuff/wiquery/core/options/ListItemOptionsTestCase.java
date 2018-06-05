@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
-import org.wicketstuff.wiquery.core.options.ListItemOptions;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
 /**
@@ -26,7 +24,7 @@ public class ListItemOptionsTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavascriptItemOptions()
 	{
-		ListItemOptions<IntegerItemOptions> options = new ListItemOptions<IntegerItemOptions>();
+		ListItemOptions<IntegerItemOptions> options = new ListItemOptions<>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
 
@@ -52,7 +50,7 @@ public class ListItemOptionsTestCase extends WiQueryTestCase
 	@Test
 	public void testValues()
 	{
-		ListItemOptions<IntegerItemOptions> options = new ListItemOptions<IntegerItemOptions>();
+		ListItemOptions<IntegerItemOptions> options = new ListItemOptions<>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
 

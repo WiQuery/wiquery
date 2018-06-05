@@ -36,11 +36,9 @@ import org.wicketstuff.wiquery.core.options.LiteralOption;
  */
 public class SortableContainment implements IComplexOption
 {
-	public enum ElementEnum
-	{
-		PARENT(new LiteralOption("parent")),
-		DOCUMENT(new LiteralOption("document")),
-		WINDOW(new LiteralOption("windo"));
+	public enum ElementEnum {
+		PARENT(new LiteralOption("parent")), DOCUMENT(new LiteralOption("document")), WINDOW(
+			new LiteralOption("windo"));
 
 		// Properties
 		private LiteralOption literalParam;
@@ -112,7 +110,7 @@ public class SortableContainment implements IComplexOption
 	 *            Selector
 	 */
 	private SortableContainment(ElementEnum elementEnumParam, String objectParam,
-			LiteralOption selector)
+		LiteralOption selector)
 	{
 		super();
 		setParam(elementEnumParam, objectParam, selector);

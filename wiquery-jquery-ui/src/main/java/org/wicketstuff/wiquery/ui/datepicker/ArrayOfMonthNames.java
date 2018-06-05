@@ -66,11 +66,11 @@ public class ArrayOfMonthNames extends AbstractArrayOfDateNames
 	 *            Name for December
 	 */
 	public ArrayOfMonthNames(String january, String february, String march, String april,
-			String may, String june, String july, String august, String september, String october,
-			String november, String december)
+		String may, String june, String july, String august, String september, String october,
+		String november, String december)
 	{
-		super(new String[] {january, february, march, april, may, june, july, august, september,
-			october, november, december});
+		super(new String[] { january, february, march, april, may, june, july, august, september,
+				october, november, december });
 	}
 
 	@Override

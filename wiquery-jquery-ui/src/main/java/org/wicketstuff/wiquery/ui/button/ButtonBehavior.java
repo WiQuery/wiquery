@@ -32,6 +32,10 @@ import org.apache.wicket.model.IModel;
 import org.wicketstuff.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.wicketstuff.wiquery.core.javascript.JsQuery;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
+import org.wicketstuff.wiquery.core.options.IComplexOption;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.themes.UiIcon;
 
 /**
@@ -80,9 +84,11 @@ public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 	public void renderHead(Component component, IHeaderResponse response)
 	{
 		super.renderHead(component, response);
-		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(getComponent()).$()
-			.chain("button", options.getJavaScriptOptions()).render()));
+			.chain("button", options.getJavaScriptOptions())
+			.render()));
 	}
 
 	@Override
@@ -90,13 +96,13 @@ public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 	{
 		String tagname = tag.getName();
 
-		if (!tagname.equalsIgnoreCase("input") && !tagname.equalsIgnoreCase("button")
-			&& !tagname.equalsIgnoreCase("submit") && !tagname.equalsIgnoreCase("reset")
-			&& !tagname.equalsIgnoreCase("a"))
+		if (!tagname.equalsIgnoreCase("input") && !tagname.equalsIgnoreCase("button") &&
+			!tagname.equalsIgnoreCase("submit") && !tagname.equalsIgnoreCase("reset") &&
+			!tagname.equalsIgnoreCase("a"))
 		{
-			throw new WicketRuntimeException("Component " + getComponent().getId()
-				+ " must be applied to a tag of type 'input', 'button' or 'a', not "
-				+ tag.toUserDebugString());
+			throw new WicketRuntimeException("Component " + getComponent().getId() +
+				" must be applied to a tag of type 'input', 'button' or 'a', not " +
+				tag.toUserDebugString());
 		}
 
 		super.onComponentTag(tag);
@@ -104,16 +110,20 @@ public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 
 	/*---- Options section ---*/
 
-	/**
-	 * Disables (true) or enables (false) the button. Can be set when initialising (first
-	 * creating) the button.
-	 * 
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public ButtonBehavior setDisabled(boolean disabled)
+	public ClassesOption getClasses()
 	{
-		this.options.put("disabled", disabled);
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public ButtonBehavior setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
 		return this;
 	}
 
@@ -130,103 +140,90 @@ public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 		return null;
 	}
 
+
 	/**
-	 * Whether to show any text - when set to false (display no text), icons (see icons
-	 * option) must be enabled, otherwise it'll be ignored.
+	 * Disables (true) or enables (false) the button. Can be set when initialising (first creating)
+	 * the button.
 	 * 
-	 * @param text
-	 * @return the Button
+	 * @param disabled
+	 * @return instance of the current behavior
 	 */
-	public ButtonBehavior setText(boolean text)
+	public ButtonBehavior setDisabled(boolean disabled)
 	{
-		options.put("text", text);
+		this.options.put("disabled", disabled);
 		return this;
 	}
 
 	/**
-	 * @return the text option value
+	 * @return the showLabel option value
 	 */
-	public boolean isText()
+	public boolean isShowLabel()
 	{
-		if (options.containsKey("text"))
+		if (options.containsKey("showLabel"))
 		{
-			return options.getBoolean("text");
+			return options.getBoolean("showLabel");
 		}
 		return true;
 	}
 
 	/**
-	 * Icons to display, with or without text (see text option). The primary icon is
-	 * displayed on the left of the label text, the secondary on the right. Value for the
-	 * primary and secondary properties must be a classname (String), eg. "ui-icon-gear".
-	 * For using only a primary icon: icons: {primary:'ui-icon-locked'}. For using both
-	 * primary and secondary icon: icons:
-	 * {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'}
+	 * Whether to show any text - when set to false (display no text), icons (see icons option) must
+	 * be enabled, otherwise it'll be ignored.
 	 * 
-	 * @param icons
-	 * @return the button
+	 * @param text
+	 * @return the Button
 	 */
-	public ButtonBehavior setIcons(ButtonIcon icons)
+	public ButtonBehavior setShowLabel(boolean showLabel)
 	{
-		options.put("icons", icons);
+		options.put("showLabel", showLabel);
 		return this;
 	}
 
 	/**
-	 * * Icons to display, with or without text (see text option). The primary icon is
-	 * displayed on the left of the label text, the secondary on the right. Value for the
-	 * primary and secondary properties must be a classname (String), eg. "ui-icon-gear".
-	 * For using only a primary icon: icons: {primary:'ui-icon-locked'}. For using both
-	 * primary and secondary icon: icons:
-	 * {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'}
-	 * 
-	 * @param primary
-	 *            The primary icon (should be non-null)
-	 * @param secondary
-	 *            The secondary icon (might be null).
-	 * @return
+	 * @return the icon value option
 	 */
-	public ButtonBehavior setIcons(UiIcon primary, UiIcon secondary)
+	public UiIcon getIcon()
 	{
-		options.put("icons", new ButtonIcon(primary, secondary));
+		return UiIcon.forCssClass(options.getLiteral("icon"));
+	}
+
+	/**
+	 * Icon to display, with or without text (see showLabel option). By default, the icon is
+	 * displayed on the left of the label text. The positioning can be controlled using the
+	 * iconPosition option.
+	 * 
+	 * The value for this option must match an icon class name, e.g., "ui-icon-gear".
+	 * 
+	 * When using an input of type button, submit or reset, icons are not supported.
+	 * 
+	 * @param icon
+	 * @return the button
+	 */
+	public ButtonBehavior setIcon(UiIcon icon)
+	{
+		options.putLiteral("icon", icon.getCssClass());
 		return this;
 	}
 
 	/**
-	 * @return the icons value option
+	 * @return the iconPosition value option
 	 */
-	public ButtonIcon getIcons()
+	public String getIconPosition()
 	{
-		return (ButtonIcon) options.getComplexOption("icons");
+		return options.get("iconPosition");
 	}
 
 	/**
-	 * Text to show on the button. When not specified (null), the element's html content
-	 * is used, or its value attribute when it's an input element of type submit or reset;
-	 * or the html content of the associated label element if its an input of type radio
-	 * or checkbox
+	 * Where to display the icon: Valid values are "beginning", "end", "top" and "bottom". In a
+	 * left-to-right (LTR) display, "beginning" refers to the left, in a right-to-left (RTL, e.g. in
+	 * Hebrew or Arabic), it refers to the right.
 	 * 
-	 * @param label
+	 * @param icon
 	 * @return the button
 	 */
-	public ButtonBehavior setLabel(String label)
+	public ButtonBehavior setIconPosition(String iconPosition)
 	{
-		options.putLiteral("label", label);
-		return this;
-	}
-
-	/**
-	 * Text to show on the button. When not specified (null), the element's html content
-	 * is used, or its value attribute when it's an input element of type submit or reset;
-	 * or the html content of the associated label element if its an input of type radio
-	 * or checkbox
-	 * 
-	 * @param label
-	 * @return the button
-	 */
-	public ButtonBehavior setLabel(IModel<String> label)
-	{
-		options.putLiteral("label", label);
+		options.putLiteral("iconPosition", iconPosition);
 		return this;
 	}
 
@@ -238,13 +235,46 @@ public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 		return options.getLiteral("label");
 	}
 
+	/**
+	 * Text to show on the button. When not specified (null), the element's html content is used, or
+	 * its value attribute when it's an input element of type submit or reset; or the html content
+	 * of the associated label element if its an input of type radio or checkbox
+	 * 
+	 * @param label
+	 * @return the button
+	 */
+	public ButtonBehavior setLabel(String label)
+	{
+		options.putLiteral("label", label);
+		return this;
+	}
+
+	/**
+	 * Text to show on the button. When not specified (null), the element's html content is used, or
+	 * its value attribute when it's an input element of type submit or reset; or the html content
+	 * of the associated label element if its an input of type radio or checkbox
+	 * 
+	 * @param label
+	 * @return the button
+	 */
+	public ButtonBehavior setLabel(IModel<String> label)
+	{
+		options.putLiteral("label", label);
+		return this;
+	}
+
 	/*---- Events section ---*/
+
+	public ButtonBehavior setCreateEvent(JsScopeUiEvent create)
+	{
+		this.options.put("create", create);
+		return this;
+	}
 
 	/*---- Methods section ---*/
 
 	/**
-	 * Method to destroy the button This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the button This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */
@@ -302,7 +332,7 @@ public class ButtonBehavior extends WiQueryAbstractAjaxBehavior
 	{
 		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
-	
+
 	/**
 	 * Returns the {@link JsStatement} to refresh the button.
 	 * 

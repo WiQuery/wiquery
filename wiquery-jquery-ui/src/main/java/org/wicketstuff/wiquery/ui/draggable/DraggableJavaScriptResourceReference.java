@@ -21,55 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.draggable;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id$
- * <p>
- * References the resource to apply draggable behavior on HTML components.
- * </p>
- * 
- * @author Lionel Armanet
- * @since 0.5
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class DraggableJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class DraggableJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 3704373328245392716L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final DraggableJavaScriptResourceReference INSTANCE =
-		new DraggableJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link DraggableJavaScriptResourceReference}.
-	 */
 	private DraggableJavaScriptResourceReference()
 	{
-		super(DraggableJavaScriptResourceReference.class, "jquery.ui.draggable.js");
-	}
-
-	/**
-	 * Returns the {@link DraggableJavaScriptResourceReference} instance.
-	 */
-	public static DraggableJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
-			MouseJavaScriptResourceReference.get());
 	}
 }

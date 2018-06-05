@@ -28,8 +28,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * $Id: JsScope.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
- * {@link JsScope} are used to define anonymous JavaScript functions. For example, let's
- * take the <code>each</code> statement:
+ * {@link JsScope} are used to define anonymous JavaScript functions. For example, let's take the
+ * <code>each</code> statement:
  * </p>
  * 
  * <pre>
@@ -45,8 +45,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * </pre>
  * 
  * <p>
- * You can either pass arguments to the JsScope (like in JavaScript functions) (see
- * constructor args).
+ * You can either pass arguments to the JsScope (like in JavaScript functions) (see constructor
+ * args).
  * </p>
  * 
  * @author Lionel Armanet
@@ -117,8 +117,8 @@ public abstract class JsScope implements Serializable
 	}
 
 	/**
-	 * Constructs a new {@link JsScope} instance with the given args. This is the
-	 * equivalent of the JavaScript statement: <code>function(arg1, arg2, arg3) {</code>
+	 * Constructs a new {@link JsScope} instance with the given args. This is the equivalent of the
+	 * JavaScript statement: <code>function(arg1, arg2, arg3) {</code>
 	 * 
 	 * @param scopeParameters
 	 */

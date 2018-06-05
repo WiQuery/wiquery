@@ -21,7 +21,6 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import org.wicketstuff.wiquery.core.effects.Effect;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
 import org.wicketstuff.wiquery.core.options.Options;
 
@@ -44,10 +43,8 @@ public class PulsateEffect extends Effect
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 * 
 	 */
-	public static enum PulsateMode
-	{
-		show,
-		hide;
+	public static enum PulsateMode {
+		show, hide;
 	}
 
 	/**
@@ -68,7 +65,7 @@ public class PulsateEffect extends Effect
 	{
 		this(mode, 5, 500);
 	}
-	
+
 	/**
 	 * Constructor.
 	 * 

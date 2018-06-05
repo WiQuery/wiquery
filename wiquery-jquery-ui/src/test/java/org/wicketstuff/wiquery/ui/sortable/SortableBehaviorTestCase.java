@@ -110,8 +110,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getAppendTo()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getAppendTo()}.
 	 */
 	@Test
 	public void testGetAppendTo()
@@ -133,8 +132,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getCancel()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getCancel()} .
 	 */
 	@Test
 	public void testGetCancel()
@@ -163,14 +161,13 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	@Test
 	public void testGetContainmentComplex()
 	{
-		assertNull(sortableBehavior.getContainmentComplex());
+		assertNull(sortableBehavior.getContainment());
 		sortableBehavior.setContainment(new SortableContainment(ElementEnum.DOCUMENT));
-		assertEquals(sortableBehavior.getContainmentComplex().getJavascriptOption(), "'document'");
+		assertEquals(sortableBehavior.getContainment().getJavascriptOption(), "'document'");
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getCursor()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getCursor()} .
 	 */
 	@Test
 	public void testGetCursor()
@@ -181,8 +178,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getCursorAt()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getCursorAt()}.
 	 */
 	@Test
 	public void testGetCursorAt()
@@ -204,8 +200,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getDistance()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getDistance()}.
 	 */
 	@Test
 	public void testGetDistance()
@@ -227,8 +222,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getHandle()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getHandle()} .
 	 */
 	@Test
 	public void testGetHandle()
@@ -245,11 +239,9 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	@Test
 	public void testGetHelperComplex()
 	{
-		assertEquals(sortableBehavior.getHelperComplex().getJavascriptOption().toString(),
-			"'original'");
+		assertEquals(sortableBehavior.getHelper().getJavascriptOption().toString(), "'original'");
 		sortableBehavior.setHelper(new SortableHelper(HelperEnum.CLONE));
-		assertEquals(sortableBehavior.getHelperComplex().getJavascriptOption().toString(),
-			"'clone'");
+		assertEquals(sortableBehavior.getHelper().getJavascriptOption().toString(), "'clone'");
 	}
 
 	/**
@@ -264,20 +256,18 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getOpacity()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getOpacity()}.
 	 */
 	@Test
 	public void testGetOpacity()
 	{
-		assertEquals((Object) sortableBehavior.getOpacity(), 0F);
+		assertEquals((Object)sortableBehavior.getOpacity(), 0F);
 		sortableBehavior.setOpacity(1F);
-		assertEquals((Object) sortableBehavior.getOpacity(), 1F);
+		assertEquals((Object)sortableBehavior.getOpacity(), 1F);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getOptions()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions()
@@ -298,8 +288,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getRevert()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getRevert()} .
 	 */
 	@Test
 	public void testGetRevert()
@@ -334,8 +323,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getTolerance()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getTolerance()}.
 	 */
 	@Test
 	public void testGetTolerance()
@@ -346,8 +334,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getZIndex()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#getZIndex()} .
 	 */
 	@Test
 	public void testGetZIndex()
@@ -358,8 +345,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#isDisabled()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled()
@@ -370,8 +356,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#isDropOnEmpty()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#isDropOnEmpty()}.
 	 */
 	@Test
 	public void testIsDropOnEmpty()
@@ -440,8 +425,7 @@ public class SortableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#serialize()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.sortable.SortableBehavior#serialize()} .
 	 */
 	@Test
 	public void testSerialize()

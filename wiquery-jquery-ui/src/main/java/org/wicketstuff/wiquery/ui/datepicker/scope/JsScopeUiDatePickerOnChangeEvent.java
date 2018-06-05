@@ -26,8 +26,8 @@ import org.wicketstuff.wiquery.core.javascript.JsScopeContext;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 
 /**
- * This class represent a JsScope event for the datepicker JQuery UI components for the
- * onchange callback The javascript representation will be like this:
+ * This class represent a JsScope event for the datepicker JQuery UI components for the onchange
+ * callback The javascript representation will be like this:
  * <p>
  * function(year, month, inst) { ... }
  * </p>
@@ -50,8 +50,7 @@ public abstract class JsScopeUiDatePickerOnChangeEvent extends JsScope
 	}
 
 	/**
-	 * Creates a default {@link JsScopeUiDatePickerOnChangeEvent} to execute the given
-	 * statement.
+	 * Creates a default {@link JsScopeUiDatePickerOnChangeEvent} to execute the given statement.
 	 * 
 	 * @param javascriptCode
 	 *            the JavaScript statement to execute with the scope.
@@ -73,8 +72,7 @@ public abstract class JsScopeUiDatePickerOnChangeEvent extends JsScope
 	}
 
 	/**
-	 * Creates a default {@link JsScopeUiDatePickerOnChangeEvent} to execute the given
-	 * statement.
+	 * Creates a default {@link JsScopeUiDatePickerOnChangeEvent} to execute the given statement.
 	 * 
 	 * @param jsStatement
 	 *            the JavaScript statement to execute with the scope.

@@ -94,7 +94,7 @@ public final class AttributesHelper
 	{
 		return new DefaultChainableStatement("html", JsUtils.quotes(htmlContents));
 	}
-	
+
 	private AttributesHelper()
 	{
 	}

@@ -34,7 +34,8 @@ import org.apache.wicket.model.IModel;
  * <p>
  * The {@link Double} <code>1</code> should be rendered as <code>1</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
  * @author Ernesto Reinaldo Barreiro
@@ -76,9 +77,9 @@ public class DoubleOption extends AbstractOption<Double>
 	@Override
 	public IModelOption<Double> wrapOnAssignment(Component component)
 	{
-		if (getModel() instanceof IComponentAssignedModel< ? >)
+		if (getModel() instanceof IComponentAssignedModel<?>)
 			return new DoubleOption(
-				((IComponentAssignedModel<Double>) getModel()).wrapOnAssignment(component));
+				((IComponentAssignedModel<Double>)getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

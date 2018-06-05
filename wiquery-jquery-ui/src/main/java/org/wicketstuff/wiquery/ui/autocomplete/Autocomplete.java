@@ -32,7 +32,9 @@ import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
 import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.position.PositionAlignmentOptions;
 import org.wicketstuff.wiquery.ui.position.PositionCollision;
 import org.wicketstuff.wiquery.ui.position.PositionOptions;
@@ -94,8 +96,8 @@ public class Autocomplete<T> extends TextField<T>
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(AutocompleteJavaScriptResourceReference
-			.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
@@ -115,18 +117,6 @@ public class Autocomplete<T> extends TextField<T>
 	}
 
 	/*---- Options section ---*/
-	/**
-	 * The element passed to or selected by the appendTo option will be used as the
-	 * container for the suggested values
-	 * 
-	 * @param appendTo
-	 * @return instance of the current component
-	 */
-	public Autocomplete<T> setAppendTo(String appendTo)
-	{
-		this.options.putLiteral("appendTo", appendTo);
-		return this;
-	}
 
 	/**
 	 * @return the appendTo option value
@@ -138,16 +128,57 @@ public class Autocomplete<T> extends TextField<T>
 	}
 
 	/**
-	 * The delay in milliseconds the autocomplete waits after a keystroke to activate
-	 * itself. A zero-delay makes sense for local data (more responsive), but can produce
-	 * a lot of load for remote data, while being less responsive.
+	 * The element passed to or selected by the appendTo option will be used as the container for
+	 * the suggested values
 	 * 
-	 * @param delay
+	 * @param appendTo
 	 * @return instance of the current component
 	 */
-	public Autocomplete<T> setDelay(int delay)
+	public Autocomplete<T> setAppendTo(String appendTo)
 	{
-		this.options.put("delay", delay);
+		this.options.putLiteral("appendTo", appendTo);
+		return this;
+	}
+
+	/**
+	 * @return the autoFocus option
+	 */
+	public boolean isAutoFocus()
+	{
+		if (this.options.containsKey("autoFocus"))
+		{
+			return this.options.getBoolean("autoFocus");
+		}
+
+		return false;
+	}
+
+	/**
+	 * If set to true the first item will automatically be focused when the menu is shown.
+	 * 
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Autocomplete<T> setAutoFocus(boolean autoFocus)
+	{
+		this.options.put("autoFocus", autoFocus);
+		return this;
+	}
+
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public Autocomplete<T> setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
 		return this;
 	}
 
@@ -165,17 +196,42 @@ public class Autocomplete<T> extends TextField<T>
 	}
 
 	/**
-	 * The minimum number of characters a user has to type before the autocomplete
-	 * activates. Zero is useful for local data with just a few items. Should be increased
-	 * when there are a lot of items, where a single character would match a few thousand
-	 * items.
+	 * The delay in milliseconds the autocomplete waits after a keystroke to activate itself. A
+	 * zero-delay makes sense for local data (more responsive), but can produce a lot of load for
+	 * remote data, while being less responsive.
 	 * 
-	 * @param minLength
+	 * @param delay
 	 * @return instance of the current component
 	 */
-	public Autocomplete<T> setMinLength(int minLength)
+	public Autocomplete<T> setDelay(int delay)
 	{
-		this.options.put("minLength", minLength);
+		this.options.put("delay", delay);
+		return this;
+	}
+
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled()
+	{
+		if (this.options.containsKey("disabled"))
+		{
+			return this.options.getBoolean("disabled");
+		}
+
+		return false;
+	}
+
+	/**
+	 * Disables (true) or enables (false) the autocomplete. Can be set when initialising (first
+	 * creating) the autcomplete.
+	 * 
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Autocomplete<T> setDisabled(boolean disabled)
+	{
+		this.options.put("disabled", disabled);
 		return this;
 	}
 
@@ -193,14 +249,16 @@ public class Autocomplete<T> extends TextField<T>
 	}
 
 	/**
-	 * Position of the component of the suggested values with the input field
+	 * The minimum number of characters a user has to type before the autocomplete activates. Zero
+	 * is useful for local data with just a few items. Should be increased when there are a lot of
+	 * items, where a single character would match a few thousand items.
 	 * 
-	 * @param position
+	 * @param minLength
 	 * @return instance of the current component
 	 */
-	public Autocomplete<T> setPosition(PositionOptions position)
+	public Autocomplete<T> setMinLength(int minLength)
 	{
-		this.options.put("position", position);
+		this.options.put("minLength", minLength);
 		return this;
 	}
 
@@ -213,54 +271,25 @@ public class Autocomplete<T> extends TextField<T>
 
 		if (position != null && position instanceof PositionOptions)
 		{
-			return (PositionOptions) position;
+			return (PositionOptions)position;
 		}
 
 		PositionOptions pos = new PositionOptions()
-				.setMy(new PositionAlignmentOptions(PositionRelation.LEFT, PositionRelation.TOP))
-				.setAt(new PositionAlignmentOptions(PositionRelation.LEFT, PositionRelation.BOTTOM))
-				.setCollision(PositionCollision.NONE);
+			.setMy(new PositionAlignmentOptions(PositionRelation.LEFT, PositionRelation.TOP))
+			.setAt(new PositionAlignmentOptions(PositionRelation.LEFT, PositionRelation.BOTTOM))
+			.setCollision(PositionCollision.NONE);
 		return pos;
 	}
 
 	/**
-	 * Defines the data to use, must be specified. There are three variations:
-	 * <ul>
-	 * <li>an Array with local data</li>
-	 * <li>a String, specifying a URL</li>
-	 * <li>a Callback</li>
-	 * </ul>
+	 * Position of the component of the suggested values with the input field
 	 * 
-	 * The local data can be a simple Array of Strings, or it contains Objects for each
-	 * item in the array, with a label or value property or both. The label property is
-	 * displayed in the suggestion menu, the value will be inserted into the input element
-	 * after the user selected something from the menu. If just one is specified, it will
-	 * be used for both, eg. if you provide only value-properties, they will also be used
-	 * as the label.
-	 * 
-	 * When a String is used, the Autocomplete plugin expects that string to point to a
-	 * resource to return JSON data. It can be on the same host or on a different one
-	 * (must provide JSONP). The data itself can be in the same format as the local data
-	 * described above.
-	 * 
-	 * The third variation, the callback, provides the most flexibility, and can be used
-	 * to connect any datasource to the Autocomplete. The callback gets two arguments:
-	 * <ul>
-	 * <li>A request object, with a single property called "term", which refers to the
-	 * value currently in the text input. For example, when the user entered "new yo" in a
-	 * city autocomplete, term equals "new yo".</li>
-	 * <li>A response callback, which expects a single argument to contain the data to
-	 * suggest to the user. This data should be filtered based on the provided term, and
-	 * can be in any of the formats described above for simple local data (String-Array or
-	 * Object-Array with label/value/both properties).</li>
-	 * </ul>
-	 * 
-	 * @param source
+	 * @param position
 	 * @return instance of the current component
 	 */
-	public Autocomplete<T> setSource(AutocompleteSource source)
+	public Autocomplete<T> setPosition(PositionOptions position)
 	{
-		this.options.put("source", source);
+		this.options.put("position", position);
 		return this;
 	}
 
@@ -273,68 +302,57 @@ public class Autocomplete<T> extends TextField<T>
 
 		if (source instanceof AutocompleteSource)
 		{
-			return (AutocompleteSource) source;
+			return (AutocompleteSource)source;
 		}
 
 		return null;
 	}
 
 	/**
-	 * Disables (true) or enables (false) the autocomplete. Can be set when initialising
-	 * (first creating) the autcomplete.
+	 * Defines the data to use, must be specified. There are three variations:
+	 * <ul>
+	 * <li>an Array with local data</li>
+	 * <li>a String, specifying a URL</li>
+	 * <li>a Callback</li>
+	 * </ul>
 	 * 
-	 * @param disabled
-	 * @return instance of the current behavior
+	 * The local data can be a simple Array of Strings, or it contains Objects for each item in the
+	 * array, with a label or value property or both. The label property is displayed in the
+	 * suggestion menu, the value will be inserted into the input element after the user selected
+	 * something from the menu. If just one is specified, it will be used for both, eg. if you
+	 * provide only value-properties, they will also be used as the label.
+	 * 
+	 * When a String is used, the Autocomplete plugin expects that string to point to a resource to
+	 * return JSON data. It can be on the same host or on a different one (must provide JSONP). The
+	 * data itself can be in the same format as the local data described above.
+	 * 
+	 * The third variation, the callback, provides the most flexibility, and can be used to connect
+	 * any datasource to the Autocomplete. The callback gets two arguments:
+	 * <ul>
+	 * <li>A request object, with a single property called "term", which refers to the value
+	 * currently in the text input. For example, when the user entered "new yo" in a city
+	 * autocomplete, term equals "new yo".</li>
+	 * <li>A response callback, which expects a single argument to contain the data to suggest to
+	 * the user. This data should be filtered based on the provided term, and can be in any of the
+	 * formats described above for simple local data (String-Array or Object-Array with
+	 * label/value/both properties).</li>
+	 * </ul>
+	 * 
+	 * @param source
+	 * @return instance of the current component
 	 */
-	public Autocomplete<T> setDisabled(boolean disabled)
+	public Autocomplete<T> setSource(AutocompleteSource source)
 	{
-		this.options.put("disabled", disabled);
+		this.options.put("source", source);
 		return this;
 	}
 
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled()
-	{
-		if (this.options.containsKey("disabled"))
-		{
-			return this.options.getBoolean("disabled");
-		}
-
-		return false;
-	}
-	
-	/**
-	 * If set to true the first item will automatically be focused when the menu is shown.
-	 * 
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public Autocomplete<T> setAutoFocus(boolean autoFocus)
-	{
-		this.options.put("autoFocus", autoFocus);
-		return this;
-	}
-
-	/**
-	 * @return the autoFocus option
-	 */
-	public boolean isAutoFocus()
-	{
-		if (this.options.containsKey("autoFocus"))
-		{
-			return this.options.getBoolean("autoFocus");
-		}
-
-		return false;
-	}
 
 	/*---- Events section ---*/
 
 	/**
-	 * After an item was selected; ui.item refers to the selected item. Always triggered
-	 * after the close event.
+	 * After an item was selected; ui.item refers to the selected item. Always triggered after the
+	 * close event.
 	 * 
 	 * @param change
 	 * @return instance of the current component
@@ -357,11 +375,17 @@ public class Autocomplete<T> extends TextField<T>
 		return this;
 	}
 
+	public Autocomplete<T> setCreateEvent(JsScopeUiEvent create)
+	{
+		this.options.put("create", create);
+		return this;
+	}
+
 	/**
-	 * Before focus is moved to an item (not selecting), ui.item refers to the focused
-	 * item. The default action of focus is to replace the text field's value with the
-	 * value of the focused item. Cancelling this event prevents the value from being
-	 * updated, but does not prevent the menu item from being focused.
+	 * Before focus is moved to an item (not selecting), ui.item refers to the focused item. The
+	 * default action of focus is to replace the text field's value with the value of the focused
+	 * item. Cancelling this event prevents the value from being updated, but does not prevent the
+	 * menu item from being focused.
 	 * 
 	 * @param focus
 	 * @return instance of the current component
@@ -373,8 +397,8 @@ public class Autocomplete<T> extends TextField<T>
 	}
 
 	/**
-	 * After a request with the data ready, before it is actually displayed; also
-	 * indicates the suggestion menu will be opened.
+	 * After a request with the data ready, before it is actually displayed; also indicates the
+	 * suggestion menu will be opened.
 	 * 
 	 * @param open
 	 * @return instance of the current component
@@ -384,7 +408,7 @@ public class Autocomplete<T> extends TextField<T>
 		this.options.put("open", open);
 		return this;
 	}
-	
+
 	/**
 	 * After a search completes, before the menu is shown.
 	 * 
@@ -398,9 +422,8 @@ public class Autocomplete<T> extends TextField<T>
 	}
 
 	/**
-	 * Before a request (source-option) is started, after minLength and delay are met. Can
-	 * be cancelled (return false), then no request will be started and no items
-	 * suggested.
+	 * Before a request (source-option) is started, after minLength and delay are met. Can be
+	 * cancelled (return false), then no request will be started and no items suggested.
 	 * 
 	 * @param search
 	 * @return instance of the current component
@@ -412,10 +435,10 @@ public class Autocomplete<T> extends TextField<T>
 	}
 
 	/**
-	 * Triggered when an item is selected from the menu; ui.item refers to the selected
-	 * item. The default action of select is to replace the text field's value with the
-	 * value of the selected item. Cancelling this event prevents the value from being
-	 * updated, but does not prevent the menu from closing.
+	 * Triggered when an item is selected from the menu; ui.item refers to the selected item. The
+	 * default action of select is to replace the text field's value with the value of the selected
+	 * item. Cancelling this event prevents the value from being updated, but does not prevent the
+	 * menu from closing.
 	 * 
 	 * @param select
 	 * @return instance of the current component
@@ -428,8 +451,7 @@ public class Autocomplete<T> extends TextField<T>
 
 	/*---- Methods section ---*/
 	/**
-	 * Method to close the autocomplete This will return the element back to its pre-init
-	 * state.
+	 * Method to close the autocomplete This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */
@@ -449,8 +471,7 @@ public class Autocomplete<T> extends TextField<T>
 	}
 
 	/**
-	 * Method to destroy the autocomplete This will return the element back to its
-	 * pre-init state.
+	 * Method to destroy the autocomplete This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */

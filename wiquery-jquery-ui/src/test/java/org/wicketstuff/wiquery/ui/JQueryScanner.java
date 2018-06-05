@@ -9,21 +9,27 @@ import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.Parser;
 import org.mozilla.javascript.tools.ToolErrorReporter;
 
-public class JQueryScanner {
+public class JQueryScanner
+{
 
-	public JQueryScanner(FileReader in) {
+	public JQueryScanner(FileReader in)
+	{
 		final ErrorReporter reporter = new ToolErrorReporter(true);
 		final CompilerEnvirons env = new CompilerEnvirons();
 		final Parser parser = new Parser(env, reporter);
 
-		try {
+		try
+		{
 			parser.parse(in, null, 0);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public static final void main(String[] args) {
+	public static final void main(String[] args)
+	{
 		if (args.length == 0)
 			return;
 
@@ -31,21 +37,31 @@ public class JQueryScanner {
 		if (zipfile == null || !zipfile.exists() || !zipfile.isDirectory())
 			return;
 
-		for (File file : zipfile.listFiles()) {
-			if (file.getName().startsWith("ui.")
-					&& file.getName().endsWith(".json")) {
+		for (File file : zipfile.listFiles())
+		{
+			if (file.getName().startsWith("ui.") && file.getName().endsWith(".json"))
+			{
 				FileReader reader = null;
-				try {
+				try
+				{
 					reader = new FileReader(file);
 					JQueryScanner scanner = new JQueryScanner(reader);
 
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 
-				} finally {
-					if (reader != null) {
-						try {
+				}
+				finally
+				{
+					if (reader != null)
+					{
+						try
+						{
 							reader.close();
-						} catch (Exception e) {
+						}
+						catch (Exception e)
+						{
 						}
 					}
 

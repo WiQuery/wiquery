@@ -33,14 +33,14 @@ import org.apache.wicket.request.resource.SharedResourceReference;
 import org.wicketstuff.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.dialog.Dialog;
-import org.wicketstuff.wiquery.ui.dialog.DialogJavaScriptResourceReference;
 
 /**
  * $Id: DialogResourcesBehavior.java
  * 
- * Behavior to load all needed resources for the {@link Dialog} Contains some utilities
- * method to create very lightweight {@link Dialog}
+ * Behavior to load all needed resources for the {@link Dialog} Contains some utilities method to
+ * create very lightweight {@link Dialog}
  * 
  * @author Julien Roche
  * @since 1.1
@@ -53,46 +53,19 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum DialogUtilsLanguages
-	{
-		ALBANIAN("sq"),
-		ARABIC("ar"),
-		BELARUSIAN("be"),
-		BULGARIAN("bg"),
-		CATALAN("ca"),
-		CROATIAN("hr"),
-		DANISH("da"),
-		DEUTSCH(Locale.GERMAN),
-		ENGLISH(Locale.ENGLISH),
-		ESTONIAN("et"),
-		FINNISH("fi"),
-		FRENCH(Locale.FRENCH),
-		GREEK("el"),
-		HEBREW("iw"),
-		HINDI("hi", "IN"),
-		HUNGARIAN("hu"),
-		ICELANDIC("is"),
-		INDONESIAN("in"),
-		ITALIAN("it"),
-		JAPANESE("ja"),
-		KOREAN(Locale.KOREAN),
-		LITHUANIAN("lt"),
-		NORVEGIAN("no"),
-		POLISH("pl"),
-		PORTUGUESE("pt"),
-		ROUMANIAN("ro"),
-		RUSSIAN("ru"),
-		SERBIAN("sr"),
-		SIMPLIFIED_CHINESE(Locale.SIMPLIFIED_CHINESE),
-		SLOVAK("sk"),
-		SLOVENIAN("sl"),
-		SPANISH("es"),
-		SWEDISH("sv"),
-		THAI("th"),
-		TRADITIONAL_CHINESE(Locale.TRADITIONAL_CHINESE),
-		TURKISH("tr"),
-		UKRAINIAN("uk"),
-		VIETNAMESE("vi");
+	public enum DialogUtilsLanguages {
+		ALBANIAN("sq"), ARABIC("ar"), BELARUSIAN("be"), BULGARIAN("bg"), CATALAN("ca"), CROATIAN(
+			"hr"), DANISH("da"), DEUTSCH(Locale.GERMAN), ENGLISH(Locale.ENGLISH), ESTONIAN(
+				"et"), FINNISH("fi"), FRENCH(Locale.FRENCH), GREEK("el"), HEBREW("iw"), HINDI("hi",
+					"IN"), HUNGARIAN("hu"), ICELANDIC("is"), INDONESIAN(
+						"in"), ITALIAN("it"), JAPANESE("ja"), KOREAN(Locale.KOREAN), LITHUANIAN(
+							"lt"), NORVEGIAN("no"), POLISH("pl"), PORTUGUESE("pt"), ROUMANIAN(
+								"ro"), RUSSIAN("ru"), SERBIAN("sr"), SIMPLIFIED_CHINESE(
+									Locale.SIMPLIFIED_CHINESE), SLOVAK("sk"), SLOVENIAN(
+										"sl"), SPANISH("es"), SWEDISH("sv"), THAI(
+											"th"), TRADITIONAL_CHINESE(
+												Locale.TRADITIONAL_CHINESE), TURKISH(
+													"tr"), UKRAINIAN("uk"), VIETNAMESE("vi");
 
 		/**
 		 * Try to find the most appropriate value in the enumeration
@@ -124,9 +97,9 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 				{
 					tmpLocale = l.getLocale();
 
-					if (tmpLocale.getLanguage().equals(language)
-						&& tmpLocale.getCountry().equals(country)
-						&& tmpLocale.getVariant().equals(variant))
+					if (tmpLocale.getLanguage().equals(language) &&
+						tmpLocale.getCountry().equals(country) &&
+						tmpLocale.getVariant().equals(variant))
 					{
 						return l;
 					}
@@ -140,9 +113,9 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 				{
 					tmpLocale = l.getLocale();
 
-					if (tmpLocale.getLanguage().equals(language)
-						&& tmpLocale.getCountry().equals(country)
-						&& tmpLocale.getVariant().equals(empty))
+					if (tmpLocale.getLanguage().equals(language) &&
+						tmpLocale.getCountry().equals(country) &&
+						tmpLocale.getVariant().equals(empty))
 					{
 						return l;
 					}
@@ -154,8 +127,8 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 			{
 				tmpLocale = l.getLocale();
 
-				if (tmpLocale.getLanguage().equals(language)
-					&& tmpLocale.getCountry().equals(empty) && tmpLocale.getVariant().equals(empty))
+				if (tmpLocale.getLanguage().equals(language) &&
+					tmpLocale.getCountry().equals(empty) && tmpLocale.getVariant().equals(empty))
 				{
 					return l;
 				}
@@ -197,7 +170,7 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		 * @return the resource
 		 */
 		public static JavaScriptResourceReference getDialogUtilsResource(
-				DialogUtilsLanguages language)
+			DialogUtilsLanguages language)
 		{
 			Locale locale = language.getLocale();
 
@@ -297,14 +270,15 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		DialogUtilsBehavior.class, "warning.png");
 
 	/** Constant of wiQuery Dialog resource */
-	public static final JavaScriptResourceReference WIQUERY_DIALOG_JS =
-		new JavaScriptResourceReference(DialogUtilsBehavior.class, "wiquery-dialog.js");
+	public static final JavaScriptResourceReference WIQUERY_DIALOG_JS = new JavaScriptResourceReference(
+		DialogUtilsBehavior.class, "wiquery-dialog.js");
 
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
 		super.renderHead(component, response);
-		response.render(JavaScriptHeaderItem.forReference(DialogJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 
 		response.render(JavaScriptHeaderItem.forReference(WIQUERY_DIALOG_JS));
 		response.render(JavaScriptHeaderItem.forReference(DialogUtilsLanguages
@@ -323,8 +297,8 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.errorDialog(");
 		statement.append("" + Session.get().nextSequenceValue() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
-			.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
+			DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
 		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(CANCEL_IMG, null)) + ")");
 
@@ -352,8 +326,8 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.questionDialog(");
 		statement.append("" + Session.get().nextSequenceValue() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
-			.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
+			DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
 		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(QUESTION_IMG, null)) + ")");
 
@@ -374,8 +348,8 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.simpleDialog(");
 		statement.append("" + Session.get().nextSequenceValue() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
-			.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
+			DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.quotes(title, true) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ")");
 
@@ -394,14 +368,14 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.waitDialog(");
 		statement.append(id.toString() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
-			.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
+			DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(WAIT_IMG, null)) + ")");
 
 		WaitDialogStatements wait = new WaitDialogStatements();
 		wait.setOpen(statement);
-		wait.setClose(new JsStatement().$(null, "#dialog" + id).chain("dialog",
-			JsUtils.quotes("close")));
+		wait.setClose(
+			new JsStatement().$(null, "#dialog" + id).chain("dialog", JsUtils.quotes("close")));
 
 		return wait;
 	}
@@ -418,8 +392,8 @@ public class DialogUtilsBehavior extends WiQueryAbstractAjaxBehavior
 		JsStatement statement = new JsStatement();
 		statement.append("$.ui.dialog.wiquery.warningDialog(");
 		statement.append("" + Session.get().nextSequenceValue() + ", ");
-		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages
-			.getDialogUtilsLanguages(getLocale())) + ", ");
+		statement.append(DialogUtilsLanguages.getDialogUtilsLiteral(
+			DialogUtilsLanguages.getDialogUtilsLanguages(getLocale())) + ", ");
 		statement.append(JsUtils.doubleQuotes(message, true) + ", ");
 		statement.append(JsUtils.quotes(RequestCycle.get().urlFor(WARNING_IMG, null)) + ")");
 

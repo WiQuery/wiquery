@@ -21,56 +21,19 @@
  */
 package org.wicketstuff.wiquery.ui.progressbar;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: ProgressBarJavaScriptResourceReference.java 1714 2011-09-22 20:38:30Z hielke.hoeve
- * $
- * <p>
- * References the JavaScript resource to get the ProgressBar component.
- * </p>
- * 
- * @author Lionel Armanet
- * @since 0.5
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class ProgressBarJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class ProgressBarJavaScriptResourceReference
+	extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 3423205998397680042L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final ProgressBarJavaScriptResourceReference INSTANCE =
-		new ProgressBarJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link ProgressBarJavaScriptResourceReference}.
-	 */
 	private ProgressBarJavaScriptResourceReference()
 	{
-		super(ProgressBarJavaScriptResourceReference.class, "jquery.ui.progressbar.js");
-	}
-
-	/**
-	 * Returns the {@link ProgressBarJavaScriptResourceReference} instance.
-	 */
-	public static ProgressBarJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
-			WidgetJavaScriptResourceReference.get());
 	}
 }

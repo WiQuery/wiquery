@@ -46,10 +46,8 @@ public class DraggableHelper implements IComplexOption
 	 */
 	public static final DraggableHelper ORIGINAL = new DraggableHelper(HelperEnum.ORIGINAL);
 
-	public enum HelperEnum
-	{
-		CLONE(new LiteralOption("clone")),
-		ORIGINAL(new LiteralOption("original"));
+	public enum HelperEnum {
+		CLONE(new LiteralOption("clone")), ORIGINAL(new LiteralOption("original"));
 
 		// Properties
 		private LiteralOption literalParam;

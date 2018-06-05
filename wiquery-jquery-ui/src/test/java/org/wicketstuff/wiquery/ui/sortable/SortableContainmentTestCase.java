@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.options.LiteralOption;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.sortable.SortableContainment;
 
 public class SortableContainmentTestCase extends WiQueryTestCase
 {
@@ -51,7 +50,8 @@ public class SortableContainmentTestCase extends WiQueryTestCase
 		catch (Exception e)
 		{
 			// We have an expected error
-			assertEquals("The SortableContainment must have one not null parameter", e.getMessage());
+			assertEquals("The SortableContainment must have one not null parameter",
+				e.getMessage());
 		}
 	}
 

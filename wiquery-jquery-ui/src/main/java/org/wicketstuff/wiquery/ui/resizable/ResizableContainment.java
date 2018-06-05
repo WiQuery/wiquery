@@ -35,10 +35,8 @@ import org.wicketstuff.wiquery.core.options.LiteralOption;
  */
 public class ResizableContainment implements IComplexOption
 {
-	public enum ElementEnum
-	{
-		PARENT(new LiteralOption("parent")),
-		DOCUMENT(new LiteralOption("document"));
+	public enum ElementEnum {
+		PARENT(new LiteralOption("parent")), DOCUMENT(new LiteralOption("document"));
 
 		// Properties
 		private LiteralOption literalParam;
@@ -50,6 +48,7 @@ public class ResizableContainment implements IComplexOption
 
 		/*
 		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Enum#toString()
 		 */
 		@Override
@@ -114,7 +113,7 @@ public class ResizableContainment implements IComplexOption
 	 *            Selector
 	 */
 	private ResizableContainment(ElementEnum elementEnumParam, String objectParam,
-			LiteralOption selector)
+		LiteralOption selector)
 	{
 		super();
 		setParam(elementEnumParam, objectParam, selector);

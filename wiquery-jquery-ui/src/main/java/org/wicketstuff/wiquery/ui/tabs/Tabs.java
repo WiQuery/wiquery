@@ -45,9 +45,10 @@ import org.wicketstuff.wiquery.core.options.ICollectionItemOptions;
 import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.options.HeightStyleEnum;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -65,37 +66,33 @@ public class Tabs extends WebMarkupContainer
 	private static final long serialVersionUID = 2L;
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : anchor element of
-	 * the selected tab
+	 * Properties on the ui parameter (use it into callback functions) : anchor element of the
+	 * selected tab
 	 */
 	public static final String UI_TAB = "ui.newTab";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : element, that
-	 * contains the selected tab contents
+	 * Properties on the ui parameter (use it into callback functions) : element, that contains the
+	 * selected tab contents
 	 */
 	public static final String UI_PANEL = "ui.newPanel";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : zero-based index
-	 * of the selected tab
+	 * Properties on the ui parameter (use it into callback functions) : zero-based index of the
+	 * selected tab
 	 */
 	public static final String UI_INDEX = "ui.newTab.index()";
-	
+
 	/**
 	 * Options are used to customize this component.
 	 */
 	private Options options;
 
 	/**
-	 * 	 The tab event.
+	 * The tab event.
 	 */
-	public static enum TabEvent
-	{
-		activate,
-		beforeActivate,
-		beforeLoad,
-		load
+	public static enum TabEvent {
+		activate, beforeActivate, beforeLoad, load
 	}
 
 	/**
@@ -107,14 +104,14 @@ public class Tabs extends WebMarkupContainer
 	{
 
 		private static final long serialVersionUID = 1L;
-		
+
 		private List<String> extraDynParams;
-		
+
 
 		public TabsAjaxBehavior()
 		{
 		}
-		
+
 
 		@Override
 		protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
@@ -124,11 +121,11 @@ public class Tabs extends WebMarkupContainer
 				attributes.getDynamicExtraParameters().addAll(extraDynParams);
 			}
 		}
-		
+
 		protected void setDynParams(List<String> list)
 		{
 			this.extraDynParams = list;
-		}		
+		}
 	}
 
 	/*
@@ -167,11 +164,11 @@ public class Tabs extends WebMarkupContainer
 		@Override
 		protected void execute(JsScopeContext scopeContext)
 		{
-			tabs.tabsAjaxBehavior.setDynParams(Arrays.asList(String.format(
-					"return {'%s': '%s', '%s': %s}", TAB_EVENT, event.name(),
-					TAB_INDEX, UI_INDEX)));
+			tabs.tabsAjaxBehavior
+				.setDynParams(Arrays.asList(String.format("return {'%s': '%s', '%s': %s}",
+					TAB_EVENT, event.name(), TAB_INDEX, UI_INDEX)));
 
-				scopeContext.append(
+			scopeContext.append(
 				// delegating call-back generation to AJAX behavior
 				// so that we don't miss 'decorator' related functionality.
 				tabs.tabsAjaxBehavior.getCallbackScript());
@@ -229,7 +226,7 @@ public class Tabs extends WebMarkupContainer
 	/*
 	 * Map of AJAX events.
 	 */
-	private Map<TabEvent, ITabsAjaxEvent> ajaxEvents = new HashMap<TabEvent, ITabsAjaxEvent>();
+	private Map<TabEvent, ITabsAjaxEvent> ajaxEvents = new HashMap<>();
 
 	/**
 	 * Builds a new tabs container with the given wicket id.
@@ -246,16 +243,20 @@ public class Tabs extends WebMarkupContainer
 			@Override
 			protected void respond(AjaxRequestTarget target)
 			{
-				String tabEvent =
-					RequestCycle.get().getRequest().getQueryParameters()
-						.getParameterValue(TAB_EVENT).toString();
+				String tabEvent = RequestCycle.get()
+					.getRequest()
+					.getQueryParameters()
+					.getParameterValue(TAB_EVENT)
+					.toString();
 				// if we have an event execute it.
 				if (!isEmpty(tabEvent))
 				{
 					// calculate the index
-					int index =
-						parseInteger(RequestCycle.get().getRequest().getQueryParameters()
-							.getParameterValue(TAB_INDEX).toString(), 0);
+					int index = parseInteger(RequestCycle.get()
+						.getRequest()
+						.getQueryParameters()
+						.getParameterValue(TAB_INDEX)
+						.toString(), 0);
 
 					ITabsAjaxEvent ajaxEvent = ajaxEvents.get(TabEvent.valueOf(tabEvent));
 					if (ajaxEvent != null)
@@ -302,8 +303,8 @@ public class Tabs extends WebMarkupContainer
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(TabsJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
@@ -325,8 +326,8 @@ public class Tabs extends WebMarkupContainer
 	/*---- Options section ---*/
 
 	/**
-	 * Set to true to allow an already selected tab to become unselected again upon
-	 * reselection. (Old version of this option : deselectable)
+	 * Set to true to allow an already selected tab to become unselected again upon reselection.
+	 * (Old version of this option : deselectable)
 	 * 
 	 * @param collapsible
 	 * @return instance of the current component
@@ -350,9 +351,26 @@ public class Tabs extends WebMarkupContainer
 		return false;
 	}
 
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public Tabs setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
+
 	/**
-	 * Disables (true) or enables (false) the tabs. Can be set when initialising (first
-	 * creating) the tabs.
+	 * Disables (true) or enables (false) the tabs. Can be set when initialising (first creating)
+	 * the tabs.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -377,8 +395,8 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
-	 * Set an array containing the position of the tabs (zero-based index) that should be
-	 * disabled on initialization
+	 * Set an array containing the position of the tabs (zero-based index) that should be disabled
+	 * on initialization
 	 * 
 	 * @param disabled
 	 * @return instance of the current component
@@ -418,7 +436,7 @@ public class Tabs extends WebMarkupContainer
 
 		if (event instanceof EventLabelOptions)
 		{
-			return (EventLabelOptions) event;
+			return (EventLabelOptions)event;
 		}
 
 		return new EventLabelOptions(MouseEvent.CLICK);
@@ -435,7 +453,7 @@ public class Tabs extends WebMarkupContainer
 		this.options.put("hide", hideOptions);
 		return this;
 	}
-	
+
 	/**
 	 * @return the hide option value
 	 */
@@ -444,12 +462,12 @@ public class Tabs extends WebMarkupContainer
 		IComplexOption hideOptions = this.options.getComplexOption("hide");
 		if (hideOptions instanceof TabsAnimateOption)
 		{
-			return (TabsAnimateOption) hideOptions;
+			return (TabsAnimateOption)hideOptions;
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * If and how to animate the showing of the panel.
 	 * 
@@ -461,7 +479,7 @@ public class Tabs extends WebMarkupContainer
 		this.options.put("show", showOptions);
 		return this;
 	}
-	
+
 	/**
 	 * @return the show option value
 	 */
@@ -470,9 +488,9 @@ public class Tabs extends WebMarkupContainer
 		IComplexOption showOptions = this.options.getComplexOption("show");
 		if (showOptions instanceof TabsAnimateOption)
 		{
-			return (TabsAnimateOption) showOptions;
+			return (TabsAnimateOption)showOptions;
 		}
-		
+
 		return null;
 	}
 
@@ -486,13 +504,13 @@ public class Tabs extends WebMarkupContainer
 		{
 			return index;
 		}
-		
+
 		return 0;
 	}
-	
+
 	/**
-	 * The zero-based index of the panel that is active (open).
-	 * A negative value selects panels going backward from the last panel.
+	 * The zero-based index of the panel that is active (open). A negative value selects panels
+	 * going backward from the last panel.
 	 * 
 	 * @param index
 	 * @return instance of the current component
@@ -502,10 +520,10 @@ public class Tabs extends WebMarkupContainer
 		this.options.put("active", index);
 		return this;
 	}
-	
+
 	/**
-	 * Setting active to false will collapse all panels.
-	 * This requires the collapsible option to be true.
+	 * Setting active to false will collapse all panels. This requires the collapsible option to be
+	 * true.
 	 * 
 	 * @param isActive
 	 * @return instance of the current component
@@ -515,32 +533,33 @@ public class Tabs extends WebMarkupContainer
 		this.options.put("active", isActive);
 		return this;
 	}
-	
+
 	/**
 	 * @return the heightStyle option value
 	 */
 	public HeightStyleEnum getHeightStyle()
 	{
 		String literal = this.options.getLiteral("heightStyle");
-		return literal == null ? HeightStyleEnum.CONTENT : HeightStyleEnum.valueOf(literal.toUpperCase());
+		return literal == null ? HeightStyleEnum.CONTENT
+			: HeightStyleEnum.valueOf(literal.toUpperCase());
 	}
-	
+
 	/**
 	 * Controls the height of the tabs widget and each panel. Possible values:
 	 * <ul>
-	 * 	<li>AUTO: All panels will be set to the height of the tallest panel.</li>
-	 * 	<li>FILL: Expand to the available height based on the tabs' parent height.</li>
-	 * 	<li>CONTENT: Each panel will be only as tall as its content.</li>
+	 * <li>AUTO: All panels will be set to the height of the tallest panel.</li>
+	 * <li>FILL: Expand to the available height based on the tabs' parent height.</li>
+	 * <li>CONTENT: Each panel will be only as tall as its content.</li>
 	 * </ul>
+	 * 
 	 * @param heightStyle
-	 * @return
 	 */
 	public Tabs setHeightStyle(HeightStyleEnum heightStyle)
 	{
 		this.options.putLiteral("heightStyle", heightStyle.name().toLowerCase());
 		return this;
 	}
-	
+
 	/*---- Events section ---*/
 
 	/**
@@ -567,7 +586,7 @@ public class Tabs extends WebMarkupContainer
 		setBeforeLoadEvent(new TabsAjaxJsScopeUiEvent(this, TabEvent.beforeLoad));
 		return this;
 	}
-	
+
 	/**
 	 * Set the callback when the content of a remote tab has been loaded.
 	 * 
@@ -614,7 +633,8 @@ public class Tabs extends WebMarkupContainer
 	public Tabs setAjaxBeforeActivateEvent(ITabsAjaxEvent beforeActivateEvent)
 	{
 		this.ajaxEvents.put(TabEvent.beforeActivate, beforeActivateEvent);
-		setBeforeActivateEvent(new TabsAjaxBeforeActivateJsScopeUiEvent(this, TabEvent.beforeActivate, false));
+		setBeforeActivateEvent(
+			new TabsAjaxBeforeActivateJsScopeUiEvent(this, TabEvent.beforeActivate, false));
 		return this;
 	}
 
@@ -629,7 +649,8 @@ public class Tabs extends WebMarkupContainer
 	public Tabs setAjaxBeforeActivateEvent(ITabsAjaxEvent beforeActivateEvent, boolean cancelSelect)
 	{
 		this.ajaxEvents.put(TabEvent.beforeActivate, beforeActivateEvent);
-		setBeforeActivateEvent(new TabsAjaxBeforeActivateJsScopeUiEvent(this, TabEvent.beforeActivate, cancelSelect));
+		setBeforeActivateEvent(
+			new TabsAjaxBeforeActivateJsScopeUiEvent(this, TabEvent.beforeActivate, cancelSelect));
 		return this;
 	}
 
@@ -781,8 +802,7 @@ public class Tabs extends WebMarkupContainer
 	}
 
 	/**
-	 * Method to reload the content of an Ajax tab programmatically within the ajax
-	 * request
+	 * Method to reload the content of an Ajax tab programmatically within the ajax request
 	 * 
 	 * @param index
 	 *            Index tab to select

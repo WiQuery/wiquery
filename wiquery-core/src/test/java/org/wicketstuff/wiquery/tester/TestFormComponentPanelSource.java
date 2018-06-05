@@ -27,14 +27,13 @@ import org.apache.wicket.util.io.IClusterable;
 public interface TestFormComponentPanelSource extends IClusterable
 {
 	/**
-	 * Defines a <code>FormComponentPanel</code> instance source for
-	 * <code>WicketTester</code>.
+	 * Defines a <code>FormComponentPanel</code> instance source for <code>WicketTester</code>.
 	 * 
 	 * @param panelId
 	 *            <code>Component</code> id of the test <code>FormComponentPanel</code>
 	 * @return test <code>Panel</code> instance -- note that the test
-	 *         <code>FormComponentPanel</code>'s <code>Component</code> id must use the
-	 *         given <code>panelId</code>.
+	 *         <code>FormComponentPanel</code>'s <code>Component</code> id must use the given
+	 *         <code>panelId</code>.
 	 */
-	FormComponentPanel< ? > getTestPanel(final String panelId);
+	FormComponentPanel<?> getTestPanel(final String panelId);
 }

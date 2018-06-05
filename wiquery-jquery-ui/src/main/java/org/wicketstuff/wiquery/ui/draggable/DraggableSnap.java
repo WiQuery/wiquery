@@ -101,7 +101,8 @@ public class DraggableSnap implements IComplexOption
 	{
 		if (booleanParam == null && selectorParam == null)
 		{
-			throw new IllegalArgumentException("The DraggableSnap must have one not null parameter");
+			throw new IllegalArgumentException(
+				"The DraggableSnap must have one not null parameter");
 		}
 
 		CharSequence sequence = null;
@@ -116,7 +117,8 @@ public class DraggableSnap implements IComplexOption
 		}
 		else
 		{
-			throw new IllegalArgumentException("The DraggableSnap must have one not null parameter");
+			throw new IllegalArgumentException(
+				"The DraggableSnap must have one not null parameter");
 		}
 
 		return sequence;

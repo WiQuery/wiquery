@@ -37,7 +37,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.wicketstuff.wiquery.core.javascript.JsQuery;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -82,36 +82,36 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	 *            List of radios
 	 */
 	public ButtonRadioSet(String id, IModel<? extends List<ButtonElement<T>>> radios,
-			IModel<T> model)
+		IModel<T> model)
 	{
 		super(id);
 
-		radioGroup = new RadioGroup<T>("buttonRadioSetGroup", model);
+		radioGroup = new RadioGroup<>("buttonRadioSetGroup", model);
 		radioGroup.setOutputMarkupId(true);
 		radioGroup.setRenderBodyOnly(false);
 		add(radioGroup);
 
-		ListView< ? extends ButtonElement<T>> view =
-			new ListView<ButtonElement<T>>("buttonRadioSetView", radios)
+		ListView<? extends ButtonElement<T>> view = new ListView<ButtonElement<T>>(
+			"buttonRadioSetView", radios)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void populateItem(ListItem<ButtonElement<T>> item)
 			{
-				private static final long serialVersionUID = 1L;
+				ButtonElement<T> buttonElement = item.getModelObject();
 
-				@Override
-				protected void populateItem(ListItem<ButtonElement<T>> item)
-				{
-					ButtonElement<T> buttonElement = item.getModelObject();
+				Radio<T> radio = newRadio("buttonRadio", buttonElement.getModel(), radioGroup);
+				radio.setLabel(buttonElement.getLabel());
+				radio.setOutputMarkupId(true);
 
-					Radio<T> radio = newRadio("buttonRadio", buttonElement.getModel(), radioGroup);
-					radio.setLabel(buttonElement.getLabel());
-					radio.setOutputMarkupId(true);
+				SimpleFormComponentLabel label = new SimpleFormComponentLabel("buttonRadioLabel",
+					radio);
 
-					SimpleFormComponentLabel label =
-						new SimpleFormComponentLabel("buttonRadioLabel", radio);
-
-					item.add(radio);
-					item.add(label);
-				}
-			};
+				item.add(radio);
+				item.add(label);
+			}
+		};
 		radioGroup.add(view);
 	}
 
@@ -146,8 +146,10 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
@@ -172,7 +174,7 @@ public class ButtonRadioSet<T extends Serializable> extends Panel
 	 */
 	protected Radio<T> newRadio(String wicketId, IModel<T> model, RadioGroup<T> group)
 	{
-		Radio<T> radio = new Radio<T>(wicketId, model, group);
+		Radio<T> radio = new Radio<>(wicketId, model, group);
 		return radio;
 	}
 

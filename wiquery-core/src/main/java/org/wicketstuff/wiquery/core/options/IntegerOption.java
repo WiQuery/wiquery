@@ -34,7 +34,8 @@ import org.apache.wicket.model.IModel;
  * <p>
  * The {@link Integer} <code>1</code> should be rendered as <code>1</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
  * @author Ernesto Reinaldo Barreiro
@@ -76,9 +77,9 @@ public class IntegerOption extends AbstractOption<Integer>
 	@Override
 	public IModelOption<Integer> wrapOnAssignment(Component component)
 	{
-		if (getModel() instanceof IComponentAssignedModel< ? >)
+		if (getModel() instanceof IComponentAssignedModel<?>)
 			return new IntegerOption(
-				((IComponentAssignedModel<Integer>) getModel()).wrapOnAssignment(component));
+				((IComponentAssignedModel<Integer>)getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

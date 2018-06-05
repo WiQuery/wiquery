@@ -36,8 +36,10 @@ import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
 import org.wicketstuff.wiquery.core.options.ListItemOptions;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
 import org.wicketstuff.wiquery.ui.draggable.DraggableHelper.HelperEnum;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 
 /**
  * $Id$
@@ -56,10 +58,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum AxisEnum
-	{
-		X,
-		Y;
+	public enum AxisEnum {
+		X, Y;
 	}
 
 	/**
@@ -68,24 +68,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum CursorAtEnum
-	{
-		TOP,
-		/** @deprecated will be removed in 1.2 */
-		@Deprecated
-		TOP_LEFT,
-		/** @deprecated will be removed in 1.2 */
-		@Deprecated
-		TOP_RIGHT,
-		LEFT,
-		RIGHT,
-		BOTTOM,
-		/** @deprecated will be removed in 1.2 */
-		@Deprecated
-		BOTTOM_LEFT,
-		/** @deprecated will be removed in 1.2 */
-		@Deprecated
-		BOTTOM_RIGHT;
+	public enum CursorAtEnum {
+		TOP, LEFT, RIGHT, BOTTOM;
 
 		@Override
 		public String toString()
@@ -100,11 +84,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum SnapModeEnum
-	{
-		BOTH,
-		INNER,
-		OUTER;
+	public enum SnapModeEnum {
+		BOTH, INNER, OUTER;
 	}
 
 	// Constants
@@ -118,14 +99,14 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	public static final String UI_HELPER = "ui.helper";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current position
-	 * of the helper as { top, left } object, relative to the offset element
+	 * Properties on the ui parameter (use it into callback functions) : current position of the
+	 * helper as { top, left } object, relative to the offset element
 	 */
 	public static final String UI_POSITION = "ui.position";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current absolute
-	 * position of the helper as { top, left } object, relative to page
+	 * Properties on the ui parameter (use it into callback functions) : current absolute position
+	 * of the helper as { top, left } object, relative to page
 	 */
 	public static final String UI_OFFSET = "ui.offset";
 
@@ -186,18 +167,18 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	public void renderHead(Component component, IHeaderResponse response)
 	{
 		super.renderHead(component, response);
-		response.render(JavaScriptHeaderItem.forReference(DraggableJavaScriptResourceReference
-			.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(getComponent()).$()
-			.chain("draggable", options.getJavaScriptOptions()).render()));
+			.chain("draggable", options.getJavaScriptOptions())
+			.render()));
 	}
 
 	/*---- Options section ---*/
 
 	/**
-	 * If set to false, will prevent the ui-draggable class from being added. This may be
-	 * desired as a performance optimization when calling .draggable() init on many
-	 * hundreds of elements.
+	 * If set to false, will prevent the ui-draggable class from being added. This may be desired as
+	 * a performance optimization when calling .draggable() init on many hundreds of elements.
 	 * 
 	 * @param addClasses
 	 * @return instance of the current behavior
@@ -222,9 +203,9 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * The element passed to or selected by the appendTo option will be used as the
-	 * draggable helper's container during dragging. By default, the helper is appended to
-	 * the same container as the draggable.
+	 * The element passed to or selected by the appendTo option will be used as the draggable
+	 * helper's container during dragging. By default, the helper is appended to the same container
+	 * as the draggable.
 	 * 
 	 * @param appendTo
 	 * @return instance of the current behavior
@@ -245,8 +226,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Constrains dragging to either the horizontal (x) or vertical (y) axis. Possible
-	 * values: 'x', 'y'.
+	 * Constrains dragging to either the horizontal (x) or vertical (y) axis. Possible values: 'x',
+	 * 'y'.
 	 * 
 	 * @param axis
 	 * @return instance of the current behavior
@@ -288,10 +269,27 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		return cancel == null ? "input,option" : cancel;
 	}
 
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public DraggableBehavior setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
+
 	/**
-	 * Allows the draggable to be dropped onto the specified sortables. If this option is
-	 * used (helper must be set to 'clone' in order to work flawlessly), a draggable can
-	 * be dropped onto a sortable list and then becomes part of it.
+	 * Allows the draggable to be dropped onto the specified sortables. If this option is used
+	 * (helper must be set to 'clone' in order to work flawlessly), a draggable can be dropped onto
+	 * a sortable list and then becomes part of it.
 	 * 
 	 * @param connectToSortable
 	 * @return instance of the current behavior
@@ -311,8 +309,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the constrains dragging to within the bounds of the specified element or
-	 * region. Possible string values: 'parent', 'document', 'window', [x1, y1, x2, y2]
+	 * Set's the constrains dragging to within the bounds of the specified element or region.
+	 * Possible string values: 'parent', 'document', 'window', [x1, y1, x2, y2]
 	 * 
 	 * @param containment
 	 * @return instance of the current behavior
@@ -331,7 +329,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption containment = this.options.getComplexOption("containment");
 		if (containment != null && containment instanceof DraggableContainment)
 		{
-			return (DraggableContainment) containment;
+			return (DraggableContainment)containment;
 		}
 
 		return null;
@@ -359,25 +357,9 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Moves the dragging helper so the cursor always appears to drag from the same
-	 * position. Coordinates can be given as a hash using a combination of one or two
-	 * keys: { top, left, right, bottom }.
-	 * 
-	 * @param cusorAt
-	 * @return instance of the current behavior
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public DraggableBehavior setCursorAt(CursorAtEnum cusorAt)
-	{
-		this.options.putLiteral("cusorAt", cusorAt.toString().toLowerCase().replace('_', ' '));
-		return this;
-	}
-
-	/**
-	 * Moves the dragging helper so the cursor always appears to drag from the same
-	 * position. Coordinates can be given as a hash using a combination of one or two
-	 * keys: { top, left, right, bottom }.
+	 * Moves the dragging helper so the cursor always appears to drag from the same position.
+	 * Coordinates can be given as a hash using a combination of one or two keys: { top, left,
+	 * right, bottom }.
 	 * 
 	 * @param cusorAt
 	 * @return instance of the current behavior
@@ -388,35 +370,25 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
-	/**
-	 * @return the cursorAt option value
-	 * @deprecated will be changed in 1.2 to return a ListItemOptions<DraggableCursorAt>
-	 */
-	@Deprecated
-	public CursorAtEnum getCursorAt()
-	{
-		String cursorAt = this.options.getLiteral("cursorAt");
-		return cursorAt == null ? null : CursorAtEnum.valueOf(cursorAt.toUpperCase().replace(' ',
-			'_'));
-	}
 
 	/**
 	 * @return the cursorAt option value
 	 */
 	@SuppressWarnings("unchecked")
-	public ListItemOptions<DraggableCursorAt> getCursorAtComplex()
+	public ListItemOptions<DraggableCursorAt> getCursorAt()
 	{
 		if (this.options.containsKey("cursorAt"))
 		{
-			return (ListItemOptions<DraggableCursorAt>) this.options.getCollectionItemOptions("cursorAt");
+			return (ListItemOptions<DraggableCursorAt>)this.options
+				.getCollectionItemOptions("cursorAt");
 		}
 
 		return null;
 	}
 
 	/**
-	 * Time in milliseconds after mousedown until dragging should start. This option can
-	 * be used to prevent unwanted drags when clicking on an element.
+	 * Time in milliseconds after mousedown until dragging should start. This option can be used to
+	 * prevent unwanted drags when clicking on an element.
 	 * 
 	 * @param delay
 	 * @return instance of the current behavior
@@ -441,8 +413,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Disables (true) or enables (false) the draggable. Can be set when initialising
-	 * (first creating) the draggable.
+	 * Disables (true) or enables (false) the draggable. Can be set when initialising (first
+	 * creating) the draggable.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -467,9 +439,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the distance in pixels after mousedown the mouse must move before dragging
-	 * should start. This option can be used to prevent unwanted drags when clicking on an
-	 * element.
+	 * Set's the distance in pixels after mousedown the mouse must move before dragging should
+	 * start. This option can be used to prevent unwanted drags when clicking on an element.
 	 * 
 	 * @param distance
 	 * @return instance of the current behavior
@@ -502,7 +473,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	 */
 	public DraggableBehavior setGrid(int x, int y)
 	{
-		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<>();
 		grids.add(new IntegerItemOptions(x));
 		grids.add(new IntegerItemOptions(y));
 		this.options.put("grid", grids);
@@ -538,9 +509,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Allows for a helper element to be used for dragging display. Possible values:
-	 * 'original', 'clone', Function. If a function is specified, it must return a
-	 * DOMElement.
+	 * Allows for a helper element to be used for dragging display. Possible values: 'original',
+	 * 'clone', Function. If a function is specified, it must return a DOMElement.
 	 * 
 	 * @param helper
 	 * @return instance of the current behavior
@@ -559,18 +529,17 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption helper = this.options.getComplexOption("helper");
 		if (helper != null && helper instanceof DraggableHelper)
 		{
-			return (DraggableHelper) helper;
+			return (DraggableHelper)helper;
 		}
 
 		return new DraggableHelper(HelperEnum.ORIGINAL);
 	}
 
 	/**
-	 * Prevent iframes from capturing the mousemove events during a drag. Useful in
-	 * combination with cursorAt, or in any case, if the mouse cursor is not over the
-	 * helper. If set to true, transparent overlays will be placed over all iframes on the
-	 * page. If a selector is supplied, the matched iframes will have an overlay placed
-	 * over them.
+	 * Prevent iframes from capturing the mousemove events during a drag. Useful in combination with
+	 * cursorAt, or in any case, if the mouse cursor is not over the helper. If set to true,
+	 * transparent overlays will be placed over all iframes on the page. If a selector is supplied,
+	 * the matched iframes will have an overlay placed over them.
 	 * 
 	 * @param iframeFix
 	 * @return instance of the current behavior
@@ -589,7 +558,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption iframeFix = this.options.getComplexOption("iframeFix");
 		if (iframeFix != null && iframeFix instanceof DraggableIframeFix)
 		{
-			return (DraggableIframeFix) iframeFix;
+			return (DraggableIframeFix)iframeFix;
 		}
 
 		return new DraggableIframeFix(false);
@@ -621,8 +590,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * If set to true, all droppable positions are calculated on every mousemove. Caution:
-	 * This solves issues on highly dynamic pages, but dramatically decreases performance.
+	 * If set to true, all droppable positions are calculated on every mousemove. Caution: This
+	 * solves issues on highly dynamic pages, but dramatically decreases performance.
 	 * 
 	 * @param refreshPositions
 	 * @return instance of the current behavior
@@ -647,10 +616,9 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * If set to true, the element will return to its start position when dragging stops.
-	 * Possible string values: 'valid', 'invalid'. If set to invalid, revert will only
-	 * occur if the draggable has not been dropped on a droppable. For valid, it's the
-	 * other way around.
+	 * If set to true, the element will return to its start position when dragging stops. Possible
+	 * string values: 'valid', 'invalid'. If set to invalid, revert will only occur if the draggable
+	 * has not been dropped on a droppable. For valid, it's the other way around.
 	 * 
 	 * @param revert
 	 * @return instance of the current behavior
@@ -669,15 +637,14 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption revert = this.options.getComplexOption("revert");
 		if (revert != null && revert instanceof DraggableRevert)
 		{
-			return (DraggableRevert) revert;
+			return (DraggableRevert)revert;
 		}
 
 		return new DraggableRevert(false);
 	}
 
 	/**
-	 * Set's the duration of the revert animation, in milliseconds. Ignored if revert is
-	 * false.
+	 * Set's the duration of the revert animation, in milliseconds. Ignored if revert is false.
 	 * 
 	 * @param revertDuration
 	 * @return instance of the current behavior
@@ -702,9 +669,9 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Used to group sets of draggable and droppable items, in addition to droppable's
-	 * accept option. A draggable with the same scope value as a droppable will be
-	 * accepted by the droppable.
+	 * Used to group sets of draggable and droppable items, in addition to droppable's accept
+	 * option. A draggable with the same scope value as a droppable will be accepted by the
+	 * droppable.
 	 * 
 	 * @param scope
 	 * @return instance of the current behavior
@@ -754,8 +721,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the distance in pixels from the edge of the viewport after which the viewport
-	 * should scroll. Distance is relative to pointer, not the draggable.
+	 * Set's the distance in pixels from the edge of the viewport after which the viewport should
+	 * scroll. Distance is relative to pointer, not the draggable.
 	 * 
 	 * @param scrollSensitivity
 	 * @return instance of the current behavior
@@ -780,8 +747,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's speed at which the window should scroll once the mouse pointer gets within
-	 * the scrollSensitivity distance.
+	 * Set's speed at which the window should scroll once the mouse pointer gets within the
+	 * scrollSensitivity distance.
 	 * 
 	 * @param scrollSpeed
 	 * @return instance of the current behavior
@@ -806,8 +773,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * If set to a selector or to true (equivalent to '.ui-draggable'), the draggable will
-	 * snap to the edges of the selected elements when near an edge of the element.
+	 * If set to a selector or to true (equivalent to '.ui-draggable'), the draggable will snap to
+	 * the edges of the selected elements when near an edge of the element.
 	 * 
 	 * @param snap
 	 * @return instance of the current behavior
@@ -826,15 +793,15 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption snap = this.options.getComplexOption("snap");
 		if (snap != null && snap instanceof DraggableSnap)
 		{
-			return (DraggableSnap) snap;
+			return (DraggableSnap)snap;
 		}
 
 		return new DraggableSnap(false);
 	}
 
 	/**
-	 * Sets the edges of snap elements the draggable will snap to. Ignored if snap is
-	 * false. Possible values: 'inner', 'outer', 'both'
+	 * Sets the edges of snap elements the draggable will snap to. Ignored if snap is false.
+	 * Possible values: 'inner', 'outer', 'both'
 	 * 
 	 * @param snapMode
 	 * @return instance of the current behavior
@@ -855,8 +822,8 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's distance in pixels from the snap element edges at which snapping should
-	 * occur. Ignored if snap is false.
+	 * Set's distance in pixels from the snap element edges at which snapping should occur. Ignored
+	 * if snap is false.
 	 * 
 	 * @param snapTolerance
 	 * @return instance of the current behavior
@@ -881,10 +848,9 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Controls the z-Index of the defined group (key 'group' in the hash, accepts jQuery
-	 * selector) automatically, always brings to front the dragged item. Very useful in
-	 * things like window managers. Optionally, a 'min' key can be set, so the zIndex
-	 * cannot go below that value.
+	 * Controls the z-Index of the defined group (key 'group' in the hash, accepts jQuery selector)
+	 * automatically, always brings to front the dragged item. Very useful in things like window
+	 * managers. Optionally, a 'min' key can be set, so the zIndex cannot go below that value.
 	 * 
 	 * @param stack
 	 * @return instance of the current behavior
@@ -899,16 +865,6 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @returns the stack option
 	 */
 	public String getStack()
-	{
-		return this.options.getLiteral("stack");
-	}
-
-	/**
-	 * @returns the stack option
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public String isStack()
 	{
 		return this.options.getLiteral("stack");
 	}
@@ -997,8 +953,7 @@ public class DraggableBehavior extends WiQueryAbstractAjaxBehavior
 	/*---- Methods section ---*/
 
 	/**
-	 * Method to destroy the draggable This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the draggable This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */

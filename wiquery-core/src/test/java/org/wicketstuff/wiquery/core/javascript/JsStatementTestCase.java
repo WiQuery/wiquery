@@ -28,8 +28,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.commons.DivTestPanel;
-import org.wicketstuff.wiquery.core.javascript.JsScope;
-import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.javascript.helper.CssHelper;
 import org.wicketstuff.wiquery.core.options.Options;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
@@ -67,8 +65,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#$(org.apache.wicket.Component)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#$(org.apache.wicket.Component)} .
 	 */
 	@Test
 	public void test$Component()
@@ -119,8 +116,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#after(java.lang.CharSequence)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#after(java.lang.CharSequence)} .
 	 */
 	@Test
 	public void testAfter()
@@ -131,8 +127,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#append(java.lang.CharSequence)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#append(java.lang.CharSequence)} .
 	 */
 	@Test
 	public void testAppend()
@@ -149,7 +144,8 @@ public class JsStatementTestCase extends WiQueryTestCase
 	public void testAttrStringJsScope()
 	{
 		assertAndLog("$('span').attr('click', function() {\n\talert('click done');\n});",
-			jsStatement.$(null, "span").attr("click", JsScope.quickScope("alert('click done');"))
+			jsStatement.$(null, "span")
+				.attr("click", JsScope.quickScope("alert('click done');"))
 				.render());
 	}
 
@@ -167,14 +163,13 @@ public class JsStatementTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#before(java.lang.CharSequence)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#before(java.lang.CharSequence)} .
 	 */
 	@Test
 	public void testBefore()
 	{
-		assertAndLog("$('span').before('<div>some text</div>');", jsStatement.$(null, "span")
-			.before("<div>some text</div>").render());
+		assertAndLog("$('span').before('<div>some text</div>');",
+			jsStatement.$(null, "span").before("<div>some text</div>").render());
 	}
 
 	/**
@@ -197,8 +192,8 @@ public class JsStatementTestCase extends WiQueryTestCase
 	@Test
 	public void testChainCharSequenceCharSequenceArray()
 	{
-		assertAndLog("$('span').a(b, c);", jsStatement.$(null, "span").chain("a", "b", "c")
-			.render());
+		assertAndLog("$('span').a(b, c);",
+			jsStatement.$(null, "span").chain("a", "b", "c").render());
 	}
 
 	/**
@@ -250,38 +245,35 @@ public class JsStatementTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#html(java.lang.CharSequence)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#html(java.lang.CharSequence)} .
 	 */
 	@Test
 	public void testHtml()
 	{
-		assertAndLog("$('span').html('some text');", jsStatement.$(null, "span").html("some text")
-			.render());
+		assertAndLog("$('span').html('some text');",
+			jsStatement.$(null, "span").html("some text").render());
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#insertAfter(java.lang.String)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#insertAfter(java.lang.String)} .
 	 */
 	@Test
 	public void testInsertAfter()
 	{
-		assertAndLog("$('span').insertAfter('<div>some text</div>');", jsStatement.$(null, "span")
-			.insertAfter("<div>some text</div>").render());
+		assertAndLog("$('span').insertAfter('<div>some text</div>');",
+			jsStatement.$(null, "span").insertAfter("<div>some text</div>").render());
 	}
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#insertBefore(java.lang.String)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#insertBefore(java.lang.String)} .
 	 */
 	@Test
 	public void testInsertBefore()
 	{
-		assertAndLog("$('span').insertBefore('<div>some text</div>');", jsStatement.$(null, "span")
-			.insertBefore("<div>some text</div>").render());
+		assertAndLog("$('span').insertBefore('<div>some text</div>');",
+			jsStatement.$(null, "span").insertBefore("<div>some text</div>").render());
 	}
 
 	/**
@@ -298,8 +290,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#removeAttr(java.lang.String)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#removeAttr(java.lang.String)} .
 	 */
 	@Test
 	public void testRemoveAttr()
@@ -310,8 +301,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#removeClass(java.lang.String)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#removeClass(java.lang.String)} .
 	 */
 	@Test
 	public void testRemoveClass()
@@ -330,8 +320,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#render(boolean)}.
+	 * Test method for {@link org.wicketstuff.wiquery.core.javascript.JsStatement#render(boolean)}.
 	 */
 	@Test
 	public void testRenderBoolean()
@@ -352,8 +341,7 @@ public class JsStatementTestCase extends WiQueryTestCase
 
 	/**
 	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#toggleClass(java.lang.String)}
-	 * .
+	 * {@link org.wicketstuff.wiquery.core.javascript.JsStatement#toggleClass(java.lang.String)} .
 	 */
 	@Test
 	public void testToggleClass()

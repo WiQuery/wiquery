@@ -5,35 +5,42 @@ import java.io.Serializable;
 /**
  * @author Stephane Gleizes
  */
-public class SimpleSortableElement implements Serializable {
+public class SimpleSortableElement implements Serializable
+{
 
 	private static final long serialVersionUID = -9146266790252473051L;
-	
+
 	private Integer position;
-	
+
 	private String name;
-	
-	public SimpleSortableElement() {
+
+	public SimpleSortableElement()
+	{
 	}
-	
-	public SimpleSortableElement(final Integer position, final String name) {
+
+	public SimpleSortableElement(final Integer position, final String name)
+	{
 		this.position = position;
 		this.name = name;
 	}
 
-	public Integer getPosition() {
+	public Integer getPosition()
+	{
 		return position;
 	}
-	
-	public void setPosition(Integer position) {
+
+	public void setPosition(Integer position)
+	{
 		this.position = position;
 	}
-	
-	public String getName() {
+
+	public String getName()
+	{
 		return name;
 	}
-	
-	public void setName(String name) {
+
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 }

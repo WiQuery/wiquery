@@ -36,10 +36,8 @@ import org.wicketstuff.wiquery.core.options.LiteralOption;
  */
 public class SortableHelper implements IComplexOption
 {
-	public enum HelperEnum
-	{
-		CLONE(new LiteralOption("clone")),
-		ORIGINAL(new LiteralOption("original"));
+	public enum HelperEnum {
+		CLONE(new LiteralOption("clone")), ORIGINAL(new LiteralOption("original"));
 
 		// Properties
 		private LiteralOption literalParam;
@@ -51,6 +49,7 @@ public class SortableHelper implements IComplexOption
 
 		/*
 		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Enum#toString()
 		 */
 		@Override

@@ -35,10 +35,8 @@ import org.wicketstuff.wiquery.core.options.LiteralOption;
  */
 public class SliderRange implements IComplexOption
 {
-	public enum RangeEnum
-	{
-		MIN(new LiteralOption("min")),
-		MAX(new LiteralOption("max"));
+	public enum RangeEnum {
+		MIN(new LiteralOption("min")), MAX(new LiteralOption("max"));
 
 		// Properties
 		private LiteralOption literalParam;

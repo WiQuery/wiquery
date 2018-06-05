@@ -11,3 +11,4 @@ org.eclipse.m2e.core.prefs
 org.eclipse.pde.core.prefs
 
 wiquery-*.i*
+rebel.xml

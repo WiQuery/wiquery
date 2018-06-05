@@ -21,7 +21,6 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import org.wicketstuff.wiquery.core.effects.Effect;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
 
 /**
@@ -43,10 +42,8 @@ public class PuffEffect extends Effect
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 * 
 	 */
-	public static enum Mode
-	{
-		show,
-		hide;
+	public static enum Mode {
+		show, hide;
 	}
 
 	private Mode mode;
@@ -87,8 +84,8 @@ public class PuffEffect extends Effect
 	 */
 	public PuffEffect(Mode mode, int percent, int duration)
 	{
-		super(JsUtils.quotes("puff"), "{percent: " + Integer.toString(percent) + "}", Integer
-			.toString(duration));
+		super(JsUtils.quotes("puff"), "{percent: " + Integer.toString(percent) + "}",
+			Integer.toString(duration));
 		this.mode = mode;
 	}
 

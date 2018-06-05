@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.events.MouseEvent;
-import org.wicketstuff.wiquery.core.javascript.JsUtils;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
 /**
@@ -106,8 +105,7 @@ public class JsUtilsTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test {@link JsUtils#quotes(CharSequence)} and
-	 * {@link JsUtils#quotes(CharSequence, boolean)}
+	 * Test {@link JsUtils#quotes(CharSequence)} and {@link JsUtils#quotes(CharSequence, boolean)}
 	 */
 	@Test
 	public void testQuotes()

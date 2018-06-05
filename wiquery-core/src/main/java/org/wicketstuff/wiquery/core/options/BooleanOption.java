@@ -34,7 +34,8 @@ import org.apache.wicket.model.IModel;
  * <p>
  * The {@link Boolean} <code>true</code> should be rendered as <code>true</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
  * @author Ernesto Reinaldo Barreiro
@@ -76,9 +77,9 @@ public class BooleanOption extends AbstractOption<Boolean>
 	@Override
 	public IModelOption<Boolean> wrapOnAssignment(Component component)
 	{
-		if (getModel() instanceof IComponentAssignedModel< ? >)
+		if (getModel() instanceof IComponentAssignedModel<?>)
 			return new BooleanOption(
-				((IComponentAssignedModel<Boolean>) getModel()).wrapOnAssignment(component));
+				((IComponentAssignedModel<Boolean>)getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

@@ -21,53 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: DropEffectJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to import the Drop jQuery UI effect.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class DropEffectJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class DropEffectJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = -93284559079596805L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final DropEffectJavaScriptResourceReference INSTANCE =
-		new DropEffectJavaScriptResourceReference();
-
-	/**
-	 * Default constructor
-	 */
 	private DropEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-drop.js");
-	}
-
-	/**
-	 * Returns the {@link DropEffectJavaScriptResourceReference} instance.
-	 */
-	public static DropEffectJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreEffectJavaScriptResourceReference.get());
 	}
 }

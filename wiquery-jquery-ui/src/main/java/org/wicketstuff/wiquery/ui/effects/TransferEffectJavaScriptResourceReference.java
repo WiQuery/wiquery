@@ -21,53 +21,19 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: TransferEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to import the Transfer jQuery UI effect.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class TransferEffectJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class TransferEffectJavaScriptResourceReference
+	extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = -6460737051632029822L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final TransferEffectJavaScriptResourceReference INSTANCE =
-		new TransferEffectJavaScriptResourceReference();
-
-	/**
-	 * Default constructor
-	 */
 	private TransferEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-transfer.js");
-	}
-
-	/**
-	 * Returns the {@link TransferEffectJavaScriptResourceReference} instance.
-	 */
-	public static TransferEffectJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreEffectJavaScriptResourceReference.get());
 	}
 }

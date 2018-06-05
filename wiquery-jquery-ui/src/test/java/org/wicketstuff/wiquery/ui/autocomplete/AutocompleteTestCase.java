@@ -56,7 +56,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 		super.setUp();
 
 		Panel panel = new InputTestPanel("panelId");
-		autocomplete = new Autocomplete<String>("anId");
+		autocomplete = new Autocomplete<>("anId");
 		autocomplete.setMarkupId(autocomplete.getId());
 		panel.add(autocomplete);
 		tester.startComponentInPage(panel);
@@ -106,8 +106,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getAppendTo()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getAppendTo()}.
 	 */
 	@Test
 	public void testGetAppendTo()
@@ -129,8 +128,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getMinLength()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getMinLength()}.
 	 */
 	@Test
 	public void testGetMinLength()
@@ -141,8 +139,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getPosition()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getPosition()}.
 	 */
 	@Test
 	public void testGetPosition()
@@ -159,8 +156,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getOptions()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions()
@@ -172,8 +168,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getSource()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#getSource()} .
 	 */
 	@Test
 	public void testGetSource()
@@ -186,8 +181,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#isDisabled()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled()
@@ -196,10 +190,9 @@ public class AutocompleteTestCase extends WiQueryTestCase
 		autocomplete.setDisabled(true);
 		assertTrue(autocomplete.isDisabled());
 	}
-	
+
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#isAutoFocus()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#isAutoFocus()}.
 	 */
 	@Test
 	public void testIsAutoFocus()
@@ -275,9 +268,8 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link
-	 * org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#(org.wicketstuff.wiquery.ui.
-	 * core.JsScopeUiEvent)}.
+	 * Test method for
+	 * {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#setOpenEvent(JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetOpenEvent()
@@ -301,7 +293,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 		assertEquals(autocomplete.statement().render().toString(),
 			"$('#anId').autocomplete({search: function(event, ui) {\n\talert('event');\n}});");
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#setResponseEvent(org.wicketstuff.wiquery.ui.core.JsScopeUiEvent)}.
@@ -330,8 +322,7 @@ public class AutocompleteTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#statement()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.autocomplete.Autocomplete#statement()} .
 	 */
 	@Test
 	public void testStatement()

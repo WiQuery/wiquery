@@ -63,8 +63,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#destroy()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#destroy()} .
 	 */
 	@Test
 	public void testDestroy()
@@ -75,8 +74,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#disable()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#disable()} .
 	 */
 	@Test
 	public void testDisable()
@@ -104,11 +102,10 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	@Test
 	public void testGetAlsoResizeComplex()
 	{
-		assertNull(resizableBehavior.getAlsoResizeComplex());
+		assertNull(resizableBehavior.getAlsoResize());
 		resizableBehavior.setAlsoResize(new ResizableAlsoResize(new LiteralOption("div")));
-		assertNotNull(resizableBehavior.getAlsoResizeComplex());
-		assertEquals(resizableBehavior.getAlsoResizeComplex().getJavascriptOption().toString(),
-			"'div'");
+		assertNotNull(resizableBehavior.getAlsoResize());
+		assertEquals(resizableBehavior.getAlsoResize().getJavascriptOption().toString(), "'div'");
 	}
 
 	/**
@@ -152,8 +149,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getCancel()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getCancel()}.
 	 */
 	@Test
 	public void testGetCancel()
@@ -178,8 +174,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getDelay()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getDelay()}.
 	 */
 	@Test
 	public void testGetDelay()
@@ -190,8 +185,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getDistance()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getDistance()}.
 	 */
 	@Test
 	public void testGetDistance()
@@ -202,8 +196,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getGrid()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getGrid()} .
 	 */
 	@Test
 	public void testGetGrid()
@@ -215,8 +208,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getHandles()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getHandles()}.
 	 */
 	@Test
 	public void testGetHandles()
@@ -228,8 +220,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getHelper()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getHelper()}.
 	 */
 	@Test
 	public void testGetHelper()
@@ -252,8 +243,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getMaxWidth()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getMaxWidth()}.
 	 */
 	@Test
 	public void testGetMaxWidth()
@@ -276,8 +266,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getMinWidth()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getMinWidth()}.
 	 */
 	@Test
 	public void testGetMinWidth()
@@ -288,8 +277,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getOptions()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions()
@@ -302,8 +290,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#isAnimate()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#isAnimate()}.
 	 */
 	@Test
 	public void testIsAnimate()
@@ -314,8 +301,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#isAutoHide()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#isAutoHide()}.
 	 */
 	@Test
 	public void testIsAutoHide()
@@ -326,8 +312,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#isDisabled()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled()
@@ -338,8 +323,7 @@ public class ResizableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#isGhost()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.resizable.ResizableBehavior#isGhost()} .
 	 */
 	@Test
 	public void testIsGhost()

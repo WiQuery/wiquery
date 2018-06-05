@@ -21,53 +21,19 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: BounceEffectJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to import the Bounce jQuery UI effect.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class BounceEffectJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class BounceEffectJavaScriptResourceReference
+	extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = -3565759378628266183L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final BounceEffectJavaScriptResourceReference INSTANCE =
-		new BounceEffectJavaScriptResourceReference();
-
-	/**
-	 * Default constructor
-	 */
 	private BounceEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-bounce.js");
-	}
-
-	/**
-	 * Returns the {@link BounceEffectJavaScriptResourceReference} instance.
-	 */
-	public static BounceEffectJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreEffectJavaScriptResourceReference.get());
 	}
 }

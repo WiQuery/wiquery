@@ -35,7 +35,8 @@ import org.wicketstuff.wiquery.core.javascript.JsUtils;
  * <p>
  * The {@link String} <code>true</code> should be rendered as <code>true</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
  * @author Ernesto Reinaldo Barreiro
@@ -102,9 +103,9 @@ public class LiteralOption extends AbstractOption<String>
 	@Override
 	public IModelOption<String> wrapOnAssignment(Component component)
 	{
-		if (getModel() instanceof IComponentAssignedModel< ? >)
+		if (getModel() instanceof IComponentAssignedModel<?>)
 			return new LiteralOption(
-				((IComponentAssignedModel<String>) getModel()).wrapOnAssignment(component),
+				((IComponentAssignedModel<String>)getModel()).wrapOnAssignment(component),
 				doubleQuote);
 		return this;
 	}

@@ -41,8 +41,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * $Id$
  * <p>
- * Creates an autocomplete UI component which will bind on a Wicket model. The list of
- * possibles values have filled with Ajax
+ * Creates an autocomplete UI component which will bind on a Wicket model. The list of possibles
+ * values have filled with Ajax
  * </p>
  * 
  * @author Julien Roche
@@ -69,9 +69,11 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 		@Override
 		public void onRequest()
 		{
-			term =
-				this.getComponent().getRequest().getQueryParameters().getParameterValue("term")
-					.toString();
+			term = this.getComponent()
+				.getRequest()
+				.getQueryParameters()
+				.getParameterValue("term")
+				.toString();
 
 			if (!Strings.isEmpty(term))
 			{
@@ -82,7 +84,7 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 
 					AutocompleteJson value = null;
 					Integer index = 0;
-					List<Object> json = new ArrayList<Object>();
+					List<Object> json = new ArrayList<>();
 
 					for (T obj : getValues(term))
 					{
@@ -129,7 +131,7 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 	}
 
 	public AutocompleteAjaxComponent(String id, final IModel<T> model,
-			IChoiceRenderer< ? super T> choiceRenderer)
+		IChoiceRenderer<? super T> choiceRenderer)
 	{
 		super(id, model, choiceRenderer);
 		innerAutcompleteAjaxBehavior = new InnerAutocompleteAjaxBehavior();
@@ -146,13 +148,13 @@ public abstract class AutocompleteAjaxComponent<T> extends AbstractAutocompleteC
 	public abstract List<T> getValues(String term);
 
 	@Override
-	protected List< ? extends T> getChoices()
+	protected List<? extends T> getChoices()
 	{
 		return getValues(term);
 	}
 
 	@Override
-	protected void onBeforeRenderAutocomplete(Autocomplete< ? > autocomplete)
+	protected void onBeforeRenderAutocomplete(Autocomplete<?> autocomplete)
 	{
 		T defaultValue = AutocompleteAjaxComponent.this.getModelObject();
 

@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.commons.DivTestPanel;
-import org.wicketstuff.wiquery.core.javascript.JsQuery;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
 /**
@@ -70,8 +69,7 @@ public class JsQueryTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.javascript.JsQuery#$(java.lang.String)}.
+	 * Test method for {@link org.wicketstuff.wiquery.core.javascript.JsQuery#$(java.lang.String)}.
 	 */
 	@Test
 	public void test$String()

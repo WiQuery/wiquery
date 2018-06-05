@@ -21,43 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import org.apache.wicket.resource.JQueryPluginResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: CoreEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to import the core for jQuery UI effects.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class CoreEffectJavaScriptResourceReference extends JQueryPluginResourceReference
+@Deprecated
+public final class CoreEffectJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 308143135598505224L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final CoreEffectJavaScriptResourceReference INSTANCE =
-		new CoreEffectJavaScriptResourceReference();
-
-	/**
-	 * Default constructor
-	 */
 	private CoreEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect.js");
-	}
-
-	/**
-	 * Returns the {@link CoreEffectJavaScriptResourceReference} instance.
-	 */
-	public static CoreEffectJavaScriptResourceReference get()
-	{
-		return INSTANCE;
 	}
 }

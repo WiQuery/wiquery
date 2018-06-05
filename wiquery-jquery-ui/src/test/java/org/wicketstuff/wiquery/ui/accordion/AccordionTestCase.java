@@ -49,7 +49,6 @@ public class AccordionTestCase extends WiQueryTestCase
 
 	private Accordion accordion;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	@Before
 	public void setUp()
@@ -92,7 +91,7 @@ public class AccordionTestCase extends WiQueryTestCase
 		assertNotNull(accordion.enable());
 		assertEquals(accordion.enable().render().toString(), "$('#anId').accordion('enable');");
 	}
-	
+
 	/**
 	 * Test method for {@link org.wicketstuff.wiquery.ui.accordion.Accordion#refresh()}.
 	 */
@@ -126,15 +125,11 @@ public class AccordionTestCase extends WiQueryTestCase
 		assertEquals(accordion.getAnimate().getJavascriptOption().toString(), "{}");
 		accordion.setAnimate(new AccordionAnimateOption(true));
 		assertEquals(accordion.getAnimate().getJavascriptOption().toString(), "true");
-		accordion.setAnimate(new AccordionAnimateOption(new AccordionEffectOptionObject()
-				.setDuration(200)
-				.setDown(new AccordionDownEffectOptionObject()
-						.setEasing("linear")
-						.setDuration(200)
-				)
-		));
+		accordion.setAnimate(
+			new AccordionAnimateOption(new AccordionEffectOptionObject().setDuration(200).setDown(
+				new AccordionDownEffectOptionObject().setEasing("linear").setDuration(200))));
 		assertEquals(accordion.getAnimate().getJavascriptOption().toString(),
-				"{duration: 200, down: {easing: 'linear', duration: 200}}");
+			"{duration: 200, down: {easing: 'linear', duration: 200}}");
 	}
 
 	/**
@@ -187,7 +182,8 @@ public class AccordionTestCase extends WiQueryTestCase
 		assertNotNull(accordion.getOptions());
 		assertEquals(accordion.getOptions().getJavaScriptOptions().toString(), "{}");
 		accordion.setCollapsible(true);
-		assertEquals(accordion.getOptions().getJavaScriptOptions().toString(), "{collapsible: true}");
+		assertEquals(accordion.getOptions().getJavaScriptOptions().toString(),
+			"{collapsible: true}");
 	}
 
 	/**

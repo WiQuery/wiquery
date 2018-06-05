@@ -48,11 +48,8 @@ public class DatePickerYearRange extends Object implements IComplexOption
 	 * @author Julien Roche
 	 * @since 1.2.2
 	 */
-	public enum DatePickerYearRangeControl
-	{
-		ABSOLUTE,
-		RELATIVE_SELECTED_YEAR,
-		RELATIVE_TODAY;
+	public enum DatePickerYearRangeControl {
+		ABSOLUTE, RELATIVE_SELECTED_YEAR, RELATIVE_TODAY;
 	}
 
 	// Properties
@@ -93,8 +90,8 @@ public class DatePickerYearRange extends Object implements IComplexOption
 	 * @param controlTo
 	 *            Control for the range's end
 	 */
-	public DatePickerYearRange(short yearFrom, short yearTo,
-			DatePickerYearRangeControl controlFrom, DatePickerYearRangeControl controlTo)
+	public DatePickerYearRange(short yearFrom, short yearTo, DatePickerYearRangeControl controlFrom,
+		DatePickerYearRangeControl controlTo)
 	{
 		super();
 		this.yearFrom = yearFrom;
@@ -111,20 +108,17 @@ public class DatePickerYearRange extends Object implements IComplexOption
 	 * @param yearTo
 	 *            the range's end
 	 * @param yearRelativeToToday
-	 *            determines whether to count from today's year or the currently selected
-	 *            year.
+	 *            determines whether to count from today's year or the currently selected year.
 	 */
 	public DatePickerYearRange(short yearFrom, short yearTo, boolean yearRelativeToToday)
 	{
 		super();
 		this.yearFrom = yearFrom;
 		this.yearTo = yearTo;
-		this.controlTo =
-			yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY
-				: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
-		this.controlFrom =
-			yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY
-				: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
+		this.controlTo = yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY
+			: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
+		this.controlFrom = yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY
+			: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
 	}
 
 	@Override
@@ -135,8 +129,8 @@ public class DatePickerYearRange extends Object implements IComplexOption
 			throw new IllegalArgumentException("The DatePickerYearRange needs all arguments !!");
 		}
 
-		return new LiteralOption(generateRangeFormat(yearFrom, controlFrom) + ":"
-			+ generateRangeFormat(yearTo, controlTo)).toString();
+		return new LiteralOption(generateRangeFormat(yearFrom, controlFrom) + ":" +
+			generateRangeFormat(yearTo, controlTo)).toString();
 	}
 
 	/**
@@ -172,16 +166,14 @@ public class DatePickerYearRange extends Object implements IComplexOption
 	{
 		this.yearFrom = yearFrom;
 		this.yearTo = yearTo;
-		this.controlTo =
-			yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY
-				: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
-		this.controlFrom =
-			yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY
-				: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
+		this.controlTo = yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY
+			: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
+		this.controlFrom = yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY
+			: DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
 	}
 
 	public void setRange(short yearFrom, short yearTo, DatePickerYearRangeControl controlFrom,
-			DatePickerYearRangeControl controlTo)
+		DatePickerYearRangeControl controlTo)
 	{
 		this.yearFrom = yearFrom;
 		this.yearTo = yearTo;

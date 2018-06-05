@@ -15,25 +15,28 @@ import org.wicketstuff.wiquery.sortable.SortablePage;
 import org.wicketstuff.wiquery.tab.TabsPage;
 
 /**
- * Application object for the wiQuery-demo web application. If you want to run this
- * application without deploying, run the WiqueryDemo class.
+ * Application object for the wiQuery-demo web application. If you want to run this application
+ * without deploying, run the WiqueryDemo class.
  * 
  */
-public class WicketApplication extends WebApplication {
+public class WicketApplication extends WebApplication
+{
 
 	@Override
-	public Class<? extends WebPage> getHomePage() {
+	public Class<? extends WebPage> getHomePage()
+	{
 		return HomePage.class;
 	}
 
 	@Override
-	public void init() {
+	public void init()
+	{
 		super.init();
 		getMarkupSettings().setStripWicketTags(true);
-		
+
 		// Interactions
 		mountPage("/sortable/", SortablePage.class);
-		
+
 		// Widgets
 		mountPage("/accordion/", AccordionPage.class);
 		mountPage("/autocomplete/", AutocompletePage.class);

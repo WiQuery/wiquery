@@ -35,8 +35,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * $Id: AutocompleteComponent.java 463 2010-10-19 12:14:45Z richardjohnwilkinson@gmail.com
- * $
+ * $Id: AutocompleteComponent.java 463 2010-10-19 12:14:45Z richardjohnwilkinson@gmail.com $
  * <p>
  * Creates an autocomplete UI component which will bind on a Wicket model
  * </p>
@@ -53,7 +52,7 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	private static final long serialVersionUID = -3377109382248062940L;
 
 	// Properties
-	private final IModel< ? extends List< ? extends T>> list;
+	private final IModel<? extends List<? extends T>> list;
 
 	/**
 	 * Constructor
@@ -66,7 +65,7 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	 *            List of possibles values
 	 */
 	public AutocompleteComponent(String id, final IModel<T> model,
-			final IModel< ? extends List< ? extends T>> list)
+		final IModel<? extends List<? extends T>> list)
 	{
 		super(id, model);
 		this.list = list;
@@ -83,15 +82,14 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	 *            List of possibles values
 	 */
 	public AutocompleteComponent(String id, final IModel<T> model,
-			final IModel< ? extends List< ? extends T>> list,
-			IChoiceRenderer< ? super T> choiceRenderer)
+		final IModel<? extends List<? extends T>> list, IChoiceRenderer<? super T> choiceRenderer)
 	{
 		super(id, model, choiceRenderer);
 		this.list = list;
 	}
 
 	@Override
-	protected void onBeforeRenderAutocomplete(Autocomplete< ? > autocomplete)
+	protected void onBeforeRenderAutocomplete(Autocomplete<?> autocomplete)
 	{
 		StringWriter sw = new StringWriter();
 
@@ -99,7 +97,7 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 		{
 			JsonGenerator gen = new JsonFactory().createGenerator(sw);
 
-			List<Object> json = new ArrayList<Object>();
+			List<Object> json = new ArrayList<>();
 			T defaultValue = AutocompleteComponent.this.getModelObject();
 			AutocompleteJson value = null;
 			Integer index = 0;
@@ -129,7 +127,7 @@ public abstract class AutocompleteComponent<T> extends AbstractAutocompleteCompo
 	}
 
 	@Override
-	protected List< ? extends T> getChoices()
+	protected List<? extends T> getChoices()
 	{
 		return list.getObject();
 	}

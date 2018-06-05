@@ -5,7 +5,6 @@ package org.wicketstuff.wiquery.ui.dialog;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.ResourceModel;
-import org.wicketstuff.wiquery.ui.dialog.Dialog;
 
 /**
  * @author Ernesto Reinaldo

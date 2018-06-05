@@ -30,11 +30,9 @@ package org.wicketstuff.wiquery.core.events;
  * @author Julien Roche
  * @since 1.0.2
  */
-public enum FormEvent implements EventLabel
-{
+public enum FormEvent implements EventLabel {
 
-	RESET,
-	SUBMIT;
+	RESET, SUBMIT;
 
 	@Override
 	public String getEventLabel()

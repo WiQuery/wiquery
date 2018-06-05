@@ -33,24 +33,20 @@ import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.options.ArrayItemOptions;
 import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
-import org.wicketstuff.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.position.PositionAlignmentOptions;
-import org.wicketstuff.wiquery.ui.position.PositionJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.position.PositionOptions;
 import org.wicketstuff.wiquery.ui.position.PositionRelation;
-import org.wicketstuff.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * <p>
  * Displays a window wrapping this {@link WebMarkupContainer} markup.
  * </p>
  * <p>
- * This UI component is built from this {@link WebMarkupContainer}'s HTML markup. The
- * correct markup should be a <code>div</code> HTML element wrapping the contents to
- * display in this window.
+ * This UI component is built from this {@link WebMarkupContainer}'s HTML markup. The correct markup
+ * should be a <code>div</code> HTML element wrapping the contents to display in this window.
  * </p>
  * <p>
  * Example: <code>
@@ -127,15 +123,8 @@ public class Dialog extends WebMarkupContainer
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
 		response
-			.render(JavaScriptHeaderItem.forReference(PositionJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(DialogJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(DraggableJavaScriptResourceReference
-			.get()));
-		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference
-			.get()));
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 
 		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
@@ -149,13 +138,22 @@ public class Dialog extends WebMarkupContainer
 	{
 		return options;
 	}
-	
+
 	public JsStatement statement()
 	{
 		return new JsQuery(this).$().chain("dialog", options.getJavaScriptOptions());
 	}
 
 	/*---- Options section ---*/
+
+	/**
+	 * @return the appendTo option value
+	 */
+	public String getAppendTo()
+	{
+		String appendTo = this.options.getLiteral("appendTo");
+		return appendTo == null ? "body" : appendTo;
+	}
 
 	/**
 	 * Which element the dialog (and overlay, if modal) should be appended to.
@@ -170,12 +168,16 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * @return the appendTo option value
+	 * @return if this window auto opens on page loading.
 	 */
-	public String getAppendTo()
+	public boolean isAutoOpen()
 	{
-		String appendTo = this.options.getLiteral("appendTo");
-		return appendTo == null ? "body" : appendTo;
+		if (this.options.containsKey("autoOpen"))
+		{
+			return options.getBoolean("autoOpen");
+		}
+
+		return true;
 	}
 
 	/**
@@ -192,76 +194,169 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * @return if this window auto opens on page loading.
+	 * @return the list of buttons
 	 */
-	public boolean isAutoOpen()
+	@SuppressWarnings("unchecked")
+	public ArrayItemOptions<DialogButton> getButtons()
 	{
-		if (this.options.containsKey("autoOpen"))
+		if (this.options.containsKey("buttons"))
 		{
-			return options.getBoolean("autoOpen");
+			return (ArrayItemOptions<DialogButton>)this.options.getCollectionItemOptions("buttons");
+		}
+
+		return null;
+	}
+
+	/**
+	 * Set's a list of dialog button
+	 * 
+	 * @param buttons
+	 * @return instance of the current component
+	 */
+	public Dialog setButtons(ArrayItemOptions<DialogButton> buttons)
+	{
+		for (DialogButton button : buttons)
+		{
+			if (button instanceof AjaxDialogButton)
+			{
+				((AjaxDialogButton)button).activateCallback(ajaxBehavior);
+			}
+		}
+		this.options.put("buttons", buttons);
+		return this;
+	}
+
+	/**
+	 * Set's a list of dialog button
+	 * 
+	 * @param buttons
+	 * @return instance of the current component
+	 */
+	public Dialog setButtons(DialogButton... buttons)
+	{
+		if (buttons != null && buttons.length > 0)
+		{
+			ArrayItemOptions<DialogButton> buttons2 = new ArrayItemOptions<>();
+			for (DialogButton button : buttons)
+			{
+				if (button instanceof AjaxDialogButton)
+				{
+					((AjaxDialogButton)button).activateCallback(ajaxBehavior);
+				}
+				buttons2.add(button);
+			}
+			this.options.put("buttons", buttons2);
+		}
+		return this;
+	}
+
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public Dialog setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
+
+	/**
+	 * @returns <code>true</code> if the close on escape shortcut is enable
+	 */
+	public boolean isCloseOnEscape()
+	{
+		if (this.options.containsKey("closeOnEscape"))
+		{
+			return this.options.getBoolean("closeOnEscape");
 		}
 
 		return true;
 	}
-	
+
 	/**
-	 * Sets if this window is modal or not.
+	 * Set's the close on escape keyboard shortcut
 	 * 
-	 * @param modal
-	 *            true if the window is modal, false otherwise
+	 * @param closeOnEscape
 	 * @return instance of the current component
 	 */
-	public Dialog setModal(boolean modal)
+	public Dialog setCloseOnEscape(boolean closeOnEscape)
 	{
-		options.put("modal", modal);
+		this.options.put("closeOnEscape", closeOnEscape);
 		return this;
 	}
 
 	/**
-	 * @return if this window is modal.
+	 * @return the closeText option
 	 */
-	public boolean isModal()
+	public String getCloseText()
 	{
-		if (this.options.containsKey("modal"))
-		{
-			return options.getBoolean("modal");
-		}
-
-		return false;
+		String closeText = options.getLiteral("closeText");
+		return closeText == null ? "close" : closeText;
 	}
 
 	/**
-	 * Sets the window's width.
+	 * Sets a the text for the close button
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setWidth(int width)
+	public Dialog setCloseText(String closeText)
 	{
-		options.put("width", width);
+		options.putLiteral("closeText", closeText);
 		return this;
 	}
 
 	/**
-	 * Returns the dialog's width.
+	 * @return the dialogClass option
 	 */
-	public int getWidth()
+	public String getDialogClass()
 	{
-		if (this.options.containsKey("width"))
+		if (this.options.containsKey("dialogClass"))
 		{
-			return options.getInt("width");
+			return this.options.getLiteral("dialogClass");
 		}
-
-		return 300;
+		return "";
 	}
 
 	/**
-	 * Sets the window's height.
+	 * The specified class name(s) will be added to the dialog, for additional theming.
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setHeight(int height)
+	public Dialog setDialogClass(String dialogClass)
 	{
-		options.put("height", height);
+		options.putLiteral("dialogClass", dialogClass);
+		return this;
+	}
+
+	/**
+	 * @returns <code>true</code> if the dialog is draggable
+	 */
+	public boolean isDraggable()
+	{
+		if (this.options.containsKey("draggable"))
+		{
+			return this.options.getBoolean("draggable");
+		}
+
+		return true;
+	}
+
+	/**
+	 * Enable or disable the draggable event
+	 * 
+	 * @param draggable
+	 * @return instance of the current component
+	 */
+	public Dialog setDraggable(boolean draggable)
+	{
+		this.options.put("draggable", draggable);
 		return this;
 	}
 
@@ -279,52 +374,29 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets the window's position.
+	 * Sets the window's height.
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setPosition(PositionOptions position)
+	public Dialog setHeight(int height)
 	{
-		options.put("position", position);
+		options.put("height", height);
 		return this;
 	}
 
 	/**
-	 * Returns the {@link PositionOptions}.
+	 * @return the hide option value
 	 */
-	public PositionOptions getPosition()
+	public DialogAnimateOption getHide()
 	{
-		IComplexOption position = options.getComplexOption("position");
-		
-		if (position instanceof PositionOptions)
+		IComplexOption hideOptions = this.options.getComplexOption("hide");
+
+		if (hideOptions instanceof DialogAnimateOption)
 		{
-			return (PositionOptions) position;
+			return (DialogAnimateOption)hideOptions;
 		}
-		
-		return new PositionOptions()
-				.setMy(new PositionAlignmentOptions(PositionRelation.CENTER))
-				.setAt(new PositionAlignmentOptions(PositionRelation.CENTER))
-				.setOf("window");
-	}
 
-	/**
-	 * Sets a the text for the close button
-	 * 
-	 * @return instance of the current component
-	 */
-	public Dialog setCloseText(String closeText)
-	{
-		options.putLiteral("closeText", closeText);
-		return this;
-	}
-
-	/**
-	 * @return the closeText option
-	 */
-	public String getCloseText()
-	{
-		String closeText = options.getLiteral("closeText");
-		return closeText == null ? "close" : closeText;
+		return null;
 	}
 
 	/**
@@ -336,59 +408,6 @@ public class Dialog extends WebMarkupContainer
 	public Dialog setHide(DialogAnimateOption hideOptions)
 	{
 		this.options.put("hide", hideOptions);
-		return this;
-	}
-	
-	/**
-	 * @return the hide option value
-	 */
-	public DialogAnimateOption getHide()
-	{
-		IComplexOption hideOptions = this.options.getComplexOption("hide");
-		
-		if (hideOptions instanceof DialogAnimateOption)
-		{
-			return (DialogAnimateOption) hideOptions;
-		}
-		
-		return null;
-	}
-
-	/**
-	 * If and how to animate the showing of the dialog.
-	 * 
-	 * @param showOptions
-	 * @return instance of the current component
-	 */
-	public Dialog setShow(DialogAnimateOption showOptions)
-	{
-		this.options.put("show", showOptions);
-		return this;
-	}
-	
-	/**
-	 * @return the show option value
-	 */
-	public DialogAnimateOption getShow()
-	{
-		IComplexOption showOptions = this.options.getComplexOption("show");
-		
-		if (showOptions instanceof DialogAnimateOption)
-		{
-			return (DialogAnimateOption) showOptions;
-		}
-		
-		return null;
-	}
-
-	/**
-	 * Sets the window's max height.
-	 * 
-	 * @return instance of the current component
-	 */
-	public Dialog setMaxHeight(int maxHeight)
-	{
-		options.put("maxHeight", maxHeight);
 		return this;
 	}
 
@@ -406,13 +425,13 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets the window's max width.
+	 * Sets the window's max height.
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setMaxWidth(int maxWidth)
+	public Dialog setMaxHeight(int maxHeight)
 	{
-		options.put("maxWidth", maxWidth);
+		options.put("maxHeight", maxHeight);
 		return this;
 	}
 
@@ -430,13 +449,13 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets the window's min height.
+	 * Sets the window's max width.
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setMinHeight(int minHeight)
+	public Dialog setMaxWidth(int maxWidth)
 	{
-		options.put("minHeight", minHeight);
+		options.put("maxWidth", maxWidth);
 		return this;
 	}
 
@@ -454,13 +473,13 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets the window's min width.
+	 * Sets the window's min height.
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setMinWidth(int minWidth)
+	public Dialog setMinHeight(int minHeight)
 	{
-		options.put("minWidth", minWidth);
+		options.put("minHeight", minHeight);
 		return this;
 	}
 
@@ -478,13 +497,67 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets if this window is resizable or not.
+	 * Sets the window's min width.
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setResizable(boolean resizable)
+	public Dialog setMinWidth(int minWidth)
 	{
-		options.put("resizable", resizable);
+		options.put("minWidth", minWidth);
+		return this;
+	}
+
+	/**
+	 * @return if this window is modal.
+	 */
+	public boolean isModal()
+	{
+		if (this.options.containsKey("modal"))
+		{
+			return options.getBoolean("modal");
+		}
+
+		return false;
+	}
+
+	/**
+	 * Sets if this window is modal or not.
+	 * 
+	 * @param modal
+	 *            true if the window is modal, false otherwise
+	 * @return instance of the current component
+	 */
+	public Dialog setModal(boolean modal)
+	{
+		options.put("modal", modal);
+		return this;
+	}
+
+	/**
+	 * Returns the {@link PositionOptions}.
+	 */
+	public PositionOptions getPosition()
+	{
+		IComplexOption position = options.getComplexOption("position");
+
+		if (position instanceof PositionOptions)
+		{
+			return (PositionOptions)position;
+		}
+
+		return new PositionOptions().setMy(new PositionAlignmentOptions(PositionRelation.CENTER))
+			.setAt(new PositionAlignmentOptions(PositionRelation.CENTER))
+			.setOf("window");
+	}
+
+	/**
+	 * Sets the window's position.
+	 * 
+	 * @return instance of the current component
+	 */
+	public Dialog setPosition(PositionOptions position)
+	{
+		options.put("position", position);
 		return this;
 	}
 
@@ -503,32 +576,40 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets the window's title.
-	 * <p>
-	 * <strong>Note:</strong> the title can be automatically sets when the HTML
-	 * <code>title</code> attribute is set.
-	 * </p>
+	 * Sets if this window is resizable or not.
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setTitle(String title)
+	public Dialog setResizable(boolean resizable)
 	{
-		options.putLiteral("title", title);
+		options.put("resizable", resizable);
 		return this;
 	}
 
 	/**
-	 * Sets the window's title.
-	 * <p>
-	 * <strong>Note:</strong> the title can be automatically sets when the HTML
-	 * <code>title</code> attribute is set.
-	 * </p>
+	 * @return the show option value
+	 */
+	public DialogAnimateOption getShow()
+	{
+		IComplexOption showOptions = this.options.getComplexOption("show");
+
+		if (showOptions instanceof DialogAnimateOption)
+		{
+			return (DialogAnimateOption)showOptions;
+		}
+
+		return null;
+	}
+
+	/**
+	 * If and how to animate the showing of the dialog.
 	 * 
+	 * @param showOptions
 	 * @return instance of the current component
 	 */
-	public Dialog setTitle(IModel<String> title)
+	public Dialog setShow(DialogAnimateOption showOptions)
 	{
-		options.putLiteral("title", title);
+		this.options.put("show", showOptions);
 		return this;
 	}
 
@@ -547,91 +628,56 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the close on escape keyboard shortcut
+	 * Sets the window's title.
+	 * <p>
+	 * <strong>Note:</strong> the title can be automatically sets when the HTML <code>title</code>
+	 * attribute is set.
+	 * </p>
 	 * 
-	 * @param closeOnEscape
 	 * @return instance of the current component
 	 */
-	public Dialog setCloseOnEscape(boolean closeOnEscape)
+	public Dialog setTitle(String title)
 	{
-		this.options.put("closeOnEscape", closeOnEscape);
+		options.putLiteral("title", title);
 		return this;
 	}
 
 	/**
-	 * @returns <code>true</code> if the close on escape shortcut is enable
+	 * Sets the window's title.
+	 * <p>
+	 * <strong>Note:</strong> the title can be automatically sets when the HTML <code>title</code>
+	 * attribute is set.
+	 * </p>
+	 * 
+	 * @return instance of the current component
 	 */
-	public boolean isCloseOnEscape()
+	public Dialog setTitle(IModel<String> title)
 	{
-		if (this.options.containsKey("closeOnEscape"))
+		options.putLiteral("title", title);
+		return this;
+	}
+
+	/**
+	 * Returns the dialog's width.
+	 */
+	public int getWidth()
+	{
+		if (this.options.containsKey("width"))
 		{
-			return this.options.getBoolean("closeOnEscape");
+			return options.getInt("width");
 		}
 
-		return true;
-	}
-	
-	/**
-	 * Set's the bgiframe plugin. When true, the bgiframe plugin will be used,
-	 * to fix the issue in IE6 where select boxes show on top of other elements,
-	 * regardless of zIndex. Requires including the bgiframe plugin. Future
-	 * versions may not require a separate plugin.
-	 * 
-	 * @param bgiframe
-	 * @return instance of the current component
-	 */
-	@Deprecated
-	public Dialog setBgiframe(boolean bgiframe)
-	{
-		this.options.put("bgiframe", bgiframe);
-		return this;
+		return 300;
 	}
 
 	/**
-	 * @returns <code>true</code> if the bgiframe plugin will be used
-	 */
-	public boolean isBgiframe()
-	{
-		if (this.options.containsKey("bgiframe")) {
-			return this.options.getBoolean("bgiframe");
-		}
-
-		return false;
-	}
-
-	/**
-	 * The specified class name(s) will be added to the dialog, for additional theming.
+	 * Sets the window's width.
 	 * 
 	 * @return instance of the current component
 	 */
-	public Dialog setDialogClass(String dialogClass)
+	public Dialog setWidth(int width)
 	{
-		options.putLiteral("dialogClass", dialogClass);
-		return this;
-	}
-
-	/**
-	 * @return the dialogClass option
-	 */
-	public String getDialogClass()
-	{
-		if (this.options.containsKey("dialogClass"))
-		{
-			return this.options.getLiteral("dialogClass");
-		}
-		return "";
-	}
-
-	/**
-	 * Disables (true) or enables (false) the dialog. Can be set when initializing (first
-	 * creating) the dialog.
-	 * 
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public Dialog setDisabled(boolean disabled)
-	{
-		this.options.put("disabled", disabled);
+		options.put("width", width);
 		return this;
 	}
 
@@ -649,92 +695,23 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Enable or disable the draggable event
+	 * Disables (true) or enables (false) the dialog. Can be set when initializing (first creating)
+	 * the dialog.
 	 * 
-	 * @param draggable
-	 * @return instance of the current component
+	 * @param disabled
+	 * @return instance of the current behavior
 	 */
-	public Dialog setDraggable(boolean draggable)
+	public Dialog setDisabled(boolean disabled)
 	{
-		this.options.put("draggable", draggable);
+		this.options.put("disabled", disabled);
 		return this;
 	}
 
-	/**
-	 * @returns <code>true</code> if the dialog is draggable
-	 */
-	public boolean isDraggable()
-	{
-		if (this.options.containsKey("draggable"))
-		{
-			return this.options.getBoolean("draggable");
-		}
-
-		return true;
-	}
-
-	/**
-	 * Set's a list of dialog button
-	 * 
-	 * @param buttons
-	 * @return instance of the current component
-	 */
-	public Dialog setButtons(ArrayItemOptions<DialogButton> buttons)
-	{
-		for (DialogButton button : buttons)
-		{
-			if (button instanceof AjaxDialogButton)
-			{
-				((AjaxDialogButton) button).activateCallback(ajaxBehavior);
-			}
-		}
-		this.options.put("buttons", buttons);
-		return this;
-	}
-
-	/**
-	 * Set's a list of dialog button
-	 * 
-	 * @param buttons
-	 * @return instance of the current component
-	 */
-	public Dialog setButtons(DialogButton... buttons)
-	{
-		if (buttons != null && buttons.length > 0)
-		{
-			ArrayItemOptions<DialogButton> buttons2 = new ArrayItemOptions<DialogButton>();
-			for (DialogButton button : buttons)
-			{
-				if (button instanceof AjaxDialogButton)
-				{
-					((AjaxDialogButton) button).activateCallback(ajaxBehavior);
-				}
-				buttons2.add(button);
-			}
-			this.options.put("buttons", buttons2);
-		}
-		return this;
-	}
-
-	/**
-	 * @return the list of buttons
-	 */
-	@SuppressWarnings("unchecked")
-	public ArrayItemOptions<DialogButton> getButtons()
-	{
-		if (this.options.containsKey("buttons"))
-		{
-			return (ArrayItemOptions<DialogButton>) this.options.getCollectionItemOptions("buttons");
-		}
-
-		return null;
-	}
-	
 	/*---- Events section ---*/
 
 	/**
-	 * Set's the callback before the dialog is closing. If the beforeclose event handler
-	 * (callback function) returns false, the close will be prevented
+	 * Set's the callback before the dialog is closing. If the beforeclose event handler (callback
+	 * function) returns false, the close will be prevented
 	 * 
 	 * @param beforeclose
 	 * @return instance of the current component
@@ -864,9 +841,9 @@ public class Dialog extends WebMarkupContainer
 		this.options.put("resizeStop", resizeStop);
 		return this;
 	}
-	
+
 	/*---- Methods section ---*/
-	
+
 	/**
 	 * Method to open the dialog
 	 * 
@@ -876,7 +853,7 @@ public class Dialog extends WebMarkupContainer
 	{
 		return new JsQuery(this).$().chain("dialog", "'open'");
 	}
-	
+
 	/**
 	 * Method to open the dialog within the ajax request
 	 * 
@@ -908,8 +885,7 @@ public class Dialog extends WebMarkupContainer
 	}
 
 	/**
-	 * Method to destroy the dialog This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the dialog This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */

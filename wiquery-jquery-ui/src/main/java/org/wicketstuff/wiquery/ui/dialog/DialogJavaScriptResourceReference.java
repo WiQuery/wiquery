@@ -21,57 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.dialog;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.button.ButtonJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.position.PositionJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: DialogJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to get the Dialog component.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class DialogJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class DialogJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = -4771815414204892357L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final DialogJavaScriptResourceReference INSTANCE =
-		new DialogJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link DialogJavaScriptResourceReference}.
-	 */
 	private DialogJavaScriptResourceReference()
 	{
-		super(DialogJavaScriptResourceReference.class, "jquery.ui.dialog.js");
-	}
-
-	/**
-	 * Returns the {@link DialogJavaScriptResourceReference} instance.
-	 */
-	public static DialogJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(ButtonJavaScriptResourceReference.get(),
-			DraggableJavaScriptResourceReference.get(), PositionJavaScriptResourceReference.get(),
-			ResizableJavaScriptResourceReference.get());
 	}
 }

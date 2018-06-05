@@ -21,52 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.datepicker;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: DatePickerJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to get the DatePicker component.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class DatePickerJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class DatePickerJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = -4771815414204892357L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final DatePickerJavaScriptResourceReference INSTANCE =
-		new DatePickerJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link DatePickerJavaScriptResourceReference}.
-	 */
 	private DatePickerJavaScriptResourceReference()
 	{
-		super(DatePickerJavaScriptResourceReference.class, "jquery.ui.datepicker.js");
-	}
-
-	/**
-	 * Returns the {@link DatePickerJavaScriptResourceReference} instance.
-	 */
-	public static DatePickerJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get());
 	}
 }

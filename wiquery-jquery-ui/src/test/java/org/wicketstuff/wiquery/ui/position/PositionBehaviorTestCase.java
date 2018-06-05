@@ -67,15 +67,17 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	public void testGetAt()
 	{
 		assertNull(positionBehavior.getAt());
-		positionBehavior.setAt(new PositionAlignmentOptions(PositionRelation.CENTER, PositionRelation.TOP));
+		positionBehavior
+			.setAt(new PositionAlignmentOptions(PositionRelation.CENTER, PositionRelation.TOP));
 		assertEquals(positionBehavior.getAt().getJavascriptOption().toString(), "'center top'");
-		positionBehavior.setAt(new PositionAlignmentOptions(PositionRelation.RIGHT, 20, PositionRelation.BOTTOM, -20));
-		assertEquals(positionBehavior.getAt().getJavascriptOption().toString(), "'right+20 bottom-20'");
+		positionBehavior.setAt(
+			new PositionAlignmentOptions(PositionRelation.RIGHT, 20, PositionRelation.BOTTOM, -20));
+		assertEquals(positionBehavior.getAt().getJavascriptOption().toString(),
+			"'right+20 bottom-20'");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.position.PositionBehavior#getCollision()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.position.PositionBehavior#getCollision()}.
 	 */
 	@Test
 	public void testGetCollision()
@@ -92,9 +94,11 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	public void testGetMy()
 	{
 		assertNull(positionBehavior.getMy());
-		positionBehavior.setMy(new PositionAlignmentOptions(PositionRelation.CENTER, PositionRelation.TOP));
+		positionBehavior
+			.setMy(new PositionAlignmentOptions(PositionRelation.CENTER, PositionRelation.TOP));
 		assertEquals(positionBehavior.getMy().getJavascriptOption().toString(), "'center top'");
-		positionBehavior.setMy(new PositionAlignmentOptions(PositionRelation.LEFT, 0, PositionRelation.CENTER, -20));
+		positionBehavior.setMy(
+			new PositionAlignmentOptions(PositionRelation.LEFT, 0, PositionRelation.CENTER, -20));
 		assertEquals(positionBehavior.getMy().getJavascriptOption().toString(), "'left center-20'");
 	}
 
@@ -110,8 +114,7 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.position.PositionBehavior#getOptions()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.position.PositionBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions()
@@ -122,10 +125,9 @@ public class PositionBehaviorTestCase extends WiQueryTestCase
 		assertEquals(positionBehavior.getOptions().getJavaScriptOptions().toString(),
 			"{collision: 'fit'}");
 	}
-	
+
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.position.PositionBehavior#isBgiframe()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.position.PositionBehavior#isBgiframe()}.
 	 */
 	@Test
 	public void testIsBgiframe()

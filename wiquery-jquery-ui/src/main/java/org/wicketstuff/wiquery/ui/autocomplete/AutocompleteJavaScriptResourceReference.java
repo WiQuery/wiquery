@@ -21,53 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.autocomplete;
 
-import java.util.List;
-
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.menu.MenuJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: AutocompleteJavascriptResourceReference.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to get the Autocomplete component.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.1
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public class AutocompleteJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public class AutocompleteJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = -4771815414204892357L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static AutocompleteJavaScriptResourceReference instance =
-		new AutocompleteJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link AutocompleteJavaScriptResourceReference}.
-	 */
 	private AutocompleteJavaScriptResourceReference()
 	{
-		super(AutocompleteJavaScriptResourceReference.class, "jquery.ui.autocomplete.js");
-	}
-
-	/**
-	 * Returns the {@link AutocompleteJavaScriptResourceReference} instance.
-	 */
-	public static AutocompleteJavaScriptResourceReference get()
-	{
-		return instance;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(MenuJavaScriptResourceReference.get());
 	}
 }

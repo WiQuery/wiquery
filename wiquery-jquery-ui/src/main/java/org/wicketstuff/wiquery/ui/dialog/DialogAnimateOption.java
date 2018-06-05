@@ -32,12 +32,13 @@ import org.wicketstuff.wiquery.ui.options.GenericAnimateOption;
  * </p>
  * Multiple types supported:
  * <ul>
- * 	<li>Number: The dialog will fade in while animating the height and width for the specified duration. </li>
- * 	<li>String: The dialog will be shown using the specified jQuery UI effect.
- * 	<li>Object: If the value is an object, then effect, delay, duration, and easing properties may be provided.
- * The effect property must be the name of a jQuery UI effect. If duration or easing is omitted, then the
- * default values will be used. If effect is omitted, then "fadeIn" will be used. If delay is omitted,
- * then no delay is used.
+ * <li>Number: The dialog will fade in while animating the height and width for the specified
+ * duration.</li>
+ * <li>String: The dialog will be shown using the specified jQuery UI effect.
+ * <li>Object: If the value is an object, then effect, delay, duration, and easing properties may be
+ * provided. The effect property must be the name of a jQuery UI effect. If duration or easing is
+ * omitted, then the default values will be used. If effect is omitted, then "fadeIn" will be used.
+ * If delay is omitted, then no delay is used.
  * </ul>
  * 
  * @author Stephane Gleizes

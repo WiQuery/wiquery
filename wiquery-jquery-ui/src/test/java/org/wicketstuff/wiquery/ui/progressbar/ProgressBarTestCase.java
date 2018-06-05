@@ -68,8 +68,7 @@ public class ProgressBarTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.progressbar.ProgressBar#decrement(int)}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.progressbar.ProgressBar#decrement(int)}.
 	 */
 	@Test
 	public void testDecrementInt()
@@ -110,7 +109,7 @@ public class ProgressBarTestCase extends WiQueryTestCase
 		assertNotNull(progressBar.enable());
 		assertEquals(progressBar.enable().render().toString(), "$('#anId').progressbar('enable');");
 	}
-	
+
 	/**
 	 * Test method for {@link org.wicketstuff.wiquery.ui.progressbar.ProgressBar#getMax()}.
 	 */
@@ -160,8 +159,7 @@ public class ProgressBarTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.progressbar.ProgressBar#increment(int)}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.progressbar.ProgressBar#increment(int)}.
 	 */
 	@Test
 	public void testIncrementInt()
@@ -192,8 +190,7 @@ public class ProgressBarTestCase extends WiQueryTestCase
 	{
 		assertEquals(progressBar.statement().render().toString(), "$('#anId').progressbar();");
 		progressBar.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(
-			progressBar.statement().render().toString(),
+		assertEquals(progressBar.statement().render().toString(),
 			"$('#anId').progressbar();$('#anId').progressbar('option', 'change', function(event, ui) {\n\talert('event');\n});");
 	}
 
@@ -207,8 +204,7 @@ public class ProgressBarTestCase extends WiQueryTestCase
 	{
 		assertEquals(progressBar.statement().render().toString(), "$('#anId').progressbar();");
 		progressBar.setCompleteEvent(JsScopeUiEvent.quickScope("alert('event');"));
-		assertEquals(
-			progressBar.statement().render().toString(),
+		assertEquals(progressBar.statement().render().toString(),
 			"$('#anId').progressbar();$('#anId').progressbar('option', 'complete', function(event, ui) {\n\talert('event');\n});");
 	}
 

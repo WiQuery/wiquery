@@ -21,7 +21,6 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import org.wicketstuff.wiquery.core.effects.Effect;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
 
 /**
@@ -41,21 +40,15 @@ public class ScaleEffect extends Effect
 	 * Shake direction.
 	 * 
 	 */
-	public static enum Direction
-	{
-		both,
-		horizontal,
-		vertical;
+	public static enum Direction {
+		both, horizontal, vertical;
 	}
 
 	/**
 	 * What to scale.
 	 */
-	public static enum Scale
-	{
-		both,
-		box,
-		content;
+	public static enum Scale {
+		both, box, content;
 	}
 
 	/**
@@ -91,9 +84,10 @@ public class ScaleEffect extends Effect
 	 */
 	public ScaleEffect(Direction direction, Scale scale, int percent, int duration)
 	{
-		super(JsUtils.quotes("scale"), "{direction:" + JsUtils.quotes(direction.name())
-			+ ", percent: " + Integer.toString(percent) + ", scale: "
-			+ JsUtils.quotes(scale.name()) + "}", Integer.toString(duration));
+		super(JsUtils.quotes("scale"),
+			"{direction:" + JsUtils.quotes(direction.name()) + ", percent: " +
+				Integer.toString(percent) + ", scale: " + JsUtils.quotes(scale.name()) + "}",
+			Integer.toString(duration));
 	}
 
 	@Override

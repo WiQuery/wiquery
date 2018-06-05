@@ -62,7 +62,7 @@ public class DialogTestCase extends WiQueryTestCase
 		panel.add(dialog);
 		tester.startComponentInPage(panel);
 	}
-	
+
 	/**
 	 * Test method for {@link org.wicketstuff.wiquery.ui.dialog.Dialog#getAppendTo()}.
 	 */
@@ -81,12 +81,12 @@ public class DialogTestCase extends WiQueryTestCase
 	public void testGetButtons()
 	{
 		assertNull(dialog.getButtons());
-		ArrayItemOptions<DialogButton> array = new ArrayItemOptions<DialogButton>();
+		ArrayItemOptions<DialogButton> array = new ArrayItemOptions<>();
 		array.add(new DialogButton("a title", JsScope.quickScope("alert('a test');")));
 		dialog.setButtons(array);
 		assertNotNull(dialog.getButtons());
 		assertEquals(dialog.getButtons().getJavascriptOption().toString(),
-			"[{text: 'a title', click: function() {\n\talert('a test');\n}}]");
+			"[{label: 'a title', click: function() {\n\talert('a test');\n}}]");
 	}
 
 	/**
@@ -133,13 +133,10 @@ public class DialogTestCase extends WiQueryTestCase
 		assertEquals(dialog.getHide().getJavascriptOption().toString(), "200");
 		dialog.setHide(new DialogAnimateOption("fold"));
 		assertEquals(dialog.getHide().getJavascriptOption().toString(), "'fold'");
-		dialog.setHide(new DialogAnimateOption(new EffectOptionObject()
-				.setEffect("blind")
-				.setDuration(200)
-				.setEasing("linear")
-		));
+		dialog.setHide(new DialogAnimateOption(
+			new EffectOptionObject().setEffect("blind").setDuration(200).setEasing("linear")));
 		assertEquals(dialog.getHide().getJavascriptOption().toString(),
-				"{effect: 'blind', duration: 200, easing: 'linear'}");
+			"{effect: 'blind', duration: 200, easing: 'linear'}");
 	}
 
 	/**
@@ -193,8 +190,7 @@ public class DialogTestCase extends WiQueryTestCase
 	public void testGetOptions()
 	{
 		assertNotNull(dialog.getOptions());
-		assertEquals(dialog.getOptions().getJavaScriptOptions().toString(),
-			"{autoOpen: false}");
+		assertEquals(dialog.getOptions().getJavaScriptOptions().toString(), "{autoOpen: false}");
 	}
 
 	/**
@@ -204,14 +200,14 @@ public class DialogTestCase extends WiQueryTestCase
 	public void testGetPosition()
 	{
 		assertEquals(dialog.getPosition().getJavascriptOption().toString(),
-				"{my: 'center', at: 'center', of: 'window'}");
-		dialog.setPosition(new PositionOptions()
-				.setMy(new PositionAlignmentOptions(PositionRelation.RIGHT))
-				.setAt(new PositionAlignmentOptions(PositionRelation.CENTER, 10, PositionRelation.BOTTOM, -10))
-				.setOf("#someId")
-		);
+			"{my: 'center', at: 'center', of: 'window'}");
+		dialog.setPosition(
+			new PositionOptions().setMy(new PositionAlignmentOptions(PositionRelation.RIGHT))
+				.setAt(new PositionAlignmentOptions(PositionRelation.CENTER, 10,
+					PositionRelation.BOTTOM, -10))
+				.setOf("#someId"));
 		assertEquals(dialog.getPosition().getJavascriptOption().toString(),
-				"{my: 'right', at: 'center+10 bottom-10', of: '#someId'}");
+			"{my: 'right', at: 'center+10 bottom-10', of: '#someId'}");
 	}
 
 	/**
@@ -225,13 +221,10 @@ public class DialogTestCase extends WiQueryTestCase
 		assertEquals(dialog.getShow().getJavascriptOption().toString(), "200");
 		dialog.setShow(new DialogAnimateOption("fold"));
 		assertEquals(dialog.getShow().getJavascriptOption().toString(), "'fold'");
-		dialog.setShow(new DialogAnimateOption(new EffectOptionObject()
-				.setEffect("blind")
-				.setDuration(200)
-				.setEasing("linear")
-		));
+		dialog.setShow(new DialogAnimateOption(
+			new EffectOptionObject().setEffect("blind").setDuration(200).setEasing("linear")));
 		assertEquals(dialog.getShow().getJavascriptOption().toString(),
-				"{effect: 'blind', duration: 200, easing: 'linear'}");
+			"{effect: 'blind', duration: 200, easing: 'linear'}");
 	}
 
 	/**
@@ -244,7 +237,7 @@ public class DialogTestCase extends WiQueryTestCase
 		dialog.setTitle("a title");
 		assertEquals(dialog.getTitle(), "a title");
 
-		dialog.setTitle(new Model<String>("a title2"));
+		dialog.setTitle(new Model<>("a title2"));
 		assertEquals(dialog.getTitle(), "a title2");
 
 		DialogTestPage page = tester.startPage(DialogTestPage.class);
@@ -256,11 +249,11 @@ public class DialogTestCase extends WiQueryTestCase
 	{
 		AjaxDialogTestPage page = tester.startPage(AjaxDialogTestPage.class);
 		String realValue = page.getOk().getJavascriptOption().toString();
-		String expectedOk =
-			"{text: 'Ok', click: function (event,ui) {\n"
-					+ "var attrs = {\"u\":\"./wicket/bookmarkable/org.wicketstuff.wiquery.ui.dialog.AjaxDialogTestPage?1-1.0-dialog\",\"c\":\"dialog1\"};\n"
-					+ "var params = [{\"name\":\"eventName\",\"value\":'Ok'}];\n" + "attrs.ep = params.concat(attrs.ep || []);\n"
-					+ "Wicket.Ajax.ajax(attrs);\n" + "}\n" + "}";
+		String expectedOk = "{label: 'Ok', click: function (event,ui) {\n" +
+			"var attrs = {\"u\":\"./wicket/bookmarkable/org.wicketstuff.wiquery.ui.dialog.AjaxDialogTestPage?1-1.0-dialog\",\"c\":\"dialog1\"};\n" +
+			"var params = [{\"name\":\"eventName\",\"value\":'Ok'}];\n" +
+			"attrs.ep = params.concat(attrs.ep || []);\n" + "Wicket.Ajax.ajax(attrs);\n" + "}\n" +
+			"}";
 		assertEquals(expectedOk, realValue);
 	}
 
@@ -329,7 +322,7 @@ public class DialogTestCase extends WiQueryTestCase
 		dialog.setModal(true);
 		assertTrue(dialog.isModal());
 	}
-	
+
 	/**
 	 * Test method for {@link org.wicketstuff.wiquery.ui.dialog.Dialog#isResizable()} .
 	 */
@@ -340,7 +333,7 @@ public class DialogTestCase extends WiQueryTestCase
 		dialog.setResizable(false);
 		assertFalse(dialog.isResizable());
 	}
-	
+
 
 	/**
 	 * Test method for {@link org.wicketstuff.wiquery.ui.dialog.Dialog#close()}.

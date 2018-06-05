@@ -28,8 +28,8 @@ import org.wicketstuff.wiquery.core.options.Options;
  * $Id TabsEffectOptions.java$
  * 
  * <p>
- * Complex option to store the possible options for the effect. This is used too for the
- * option show/hide into the Tabs component.
+ * Complex option to store the possible options for the effect. This is used too for the option
+ * show/hide into the Tabs component.
  * </p>
  * 
  * @author Stephane Gleizes
@@ -52,7 +52,7 @@ public class EffectOptionObject implements IComplexOption
 		super();
 		options = new Options();
 	}
-	
+
 	@Override
 	public CharSequence getJavascriptOption()
 	{
@@ -73,8 +73,8 @@ public class EffectOptionObject implements IComplexOption
 
 	/**
 	 * If the effect property contains the name of a jQuery method, then that method will be used;
-	 * otherwise it is assumed to be the name of a jQuery UI effect.
-	 * If omitted, then "fadeIn" will be used.
+	 * otherwise it is assumed to be the name of a jQuery UI effect. If omitted, then "fadeIn" will
+	 * be used.
 	 * 
 	 * @param effect
 	 * @return the instance
@@ -84,7 +84,7 @@ public class EffectOptionObject implements IComplexOption
 		getOptions().putLiteral("effect", effect);
 		return this;
 	}
-	
+
 	/**
 	 * @return the effect option
 	 */
@@ -92,7 +92,7 @@ public class EffectOptionObject implements IComplexOption
 	{
 		return getOptions().getLiteral("effect");
 	}
-	
+
 	/**
 	 * The delay before rendering the effect. If omitted, no delay is used.
 	 * 
@@ -104,7 +104,7 @@ public class EffectOptionObject implements IComplexOption
 		options.put("delay", delay);
 		return this;
 	}
-	
+
 	/**
 	 * @return the delay option
 	 */
@@ -112,7 +112,7 @@ public class EffectOptionObject implements IComplexOption
 	{
 		return options.getInt("delay");
 	}
-	
+
 	/**
 	 * The duration of the effect. If omitted, the default value will be used.
 	 * 
@@ -124,7 +124,7 @@ public class EffectOptionObject implements IComplexOption
 		options.put("duration", duration);
 		return this;
 	}
-	
+
 	/**
 	 * @return the duration option
 	 */
@@ -132,7 +132,7 @@ public class EffectOptionObject implements IComplexOption
 	{
 		return options.getInt("duration");
 	}
-	
+
 	/**
 	 * The easing to use with the effect. If omitted, the default value will be used.
 	 * 
@@ -144,7 +144,7 @@ public class EffectOptionObject implements IComplexOption
 		options.putLiteral("easing", easing);
 		return this;
 	}
-	
+
 	/**
 	 * @return the easing option
 	 */

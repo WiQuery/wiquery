@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.javascript.JsScope;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
-import org.wicketstuff.wiquery.core.javascript.helper.AttributesHelper;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
 /**
@@ -27,9 +26,10 @@ public class AttributesHelperTestCase extends WiQueryTestCase
 	public void testAddClass()
 	{
 		String expectedJavascript = "$('div').addClass('myClass');";
-		String generatedJavascript =
-			new JsStatement().$(null, "div").chain(AttributesHelper.addClass("myClass")).render()
-				.toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(AttributesHelper.addClass("myClass"))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -44,9 +44,10 @@ public class AttributesHelperTestCase extends WiQueryTestCase
 	public void testAttr()
 	{
 		String expectedJavascript = "$('div').attr('title', 'a title');";
-		String generatedJavascript =
-			new JsStatement().$(null, "div").chain(AttributesHelper.attr("title", "a title"))
-				.render().toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(AttributesHelper.attr("title", "a title"))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -55,18 +56,16 @@ public class AttributesHelperTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test
-	 * {@link AttributesHelper#attr(String, org.wicketstuff.wiquery.core.javascript.JsScope)}
+	 * Test {@link AttributesHelper#attr(String, org.wicketstuff.wiquery.core.javascript.JsScope)}
 	 */
 	@Test
 	public void testAttrScope()
 	{
-		String expectedJavascript =
-			"$('div').attr('click', function() {\n\talert('click done');\n});";
-		String generatedJavascript =
-			new JsStatement().$(null, "div")
-				.chain(AttributesHelper.attr("click", JsScope.quickScope("alert('click done');")))
-				.render().toString();
+		String expectedJavascript = "$('div').attr('click', function() {\n\talert('click done');\n});";
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(AttributesHelper.attr("click", JsScope.quickScope("alert('click done');")))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -81,9 +80,10 @@ public class AttributesHelperTestCase extends WiQueryTestCase
 	public void testHtml()
 	{
 		String expectedJavascript = "$('div').html('some text');";
-		String generatedJavascript =
-			new JsStatement().$(null, "div").chain(AttributesHelper.html("some text")).render()
-				.toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(AttributesHelper.html("some text"))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -98,9 +98,10 @@ public class AttributesHelperTestCase extends WiQueryTestCase
 	public void testRemoveAttr()
 	{
 		String expectedJavascript = "$('div').removeAttr('title');";
-		String generatedJavascript =
-			new JsStatement().$(null, "div").chain(AttributesHelper.removeAttr("title")).render()
-				.toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(AttributesHelper.removeAttr("title"))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -115,9 +116,10 @@ public class AttributesHelperTestCase extends WiQueryTestCase
 	public void testRemoveClass()
 	{
 		String expectedJavascript = "$('div').removeClass('myClass');";
-		String generatedJavascript =
-			new JsStatement().$(null, "div").chain(AttributesHelper.removeClass("myClass"))
-				.render().toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(AttributesHelper.removeClass("myClass"))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -132,9 +134,10 @@ public class AttributesHelperTestCase extends WiQueryTestCase
 	public void testToggleClass()
 	{
 		String expectedJavascript = "$('div').toggleClass('myClass');";
-		String generatedJavascript =
-			new JsStatement().$(null, "div").chain(AttributesHelper.toggleClass("myClass"))
-				.render().toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(AttributesHelper.toggleClass("myClass"))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);

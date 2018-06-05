@@ -38,11 +38,9 @@ public class SliderAnimate implements IComplexOption
 	/**
 	 * Helper enumeration.
 	 */
-	public static enum AnimateEnum
-	{
-		FAST(new LiteralOption("fast")),
-		NORMAL(new LiteralOption("normal")),
-		SLOW(new LiteralOption("slow"));
+	public static enum AnimateEnum {
+		FAST(new LiteralOption("fast")), NORMAL(new LiteralOption("normal")), SLOW(
+			new LiteralOption("slow"));
 
 		// Properties
 		private LiteralOption literalParam;
@@ -138,7 +136,8 @@ public class SliderAnimate implements IComplexOption
 	{
 		if (booleanParam == null && animateEnumParam == null && numberParam == null)
 		{
-			throw new IllegalArgumentException("The SliderAnimate must have one not null parameter");
+			throw new IllegalArgumentException(
+				"The SliderAnimate must have one not null parameter");
 		}
 
 		CharSequence sequence = null;
@@ -159,15 +158,13 @@ public class SliderAnimate implements IComplexOption
 		}
 		else
 		{
-			throw new IllegalArgumentException("The SliderAnimate must have one not null parameter");
+			throw new IllegalArgumentException(
+				"The SliderAnimate must have one not null parameter");
 		}
 
 		return sequence;
 	}
 
-	/**
-	 * @return
-	 */
 	public Number getNumberParam()
 	{
 		return numberParam;

@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
-import org.wicketstuff.wiquery.core.javascript.helper.CssHelper;
 import org.wicketstuff.wiquery.core.options.Options;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
@@ -27,9 +26,10 @@ public class CssHelperTestCase extends WiQueryTestCase
 	public void testCss()
 	{
 		String expectedJavascript = "$('div').css('font-weight', 'bold');";
-		String generatedJavascript =
-			new JsStatement().$(null, "div").chain(CssHelper.css("font-weight", "bold")).render()
-				.toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(CssHelper.css("font-weight", "bold"))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
@@ -47,8 +47,10 @@ public class CssHelperTestCase extends WiQueryTestCase
 
 		Options options = new Options();
 		options.putLiteral("font-weight", "bold");
-		String generatedJavascript =
-			new JsStatement().$(null, "div").chain(CssHelper.css(options)).render().toString();
+		String generatedJavascript = new JsStatement().$(null, "div")
+			.chain(CssHelper.css(options))
+			.render()
+			.toString();
 
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);

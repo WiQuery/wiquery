@@ -40,7 +40,9 @@ import org.wicketstuff.wiquery.core.options.ICollectionItemOptions;
 import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
 import org.wicketstuff.wiquery.core.options.LiteralOption;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.resizable.ResizableAnimeDuration.DurationEnum;
 
 /**
@@ -59,32 +61,32 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	private static final long serialVersionUID = 4155106232676863150L;
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : a jQuery object
-	 * containing the helper element
+	 * Properties on the ui parameter (use it into callback functions) : a jQuery object containing
+	 * the helper element
 	 */
 	public static final String UI_HELPER = "ui.helper";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : {top, left}
-	 * before resizing started
+	 * Properties on the ui parameter (use it into callback functions) : {top, left} before resizing
+	 * started
 	 */
 	public static final String UI_ORIGIGNALPOSITION = "ui.originalPosition";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : {width, height}
-	 * before resizing started
+	 * Properties on the ui parameter (use it into callback functions) : {width, height} before
+	 * resizing started
 	 */
 	public static final String UI_ORIGINALSIZE = "ui.originalSize";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : {top, left}
-	 * current position
+	 * Properties on the ui parameter (use it into callback functions) : {top, left} current
+	 * position
 	 */
 	public static final String UI_POSITION = "ui.position ";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : {width, height}
-	 * current size
+	 * Properties on the ui parameter (use it into callback functions) : {width, height} current
+	 * size
 	 */
 	public static final String UI_SIZE = "ui.size";
 
@@ -101,9 +103,10 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		protected List<CallbackParameter> getExtraParameters()
 		{
 			List<CallbackParameter> ret = super.getExtraParameters();
-			ret.add(CallbackParameter.resolved("resizeHeight", ResizableBehavior.UI_SIZE
-				+ ".height"));
-			ret.add(CallbackParameter.resolved("resizeWidth", ResizableBehavior.UI_SIZE + ".width"));
+			ret.add(
+				CallbackParameter.resolved("resizeHeight", ResizableBehavior.UI_SIZE + ".height"));
+			ret.add(
+				CallbackParameter.resolved("resizeWidth", ResizableBehavior.UI_SIZE + ".width"));
 			return ret;
 		}
 
@@ -118,9 +121,9 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		}
 
 		protected abstract void resize(AjaxRequestTarget target, Component source,
-				double resizeHeight, double resizeWidth);
+			double resizeHeight, double resizeWidth);
 	}
-	
+
 	/**
 	 * Resize stop AJAX handler.
 	 * 
@@ -140,9 +143,10 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		protected List<CallbackParameter> getExtraParameters()
 		{
 			List<CallbackParameter> ret = super.getExtraParameters();
-			ret.add(CallbackParameter.resolved("resizeHeight", ResizableBehavior.UI_SIZE
-				+ ".height"));
-			ret.add(CallbackParameter.resolved("resizeWidth", ResizableBehavior.UI_SIZE + ".width"));
+			ret.add(
+				CallbackParameter.resolved("resizeHeight", ResizableBehavior.UI_SIZE + ".height"));
+			ret.add(
+				CallbackParameter.resolved("resizeWidth", ResizableBehavior.UI_SIZE + ".width"));
 			return ret;
 		}
 
@@ -157,9 +161,9 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		}
 
 		protected abstract void resizeTop(AjaxRequestTarget target, Component source,
-				double resizeHeight, double resizeWidth);
+			double resizeHeight, double resizeWidth);
 	}
-	
+
 
 	@Override
 	public void onBind()
@@ -179,37 +183,14 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	public void renderHead(Component component, IHeaderResponse response)
 	{
 		super.renderHead(component, response);
-		response.render(JavaScriptHeaderItem.forReference(ResizableJavaScriptResourceReference
-			.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this.getComponent()).$()
-			.chain("resizable", this.options.getJavaScriptOptions()).render()));
+			.chain("resizable", this.options.getJavaScriptOptions())
+			.render()));
 	}
 
 	/*---- Options section ---*/
-
-	/**
-	 * Resize these elements synchronous when resizing.
-	 * 
-	 * @param cssSelector
-	 * @return instance of the current behavior
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public ResizableBehavior setAlsoResize(String cssSelector)
-	{
-		this.options.putLiteral("alsoResize", cssSelector);
-		return this;
-	}
-
-	/**
-	 * @return the alsoResize option
-	 * @deprecated will be changed in 1.2 to return a {@link ResizableAlsoResize}
-	 */
-	@Deprecated
-	public String getAlsoResize()
-	{
-		return this.options.getLiteral("alsoResize");
-	}
 
 	/**
 	 * Resize these elements synchronous when resizing.
@@ -226,11 +207,11 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	/**
 	 * @return the alsoResize option
 	 */
-	public ResizableAlsoResize getAlsoResizeComplex()
+	public ResizableAlsoResize getAlsoResize()
 	{
 		if (this.options.getComplexOption("alsoResize") instanceof ResizableAlsoResize)
 		{
-			return (ResizableAlsoResize) this.options.getComplexOption("alsoResize");
+			return (ResizableAlsoResize)this.options.getComplexOption("alsoResize");
 		}
 
 		return null;
@@ -262,8 +243,8 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Sets the duration time for animating, in milliseconds. Other possible values:
-	 * 'slow', 'normal', 'fast'.
+	 * Sets the duration time for animating, in milliseconds. Other possible values: 'slow',
+	 * 'normal', 'fast'.
 	 * 
 	 * @return instance of the current behavior
 	 */
@@ -281,7 +262,7 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption animeDuration = this.options.getComplexOption("animateDuration");
 		if (animeDuration != null && animeDuration instanceof ResizableAnimeDuration)
 		{
-			return (ResizableAnimeDuration) animeDuration;
+			return (ResizableAnimeDuration)animeDuration;
 		}
 
 		return new ResizableAnimeDuration(DurationEnum.SLOW);
@@ -309,8 +290,8 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * If set to true, resizing is constrained by the original aspect ratio. Otherwise a
-	 * custom aspect ratio can be specified, such as 9 / 16, or 0.5.
+	 * If set to true, resizing is constrained by the original aspect ratio. Otherwise a custom
+	 * aspect ratio can be specified, such as 9 / 16, or 0.5.
 	 * 
 	 * @param aspectRatio
 	 * @return instance of the current behavior
@@ -329,15 +310,15 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption aspectRatio = this.options.getComplexOption("aspectRatio");
 		if (aspectRatio != null && aspectRatio instanceof ResizableAspectRatio)
 		{
-			return (ResizableAspectRatio) aspectRatio;
+			return (ResizableAspectRatio)aspectRatio;
 		}
 
 		return null;
 	}
 
 	/**
-	 * If set to true, automatically hides the handles except when the mouse hovers over
-	 * the element.
+	 * If set to true, automatically hides the handles except when the mouse hovers over the
+	 * element.
 	 * 
 	 * @param autoHide
 	 * @return instance of the current behavior
@@ -382,9 +363,26 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		return cancel == null ? "input,option" : cancel;
 	}
 
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public ResizableBehavior setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
+
 	/**
-	 * Sets the constrains resizing to within the bounds of the specified element.
-	 * Possible values: 'parent', 'document', a DOMElement, or a Selector.
+	 * Sets the constrains resizing to within the bounds of the specified element. Possible values:
+	 * 'parent', 'document', a DOMElement, or a Selector.
 	 * 
 	 * @param containment
 	 * @return instance of the current behavior
@@ -403,16 +401,16 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption containment = this.options.getComplexOption("containment");
 		if (containment != null && containment instanceof ResizableContainment)
 		{
-			return (ResizableContainment) containment;
+			return (ResizableContainment)containment;
 		}
 
 		return null;
 	}
 
 	/**
-	 * Sets the tolerance, in milliseconds, for when resizing should start. If specified,
-	 * resizing will not start until after mouse is moved beyond duration. This can help
-	 * prevent unintended resizing when clicking on an element.
+	 * Sets the tolerance, in milliseconds, for when resizing should start. If specified, resizing
+	 * will not start until after mouse is moved beyond duration. This can help prevent unintended
+	 * resizing when clicking on an element.
 	 * 
 	 * @param delay
 	 * @return instance of the current behavior
@@ -437,9 +435,9 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Sets the tolerance, in pixels, for when resizing should start. If specified,
-	 * resizing will not start until after mouse is moved beyond distance. This can help
-	 * prevent unintended resizing when clicking on an element.
+	 * Sets the tolerance, in pixels, for when resizing should start. If specified, resizing will
+	 * not start until after mouse is moved beyond distance. This can help prevent unintended
+	 * resizing when clicking on an element.
 	 * 
 	 * @param distance
 	 * @return instance of the current behavior
@@ -464,8 +462,8 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Disables (true) or enables (false) the resizable. Can be set when initialising
-	 * (first creating) the resizable.
+	 * Disables (true) or enables (false) the resizable. Can be set when initialising (first
+	 * creating) the resizable.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -515,8 +513,8 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Snaps the resizing element to a grid, every x and y pixels. Array values: [x, y]
-	 * Array values: [x, y]
+	 * Snaps the resizing element to a grid, every x and y pixels. Array values: [x, y] Array
+	 * values: [x, y]
 	 * 
 	 * @param x
 	 * @param y
@@ -524,7 +522,7 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	 */
 	public ResizableBehavior setGrid(int x, int y)
 	{
-		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<>();
 		grids.add(new IntegerItemOptions(x));
 		grids.add(new IntegerItemOptions(y));
 		this.options.put("grid", grids);
@@ -540,14 +538,13 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * If specified as a string, should be a comma-split list of any of the following: 'n,
-	 * e, s, w, ne, se, sw, nw, all'. The necessary handles will be auto-generated by the
-	 * plugin.
+	 * If specified as a string, should be a comma-split list of any of the following: 'n, e, s, w,
+	 * ne, se, sw, nw, all'. The necessary handles will be auto-generated by the plugin.
 	 * 
-	 * If specified as an object, the following keys are supported: { n, e, s, w, ne, se,
-	 * sw, nw }. The value of any specified should be a jQuery selector matching the child
-	 * element of the resizable to use as that handle. If the handle is not a child of the
-	 * resizable, you can pass in the DOMElement or a valid jQuery object directly.
+	 * If specified as an object, the following keys are supported: { n, e, s, w, ne, se, sw, nw }.
+	 * The value of any specified should be a jQuery selector matching the child element of the
+	 * resizable to use as that handle. If the handle is not a child of the resizable, you can pass
+	 * in the DOMElement or a valid jQuery object directly.
 	 * 
 	 * @param handles
 	 * @return instance of the current behavior
@@ -566,16 +563,15 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption handles = this.options.getComplexOption("handles");
 		if (handles != null && handles instanceof ResizableHandles)
 		{
-			return (ResizableHandles) handles;
+			return (ResizableHandles)handles;
 		}
 
 		return new ResizableHandles(new LiteralOption("e,s,se"));
 	}
 
 	/**
-	 * Sets the css class that will be added to a proxy element to outline the resize
-	 * during the drag of the resize handle. Once the resize is complete, the original
-	 * element is sized.
+	 * Sets the css class that will be added to a proxy element to outline the resize during the
+	 * drag of the resize handle. Once the resize is complete, the original element is sized.
 	 * 
 	 * @param helper
 	 * @return instance of the current behavior
@@ -693,8 +689,8 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 	/*---- Events section ---*/
 
 	/**
-	 * Set's the callback when the event is triggered during the resize, on the drag of
-	 * the resize handler.
+	 * Set's the callback when the event is triggered during the resize, on the drag of the resize
+	 * handler.
 	 * 
 	 * @param resize
 	 * @return instance of the current behavior
@@ -710,8 +706,7 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		setEventListener(callback);
 		return this;
 	}
-	
-	
+
 
 	/**
 	 * Set's the callback when the event is triggered at the start of a resize operation.
@@ -736,11 +731,11 @@ public class ResizableBehavior extends WiQueryAbstractAjaxBehavior
 		this.options.put("stop", stop);
 		return this;
 	}
-	
+
 	/**
 	 * Set and AJAX callback for on stop event.
+	 * 
 	 * @param callback
-	 * @return
 	 */
 	public ResizableBehavior setStopEvent(AjaxResizeStopCallback callback)
 	{

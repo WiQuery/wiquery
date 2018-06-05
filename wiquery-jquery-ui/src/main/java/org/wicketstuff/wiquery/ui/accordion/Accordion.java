@@ -31,7 +31,9 @@ import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.LiteralOption;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.options.HeightStyleEnum;
 import org.wicketstuff.wiquery.ui.themes.UiIcon;
 
@@ -58,10 +60,8 @@ public class Accordion extends WebMarkupContainer
 	 * @author Lionel Armanet
 	 * @since 0.6
 	 */
-	public static enum AccordionTriggerEvent
-	{
-		CLICK,
-		MOUSEOVER
+	public static enum AccordionTriggerEvent {
+		CLICK, MOUSEOVER
 	}
 
 	/**
@@ -85,8 +85,8 @@ public class Accordion extends WebMarkupContainer
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(AccordionJavaScriptResourceReference
-			.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
@@ -106,16 +106,43 @@ public class Accordion extends WebMarkupContainer
 	}
 
 	/*---- Options section ---*/
+	/**
+	 * @return the active option value
+	 */
+	public int getActive()
+	{
+		Integer index = this.options.getInt("active");
+		if (index != null)
+		{
+			return index;
+		}
+
+		return 0;
+	}
 
 	/**
-	 * If and how to animate changing panels.
+	 * The zero-based index of the panel that is active (open). A negative value selects panels
+	 * going backward from the last panel.
 	 * 
-	 * @param animate see {@link AccordionAnimateOption}
+	 * @param index
 	 * @return instance of the current component
 	 */
-	public Accordion setAnimate(AccordionAnimateOption animate)
+	public Accordion setActive(int index)
 	{
-		this.options.put("animate", animate);
+		this.options.put("active", index);
+		return this;
+	}
+
+	/**
+	 * Setting active to false will collapse all panels. This requires the collapsible option to be
+	 * true.
+	 * 
+	 * @param isActive
+	 * @return instance of the current component
+	 */
+	public Accordion setActive(boolean isActive)
+	{
+		this.options.put("active", isActive);
 		return this;
 	}
 
@@ -127,144 +154,39 @@ public class Accordion extends WebMarkupContainer
 		IComplexOption animate = this.options.getComplexOption("animate");
 		if (animate instanceof AccordionAnimateOption)
 		{
-			return (AccordionAnimateOption) animate;
+			return (AccordionAnimateOption)animate;
 		}
 
 		return new AccordionAnimateOption(new AccordionEffectOptionObject());
 	}
-	
-	/**
-	 * @return the heightStyle option value
-	 */
-	public HeightStyleEnum getHeightStyle()
-	{
-		String literal = this.options.getLiteral("heightStyle");
-		return literal == null ? HeightStyleEnum.CONTENT : HeightStyleEnum.valueOf(literal.toUpperCase());
-	}
-	
-	/**
-	 * Controls the height of the accordion and each panel. Possible values:
-	 * <ul>
-	 * 	<li>AUTO: All panels will be set to the height of the tallest panel.</li>
-	 * 	<li>FILL: Expand to the available height based on the accordion's parent height.</li>
-	 * 	<li>CONTENT: Each panel will be only as tall as its content.</li>
-	 * </ul>
-	 * @param heightStyle
-	 * @return
-	 */
-	public Accordion setHeightStyle(HeightStyleEnum heightStyle)
-	{
-		this.options.putLiteral("heightStyle", heightStyle.name().toLowerCase());
-		return this;
-	}
 
 	/**
-	 * Sets the {@link AccordionTriggerEvent} to use to open content.
+	 * If and how to animate changing panels.
 	 * 
-	 * @deprecated will be removed in 1.2
+	 * @param animate
+	 *            see {@link AccordionAnimateOption}
 	 * @return instance of the current component
 	 */
-	@Deprecated
-	public Accordion setTriggerEvent(AccordionTriggerEvent accordionTriggerEvent)
+	public Accordion setAnimate(AccordionAnimateOption animate)
 	{
-		return setEvent(accordionTriggerEvent);
-	}
-
-	/**
-	 * Returns the {@link AccordionTriggerEvent}.
-	 * 
-	 * @deprecated will be removed in 1.2
-	 * @see #setTriggerEvent(AccordionTriggerEvent)
-	 */
-	@Deprecated
-	public AccordionTriggerEvent getTriggerEvent()
-	{
-		return getEvent();
-	}
-
-	/**
-	 * Sets the {@link AccordionTriggerEvent} to use to open content.
-	 * 
-	 * @return instance of the current component
-	 */
-	public Accordion setEvent(AccordionTriggerEvent accordionTriggerEvent)
-	{
-		this.options.putLiteral("event", accordionTriggerEvent.name().toLowerCase());
+		this.options.put("animate", animate);
 		return this;
 	}
 
-	/**
-	 * Returns the {@link AccordionTriggerEvent}.
-	 * 
-	 * @see #setTriggerEvent(AccordionTriggerEvent)
-	 */
-	public AccordionTriggerEvent getEvent()
+	public ClassesOption getClasses()
 	{
-		String literal = this.options.getLiteral("event");
-		return literal == null ? AccordionTriggerEvent.CLICK : AccordionTriggerEvent
-			.valueOf(literal.toUpperCase());
-	}
-
-	/**
-	 * Disables (true) or enables (false) the accordion. Can be set when initialising
-	 * (first creating) the accordion.
-	 * 
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public Accordion setDisabled(boolean disabled)
-	{
-		this.options.put("disabled", disabled);
-		return this;
-	}
-
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled()
-	{
-		if (this.options.containsKey("disabled"))
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
 		{
-			return this.options.getBoolean("disabled");
+			return (ClassesOption)animate;
 		}
 
-		return false;
+		return new ClassesOption();
 	}
 
-	/**
-	 * Sets the CSS selector used to defined a header in this accordion.
-	 * 
-	 * @return instance of the current component
-	 */
-	public Accordion setHeader(AccordionHeader header)
+	public Accordion setClasses(ClassesOption classes)
 	{
-		this.options.put("header", header);
-		return this;
-	}
-
-	/**
-	 * @return the header option value
-	 */
-	public AccordionHeader getHeader()
-	{
-		IComplexOption header = this.options.getComplexOption("header");
-		if (header != null && header instanceof AccordionHeader)
-		{
-			return (AccordionHeader) header;
-		}
-
-		return new AccordionHeader(new LiteralOption("> li> :first-child, > :not(li):even"));
-	}
-
-	/**
-	 * Whether all the sections can be closed at once. Allows collapsing the active
-	 * section by the triggering event (click is the default).
-	 * 
-	 * @param collapsible
-	 */
-	public Accordion setCollapsible(boolean collapsible)
-	{
-		this.options.put("collapsible", collapsible);
+		this.options.put("classes", classes);
 		return this;
 	}
 
@@ -282,6 +204,119 @@ public class Accordion extends WebMarkupContainer
 	}
 
 	/**
+	 * Whether all the sections can be closed at once. Allows collapsing the active section by the
+	 * triggering event (click is the default).
+	 * 
+	 * @param collapsible
+	 */
+	public Accordion setCollapsible(boolean collapsible)
+	{
+		this.options.put("collapsible", collapsible);
+		return this;
+	}
+
+	/**
+	 * @return the disabled option
+	 */
+	public boolean isDisabled()
+	{
+		if (this.options.containsKey("disabled"))
+		{
+			return this.options.getBoolean("disabled");
+		}
+
+		return false;
+	}
+
+	/**
+	 * Disables (true) or enables (false) the accordion. Can be set when initialising (first
+	 * creating) the accordion.
+	 * 
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public Accordion setDisabled(boolean disabled)
+	{
+		this.options.put("disabled", disabled);
+		return this;
+	}
+
+	/**
+	 * Returns the {@link AccordionTriggerEvent}.
+	 * 
+	 * @see #setTriggerEvent(AccordionTriggerEvent)
+	 */
+	public AccordionTriggerEvent getEvent()
+	{
+		String literal = this.options.getLiteral("event");
+		return literal == null ? AccordionTriggerEvent.CLICK
+			: AccordionTriggerEvent.valueOf(literal.toUpperCase());
+	}
+
+	/**
+	 * Sets the {@link AccordionTriggerEvent} to use to open content.
+	 * 
+	 * @return instance of the current component
+	 */
+	public Accordion setEvent(AccordionTriggerEvent accordionTriggerEvent)
+	{
+		this.options.putLiteral("event", accordionTriggerEvent.name().toLowerCase());
+		return this;
+	}
+
+	/**
+	 * @return the header option value
+	 */
+	public AccordionHeader getHeader()
+	{
+		IComplexOption header = this.options.getComplexOption("header");
+		if (header != null && header instanceof AccordionHeader)
+		{
+			return (AccordionHeader)header;
+		}
+
+		return new AccordionHeader(new LiteralOption("> li> :first-child, > :not(li):even"));
+	}
+
+	/**
+	 * Sets the CSS selector used to defined a header in this accordion.
+	 * 
+	 * @return instance of the current component
+	 */
+	public Accordion setHeader(AccordionHeader header)
+	{
+		this.options.put("header", header);
+		return this;
+	}
+
+	/**
+	 * @return the heightStyle option value
+	 */
+	public HeightStyleEnum getHeightStyle()
+	{
+		String literal = this.options.getLiteral("heightStyle");
+		return literal == null ? HeightStyleEnum.CONTENT
+			: HeightStyleEnum.valueOf(literal.toUpperCase());
+	}
+
+	/**
+	 * Controls the height of the accordion and each panel. Possible values:
+	 * <ul>
+	 * <li>AUTO: All panels will be set to the height of the tallest panel.</li>
+	 * <li>FILL: Expand to the available height based on the accordion's parent height.</li>
+	 * <li>CONTENT: Each panel will be only as tall as its content.</li>
+	 * </ul>
+	 * 
+	 * @param heightStyle
+	 */
+	public Accordion setHeightStyle(HeightStyleEnum heightStyle)
+	{
+		this.options.putLiteral("heightStyle", heightStyle.name().toLowerCase());
+		return this;
+	}
+
+
+	/**
 	 * @see #setIcons(AccordionIcon)
 	 */
 	public AccordionIcon getIcons()
@@ -289,17 +324,17 @@ public class Accordion extends WebMarkupContainer
 		IComplexOption icons = this.options.getComplexOption("icons");
 		if (icons != null && icons instanceof AccordionIcon)
 		{
-			return (AccordionIcon) icons;
+			return (AccordionIcon)icons;
 		}
 
 		return new AccordionIcon("ui-icon-triangle-1-e", "ui-icon-triangle-1-s");
 	}
 
 	/**
-	 * Icons to use for headers. Icons may be specified for 'header' and 'headerSelected',
-	 * and we recommend using the icons native to the jQuery UI CSS Framework manipulated
-	 * by jQuery UI ThemeRoller Default: { 'header': 'ui-icon-triangle-1-e',
-	 * 'headerSelected': 'ui-icon-triangle-1-s' }
+	 * Icons to use for headers. Icons may be specified for 'header' and 'headerSelected', and we
+	 * recommend using the icons native to the jQuery UI CSS Framework manipulated by jQuery UI
+	 * ThemeRoller Default: { 'header': 'ui-icon-triangle-1-e', 'headerSelected':
+	 * 'ui-icon-triangle-1-s' }
 	 * 
 	 * @param icons
 	 * @return instance of the current component
@@ -336,46 +371,7 @@ public class Accordion extends WebMarkupContainer
 		setIcons(new AccordionIcon(false));
 		return this;
 	}
-	
-	/**
-	 * @return the active option value
-	 */
-	public int getActive()
-	{
-		Integer index = this.options.getInt("active");
-		if (index != null)
-		{
-			return index;
-		}
-		
-		return 0;
-	}
-	
-	/**
-	 * The zero-based index of the panel that is active (open).
-	 * A negative value selects panels going backward from the last panel.
-	 * 
-	 * @param index
-	 * @return instance of the current component
-	 */
-	public Accordion setActive(int index)
-	{
-		this.options.put("active", index);
-		return this;
-	}
-	
-	/**
-	 * Setting active to false will collapse all panels.
-	 * This requires the collapsible option to be true.
-	 * 
-	 * @param isActive
-	 * @return instance of the current component
-	 */
-	public Accordion setActive(boolean isActive)
-	{
-		this.options.put("active", isActive);
-		return this;
-	}
+
 
 	/*---- Events section ---*/
 
@@ -403,11 +399,16 @@ public class Accordion extends WebMarkupContainer
 		return this;
 	}
 
+	public Accordion setCreateEvent(JsScopeUiEvent create)
+	{
+		this.options.put("create", create);
+		return this;
+	}
+
 	/*---- Methods section ---*/
 
 	/**
-	 * Method to destroy the accordion This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the accordion This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */
@@ -465,7 +466,7 @@ public class Accordion extends WebMarkupContainer
 	{
 		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
-	
+
 	/**
 	 * Method to refresh the accordion
 	 * 

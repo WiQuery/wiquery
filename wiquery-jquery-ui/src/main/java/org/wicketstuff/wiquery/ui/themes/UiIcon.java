@@ -1,5 +1,7 @@
 package org.wicketstuff.wiquery.ui.themes;
 
+import java.util.stream.Stream;
+
 /**
  * Enumeration of all possible icons from the jQuery UI theme
  * 
@@ -9,8 +11,7 @@ package org.wicketstuff.wiquery.ui.themes;
  * @author Ernesto Reinaldo
  * 
  */
-public enum UiIcon
-{
+public enum UiIcon {
 	CARAT_1_NORTH("carat-1-n"),
 	CARAT_1_NORTH_EAST("carat-1-ne"),
 	CARAT_1_EAST("carat-1-e"),
@@ -207,5 +208,16 @@ public enum UiIcon
 	public String getCssClass()
 	{
 		return "ui-icon-" + cssClass;
+	}
+
+	public static UiIcon forCssClass(String cssClass)
+	{
+		if (cssClass == null)
+			return null;
+		
+		return Stream.of(UiIcon.values())
+			.filter(i -> i.getCssClass().equals(cssClass))
+			.findFirst()
+			.get();
 	}
 }

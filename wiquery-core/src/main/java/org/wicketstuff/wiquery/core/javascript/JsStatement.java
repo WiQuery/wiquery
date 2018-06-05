@@ -33,18 +33,17 @@ import org.wicketstuff.wiquery.core.options.Options;
 /**
  * $Id: JsStatement.java 1714M 2012-01-17 08:35:15Z (local) $
  * <p>
- * A {@link JsStatement} defines a whole executable JavaScript statement. The generator
- * eases "jQuery oriented" code, but you can still use another JavaScript coding style
- * with the {@link #append(CharSequence)} method.
+ * A {@link JsStatement} defines a whole executable JavaScript statement. The generator eases
+ * "jQuery oriented" code, but you can still use another JavaScript coding style with the
+ * {@link #append(CharSequence)} method.
  * </p>
  * <p>
- * To get a valid instance and to ease JavaScript and Wicket integration, you should use
- * the {@link JsQuery} class (example below). This class will initialize a
- * {@link JsStatement} and contribute to a {@link WebPage}.
+ * To get a valid instance and to ease JavaScript and Wicket integration, you should use the
+ * {@link JsQuery} class (example below). This class will initialize a {@link JsStatement} and
+ * contribute to a {@link WebPage}.
  * </p>
  * <p>
- * The JavaScript generating by a JsStatement is jQuery oriented. Example of generated
- * string:
+ * The JavaScript generating by a JsStatement is jQuery oriented. Example of generated string:
  * <p>
  * <code>$(".aClassName").each(function() {alert('foo');});</code>
  * </p>
@@ -56,8 +55,8 @@ import org.wicketstuff.wiquery.core.options.Options;
  * </p>
  * </p>
  * <p>
- * Any {@link JsStatement} should be returned by a {@link JsQuery} within the
- * <code>$</code> methods.
+ * Any {@link JsStatement} should be returned by a {@link JsQuery} within the <code>$</code>
+ * methods.
  * </p>
  * 
  * @author Lionel Armanet
@@ -84,8 +83,8 @@ public class JsStatement implements Serializable
 	}
 
 	/**
-	 * Appends the jQuery's <code>$</code> function to the current {@link JsStatement}.
-	 * So, we can call some special jquery fonction, like <code>$.browser</code> ...
+	 * Appends the jQuery's <code>$</code> function to the current {@link JsStatement}. So, we can
+	 * call some special jquery fonction, like <code>$.browser</code> ...
 	 * 
 	 * @return {@link JsStatement} this instance.
 	 */
@@ -115,8 +114,8 @@ public class JsStatement implements Serializable
 	}
 
 	/**
-	 * Appends the jQuery's <code>$</code> function to the current {@link JsStatement}. If
-	 * context is not null, the generated JavaScript code will be:
+	 * Appends the jQuery's <code>$</code> function to the current {@link JsStatement}. If context
+	 * is not null, the generated JavaScript code will be:
 	 * <p>
 	 * <code>$("#component.getMarkupId selector")</code>
 	 * </p>
@@ -200,8 +199,8 @@ public class JsStatement implements Serializable
 	/* utility methods */
 
 	/**
-	 * Chains a function call to this {@link JsStatement}. The function call is wrapped in
-	 * a ChainableStatement. (eases JavaScript integration).
+	 * Chains a function call to this {@link JsStatement}. The function call is wrapped in a
+	 * ChainableStatement. (eases JavaScript integration).
 	 * 
 	 * @return {@link JsStatement} this instance.
 	 * @see #chain(CharSequence, CharSequence...)
@@ -321,7 +320,6 @@ public class JsStatement implements Serializable
 	 * 
 	 * @param scope
 	 *            the {@link JsScope} to execute when jQuery is ready.
-	 * @return
 	 */
 	public JsStatement ready(JsScope scope)
 	{

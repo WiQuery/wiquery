@@ -79,8 +79,6 @@ public class WaitDialogStatements implements Serializable
 
 	/**
 	 * the open statement
-	 * 
-	 * @return
 	 */
 	public JsStatement getOpen()
 	{

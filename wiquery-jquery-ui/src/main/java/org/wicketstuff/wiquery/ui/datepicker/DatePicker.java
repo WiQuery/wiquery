@@ -33,11 +33,11 @@ import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.options.ListItemOptions;
 import org.wicketstuff.wiquery.core.options.LiteralOption;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
 import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * <p>
@@ -45,9 +45,9 @@ import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
  * </p>
  * 
  * <p>
- * By default, the datepicker calendar opens in a small overlay onFocus and closes
- * automatically onBlur or when a date if selected. For an inline calendar, simply attach
- * the datepicker to a div or span.
+ * By default, the datepicker calendar opens in a small overlay onFocus and closes automatically
+ * onBlur or when a date if selected. For an inline calendar, simply attach the datepicker to a div
+ * or span.
  * 
  * You can use keyboard shortcuts to drive the datepicker:
  * <ul>
@@ -73,11 +73,8 @@ public class DatePicker<T> extends TextField<T>
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum ShowOnEnum
-	{
-		BOTH,
-		BUTTON,
-		FOCUS;
+	public enum ShowOnEnum {
+		BOTH, BUTTON, FOCUS;
 	}
 
 	// Constants
@@ -153,17 +150,13 @@ public class DatePicker<T> extends TextField<T>
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(DatePickerJavaScriptResourceReference
-			.get()));
-
-		DatePickerLanguageResourceReference dpl =
-			DatePickerLanguageResourceReference.get(getLocale());
-		if (dpl != null)
-			response.render(JavaScriptHeaderItem.forReference(dpl));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this).$()
-			.chain("datepicker", options.getOptions().getJavaScriptOptions()).render().toString()));
+			.chain("datepicker", options.getOptions().getJavaScriptOptions())
+			.render()
+			.toString()));
 	}
 
 	/**
@@ -179,9 +172,17 @@ public class DatePicker<T> extends TextField<T>
 	/*---- Options section ---*/
 
 	/**
-	 * The jQuery selector for another field that is to be updated with the selected date
-	 * from the datepicker. Use the altFormat setting below to change the format of the
-	 * date within this field. Leave as blank for no alternate field.
+	 * @return the altField option value
+	 */
+	public String getAltField()
+	{
+		return options.getAltField();
+	}
+
+	/**
+	 * The jQuery selector for another field that is to be updated with the selected date from the
+	 * datepicker. Use the altFormat setting below to change the format of the date within this
+	 * field. Leave as blank for no alternate field.
 	 * 
 	 * @param altField
 	 * @return instance of the current component
@@ -193,17 +194,16 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * @return the altField option value
+	 * @return the altFormat option value
 	 */
-	public String getAltField()
+	public String getAltFormat()
 	{
-		return options.getAltField();
+		return options.getAltFormat();
 	}
 
 	/**
-	 * The dateFormat to be used for the altField option. This allows one date format to
-	 * be shown to the user for selection purposes, while a different format is actually
-	 * sent behind the scenes.
+	 * The dateFormat to be used for the altField option. This allows one date format to be shown to
+	 * the user for selection purposes, while a different format is actually sent behind the scenes.
 	 * 
 	 * The format can be combinations of the following:
 	 * <ul>
@@ -235,11 +235,11 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * @return the altFormat option value
+	 * @return the appendText option value
 	 */
-	public String getAltFormat()
+	public String getAppendText()
 	{
-		return options.getAltFormat();
+		return options.getAppendText();
 	}
 
 	/**
@@ -255,26 +255,6 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * @return the appendText option value
-	 */
-	public String getAppendText()
-	{
-		return options.getAppendText();
-	}
-
-	/**
-	 * Set to true to automatically resize the input field to accomodate dates in the
-	 * current dateFormat.
-	 * 
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setAutoSize(boolean autoSize)
-	{
-		options.setAutoSize(autoSize);
-		return this;
-	}
-
-	/**
 	 * @return the autoSize option
 	 */
 	public boolean isAutoSize()
@@ -283,15 +263,14 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Set's URL for the popup button image. If set, button text becomes the alt value and
-	 * is not directly displayed.
+	 * Set to true to automatically resize the input field to accomodate dates in the current
+	 * dateFormat.
 	 * 
-	 * @param buttonImage
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setButtonImage(String buttonImage)
+	public DatePicker<T> setAutoSize(boolean autoSize)
 	{
-		this.options.setButtonImage(buttonImage);
+		options.setAutoSize(autoSize);
 		return this;
 	}
 
@@ -304,15 +283,15 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Set to true to place an image after the field to use as the trigger without it
-	 * appearing on a button.
+	 * Set's URL for the popup button image. If set, button text becomes the alt value and is not
+	 * directly displayed.
 	 * 
-	 * @param buttonImageOnly
+	 * @param buttonImage
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setButtonImageOnly(boolean buttonImageOnly)
+	public DatePicker<T> setButtonImage(String buttonImage)
 	{
-		options.setButtonImageOnly(buttonImageOnly);
+		this.options.setButtonImage(buttonImage);
 		return this;
 	}
 
@@ -325,15 +304,15 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Set's the text to display on the trigger button. Use in conjunction with showOn
-	 * equal to 'button' or 'both'.
+	 * Set to true to place an image after the field to use as the trigger without it appearing on a
+	 * button.
 	 * 
-	 * @param buttonText
+	 * @param buttonImageOnly
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setButtonText(String buttonText)
+	public DatePicker<T> setButtonImageOnly(boolean buttonImageOnly)
 	{
-		this.options.setButtonText(buttonText);
+		options.setButtonImageOnly(buttonImageOnly);
 		return this;
 	}
 
@@ -346,9 +325,23 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * A function to calculate the week of the year for a given date. The default
-	 * implementation uses the ISO 8601 definition: weeks start on a Monday; the first
-	 * week of the year contains the first Thursday of the year.
+	 * Set's the text to display on the trigger button. Use in conjunction with showOn equal to
+	 * 'button' or 'both'.
+	 * 
+	 * @param buttonText
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setButtonText(String buttonText)
+	{
+		this.options.setButtonText(buttonText);
+		return this;
+	}
+
+
+	/**
+	 * A function to calculate the week of the year for a given date. The default implementation
+	 * uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains
+	 * the first Thursday of the year.
 	 * 
 	 * Default: $.datepicker.iso8601Week
 	 * 
@@ -359,6 +352,15 @@ public class DatePicker<T> extends TextField<T>
 	{
 		this.options.setCalculateWeek(calculateWeek);
 		return this;
+	}
+
+
+	/**
+	 * Returns true if the date's month is selectable in a drop down list, returns false otherwise.
+	 */
+	public boolean isChangeMonth()
+	{
+		return options.isChangeMonth();
 	}
 
 	/**
@@ -373,76 +375,11 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Returns true if the date's month is selectable in a drop down list, returns false
-	 * otherwise.
+	 * Returns true if the date's year is selectable in a drop down list, returns false otherwise.
 	 */
-	public boolean isChangeMonth()
+	public boolean isChangeYear()
 	{
-		return options.isChangeMonth();
-	}
-
-	/**
-	 * The text to display for the week of the year column heading. This attribute is one
-	 * of the regionalisation attributes. Use showWeek to display this column.
-	 * 
-	 * @param weekHeader
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setWeekHeader(String weekHeader)
-	{
-		this.options.setWeekHeader(weekHeader);
-		return this;
-	}
-
-	/**
-	 * @return the weekHeader option value
-	 */
-	public String getWeekHeader()
-	{
-		return options.getWeekHeader();
-	}
-
-	/**
-	 * Sets the selectable year range. This range can either be defined by a start year
-	 * and an end year (like 2001 to 2010), or it can be defined relatively to the today's
-	 * date (like current-10 to current+10).
-	 * 
-	 * @param yearRange
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setYearRange(DatePickerYearRange yearRange)
-	{
-		options.setYearRange(yearRange);
-		return this;
-	}
-
-	/**
-	 * @return the year range valu option
-	 */
-	public DatePickerYearRange getYearRange()
-	{
-		return options.getYearRange();
-	}
-
-	/**
-	 * Additional text to display after the year in the month headers. This attribute is
-	 * one of the regionalisation attributes.
-	 * 
-	 * @param yearSuffix
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setYearSuffix(String yearSuffix)
-	{
-		this.options.setYearSuffix(yearSuffix);
-		return this;
-	}
-
-	/**
-	 * @return the yearSuffix option value
-	 */
-	public String getYearSuffix()
-	{
-		return options.getYearSuffix();
+		return options.isChangeYear();
 	}
 
 	/**
@@ -457,17 +394,16 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Returns true if the date's year is selectable in a drop down list, returns false
-	 * otherwise.
+	 * @return the closeText option value
 	 */
-	public boolean isChangeYear()
+	public String getCloseText()
 	{
-		return options.isChangeYear();
+		return options.getCloseText();
 	}
 
 	/**
-	 * Set's the text to display for the close link. This attribute is one of the
-	 * regionalisation attributes. Use the showButtonPanel to display this button.
+	 * Set's the text to display for the close link. This attribute is one of the regionalisation
+	 * attributes. Use the showButtonPanel to display this button.
 	 * 
 	 * @param closeText
 	 * @return instance of the current component
@@ -479,11 +415,11 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * @return the closeText option value
+	 * @return the buttonImageOnly option value
 	 */
-	public String getCloseText()
+	public boolean isConstrainInput()
 	{
-		return options.getCloseText();
+		return options.isConstrainInput();
 	}
 
 	/**
@@ -499,11 +435,11 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * @return the buttonImageOnly option value
+	 * @return the currentText option value
 	 */
-	public boolean isConstrainInput()
+	public String getCurrentText()
 	{
-		return options.isConstrainInput();
+		return options.getCurrentText();
 	}
 
 	/**
@@ -520,491 +456,11 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * @return the currentText option value
+	 * Returns the ISO date format to use.
 	 */
-	public String getCurrentText()
+	public String getDateFormat()
 	{
-		return options.getCurrentText();
-	}
-
-	/**
-	 * Sets the calendar's starting day. 0 is for sunday, 1 for monday ...
-	 * 
-	 * @param firstDay
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setFirstDay(short firstDay)
-	{
-		options.setFirstDay(firstDay);
-		return this;
-	}
-
-	/**
-	 * Returns the calendar's starting day.
-	 */
-	public short getFirstDay()
-	{
-		return options.getFirstDay();
-	}
-
-	/**
-	 * If true, the current day link moves to the currently selected date instead of
-	 * today.
-	 * 
-	 * @param gotoCurrent
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setGotoCurrent(boolean gotoCurrent)
-	{
-		options.setGotoCurrent(gotoCurrent);
-		return this;
-	}
-
-	/**
-	 * @return the gotoCurrent option value
-	 */
-	public boolean isGotoCurrent()
-	{
-		return options.isGotoCurrent();
-	}
-
-	/**
-	 * Normally the previous and next links are disabled when not applicable (see
-	 * minDate/maxDate). You can hide them altogether by setting this attribute to true.
-	 * 
-	 * @param hideIfNoPrevNext
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setHideIfNoPrevNext(boolean hideIfNoPrevNext)
-	{
-		options.setHideIfNoPrevNext(hideIfNoPrevNext);
-		return this;
-	}
-
-	/**
-	 * @return the hideIfNoPrevNext option value
-	 */
-	public boolean isHideIfNoPrevNext()
-	{
-		return options.isHideIfNoPrevNext();
-	}
-
-	/**
-	 * True if the current language is drawn from right to left. This attribute is one of
-	 * the regionalisation attributes.
-	 * 
-	 * @param isRTL
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setIsRTL(boolean isRTL)
-	{
-		options.setIsRTL(isRTL);
-		return this;
-	}
-
-	/**
-	 * @return the isRTL option value
-	 */
-	public boolean isIsRTL()
-	{
-		return options.isIsRTL();
-	}
-
-	/**
-	 * Set a maximum selectable date via a Date object, or a number of days from today
-	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for
-	 * weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
-	 * 
-	 * @param maxDate
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setMaxDate(DateOption maxDate)
-	{
-		options.setMaxDate(maxDate);
-		return this;
-	}
-
-	/**
-	 * @return the maxDate option value
-	 */
-	public DateOption getMaxDate()
-	{
-		return options.getMaxDate();
-	}
-
-	/**
-	 * Set a minimum selectable date via a Date object, or a number of days from today
-	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for
-	 * weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
-	 * 
-	 * @param minDate
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setMinDate(DateOption minDate)
-	{
-		options.setMinDate(minDate);
-		return this;
-	}
-
-	/**
-	 * @return the minDate option value
-	 */
-	public DateOption getMinDate()
-	{
-		return options.getMinDate();
-	}
-
-	/**
-	 * Set's the list of full month names, as used in the month header on each datepicker
-	 * and as requested via the dateFormat setting. This attribute is one of the
-	 * regionalisation attributes.
-	 * 
-	 * @param monthNames
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setMonthNames(ArrayOfMonthNames monthNames)
-	{
-		options.setMonthNames(monthNames);
-		return this;
-	}
-
-	/**
-	 * @return the monthNames option value
-	 */
-	public ArrayOfMonthNames getMonthNames()
-	{
-		return options.getMonthNames();
-	}
-
-	/**
-	 * Set's the list of abbreviated month names, for use as requested via the dateFormat
-	 * setting. This attribute is one of the regionalisation attributes.
-	 * 
-	 * @param monthNamesShort
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setMonthNamesShort(ArrayOfMonthNames monthNamesShort)
-	{
-		options.setMonthNamesShort(monthNamesShort);
-		return this;
-	}
-
-	/**
-	 * @return the monthNames option value
-	 */
-	public ArrayOfMonthNames getMonthNamesShort()
-	{
-		return options.getMonthNamesShort();
-	}
-
-	/**
-	 * When true the formatDate function is applied to the prevText, nextText, and
-	 * currentText values before display, allowing them to display the target month names
-	 * for example.
-	 * 
-	 * @param navigationAsDateFormat
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setNavigationAsDateFormat(boolean navigationAsDateFormat)
-	{
-		options.setNavigationAsDateFormat(navigationAsDateFormat);
-		return this;
-	}
-
-	/**
-	 * @return the navigationAsDateFormat option value
-	 */
-	public boolean isNavigationAsDateFormat()
-	{
-		return options.isNavigationAsDateFormat();
-	}
-
-	/**
-	 * Set's the text to display for the next month link. This attribute is one of the
-	 * regionalisation attributes. With the standard ThemeRoller styling, this value is
-	 * replaced by an icon.
-	 * 
-	 * @param nextText
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setNextText(String nextText)
-	{
-		this.options.setNextText(nextText);
-		return this;
-	}
-
-	/**
-	 * @return the nextText option value
-	 */
-	public String getNextText()
-	{
-		return options.getNextText();
-	}
-
-	/**
-	 * Sets if the next/previous months are showed in the calendar.
-	 * 
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShowOtherMonths(boolean showOtherMonths)
-	{
-		options.setShowOtherMonths(showOtherMonths);
-		return this;
-	}
-
-	/**
-	 * Returns if the next/previous months are showed in the calendar.
-	 */
-	public boolean isShowOtherMonths()
-	{
-		return options.isShowOtherMonths();
-	}
-
-	/**
-	 * Sets the number of months displayed on the date picker.
-	 * 
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths)
-	{
-		options.setNumberOfMonths(numberOfMonths);
-		return this;
-	}
-
-	/**
-	 * Returns the number of months displayed on the date picker.
-	 */
-	public DatePickerNumberOfMonths getNumberOfMonths()
-	{
-		return options.getNumberOfMonths();
-	}
-
-	/**
-	 * Set's the text to display for the previous month link. This attribute is one of the
-	 * regionalisation attributes. With the standard ThemeRoller styling, this value is
-	 * replaced by an icon.
-	 * 
-	 * @param prevText
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setPrevText(String prevText)
-	{
-		this.options.setPrevText(prevText);
-		return this;
-	}
-
-	/**
-	 * @return the prevText option value
-	 */
-	public String getPrevText()
-	{
-		return options.getPrevText();
-	}
-
-	/**
-	 * When true days in other months shown before or after the current month are
-	 * selectable. This only applies if showOtherMonths is also true.
-	 * 
-	 * @param selectOtherMonths
-	 * @return instance of the current behavior
-	 */
-	public DatePicker<T> setSelectOtherMonths(boolean selectOtherMonths)
-	{
-		this.options.setSelectOtherMonths(selectOtherMonths);
-		return this;
-	}
-
-	/**
-	 * @return the selectOtherMonths option
-	 */
-	public boolean isSelectOtherMonths()
-	{
-		return options.isSelectOtherMonths();
-	}
-
-	/**
-	 * Set the cutoff year for determining the century for a date
-	 * 
-	 * @param shortYearCutoff
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff)
-	{
-		options.setShortYearCutoff(shortYearCutoff);
-		return this;
-	}
-
-	/**
-	 * Returns the shortYearCutoff option value.
-	 */
-	public DatePickerShortYearCutOff getShortYearCutoff()
-	{
-		return options.getShortYearCutoff();
-	}
-
-	/**
-	 * Set the name of the animation used to show/hide the datepicker. Use 'show' (the
-	 * default), 'slideDown', 'fadeIn', or any of the show/hide jQuery UI effects
-	 * 
-	 * @param showAnim
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShowAnim(String showAnim)
-	{
-		this.options.setShowAnim(showAnim);
-		return this;
-	}
-
-	/**
-	 * @return the showAnim option value
-	 */
-	public String getShowAnim()
-	{
-		return options.getShowAnim();
-	}
-
-	/**
-	 * Whether to show the button panel.
-	 * 
-	 * @param showButtonPanel
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShowButtonPanel(boolean showButtonPanel)
-	{
-		options.setShowButtonPanel(showButtonPanel);
-		return this;
-	}
-
-	/**
-	 * @return the showButtonPanel option value
-	 */
-	public boolean isShowButtonPanel()
-	{
-		return options.isShowButtonPanel();
-	}
-
-	/**
-	 * Specify where in a multi-month display the current month shows, starting from 0 at
-	 * the top/left.
-	 * 
-	 * @param showCurrentAtPos
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShowCurrentAtPos(short showCurrentAtPos)
-	{
-		options.setShowCurrentAtPos(showCurrentAtPos);
-		return this;
-	}
-
-	/**
-	 * @return the showCurrentAtPos option value
-	 */
-	public short getShowCurrentAtPos()
-	{
-		return options.getShowCurrentAtPos();
-	}
-
-	/**
-	 * Whether to show the month after the year in the header.
-	 * 
-	 * @param showMonthAfterYear
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShowMonthAfterYear(boolean showMonthAfterYear)
-	{
-		options.setShowMonthAfterYear(showMonthAfterYear);
-		return this;
-	}
-
-	/**
-	 * @return the showMonthAfterYear option value
-	 */
-	public boolean isShowMonthAfterYear()
-	{
-		return options.isShowMonthAfterYear();
-	}
-
-	/**
-	 * Have the datepicker appear automatically when the field receives focus ('focus'),
-	 * appear only when a button is clicked ('button'), or appear when either event takes
-	 * place ('both').
-	 * 
-	 * @param showOn
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShowOn(ShowOnEnum showOn)
-	{
-		options.setShowOn(showOn);
-		return this;
-	}
-
-	/**
-	 * @return the showOn option value
-	 */
-	public ShowOnEnum getShowOn()
-	{
-		return options.getShowOn();
-	}
-
-	/**
-	 * If using one of the jQuery UI effects for showAnim, you can provide additional
-	 * settings for that animation via this option.
-	 * 
-	 * @param showOptions
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShowOptions(ListItemOptions<LiteralOption> showOptions)
-	{
-		options.setShowOptions(showOptions);
-		return this;
-	}
-
-	/**
-	 * @return the showOptions option value
-	 */
-	public ListItemOptions<LiteralOption> getShowOptions()
-	{
-		return options.getShowOptions();
-	}
-
-	/**
-	 * When true a column is added to show the week of the year. The calculateWeek option
-	 * determines how the week of the year is calculated. You may also want to change the
-	 * firstDay option.
-	 * 
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setShowWeek(boolean showWeek)
-	{
-		options.setShowWeek(showWeek);
-		return this;
-	}
-
-	/**
-	 * @return the showWeek option
-	 */
-	public boolean isShowWeek()
-	{
-		return options.isShowWeek();
-	}
-
-	/**
-	 * Sets the number of months stepped when the next/previous button are hit.
-	 * 
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setStepMonths(short stepMonths)
-	{
-		options.setStepMonths(stepMonths);
-		return this;
-	}
-
-	/**
-	 * Returns the number of months stepped when the next/previous button are hit.
-	 */
-	public short getStepMonths()
-	{
-		return options.getStepMonths();
+		return options.getDateFormat();
 	}
 
 	/**
@@ -1039,29 +495,6 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Returns the ISO date format to use.
-	 */
-	public String getDateFormat()
-	{
-		return options.getDateFormat();
-	}
-
-	/**
-	 * Set's the list of long day names, starting from Sunday, for use as requested via
-	 * the dateFormat setting. They also appear as popup hints when hovering over the
-	 * corresponding column headings. This attribute is one of the regionalisation
-	 * attributes.
-	 * 
-	 * @param dayNames
-	 * @return instance of the current component
-	 */
-	public DatePicker<T> setDayNames(ArrayOfDayNames dayNames)
-	{
-		options.setDayNames(dayNames);
-		return this;
-	}
-
-	/**
 	 * @return the dayNames option value
 	 */
 	public ArrayOfDayNames getDayNames()
@@ -1070,16 +503,16 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Set's the list of minimised day names, starting from Sunday, for use as column
-	 * headers within the datepicker. This attribute is one of the regionalisation
-	 * attributes.
+	 * Set's the list of long day names, starting from Sunday, for use as requested via the
+	 * dateFormat setting. They also appear as popup hints when hovering over the corresponding
+	 * column headings. This attribute is one of the regionalisation attributes.
 	 * 
-	 * @param dayNamesMin
+	 * @param dayNames
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setDayNamesMin(ArrayOfDayNames dayNamesMin)
+	public DatePicker<T> setDayNames(ArrayOfDayNames dayNames)
 	{
-		options.setDayNamesMin(dayNamesMin);
+		options.setDayNames(dayNames);
 		return this;
 	}
 
@@ -1092,16 +525,15 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Set's the list of abbreviated day names, starting from Sunday, for use as requested
-	 * via the dateFormat setting. This attribute is one of the regionalisation
-	 * attributes.
+	 * Set's the list of minimised day names, starting from Sunday, for use as column headers within
+	 * the datepicker. This attribute is one of the regionalisation attributes.
 	 * 
-	 * @param dayNamesShort
+	 * @param dayNamesMin
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setDayNamesShort(ArrayOfDayNames dayNamesShort)
+	public DatePicker<T> setDayNamesMin(ArrayOfDayNames dayNamesMin)
 	{
-		options.setDayNamesShort(dayNamesShort);
+		options.setDayNamesMin(dayNamesMin);
 		return this;
 	}
 
@@ -1114,17 +546,15 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Set the date to highlight on first opening if the field is blank. Specify either an
-	 * actual date via a Date object, or a number of days from today (e.g. +7) or a string
-	 * of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
-	 * e.g. '+1m +7d'), or null for today.
+	 * Set's the list of abbreviated day names, starting from Sunday, for use as requested via the
+	 * dateFormat setting. This attribute is one of the regionalisation attributes.
 	 * 
-	 * @param defaultDate
+	 * @param dayNamesShort
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setDefaultDate(DateOption defaultDate)
+	public DatePicker<T> setDayNamesShort(ArrayOfDayNames dayNamesShort)
 	{
-		options.setDefaultDate(defaultDate);
+		options.setDayNamesShort(dayNamesShort);
 		return this;
 	}
 
@@ -1137,16 +567,17 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Control the speed at which the datepicker appears, it may be a time in
-	 * milliseconds, a string representing one of the three predefined speeds ("slow",
-	 * "normal", "fast"), or '' for immediately.
+	 * Set the date to highlight on first opening if the field is blank. Specify either an actual
+	 * date via a Date object, or a number of days from today (e.g. +7) or a string of values and
+	 * periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null
+	 * for today.
 	 * 
-	 * @param duration
+	 * @param defaultDate
 	 * @return instance of the current component
 	 */
-	public DatePicker<T> setDuration(DatePickerDuration duration)
+	public DatePicker<T> setDefaultDate(DateOption defaultDate)
 	{
-		options.setDuration(duration);
+		options.setDefaultDate(defaultDate);
 		return this;
 	}
 
@@ -1159,8 +590,563 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Disables (true) or enables (false) the datepicker. Can be set when initialising
-	 * (first creating) the datepicker.
+	 * Control the speed at which the datepicker appears, it may be a time in milliseconds, a string
+	 * representing one of the three predefined speeds ("slow", "normal", "fast"), or '' for
+	 * immediately.
+	 * 
+	 * @param duration
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setDuration(DatePickerDuration duration)
+	{
+		options.setDuration(duration);
+		return this;
+	}
+
+	/**
+	 * Returns the calendar's starting day.
+	 */
+	public short getFirstDay()
+	{
+		return options.getFirstDay();
+	}
+
+	/**
+	 * Sets the calendar's starting day. 0 is for sunday, 1 for monday ...
+	 * 
+	 * @param firstDay
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setFirstDay(short firstDay)
+	{
+		options.setFirstDay(firstDay);
+		return this;
+	}
+
+	/**
+	 * @return the gotoCurrent option value
+	 */
+	public boolean isGotoCurrent()
+	{
+		return options.isGotoCurrent();
+	}
+
+	/**
+	 * If true, the current day link moves to the currently selected date instead of today.
+	 * 
+	 * @param gotoCurrent
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setGotoCurrent(boolean gotoCurrent)
+	{
+		options.setGotoCurrent(gotoCurrent);
+		return this;
+	}
+
+	/**
+	 * @return the hideIfNoPrevNext option value
+	 */
+	public boolean isHideIfNoPrevNext()
+	{
+		return options.isHideIfNoPrevNext();
+	}
+
+	/**
+	 * Normally the previous and next links are disabled when not applicable (see minDate/maxDate).
+	 * You can hide them altogether by setting this attribute to true.
+	 * 
+	 * @param hideIfNoPrevNext
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setHideIfNoPrevNext(boolean hideIfNoPrevNext)
+	{
+		options.setHideIfNoPrevNext(hideIfNoPrevNext);
+		return this;
+	}
+
+	/**
+	 * @return the isRTL option value
+	 */
+	public boolean isIsRTL()
+	{
+		return options.isIsRTL();
+	}
+
+	/**
+	 * True if the current language is drawn from right to left. This attribute is one of the
+	 * regionalisation attributes.
+	 * 
+	 * @param isRTL
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setIsRTL(boolean isRTL)
+	{
+		options.setIsRTL(isRTL);
+		return this;
+	}
+
+	/**
+	 * @return the maxDate option value
+	 */
+	public DateOption getMaxDate()
+	{
+		return options.getMaxDate();
+	}
+
+	/**
+	 * Set a maximum selectable date via a Date object, or a number of days from today (e.g. +7) or
+	 * a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
+	 * e.g. '+1m +1w'), or null for no limit.
+	 * 
+	 * @param maxDate
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setMaxDate(DateOption maxDate)
+	{
+		options.setMaxDate(maxDate);
+		return this;
+	}
+
+	/**
+	 * @return the minDate option value
+	 */
+	public DateOption getMinDate()
+	{
+		return options.getMinDate();
+	}
+
+	/**
+	 * Set a minimum selectable date via a Date object, or a number of days from today (e.g. +7) or
+	 * a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
+	 * e.g. '+1m +1w'), or null for no limit.
+	 * 
+	 * @param minDate
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setMinDate(DateOption minDate)
+	{
+		options.setMinDate(minDate);
+		return this;
+	}
+
+	/**
+	 * @return the monthNames option value
+	 */
+	public ArrayOfMonthNames getMonthNames()
+	{
+		return options.getMonthNames();
+	}
+
+	/**
+	 * Set's the list of full month names, as used in the month header on each datepicker and as
+	 * requested via the dateFormat setting. This attribute is one of the regionalisation
+	 * attributes.
+	 * 
+	 * @param monthNames
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setMonthNames(ArrayOfMonthNames monthNames)
+	{
+		options.setMonthNames(monthNames);
+		return this;
+	}
+
+	/**
+	 * @return the monthNames option value
+	 */
+	public ArrayOfMonthNames getMonthNamesShort()
+	{
+		return options.getMonthNamesShort();
+	}
+
+	/**
+	 * Set's the list of abbreviated month names, for use as requested via the dateFormat setting.
+	 * This attribute is one of the regionalisation attributes.
+	 * 
+	 * @param monthNamesShort
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setMonthNamesShort(ArrayOfMonthNames monthNamesShort)
+	{
+		options.setMonthNamesShort(monthNamesShort);
+		return this;
+	}
+
+	/**
+	 * @return the navigationAsDateFormat option value
+	 */
+	public boolean isNavigationAsDateFormat()
+	{
+		return options.isNavigationAsDateFormat();
+	}
+
+	/**
+	 * When true the formatDate function is applied to the prevText, nextText, and currentText
+	 * values before display, allowing them to display the target month names for example.
+	 * 
+	 * @param navigationAsDateFormat
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setNavigationAsDateFormat(boolean navigationAsDateFormat)
+	{
+		options.setNavigationAsDateFormat(navigationAsDateFormat);
+		return this;
+	}
+
+	/**
+	 * @return the nextText option value
+	 */
+	public String getNextText()
+	{
+		return options.getNextText();
+	}
+
+	/**
+	 * Set's the text to display for the next month link. This attribute is one of the
+	 * regionalisation attributes. With the standard ThemeRoller styling, this value is replaced by
+	 * an icon.
+	 * 
+	 * @param nextText
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setNextText(String nextText)
+	{
+		this.options.setNextText(nextText);
+		return this;
+	}
+
+	/**
+	 * Returns the number of months displayed on the date picker.
+	 */
+	public DatePickerNumberOfMonths getNumberOfMonths()
+	{
+		return options.getNumberOfMonths();
+	}
+
+	/**
+	 * Sets the number of months displayed on the date picker.
+	 * 
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths)
+	{
+		options.setNumberOfMonths(numberOfMonths);
+		return this;
+	}
+
+	/**
+	 * @return the prevText option value
+	 */
+	public String getPrevText()
+	{
+		return options.getPrevText();
+	}
+
+	/**
+	 * Set's the text to display for the previous month link. This attribute is one of the
+	 * regionalisation attributes. With the standard ThemeRoller styling, this value is replaced by
+	 * an icon.
+	 * 
+	 * @param prevText
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setPrevText(String prevText)
+	{
+		this.options.setPrevText(prevText);
+		return this;
+	}
+
+	/**
+	 * @return the selectOtherMonths option
+	 */
+	public boolean isSelectOtherMonths()
+	{
+		return options.isSelectOtherMonths();
+	}
+
+	/**
+	 * When true days in other months shown before or after the current month are selectable. This
+	 * only applies if showOtherMonths is also true.
+	 * 
+	 * @param selectOtherMonths
+	 * @return instance of the current behavior
+	 */
+	public DatePicker<T> setSelectOtherMonths(boolean selectOtherMonths)
+	{
+		this.options.setSelectOtherMonths(selectOtherMonths);
+		return this;
+	}
+
+	/**
+	 * Returns the shortYearCutoff option value.
+	 */
+	public DatePickerShortYearCutOff getShortYearCutoff()
+	{
+		return options.getShortYearCutoff();
+	}
+
+	/**
+	 * Set the cutoff year for determining the century for a date
+	 * 
+	 * @param shortYearCutoff
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff)
+	{
+		options.setShortYearCutoff(shortYearCutoff);
+		return this;
+	}
+
+	/**
+	 * @return the showAnim option value
+	 */
+	public String getShowAnim()
+	{
+		return options.getShowAnim();
+	}
+
+	/**
+	 * Set the name of the animation used to show/hide the datepicker. Use 'show' (the default),
+	 * 'slideDown', 'fadeIn', or any of the show/hide jQuery UI effects
+	 * 
+	 * @param showAnim
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowAnim(String showAnim)
+	{
+		this.options.setShowAnim(showAnim);
+		return this;
+	}
+
+	/**
+	 * @return the showButtonPanel option value
+	 */
+	public boolean isShowButtonPanel()
+	{
+		return options.isShowButtonPanel();
+	}
+
+	/**
+	 * Whether to show the button panel.
+	 * 
+	 * @param showButtonPanel
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowButtonPanel(boolean showButtonPanel)
+	{
+		options.setShowButtonPanel(showButtonPanel);
+		return this;
+	}
+
+	/**
+	 * @return the showCurrentAtPos option value
+	 */
+	public short getShowCurrentAtPos()
+	{
+		return options.getShowCurrentAtPos();
+	}
+
+	/**
+	 * Specify where in a multi-month display the current month shows, starting from 0 at the
+	 * top/left.
+	 * 
+	 * @param showCurrentAtPos
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowCurrentAtPos(short showCurrentAtPos)
+	{
+		options.setShowCurrentAtPos(showCurrentAtPos);
+		return this;
+	}
+
+	/**
+	 * @return the showMonthAfterYear option value
+	 */
+	public boolean isShowMonthAfterYear()
+	{
+		return options.isShowMonthAfterYear();
+	}
+
+	/**
+	 * Whether to show the month after the year in the header.
+	 * 
+	 * @param showMonthAfterYear
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowMonthAfterYear(boolean showMonthAfterYear)
+	{
+		options.setShowMonthAfterYear(showMonthAfterYear);
+		return this;
+	}
+
+	/**
+	 * @return the showOn option value
+	 */
+	public ShowOnEnum getShowOn()
+	{
+		return options.getShowOn();
+	}
+
+	/**
+	 * Have the datepicker appear automatically when the field receives focus ('focus'), appear only
+	 * when a button is clicked ('button'), or appear when either event takes place ('both').
+	 * 
+	 * @param showOn
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowOn(ShowOnEnum showOn)
+	{
+		options.setShowOn(showOn);
+		return this;
+	}
+
+	/**
+	 * @return the showOptions option value
+	 */
+	public ListItemOptions<LiteralOption> getShowOptions()
+	{
+		return options.getShowOptions();
+	}
+
+	/**
+	 * If using one of the jQuery UI effects for showAnim, you can provide additional settings for
+	 * that animation via this option.
+	 * 
+	 * @param showOptions
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowOptions(ListItemOptions<LiteralOption> showOptions)
+	{
+		options.setShowOptions(showOptions);
+		return this;
+	}
+
+	/**
+	 * Returns if the next/previous months are showed in the calendar.
+	 */
+	public boolean isShowOtherMonths()
+	{
+		return options.isShowOtherMonths();
+	}
+
+	/**
+	 * Sets if the next/previous months are showed in the calendar.
+	 * 
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowOtherMonths(boolean showOtherMonths)
+	{
+		options.setShowOtherMonths(showOtherMonths);
+		return this;
+	}
+
+	/**
+	 * @return the showWeek option
+	 */
+	public boolean isShowWeek()
+	{
+		return options.isShowWeek();
+	}
+
+	/**
+	 * When true a column is added to show the week of the year. The calculateWeek option determines
+	 * how the week of the year is calculated. You may also want to change the firstDay option.
+	 * 
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setShowWeek(boolean showWeek)
+	{
+		options.setShowWeek(showWeek);
+		return this;
+	}
+
+	/**
+	 * Returns the number of months stepped when the next/previous button are hit.
+	 */
+	public short getStepMonths()
+	{
+		return options.getStepMonths();
+	}
+
+	/**
+	 * Sets the number of months stepped when the next/previous button are hit.
+	 * 
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setStepMonths(short stepMonths)
+	{
+		options.setStepMonths(stepMonths);
+		return this;
+	}
+
+
+	/**
+	 * @return the weekHeader option value
+	 */
+	public String getWeekHeader()
+	{
+		return options.getWeekHeader();
+	}
+
+	/**
+	 * The text to display for the week of the year column heading. This attribute is one of the
+	 * regionalisation attributes. Use showWeek to display this column.
+	 * 
+	 * @param weekHeader
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setWeekHeader(String weekHeader)
+	{
+		this.options.setWeekHeader(weekHeader);
+		return this;
+	}
+
+	/**
+	 * @return the year range valu option
+	 */
+	public DatePickerYearRange getYearRange()
+	{
+		return options.getYearRange();
+	}
+
+	/**
+	 * Sets the selectable year range. This range can either be defined by a start year and an end
+	 * year (like 2001 to 2010), or it can be defined relatively to the today's date (like
+	 * current-10 to current+10).
+	 * 
+	 * @param yearRange
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setYearRange(DatePickerYearRange yearRange)
+	{
+		options.setYearRange(yearRange);
+		return this;
+	}
+
+	/**
+	 * @return the yearSuffix option value
+	 */
+	public String getYearSuffix()
+	{
+		return options.getYearSuffix();
+	}
+
+	/**
+	 * Additional text to display after the year in the month headers. This attribute is one of the
+	 * regionalisation attributes.
+	 * 
+	 * @param yearSuffix
+	 * @return instance of the current component
+	 */
+	public DatePicker<T> setYearSuffix(String yearSuffix)
+	{
+		this.options.setYearSuffix(yearSuffix);
+		return this;
+	}
+
+	/**
+	 * Disables (true) or enables (false) the datepicker. Can be set when initialising (first
+	 * creating) the datepicker.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -1195,9 +1181,9 @@ public class DatePicker<T> extends TextField<T>
 
 	/**
 	 * The function takes a date as a parameter and must return an array with [0] equal to
-	 * true/false indicating whether or not this date is selectable, [1] equal to a CSS
-	 * class name(s) or '' for the default presentation and [2] an optional popup tooltip
-	 * for this date. It is called for each day in the datepicker before is it displayed.
+	 * true/false indicating whether or not this date is selectable, [1] equal to a CSS class
+	 * name(s) or '' for the default presentation and [2] an optional popup tooltip for this date.
+	 * It is called for each day in the datepicker before is it displayed.
 	 * 
 	 * @param beforeShowDay
 	 * @return instance of the current component
@@ -1209,24 +1195,24 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker moves to a new month and/or
-	 * year. The function receives the selected year, month (1-12), and the datepicker
-	 * instance as parameters. this refers to the associated input field.
+	 * Allows you to define your own event when the datepicker moves to a new month and/or year. The
+	 * function receives the selected year, month (1-12), and the datepicker instance as parameters.
+	 * this refers to the associated input field.
 	 * 
 	 * @param onChangeMonthYear
 	 * @return instance of the current component
 	 */
 	public DatePicker<T> setOnChangeMonthYearEvent(
-			JsScopeUiDatePickerOnChangeEvent onChangeMonthYear)
+		JsScopeUiDatePickerOnChangeEvent onChangeMonthYear)
 	{
 		this.options.setOnChangeMonthYearEvent(onChangeMonthYear);
 		return this;
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker is closed, whether or not a
-	 * date is selected. The function receives the selected date as text and the
-	 * datepicker instance as parameters. this refers to the associated input field.
+	 * Allows you to define your own event when the datepicker is closed, whether or not a date is
+	 * selected. The function receives the selected date as text and the datepicker instance as
+	 * parameters. this refers to the associated input field.
 	 * 
 	 * @param onClose
 	 * @return instance of the current component
@@ -1238,9 +1224,9 @@ public class DatePicker<T> extends TextField<T>
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker is selected. The function
-	 * receives the selected date as text and the datepicker instance as parameters. this
-	 * refers to the associated input field.
+	 * Allows you to define your own event when the datepicker is selected. The function receives
+	 * the selected date as text and the datepicker instance as parameters. this refers to the
+	 * associated input field.
 	 * 
 	 * @param onSelect
 	 * @return instance of the current component
@@ -1253,8 +1239,7 @@ public class DatePicker<T> extends TextField<T>
 
 	/*---- Methods section ---*/
 	/**
-	 * Method to destroy the datepicker This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the datepicker This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */

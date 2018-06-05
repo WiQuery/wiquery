@@ -68,8 +68,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#destroy()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#destroy()} .
 	 */
 	@Test
 	public void testDestroy()
@@ -80,8 +79,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#disable()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#disable()} .
 	 */
 	@Test
 	public void testDisable()
@@ -103,8 +101,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getAppendTo()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getAppendTo()}.
 	 */
 	@Test
 	public void testGetAppendTo()
@@ -115,8 +112,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getAxis()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getAxis()} .
 	 */
 	@Test
 	public void testGetAxis()
@@ -127,8 +123,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getCancel()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getCancel()}.
 	 */
 	@Test
 	public void testGetCancel()
@@ -164,8 +159,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getCursor()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getCursor()}.
 	 */
 	@Test
 	public void testGetCursor()
@@ -182,17 +176,15 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	@Test
 	public void testGetCursorAtComplex()
 	{
-		assertNull(draggableBehavior.getCursorAtComplex());
-		ListItemOptions<DraggableCursorAt> array = new ListItemOptions<DraggableCursorAt>();
+		assertNull(draggableBehavior.getCursorAt());
+		ListItemOptions<DraggableCursorAt> array = new ListItemOptions<>();
 		array.add(new DraggableCursorAt(CursorAtEnum.TOP, 5));
 		draggableBehavior.setCursorAt(array);
-		assertEquals(draggableBehavior.getCursorAtComplex().getJavascriptOption().toString(),
-			"{top:5}");
+		assertEquals(draggableBehavior.getCursorAt().getJavascriptOption().toString(), "{top:5}");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getDelay()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getDelay()}.
 	 */
 	@Test
 	public void testGetDelay()
@@ -203,8 +195,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getDistance()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getDistance()}.
 	 */
 	@Test
 	public void testGetDistance()
@@ -215,8 +206,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getGrid()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getGrid()} .
 	 */
 	@Test
 	public void testGetGrid()
@@ -227,8 +217,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getHandle()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getHandle()}.
 	 */
 	@Test
 	public void testGetHandle()
@@ -239,8 +228,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getHelper()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getHelper()}.
 	 */
 	@Test
 	public void testGetHelper()
@@ -265,20 +253,18 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getOpacity()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getOpacity()}.
 	 */
 	@Test
 	public void testGetOpacity()
 	{
-		assertEquals((Object) draggableBehavior.getOpacity(), 0F);
+		assertEquals((Object)draggableBehavior.getOpacity(), 0F);
 		draggableBehavior.setOpacity(5F);
-		assertEquals((Object) draggableBehavior.getOpacity(), 5F);
+		assertEquals((Object)draggableBehavior.getOpacity(), 5F);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getOptions()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions()
@@ -291,8 +277,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getRevert()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getRevert()}.
 	 */
 	@Test
 	public void testGetRevert()
@@ -316,8 +301,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getScope()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getScope()}.
 	 */
 	@Test
 	public void testGetScope()
@@ -352,8 +336,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getSnap()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getSnap()} .
 	 */
 	@Test
 	public void testGetSnap()
@@ -365,8 +348,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getSnapMode()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getSnapMode()}.
 	 */
 	@Test
 	public void testGetSnapMode()
@@ -389,8 +371,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getStack()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getStack()}.
 	 */
 	@Test
 	public void testgetStack()
@@ -401,8 +382,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getZIndex()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#getZIndex()}.
 	 */
 	@Test
 	public void testGetZIndex()
@@ -425,8 +405,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#isDisabled()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled()
@@ -449,8 +428,7 @@ public class DraggableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#isScroll()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.draggable.DraggableBehavior#isScroll()}.
 	 */
 	@Test
 	public void testIsScroll()

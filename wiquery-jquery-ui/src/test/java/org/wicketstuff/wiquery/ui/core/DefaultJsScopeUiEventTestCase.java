@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.core.DefaultJsScopeUiEvent;
-import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
 
 /**
  * Unit test on the {@link DefaultJsScopeUiEvent}

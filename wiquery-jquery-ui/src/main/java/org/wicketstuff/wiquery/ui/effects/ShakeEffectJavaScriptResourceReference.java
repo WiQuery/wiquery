@@ -21,53 +21,19 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: ShakeEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to import the Shake jQuery UI effect.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class ShakeEffectJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class ShakeEffectJavaScriptResourceReference
+	extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = -1202143038814716047L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final ShakeEffectJavaScriptResourceReference INSTANCE =
-		new ShakeEffectJavaScriptResourceReference();
-
-	/**
-	 * Default constructor
-	 */
 	private ShakeEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-shake.js");
-	}
-
-	/**
-	 * Returns the {@link ShakeEffectJavaScriptResourceReference} instance.
-	 */
-	public static ShakeEffectJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreEffectJavaScriptResourceReference.get());
 	}
 }

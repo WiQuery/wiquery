@@ -60,8 +60,7 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#destroy()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#destroy()}.
 	 */
 	@Test
 	public void testDestroy()
@@ -72,8 +71,7 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#disable()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#disable()}.
 	 */
 	@Test
 	public void testDisable()
@@ -84,8 +82,7 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#enable()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#enable()}.
 	 */
 	@Test
 	public void testEnable()
@@ -96,8 +93,7 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#getCancel()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#getCancel()}.
 	 */
 	@Test
 	public void testGetCancel()
@@ -108,8 +104,7 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#getDelay()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#getDelay()}.
 	 */
 	@Test
 	public void testGetDelay()
@@ -132,8 +127,7 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#getFilter()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#getFilter()}.
 	 */
 	@Test
 	public void testGetFilter()
@@ -190,8 +184,7 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#refresh()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#refresh()}.
 	 */
 	@Test
 	public void testRefresh()
@@ -202,8 +195,7 @@ public class SelectableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#widget()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.selectable.SelectableBehavior#widget()}.
 	 */
 	@Test
 	public void testWidget()

@@ -21,60 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.droppable;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.mouse.MouseJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id$
- * <p>
- * References the resource to apply draggable behavior on HTML components.
- * </p>
- * 
- * TODO RENAME
- * 
- * @author Lionel Armanet
- * @since 0.5
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class DroppableJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class DroppableJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 3704373328245392715L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final DroppableJavaScriptResourceReference INSTANCE =
-		new DroppableJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link DroppableJavaScriptResourceReference}.
-	 */
 	private DroppableJavaScriptResourceReference()
 	{
-		super(DroppableJavaScriptResourceReference.class, "jquery.ui.droppable.js");
-	}
-
-	/**
-	 * Returns the {@link DroppableJavaScriptResourceReference} instance.
-	 */
-	public static DroppableJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
-			WidgetJavaScriptResourceReference.get(), MouseJavaScriptResourceReference.get(),
-			DraggableJavaScriptResourceReference.get());
 	}
 }

@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
-	<wicket:panel>
-		<form wicket:id="form" style="margin-left: 10px;">
-			<div wicket:id="actions" style="margin-top: 15px;">
-				<button wicket:id="editOrder" type="button" class="btn btn-primary">
-					<span class="icon-random icon-white" />
-					Edit
-				</button>
-				<button wicket:id="cancelOrder" type="reset" class="btn">
-					<span class="icon-ban-circle" />
-					Cancel
-				</button>
-				<button wicket:id="saveOrder" type="submit" class="btn btn-success">
-					<span class="icon-ok icon-white" />
-					Save
-				</button>
-			</div>
-			
-			<div wicket:id="elementsContainer" class="list-elements sortable">
-				<div wicket:id="elements" class="element filter-element">
-					<div class="title-outer">
-						<input wicket:id="positionField" class="position" />
-						
-						<div wicket:id="positionLabel" class="position-label"></div>
-						<span wicket:id="element" class="title"></span>
-					</div>
+<html
+	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<wicket:panel>
+	<form wicket:id="form" style="margin-left: 10px;">
+		<div wicket:id="actions" style="margin-top: 15px;">
+			<button wicket:id="editOrder" type="button" class="btn btn-primary">
+				<span class="icon-random icon-white" /> Edit
+			</button>
+			<button wicket:id="cancelOrder" type="reset" class="btn">
+				<span class="icon-ban-circle" /> Cancel
+			</button>
+			<button wicket:id="saveOrder" type="submit" class="btn btn-success">
+				<span class="icon-ok icon-white" /> Save
+			</button>
+		</div>
+
+		<div wicket:id="elementsContainer" class="list-elements sortable">
+			<div wicket:id="elements" class="element filter-element">
+				<div class="title-outer">
+					<input wicket:id="positionField" class="position" />
+
+					<div wicket:id="positionLabel" class="position-label"></div>
+					<span wicket:id="element" class="title"></span>
 				</div>
 			</div>
-		</form>
+		</div>
+	</form>
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 			function onSortableUpdate(sortableList){
 				var itemsIds = sortableList.sortable('toArray');
 				var itemsCount = itemsIds.length;
@@ -40,5 +38,5 @@
 				}
 			}
 		</script>
-	</wicket:panel>
+</wicket:panel>
 </html>

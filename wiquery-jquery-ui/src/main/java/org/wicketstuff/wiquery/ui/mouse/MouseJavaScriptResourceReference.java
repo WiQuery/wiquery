@@ -21,52 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.mouse;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: MouseJavascriptResourceReference.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to get the mouse utilities.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.1
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class MouseJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class MouseJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = -4771815414204892357L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final MouseJavaScriptResourceReference INSTANCE =
-		new MouseJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link MouseJavaScriptResourceReference}.
-	 */
 	private MouseJavaScriptResourceReference()
 	{
-		super(MouseJavaScriptResourceReference.class, "jquery.ui.mouse.js");
-	}
-
-	/**
-	 * Returns the {@link MouseJavaScriptResourceReference} instance.
-	 */
-	public static MouseJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(WidgetJavaScriptResourceReference.get());
 	}
 }

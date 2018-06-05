@@ -53,7 +53,7 @@ public final class CssHelper
 	{
 		return new DefaultChainableStatement("css", JsUtils.quotes(name), JsUtils.quotes(value));
 	}
-	
+
 	private CssHelper()
 	{
 	}

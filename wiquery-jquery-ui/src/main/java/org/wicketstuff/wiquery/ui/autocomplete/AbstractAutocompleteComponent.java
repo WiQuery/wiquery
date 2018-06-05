@@ -42,8 +42,7 @@ import org.wicketstuff.wiquery.core.javascript.JsUtils;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
 
 /**
- * $Id: AbstractAutocompleteComponent.java 1143 2011-07-29 11:51:49Z
- * hielke.hoeve@gmail.com $
+ * $Id: AbstractAutocompleteComponent.java 1143 2011-07-29 11:51:49Z hielke.hoeve@gmail.com $
  * <p>
  * Base for the autocomplete component
  * </p>
@@ -126,16 +125,16 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		public JsStatement statement()
 		{
 			StringBuilder js = new StringBuilder();
-			js.append("$.ui.autocomplete.wiquery.changeEvent(event, ui,").append(
-				JsUtils.quotes(autocompleteHidden.getMarkupId()));
+			js.append("$.ui.autocomplete.wiquery.changeEvent(event, ui,")
+				.append(JsUtils.quotes(autocompleteHidden.getMarkupId()));
 			if (isAutoUpdate())
 			{
 				js.append(",'").append(updateAjax.getCallbackUrl()).append('\'');
 			}
 			js.append(");");
 			super.setChangeEvent(JsScopeUiEvent.quickScope(js.toString()));
-			super.setSelectEvent(JsScopeUiEvent.quickScope(js.append("$(event.target).blur();")
-				.toString()));
+			super.setSelectEvent(
+				JsScopeUiEvent.quickScope(js.append("$(event.target).blur();").toString()));
 			JsStatement jsStatement = super.statement();
 			return jsStatement;
 		}
@@ -146,8 +145,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	private static final long serialVersionUID = -3377109382248062940L;
 
 	/** Constant of wiQuery Autocomplete resource */
-	public static final JavaScriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
-		new JavaScriptResourceReference(AutocompleteAjaxComponent.class, "wiquery-autocomplete.js");
+	public static final JavaScriptResourceReference WIQUERY_AUTOCOMPLETE_JS = new JavaScriptResourceReference(
+		AutocompleteAjaxComponent.class, "wiquery-autocomplete.js");
 
 	// Wicket components
 	private final Autocomplete<String> autocompleteField;
@@ -157,7 +156,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	private static final String NOT_ENTERED = "NOT_ENTERED";
 
 	/** The choiceRenderer used to generate display/id values for the objects. */
-	private IChoiceRenderer< ? super T> choiceRenderer;
+	private IChoiceRenderer<? super T> choiceRenderer;
 
 	private AbstractDefaultAjaxBehavior updateAjax;
 
@@ -174,29 +173,28 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		super(id, model);
 		setOutputMarkupPlaceholderTag(true);
 
-		autocompleteHidden =
-			new HiddenField<String>("autocompleteHidden", new Model<String>(NOT_ENTERED)
-			{
-				private static final long serialVersionUID = 1L;
+		autocompleteHidden = new HiddenField<>("autocompleteHidden", new Model<String>(NOT_ENTERED)
+		{
+			private static final long serialVersionUID = 1L;
 
-				@Override
-				public String getObject()
+			@Override
+			public String getObject()
+			{
+				T modelObject = AbstractAutocompleteComponent.this.getModelObject();
+				if (modelObject != null)
 				{
-					T modelObject = AbstractAutocompleteComponent.this.getModelObject();
-					if (modelObject != null)
-					{
-						return super.getObject();
-					}
-					else
-					{
-						return null;
-					}
+					return super.getObject();
 				}
-			});
+				else
+				{
+					return null;
+				}
+			}
+		});
 		autocompleteHidden.setOutputMarkupId(true);
 		add(autocompleteHidden);
 
-		autocompleteField = new InnerAutocomplete<String>("autocompleteField", new IModel<String>()
+		autocompleteField = new InnerAutocomplete<>("autocompleteField", new IModel<String>()
 		{
 
 			private static final long serialVersionUID = 1L;
@@ -208,9 +206,9 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 				T modelObject = AbstractAutocompleteComponent.this.getModelObject();
 				if (modelObject != null)
 				{
-					T objectValue = (T) choiceRenderer.getDisplayValue(modelObject);
-					Class<T> objectClass =
-						(Class<T>) (objectValue == null ? null : objectValue.getClass());
+					T objectValue = (T)choiceRenderer.getDisplayValue(modelObject);
+					Class<T> objectClass = (Class<T>)(objectValue == null ? null
+						: objectValue.getClass());
 
 					String displayValue = "";
 					if (objectClass != null && objectClass != String.class)
@@ -266,7 +264,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	}
 
 	public AbstractAutocompleteComponent(String id, final IModel<T> model,
-			IChoiceRenderer< ? super T> renderer)
+		IChoiceRenderer<? super T> renderer)
 	{
 		this(id, model);
 		this.setChoiceRenderer(renderer);
@@ -288,7 +286,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		String valueId = autocompleteHidden.getConvertedInput();
 		String input = autocompleteField.getConvertedInput();
 		final T object = this.getModelObject();
-		final IChoiceRenderer< ? super T> renderer = getChoiceRenderer();
+		final IChoiceRenderer<? super T> renderer = getChoiceRenderer();
 
 		if (NOT_ENTERED.equals(valueId))
 			valueId = null;
@@ -303,9 +301,9 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 			setConvertedInput(getValueOnSearchFail(input));
 
 		}
-		else if (object == null || input.compareTo((String) renderer.getDisplayValue(object)) != 0)
+		else if (object == null || input.compareTo((String)renderer.getDisplayValue(object)) != 0)
 		{
-			final List< ? extends T> choices = getChoices();
+			final List<? extends T> choices = getChoices();
 			boolean found = false;
 			for (int index = 0; index < choices.size(); index++)
 			{
@@ -339,7 +337,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 		}
 	}
 
-	protected abstract List< ? extends T> getChoices();
+	protected abstract List<? extends T> getChoices();
 
 	/**
 	 * @return the autocomplete field
@@ -378,8 +376,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	{
 
 		boolean thisOneSelected = obj.equals(getModelObject());
-		T objectValue = (T) getChoiceRenderer().getDisplayValue(obj);
-		Class<T> objectClass = (Class<T>) (objectValue == null ? null : objectValue.getClass());
+		T objectValue = (T)getChoiceRenderer().getDisplayValue(obj);
+		Class<T> objectClass = (Class<T>)(objectValue == null ? null : objectValue.getClass());
 
 		String displayValue = "";
 		if (objectClass != null && objectClass != String.class)
@@ -405,21 +403,21 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	 * 
 	 * @param autocomplete
 	 */
-	protected void onBeforeRenderAutocomplete(Autocomplete< ? > autocomplete)
+	protected void onBeforeRenderAutocomplete(Autocomplete<?> autocomplete)
 	{
 
 	}
 
-	public void setChoiceRenderer(IChoiceRenderer< ? super T> choiceRenderer)
+	public void setChoiceRenderer(IChoiceRenderer<? super T> choiceRenderer)
 	{
 		this.choiceRenderer = choiceRenderer;
 	}
 
-	public IChoiceRenderer< ? super T> getChoiceRenderer()
+	public IChoiceRenderer<? super T> getChoiceRenderer()
 	{
 		if (choiceRenderer == null)
 		{
-			choiceRenderer = new ChoiceRenderer<T>();
+			choiceRenderer = new ChoiceRenderer<>();
 		}
 		return choiceRenderer;
 	}
@@ -431,8 +429,6 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 
 	/**
 	 * Should this value get sent to the server when it is selected automatically
-	 * 
-	 * @return
 	 */
 	public boolean isAutoUpdate()
 	{

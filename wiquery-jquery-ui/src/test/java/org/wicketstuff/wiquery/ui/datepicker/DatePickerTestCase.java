@@ -55,7 +55,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 		super.setUp();
 
 		Panel panel = new InputTestPanel("panelId");
-		datePicker = new DatePicker<Date>("anId");
+		datePicker = new DatePicker<>("anId");
 		datePicker.setMarkupId(datePicker.getId());
 		panel.add(datePicker);
 		tester.startComponentInPage(panel);
@@ -114,8 +114,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getAppendText()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getAppendText()} .
 	 */
 	@Test
 	public void testGetAppendText()
@@ -126,8 +125,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getButtonImage()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getButtonImage()}.
 	 */
 	@Test
 	public void testGetButtonImage()
@@ -138,8 +136,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getButtonText()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getButtonText()} .
 	 */
 	@Test
 	public void testGetButtonText()
@@ -161,8 +158,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getCurrentText()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getCurrentText()}.
 	 */
 	@Test
 	public void testGetCurrentText()
@@ -183,8 +179,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getDateFormat()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getDateFormat()} .
 	 */
 	@Test
 	public void testGetDateFormat()
@@ -209,8 +204,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getDayNamesMin()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getDayNamesMin()}.
 	 */
 	@Test
 	public void testGetDayNamesMin()
@@ -218,15 +212,14 @@ public class DatePickerTestCase extends WiQueryTestCase
 		assertNotNull(datePicker.getDayNamesMin());
 		assertEquals(datePicker.getDayNamesMin().getJavascriptOption().toString(),
 			"['Su','Mo','Tu','We','Th','Fr','Sa']");
-		datePicker.setDayNamesMin(new ArrayOfDayNames("Sun", "Mon", "Tue", "Wed", "Thu", "Fri",
-			"Sat"));
+		datePicker
+			.setDayNamesMin(new ArrayOfDayNames("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"));
 		assertEquals(datePicker.getDayNamesMin().getJavascriptOption().toString(),
 			"['Sun','Mon','Tue','Wed','Thu','Fri','Sat']");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getDayNamesShort()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getDayNamesShort()}.
 	 */
 	@Test
 	public void testGetDayNamesShort()
@@ -240,8 +233,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getDefaultDate()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getDefaultDate()}.
 	 */
 	@Test
 	public void testGetDefaultDate()
@@ -303,15 +295,13 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getMonthNames()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getMonthNames()} .
 	 */
 	@Test
 	public void testGetMonthNames()
 	{
 		assertNotNull(datePicker.getMonthNames());
-		assertEquals(
-			datePicker.getMonthNames().getJavascriptOption().toString(),
+		assertEquals(datePicker.getMonthNames().getJavascriptOption().toString(),
 			"['January','February','March','April','May','June','July','August','September','October','November','December']");
 		datePicker.setMonthNames(new ArrayOfMonthNames("Jan", "Feb", "Mar", "Apr", "May", "Jun",
 			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
@@ -347,8 +337,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getNumberOfMonths()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getNumberOfMonths()}.
 	 */
 	@Test
 	public void testGetNumberOfMonths()
@@ -431,8 +420,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getShowOptions()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getShowOptions()}.
 	 */
 	@Test
 	public void testGetShowOptions()
@@ -441,8 +429,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getStepMonths()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getStepMonths()} .
 	 */
 	@Test
 	public void testGetStepMonths()
@@ -453,8 +440,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getWeekHeader()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getWeekHeader()} .
 	 */
 	@Test
 	public void testGetWeekHeader()
@@ -465,8 +451,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getYearSuffix()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getYearSuffix()} .
 	 */
 	@Test
 	public void testGetYearRange()
@@ -481,8 +466,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getYearSuffix()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#getYearSuffix()} .
 	 */
 	@Test
 	public void testGetYearSuffix()
@@ -525,8 +509,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isButtonImageOnly()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isButtonImageOnly()}.
 	 */
 	@Test
 	public void testIsButtonImageOnly()
@@ -537,8 +520,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isChangeMonth()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isChangeMonth()} .
 	 */
 	@Test
 	public void testIsChangeMonth()
@@ -560,8 +542,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isConstrainInput()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isConstrainInput()}.
 	 */
 	@Test
 	public void testIsConstrainInput()
@@ -583,8 +564,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isGotoCurrent()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isGotoCurrent()} .
 	 */
 	@Test
 	public void testIsGotoCurrent()
@@ -642,8 +622,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isShowButtonPanel()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isShowButtonPanel()}.
 	 */
 	@Test
 	public void testIsShowButtonPanel()
@@ -666,8 +645,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isShowOtherMonths()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.datepicker.DatePicker#isShowOtherMonths()}.
 	 */
 	@Test
 	public void testIsShowOtherMonths()
@@ -696,11 +674,12 @@ public class DatePickerTestCase extends WiQueryTestCase
 	@Test
 	public void testSetDateDateOption()
 	{
-		assertNotNull(datePicker.setDate(new DateOption(new GregorianCalendar(2009, 11, 1)
-			.getTime())));
+		assertNotNull(
+			datePicker.setDate(new DateOption(new GregorianCalendar(2009, 11, 1).getTime())));
 		assertEquals(
 			datePicker.setDate(new DateOption(new GregorianCalendar(2009, 11, 1).getTime()))
-				.render().toString(),
+				.render()
+				.toString(),
 			"$('#anId').datepicker('setDate', new Date(2009,11,1,0,0,0,0));");
 	}
 

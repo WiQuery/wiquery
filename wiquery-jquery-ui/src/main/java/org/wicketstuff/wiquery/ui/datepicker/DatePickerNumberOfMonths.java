@@ -76,7 +76,7 @@ public class DatePickerNumberOfMonths implements IComplexOption
 	 *            Array parameter
 	 */
 	private DatePickerNumberOfMonths(Short shortParam,
-			ArrayItemOptions<IntegerItemOptions> arrayParam)
+		ArrayItemOptions<IntegerItemOptions> arrayParam)
 	{
 		super();
 		setParam(shortParam, arrayParam);

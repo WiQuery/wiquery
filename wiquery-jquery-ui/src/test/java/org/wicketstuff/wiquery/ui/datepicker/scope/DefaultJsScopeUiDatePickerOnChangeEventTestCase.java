@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.datepicker.scope.DefaultJsScopeUiDatePickerOnChangeEvent;
-import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
 
 /**
  * Unit test on the {@link JsScopeUiDatePickerOnChangeEvent}
@@ -27,8 +25,8 @@ public class DefaultJsScopeUiDatePickerOnChangeEventTestCase extends WiQueryTest
 	public void testJsScopeSyntax()
 	{
 		String expectedJavascript = "function(year, month, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerOnChangeEvent scopeUiEvent =
-			new DefaultJsScopeUiDatePickerOnChangeEvent("alert('test');");
+		JsScopeUiDatePickerOnChangeEvent scopeUiEvent = new DefaultJsScopeUiDatePickerOnChangeEvent(
+			"alert('test');");
 		String generatedJavascript = scopeUiEvent.render().toString();
 
 		log.info(expectedJavascript);

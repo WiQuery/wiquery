@@ -25,32 +25,36 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
- *  Convenience ResizableStopAjaxBehavior with AJAX functionality already plugged in. 
- *  
+ * Convenience ResizableStopAjaxBehavior with AJAX functionality already plugged in.
+ * 
  * @author reiern70
  *
  */
-public abstract class ResizableStopAjaxBehavior extends ResizableBehavior {
+public abstract class ResizableStopAjaxBehavior extends ResizableBehavior
+{
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor.
 	 */
-	public ResizableStopAjaxBehavior() {
-		setStopEvent(new AjaxResizeStopCallback() {
-			
-						private static final long serialVersionUID = 1L;
+	public ResizableStopAjaxBehavior()
+	{
+		setStopEvent(new AjaxResizeStopCallback()
+		{
+
+			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void resizeTop(AjaxRequestTarget target,
-					Component source, double resizeHeight, double resizeWidth) {
-				
-				ResizableStopAjaxBehavior.this.resizeTop(target, source, resizeHeight, resizeWidth);				
+			protected void resizeTop(AjaxRequestTarget target, Component source,
+				double resizeHeight, double resizeWidth)
+			{
+
+				ResizableStopAjaxBehavior.this.resizeTop(target, source, resizeHeight, resizeWidth);
 			}
 		});
 	}
-	
+
 	/**
 	 * Called when component is resized.
 	 * 
@@ -60,6 +64,6 @@ public abstract class ResizableStopAjaxBehavior extends ResizableBehavior {
 	 * @param resizeWidth
 	 */
 	protected abstract void resizeTop(AjaxRequestTarget target, Component source,
-			double resizeHeight, double resizeWidth);
+		double resizeHeight, double resizeWidth);
 
 }

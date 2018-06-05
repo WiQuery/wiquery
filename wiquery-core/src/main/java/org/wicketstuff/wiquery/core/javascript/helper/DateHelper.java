@@ -82,7 +82,7 @@ public final class DateHelper
 
 		return getJSDate(calendar);
 	}
-	
+
 	private DateHelper()
 	{
 	}

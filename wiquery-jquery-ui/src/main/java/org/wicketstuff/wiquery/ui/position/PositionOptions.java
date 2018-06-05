@@ -28,8 +28,8 @@ import org.wicketstuff.wiquery.core.options.Options;
  * $Id$
  * 
  * <p>
- * Complex option to store the possible options for the position. This is used too for the
- * option position into the Autocomplete component
+ * Complex option to store the possible options for the position. This is used too for the option
+ * position into the Autocomplete component
  * </p>
  * 
  * @author Julien Roche
@@ -73,11 +73,10 @@ public class PositionOptions implements IComplexOption
 	/*---- Options section ---*/
 
 	/**
-	 * Defines which position on the target element to align the positioned element
-	 * against: "horizontal vertical" alignment. A single value such as "right" will
-	 * default to "right center", "top" will default to "center top" (following CSS
-	 * convention). Acceptable values: "top", "center", "bottom", "left", "right".
-	 * Example: "left top" or "center center"
+	 * Defines which position on the target element to align the positioned element against:
+	 * "horizontal vertical" alignment. A single value such as "right" will default to "right
+	 * center", "top" will default to "center top" (following CSS convention). Acceptable values:
+	 * "top", "center", "bottom", "left", "right". Example: "left top" or "center center"
 	 * 
 	 * @param position
 	 * @return the instance
@@ -94,18 +93,18 @@ public class PositionOptions implements IComplexOption
 	public PositionAlignmentOptions getAt()
 	{
 		IComplexOption at = options.getComplexOption("at");
-		
+
 		if (at instanceof PositionAlignmentOptions)
 		{
-			return (PositionAlignmentOptions) at;
+			return (PositionAlignmentOptions)at;
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
-	 * Applies the bgiframe plugin when set to true. Only applies when bgiframe is
-	 * actually loaded, nothing happens otherwise.
+	 * Applies the bgiframe plugin when set to true. Only applies when bgiframe is actually loaded,
+	 * nothing happens otherwise.
 	 * 
 	 * @param bgiframe
 	 * @return the instance
@@ -121,7 +120,8 @@ public class PositionOptions implements IComplexOption
 	 */
 	public boolean isBgiframe()
 	{
-		if (options.containsKey("bgiframe")) {
+		if (options.containsKey("bgiframe"))
+		{
 			return options.getBoolean("bgiframe");
 		}
 
@@ -129,18 +129,17 @@ public class PositionOptions implements IComplexOption
 	}
 
 	/**
-	 * When the positioned element overflows the window in some direction, move it to an
-	 * alternative position. Similar to my and at, this accepts a single value or a pair
-	 * for horizontal/vertical, eg. "flip", "fit", "fit flip", "fit none".
+	 * When the positioned element overflows the window in some direction, move it to an alternative
+	 * position. Similar to my and at, this accepts a single value or a pair for
+	 * horizontal/vertical, eg. "flip", "fit", "fit flip", "fit none".
 	 * <ul>
-	 * <li>flip: to the opposite side and the collision detection is run again to see if
-	 * it will fit. If it won't fit in either position, the center option should be used
-	 * as a fall back.</li>
-	 * <li>fit: so the element keeps in the desired direction, but is re-positioned so it
-	 * fits.</li>
-	 * <li>flipfit: applies the flip logic, placing the element on whichever side allows
-	 * more of the element to be visible. Then the fit logic is applied to ensure as much
-	 * of the element is visible as possible.</li>
+	 * <li>flip: to the opposite side and the collision detection is run again to see if it will
+	 * fit. If it won't fit in either position, the center option should be used as a fall
+	 * back.</li>
+	 * <li>fit: so the element keeps in the desired direction, but is re-positioned so it fits.</li>
+	 * <li>flipfit: applies the flip logic, placing the element on whichever side allows more of the
+	 * element to be visible. Then the fit logic is applied to ensure as much of the element is
+	 * visible as possible.</li>
 	 * <li>none: not do collision detection.</li>
 	 * </ul>
 	 * 
@@ -163,11 +162,10 @@ public class PositionOptions implements IComplexOption
 	}
 
 	/**
-	 * Defines which position on the element being positioned to align with the target
-	 * element: "horizontal vertical" alignment. A single value such as "right" will
-	 * default to "right center", "top" will default to "center top" (following CSS
-	 * convention). Acceptable values: "top", "center", "bottom", "left", "right".
-	 * Example: "left top" or "center center"
+	 * Defines which position on the element being positioned to align with the target element:
+	 * "horizontal vertical" alignment. A single value such as "right" will default to "right
+	 * center", "top" will default to "center top" (following CSS convention). Acceptable values:
+	 * "top", "center", "bottom", "left", "right". Example: "left top" or "center center"
 	 * 
 	 * @param my
 	 * @return the instance
@@ -184,18 +182,18 @@ public class PositionOptions implements IComplexOption
 	public PositionAlignmentOptions getMy()
 	{
 		IComplexOption my = options.getComplexOption("my");
-		
+
 		if (my instanceof PositionAlignmentOptions)
 		{
-			return (PositionAlignmentOptions) my;
+			return (PositionAlignmentOptions)my;
 		}
-		
+
 		return null;
 	}
 
 	/**
-	 * Element to position against. You can use a browser event object contains pageX and
-	 * pageY values. Example: "#top-menu"
+	 * Element to position against. You can use a browser event object contains pageX and pageY
+	 * values. Example: "#top-menu"
 	 * 
 	 * @param of
 	 * @return the instance
@@ -213,10 +211,10 @@ public class PositionOptions implements IComplexOption
 	{
 		return options.getLiteral("of");
 	}
-	
+
 	/**
-	 * Element to position within, affecting collision detection. If you provide a selector
-	 * or jQuery object, the first matching element will be used.
+	 * Element to position within, affecting collision detection. If you provide a selector or
+	 * jQuery object, the first matching element will be used.
 	 * 
 	 * @param within
 	 * @return the instance
@@ -238,10 +236,10 @@ public class PositionOptions implements IComplexOption
 	/*---- Events section ---*/
 
 	/**
-	 * When specified, the actual property setting is delegated to this callback.
-	 * Receives two parameters: The first is a hash of top and left values for the position
-	 * that should be set. The second provides feedback about the position and dimensions of
-	 * both elements, as well as calculations to their relative position.
+	 * When specified, the actual property setting is delegated to this callback. Receives two
+	 * parameters: The first is a hash of top and left values for the position that should be set.
+	 * The second provides feedback about the position and dimensions of both elements, as well as
+	 * calculations to their relative position.
 	 * 
 	 * @param using
 	 * @return the instance

@@ -21,54 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.sortable;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: SortableJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to apply sortable behavior to any HTML element.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class SortableJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class SortableJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = -4771815414204892357L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final SortableJavaScriptResourceReference INSTANCE =
-		new SortableJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.
-	 */
 	private SortableJavaScriptResourceReference()
 	{
-		super(SortableJavaScriptResourceReference.class, "jquery.ui.sortable.js");
-	}
-
-	/**
-	 * Returns the {@link SortableJavaScriptResourceReference} instance.
-	 */
-	public static SortableJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
-			MouseJavaScriptResourceReference.get());
 	}
 }

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.options.ArrayItemOptions;
 import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.datepicker.DatePickerNumberOfMonths;
 
 public class DatePickerShortYearCutOffTestCase extends WiQueryTestCase
 {
@@ -30,7 +29,7 @@ public class DatePickerShortYearCutOffTestCase extends WiQueryTestCase
 		assertEquals(generatedJavascript, expectedJavascript);
 
 		// DurationEnum param
-		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<>();
 		numberOfMonths.setArrayParam(array);
 
 		try

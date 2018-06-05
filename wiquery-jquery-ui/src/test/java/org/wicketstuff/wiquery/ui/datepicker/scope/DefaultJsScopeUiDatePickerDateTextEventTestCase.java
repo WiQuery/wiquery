@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.datepicker.scope.DefaultJsScopeUiDatePickerDateTextEvent;
-import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 
 /**
  * Unit test on the {@link DefaultJsScopeUiDatePickerDateTextEvent}
@@ -27,8 +25,8 @@ public class DefaultJsScopeUiDatePickerDateTextEventTestCase extends WiQueryTest
 	public void testJsScopeSyntax()
 	{
 		String expectedJavascript = "function(dateText, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerDateTextEvent scopeUiEvent =
-			new DefaultJsScopeUiDatePickerDateTextEvent("alert('test');");
+		JsScopeUiDatePickerDateTextEvent scopeUiEvent = new DefaultJsScopeUiDatePickerDateTextEvent(
+			"alert('test');");
 		String generatedJavascript = scopeUiEvent.render().toString();
 
 		log.info(expectedJavascript);

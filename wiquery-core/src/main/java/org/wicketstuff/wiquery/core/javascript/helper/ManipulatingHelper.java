@@ -69,7 +69,7 @@ public final class ManipulatingHelper
 	{
 		return new DefaultChainableStatement("insertBefore", JsUtils.quotes(expression));
 	}
-	
+
 	private ManipulatingHelper()
 	{
 	}

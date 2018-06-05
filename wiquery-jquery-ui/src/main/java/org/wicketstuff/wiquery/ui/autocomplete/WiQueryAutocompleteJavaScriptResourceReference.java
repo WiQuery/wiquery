@@ -27,10 +27,11 @@ import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
 import org.wicketstuff.wiquery.core.util.WiQueryUtil;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: AutocompleteJavascriptResourceReference.java 457 2010-10-15 07:14:28Z
- * hielke.hoeve@gmail.com $
+ * $Id: AutocompleteJavascriptResourceReference.java 457 2010-10-15 07:14:28Z hielke.hoeve@gmail.com
+ * $
  * <p>
  * References the JavaScript resource to get the Autocomplete component.
  * </p>
@@ -38,15 +39,15 @@ import org.wicketstuff.wiquery.core.util.WiQueryUtil;
  * @author Julien Roche
  * @since 1.1
  */
-public final class WiQueryAutocompleteJavaScriptResourceReference extends JavaScriptResourceReference
+public final class WiQueryAutocompleteJavaScriptResourceReference
+	extends JavaScriptResourceReference
 {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static final WiQueryAutocompleteJavaScriptResourceReference INSTANCE =
-		new WiQueryAutocompleteJavaScriptResourceReference();
+	private static final WiQueryAutocompleteJavaScriptResourceReference INSTANCE = new WiQueryAutocompleteJavaScriptResourceReference();
 
 	/**
 	 * Builds a new instance of {@link WiQueryAutocompleteJavaScriptResourceReference}.
@@ -68,6 +69,6 @@ public final class WiQueryAutocompleteJavaScriptResourceReference extends JavaSc
 	public List<HeaderItem> getDependencies()
 	{
 		return JavaScriptHeaderItems.forReferences(WiQueryUtil.getWicketAjaxReference(),
-				AutocompleteJavaScriptResourceReference.get());
+			JQueryUIJavaScriptResourceReference.get());
 	}
 }

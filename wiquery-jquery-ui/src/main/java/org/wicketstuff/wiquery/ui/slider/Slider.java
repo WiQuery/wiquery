@@ -33,10 +33,10 @@ import org.wicketstuff.wiquery.core.options.ICollectionItemOptions;
 import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
-import org.wicketstuff.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.slider.SliderAnimate.AnimateEnum;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id: Slider.java
@@ -54,20 +54,20 @@ public class Slider extends WebMarkupContainer
 	private static final long serialVersionUID = 3738656024036987662L;
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : DOMElement - the
-	 * current focused handle
+	 * Properties on the ui parameter (use it into callback functions) : DOMElement - the current
+	 * focused handle
 	 */
 	public static final String UI_HANDLE = "ui.handle";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : Integer - the
-	 * current handle's value
+	 * Properties on the ui parameter (use it into callback functions) : Integer - the current
+	 * handle's value
 	 */
 	public static final String UI_VALUE = "ui.value";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : Integers - all
-	 * handlers' values
+	 * Properties on the ui parameter (use it into callback functions) : Integers - all handlers'
+	 * values
 	 */
 	public static final String UI_VALUES = "ui.values";
 
@@ -77,10 +77,8 @@ public class Slider extends WebMarkupContainer
 	 * @author Lionel Armanet
 	 * 
 	 */
-	public static enum Orientation
-	{
-		VERTICAL,
-		HORIZONTAL
+	public static enum Orientation {
+		VERTICAL, HORIZONTAL
 	}
 
 	// Properties
@@ -114,9 +112,8 @@ public class Slider extends WebMarkupContainer
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(MouseJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(SliderJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
@@ -138,8 +135,8 @@ public class Slider extends WebMarkupContainer
 	/*---- Options section ---*/
 
 	/**
-	 * Whether to slide handle smoothly when user click outside handle on the bar. Sets
-	 * the animate to true of false;
+	 * Whether to slide handle smoothly when user click outside handle on the bar. Sets the animate
+	 * to true of false;
 	 * 
 	 * @param animate
 	 * @return instance of the current component
@@ -151,8 +148,8 @@ public class Slider extends WebMarkupContainer
 	}
 
 	/**
-	 * Whether to slide handle smoothly when user click outside handle on the bar. Sets
-	 * the animate using enum constants.
+	 * Whether to slide handle smoothly when user click outside handle on the bar. Sets the animate
+	 * using enum constants.
 	 * 
 	 * @param animate
 	 * @return instance of the current component
@@ -202,7 +199,7 @@ public class Slider extends WebMarkupContainer
 	{
 		if (this.options.getComplexOption("animate") instanceof SliderAnimate)
 		{
-			return (SliderAnimate) this.options.getComplexOption("animate");
+			return (SliderAnimate)this.options.getComplexOption("animate");
 		}
 
 		return null;
@@ -220,9 +217,27 @@ public class Slider extends WebMarkupContainer
 		return false;
 	}
 
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public Slider setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
+
+
 	/**
-	 * Disables (true) or enables (false) the slider. Can be set when initialising (first
-	 * creating) the slider.
+	 * Disables (true) or enables (false) the slider. Can be set when initialising (first creating)
+	 * the slider.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -297,9 +312,9 @@ public class Slider extends WebMarkupContainer
 	}
 
 	/**
-	 * Normally you don't need to set this option because the plugin detects the slider
-	 * orientation automatically. If the orientation is not correctly detected you can set
-	 * this option to 'horizontal' or 'vertical'.
+	 * Normally you don't need to set this option because the plugin detects the slider orientation
+	 * automatically. If the orientation is not correctly detected you can set this option to
+	 * 'horizontal' or 'vertical'.
 	 * 
 	 * @param orientation
 	 * @return instance of the current component
@@ -316,15 +331,14 @@ public class Slider extends WebMarkupContainer
 	public Orientation getOrientation()
 	{
 		String orientation = this.options.getLiteral("orientation");
-		return orientation == null ? Orientation.HORIZONTAL : Orientation.valueOf(orientation
-			.toUpperCase());
+		return orientation == null ? Orientation.HORIZONTAL
+			: Orientation.valueOf(orientation.toUpperCase());
 	}
 
 	/**
-	 * If set to true, the slider will detect if you have two handles and create a
-	 * stylable range element between these two. Two other possible values are 'min' and
-	 * 'max'. A min range goes from the slider min to one handle. A max range goes from
-	 * one handle to the slider max.
+	 * If set to true, the slider will detect if you have two handles and create a stylable range
+	 * element between these two. Two other possible values are 'min' and 'max'. A min range goes
+	 * from the slider min to one handle. A max range goes from one handle to the slider max.
 	 * 
 	 * @param range
 	 * @return instance of the current component
@@ -343,16 +357,16 @@ public class Slider extends WebMarkupContainer
 		IComplexOption range = this.options.getComplexOption("range");
 		if (range != null && range instanceof SliderRange)
 		{
-			return (SliderRange) range;
+			return (SliderRange)range;
 		}
 
 		return new SliderRange(false);
 	}
 
 	/**
-	 * Sets the size or amount of each interval or step the slider takes between min and
-	 * max. The full specified value range of the slider (max - min) needs to be evenly
-	 * divisible by the step.
+	 * Sets the size or amount of each interval or step the slider takes between min and max. The
+	 * full specified value range of the slider (max - min) needs to be evenly divisible by the
+	 * step.
 	 * 
 	 * @param step
 	 * @return instance of the current component
@@ -377,9 +391,8 @@ public class Slider extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets the current value of the slider (Determines the value of the slider, if
-	 * there's only one handle. If there is more than one handle, determines the value of
-	 * the first handle.)
+	 * Sets the current value of the slider (Determines the value of the slider, if there's only one
+	 * handle. If there is more than one handle, determines the value of the first handle.)
 	 * 
 	 * @param value
 	 * @return instance of the current component
@@ -405,8 +418,8 @@ public class Slider extends WebMarkupContainer
 	}
 
 	/**
-	 * This option can be used to specify multiple handles. If range is set to true, the
-	 * length of 'values' should be 2.
+	 * This option can be used to specify multiple handles. If range is set to true, the length of
+	 * 'values' should be 2.
 	 * 
 	 * @param values
 	 * @return instance of the current component
@@ -418,8 +431,8 @@ public class Slider extends WebMarkupContainer
 	}
 
 	/**
-	 * This option can be used to specify multiple handles. If range is set to true, the
-	 * length of 'values' should be 2.
+	 * This option can be used to specify multiple handles. If range is set to true, the length of
+	 * 'values' should be 2.
 	 * 
 	 * @param value1
 	 * @param value2
@@ -429,8 +442,7 @@ public class Slider extends WebMarkupContainer
 	{
 		if (value1 != null && value2 != null)
 		{
-			ArrayItemOptions<IntegerItemOptions> options =
-				new ArrayItemOptions<IntegerItemOptions>();
+			ArrayItemOptions<IntegerItemOptions> options = new ArrayItemOptions<>();
 			options.add(new IntegerItemOptions(value1));
 			options.add(new IntegerItemOptions(value2));
 			this.options.put("values", options);
@@ -449,11 +461,11 @@ public class Slider extends WebMarkupContainer
 	/*---- Events section ---*/
 
 	/**
-	 * This event is triggered on slide stop, or if the value is changed programmatically
-	 * (by the value method). Takes arguments event and ui. Use event.orginalEvent to
-	 * detect whether the value changed by mouse, keyboard, or programmatically. Use
-	 * ui.value (single-handled sliders) to obtain the value of the current handle,
-	 * $(this).slider('values', index) to get another handle's value.
+	 * This event is triggered on slide stop, or if the value is changed programmatically (by the
+	 * value method). Takes arguments event and ui. Use event.orginalEvent to detect whether the
+	 * value changed by mouse, keyboard, or programmatically. Use ui.value (single-handled sliders)
+	 * to obtain the value of the current handle, $(this).slider('values', index) to get another
+	 * handle's value.
 	 * 
 	 * @param change
 	 * @return instance of the current component
@@ -477,9 +489,9 @@ public class Slider extends WebMarkupContainer
 	}
 
 	/**
-	 * This event is triggered on every mouse move during slide. Use ui.value
-	 * (single-handled sliders) to obtain the value of the current handle,
-	 * $(..).slider('value', index) to get another handles' value.
+	 * This event is triggered on every mouse move during slide. Use ui.value (single-handled
+	 * sliders) to obtain the value of the current handle, $(..).slider('value', index) to get
+	 * another handles' value.
 	 * 
 	 * @param slide
 	 * @return instance of the current component
@@ -505,8 +517,7 @@ public class Slider extends WebMarkupContainer
 	/*---- Methods section ---*/
 
 	/**
-	 * Method to destroy the slider This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the slider This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */

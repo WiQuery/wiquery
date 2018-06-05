@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.javascript.JsScope;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.sortable.SortableHelper;
 import org.wicketstuff.wiquery.ui.sortable.SortableHelper.HelperEnum;
 
 public class SortableHelperTestCase extends WiQueryTestCase

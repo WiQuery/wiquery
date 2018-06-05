@@ -113,12 +113,8 @@ public class AjaxSlider extends Slider
 	 * 
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 */
-	public static enum SliderAjaxEvent
-	{
-		ajaxStopEvent,
-		ajaxStartEvent,
-		ajaxSlideEvent,
-		ajaxChangeEvent
+	public static enum SliderAjaxEvent {
+		ajaxStopEvent, ajaxStartEvent, ajaxSlideEvent, ajaxChangeEvent
 	}
 
 	/**
@@ -140,8 +136,8 @@ public class AjaxSlider extends Slider
 		 * @param value
 		 *            The value of the first handle.
 		 * @param values
-		 *            In case with have more than one handle an array with handle values.
-		 *            Otherwise it is null.
+		 *            In case with have more than one handle an array with handle values. Otherwise
+		 *            it is null.
 		 */
 		void onEvent(AjaxRequestTarget target, AjaxSlider slider, int value, int[] values);
 	}
@@ -170,13 +166,13 @@ public class AjaxSlider extends Slider
 		@Override
 		protected void execute(JsScopeContext scopeContext)
 		{
-			slider.sliderContext.setDynParams(Arrays.asList(String.format(
-				"return {'%s': '%s', '%s': %s, '%s': %s}", SLIDER_EVENT, event.name(),
-				SLIDER_VALUE, UI_VALUE, SLIDER_VALUES, UI_VALUES)));
+			slider.sliderContext
+				.setDynParams(Arrays.asList(String.format("return {'%s': '%s', '%s': %s, '%s': %s}",
+					SLIDER_EVENT, event.name(), SLIDER_VALUE, UI_VALUE, SLIDER_VALUES, UI_VALUES)));
 
 			scopeContext.append(
-			// delegating call-back generation to AJAX behavior
-			// so that we don't miss 'decorator' related functionality.
+				// delegating call-back generation to AJAX behavior
+				// so that we don't miss 'decorator' related functionality.
 				slider.sliderContext.getCallbackScript());
 		}
 	}
@@ -184,8 +180,7 @@ public class AjaxSlider extends Slider
 	/*
 	 * Map of AJAX events.
 	 */
-	private Map<SliderAjaxEvent, ISliderAjaxEvent> ajaxEvents =
-		new HashMap<SliderAjaxEvent, ISliderAjaxEvent>();
+	private Map<SliderAjaxEvent, ISliderAjaxEvent> ajaxEvents = new HashMap<>();
 
 	/**
 	 * Constructor
@@ -210,21 +205,27 @@ public class AjaxSlider extends Slider
 			@Override
 			protected void respond(AjaxRequestTarget target)
 			{
-				String sliderEvent =
-					RequestCycle.get().getRequest().getQueryParameters()
-						.getParameterValue(SLIDER_EVENT).toString();
+				String sliderEvent = RequestCycle.get()
+					.getRequest()
+					.getQueryParameters()
+					.getParameterValue(SLIDER_EVENT)
+					.toString();
 				// if we have an event execute it.
 				if (!isEmpty(sliderEvent))
 				{
 					// calculate the value
-					int value =
-						parseInteger(RequestCycle.get().getRequest().getQueryParameters()
-							.getParameterValue(SLIDER_VALUE).toString(), getMin().intValue());
-					int[] values =
-						processValues(RequestCycle.get().getRequest().getQueryParameters()
-							.getParameterValue(SLIDER_VALUES).toString());
-					ISliderAjaxEvent ajaxEvent =
-						ajaxEvents.get(SliderAjaxEvent.valueOf(sliderEvent));
+					int value = parseInteger(RequestCycle.get()
+						.getRequest()
+						.getQueryParameters()
+						.getParameterValue(SLIDER_VALUE)
+						.toString(), getMin().intValue());
+					int[] values = processValues(RequestCycle.get()
+						.getRequest()
+						.getQueryParameters()
+						.getParameterValue(SLIDER_VALUES)
+						.toString());
+					ISliderAjaxEvent ajaxEvent = ajaxEvents
+						.get(SliderAjaxEvent.valueOf(sliderEvent));
 					if (ajaxEvent != null)
 					{
 						ajaxEvent.onEvent(target, AjaxSlider.this, value, values);

@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.javascript.JsScopeContext;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 
 /**
  * Unit test on the {@link JsScopeUiDatePickerEvent}
@@ -85,8 +84,8 @@ public class JsScopeUiDatePickerEventTestCase extends WiQueryTestCase
 	public void testQuickScopeJsStatement()
 	{
 		String expectedJavascript = "function(date) {\n\talert('test');\n}";
-		JsScopeUiDatePickerEvent quickScope =
-			JsScopeUiDatePickerEvent.quickScope(new JsStatement().append("alert('test')"));
+		JsScopeUiDatePickerEvent quickScope = JsScopeUiDatePickerEvent
+			.quickScope(new JsStatement().append("alert('test')"));
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);

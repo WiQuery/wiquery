@@ -5,9 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wicketstuff.wiquery.core.javascript.JsScope;
-import org.wicketstuff.wiquery.core.javascript.JsScopeContext;
-import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
 /**

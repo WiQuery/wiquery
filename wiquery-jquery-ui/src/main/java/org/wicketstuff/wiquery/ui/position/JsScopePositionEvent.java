@@ -27,8 +27,7 @@ import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 
 /**
- * $Id$ This
- * class represent a JsScope event for the position JQuery UI utility The javascript
+ * $Id$ This class represent a JsScope event for the position JQuery UI utility The javascript
  * representation will be like this:
  * <p>
  * function(params) { ... }

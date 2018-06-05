@@ -30,18 +30,9 @@ package org.wicketstuff.wiquery.core.events;
  * @author Lionel Armanet
  * @since 0.5
  */
-public enum StateEvent implements EventLabel
-{
+public enum StateEvent implements EventLabel {
 
-	ABORT,
-	BLUR,
-	CHANGE,
-	ERROR,
-	FOCUS,
-	LOAD,
-	RESIZE,
-	SELECT,
-	UNLOAD;
+	ABORT, BLUR, CHANGE, ERROR, FOCUS, LOAD, RESIZE, SELECT, UNLOAD;
 
 	@Override
 	public String getEventLabel()

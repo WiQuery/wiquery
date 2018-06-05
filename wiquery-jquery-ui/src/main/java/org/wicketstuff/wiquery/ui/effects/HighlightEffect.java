@@ -21,7 +21,6 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import org.wicketstuff.wiquery.core.effects.Effect;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
 
 /**
@@ -41,10 +40,8 @@ public class HighlightEffect extends Effect
 	 * Mode direction.
 	 * 
 	 */
-	public static enum Mode
-	{
-		show,
-		hide;
+	public static enum Mode {
+		show, hide;
 	}
 
 	/**
@@ -78,9 +75,10 @@ public class HighlightEffect extends Effect
 	 */
 	public HighlightEffect(Mode mode, String color, int duration)
 	{
-		super(JsUtils.quotes("highlight"), "{"
-			+ (mode != null ? "mode:" + JsUtils.quotes(mode.name()) : "")
-			+ (color != null ? ", color: " + color : "") + "}", Integer.toString(duration));
+		super(JsUtils.quotes("highlight"),
+			"{" + (mode != null ? "mode:" + JsUtils.quotes(mode.name()) : "") +
+				(color != null ? ", color: " + color : "") + "}",
+			Integer.toString(duration));
 	}
 
 	@Override

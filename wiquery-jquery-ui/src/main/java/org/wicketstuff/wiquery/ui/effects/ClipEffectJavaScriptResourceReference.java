@@ -21,53 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: ClipEffectJavaScriptResourceReference.java 869 2011-05-04 12:26:32Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to import the Clip jQuery UI effect.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class ClipEffectJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class ClipEffectJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 4348767855865592967L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final ClipEffectJavaScriptResourceReference INSTANCE =
-		new ClipEffectJavaScriptResourceReference();
-
-	/**
-	 * Default constructor
-	 */
 	private ClipEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-clip.js");
-	}
-
-	/**
-	 * Returns the {@link ClipEffectJavaScriptResourceReference} instance.
-	 */
-	public static ClipEffectJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreEffectJavaScriptResourceReference.get());
 	}
 }

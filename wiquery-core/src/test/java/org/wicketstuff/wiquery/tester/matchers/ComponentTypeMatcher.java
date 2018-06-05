@@ -4,9 +4,9 @@ import org.apache.wicket.Component;
 
 public class ComponentTypeMatcher implements ComponentMatcher
 {
-	private Class< ? extends Component> componentType;
+	private Class<? extends Component> componentType;
 
-	public ComponentTypeMatcher(Class< ? extends Component> componentType)
+	public ComponentTypeMatcher(Class<? extends Component> componentType)
 	{
 		this.componentType = componentType;
 	}

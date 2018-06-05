@@ -50,7 +50,6 @@ public class TabsTestCase extends WiQueryTestCase
 	// Properties
 	private Tabs tabs;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	@Before
 	public void setUp()
@@ -125,8 +124,7 @@ public class TabsTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.tabs.Tabs#getActive()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.tabs.Tabs#getActive()}.
 	 */
 	@Test
 	public void testGetActive()
@@ -137,10 +135,9 @@ public class TabsTestCase extends WiQueryTestCase
 		tabs.setActive(true);
 		assertEquals(tabs.getActive(), 0);
 	}
-	
+
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.tabs.Tabs#getHeightStyle()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.tabs.Tabs#getHeightStyle()}.
 	 */
 	@Test
 	public void testGetHeightStyle()
@@ -157,7 +154,7 @@ public class TabsTestCase extends WiQueryTestCase
 	public void testGetDisabled()
 	{
 		assertNull(tabs.getDisabled());
-		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> array = new ArrayItemOptions<>();
 		array.add(new IntegerItemOptions(1));
 		tabs.setDisabled(array);
 		assertNotNull(tabs.getDisabled());
@@ -171,13 +168,13 @@ public class TabsTestCase extends WiQueryTestCase
 	public void testGetEvent()
 	{
 		assertNotNull(tabs.getEvent());
-		assertEquals(tabs.getEvent().getEventLabel().toString().toLowerCase(), MouseEvent.CLICK
-			.getEventLabel().toString().toLowerCase());
+		assertEquals(tabs.getEvent().getEventLabel().toString().toLowerCase(),
+			MouseEvent.CLICK.getEventLabel().toString().toLowerCase());
 		tabs.setEvent(new EventLabelOptions(MouseEvent.DBLCLICK));
-		assertEquals(tabs.getEvent().getEventLabel().toString().toLowerCase(), MouseEvent.DBLCLICK
-			.getEventLabel().toString().toLowerCase());
+		assertEquals(tabs.getEvent().getEventLabel().toString().toLowerCase(),
+			MouseEvent.DBLCLICK.getEventLabel().toString().toLowerCase());
 	}
-	
+
 	/**
 	 * Test method for {@link org.wicketstuff.wiquery.ui.tabs.Tabs#getHide()}.
 	 */
@@ -185,14 +182,11 @@ public class TabsTestCase extends WiQueryTestCase
 	public void testGetHide()
 	{
 		assertNull(tabs.getHide());
-		tabs.setHide(new TabsAnimateOption(new EffectOptionObject()
-				.setEffect("anEffect")
-				.setEasing("swing")
-				.setDelay(50)
-		));
+		tabs.setHide(new TabsAnimateOption(
+			new EffectOptionObject().setEffect("anEffect").setEasing("swing").setDelay(50)));
 		assertNotNull(tabs.getHide());
 		assertEquals(tabs.getHide().getJavascriptOption().toString(),
-				"{effect: 'anEffect', easing: 'swing', delay: 50}");
+			"{effect: 'anEffect', easing: 'swing', delay: 50}");
 	}
 
 	/**
@@ -202,13 +196,11 @@ public class TabsTestCase extends WiQueryTestCase
 	public void testGetShow()
 	{
 		assertNull(tabs.getShow());
-		tabs.setShow(new TabsAnimateOption(new EffectOptionObject()
-				.setEffect("anEffect")
-				.setDuration(200)
-		));
+		tabs.setShow(
+			new TabsAnimateOption(new EffectOptionObject().setEffect("anEffect").setDuration(200)));
 		assertNotNull(tabs.getShow());
 		assertEquals(tabs.getShow().getJavascriptOption().toString(),
-				"{effect: 'anEffect', duration: 200}");
+			"{effect: 'anEffect', duration: 200}");
 	}
 
 	/**

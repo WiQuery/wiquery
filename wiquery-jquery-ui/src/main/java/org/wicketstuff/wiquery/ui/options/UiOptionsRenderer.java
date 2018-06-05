@@ -64,9 +64,8 @@ public class UiOptionsRenderer implements IOptionsRenderer
 	@Override
 	public CharSequence renderOption(String name, Object value, boolean isLast)
 	{
-		JsStatement jsStatement =
-			new JsQuery(this.component).$().chain(this.statement, "'option'", "'" + name + "'",
-				value.toString());
+		JsStatement jsStatement = new JsQuery(this.component).$().chain(this.statement, "'option'",
+			"'" + name + "'", value.toString());
 		return jsStatement.render();
 	}
 

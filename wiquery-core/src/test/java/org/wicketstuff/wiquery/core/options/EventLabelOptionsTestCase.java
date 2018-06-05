@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.events.MouseEvent;
-import org.wicketstuff.wiquery.core.options.EventLabelOptions;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
 public class EventLabelOptionsTestCase extends WiQueryTestCase

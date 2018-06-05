@@ -21,53 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.menu;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.position.PositionJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * <p>
- * References the JavaScript resource to get the menu component.
- * </p>
- * 
- * @author Stephane Gleizes
- * @since 6.9.2
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class MenuJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class MenuJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = 6440705391676875137L;
-	
-	/**
-	 * Singleton instance.
-	 */
-	private static final MenuJavaScriptResourceReference INSTANCE =
-		new MenuJavaScriptResourceReference();
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Builds a new instance of {@link MenuJavaScriptResourceReference}.
-	 */
 	private MenuJavaScriptResourceReference()
 	{
-		super(MenuJavaScriptResourceReference.class, "jquery.ui.menu.js");
-	}
-
-	/**
-	 * Returns the {@link MenuJavaScriptResourceReference} instance.
-	 */
-	public static MenuJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
-				WidgetJavaScriptResourceReference.get(), PositionJavaScriptResourceReference.get());
 	}
 }

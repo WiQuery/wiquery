@@ -21,41 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.position;
 
-import org.apache.wicket.resource.JQueryPluginResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: PositionJavaScriptResourceReference.java 1150 2011-08-02 10:09:02Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to get the position utilities.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.1
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class PositionJavaScriptResourceReference extends JQueryPluginResourceReference
+@Deprecated
+public final class PositionJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = -4771815414204892357L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final PositionJavaScriptResourceReference INSTANCE =
-		new PositionJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link PositionJavaScriptResourceReference}.
-	 */
 	private PositionJavaScriptResourceReference()
 	{
-		super(PositionJavaScriptResourceReference.class, "jquery.ui.position.js");
-	}
-
-	/**
-	 * Returns the {@link PositionJavaScriptResourceReference} instance.
-	 */
-	public static PositionJavaScriptResourceReference get()
-	{
-		return INSTANCE;
 	}
 }

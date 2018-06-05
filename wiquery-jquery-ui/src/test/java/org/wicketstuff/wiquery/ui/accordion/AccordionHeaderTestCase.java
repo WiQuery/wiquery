@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.options.LiteralOption;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.accordion.AccordionHeader;
 
 public class AccordionHeaderTestCase extends WiQueryTestCase
 {

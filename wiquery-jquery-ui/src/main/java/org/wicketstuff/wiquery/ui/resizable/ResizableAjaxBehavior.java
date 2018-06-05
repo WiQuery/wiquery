@@ -25,31 +25,35 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
- *  Convenience ResizableBehavior with AJAX functionality already plugged in. 
- *  
+ * Convenience ResizableBehavior with AJAX functionality already plugged in.
+ * 
  * @author reiern70
  *
  */
-public abstract class ResizableAjaxBehavior extends ResizableBehavior {
+public abstract class ResizableAjaxBehavior extends ResizableBehavior
+{
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor.
 	 */
-	public ResizableAjaxBehavior() {
-		setResizeEvent(new AjaxResizeCallback() {
-			
-				private static final long serialVersionUID = 1L;
+	public ResizableAjaxBehavior()
+	{
+		setResizeEvent(new AjaxResizeCallback()
+		{
+
+			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void resize(AjaxRequestTarget target, Component source,
-					double resizeHeight, double resizeWidth) {
+			protected void resize(AjaxRequestTarget target, Component source, double resizeHeight,
+				double resizeWidth)
+			{
 				ResizableAjaxBehavior.this.resize(target, source, resizeHeight, resizeWidth);
 			}
 		});
 	}
-	
+
 	/**
 	 * Called when component is resized.
 	 * 
@@ -58,7 +62,7 @@ public abstract class ResizableAjaxBehavior extends ResizableBehavior {
 	 * @param resizeHeight
 	 * @param resizeWidth
 	 */
-	protected abstract void resize(AjaxRequestTarget target, Component source,
-			double resizeHeight, double resizeWidth);
+	protected abstract void resize(AjaxRequestTarget target, Component source, double resizeHeight,
+		double resizeWidth);
 
 }

@@ -43,7 +43,7 @@ public class AutocompleteSource implements IComplexOption
 	private static final long serialVersionUID = 3404088696595137949L;
 
 	// Properties
-	private ArrayItemOptions< ? extends IListItemOption> array;
+	private ArrayItemOptions<? extends IListItemOption> array;
 
 	private JsScope jsScope;
 
@@ -55,7 +55,7 @@ public class AutocompleteSource implements IComplexOption
 	 * @param array
 	 *            Array parameter
 	 */
-	public AutocompleteSource(ArrayItemOptions< ? extends IListItemOption> array)
+	public AutocompleteSource(ArrayItemOptions<? extends IListItemOption> array)
 	{
 		this(array, null, null);
 	}
@@ -70,8 +70,8 @@ public class AutocompleteSource implements IComplexOption
 	 * @param string
 	 *            String parameter
 	 */
-	private AutocompleteSource(ArrayItemOptions< ? extends IListItemOption> array, JsScope jsScope,
-			String string)
+	private AutocompleteSource(ArrayItemOptions<? extends IListItemOption> array, JsScope jsScope,
+		String string)
 	{
 		super();
 		setParam(array, jsScope, string);
@@ -102,7 +102,7 @@ public class AutocompleteSource implements IComplexOption
 	/**
 	 * @return the array param
 	 */
-	public ArrayItemOptions< ? extends IListItemOption> getArray()
+	public ArrayItemOptions<? extends IListItemOption> getArray()
 	{
 		return array;
 	}
@@ -160,7 +160,7 @@ public class AutocompleteSource implements IComplexOption
 	 * 
 	 * @param array
 	 */
-	public void setArray(ArrayItemOptions< ? extends IListItemOption> array)
+	public void setArray(ArrayItemOptions<? extends IListItemOption> array)
 	{
 		setParam(array, null, null);
 	}
@@ -185,8 +185,8 @@ public class AutocompleteSource implements IComplexOption
 	 * @param string
 	 *            String parameter
 	 */
-	private void setParam(ArrayItemOptions< ? extends IListItemOption> array, JsScope jsScope,
-			String string)
+	private void setParam(ArrayItemOptions<? extends IListItemOption> array, JsScope jsScope,
+		String string)
 	{
 		this.array = array;
 		this.jsScope = jsScope;

@@ -21,52 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.wicket.markup.head.CssHeaderItem;
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.resource.JQueryPluginResourceReference;
-import org.wicketstuff.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: CoreUIJavaScriptResourceReference.java 1145 2011-08-02 08:57:23Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the core jQuery UI library.
- * </p>
- * 
- * @author Lionel Armanet
- * @since 0.5
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class CoreUIJavaScriptResourceReference extends JQueryPluginResourceReference
+@Deprecated
+public final class CoreUIJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = 4585057795574929263L;
+	private static final long serialVersionUID = 1L;
 
-	private static final CoreUIJavaScriptResourceReference INSTANCE =
-		new CoreUIJavaScriptResourceReference();
-
-	public static CoreUIJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	/**
-	 * Builds a new instance of {@link CoreUIJavaScriptResourceReference}.
-	 */
 	private CoreUIJavaScriptResourceReference()
 	{
-		super(CoreUIJavaScriptResourceReference.class, "jquery.ui.core.js");
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		Iterable< ? extends HeaderItem> jquery = super.getDependencies();
-		List<HeaderItem> ret = new ArrayList<HeaderItem>();
-		for (HeaderItem curItem : jquery)
-			ret.add(curItem);
-		ret.add(CssHeaderItem.forReference(WiQueryCoreThemeResourceReference.get()));
-		return ret;
 	}
 }

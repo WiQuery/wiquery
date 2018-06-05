@@ -22,11 +22,9 @@
 package org.wicketstuff.wiquery.ui.themes;
 
 import org.apache.wicket.request.resource.CssResourceReference;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 
 /**
- * $Id: WiQueryCoreThemeResourceReference.java 1187 2011-08-25 11:10:01Z
- * hielke.hoeve@gmail.com $
+ * $Id: WiQueryCoreThemeResourceReference.java 1187 2011-08-25 11:10:01Z hielke.hoeve@gmail.com $
  * <p>
  * Defines the default WiQuery theme.
  * </p>
@@ -38,28 +36,23 @@ public final class WiQueryCoreThemeResourceReference extends CssResourceReferenc
 {
 	private static final long serialVersionUID = 6795863553105608280L;
 
-	private static final WiQueryCoreThemeResourceReference INSTANCE =
-		new WiQueryCoreThemeResourceReference();
+	private static final WiQueryCoreThemeResourceReference INSTANCE = new WiQueryCoreThemeResourceReference();
 
 	public static WiQueryCoreThemeResourceReference get()
 	{
 		return INSTANCE;
 	}
 
-	/**
-	 * Builds a new instance of {@link CoreUIJavaScriptResourceReference}.
-	 */
 	private WiQueryCoreThemeResourceReference()
 	{
 		this("smoothness");
 	}
 
 	/**
-	 * Builds a new instance of {@link CoreUIJavaScriptResourceReference} with given
-	 * theme.
+	 * Builds a new instance of {@link WiQueryCoreThemeResourceReference} with given theme.
 	 */
 	public WiQueryCoreThemeResourceReference(String theme)
 	{
-		super(WiQueryCoreThemeResourceReference.class, theme + "/jquery-ui-1.10.3.custom.css");
+		super(WiQueryCoreThemeResourceReference.class, theme + "/jquery-ui.css");
 	}
 }

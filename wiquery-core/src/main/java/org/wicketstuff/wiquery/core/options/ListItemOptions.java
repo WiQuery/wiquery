@@ -29,7 +29,8 @@ import java.util.ArrayList;
  * @author Julien Roche
  * 
  */
-public class ListItemOptions<E extends IListItemOption> extends ArrayList<E> implements
+public class ListItemOptions<E extends IListItemOption> extends ArrayList<E>
+	implements
 		ICollectionItemOptions
 {
 	// Constants

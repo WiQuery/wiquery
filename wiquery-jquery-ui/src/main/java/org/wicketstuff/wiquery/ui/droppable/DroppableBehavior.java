@@ -36,7 +36,9 @@ import org.wicketstuff.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.wicketstuff.wiquery.core.javascript.JsQuery;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.options.IComplexOption;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 
 /**
  * $Id$
@@ -55,12 +57,8 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum ToleranceEnum
-	{
-		FIT,
-		INTERSECT,
-		POINTER,
-		TOUCH;
+	public enum ToleranceEnum {
+		FIT, INTERSECT, POINTER, TOUCH;
 	}
 
 	// Constants
@@ -68,26 +66,26 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	private static final long serialVersionUID = 2L;
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current draggable
-	 * element, a jQuery object.
+	 * Properties on the ui parameter (use it into callback functions) : current draggable element,
+	 * a jQuery object.
 	 */
 	public static final String UI_DRAGGABLE = "ui.draggable";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current draggable
-	 * helper, a jQuery object
+	 * Properties on the ui parameter (use it into callback functions) : current draggable helper, a
+	 * jQuery object
 	 */
 	public static final String UI_HELPER = "ui.helper";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current position
-	 * of the draggable helper { top: , left: }
+	 * Properties on the ui parameter (use it into callback functions) : current position of the
+	 * draggable helper { top: , left: }
 	 */
 	public static final String UI_POSITION = "ui.position";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : current absolute
-	 * position of the draggable helper { top: , left: }
+	 * Properties on the ui parameter (use it into callback functions) : current absolute position
+	 * of the draggable helper { top: , left: }
 	 */
 	public static final String UI_OFFSET = "ui.offset";
 
@@ -104,8 +102,8 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 		protected List<CallbackParameter> getExtraParameters()
 		{
 			List<CallbackParameter> ret = super.getExtraParameters();
-			ret.add(CallbackParameter.resolved("droppedId", "$(" + DroppableBehavior.UI_DRAGGABLE
-				+ ").attr('id')"));
+			ret.add(CallbackParameter.resolved("droppedId",
+				"$(" + DroppableBehavior.UI_DRAGGABLE + ").attr('id')"));
 			return ret;
 		}
 
@@ -139,19 +137,20 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	public void renderHead(Component component, IHeaderResponse response)
 	{
 		super.renderHead(component, response);
-		response.render(JavaScriptHeaderItem.forReference(DroppableJavaScriptResourceReference
-			.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(getComponent()).$()
-			.chain("droppable", this.options.getJavaScriptOptions()).render()));
+			.chain("droppable", this.options.getJavaScriptOptions())
+			.render()));
 	}
 
 	/*---- Options section ---*/
 
 	/**
-	 * All draggables that match the selector will be accepted. If a function is
-	 * specified, the function will be called for each draggable on the page (passed as
-	 * the first argument to the function), to provide a custom filter. The function
-	 * should return true if the draggable should be accepted.
+	 * All draggables that match the selector will be accepted. If a function is specified, the
+	 * function will be called for each draggable on the page (passed as the first argument to the
+	 * function), to provide a custom filter. The function should return true if the draggable
+	 * should be accepted.
 	 * 
 	 * @param accept
 	 * @return instance of the current behavior
@@ -170,15 +169,15 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 		IComplexOption accept = this.options.getComplexOption("accept");
 		if (accept instanceof DroppableAccept)
 		{
-			return (DroppableAccept) accept;
+			return (DroppableAccept)accept;
 		}
 
 		return new DroppableAccept("*");
 	}
 
 	/**
-	 * If specified, the class will be added to the droppable while an acceptable
-	 * draggable is being dragged.
+	 * If specified, the class will be added to the droppable while an acceptable draggable is being
+	 * dragged.
 	 * 
 	 * @param activeClass
 	 * @return instance of the current behavior
@@ -222,9 +221,27 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 		return true;
 	}
 
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public DroppableBehavior setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
+
+
 	/**
-	 * Disables (true) or enables (false) the droppable. Can be set when initialising
-	 * (first creating) the droppable.
+	 * Disables (true) or enables (false) the droppable. Can be set when initialising (first
+	 * creating) the droppable.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -274,8 +291,8 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * If specified, the class will be added to the droppable while an acceptable
-	 * draggable is being hovered.
+	 * If specified, the class will be added to the droppable while an acceptable draggable is being
+	 * hovered.
 	 * 
 	 * @param hoverClass
 	 * @return instance of the current behavior
@@ -295,9 +312,8 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Used to group sets of draggable and droppable items, in addition to droppable's
-	 * accept option. A draggable with the same scope value as a droppable will be
-	 * accepted.
+	 * Used to group sets of draggable and droppable items, in addition to droppable's accept
+	 * option. A draggable with the same scope value as a droppable will be accepted.
 	 * 
 	 * @param scope
 	 * @return instance of the current behavior
@@ -319,8 +335,8 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the mode to use for testing whether a draggable is 'over' a droppable.
-	 * Possible values: 'fit', 'intersect', 'pointer', 'touch'.
+	 * Set's the mode to use for testing whether a draggable is 'over' a droppable. Possible values:
+	 * 'fit', 'intersect', 'pointer', 'touch'.
 	 * <ul>
 	 * <li><b>fit</b>: draggable overlaps the droppable entirely</li>
 	 * <li><b>intersect</b>: draggable overlaps the droppable at least 50%</li>
@@ -343,15 +359,15 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	public ToleranceEnum getTolerance()
 	{
 		String tolerance = this.options.getLiteral("tolerance");
-		return tolerance == null ? ToleranceEnum.INTERSECT : ToleranceEnum.valueOf(tolerance
-			.toUpperCase());
+		return tolerance == null ? ToleranceEnum.INTERSECT
+			: ToleranceEnum.valueOf(tolerance.toUpperCase());
 	}
 
 	/*---- Events section ---*/
 
 	/**
-	 * Set's the callback when an accepted draggable starts dragging. This can be useful
-	 * if you want to make the droppable 'light up' when it can be dropped on.
+	 * Set's the callback when an accepted draggable starts dragging. This can be useful if you want
+	 * to make the droppable 'light up' when it can be dropped on.
 	 * 
 	 * @param activate
 	 * @return instance of the current behavior
@@ -375,9 +391,9 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the callback when an accepted draggable is dropped 'over' (within the
-	 * tolerance of) this droppable. In the callback, $(this) represents the droppable the
-	 * draggable is dropped on. ui.draggable represents the draggable.
+	 * Set's the callback when an accepted draggable is dropped 'over' (within the tolerance of)
+	 * this droppable. In the callback, $(this) represents the droppable the draggable is dropped
+	 * on. ui.draggable represents the draggable.
 	 * 
 	 * @param drop
 	 * @return instance of the current behavior
@@ -395,8 +411,8 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the callback when an accepted draggable is dragged out (within the tolerance
-	 * of) this droppable.
+	 * Set's the callback when an accepted draggable is dragged out (within the tolerance of) this
+	 * droppable.
 	 * 
 	 * @param out
 	 * @return instance of the current behavior
@@ -408,8 +424,8 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the callback when an accepted draggable is dragged 'over' (within the
-	 * tolerance of) this droppable.
+	 * Set's the callback when an accepted draggable is dragged 'over' (within the tolerance of)
+	 * this droppable.
 	 * 
 	 * @param over
 	 * @return instance of the current behavior
@@ -423,8 +439,7 @@ public class DroppableBehavior extends WiQueryAbstractAjaxBehavior
 	/*---- Methods section ---*/
 
 	/**
-	 * Method to destroy the droppable This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the droppable This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */

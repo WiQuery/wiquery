@@ -24,8 +24,8 @@ package org.wicketstuff.wiquery.core.javascript;
 /**
  * $Id: JsScopeEvent.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * 
- * This class represent a JsScope event for the JQuery scope event The javascript
- * representation will be like this:
+ * This class represent a JsScope event for the JQuery scope event The javascript representation
+ * will be like this:
  * <p>
  * function(event) { ... }
  * </p>

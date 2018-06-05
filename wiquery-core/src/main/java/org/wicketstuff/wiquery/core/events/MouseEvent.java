@@ -30,19 +30,9 @@ package org.wicketstuff.wiquery.core.events;
  * @author Lionel Armanet
  * @since 0.5
  */
-public enum MouseEvent implements EventLabel
-{
+public enum MouseEvent implements EventLabel {
 
-	CLICK,
-	DBLCLICK,
-	MOUSEDOWN,
-	MOUSEENTER,
-	MOUSELEAVE,
-	MOUSEMOVE,
-	MOUSEOUT,
-	MOUSEOVER,
-	MOUSEUP,
-	SCROLL;
+	CLICK, DBLCLICK, MOUSEDOWN, MOUSEENTER, MOUSELEAVE, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP, SCROLL;
 
 	@Override
 	public String getEventLabel()

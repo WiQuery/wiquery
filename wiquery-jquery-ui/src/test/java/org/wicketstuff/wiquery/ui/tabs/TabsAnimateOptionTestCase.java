@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 import org.wicketstuff.wiquery.ui.options.EffectOptionObject;
-import org.wicketstuff.wiquery.ui.tabs.TabsAnimateOption;
 
 public class TabsAnimateOptionTestCase extends WiQueryTestCase
 {
@@ -31,11 +30,11 @@ public class TabsAnimateOptionTestCase extends WiQueryTestCase
 		snap.setIntegerParam(200);
 		expectedJavascript = "200";
 		generatedJavascript = snap.getJavascriptOption().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Literal param
 		snap.setLiteralParam("swing");
 		expectedJavascript = "'swing'";
@@ -44,14 +43,11 @@ public class TabsAnimateOptionTestCase extends WiQueryTestCase
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Object param
-		snap.setObjectParam(new EffectOptionObject()
-				.setEasing("linear")
-				.setDelay(50)
-				.setDuration(200)
-				.setEffect("blind")
-		);
+		snap.setObjectParam(
+			new EffectOptionObject().setEasing("linear").setDelay(50).setDuration(200).setEffect(
+				"blind"));
 		expectedJavascript = "{easing: 'linear', delay: 50, duration: 200, effect: 'blind'}";
 		generatedJavascript = snap.getJavascriptOption().toString();
 
@@ -69,7 +65,8 @@ public class TabsAnimateOptionTestCase extends WiQueryTestCase
 		catch (Exception e)
 		{
 			// We have an expected error
-			assertEquals("The GenericAnimateOption must have one not null parameter", e.getMessage());
+			assertEquals("The GenericAnimateOption must have one not null parameter",
+				e.getMessage());
 		}
 	}
 

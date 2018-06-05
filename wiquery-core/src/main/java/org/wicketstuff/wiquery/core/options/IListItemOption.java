@@ -33,8 +33,6 @@ public interface IListItemOption extends Serializable
 {
 	/**
 	 * Method retrieving the javascript's representation of the option
-	 * 
-	 * @return
 	 */
 	CharSequence getJavascriptOption();
 }

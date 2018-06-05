@@ -17,12 +17,12 @@ public class PropertyExpressionMatcher implements ComponentMatcher
 	@Override
 	public boolean matches(Component component)
 	{
-		IModel< ? > checkModel = component.getDefaultModel();
-		while (checkModel instanceof IWrapModel< ? >)
-			checkModel = ((IWrapModel< ? >) checkModel).getWrappedModel();
-		if (checkModel instanceof PropertyModel< ? >)
+		IModel<?> checkModel = component.getDefaultModel();
+		while (checkModel instanceof IWrapModel<?>)
+			checkModel = ((IWrapModel<?>)checkModel).getWrappedModel();
+		if (checkModel instanceof PropertyModel<?>)
 		{
-			PropertyModel< ? > model = (PropertyModel< ? >) checkModel;
+			PropertyModel<?> model = (PropertyModel<?>)checkModel;
 			return model.getPropertyExpression().equals(expression);
 		}
 		return false;

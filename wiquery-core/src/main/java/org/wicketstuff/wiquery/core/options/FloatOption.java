@@ -34,7 +34,8 @@ import org.apache.wicket.model.IModel;
  * <p>
  * The {@link Float} <code>1</code> should be rendered as <code>1</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
  * @author Ernesto Reinaldo Barreiro
@@ -76,9 +77,9 @@ public class FloatOption extends AbstractOption<Float>
 	@Override
 	public IModelOption<Float> wrapOnAssignment(Component component)
 	{
-		if (getModel() instanceof IComponentAssignedModel< ? >)
+		if (getModel() instanceof IComponentAssignedModel<?>)
 			return new FloatOption(
-				((IComponentAssignedModel<Float>) getModel()).wrapOnAssignment(component));
+				((IComponentAssignedModel<Float>)getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

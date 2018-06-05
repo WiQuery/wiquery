@@ -24,8 +24,8 @@ package org.wicketstuff.wiquery.core.javascript;
 /**
  * $Id: ChainableStatement.java 1714 2011-09-22 20:38:30Z hielke.hoeve $
  * <p>
- * Common interface to ease jQuery integration in WickeXt. Defines common information
- * needed by a JavaScript statement to be append to a {@link JsStatement}.
+ * Common interface to ease jQuery integration in WickeXt. Defines common information needed by a
+ * JavaScript statement to be append to a {@link JsStatement}.
  * </p>
  * 
  * @author Lionel Armanet

@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.accordion.AccordionIcon;
 import org.wicketstuff.wiquery.ui.themes.UiIcon;
 
 public class AccordionIconTestCase extends WiQueryTestCase
@@ -37,9 +36,8 @@ public class AccordionIconTestCase extends WiQueryTestCase
 
 		accordionIcon = new AccordionIcon(UiIcon.ARROW_1_EAST, UiIcon.ARROW_1_NORTH);
 
-		expectedJavascript =
-			"{'header': '" + UiIcon.ARROW_1_EAST.getCssClass() + "', 'activeHeader': '"
-				+ UiIcon.ARROW_1_NORTH.getCssClass() + "'}";
+		expectedJavascript = "{'header': '" + UiIcon.ARROW_1_EAST.getCssClass() +
+			"', 'activeHeader': '" + UiIcon.ARROW_1_NORTH.getCssClass() + "'}";
 		generatedJavascript = accordionIcon.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);

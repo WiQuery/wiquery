@@ -5,8 +5,6 @@ package org.wicketstuff.wiquery.ui.dialog;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
-import org.wicketstuff.wiquery.ui.dialog.AjaxDialogButton;
-import org.wicketstuff.wiquery.ui.dialog.Dialog;
 
 /**
  * @author Ernesto Reinaldo

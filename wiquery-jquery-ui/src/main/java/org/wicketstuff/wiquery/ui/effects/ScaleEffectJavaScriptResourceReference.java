@@ -21,53 +21,19 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: ScaleEffectJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to import the Scale jQuery UI effect.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class ScaleEffectJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class ScaleEffectJavaScriptResourceReference
+	extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = -3173953116856601631L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final ScaleEffectJavaScriptResourceReference INSTANCE =
-		new ScaleEffectJavaScriptResourceReference();
-
-	/**
-	 * Default constructor
-	 */
 	private ScaleEffectJavaScriptResourceReference()
 	{
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.ui.effect-scale.js");
-	}
-
-	/**
-	 * Returns the {@link ScaleEffectJavaScriptResourceReference} instance.
-	 */
-	public static ScaleEffectJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreEffectJavaScriptResourceReference.get());
 	}
 }

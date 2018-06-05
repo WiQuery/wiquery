@@ -32,18 +32,19 @@ import org.wicketstuff.wiquery.ui.options.GenericAnimateOption;
  * </p>
  * Multiple types supported:
  * <ul>
- * 	<li>Boolean: When set to false, no animation will be used and the panel will be shown immediately.
- * When set to true, the panel will fade in with the default duration and the default easing. </li>
- * 	<li>Number: The panel will fade in with the specified duration and the default easing. </li>
- * 	<li>String: The panel will be shown using the specified effect.
- * The value can either be the name of a built-in jQuery animation method, such as "slideDown", or the
- * name of a jQuery UI effect, such as "fold".
- * In either case the effect will be used with the default duration and the default easing. </li>
- * 	<li>Object: If the value is an object, then effect, delay, duration, and easing properties may be provided.
- * If the effect property contains the name of a jQuery method, then that method will be used;
- * otherwise it is assumed to be the name of a jQuery UI effect.
- * If duration or easing is omitted, then the default values will be used.
- * If effect is omitted, then "fadeIn" will be used. If delay is omitted, then no delay is used.
+ * <li>Boolean: When set to false, no animation will be used and the panel will be shown
+ * immediately. When set to true, the panel will fade in with the default duration and the default
+ * easing.</li>
+ * <li>Number: The panel will fade in with the specified duration and the default easing.</li>
+ * <li>String: The panel will be shown using the specified effect. The value can either be the name
+ * of a built-in jQuery animation method, such as "slideDown", or the name of a jQuery UI effect,
+ * such as "fold". In either case the effect will be used with the default duration and the default
+ * easing.</li>
+ * <li>Object: If the value is an object, then effect, delay, duration, and easing properties may be
+ * provided. If the effect property contains the name of a jQuery method, then that method will be
+ * used; otherwise it is assumed to be the name of a jQuery UI effect. If duration or easing is
+ * omitted, then the default values will be used. If effect is omitted, then "fadeIn" will be used.
+ * If delay is omitted, then no delay is used.
  * </ul>
  * 
  * @author Stephane Gleizes

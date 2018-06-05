@@ -7,19 +7,13 @@ package org.wicketstuff.wiquery.ui.position;
  * @since 1.1
  * 
  */
-public enum PositionRelation
-{
-	BOTTOM,
-	CENTER,
-	LEFT,
-	RIGHT,
-	TOP;
+public enum PositionRelation {
+	BOTTOM, CENTER, LEFT, RIGHT, TOP;
 
 	/**
 	 * Method searching the Position value
 	 * 
 	 * @param value
-	 * @return
 	 */
 	public static PositionRelation getPosition(String value)
 	{

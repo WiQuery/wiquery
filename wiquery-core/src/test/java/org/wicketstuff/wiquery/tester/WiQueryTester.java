@@ -42,22 +42,22 @@ public class WiQueryTester extends WicketTester
 {
 	public <X extends Component> X first(final MarkupContainer root, ComponentMatcher matcher)
 	{
-		CollectingVisitor<X> visitor = new CollectingVisitor<X>(matcher, true);
+		CollectingVisitor<X> visitor = new CollectingVisitor<>(matcher, true);
 		root.visitChildren(visitor);
 		return visitor.matchedComponents.isEmpty() ? null : visitor.matchedComponents.get(0);
 	}
 
 	public <X extends Component> List<X> all(final MarkupContainer root, ComponentMatcher matcher)
 	{
-		CollectingVisitor<X> visitor = new CollectingVisitor<X>(matcher);
+		CollectingVisitor<X> visitor = new CollectingVisitor<>(matcher);
 		root.visitChildren(visitor);
 		return visitor.matchedComponents;
 	}
 
 	public <X extends Component> X first(final MarkupContainer root, Class<X> componentType)
 	{
-		CollectingVisitor<X> visitor =
-			new CollectingVisitor<X>(new ComponentTypeMatcher(componentType), true);
+		CollectingVisitor<X> visitor = new CollectingVisitor<>(
+			new ComponentTypeMatcher(componentType), true);
 		root.visitChildren(visitor);
 		return visitor.matchedComponents.get(0);
 	}
@@ -65,7 +65,7 @@ public class WiQueryTester extends WicketTester
 	public <X extends Component> List<X> all(MarkupContainer root, Class<X> componentType)
 	{
 		ComponentMatcher matcher = new ComponentTypeMatcher(componentType);
-		CollectingVisitor<X> visitor = new CollectingVisitor<X>(matcher);
+		CollectingVisitor<X> visitor = new CollectingVisitor<>(matcher);
 		root.visitChildren(componentType, visitor);
 		return visitor.matchedComponents;
 	}
@@ -73,7 +73,7 @@ public class WiQueryTester extends WicketTester
 	/**
 	 * Sets the value on the input control.
 	 */
-	public void setValue(FormComponent< ? > input, String value)
+	public void setValue(FormComponent<?> input, String value)
 	{
 		getLastRequest().setParameter(input.getInputName(), value);
 	}
@@ -82,22 +82,22 @@ public class WiQueryTester extends WicketTester
 	{
 		Page renderedPage = getLastRenderedPage();
 		assertComponent(path, RepeatingView.class);
-		RepeatingView rv = (RepeatingView) renderedPage.get(path);
+		RepeatingView rv = (RepeatingView)renderedPage.get(path);
 		return rv;
 	}
 
-	public ListView< ? > getListView(String path)
+	public ListView<?> getListView(String path)
 	{
 		Page renderedPage = getLastRenderedPage();
 		assertComponent(path, ListView.class);
-		ListView< ? > rv = (ListView< ? >) renderedPage.get(path);
+		ListView<?> rv = (ListView<?>)renderedPage.get(path);
 		return rv;
 	}
 
 	public List<IHeaderContributor> getHeaderContributors()
 	{
 		Page renderedPage = getLastRenderedPage();
-		final List<IHeaderContributor> contributors = new ArrayList<IHeaderContributor>();
+		final List<IHeaderContributor> contributors = new ArrayList<>();
 
 		renderedPage.visitChildren(new IVisitor<Component, Void>()
 		{
@@ -106,7 +106,7 @@ public class WiQueryTester extends WicketTester
 			{
 				for (Behavior behavior : component.getBehaviors())
 					if (behavior instanceof IHeaderContributor)
-						contributors.add((IHeaderContributor) behavior);
+						contributors.add((IHeaderContributor)behavior);
 
 			}
 		});

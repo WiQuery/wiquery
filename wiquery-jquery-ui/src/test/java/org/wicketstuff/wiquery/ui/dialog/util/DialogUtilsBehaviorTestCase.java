@@ -72,8 +72,7 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase
 	public void testErrorDialog()
 	{
 		assertNotNull(dialogUtilsBehavior.errorDialog("a message"));
-		assertEquals(
-			dialogUtilsBehavior.errorDialog("a message").render().toString(),
+		assertEquals(dialogUtilsBehavior.errorDialog("a message").render().toString(),
 			"$.ui.dialog.wiquery.errorDialog(2, 'fr', \"a message\", './wicket/resource/org.wicketstuff.wiquery.ui.dialog.util.DialogUtilsBehavior/cancel.png');");
 	}
 
@@ -86,8 +85,7 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase
 	public void testQuestionDialog()
 	{
 		assertNotNull(dialogUtilsBehavior.questionDialog("a message"));
-		assertEquals(
-			dialogUtilsBehavior.questionDialog("a message").render().toString(),
+		assertEquals(dialogUtilsBehavior.questionDialog("a message").render().toString(),
 			"$.ui.dialog.wiquery.questionDialog(2, 'fr', \"a message\", './wicket/resource/org.wicketstuff.wiquery.ui.dialog.util.DialogUtilsBehavior/questionmark.png');");
 	}
 
@@ -118,8 +116,7 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase
 		assertNotNull(st.getOpen());
 
 		assertEquals(st.getClose().render().toString(), "$('#dialog2').dialog('close');");
-		assertEquals(
-			st.getOpen().render().toString(),
+		assertEquals(st.getOpen().render().toString(),
 			"$.ui.dialog.wiquery.waitDialog(2, 'fr', './wicket/resource/org.wicketstuff.wiquery.ui.dialog.util.DialogUtilsBehavior/wait.gif');");
 	}
 
@@ -132,8 +129,7 @@ public class DialogUtilsBehaviorTestCase extends WiQueryTestCase
 	public void testWarningDialog()
 	{
 		assertNotNull(dialogUtilsBehavior.warningDialog("a message"));
-		assertEquals(
-			dialogUtilsBehavior.warningDialog("a message").render().toString(),
+		assertEquals(dialogUtilsBehavior.warningDialog("a message").render().toString(),
 			"$.ui.dialog.wiquery.warningDialog(2, 'fr', \"a message\", './wicket/resource/org.wicketstuff.wiquery.ui.dialog.util.DialogUtilsBehavior/warning.png');");
 	}
 }

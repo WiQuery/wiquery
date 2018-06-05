@@ -31,7 +31,6 @@ import org.wicketstuff.wiquery.core.javascript.JsScope;
 import org.wicketstuff.wiquery.core.options.ArrayItemOptions;
 import org.wicketstuff.wiquery.core.options.LiteralOption;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.autocomplete.AutocompleteSource;
 
 /**
  * Test on {@link AutocompleteSource}
@@ -68,7 +67,7 @@ public class AutocompleteSourceTestCase extends WiQueryTestCase
 		assertEquals(generatedJavascript, expectedJavascript);
 
 		// Array
-		ArrayItemOptions<LiteralOption> array = new ArrayItemOptions<LiteralOption>();
+		ArrayItemOptions<LiteralOption> array = new ArrayItemOptions<>();
 		array.add(new LiteralOption("a"));
 		array.add(new LiteralOption("b"));
 		array.add(new LiteralOption("c"));

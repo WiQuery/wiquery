@@ -164,9 +164,9 @@ public final class TraversingHelper
 	{
 		return new DefaultChainableStatement("siblings", JsUtils.quotes(expression));
 	}
-	
+
 	private TraversingHelper()
 	{
 	}
-	
+
 }

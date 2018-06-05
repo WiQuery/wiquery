@@ -36,8 +36,8 @@ import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
 
 /**
- * An options class to store date picker info so that both InlineDatePiker and datePicker
- * can share them.
+ * An options class to store date picker info so that both InlineDatePiker and datePicker can share
+ * them.
  * 
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
@@ -58,9 +58,9 @@ public class DatePickerOptions extends Options
 	/*---- Options section ---*/
 
 	/**
-	 * The jQuery selector for another field that is to be updated with the selected date
-	 * from the datepicker. Use the altFormat setting below to change the format of the
-	 * date within this field. Leave as blank for no alternate field.
+	 * The jQuery selector for another field that is to be updated with the selected date from the
+	 * datepicker. Use the altFormat setting below to change the format of the date within this
+	 * field. Leave as blank for no alternate field.
 	 * 
 	 * @param altField
 	 */
@@ -79,9 +79,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * The dateFormat to be used for the altField option. This allows one date format to
-	 * be shown to the user for selection purposes, while a different format is actually
-	 * sent behind the scenes.
+	 * The dateFormat to be used for the altField option. This allows one date format to be shown to
+	 * the user for selection purposes, while a different format is actually sent behind the scenes.
 	 * 
 	 * The format can be combinations of the following:
 	 * <ul>
@@ -139,8 +138,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Set to true to automatically resize the input field to accomodate dates in the
-	 * current dateFormat.
+	 * Set to true to automatically resize the input field to accomodate dates in the current
+	 * dateFormat.
 	 */
 	public void setAutoSize(boolean autoSize)
 	{
@@ -161,8 +160,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Set's URL for the popup button image. If set, button text becomes the alt value and
-	 * is not directly displayed.
+	 * Set's URL for the popup button image. If set, button text becomes the alt value and is not
+	 * directly displayed.
 	 * 
 	 * @param buttonImage
 	 */
@@ -181,8 +180,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Set to true to place an image after the field to use as the trigger without it
-	 * appearing on a button.
+	 * Set to true to place an image after the field to use as the trigger without it appearing on a
+	 * button.
 	 * 
 	 * @param buttonImageOnly
 	 */
@@ -205,8 +204,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Set's the text to display on the trigger button. Use in conjunction with showOn
-	 * equal to 'button' or 'both'.
+	 * Set's the text to display on the trigger button. Use in conjunction with showOn equal to
+	 * 'button' or 'both'.
 	 * 
 	 * @param buttonText
 	 */
@@ -225,9 +224,9 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * A function to calculate the week of the year for a given date. The default
-	 * implementation uses the ISO 8601 definition: weeks start on a Monday; the first
-	 * week of the year contains the first Thursday of the year.
+	 * A function to calculate the week of the year for a given date. The default implementation
+	 * uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains
+	 * the first Thursday of the year.
 	 * 
 	 * Default: $.datepicker.iso8601Week
 	 * 
@@ -247,8 +246,7 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Returns true if the date's month is selectable in a drop down list, returns false
-	 * otherwise.
+	 * Returns true if the date's month is selectable in a drop down list, returns false otherwise.
 	 */
 	public boolean isChangeMonth()
 	{
@@ -261,8 +259,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * The text to display for the week of the year column heading. This attribute is one
-	 * of the regionalisation attributes. Use showWeek to display this column.
+	 * The text to display for the week of the year column heading. This attribute is one of the
+	 * regionalisation attributes. Use showWeek to display this column.
 	 * 
 	 * @param weekHeader
 	 */
@@ -281,9 +279,9 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Sets the selectable year range. This range can either be defined by a start year
-	 * and an end year (like 2001 to 2010), or it can be defined relatively to the today's
-	 * date (like current-10 to current+10).
+	 * Sets the selectable year range. This range can either be defined by a start year and an end
+	 * year (like 2001 to 2010), or it can be defined relatively to the today's date (like
+	 * current-10 to current+10).
 	 * 
 	 * @param yearRange
 	 */
@@ -300,15 +298,15 @@ public class DatePickerOptions extends Options
 		IComplexOption yearRange = getComplexOption("yearRange");
 		if (yearRange != null && yearRange instanceof DatePickerYearRange)
 		{
-			return (DatePickerYearRange) yearRange;
+			return (DatePickerYearRange)yearRange;
 		}
 
 		return new DatePickerYearRange(new Short("-10"), new Short("10"), false);
 	}
 
 	/**
-	 * Additional text to display after the year in the month headers. This attribute is
-	 * one of the regionalisation attributes.
+	 * Additional text to display after the year in the month headers. This attribute is one of the
+	 * regionalisation attributes.
 	 * 
 	 * @param yearSuffix
 	 */
@@ -335,8 +333,7 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Returns true if the date's year is selectable in a drop down list, returns false
-	 * otherwise.
+	 * Returns true if the date's year is selectable in a drop down list, returns false otherwise.
 	 */
 	public boolean isChangeYear()
 	{
@@ -349,8 +346,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Set's the text to display for the close link. This attribute is one of the
-	 * regionalisation attributes. Use the showButtonPanel to display this button.
+	 * Set's the text to display for the close link. This attribute is one of the regionalisation
+	 * attributes. Use the showButtonPanel to display this button.
 	 * 
 	 * @param closeText
 	 */
@@ -435,8 +432,7 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * If true, the current day link moves to the currently selected date instead of
-	 * today.
+	 * If true, the current day link moves to the currently selected date instead of today.
 	 * 
 	 * @param gotoCurrent
 	 */
@@ -459,8 +455,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Normally the previous and next links are disabled when not applicable (see
-	 * minDate/maxDate). You can hide them altogether by setting this attribute to true.
+	 * Normally the previous and next links are disabled when not applicable (see minDate/maxDate).
+	 * You can hide them altogether by setting this attribute to true.
 	 * 
 	 * @param hideIfNoPrevNext
 	 */
@@ -483,8 +479,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * True if the current language is drawn from right to left. This attribute is one of
-	 * the regionalisation attributes.
+	 * True if the current language is drawn from right to left. This attribute is one of the
+	 * regionalisation attributes.
 	 * 
 	 * @param isRTL
 	 */
@@ -507,9 +503,9 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Set a maximum selectable date via a Date object, or a number of days from today
-	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for
-	 * weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
+	 * Set a maximum selectable date via a Date object, or a number of days from today (e.g. +7) or
+	 * a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
+	 * e.g. '+1m +1w'), or null for no limit.
 	 * 
 	 * @param maxDate
 	 */
@@ -527,16 +523,16 @@ public class DatePickerOptions extends Options
 
 		if (maxDate != null && maxDate instanceof DateOption)
 		{
-			return (DateOption) maxDate;
+			return (DateOption)maxDate;
 		}
 
 		return null;
 	}
 
 	/**
-	 * Set a minimum selectable date via a Date object, or a number of days from today
-	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for
-	 * weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
+	 * Set a minimum selectable date via a Date object, or a number of days from today (e.g. +7) or
+	 * a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
+	 * e.g. '+1m +1w'), or null for no limit.
 	 * 
 	 * @param minDate
 	 */
@@ -554,16 +550,16 @@ public class DatePickerOptions extends Options
 
 		if (minDate != null && minDate instanceof DateOption)
 		{
-			return (DateOption) minDate;
+			return (DateOption)minDate;
 		}
 
 		return null;
 	}
 
 	/**
-	 * Set's the list of full month names, as used in the month header on each datepicker
-	 * and as requested via the dateFormat setting. This attribute is one of the
-	 * regionalisation attributes.
+	 * Set's the list of full month names, as used in the month header on each datepicker and as
+	 * requested via the dateFormat setting. This attribute is one of the regionalisation
+	 * attributes.
 	 * 
 	 * @param monthNames
 	 */
@@ -581,16 +577,16 @@ public class DatePickerOptions extends Options
 
 		if (monthNames != null && monthNames instanceof ArrayOfMonthNames)
 		{
-			return (ArrayOfMonthNames) monthNames;
+			return (ArrayOfMonthNames)monthNames;
 		}
 
-		return new ArrayOfMonthNames("January", "February", "March", "April", "May", "June",
-			"July", "August", "September", "October", "November", "December");
+		return new ArrayOfMonthNames("January", "February", "March", "April", "May", "June", "July",
+			"August", "September", "October", "November", "December");
 	}
 
 	/**
-	 * Set's the list of abbreviated month names, for use as requested via the dateFormat
-	 * setting. This attribute is one of the regionalisation attributes.
+	 * Set's the list of abbreviated month names, for use as requested via the dateFormat setting.
+	 * This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param monthNamesShort
 	 */
@@ -608,7 +604,7 @@ public class DatePickerOptions extends Options
 
 		if (monthNamesShort != null && monthNamesShort instanceof ArrayOfMonthNames)
 		{
-			return (ArrayOfMonthNames) monthNamesShort;
+			return (ArrayOfMonthNames)monthNamesShort;
 		}
 
 		return new ArrayOfMonthNames("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
@@ -616,9 +612,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * When true the formatDate function is applied to the prevText, nextText, and
-	 * currentText values before display, allowing them to display the target month names
-	 * for example.
+	 * When true the formatDate function is applied to the prevText, nextText, and currentText
+	 * values before display, allowing them to display the target month names for example.
 	 * 
 	 * @param navigationAsDateFormat
 	 */
@@ -642,8 +637,8 @@ public class DatePickerOptions extends Options
 
 	/**
 	 * Set's the text to display for the next month link. This attribute is one of the
-	 * regionalisation attributes. With the standard ThemeRoller styling, this value is
-	 * replaced by an icon.
+	 * regionalisation attributes. With the standard ThemeRoller styling, this value is replaced by
+	 * an icon.
 	 * 
 	 * @param nextText
 	 */
@@ -667,16 +662,6 @@ public class DatePickerOptions extends Options
 	public void setShowOtherMonths(boolean showOtherMonths)
 	{
 		put("showOtherMonths", showOtherMonths);
-	}
-
-	/**
-	 * @deprecated will be removed in 1.2 Returns if the next/previous months are showed
-	 *             in the calendar.
-	 */
-	@Deprecated
-	public boolean getShowOtherMonths()
-	{
-		return getBoolean("showOtherMonths");
 	}
 
 	/**
@@ -710,7 +695,7 @@ public class DatePickerOptions extends Options
 
 		if (numberOfMonths != null && numberOfMonths instanceof DatePickerNumberOfMonths)
 		{
-			return (DatePickerNumberOfMonths) numberOfMonths;
+			return (DatePickerNumberOfMonths)numberOfMonths;
 		}
 
 		return new DatePickerNumberOfMonths(new Short("1"));
@@ -718,8 +703,8 @@ public class DatePickerOptions extends Options
 
 	/**
 	 * Set's the text to display for the previous month link. This attribute is one of the
-	 * regionalisation attributes. With the standard ThemeRoller styling, this value is
-	 * replaced by an icon.
+	 * regionalisation attributes. With the standard ThemeRoller styling, this value is replaced by
+	 * an icon.
 	 * 
 	 * @param prevText
 	 */
@@ -738,8 +723,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * When true days in other months shown before or after the current month are
-	 * selectable. This only applies if showOtherMonths is also true.
+	 * When true days in other months shown before or after the current month are selectable. This
+	 * only applies if showOtherMonths is also true.
 	 * 
 	 * @param selectOtherMonths
 	 */
@@ -780,15 +765,15 @@ public class DatePickerOptions extends Options
 
 		if (shortYearCutoff != null && shortYearCutoff instanceof DatePickerShortYearCutOff)
 		{
-			return (DatePickerShortYearCutOff) shortYearCutoff;
+			return (DatePickerShortYearCutOff)shortYearCutoff;
 		}
 
 		return new DatePickerShortYearCutOff("+10");
 	}
 
 	/**
-	 * Set the name of the animation used to show/hide the datepicker. Use 'show' (the
-	 * default), 'slideDown', 'fadeIn', or any of the show/hide jQuery UI effects
+	 * Set the name of the animation used to show/hide the datepicker. Use 'show' (the default),
+	 * 'slideDown', 'fadeIn', or any of the show/hide jQuery UI effects
 	 * 
 	 * @param showAnim
 	 */
@@ -830,8 +815,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Specify where in a multi-month display the current month shows, starting from 0 at
-	 * the top/left.
+	 * Specify where in a multi-month display the current month shows, starting from 0 at the
+	 * top/left.
 	 * 
 	 * @param showCurrentAtPos
 	 */
@@ -877,9 +862,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Have the datepicker appear automatically when the field receives focus ('focus'),
-	 * appear only when a button is clicked ('button'), or appear when either event takes
-	 * place ('both').
+	 * Have the datepicker appear automatically when the field receives focus ('focus'), appear only
+	 * when a button is clicked ('button'), or appear when either event takes place ('both').
 	 * 
 	 * @param showOn
 	 */
@@ -898,8 +882,8 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * If using one of the jQuery UI effects for showAnim, you can provide additional
-	 * settings for that animation via this option.
+	 * If using one of the jQuery UI effects for showAnim, you can provide additional settings for
+	 * that animation via this option.
 	 * 
 	 * @param showOptions
 	 */
@@ -918,16 +902,15 @@ public class DatePickerOptions extends Options
 
 		if (showOptions != null && showOptions instanceof ListItemOptions)
 		{
-			return (ListItemOptions<LiteralOption>) showOptions;
+			return (ListItemOptions<LiteralOption>)showOptions;
 		}
 
 		return null;
 	}
 
 	/**
-	 * When true a column is added to show the week of the year. The calculateWeek option
-	 * determines how the week of the year is calculated. You may also want to change the
-	 * firstDay option.
+	 * When true a column is added to show the week of the year. The calculateWeek option determines
+	 * how the week of the year is calculated. You may also want to change the firstDay option.
 	 */
 	public void setShowWeek(boolean showWeek)
 	{
@@ -1006,10 +989,9 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Set's the list of long day names, starting from Sunday, for use as requested via
-	 * the dateFormat setting. They also appear as popup hints when hovering over the
-	 * corresponding column headings. This attribute is one of the regionalisation
-	 * attributes.
+	 * Set's the list of long day names, starting from Sunday, for use as requested via the
+	 * dateFormat setting. They also appear as popup hints when hovering over the corresponding
+	 * column headings. This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param dayNames
 	 */
@@ -1027,17 +1009,16 @@ public class DatePickerOptions extends Options
 
 		if (dayNames != null && dayNames instanceof ArrayOfDayNames)
 		{
-			return (ArrayOfDayNames) dayNames;
+			return (ArrayOfDayNames)dayNames;
 		}
 
-		return new ArrayOfDayNames("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
-			"Friday", "Saturday");
+		return new ArrayOfDayNames("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+			"Saturday");
 	}
 
 	/**
-	 * Set's the list of minimised day names, starting from Sunday, for use as column
-	 * headers within the datepicker. This attribute is one of the regionalisation
-	 * attributes.
+	 * Set's the list of minimised day names, starting from Sunday, for use as column headers within
+	 * the datepicker. This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param dayNamesMin
 	 */
@@ -1055,16 +1036,15 @@ public class DatePickerOptions extends Options
 
 		if (dayNamesMin != null && dayNamesMin instanceof ArrayOfDayNames)
 		{
-			return (ArrayOfDayNames) dayNamesMin;
+			return (ArrayOfDayNames)dayNamesMin;
 		}
 
 		return new ArrayOfDayNames("Su", "Mo", "Tu", "We", "Th", "Fr", "Sa");
 	}
 
 	/**
-	 * Set's the list of abbreviated day names, starting from Sunday, for use as requested
-	 * via the dateFormat setting. This attribute is one of the regionalisation
-	 * attributes.
+	 * Set's the list of abbreviated day names, starting from Sunday, for use as requested via the
+	 * dateFormat setting. This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param dayNamesShort
 	 */
@@ -1082,17 +1062,17 @@ public class DatePickerOptions extends Options
 
 		if (dayNamesShort != null && dayNamesShort instanceof ArrayOfDayNames)
 		{
-			return (ArrayOfDayNames) dayNamesShort;
+			return (ArrayOfDayNames)dayNamesShort;
 		}
 
 		return new ArrayOfDayNames("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
 	}
 
 	/**
-	 * Set the date to highlight on first opening if the field is blank. Specify either an
-	 * actual date via a Date object, or a number of days from today (e.g. +7) or a string
-	 * of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
-	 * e.g. '+1m +7d'), or null for today.
+	 * Set the date to highlight on first opening if the field is blank. Specify either an actual
+	 * date via a Date object, or a number of days from today (e.g. +7) or a string of values and
+	 * periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null
+	 * for today.
 	 * 
 	 * @param defaultDate
 	 */
@@ -1110,15 +1090,15 @@ public class DatePickerOptions extends Options
 
 		if (defaultDate != null && defaultDate instanceof DateOption)
 		{
-			return (DateOption) defaultDate;
+			return (DateOption)defaultDate;
 		}
 
 		return null;
 	}
 
 	/**
-	 * Disables (true) or enables (false) the datepicker. Can be set when initialising
-	 * (first creating) the datepicker.
+	 * Disables (true) or enables (false) the datepicker. Can be set when initialising (first
+	 * creating) the datepicker.
 	 * 
 	 * @param disabled
 	 */
@@ -1141,9 +1121,9 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Control the speed at which the datepicker appears, it may be a time in
-	 * milliseconds, a string representing one of the three predefined speeds ("slow",
-	 * "normal", "fast"), or '' for immediately.
+	 * Control the speed at which the datepicker appears, it may be a time in milliseconds, a string
+	 * representing one of the three predefined speeds ("slow", "normal", "fast"), or '' for
+	 * immediately.
 	 * 
 	 * @param duration
 	 */
@@ -1161,7 +1141,7 @@ public class DatePickerOptions extends Options
 
 		if (duration != null && duration instanceof DatePickerDuration)
 		{
-			return (DatePickerDuration) duration;
+			return (DatePickerDuration)duration;
 		}
 
 		return new DatePickerDuration(DurationEnum.NORMAL);
@@ -1181,9 +1161,9 @@ public class DatePickerOptions extends Options
 
 	/**
 	 * The function takes a date as a parameter and must return an array with [0] equal to
-	 * true/false indicating whether or not this date is selectable, [1] equal to a CSS
-	 * class name(s) or '' for the default presentation and [2] an optional popup tooltip
-	 * for this date. It is called for each day in the datepicker before is it displayed.
+	 * true/false indicating whether or not this date is selectable, [1] equal to a CSS class
+	 * name(s) or '' for the default presentation and [2] an optional popup tooltip for this date.
+	 * It is called for each day in the datepicker before is it displayed.
 	 * 
 	 * @param beforeShowDay
 	 */
@@ -1193,9 +1173,9 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker moves to a new month and/or
-	 * year. The function receives the selected year, month (1-12), and the datepicker
-	 * instance as parameters. this refers to the associated input field.
+	 * Allows you to define your own event when the datepicker moves to a new month and/or year. The
+	 * function receives the selected year, month (1-12), and the datepicker instance as parameters.
+	 * this refers to the associated input field.
 	 * 
 	 * @param onChangeMonthYear
 	 */
@@ -1205,9 +1185,9 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker is closed, whether or not a
-	 * date is selected. The function receives the selected date as text and the
-	 * datepicker instance as parameters. this refers to the associated input field.
+	 * Allows you to define your own event when the datepicker is closed, whether or not a date is
+	 * selected. The function receives the selected date as text and the datepicker instance as
+	 * parameters. this refers to the associated input field.
 	 * 
 	 * @param onClose
 	 */
@@ -1217,9 +1197,9 @@ public class DatePickerOptions extends Options
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker is selected. The function
-	 * receives the selected date as text and the datepicker instance as parameters. this
-	 * refers to the associated input field.
+	 * Allows you to define your own event when the datepicker is selected. The function receives
+	 * the selected date as text and the datepicker instance as parameters. this refers to the
+	 * associated input field.
 	 * 
 	 * @param onSelect
 	 */

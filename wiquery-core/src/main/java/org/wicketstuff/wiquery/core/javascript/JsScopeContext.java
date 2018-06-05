@@ -62,7 +62,7 @@ public class JsScopeContext implements Serializable
 	public JsScopeContext(String... scopeVariables)
 	{
 		this.scopeVariables = scopeVariables;
-		statements = new ArrayList<JsStatement>();
+		statements = new ArrayList<>();
 	}
 
 	/**
@@ -78,8 +78,7 @@ public class JsScopeContext implements Serializable
 	}
 
 	/**
-	 * Creates a new {@link JsStatement} and append the given variable name in this
-	 * statement.
+	 * Creates a new {@link JsStatement} and append the given variable name in this statement.
 	 * 
 	 * @return the created {@link JsStatement}.
 	 */
@@ -91,8 +90,7 @@ public class JsScopeContext implements Serializable
 	}
 
 	/**
-	 * Creates a new {@link JsStatement} and append the given JavaScript code in this
-	 * statement.
+	 * Creates a new {@link JsStatement} and append the given JavaScript code in this statement.
 	 * 
 	 * @return the created {@link JsStatement}.
 	 */
@@ -104,8 +102,8 @@ public class JsScopeContext implements Serializable
 	}
 
 	/**
-	 * Returns the JavaScript statement to declare the scope declaration (eg. the list of
-	 * variables declared in the JavaScript function).
+	 * Returns the JavaScript statement to declare the scope declaration (eg. the list of variables
+	 * declared in the JavaScript function).
 	 */
 	CharSequence scopeDeclaration()
 	{

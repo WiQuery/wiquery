@@ -21,55 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.resizable;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id$
- * <p>
- * References the JavaScript resource to apply resizable behavior to any HTML element.
- * </p>
- * 
- * @author Lionel Armanet
- * @since 0.5
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class ResizableJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class ResizableJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = 3423205998397680042L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final ResizableJavaScriptResourceReference INSTANCE =
-		new ResizableJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link ResizableJavaScriptResourceReference}.
-	 */
 	private ResizableJavaScriptResourceReference()
 	{
-		super(ResizableJavaScriptResourceReference.class, "jquery.ui.resizable.js");
-	}
-
-	/**
-	 * Returns the {@link ResizableJavaScriptResourceReference} instance.
-	 */
-	public static ResizableJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
-			MouseJavaScriptResourceReference.get());
 	}
 }

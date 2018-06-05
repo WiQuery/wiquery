@@ -3,7 +3,6 @@ package org.wicketstuff.wiquery.slider;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.wicketstuff.wiquery.core.options.ArrayItemOptions;
 import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
 import org.wicketstuff.wiquery.ui.slider.AjaxSlider;
@@ -14,7 +13,8 @@ import org.wicketstuff.wiquery.ui.slider.Slider.Orientation;
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * 
  */
-public class SliderPanel extends Panel {
+public class SliderPanel extends Panel
+{
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,19 +33,22 @@ public class SliderPanel extends Panel {
 	 * 
 	 * @param id
 	 */
-	public SliderPanel(String id) {
+	public SliderPanel(String id)
+	{
 		super(id);
 		AjaxSlider slider = new AjaxSlider("slider", 1, 30);
 		slider.setAnimate(true);
 		slider.setStep(1);
 		slider.setValue(x);
-		slider.setAjaxStopEvent(new AjaxSlider.ISliderAjaxEvent() {
+		slider.setAjaxStopEvent(new AjaxSlider.ISliderAjaxEvent()
+		{
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void onEvent(AjaxRequestTarget target, AjaxSlider slider,
-					int value, int[] values) {
+			public void onEvent(AjaxRequestTarget target, AjaxSlider slider, int value,
+				int[] values)
+			{
 				SliderPanel.this.x = value;
 				target.add(SliderPanel.this.coordinates);
 			}
@@ -57,13 +60,15 @@ public class SliderPanel extends Panel {
 		slider1.setAnimate(true);
 		slider1.setStep(1);
 		slider1.setValue(y);
-		slider1.setAjaxStopEvent(new AjaxSlider.ISliderAjaxEvent() {
+		slider1.setAjaxStopEvent(new AjaxSlider.ISliderAjaxEvent()
+		{
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void onEvent(AjaxRequestTarget target, AjaxSlider slider,
-					int value, int[] values) {
+			public void onEvent(AjaxRequestTarget target, AjaxSlider slider, int value,
+				int[] values)
+			{
 				SliderPanel.this.y = value;
 				target.add(SliderPanel.this.coordinates);
 			}
@@ -72,34 +77,27 @@ public class SliderPanel extends Panel {
 		slider1.setOrientation(Orientation.VERTICAL);
 		add(slider1);
 
-		coordinates = new Label("coordinates",
-				new AbstractReadOnlyModel<String>() {
-
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public String getObject() {
-						return x + "," + y;
-					}
-				});
+		coordinates = new Label("coordinates", () -> x + "," + y);
 		coordinates.setOutputMarkupId(true);
 
 		add(coordinates);
 
 		AjaxSlider multiSlider = new AjaxSlider("multiSlider", 1, 100);
-		ArrayItemOptions<IntegerItemOptions> values = new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> values = new ArrayItemOptions<>();
 		values.add(new IntegerItemOptions(1));
 		values.add(new IntegerItemOptions(30));
 		values.add(new IntegerItemOptions(80));
 		multiSlider.setValues(values);
 
-		multiSlider.setAjaxStopEvent(new AjaxSlider.ISliderAjaxEvent() {
+		multiSlider.setAjaxStopEvent(new AjaxSlider.ISliderAjaxEvent()
+		{
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void onEvent(AjaxRequestTarget target, AjaxSlider slider,
-					int value, int[] values) {
+			public void onEvent(AjaxRequestTarget target, AjaxSlider slider, int value,
+				int[] values)
+			{
 				SliderPanel.this.values = values;
 				target.add(SliderPanel.this.label);
 			}
@@ -107,18 +105,8 @@ public class SliderPanel extends Panel {
 		});
 		add(multiSlider);
 
-		label = new Label("values", new AbstractReadOnlyModel<String>() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public String getObject() {
-				return SliderPanel.this.values[0] + ","
-						+ SliderPanel.this.values[1] + ","
-						+ SliderPanel.this.values[2];
-			}
-
-		});
+		label = new Label("values", () -> SliderPanel.this.values[0] + "," +
+			SliderPanel.this.values[1] + "," + SliderPanel.this.values[2]);
 		label.setOutputMarkupId(true);
 		add(label);
 	}

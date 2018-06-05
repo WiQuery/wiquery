@@ -15,7 +15,7 @@ public final class WiQueryUtil
 	public static Page getCurrentPage()
 	{
 		if (RequestCycle.get().getActiveRequestHandler() instanceof IPageRequestHandler)
-			return (Page) ((IPageRequestHandler) RequestCycle.get().getActiveRequestHandler())
+			return (Page)((IPageRequestHandler)RequestCycle.get().getActiveRequestHandler())
 				.getPage();
 
 		return null;
@@ -35,14 +35,13 @@ public final class WiQueryUtil
 
 	public static boolean isCurrentRequestAjax()
 	{
-		return RequestCycle.get() != null
-			? RequestCycle.get().find(AjaxRequestTarget.class) != null : false;
+		return RequestCycle.get() != null ? RequestCycle.get().find(AjaxRequestTarget.class) != null
+			: false;
 	}
 
 	/**
-	 * Looks for the jQuery resource reference. First we see if the application knows
-	 * where it is, in case the user has overriden it. If that fails we use the default
-	 * resource reference.
+	 * Looks for the jQuery resource reference. First we see if the application knows where it is,
+	 * in case the user has overriden it. If that fails we use the default resource reference.
 	 */
 	public static ResourceReference getJQueryResourceReference()
 	{
@@ -53,7 +52,7 @@ public final class WiQueryUtil
 		}
 		else
 		{
-			reference = JQueryResourceReference.get();
+			reference = JQueryResourceReference.getV1();
 		}
 		return reference;
 	}
@@ -72,7 +71,7 @@ public final class WiQueryUtil
 		}
 		return reference;
 	}
-	
+
 	private WiQueryUtil()
 	{
 	}

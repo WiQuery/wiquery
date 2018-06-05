@@ -46,9 +46,8 @@ public class JSQueryTestCase extends WiQueryTestCase
 		log.info(generated);
 		assertEquals(generated, expected);
 
-		expected =
-			"$('.sample').each(function() {\n" + "\t$(this).css('foo');\n"
-				+ "\t$(this).css('bar');\n" + "});";
+		expected = "$('.sample').each(function() {\n" + "\t$(this).css('foo');\n" +
+			"\t$(this).css('bar');\n" + "});";
 
 		jsq = new JsQuery();
 		jst = jsq.$(".sample").each(new JsScope()

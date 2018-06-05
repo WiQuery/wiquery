@@ -21,7 +21,6 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import org.wicketstuff.wiquery.core.effects.Effect;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
 
 /**
@@ -43,12 +42,8 @@ public class ShakeEffect extends Effect
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 * 
 	 */
-	public static enum Direction
-	{
-		up,
-		down,
-		left,
-		right;
+	public static enum Direction {
+		up, down, left, right;
 	}
 
 	/**
@@ -84,9 +79,10 @@ public class ShakeEffect extends Effect
 	 */
 	public ShakeEffect(Direction direction, int times, int distance, int duration)
 	{
-		super(JsUtils.quotes("shake"), "{direction:" + JsUtils.quotes(direction.name())
-			+ ", times: " + Integer.toString(times) + ", distance:" + Integer.toString(distance)
-			+ "}", Integer.toString(duration));
+		super(JsUtils.quotes("shake"),
+			"{direction:" + JsUtils.quotes(direction.name()) + ", times: " +
+				Integer.toString(times) + ", distance:" + Integer.toString(distance) + "}",
+			Integer.toString(duration));
 	}
 
 	@Override

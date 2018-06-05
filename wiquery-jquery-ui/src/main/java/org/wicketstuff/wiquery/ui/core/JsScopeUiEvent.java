@@ -26,8 +26,8 @@ import org.wicketstuff.wiquery.core.javascript.JsScopeContext;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 
 /**
- * This class represent a JsScope event for the JQuery UI components The javascript
- * representation will be like this:
+ * This class represent a JsScope event for the JQuery UI components The javascript representation
+ * will be like this:
  * <p>
  * function(event, ui) { ... }
  * </p>

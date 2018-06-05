@@ -21,7 +21,6 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import org.wicketstuff.wiquery.core.effects.Effect;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
 
 /**
@@ -43,14 +42,12 @@ public class ExplodeEffect extends Effect
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 * 
 	 */
-	public static enum Mode
-	{
-		show,
-		hide;
+	public static enum Mode {
+		show, hide;
 	}
 
 	private Mode mode;
-	
+
 	/**
 	 * Constructor.
 	 */
@@ -96,8 +93,8 @@ public class ExplodeEffect extends Effect
 	 */
 	public ExplodeEffect(Mode mode, int pieces, int duration)
 	{
-		super(JsUtils.quotes("explode"), "{pieces: " + Integer.toString(pieces) + "}", Integer
-			.toString(duration));
+		super(JsUtils.quotes("explode"), "{pieces: " + Integer.toString(pieces) + "}",
+			Integer.toString(duration));
 		this.mode = mode;
 	}
 
@@ -109,8 +106,6 @@ public class ExplodeEffect extends Effect
 
 	/**
 	 * Gets the mode.
-	 * 
-	 * @return
 	 */
 	public Mode getMode()
 	{

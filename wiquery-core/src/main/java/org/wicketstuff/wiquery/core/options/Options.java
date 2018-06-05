@@ -63,10 +63,9 @@ public class Options implements IModel<Options>
 	private Component owner;
 
 	/**
-	 * The internal structure is a map associating each option label with each option
-	 * value.
+	 * The internal structure is a map associating each option label with each option value.
 	 */
-	private final Map<String, Object> options = new LinkedHashMap<String, Object>();
+	private final Map<String, Object> options = new LinkedHashMap<>();
 
 	/**
 	 * The {@link IOptionsRenderer} to use.
@@ -74,8 +73,8 @@ public class Options implements IModel<Options>
 	private IOptionsRenderer optionsRenderer;
 
 	/**
-	 * Build a new empty {@link Options} instance that does not bind to a component. This
-	 * does not allow the usage of IComponentAssignedModels as option values.
+	 * Build a new empty {@link Options} instance that does not bind to a component. This does not
+	 * allow the usage of IComponentAssignedModels as option values.
 	 */
 	public Options()
 	{
@@ -151,7 +150,7 @@ public class Options implements IModel<Options>
 	 */
 	public JsScope getJsScope(String key)
 	{
-		return (JsScope) this.options.get(key);
+		return (JsScope)this.options.get(key);
 	}
 
 	/**
@@ -167,7 +166,7 @@ public class Options implements IModel<Options>
 	{
 		Object object = this.options.get(key);
 		if (object instanceof IComplexOption)
-			return (IComplexOption) object;
+			return (IComplexOption)object;
 		return null;
 	}
 
@@ -222,31 +221,32 @@ public class Options implements IModel<Options>
 		{
 			String key = entry.getKey();
 			Object value = entry.getValue();
-			if (value instanceof IModelOption< ? >)
-				value = ((IModelOption< ? >) value).wrapOnAssignment(owner);
+			if (value instanceof IModelOption<?>)
+				value = ((IModelOption<?>)value).wrapOnAssignment(owner);
 			boolean isLast = !(count < options.size() - 1);
 			if (value instanceof JsScope)
 			{
 				// Case of a JsScope
-				sb.append(this.optionsRenderer.renderOption(key, ((JsScope) value).render(), isLast));
+				sb.append(
+					this.optionsRenderer.renderOption(key, ((JsScope)value).render(), isLast));
 			}
 			else if (value instanceof ICollectionItemOptions)
 			{
 				// Case of an ICollectionItemOptions
 				sb.append(this.optionsRenderer.renderOption(key,
-					((ICollectionItemOptions) value).getJavascriptOption(), isLast));
+					((ICollectionItemOptions)value).getJavascriptOption(), isLast));
 			}
 			else if (value instanceof IComplexOption)
 			{
 				// Case of an IComplexOption
 				sb.append(this.optionsRenderer.renderOption(key,
-					((IComplexOption) value).getJavascriptOption(), isLast));
+					((IComplexOption)value).getJavascriptOption(), isLast));
 			}
-			else if (value instanceof ITypedOption< ? >)
+			else if (value instanceof ITypedOption<?>)
 			{
 				// Case of an ITypedOption
 				sb.append(this.optionsRenderer.renderOption(key,
-					((ITypedOption< ? >) value).getJavascriptOption(), isLast));
+					((ITypedOption<?>)value).getJavascriptOption(), isLast));
 			}
 			else
 			{
@@ -272,7 +272,7 @@ public class Options implements IModel<Options>
 	{
 		Object object = this.options.get(key);
 		if (object instanceof ICollectionItemOptions)
-			return (ICollectionItemOptions) object;
+			return (ICollectionItemOptions)object;
 		return null;
 	}
 
@@ -321,7 +321,7 @@ public class Options implements IModel<Options>
 		return null;
 	}
 
-	private void putOption(String key, IModelOption< ? > option)
+	private void putOption(String key, IModelOption<?> option)
 	{
 		options.put(key, option);
 	}
@@ -399,7 +399,6 @@ public class Options implements IModel<Options>
 	 *            the option name
 	 * @param value
 	 *            The float value
-	 * @return
 	 */
 	public Options put(String key, float value)
 	{
@@ -681,20 +680,20 @@ public class Options implements IModel<Options>
 	private void onDetach(Object detachable)
 	{
 		if (detachable instanceof Component)
-			((Component) detachable).detach();
+			((Component)detachable).detach();
 		else if (detachable instanceof IDetachable)
-			((IDetachable) detachable).detach();
-		else if (detachable instanceof Map< ? , ? >)
+			((IDetachable)detachable).detach();
+		else if (detachable instanceof Map<?, ?>)
 		{
-			for (Map.Entry< ? , ? > entry : ((Map< ? , ? >) detachable).entrySet())
+			for (Map.Entry<?, ?> entry : ((Map<?, ?>)detachable).entrySet())
 			{
 				onDetach(entry.getKey());
 				onDetach(entry.getValue());
 			}
 		}
-		else if (detachable instanceof Iterable< ? >)
+		else if (detachable instanceof Iterable<?>)
 		{
-			Iterator<Object> iter = ((Iterable<Object>) detachable).iterator();
+			Iterator<Object> iter = ((Iterable<Object>)detachable).iterator();
 			while (iter.hasNext())
 			{
 				onDetach(iter.next());

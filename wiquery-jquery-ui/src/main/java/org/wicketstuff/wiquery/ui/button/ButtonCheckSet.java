@@ -40,7 +40,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.CollectionModel;
 import org.wicketstuff.wiquery.core.javascript.JsQuery;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -71,9 +71,9 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	 * @param checks
 	 *            List of checks
 	 */
-	public ButtonCheckSet(String id, IModel< ? extends List<ButtonElement<T>>> checks)
+	public ButtonCheckSet(String id, IModel<? extends List<ButtonElement<T>>> checks)
 	{
-		this(id, checks, new CollectionModel<T>(new ArrayList<T>()));
+		this(id, checks, new CollectionModel<>(new ArrayList<T>()));
 	}
 
 	/**
@@ -86,37 +86,37 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	 * @param model
 	 *            Model of the default object
 	 */
-	public ButtonCheckSet(String id, IModel< ? extends List<ButtonElement<T>>> checks,
-			IModel< ? extends Collection<T>> model)
+	public ButtonCheckSet(String id, IModel<? extends List<ButtonElement<T>>> checks,
+		IModel<? extends Collection<T>> model)
 	{
 		super(id);
 
-		checkGroup = new CheckGroup<T>("buttonCheckSetGroup", model);
+		checkGroup = new CheckGroup<>("buttonCheckSetGroup", model);
 		checkGroup.setOutputMarkupId(true);
 		checkGroup.setRenderBodyOnly(false);
 		add(checkGroup);
 
-		ListView< ? extends ButtonElement<T>> view =
-			new ListView<ButtonElement<T>>("buttonCheckSetView", checks)
+		ListView<? extends ButtonElement<T>> view = new ListView<ButtonElement<T>>(
+			"buttonCheckSetView", checks)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void populateItem(ListItem<ButtonElement<T>> item)
 			{
-				private static final long serialVersionUID = 1L;
+				ButtonElement<T> buttonElement = item.getModelObject();
 
-				@Override
-				protected void populateItem(ListItem<ButtonElement<T>> item)
-				{
-					ButtonElement<T> buttonElement = item.getModelObject();
+				Check<T> check = newCheck("buttonCheck", buttonElement.getModel(), checkGroup);
+				check.setLabel(buttonElement.getLabel());
+				check.setOutputMarkupId(true);
 
-					Check<T> check = newCheck("buttonCheck", buttonElement.getModel(), checkGroup);
-					check.setLabel(buttonElement.getLabel());
-					check.setOutputMarkupId(true);
+				SimpleFormComponentLabel label = new SimpleFormComponentLabel("buttonCheckLabel",
+					check);
 
-					SimpleFormComponentLabel label =
-						new SimpleFormComponentLabel("buttonCheckLabel", check);
-
-					item.add(check);
-					item.add(label);
-				}
-			};
+				item.add(check);
+				item.add(label);
+			}
+		};
 		checkGroup.add(view);
 	}
 
@@ -144,7 +144,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	 *            Model of the default object
 	 */
 	public ButtonCheckSet(String id, List<ButtonElement<T>> checks,
-			IModel< ? extends Collection<T>> model)
+		IModel<? extends Collection<T>> model)
 	{
 		this(id, Model.ofList(checks), model);
 	}
@@ -152,8 +152,8 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(ButtonJavaScriptResourceReference.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
@@ -178,7 +178,7 @@ public class ButtonCheckSet<T extends Serializable> extends Panel
 	 */
 	protected Check<T> newCheck(String wicketId, IModel<T> model, CheckGroup<T> group)
 	{
-		Check<T> check = new Check<T>(wicketId, model, group);
+		Check<T> check = new Check<>(wicketId, model, group);
 		return check;
 	}
 

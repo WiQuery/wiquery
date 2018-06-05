@@ -205,8 +205,8 @@ public abstract class EventsHelper
 	}
 
 	/**
-	 * Simulates hovering (moving the mouse on, and off, an object). This is a custom
-	 * method which provides an 'in' to a frequent task.
+	 * Simulates hovering (moving the mouse on, and off, an object). This is a custom method which
+	 * provides an 'in' to a frequent task.
 	 * 
 	 * @param over
 	 *            Scope to use on "over"
@@ -288,8 +288,7 @@ public abstract class EventsHelper
 	}
 
 	/**
-	 * Binds a handler to an event (like click) for all current - and future - matched
-	 * element.
+	 * Binds a handler to an event (like click) for all current - and future - matched element.
 	 * 
 	 * @param eventLabel
 	 *            Event
@@ -324,7 +323,8 @@ public abstract class EventsHelper
 	 */
 	public static ChainableStatement mousedown(JsScope jsScope)
 	{
-		return new DefaultChainableStatement(MouseEvent.MOUSEDOWN.getEventLabel(), jsScope.render());
+		return new DefaultChainableStatement(MouseEvent.MOUSEDOWN.getEventLabel(),
+			jsScope.render());
 	}
 
 	/**
@@ -362,7 +362,8 @@ public abstract class EventsHelper
 	 */
 	public static ChainableStatement mousemove(JsScope jsScope)
 	{
-		return new DefaultChainableStatement(MouseEvent.MOUSEMOVE.getEventLabel(), jsScope.render());
+		return new DefaultChainableStatement(MouseEvent.MOUSEMOVE.getEventLabel(),
+			jsScope.render());
 	}
 
 	/**
@@ -386,7 +387,8 @@ public abstract class EventsHelper
 	 */
 	public static ChainableStatement mouseover(JsScope jsScope)
 	{
-		return new DefaultChainableStatement(MouseEvent.MOUSEOVER.getEventLabel(), jsScope.render());
+		return new DefaultChainableStatement(MouseEvent.MOUSEOVER.getEventLabel(),
+			jsScope.render());
 	}
 
 	/**
@@ -417,8 +419,7 @@ public abstract class EventsHelper
 	}
 
 	/**
-	 * Binds a function to be executed whenever the DOM is ready to be traversed and
-	 * manipulated.
+	 * Binds a function to be executed whenever the DOM is ready to be traversed and manipulated.
 	 * 
 	 * @param jsScope
 	 *            Scope to use
@@ -561,8 +562,8 @@ public abstract class EventsHelper
 	}
 
 	/**
-	 * Triggers all bound event handlers on an element (for a specific event type) WITHOUT
-	 * executing the browser's default actions, bubbling, or live events.
+	 * Triggers all bound event handlers on an element (for a specific event type) WITHOUT executing
+	 * the browser's default actions, bubbling, or live events.
 	 * 
 	 * @param eventLabel
 	 *            Event
@@ -570,13 +571,13 @@ public abstract class EventsHelper
 	 */
 	public static ChainableStatement triggerHandler(EventLabel eventLabel)
 	{
-		return new DefaultChainableStatement("triggerHandler", JsUtils.quotes(eventLabel
-			.getEventLabel()));
+		return new DefaultChainableStatement("triggerHandler",
+			JsUtils.quotes(eventLabel.getEventLabel()));
 	}
 
 	/**
-	 * Triggers all bound event handlers on an element (for a specific event type) WITHOUT
-	 * executing the browser's default actions, bubbling, or live events.
+	 * Triggers all bound event handlers on an element (for a specific event type) WITHOUT executing
+	 * the browser's default actions, bubbling, or live events.
 	 * 
 	 * @param eventLabel
 	 *            Event
@@ -586,13 +587,12 @@ public abstract class EventsHelper
 	 */
 	public static ChainableStatement triggerHandler(EventLabel eventLabel, CharSequence... data)
 	{
-		return new DefaultChainableStatement("triggerHandler", JsUtils.quotes(eventLabel
-			.getEventLabel()), JsUtils.array(data));
+		return new DefaultChainableStatement("triggerHandler",
+			JsUtils.quotes(eventLabel.getEventLabel()), JsUtils.array(data));
 	}
 
 	/**
-	 * This does the opposite of bind, it removes bound events from each of the matched
-	 * elements.
+	 * This does the opposite of bind, it removes bound events from each of the matched elements.
 	 * 
 	 * @param eventLabel
 	 *            Event

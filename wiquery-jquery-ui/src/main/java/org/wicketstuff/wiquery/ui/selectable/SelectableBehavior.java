@@ -36,7 +36,10 @@ import org.wicketstuff.wiquery.core.behavior.AbstractAjaxEventCallback;
 import org.wicketstuff.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.wicketstuff.wiquery.core.javascript.JsQuery;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
+import org.wicketstuff.wiquery.core.options.IComplexOption;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 
 /**
  * $Id$
@@ -82,10 +85,8 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum ToleranceEnum
-	{
-		TOUCH,
-		FIT;
+	public enum ToleranceEnum {
+		TOUCH, FIT;
 	}
 
 	// Constants
@@ -106,8 +107,8 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 		{
 			List<CallbackParameter> ret = super.getExtraParameters();
 			ret.add(CallbackParameter.resolved("selectedItems",
-				"$.unique($.map($(this).find('.ui-selectee.ui-selected'),"
-					+ "function(elem) {return $(elem).attr('id');})).toString()"));
+				"$.unique($.map($(this).find('.ui-selectee.ui-selected')," +
+					"function(elem) {return $(elem).attr('id');})).toString()"));
 			return ret;
 		}
 
@@ -117,7 +118,7 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 			IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
 
 			String[] selectedItems = req.getParameterValue("selectedItems").toString("").split(",");
-			List<Component> selectedComponents = new ArrayList<Component>();
+			List<Component> selectedComponents = new ArrayList<>();
 			for (String curId : selectedItems)
 				if (!curId.isEmpty())
 					selectedComponents.add(findComponentById(curId));
@@ -125,7 +126,7 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 		}
 
 		protected abstract void selection(AjaxRequestTarget target, Component source,
-				List<Component> selectedComponents);
+			List<Component> selectedComponents);
 	}
 
 	/**
@@ -154,10 +155,11 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	public void renderHead(Component component, IHeaderResponse response)
 	{
 		super.renderHead(component, response);
-		response.render(JavaScriptHeaderItem.forReference(SelectableJavaScriptResourceReference
-			.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this.getComponent()).$()
-			.chain("selectable", this.options.getJavaScriptOptions()).render()));
+			.chain("selectable", this.options.getJavaScriptOptions())
+			.render()));
 	}
 
 	/**
@@ -210,8 +212,45 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	public ToleranceEnum getTolerance()
 	{
 		String tolerance = this.options.getLiteral("tolerance");
-		return tolerance == null ? ToleranceEnum.TOUCH : ToleranceEnum.valueOf(tolerance
-			.toUpperCase());
+		return tolerance == null ? ToleranceEnum.TOUCH
+			: ToleranceEnum.valueOf(tolerance.toUpperCase());
+	}
+
+	/**
+	 * @return the appendTo option value
+	 */
+	public String getAppendTo()
+	{
+		String appendTo = this.options.getLiteral("appendTo");
+		return appendTo == null ? "parent" : appendTo;
+	}
+
+	/**
+	 * Which element the selection helper (the lasso) should be appended to.
+	 * 
+	 * @param appendTo
+	 */
+	public SelectableBehavior setAppendTo(String appendTo)
+	{
+		this.options.putLiteral("appendTo", appendTo);
+		return this;
+	}
+
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public SelectableBehavior setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
 	}
 
 	/**
@@ -228,9 +267,9 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * This determines whether to refresh (recalculate) the position and size of each
-	 * selected at the beginning of each select operation. If you have many many items,
-	 * you may want to set this to false and call the refresh method manually.
+	 * This determines whether to refresh (recalculate) the position and size of each selected at
+	 * the beginning of each select operation. If you have many many items, you may want to set this
+	 * to false and call the refresh method manually.
 	 * 
 	 * @param autoRefresh
 	 * @return instance of the current behavior
@@ -242,8 +281,8 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Disables (true) or enables (false) the selectable. Can be set when initialising
-	 * (first creating) the selectable.
+	 * Disables (true) or enables (false) the selectable. Can be set when initialising (first
+	 * creating) the selectable.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -335,8 +374,8 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 
 	/*---- Events section ----*/
 	/**
-	 * Set's the selected event This event is triggered at the end of the select
-	 * operation, on each element added to the selection.
+	 * Set's the selected event This event is triggered at the end of the select operation, on each
+	 * element added to the selection.
 	 * 
 	 * @param selected
 	 *            Associated JsScopeUiEvent
@@ -349,8 +388,8 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the selecting event This event is triggered during the select operation, on
-	 * each element added to the selection.
+	 * Set's the selecting event This event is triggered during the select operation, on each
+	 * element added to the selection.
 	 * 
 	 * @param selecting
 	 *            Associated JsScopeUiEvent
@@ -363,8 +402,7 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the start event This event is triggered at the beginning of the select
-	 * operation.
+	 * Set's the start event This event is triggered at the beginning of the select operation.
 	 * 
 	 * @param start
 	 *            Associated JsScopeUiEvent
@@ -396,8 +434,8 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the unselected event This event is triggered at the end of the select
-	 * operation, on each element removed from the selection.
+	 * Set's the unselected event This event is triggered at the end of the select operation, on
+	 * each element removed from the selection.
 	 * 
 	 * @param unselected
 	 *            Associated JsScopeUiEvent
@@ -410,8 +448,8 @@ public class SelectableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the unselecting event This event is triggered during the select operation, on
-	 * each element removed from the selection.
+	 * Set's the unselecting event This event is triggered during the select operation, on each
+	 * element removed from the selection.
 	 * 
 	 * @param unselecting
 	 *            Associated JsScopeUiEvent

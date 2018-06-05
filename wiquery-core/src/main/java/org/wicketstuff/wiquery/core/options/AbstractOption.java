@@ -33,8 +33,11 @@ import org.apache.wicket.model.Model;
  * @author Emond Papegaaij
  * @since 1.2
  */
-public abstract class AbstractOption<T extends Serializable> implements IDetachable,
-		ITypedOption<T>, IModelOption<T>
+public abstract class AbstractOption<T extends Serializable>
+	implements
+		IDetachable,
+		ITypedOption<T>,
+		IModelOption<T>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -48,7 +51,7 @@ public abstract class AbstractOption<T extends Serializable> implements IDetacha
 	 */
 	public AbstractOption(T value)
 	{
-		this(new Model<T>(value));
+		this(new Model<>(value));
 	}
 
 	/**

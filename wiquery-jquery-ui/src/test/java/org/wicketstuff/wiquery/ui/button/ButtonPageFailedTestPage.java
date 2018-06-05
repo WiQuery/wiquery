@@ -23,7 +23,6 @@ package org.wicketstuff.wiquery.ui.button;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.wicketstuff.wiquery.ui.button.ButtonBehavior;
 
 /**
  * $Id$

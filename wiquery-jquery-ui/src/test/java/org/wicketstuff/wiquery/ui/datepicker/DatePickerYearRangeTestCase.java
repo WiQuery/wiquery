@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.datepicker.DatePickerYearRange;
 import org.wicketstuff.wiquery.ui.datepicker.DatePickerYearRange.DatePickerYearRangeControl;
 
 public class DatePickerYearRangeTestCase extends WiQueryTestCase
@@ -16,8 +15,8 @@ public class DatePickerYearRangeTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOption()
 	{
-		DatePickerYearRange yearRange =
-			new DatePickerYearRange(new Short("2000"), new Short("2010"));
+		DatePickerYearRange yearRange = new DatePickerYearRange(new Short("2000"),
+			new Short("2010"));
 
 		// Absolute
 		String expectedJavascript = "'2000:2010'";
@@ -46,8 +45,8 @@ public class DatePickerYearRangeTestCase extends WiQueryTestCase
 		assertEquals(generatedJavascript, expectedJavascript);
 
 		// Mixed range
-		yearRange.setRange(new Short("2000"), new Short("-10"),
-			DatePickerYearRangeControl.ABSOLUTE, DatePickerYearRangeControl.RELATIVE_TODAY);
+		yearRange.setRange(new Short("2000"), new Short("-10"), DatePickerYearRangeControl.ABSOLUTE,
+			DatePickerYearRangeControl.RELATIVE_TODAY);
 		expectedJavascript = "'2000:-10'";
 		generatedJavascript = yearRange.getJavascriptOption().toString();
 

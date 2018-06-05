@@ -1,46 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd" wicket:id="htmlRootElement">
-	<head>
-		<title wicket:id="headPageTitle"></title>
-		
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" href="logo.png" type="image/x-icon" />
-		<wicket:head />
-	</head>
-	<body wicket:id="bodyElement">
-		<!-- Main title bar -->
-		<div class="navbar">
-			<div class="navbar-inner">
-				<a wicket:id="homePageLink" class="brand" ></a>
-			</div>
+<html
+	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd"
+	wicket:id="htmlRootElement">
+<head>
+<title wicket:id="headPageTitle"></title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="logo.png" type="image/x-icon" />
+<wicket:head />
+</head>
+<body wicket:id="bodyElement">
+	<!-- Main title bar -->
+	<div class="navbar">
+		<div class="navbar-inner">
+			<a wicket:id="homePageLink" class="brand"></a>
 		</div>
-		
-		<div class="container">
-			<div class="row-fluid">
-				<div class="span3">
-					<!-- Main navigation list -->
-					<div class="well" style="padding: 8px 0;">
-						<ul class="nav nav-list">
-							<wicket:container wicket:id="navigation">
-								<wicket:enclosure child="categoryMenuItems">
-									<li wicket:id="navHeader" class="nav-header" />
-									<li wicket:id="categoryMenuItems">
-										<a wicket:id="navLink">
-											<wicket:container wicket:id="navLabel" />
-										</a>
-									</li>
-								</wicket:enclosure>
-							</wicket:container>
-						</ul>
-					</div>
-				</div>
-				
-				<div class="span9">
-					<!-- Page content -->
-					<wicket:child />
+	</div>
+
+	<div class="container">
+		<div class="row-fluid">
+			<div class="span3">
+				<!-- Main navigation list -->
+				<div class="well" style="padding: 8px 0;">
+					<ul class="nav nav-list">
+						<wicket:container wicket:id="navigation">
+							<wicket:enclosure child="categoryMenuItems">
+								<li wicket:id="navHeader" class="nav-header" />
+								<li wicket:id="categoryMenuItems"><a wicket:id="navLink">
+										<wicket:container wicket:id="navLabel" />
+								</a></li>
+							</wicket:enclosure>
+						</wicket:container>
+					</ul>
 				</div>
 			</div>
+
+			<div class="span9">
+				<!-- Page content -->
+				<wicket:child />
+			</div>
 		</div>
-		
-	</body>
+	</div>
+
+</body>
 </html>

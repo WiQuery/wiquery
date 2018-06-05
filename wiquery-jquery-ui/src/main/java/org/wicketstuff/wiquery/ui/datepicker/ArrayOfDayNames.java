@@ -24,8 +24,7 @@ package org.wicketstuff.wiquery.ui.datepicker;
 /**
  * $Id: ArrayOfDayNames.java
  * <p>
- * List of day names for the daynames, daynamesMin, daynamesShort into the DatePicker
- * component
+ * List of day names for the daynames, daynamesMin, daynamesShort into the DatePicker component
  * </p>
  * 
  * @author Julien Roche
@@ -59,9 +58,9 @@ public class ArrayOfDayNames extends AbstractArrayOfDateNames
 	 *            Name for Saturday
 	 */
 	public ArrayOfDayNames(String sunday, String monday, String tuesday, String wednesday,
-			String thursday, String friday, String saturday)
+		String thursday, String friday, String saturday)
 	{
-		super(new String[] {sunday, monday, tuesday, wednesday, thursday, friday, saturday});
+		super(new String[] { sunday, monday, tuesday, wednesday, thursday, friday, saturday });
 	}
 
 	@Override

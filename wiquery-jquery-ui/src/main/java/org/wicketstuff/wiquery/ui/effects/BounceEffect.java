@@ -21,7 +21,6 @@
  */
 package org.wicketstuff.wiquery.ui.effects;
 
-import org.wicketstuff.wiquery.core.effects.Effect;
 import org.wicketstuff.wiquery.core.javascript.JsUtils;
 
 /**
@@ -43,12 +42,8 @@ public class BounceEffect extends Effect
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 * 
 	 */
-	public static enum BounceDirection
-	{
-		up,
-		down,
-		left,
-		right;
+	public static enum BounceDirection {
+		up, down, left, right;
 	}
 
 	/**
@@ -57,11 +52,8 @@ public class BounceEffect extends Effect
 	 * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
 	 * 
 	 */
-	public static enum BounceMode
-	{
-		show,
-		hide,
-		effect;
+	public static enum BounceMode {
+		show, hide, effect;
 	}
 
 	/**
@@ -96,13 +88,14 @@ public class BounceEffect extends Effect
 	 *            The duration
 	 */
 	public BounceEffect(BounceDirection direction, BounceMode mode, int times, int distance,
-			int duration)
+		int duration)
 	{
-		super(JsUtils.quotes("bounce"), "{direction:" + JsUtils.quotes(direction.name())
-			+ ", times: " + Integer.toString(times)
+		super(JsUtils.quotes("bounce"),
+			"{direction:" + JsUtils.quotes(direction.name()) + ", times: " + Integer.toString(times)
 
-			+ ", mode: " + JsUtils.quotes(mode.name()) + ", distance:" + Integer.toString(distance)
-			+ "}", Integer.toString(duration));
+				+ ", mode: " + JsUtils.quotes(mode.name()) + ", distance:" +
+				Integer.toString(distance) + "}",
+			Integer.toString(duration));
 	}
 
 	@Override

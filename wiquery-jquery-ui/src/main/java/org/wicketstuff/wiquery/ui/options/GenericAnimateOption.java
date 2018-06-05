@@ -44,9 +44,9 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	private Boolean booleanParam;
 
 	private Integer integerParam;
-	
+
 	private String literalParam;
-	
+
 	private T objectParam;
 
 	/**
@@ -105,7 +105,8 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	 * @param objectParam
 	 *            object parameter
 	 */
-	private GenericAnimateOption(Boolean booleanParam, Integer integerParam, String literalParam, T objectParam)
+	private GenericAnimateOption(Boolean booleanParam, Integer integerParam, String literalParam,
+		T objectParam)
 	{
 		super();
 		setParam(booleanParam, integerParam, literalParam, objectParam);
@@ -118,7 +119,7 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	{
 		return booleanParam;
 	}
-	
+
 	/**
 	 * @return the integerParam
 	 */
@@ -126,7 +127,7 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	{
 		return integerParam;
 	}
-	
+
 	/**
 	 * @return the literalParam
 	 */
@@ -134,7 +135,7 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	{
 		return literalParam;
 	}
-	
+
 	/**
 	 * @return the objectParam
 	 */
@@ -146,9 +147,11 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	@Override
 	public CharSequence getJavascriptOption()
 	{
-		if (booleanParam == null && integerParam == null && literalParam == null && objectParam == null)
+		if (booleanParam == null && integerParam == null && literalParam == null &&
+			objectParam == null)
 		{
-			throw new IllegalArgumentException("The GenericAnimateOption must have one not null parameter");
+			throw new IllegalArgumentException(
+				"The GenericAnimateOption must have one not null parameter");
 		}
 
 		CharSequence sequence = null;
@@ -171,12 +174,13 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 		}
 		else
 		{
-			throw new IllegalArgumentException("The GenericAnimateOption must have one not null parameter");
+			throw new IllegalArgumentException(
+				"The GenericAnimateOption must have one not null parameter");
 		}
 
 		return sequence;
 	}
-	
+
 	/**
 	 * Set's the boolean parameter
 	 * 
@@ -187,7 +191,7 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	{
 		setParam(booleanParam, null, null, null);
 	}
-	
+
 	/**
 	 * Set's the integer parameter
 	 * 
@@ -209,7 +213,7 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	{
 		setParam(null, null, literalParam, null);
 	}
-	
+
 	/**
 	 * Set's the object parameter
 	 * 
@@ -233,7 +237,8 @@ public class GenericAnimateOption<T extends IComplexOption> implements IComplexO
 	 * @param objectParam
 	 *            object parameter
 	 */
-	private void setParam(Boolean booleanParam, Integer integerParam, String literalParam, T objectParam)
+	private void setParam(Boolean booleanParam, Integer integerParam, String literalParam,
+		T objectParam)
 	{
 		this.booleanParam = booleanParam;
 		this.integerParam = integerParam;

@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.javascript.JsScopeContext;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
 
 /**
  * Unit test on the {@link JsScopeUiDatePickerOnChangeEvent}
@@ -61,8 +60,8 @@ public class JsScopeUiDatePickerOnChangeEventTestCase extends WiQueryTestCase
 	public void testQuickScope()
 	{
 		String expectedJavascript = "function(year, month, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerOnChangeEvent quickScope =
-			JsScopeUiDatePickerOnChangeEvent.quickScope("alert('test');");
+		JsScopeUiDatePickerOnChangeEvent quickScope = JsScopeUiDatePickerOnChangeEvent
+			.quickScope("alert('test');");
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);
@@ -86,8 +85,8 @@ public class JsScopeUiDatePickerOnChangeEventTestCase extends WiQueryTestCase
 	public void testQuickScopeJsStatement()
 	{
 		String expectedJavascript = "function(year, month, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerOnChangeEvent quickScope =
-			JsScopeUiDatePickerOnChangeEvent.quickScope(new JsStatement().append("alert('test')"));
+		JsScopeUiDatePickerOnChangeEvent quickScope = JsScopeUiDatePickerOnChangeEvent
+			.quickScope(new JsStatement().append("alert('test')"));
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);

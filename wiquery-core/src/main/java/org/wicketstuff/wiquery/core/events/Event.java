@@ -30,8 +30,7 @@ import org.wicketstuff.wiquery.core.javascript.JsUtils;
 /**
  * $Id: Event.java 1714M 2012-01-17 08:29:18Z (local) $
  * <p>
- * Executes the given {@link JsScope} statement when a given list of {@link EventLabel}
- * happened.
+ * Executes the given {@link JsScope} statement when a given list of {@link EventLabel} happened.
  * </p>
  * 
  * @author Lionel Armanet
@@ -69,12 +68,12 @@ public abstract class Event implements ChainableStatement, Serializable
 	{
 		String firstArg = JsUtils.implode(eventLabels);
 		String callback = this.callback().render().toString();
-		return new String[] {firstArg, callback};
+		return new String[] { firstArg, callback };
 	}
 
 	/**
-	 * Returns an non null executable {@link JsScope}. This {@link JsScope} will be called
-	 * back when the event triggers.
+	 * Returns an non null executable {@link JsScope}. This {@link JsScope} will be called back when
+	 * the event triggers.
 	 */
 	public abstract JsScope callback();
 

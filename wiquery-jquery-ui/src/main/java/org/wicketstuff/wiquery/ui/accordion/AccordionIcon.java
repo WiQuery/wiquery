@@ -113,8 +113,8 @@ public class AccordionIcon extends Object implements IComplexOption
 	{
 		if (wantIcons != null)
 			return wantIcons.toString();
-		return "{'header': " + new LiteralOption(headerClass) + ", 'activeHeader': "
-			+ new LiteralOption(activeHeaderClass) + "}";
+		return "{'header': " + new LiteralOption(headerClass) + ", 'activeHeader': " +
+			new LiteralOption(activeHeaderClass) + "}";
 	}
 
 	/**

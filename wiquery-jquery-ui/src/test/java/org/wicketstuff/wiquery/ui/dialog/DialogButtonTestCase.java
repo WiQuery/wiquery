@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.javascript.JsScope;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.dialog.DialogButton;
 import org.wicketstuff.wiquery.ui.themes.UiIcon;
 
 public class DialogButtonTestCase extends WiQueryTestCase
@@ -24,11 +23,12 @@ public class DialogButtonTestCase extends WiQueryTestCase
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
-		button.setIcons(UiIcon.ARROW_1_EAST, UiIcon.ARROW_1_NORTH);
-		button.setShowText(false);
-		expectedJavascript = "{text: 'Ok', click: function() {\n\talert('test');\n}, icons: " +
-				"{primary: 'ui-icon-arrow-1-e', secondary: 'ui-icon-arrow-1-n'}, showText: false}";
+
+		button.setIcon(UiIcon.ARROW_1_EAST);
+		button.setIconPosition("bottom");
+		button.setShowLabel(false);
+		expectedJavascript = "{label: 'Ok', click: function() {\n\talert('test');\n}, icon: " +
+			"'ui-icon-arrow-1-e', showLabel: false}";
 		generatedJavascript = button.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);

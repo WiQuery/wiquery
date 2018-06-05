@@ -28,10 +28,12 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.wicketstuff.wiquery.core.javascript.JsQuery;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
+import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.options.UiOptionsRenderer;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * $Id$
@@ -71,9 +73,8 @@ public class ProgressBar extends WebMarkupContainer
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference.get()));
-		response.render(JavaScriptHeaderItem.forReference(ProgressBarJavaScriptResourceReference
-			.get()));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(statement().render()));
 	}
 
@@ -97,10 +98,26 @@ public class ProgressBar extends WebMarkupContainer
 	}
 
 	/*---- Options section ---*/
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public ProgressBar setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
 
 	/**
-	 * Disables (true) or enables (false) the progressBar. Can be set when initialising
-	 * (first creating) the progressBar.
+	 * Disables (true) or enables (false) the progressBar. Can be set when initialising (first
+	 * creating) the progressBar.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -158,10 +175,10 @@ public class ProgressBar extends WebMarkupContainer
 		{
 			return value;
 		}
-		
+
 		return 0;
 	}
-	
+
 	/**
 	 * Sets the maximum value of the progressBar
 	 * 
@@ -184,7 +201,7 @@ public class ProgressBar extends WebMarkupContainer
 		{
 			return value;
 		}
-		
+
 		return 100;
 	}
 
@@ -201,7 +218,7 @@ public class ProgressBar extends WebMarkupContainer
 		this.options.put("change", change);
 		return this;
 	}
-	
+
 	/**
 	 * Set's the callback when the value of the progressBar reaches the maximum value.
 	 * 
@@ -217,8 +234,7 @@ public class ProgressBar extends WebMarkupContainer
 	/*---- Methods section ---*/
 
 	/**
-	 * Method to destroy the progressBar This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the progressBar This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */
@@ -308,7 +324,7 @@ public class ProgressBar extends WebMarkupContainer
 	{
 		ajaxRequestTarget.appendJavaScript(this.value(value).render().toString());
 	}
-	
+
 	/**
 	 * Method to returns the .ui-progressbar element
 	 * 
@@ -351,13 +367,11 @@ public class ProgressBar extends WebMarkupContainer
 	public JsStatement increment(int increment)
 	{
 		JsStatement statement = new JsStatement();
-		statement.append(new JsQuery(this)
-			.$()
-			.chain(
-				"progressbar",
-				"'value'",
-				new JsQuery(this).$().chain("progressbar", "'value'").render(false) + " + "
-					+ increment).render());
+		statement.append(new JsQuery(this).$()
+			.chain("progressbar", "'value'",
+				new JsQuery(this).$().chain("progressbar", "'value'").render(false) + " + " +
+					increment)
+			.render());
 
 		return statement;
 	}
@@ -404,13 +418,11 @@ public class ProgressBar extends WebMarkupContainer
 	public JsStatement decrement(int decrement)
 	{
 		JsStatement statement = new JsStatement();
-		statement.append(new JsQuery(this)
-			.$()
-			.chain(
-				"progressbar",
-				"'value'",
-				new JsQuery(this).$().chain("progressbar", "'value'").render(false) + " - "
-					+ decrement).render());
+		statement.append(new JsQuery(this).$()
+			.chain("progressbar", "'value'",
+				new JsQuery(this).$().chain("progressbar", "'value'").render(false) + " - " +
+					decrement)
+			.render());
 
 		return statement;
 	}
@@ -436,7 +448,7 @@ public class ProgressBar extends WebMarkupContainer
 	{
 		ajaxRequestTarget.appendJavaScript(this.decrement(decrement).render().toString());
 	}
-	
+
 	public JsStatement update()
 	{
 		JsStatement wholeStatement = new JsStatement();

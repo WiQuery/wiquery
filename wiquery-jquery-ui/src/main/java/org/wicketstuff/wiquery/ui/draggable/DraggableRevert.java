@@ -45,10 +45,8 @@ public class DraggableRevert implements IComplexOption
 	 */
 	public static final DraggableRevert INVALID = new DraggableRevert(RevertEnum.INVALID);
 
-	public enum RevertEnum
-	{
-		VALID(new LiteralOption("valid")),
-		INVALID(new LiteralOption("invalid"));
+	public enum RevertEnum {
+		VALID(new LiteralOption("valid")), INVALID(new LiteralOption("invalid"));
 
 		// Properties
 		private LiteralOption literalParam;

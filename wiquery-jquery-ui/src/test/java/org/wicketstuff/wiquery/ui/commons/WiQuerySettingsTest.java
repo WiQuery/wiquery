@@ -12,9 +12,8 @@ import org.wicketstuff.wiquery.core.events.WiQueryEventBehavior;
 import org.wicketstuff.wiquery.core.javascript.JsScope;
 import org.wicketstuff.wiquery.core.javascript.JsScopeContext;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
-import org.wicketstuff.wiquery.ui.widget.WidgetJavaScriptResourceReference;
 
 /**
  * Tests {@link WiQuerySettings}.
@@ -36,8 +35,8 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 		@Override
 		public void renderHead(Component component, IHeaderResponse response)
 		{
-			response.render(JavaScriptHeaderItem.forReference(WidgetJavaScriptResourceReference
-				.get()));
+			response.render(
+				JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		}
 	}
 
@@ -67,8 +66,7 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 		tester.dumpPage();
 		tester.assertContains(JQueryResourceReference.class.getName());
 		tester.assertContains(WiQueryCoreThemeResourceReference.class.getName());
-		tester.assertContains(CoreUIJavaScriptResourceReference.class.getName());
-		tester.assertContains(WidgetJavaScriptResourceReference.class.getName());
+		tester.assertContains(JQueryUIJavaScriptResourceReference.class.getName());
 
 	}
 
@@ -84,8 +82,9 @@ public class WiQuerySettingsTest extends WiQueryTestCase
 		Result r = tester.ifContains("^((?!" + string + ").)*$");
 		if (r.wasFailed())
 		{
-			throw new ComparisonFailure("String [" + string
-				+ "] found in page, but shouldn't be there:  " + message, string, "@page");
+			throw new ComparisonFailure(
+				"String [" + string + "] found in page, but shouldn't be there:  " + message,
+				string, "@page");
 		}
 	}
 }

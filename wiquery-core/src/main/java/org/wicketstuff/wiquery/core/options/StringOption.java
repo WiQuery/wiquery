@@ -34,7 +34,8 @@ import org.apache.wicket.model.IModel;
  * <p>
  * The {@link String} <code>true</code> should be rendered as <code>true</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
  * @author Ernesto Reinaldo Barreiro
@@ -75,9 +76,9 @@ public class StringOption extends AbstractOption<String>
 	@Override
 	public IModelOption<String> wrapOnAssignment(Component component)
 	{
-		if (getModel() instanceof IComponentAssignedModel< ? >)
+		if (getModel() instanceof IComponentAssignedModel<?>)
 			return new StringOption(
-				((IComponentAssignedModel<String>) getModel()).wrapOnAssignment(component));
+				((IComponentAssignedModel<String>)getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

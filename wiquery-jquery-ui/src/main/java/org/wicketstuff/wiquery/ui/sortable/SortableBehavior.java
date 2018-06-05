@@ -37,8 +37,11 @@ import org.wicketstuff.wiquery.core.javascript.JsQuery;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.options.ArrayItemOptions;
 import org.wicketstuff.wiquery.core.options.ICollectionItemOptions;
+import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.IntegerItemOptions;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.sortable.SortableHelper.HelperEnum;
 
 /**
@@ -57,18 +60,19 @@ import org.wicketstuff.wiquery.ui.sortable.SortableHelper.HelperEnum;
 	    
 	    ListView<String> listView = new ListView<String>("listView", values) {
  * 
- * @Override protected void populateItem(ListItem<String> item) { item.add(new
+ * &#64;Override protected void populateItem(ListItem<String> item) { item.add(new
  *           Label("item", item.getModel())); } };
  * 
  *           WebMarkupContainer sortableWicket = new WebMarkupContainer("sortableWicket");
  *           sortableWicket.add(new SortableBehavior()); sortableWicket.add(listView);
  *           add(sortableWicket); </code>
  * 
- *           HTML code: <code>
+ * HTML code: <code>
  * 		<ul wicket:id="sortableWicket">
 			<li wicket:id="listView"><span wicket:id="item"></span></li>
 		</ul>
  * </code>
+ * 
  * @author Julien Roche
  * @since 1.0
  */
@@ -80,10 +84,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum AxisEnum
-	{
-		X,
-		Y;
+	public enum AxisEnum {
+		X, Y;
 	}
 
 	/**
@@ -92,16 +94,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum CursorAtEnum
-	{
-		TOP,
-		TOP_LEFT,
-		TOP_RIGHT,
-		LEFT,
-		RIGHT,
-		BOTTOM,
-		BOTTOM_LEFT,
-		BOTTOM_RIGHT;
+	public enum CursorAtEnum {
+		TOP, TOP_LEFT, TOP_RIGHT, LEFT, RIGHT, BOTTOM, BOTTOM_LEFT, BOTTOM_RIGHT;
 	}
 
 	/**
@@ -110,10 +104,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	 * @author Julien Roche
 	 * 
 	 */
-	public enum ToleranceEnum
-	{
-		INTERSECT,
-		POINTER;
+	public enum ToleranceEnum {
+		INTERSECT, POINTER;
 	}
 
 	// Constants
@@ -121,39 +113,37 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	private static final long serialVersionUID = 2L;
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : The current
-	 * helper element (most often a clone of the item)
+	 * Properties on the ui parameter (use it into callback functions) : The current helper element
+	 * (most often a clone of the item)
 	 */
 	public static final String UI_HELPER = "ui.helper";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : The current
-	 * position of the helper
+	 * Properties on the ui parameter (use it into callback functions) : The current position of the
+	 * helper
 	 */
 	public static final String UI_POSITION = "ui.position";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : The current
-	 * absolute position of the helper
+	 * Properties on the ui parameter (use it into callback functions) : The current absolute
+	 * position of the helper
 	 */
 	public static final String UI_OFFSET = "ui.offset";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : The current
-	 * dragged element
+	 * Properties on the ui parameter (use it into callback functions) : The current dragged element
 	 */
 	public static final String UI_ITEM = "ui.item";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : The placeholder
-	 * (if you defined one)
+	 * Properties on the ui parameter (use it into callback functions) : The placeholder (if you
+	 * defined one)
 	 */
 	public static final String UI_PLACEHOLDER = "ui.placeholder";
 
 	/**
-	 * Properties on the ui parameter (use it into callback functions) : The sortable
-	 * where the item comes from (only exists if you move from one connected list to
-	 * another)
+	 * Properties on the ui parameter (use it into callback functions) : The sortable where the item
+	 * comes from (only exists if you move from one connected list to another)
 	 */
 	public static final String UI_SENDER = "ui.sender";
 
@@ -172,10 +162,10 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 			List<CallbackParameter> ret = super.getExtraParameters();
 			ret.add(CallbackParameter.resolved("sortIndex",
 				"$(this).find(':data(sortable-item)').index(" + SortableBehavior.UI_ITEM + ")"));
-			ret.add(CallbackParameter.resolved("sortItemId", "$(" + SortableBehavior.UI_ITEM
-				+ ").attr('id')"));
-			ret.add(CallbackParameter.resolved("sortSenderId", "$(" + SortableBehavior.UI_SENDER
-				+ ").attr('id')"));
+			ret.add(CallbackParameter.resolved("sortItemId",
+				"$(" + SortableBehavior.UI_ITEM + ").attr('id')"));
+			ret.add(CallbackParameter.resolved("sortSenderId",
+				"$(" + SortableBehavior.UI_SENDER + ").attr('id')"));
 			return ret;
 		}
 
@@ -186,13 +176,13 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 
 			int sortIndex = req.getParameterValue("sortIndex").toInt(-1);
 			Component sortItem = findComponentById(req.getParameterValue("sortItemId").toString());
-			Component sortSender =
-				findComponentById(req.getParameterValue("sortSenderId").toString());
+			Component sortSender = findComponentById(
+				req.getParameterValue("sortSenderId").toString());
 			call(target, source, sortIndex, sortItem, sortSender);
 		}
 
 		protected abstract void call(AjaxRequestTarget target, Component source, int sortIndex,
-				Component sortItem, Component sortSender);
+			Component sortItem, Component sortSender);
 	}
 
 	public abstract static class AjaxReceiveCallback extends AbstractAjaxSortCallback
@@ -206,13 +196,13 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 
 		@Override
 		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
-				Component sortItem, Component sortSender)
+			Component sortItem, Component sortSender)
 		{
 			receive(target, source, sortIndex, sortItem, sortSender);
 		}
 
 		public abstract void receive(AjaxRequestTarget target, Component source, int sortIndex,
-				Component sortItem, Component sortSender);
+			Component sortItem, Component sortSender);
 	}
 
 	public abstract static class AjaxRemoveCallback extends AbstractAjaxSortCallback
@@ -226,7 +216,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 
 		@Override
 		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
-				Component sortItem, Component sortSender)
+			Component sortItem, Component sortSender)
 		{
 			remove(target, source, sortItem);
 		}
@@ -245,13 +235,13 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 
 		@Override
 		protected void call(AjaxRequestTarget target, Component source, int sortIndex,
-				Component sortItem, Component sortSender)
+			Component sortItem, Component sortSender)
 		{
 			update(target, source, sortIndex, sortItem);
 		}
 
 		public abstract void update(AjaxRequestTarget target, Component source, int sortIndex,
-				Component sortItem);
+			Component sortItem);
 	}
 
 	/**
@@ -281,9 +271,10 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	{
 		super.renderHead(component, response);
 		response
-			.render(JavaScriptHeaderItem.forReference(SortableJavaScriptResourceReference.get()));
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this.getComponent()).$()
-			.chain("sortable", this.options.getJavaScriptOptions()).render()));
+			.chain("sortable", this.options.getJavaScriptOptions())
+			.render()));
 	}
 
 	/*---- Options section ---*/
@@ -325,22 +316,12 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 
 	/**
 	 * @return the containment option value
-	 * @deprecated will be changed in 1.2 to return a {@link SortableContainment}
 	 */
-	@Deprecated
-	public String getContainment()
-	{
-		return this.options.getLiteral("containment");
-	}
-
-	/**
-	 * @return the containment option value
-	 */
-	public SortableContainment getContainmentComplex()
+	public SortableContainment getContainment()
 	{
 		if (this.options.getComplexOption("containment") instanceof SortableContainment)
 		{
-			return (SortableContainment) this.options.getComplexOption("containment");
+			return (SortableContainment)this.options.getComplexOption("containment");
 		}
 
 		return null;
@@ -361,8 +342,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	public CursorAtEnum getCursorAt()
 	{
 		String cursorAt = this.options.getLiteral("cursorAt");
-		return cursorAt == null ? null : CursorAtEnum.valueOf(cursorAt.toUpperCase().replace(' ',
-			'_'));
+		return cursorAt == null ? null
+			: CursorAtEnum.valueOf(cursorAt.toUpperCase().replace(' ', '_'));
 	}
 
 	/**
@@ -392,36 +373,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * @return the dropOnEmpty option value
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public boolean getDropOnEmpty()
-	{
-		return isDropOnEmpty();
-	}
-
-	/**
-	 * @return the forceHelperSize option value
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public boolean getForceHelperSize()
-	{
-		return isForceHelperSize();
-	}
-
-	/**
-	 * @return the forcePlaceholderSize option value
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public boolean getForcePlaceholderSize()
-	{
-		return isForcePlaceholderSize();
-	}
-
-	/**
 	 * @return the grid option value
 	 */
 	public ICollectionItemOptions getGrid()
@@ -439,22 +390,12 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 
 	/**
 	 * @return the helper option value
-	 * @deprecated will be changed in 1.2 to return a {@link SortableHelper}
 	 */
-	@Deprecated
-	public String getHelper()
-	{
-		return this.options.getLiteral("helper");
-	}
-
-	/**
-	 * @return the helper option value
-	 */
-	public SortableHelper getHelperComplex()
+	public SortableHelper getHelper()
 	{
 		if (this.options.getComplexOption("helper") instanceof SortableHelper)
 		{
-			return (SortableHelper) this.options.getComplexOption("helper");
+			return (SortableHelper)this.options.getComplexOption("helper");
 		}
 
 		return new SortableHelper(HelperEnum.ORIGINAL);
@@ -497,7 +438,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	{
 		if (this.options.getComplexOption("revert") instanceof SortableRevert)
 		{
-			return (SortableRevert) this.options.getComplexOption("revert");
+			return (SortableRevert)this.options.getComplexOption("revert");
 		}
 
 		return new SortableRevert(false);
@@ -535,8 +476,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	public ToleranceEnum getTolerance()
 	{
 		String tolerance = this.options.getLiteral("tolerance");
-		return tolerance == null ? ToleranceEnum.INTERSECT : ToleranceEnum.valueOf(tolerance
-			.toUpperCase());
+		return tolerance == null ? ToleranceEnum.INTERSECT
+			: ToleranceEnum.valueOf(tolerance.toUpperCase());
 	}
 
 	/**
@@ -554,8 +495,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Disables (true) or enables (false) the sortable. Can be set when initialising
-	 * (first creating) the sortable.
+	 * Disables (true) or enables (false) the sortable. Can be set when initialising (first
+	 * creating) the sortable.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -619,21 +560,6 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * @return the revert option value
-	 * @deprecated will be changed in 1.2 to return a {@link SortableRevert}
-	 */
-	@Deprecated
-	public boolean isRevert()
-	{
-		if (this.options.containsKey("revert"))
-		{
-			return this.options.getBoolean("revert");
-		}
-
-		return false;
-	}
-
-	/**
 	 * @return the scroll option value
 	 */
 	public boolean isScroll()
@@ -647,8 +573,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Defines where the helper that moves with the mouse is being appended to during the
-	 * drag (for example, to resolve overlap/zIndex issues).
+	 * Defines where the helper that moves with the mouse is being appended to during the drag (for
+	 * example, to resolve overlap/zIndex issues).
 	 * 
 	 * @param appendTo
 	 * @return instance of the current behavior
@@ -660,8 +586,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * If defined, the items can be dragged only horizontally or vertically. Possible
-	 * values:'x', 'y'.
+	 * If defined, the items can be dragged only horizontally or vertically. Possible values:'x',
+	 * 'y'.
 	 * 
 	 * @param axis
 	 * @return instance of the current behavior
@@ -685,10 +611,26 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 		return this;
 	}
 
+	public ClassesOption getClasses()
+	{
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
+		{
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public SortableBehavior setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
+
 	/**
-	 * Set a jQuery selector with items that also have sortables applied. If used, the
-	 * sortable is now connected to the other one-way, so you can drag from this sortable
-	 * to the other.
+	 * Set a jQuery selector with items that also have sortables applied. If used, the sortable is
+	 * now connected to the other one-way, so you can drag from this sortable to the other.
 	 * 
 	 * @param connectWith
 	 *            Selector
@@ -701,23 +643,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Constrains dragging to within the bounds of the specified element - can be a DOM
-	 * element, 'parent', 'document', 'window', or a jQuery selector.
-	 * 
-	 * @param containment
-	 * @return instance of the current behavior
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public SortableBehavior setContainment(String containment)
-	{
-		this.options.putLiteral("containment", containment);
-		return this;
-	}
-
-	/**
-	 * Constrains dragging to within the bounds of the specified element - can be a DOM
-	 * element, 'parent', 'document', 'window', or a jQuery selector.
+	 * Constrains dragging to within the bounds of the specified element - can be a DOM element,
+	 * 'parent', 'document', 'window', or a jQuery selector.
 	 * 
 	 * @param containment
 	 * @return instance of the current behavior
@@ -741,9 +668,9 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Moves the sorting element or helper so the cursor always appears to drag from the
-	 * same position. Coordinates can be given as a hash using a combination of one or two
-	 * keys: { top, left, right, bottom }
+	 * Moves the sorting element or helper so the cursor always appears to drag from the same
+	 * position. Coordinates can be given as a hash using a combination of one or two keys: { top,
+	 * left, right, bottom }
 	 * 
 	 * @param cusorAt
 	 * @return instance of the current behavior
@@ -815,8 +742,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Snaps the sorting element or helper to a grid, every x and y pixels. Array values:
-	 * [x, y]
+	 * Snaps the sorting element or helper to a grid, every x and y pixels. Array values: [x, y]
 	 * 
 	 * @param x
 	 * @param y
@@ -824,7 +750,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	 */
 	public SortableBehavior setGrid(int x, int y)
 	{
-		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> grids = new ArrayItemOptions<>();
 		grids.add(new IntegerItemOptions(x));
 		grids.add(new IntegerItemOptions(y));
 		this.options.put("grid", grids);
@@ -844,25 +770,9 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Allows for a helper element to be used for dragging display. The supplied function
-	 * receives the event and the element being sorted, and should return a DOMElement to
-	 * be used as a custom proxy helper. Possible values: 'original', 'clone'
-	 * 
-	 * @param helper
-	 * @return instance of the current behavior
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public SortableBehavior setHelper(String helper)
-	{
-		this.options.putLiteral("helper", helper);
-		return this;
-	}
-
-	/**
-	 * Allows for a helper element to be used for dragging display. The supplied function
-	 * receives the event and the element being sorted, and should return a DOMElement to
-	 * be used as a custom proxy helper. Possible values: 'original', 'clone'
+	 * Allows for a helper element to be used for dragging display. The supplied function receives
+	 * the event and the element being sorted, and should return a DOMElement to be used as a custom
+	 * proxy helper. Possible values: 'original', 'clone'
 	 * 
 	 * @param helper
 	 * @return instance of the current behavior
@@ -911,23 +821,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * If set to true, the item will be reverted to its new DOM position with a smooth
-	 * animation.
-	 * 
-	 * @param revert
-	 * @return instance of the current behavior
-	 * @deprecated will be removed in 1.2
-	 */
-	@Deprecated
-	public SortableBehavior setRevert(boolean revert)
-	{
-		this.options.put("revert", revert);
-		return this;
-	}
-
-	/**
-	 * If set to true, the item will be reverted to its new DOM position with a smooth
-	 * animation.
+	 * If set to true, the item will be reverted to its new DOM position with a smooth animation.
 	 * 
 	 * @param revert
 	 * @return instance of the current behavior
@@ -1005,8 +899,8 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 
 	/*---- Events section ---*/
 	/**
-	 * Set's the callback when using connected lists, every connected list on drag start
-	 * receives it.
+	 * Set's the callback when using connected lists, every connected list on drag start receives
+	 * it.
 	 * 
 	 * @param activate
 	 * @return instance of the current behavior
@@ -1018,8 +912,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the callback when sorting stops, but when the placeholder/helper is still
-	 * available.
+	 * Set's the callback when sorting stops, but when the placeholder/helper is still available.
 	 * 
 	 * @param beforeStop
 	 * @return instance of the current behavior
@@ -1043,8 +936,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the callback when sorting was stopped, is propagated to all possible
-	 * connected lists.
+	 * Set's the callback when sorting was stopped, is propagated to all possible connected lists.
 	 * 
 	 * @param deactivate
 	 * @return instance of the current behavior
@@ -1080,8 +972,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the callback when a connected sortable list has received an item from another
-	 * list.
+	 * Set's the callback when a connected sortable list has received an item from another list.
 	 * 
 	 * @param receive
 	 * @return instance of the current behavior
@@ -1099,8 +990,7 @@ public class SortableBehavior extends WiQueryAbstractAjaxBehavior
 	}
 
 	/**
-	 * Set's the callback when a sortable item has been dragged out from the list and into
-	 * another.
+	 * Set's the callback when a sortable item has been dragged out from the list and into another.
 	 * 
 	 * @param remove
 	 * @return instance of the current behavior

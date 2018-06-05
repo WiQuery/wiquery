@@ -7,7 +7,6 @@ import java.util.GregorianCalendar;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wicketstuff.wiquery.core.javascript.helper.DateHelper;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
 public class DateHelperTestCase extends WiQueryTestCase

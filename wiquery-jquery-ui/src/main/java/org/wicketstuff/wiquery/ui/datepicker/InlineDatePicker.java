@@ -32,6 +32,7 @@ import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.options.ListItemOptions;
 import org.wicketstuff.wiquery.core.options.LiteralOption;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
 import org.wicketstuff.wiquery.ui.datepicker.DatePicker.ShowOnEnum;
 import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
@@ -41,8 +42,8 @@ import org.wicketstuff.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEv
 /**
  * $Id$
  * <p>
- * An inline DatePicker as described in <a
- * href="http://jqueryui.com/demos/datepicker/#inline">here</a>.
+ * An inline DatePicker as described in
+ * <a href="http://jqueryui.com/demos/datepicker/#inline">here</a>.
  * </p>
  * 
  * 
@@ -83,16 +84,13 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.render(JavaScriptHeaderItem.forReference(DatePickerJavaScriptResourceReference
-			.get()));
-
-		DatePickerLanguageResourceReference dpl =
-			DatePickerLanguageResourceReference.get(getLocale());
-		if (dpl != null)
-			response.render(JavaScriptHeaderItem.forReference(dpl));
+		response
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this).$()
-			.chain("datepicker", options.getOptions().getJavaScriptOptions()).render().toString()));
+			.chain("datepicker", options.getOptions().getJavaScriptOptions())
+			.render()
+			.toString()));
 	}
 
 	/**
@@ -108,9 +106,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	/*---- Options section ---*/
 
 	/**
-	 * The jQuery selector for another field that is to be updated with the selected date
-	 * from the datepicker. Use the altFormat setting below to change the format of the
-	 * date within this field. Leave as blank for no alternate field.
+	 * The jQuery selector for another field that is to be updated with the selected date from the
+	 * datepicker. Use the altFormat setting below to change the format of the date within this
+	 * field. Leave as blank for no alternate field.
 	 * 
 	 * @param altField
 	 * @return instance of the current component
@@ -130,9 +128,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * The dateFormat to be used for the altField option. This allows one date format to
-	 * be shown to the user for selection purposes, while a different format is actually
-	 * sent behind the scenes.
+	 * The dateFormat to be used for the altField option. This allows one date format to be shown to
+	 * the user for selection purposes, while a different format is actually sent behind the scenes.
 	 * 
 	 * The format can be combinations of the following:
 	 * <ul>
@@ -192,8 +189,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set to true to automatically resize the input field to accomodate dates in the
-	 * current dateFormat.
+	 * Set to true to automatically resize the input field to accomodate dates in the current
+	 * dateFormat.
 	 * 
 	 * @return instance of the current component
 	 */
@@ -212,8 +209,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's URL for the popup button image. If set, button text becomes the alt value and
-	 * is not directly displayed.
+	 * Set's URL for the popup button image. If set, button text becomes the alt value and is not
+	 * directly displayed.
 	 * 
 	 * @param buttonImage
 	 * @return instance of the current component
@@ -233,8 +230,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set to true to place an image after the field to use as the trigger without it
-	 * appearing on a button.
+	 * Set to true to place an image after the field to use as the trigger without it appearing on a
+	 * button.
 	 * 
 	 * @param buttonImageOnly
 	 * @return instance of the current component
@@ -254,8 +251,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the text to display on the trigger button. Use in conjunction with showOn
-	 * equal to 'button' or 'both'.
+	 * Set's the text to display on the trigger button. Use in conjunction with showOn equal to
+	 * 'button' or 'both'.
 	 * 
 	 * @param buttonText
 	 * @return instance of the current component
@@ -275,9 +272,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * A function to calculate the week of the year for a given date. The default
-	 * implementation uses the ISO 8601 definition: weeks start on a Monday; the first
-	 * week of the year contains the first Thursday of the year.
+	 * A function to calculate the week of the year for a given date. The default implementation
+	 * uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains
+	 * the first Thursday of the year.
 	 * 
 	 * Default: $.datepicker.iso8601Week
 	 * 
@@ -302,8 +299,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Returns true if the date's month is selectable in a drop down list, returns false
-	 * otherwise.
+	 * Returns true if the date's month is selectable in a drop down list, returns false otherwise.
 	 */
 	public boolean isChangeMonth()
 	{
@@ -311,8 +307,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * The text to display for the week of the year column heading. This attribute is one
-	 * of the regionalisation attributes. Use showWeek to display this column.
+	 * The text to display for the week of the year column heading. This attribute is one of the
+	 * regionalisation attributes. Use showWeek to display this column.
 	 * 
 	 * @param weekHeader
 	 * @return instance of the current component
@@ -332,9 +328,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Sets the selectable year range. This range can either be defined by a start year
-	 * and an end year (like 2001 to 2010), or it can be defined relatively to the today's
-	 * date (like current-10 to current+10).
+	 * Sets the selectable year range. This range can either be defined by a start year and an end
+	 * year (like 2001 to 2010), or it can be defined relatively to the today's date (like
+	 * current-10 to current+10).
 	 * 
 	 * @param yearRange
 	 * @return instance of the current component
@@ -354,8 +350,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Additional text to display after the year in the month headers. This attribute is
-	 * one of the regionalisation attributes.
+	 * Additional text to display after the year in the month headers. This attribute is one of the
+	 * regionalisation attributes.
 	 * 
 	 * @param yearSuffix
 	 * @return instance of the current component
@@ -386,8 +382,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Returns true if the date's year is selectable in a drop down list, returns false
-	 * otherwise.
+	 * Returns true if the date's year is selectable in a drop down list, returns false otherwise.
 	 */
 	public boolean isChangeYear()
 	{
@@ -395,8 +390,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the text to display for the close link. This attribute is one of the
-	 * regionalisation attributes. Use the showButtonPanel to display this button.
+	 * Set's the text to display for the close link. This attribute is one of the regionalisation
+	 * attributes. Use the showButtonPanel to display this button.
 	 * 
 	 * @param closeText
 	 * @return instance of the current component
@@ -477,8 +472,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * If true, the current day link moves to the currently selected date instead of
-	 * today.
+	 * If true, the current day link moves to the currently selected date instead of today.
 	 * 
 	 * @param gotoCurrent
 	 * @return instance of the current component
@@ -498,8 +492,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Normally the previous and next links are disabled when not applicable (see
-	 * minDate/maxDate). You can hide them altogether by setting this attribute to true.
+	 * Normally the previous and next links are disabled when not applicable (see minDate/maxDate).
+	 * You can hide them altogether by setting this attribute to true.
 	 * 
 	 * @param hideIfNoPrevNext
 	 * @return instance of the current component
@@ -519,8 +513,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * True if the current language is drawn from right to left. This attribute is one of
-	 * the regionalisation attributes.
+	 * True if the current language is drawn from right to left. This attribute is one of the
+	 * regionalisation attributes.
 	 * 
 	 * @param isRTL
 	 * @return instance of the current component
@@ -540,9 +534,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set a maximum selectable date via a Date object, or a number of days from today
-	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for
-	 * weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
+	 * Set a maximum selectable date via a Date object, or a number of days from today (e.g. +7) or
+	 * a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
+	 * e.g. '+1m +1w'), or null for no limit.
 	 * 
 	 * @param maxDate
 	 * @return instance of the current component
@@ -562,9 +556,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set a minimum selectable date via a Date object, or a number of days from today
-	 * (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for
-	 * weeks, 'd' for days, e.g. '+1m +1w'), or null for no limit.
+	 * Set a minimum selectable date via a Date object, or a number of days from today (e.g. +7) or
+	 * a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
+	 * e.g. '+1m +1w'), or null for no limit.
 	 * 
 	 * @param minDate
 	 * @return instance of the current component
@@ -584,9 +578,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the list of full month names, as used in the month header on each datepicker
-	 * and as requested via the dateFormat setting. This attribute is one of the
-	 * regionalisation attributes.
+	 * Set's the list of full month names, as used in the month header on each datepicker and as
+	 * requested via the dateFormat setting. This attribute is one of the regionalisation
+	 * attributes.
 	 * 
 	 * @param monthNames
 	 * @return instance of the current component
@@ -606,8 +600,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the list of abbreviated month names, for use as requested via the dateFormat
-	 * setting. This attribute is one of the regionalisation attributes.
+	 * Set's the list of abbreviated month names, for use as requested via the dateFormat setting.
+	 * This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param monthNamesShort
 	 * @return instance of the current component
@@ -627,9 +621,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * When true the formatDate function is applied to the prevText, nextText, and
-	 * currentText values before display, allowing them to display the target month names
-	 * for example.
+	 * When true the formatDate function is applied to the prevText, nextText, and currentText
+	 * values before display, allowing them to display the target month names for example.
 	 * 
 	 * @param navigationAsDateFormat
 	 * @return instance of the current component
@@ -650,8 +643,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 
 	/**
 	 * Set's the text to display for the next month link. This attribute is one of the
-	 * regionalisation attributes. With the standard ThemeRoller styling, this value is
-	 * replaced by an icon.
+	 * regionalisation attributes. With the standard ThemeRoller styling, this value is replaced by
+	 * an icon.
 	 * 
 	 * @param nextText
 	 * @return instance of the current component
@@ -710,8 +703,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 
 	/**
 	 * Set's the text to display for the previous month link. This attribute is one of the
-	 * regionalisation attributes. With the standard ThemeRoller styling, this value is
-	 * replaced by an icon.
+	 * regionalisation attributes. With the standard ThemeRoller styling, this value is replaced by
+	 * an icon.
 	 * 
 	 * @param prevText
 	 * @return instance of the current component
@@ -731,8 +724,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * When true days in other months shown before or after the current month are
-	 * selectable. This only applies if showOtherMonths is also true.
+	 * When true days in other months shown before or after the current month are selectable. This
+	 * only applies if showOtherMonths is also true.
 	 * 
 	 * @param selectOtherMonths
 	 * @return instance of the current behavior
@@ -772,8 +765,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set the name of the animation used to show/hide the datepicker. Use 'show' (the
-	 * default), 'slideDown', 'fadeIn', or any of the show/hide jQuery UI effects
+	 * Set the name of the animation used to show/hide the datepicker. Use 'show' (the default),
+	 * 'slideDown', 'fadeIn', or any of the show/hide jQuery UI effects
 	 * 
 	 * @param showAnim
 	 * @return instance of the current component
@@ -813,8 +806,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Specify where in a multi-month display the current month shows, starting from 0 at
-	 * the top/left.
+	 * Specify where in a multi-month display the current month shows, starting from 0 at the
+	 * top/left.
 	 * 
 	 * @param showCurrentAtPos
 	 * @return instance of the current component
@@ -854,9 +847,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Have the datepicker appear automatically when the field receives focus ('focus'),
-	 * appear only when a button is clicked ('button'), or appear when either event takes
-	 * place ('both').
+	 * Have the datepicker appear automatically when the field receives focus ('focus'), appear only
+	 * when a button is clicked ('button'), or appear when either event takes place ('both').
 	 * 
 	 * @param showOn
 	 * @return instance of the current component
@@ -876,8 +868,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * If using one of the jQuery UI effects for showAnim, you can provide additional
-	 * settings for that animation via this option.
+	 * If using one of the jQuery UI effects for showAnim, you can provide additional settings for
+	 * that animation via this option.
 	 * 
 	 * @param showOptions
 	 * @return instance of the current component
@@ -897,9 +889,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * When true a column is added to show the week of the year. The calculateWeek option
-	 * determines how the week of the year is calculated. You may also want to change the
-	 * firstDay option.
+	 * When true a column is added to show the week of the year. The calculateWeek option determines
+	 * how the week of the year is calculated. You may also want to change the firstDay option.
 	 * 
 	 * @return instance of the current component
 	 */
@@ -976,10 +967,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the list of long day names, starting from Sunday, for use as requested via
-	 * the dateFormat setting. They also appear as popup hints when hovering over the
-	 * corresponding column headings. This attribute is one of the regionalisation
-	 * attributes.
+	 * Set's the list of long day names, starting from Sunday, for use as requested via the
+	 * dateFormat setting. They also appear as popup hints when hovering over the corresponding
+	 * column headings. This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param dayNames
 	 * @return instance of the current component
@@ -999,9 +989,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the list of minimised day names, starting from Sunday, for use as column
-	 * headers within the datepicker. This attribute is one of the regionalisation
-	 * attributes.
+	 * Set's the list of minimised day names, starting from Sunday, for use as column headers within
+	 * the datepicker. This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param dayNamesMin
 	 * @return instance of the current component
@@ -1021,9 +1010,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set's the list of abbreviated day names, starting from Sunday, for use as requested
-	 * via the dateFormat setting. This attribute is one of the regionalisation
-	 * attributes.
+	 * Set's the list of abbreviated day names, starting from Sunday, for use as requested via the
+	 * dateFormat setting. This attribute is one of the regionalisation attributes.
 	 * 
 	 * @param dayNamesShort
 	 * @return instance of the current component
@@ -1043,10 +1031,10 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Set the date to highlight on first opening if the field is blank. Specify either an
-	 * actual date via a Date object, or a number of days from today (e.g. +7) or a string
-	 * of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days,
-	 * e.g. '+1m +7d'), or null for today.
+	 * Set the date to highlight on first opening if the field is blank. Specify either an actual
+	 * date via a Date object, or a number of days from today (e.g. +7) or a string of values and
+	 * periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null
+	 * for today.
 	 * 
 	 * @param defaultDate
 	 * @return instance of the current component
@@ -1066,8 +1054,8 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Disables (true) or enables (false) the datepicker. Can be set when initialising
-	 * (first creating) the datepicker.
+	 * Disables (true) or enables (false) the datepicker. Can be set when initialising (first
+	 * creating) the datepicker.
 	 * 
 	 * @param disabled
 	 * @return instance of the current behavior
@@ -1087,9 +1075,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Control the speed at which the datepicker appears, it may be a time in
-	 * milliseconds, a string representing one of the three predefined speeds ("slow",
-	 * "normal", "fast"), or '' for immediately.
+	 * Control the speed at which the datepicker appears, it may be a time in milliseconds, a string
+	 * representing one of the three predefined speeds ("slow", "normal", "fast"), or '' for
+	 * immediately.
 	 * 
 	 * @param duration
 	 * @return instance of the current component
@@ -1124,9 +1112,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 
 	/**
 	 * The function takes a date as a parameter and must return an array with [0] equal to
-	 * true/false indicating whether or not this date is selectable, [1] equal to a CSS
-	 * class name(s) or '' for the default presentation and [2] an optional popup tooltip
-	 * for this date. It is called for each day in the datepicker before is it displayed.
+	 * true/false indicating whether or not this date is selectable, [1] equal to a CSS class
+	 * name(s) or '' for the default presentation and [2] an optional popup tooltip for this date.
+	 * It is called for each day in the datepicker before is it displayed.
 	 * 
 	 * @param beforeShowDay
 	 * @return instance of the current component
@@ -1138,24 +1126,24 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker moves to a new month and/or
-	 * year. The function receives the selected year, month (1-12), and the datepicker
-	 * instance as parameters. this refers to the associated input field.
+	 * Allows you to define your own event when the datepicker moves to a new month and/or year. The
+	 * function receives the selected year, month (1-12), and the datepicker instance as parameters.
+	 * this refers to the associated input field.
 	 * 
 	 * @param onChangeMonthYear
 	 * @return instance of the current component
 	 */
 	public InlineDatePicker<T> setOnChangeMonthYearEvent(
-			JsScopeUiDatePickerOnChangeEvent onChangeMonthYear)
+		JsScopeUiDatePickerOnChangeEvent onChangeMonthYear)
 	{
 		this.options.setOnChangeMonthYearEvent(onChangeMonthYear);
 		return this;
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker is closed, whether or not a
-	 * date is selected. The function receives the selected date as text and the
-	 * datepicker instance as parameters. this refers to the associated input field.
+	 * Allows you to define your own event when the datepicker is closed, whether or not a date is
+	 * selected. The function receives the selected date as text and the datepicker instance as
+	 * parameters. this refers to the associated input field.
 	 * 
 	 * @param onClose
 	 * @return instance of the current component
@@ -1167,9 +1155,9 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 	}
 
 	/**
-	 * Allows you to define your own event when the datepicker is selected. The function
-	 * receives the selected date as text and the datepicker instance as parameters. this
-	 * refers to the associated input field.
+	 * Allows you to define your own event when the datepicker is selected. The function receives
+	 * the selected date as text and the datepicker instance as parameters. this refers to the
+	 * associated input field.
 	 * 
 	 * @param onSelect
 	 * @return instance of the current component
@@ -1182,8 +1170,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 
 	/*---- Methods section ---*/
 	/**
-	 * Method to destroy the datepicker This will return the element back to its pre-init
-	 * state.
+	 * Method to destroy the datepicker This will return the element back to its pre-init state.
 	 * 
 	 * @return the associated JsStatement
 	 */

@@ -7,13 +7,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.accordion.AccordionAnimateOption;
-import org.wicketstuff.wiquery.ui.accordion.AccordionDownEffectOptionObject;
-import org.wicketstuff.wiquery.ui.accordion.AccordionEffectOptionObject;
 
 public class AccordionAnimateOptionTestCase extends WiQueryTestCase
 {
-	protected static final Logger log = LoggerFactory.getLogger(AccordionAnimateOptionTestCase.class);
+	protected static final Logger log = LoggerFactory
+		.getLogger(AccordionAnimateOptionTestCase.class);
 
 	@Test
 	public void testGetJavaScriptOption()
@@ -32,11 +30,11 @@ public class AccordionAnimateOptionTestCase extends WiQueryTestCase
 		snap.setIntegerParam(200);
 		expectedJavascript = "200";
 		generatedJavascript = snap.getJavascriptOption().toString();
-		
+
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Literal param
 		snap.setLiteralParam("swing");
 		expectedJavascript = "'swing'";
@@ -45,14 +43,10 @@ public class AccordionAnimateOptionTestCase extends WiQueryTestCase
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
 		assertEquals(generatedJavascript, expectedJavascript);
-		
+
 		// Object param
-		snap.setObjectParam(new AccordionEffectOptionObject()
-				.setEasing("linear")
-				.setDown(new AccordionDownEffectOptionObject()
-						.setDuration(200)
-				)
-		);
+		snap.setObjectParam(new AccordionEffectOptionObject().setEasing("linear")
+			.setDown(new AccordionDownEffectOptionObject().setDuration(200)));
 		expectedJavascript = "{easing: 'linear', down: {duration: 200}}";
 		generatedJavascript = snap.getJavascriptOption().toString();
 
@@ -70,7 +64,8 @@ public class AccordionAnimateOptionTestCase extends WiQueryTestCase
 		catch (Exception e)
 		{
 			// We have an expected error
-			assertEquals("The GenericAnimateOption must have one not null parameter", e.getMessage());
+			assertEquals("The GenericAnimateOption must have one not null parameter",
+				e.getMessage());
 		}
 	}
 

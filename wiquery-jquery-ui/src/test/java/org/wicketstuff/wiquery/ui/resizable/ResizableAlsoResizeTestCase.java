@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.options.LiteralOption;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.resizable.ResizableAlsoResize;
 
 public class ResizableAlsoResizeTestCase extends WiQueryTestCase
 {
@@ -46,7 +45,8 @@ public class ResizableAlsoResizeTestCase extends WiQueryTestCase
 		catch (Exception e)
 		{
 			// We have an expected error
-			assertEquals("The ResizableAlsoResize must have one not null parameter", e.getMessage());
+			assertEquals("The ResizableAlsoResize must have one not null parameter",
+				e.getMessage());
 		}
 	}
 

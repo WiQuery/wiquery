@@ -28,7 +28,5 @@ package org.wicketstuff.wiquery.ui.options;
  * @since 6.9.2
  */
 public enum HeightStyleEnum {
-	AUTO,
-	CONTENT,
-	FILL
+	AUTO, CONTENT, FILL
 }

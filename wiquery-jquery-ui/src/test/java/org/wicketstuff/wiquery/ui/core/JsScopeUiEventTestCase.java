@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.javascript.JsScopeContext;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
 
 /**
  * Unit test on the {@link JsScopeUiEvent}
@@ -84,8 +83,8 @@ public class JsScopeUiEventTestCase extends WiQueryTestCase
 	public void testQuickScopeJsStatement()
 	{
 		String expectedJavascript = "function(event, ui) {\n\talert('test');\n}";
-		JsScopeUiEvent quickScope =
-			JsScopeUiEvent.quickScope(new JsStatement().append("alert('test')"));
+		JsScopeUiEvent quickScope = JsScopeUiEvent
+			.quickScope(new JsStatement().append("alert('test')"));
 		String generatedJavascript = quickScope.render().toString();
 
 		log.info(expectedJavascript);

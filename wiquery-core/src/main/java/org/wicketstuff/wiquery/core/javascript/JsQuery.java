@@ -35,12 +35,12 @@ import org.wicketstuff.wiquery.core.util.WiQueryUtil;
 /**
  * $Id: JsQuery.java 1721M 2012-01-17 17:43:37Z (local) $
  * <p>
- * {@link JsQuery} is the main entry point of WickeXt's JavaScript integration. This class
- * is used to link JavaScript to a component and to render it.
+ * {@link JsQuery} is the main entry point of WickeXt's JavaScript integration. This class is used
+ * to link JavaScript to a component and to render it.
  * </p>
  * <p>
- * This class implements the {@link IHeaderContributor} interface, so if you want to
- * append the generated JavaScript, just do this:
+ * This class implements the {@link IHeaderContributor} interface, so if you want to append the
+ * generated JavaScript, just do this:
  * 
  * <pre>
  *  	<code>
@@ -103,14 +103,13 @@ public class JsQuery extends Behavior implements Serializable
 	}
 
 	/**
-	 * Same as {@link #$()} but with a specified CSS selector. If this {@link JsQuery} is
-	 * linked to a component, the resulting JavaScript code will be
+	 * Same as {@link #$()} but with a specified CSS selector. If this {@link JsQuery} is linked to
+	 * a component, the resulting JavaScript code will be
 	 * <p>
 	 * <code>$("#yourComponentId cssSelector")</code>
 	 * </p>
 	 * 
 	 * @param selector
-	 * @return
 	 */
 	public JsStatement $(String selector)
 	{
@@ -118,8 +117,7 @@ public class JsQuery extends Behavior implements Serializable
 	}
 
 	/**
-	 * @return a new {@link JsStatement} initialized with the <code>document</code>
-	 *         statement.
+	 * @return a new {@link JsStatement} initialized with the <code>document</code> statement.
 	 */
 	public JsStatement document()
 	{
@@ -133,8 +131,8 @@ public class JsQuery extends Behavior implements Serializable
 
 		if (js != null && js.trim().length() > 0)
 		{
-			response.render(JavaScriptHeaderItem.forReference(WiQueryUtil
-				.getJQueryResourceReference()));
+			response.render(
+				JavaScriptHeaderItem.forReference(WiQueryUtil.getJQueryResourceReference()));
 
 			response.render(OnDomReadyHeaderItem.forScript(js));
 		}
@@ -150,9 +148,9 @@ public class JsQuery extends Behavior implements Serializable
 
 		if (component != null && component != hostComponent)
 		{
-			throw new IllegalStateException("this kind of handler cannot be attached to "
-				+ "multiple components; it is already attached to component " + component
-				+ ", but component " + hostComponent + " wants to be attached too");
+			throw new IllegalStateException("this kind of handler cannot be attached to " +
+				"multiple components; it is already attached to component " + component +
+				", but component " + hostComponent + " wants to be attached too");
 		}
 
 		component = hostComponent;
@@ -162,8 +160,8 @@ public class JsQuery extends Behavior implements Serializable
 	}
 
 	/**
-	 * Called when the component was bound to it's host component. You can get the bound
-	 * host component by calling getComponent.
+	 * Called when the component was bound to it's host component. You can get the bound host
+	 * component by calling getComponent.
 	 */
 	protected void onBind()
 	{
@@ -184,18 +182,6 @@ public class JsQuery extends Behavior implements Serializable
 	public void setStatement(JsStatement jsStatement)
 	{
 		this.statement = jsStatement;
-	}
-
-	/**
-	 * Adds this statement as Behavior to the component. When the page or ajax request is
-	 * rendered this statement will be added.
-	 * 
-	 * @deprecated use {@link Component#add(Behavior...)}.
-	 */
-	@Deprecated
-	public void contribute(Component component)
-	{
-		component.add(this);
 	}
 
 	/**

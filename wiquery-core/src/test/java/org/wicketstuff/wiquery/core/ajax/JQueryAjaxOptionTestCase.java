@@ -29,7 +29,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption;
 import org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption.AjaxType;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 
@@ -52,8 +51,7 @@ public class JQueryAjaxOptionTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#getContentType()}.
+	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#getContentType()}.
 	 */
 	@Test
 	public void testGetContentType()
@@ -77,8 +75,7 @@ public class JQueryAjaxOptionTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#getDataType()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#getDataType()} .
 	 */
 	@Test
 	public void testGetDataType()
@@ -114,8 +111,7 @@ public class JQueryAjaxOptionTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#getPassword()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#getPassword()} .
 	 */
 	@Test
 	public void testGetPassword()
@@ -175,8 +171,7 @@ public class JQueryAjaxOptionTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#getUsername()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#getUsername()} .
 	 */
 	@Test
 	public void testGetUsername()
@@ -221,8 +216,7 @@ public class JQueryAjaxOptionTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#isIfModified()}.
+	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#isIfModified()}.
 	 */
 	@Test
 	public void testIsIfModified()
@@ -233,8 +227,7 @@ public class JQueryAjaxOptionTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#isProcessData()}.
+	 * Test method for {@link org.wicketstuff.wiquery.core.ajax.JQueryAjaxOption#isProcessData()}.
 	 */
 	@Test
 	public void testIsProcessData()

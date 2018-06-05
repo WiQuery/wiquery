@@ -21,56 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.selectable;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: SelectableJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to apply selectable behavior to any HTML element.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class SelectableJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class SelectableJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	// Constants
-	/** Constant of serialization */
-	private static final long serialVersionUID = -4480460830759651938L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final SelectableJavaScriptResourceReference INSTANCE =
-		new SelectableJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link SelectableJavaScriptResourceReference}.
-	 */
 	private SelectableJavaScriptResourceReference()
 	{
-		super(SelectableJavaScriptResourceReference.class, "jquery.ui.selectable.js");
-	}
-
-	/**
-	 * Returns the {@link SelectableJavaScriptResourceReference} instance.
-	 */
-	public static SelectableJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
-			MouseJavaScriptResourceReference.get());
 	}
 }

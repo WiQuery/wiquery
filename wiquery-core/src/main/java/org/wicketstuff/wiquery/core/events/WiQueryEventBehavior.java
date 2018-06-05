@@ -21,9 +21,11 @@
  */
 package org.wicketstuff.wiquery.core.events;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.wicketstuff.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.wicketstuff.wiquery.core.javascript.JsQuery;
-import org.wicketstuff.wiquery.core.javascript.JsStatement;
 
 /**
  * $Id: WiQueryEventBehavior.java 1714M 2012-01-19 16:56:55Z (local) $
@@ -56,11 +58,11 @@ public class WiQueryEventBehavior extends WiQueryAbstractAjaxBehavior
 		this.event = event;
 	}
 
-	@Deprecated
 	@Override
-	public JsStatement statement()
+	public void renderHead(Component component, IHeaderResponse response)
 	{
-		return new JsQuery(this.getComponent()).$().chain(event);
+		super.renderHead(component, response);
+		response.render(OnDomReadyHeaderItem
+			.forScript(new JsQuery(this.getComponent()).$().chain(event).render()));
 	}
-
 }

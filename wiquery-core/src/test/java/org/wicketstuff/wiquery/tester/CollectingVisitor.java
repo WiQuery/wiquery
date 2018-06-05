@@ -35,7 +35,7 @@ public class CollectingVisitor<X extends Component> implements IVisitor<Componen
 
 	private boolean findFirst = false;
 
-	List<X> matchedComponents = new ArrayList<X>();
+	List<X> matchedComponents = new ArrayList<>();
 
 	public CollectingVisitor(ComponentMatcher matcher)
 	{
@@ -59,7 +59,7 @@ public class CollectingVisitor<X extends Component> implements IVisitor<Componen
 	{
 		if (matcher.matches(component))
 		{
-			matchedComponents.add((X) component);
+			matchedComponents.add((X)component);
 			if (findFirst)
 				visit.stop();
 		}

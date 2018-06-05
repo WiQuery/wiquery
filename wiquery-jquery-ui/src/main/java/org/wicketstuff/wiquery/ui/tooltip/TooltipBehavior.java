@@ -10,6 +10,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.Strings;
 import org.wicketstuff.wiquery.core.javascript.JsStatement;
 import org.wicketstuff.wiquery.core.options.Options;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 import org.wicketstuff.wiquery.ui.options.EffectOptionObject;
 import org.wicketstuff.wiquery.ui.position.PositionOptions;
 
@@ -18,7 +19,7 @@ public class TooltipBehavior extends Behavior
 	private static final long serialVersionUID = 1L;
 
 	protected IModel<String> model;
-	
+
 	protected Options options = new Options();
 
 	/**
@@ -45,10 +46,10 @@ public class TooltipBehavior extends Behavior
 
 	public TooltipBehavior setContent(String content)
 	{
-		options.put("content", "\"" + formatContent(content)  + "\"");
+		options.put("content", "\"" + formatContent(content) + "\"");
 		return this;
 	}
-	
+
 	public TooltipBehavior setContent(IModel<String> model)
 	{
 		this.model = model;
@@ -138,22 +139,22 @@ public class TooltipBehavior extends Behavior
 	{
 		super.renderHead(component, response);
 		response
-			.render(JavaScriptHeaderItem.forReference(TooltipJavaScriptResourceReference.get()));
+			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 		response.render(OnDomReadyHeaderItem.forScript(statement(component).render()));
 	}
 
 	private JsStatement statement(Component component)
 	{
-		if (model != null )
+		if (model != null)
 		{
 			setContent(model.getObject());
 		}
-		
+
 		if (options.isEmpty())
 		{
 			return new JsStatement().$(component).chain("tooltip");
 		}
-		
+
 		if (options.containsKey("content") && !options.containsKey("items"))
 		{
 			setItems("#" + component.getMarkupId());
@@ -161,18 +162,15 @@ public class TooltipBehavior extends Behavior
 
 		return new JsStatement().$(component).chain("tooltip", options.getJavaScriptOptions());
 	}
-	
+
 	private String formatContent(String content)
-	{		
-		String formattedContent = ""; 
+	{
+		String formattedContent = "";
 		if (content != null && !content.isEmpty())
 		{
-			formattedContent = 
-					JavaScriptUtils.escapeQuotes(
-						Strings.toMultilineMarkup(
-							Strings.toEscapedUnicode(content)
-						)
-					).toString();
+			formattedContent = JavaScriptUtils
+				.escapeQuotes(Strings.toMultilineMarkup(Strings.toEscapedUnicode(content)))
+				.toString();
 		}
 		return formattedContent;
 	}

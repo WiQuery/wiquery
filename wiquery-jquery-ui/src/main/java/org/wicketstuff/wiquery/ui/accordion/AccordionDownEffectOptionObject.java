@@ -81,7 +81,7 @@ public class AccordionDownEffectOptionObject implements IComplexOption
 		options.put("duration", duration);
 		return this;
 	}
-	
+
 	/**
 	 * @return the duration option
 	 */
@@ -89,7 +89,7 @@ public class AccordionDownEffectOptionObject implements IComplexOption
 	{
 		return options.getInt("duration");
 	}
-	
+
 	/**
 	 * The easing to use with the effect. If omitted, the default value will be used.
 	 * 
@@ -101,7 +101,7 @@ public class AccordionDownEffectOptionObject implements IComplexOption
 		options.putLiteral("easing", easing);
 		return this;
 	}
-	
+
 	/**
 	 * @return the easing option
 	 */

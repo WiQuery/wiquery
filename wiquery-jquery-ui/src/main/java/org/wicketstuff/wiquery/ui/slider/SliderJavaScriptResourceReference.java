@@ -21,54 +21,18 @@
  */
 package org.wicketstuff.wiquery.ui.slider;
 
-import java.util.List;
-
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.wicketstuff.wiquery.core.resources.JavaScriptHeaderItems;
-import org.wicketstuff.wiquery.ui.core.CoreUIJavaScriptResourceReference;
-import org.wicketstuff.wiquery.ui.mouse.MouseJavaScriptResourceReference;
+import org.wicketstuff.wiquery.ui.JQueryUIJavaScriptResourceReference;
 
 /**
- * $Id: SliderJavaScriptResourceReference.java 1143 2011-07-29 11:51:49Z
- * hielke.hoeve@gmail.com $
- * <p>
- * References the JavaScript resource to get the Slider component.
- * </p>
- * 
- * @author Julien Roche
- * @since 1.0
+ * @deprecated use JQueryUIJavaScriptResourceReference directly
+ * @author papegaaij
  */
-public final class SliderJavaScriptResourceReference extends JavaScriptResourceReference
+@Deprecated
+public final class SliderJavaScriptResourceReference extends JQueryUIJavaScriptResourceReference
 {
-	private static final long serialVersionUID = -4771815414204892357L;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Singleton instance.
-	 */
-	private static final SliderJavaScriptResourceReference INSTANCE =
-		new SliderJavaScriptResourceReference();
-
-	/**
-	 * Builds a new instance of {@link SliderJavaScriptResourceReference}.
-	 */
 	private SliderJavaScriptResourceReference()
 	{
-		super(SliderJavaScriptResourceReference.class, "jquery.ui.slider.js");
-	}
-
-	/**
-	 * Returns the {@link SliderJavaScriptResourceReference} instance.
-	 */
-	public static SliderJavaScriptResourceReference get()
-	{
-		return INSTANCE;
-	}
-
-	@Override
-	public List<HeaderItem> getDependencies()
-	{
-		return JavaScriptHeaderItems.forReferences(CoreUIJavaScriptResourceReference.get(),
-			MouseJavaScriptResourceReference.get());
 	}
 }

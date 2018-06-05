@@ -26,7 +26,8 @@ import org.wicketstuff.wiquery.core.javascript.JsScope;
 import org.wicketstuff.wiquery.core.options.IComplexOption;
 import org.wicketstuff.wiquery.core.options.IListItemOption;
 import org.wicketstuff.wiquery.core.options.Options;
-import org.wicketstuff.wiquery.ui.button.ButtonIcon;
+import org.wicketstuff.wiquery.ui.core.JsScopeUiEvent;
+import org.wicketstuff.wiquery.ui.options.ClassesOption;
 import org.wicketstuff.wiquery.ui.themes.UiIcon;
 
 /**
@@ -46,7 +47,7 @@ public class DialogButton extends Object implements IListItemOption
 
 	// Properties
 	private Options options;
-	
+
 	private IComplexOption callback;
 
 	/**
@@ -69,10 +70,10 @@ public class DialogButton extends Object implements IListItemOption
 	{
 		super();
 		options = new Options();
-		setText(text);
+		setLabel(text);
 		setClick(jsScope);
 	}
-	
+
 	@Override
 	public CharSequence getJavascriptOption()
 	{
@@ -89,112 +90,165 @@ public class DialogButton extends Object implements IListItemOption
 		return options;
 	}
 
-	/**
-	 * Text to show on the button. When not specified (null), the element's html content
-	 * is used, or its value attribute when it's an input element of type submit or reset;
-	 * or the html content of the associated label element if its an input of type radio
-	 * or checkbox
-	 * 
-	 * @param text
-	 * @return the button
-	 */
-	public DialogButton setText(String text)
+	public ClassesOption getClasses()
 	{
-		options.putLiteral("text", text);
-		return this;
-	}
-
-	/**
-	 * Text to show on the button. When not specified (null), the element's html content
-	 * is used, or its value attribute when it's an input element of type submit or reset;
-	 * or the html content of the associated label element if its an input of type radio
-	 * or checkbox
-	 * 
-	 * @param text
-	 * @return the button
-	 */
-	public DialogButton setText(IModel<String> text)
-	{
-		options.putLiteral("text", text);
-		return this;
-	}
-
-	/**
-	 * @return the text value option
-	 */
-	public String getText()
-	{
-		return options.getLiteral("text");
-	}
-
-	/**
-	 * Whether to show any text - when set to false (display no text), icons (see icons
-	 * option) must be enabled, otherwise it'll be ignored.
-	 * 
-	 * @param showText
-	 * @return the button
-	 */
-	public DialogButton setShowText(boolean showText)
-	{
-		options.put("showText", showText);
-		return this;
-	}
-
-	/**
-	 * @return the text option value
-	 */
-	public boolean isShowText()
-	{
-		if (options.containsKey("showText"))
+		IComplexOption animate = this.options.getComplexOption("classes");
+		if (animate instanceof ClassesOption)
 		{
-			return options.getBoolean("showText");
+			return (ClassesOption)animate;
+		}
+
+		return new ClassesOption();
+	}
+
+	public DialogButton setClasses(ClassesOption classes)
+	{
+		this.options.put("classes", classes);
+		return this;
+	}
+
+	/**
+	 * @return the disabled option
+	 */
+	public Boolean isDisabled()
+	{
+		if (this.options.containsKey("disabled"))
+		{
+			return this.options.getBoolean("disabled");
+		}
+
+		return null;
+	}
+
+
+	/**
+	 * Disables (true) or enables (false) the button. Can be set when initialising (first creating)
+	 * the button.
+	 * 
+	 * @param disabled
+	 * @return instance of the current behavior
+	 */
+	public DialogButton setDisabled(boolean disabled)
+	{
+		this.options.put("disabled", disabled);
+		return this;
+	}
+
+	/**
+	 * @return the showLabel option value
+	 */
+	public boolean isShowLabel()
+	{
+		if (options.containsKey("showLabel"))
+		{
+			return options.getBoolean("showLabel");
 		}
 		return true;
 	}
 
 	/**
-	 * Icons to display, with or without text (see text option). The primary icon is
-	 * displayed on the left of the label text, the secondary on the right. Value for the
-	 * primary and secondary properties must be a classname (String), eg. "ui-icon-gear".
-	 * For using only a primary icon: icons: {primary:'ui-icon-locked'}. For using both
-	 * primary and secondary icon: icons:
-	 * {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'}
+	 * Whether to show any text - when set to false (display no text), icons (see icons option) must
+	 * be enabled, otherwise it'll be ignored.
 	 * 
-	 * @param icons
-	 * @return the button
+	 * @param text
+	 * @return the Button
 	 */
-	public DialogButton setIcons(ButtonIcon icons)
+	public DialogButton setShowLabel(boolean showLabel)
 	{
-		options.put("icons", icons);
+		options.put("showLabel", showLabel);
 		return this;
 	}
 
 	/**
-	 * * Icons to display, with or without text (see text option). The primary icon is
-	 * displayed on the left of the label text, the secondary on the right. Value for the
-	 * primary and secondary properties must be a classname (String), eg. "ui-icon-gear".
-	 * For using only a primary icon: icons: {primary:'ui-icon-locked'}. For using both
-	 * primary and secondary icon: icons:
-	 * {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'}
+	 * @return the icon value option
+	 */
+	public UiIcon getIcon()
+	{
+		return UiIcon.forCssClass(options.get("icon"));
+	}
+
+	/**
+	 * Icon to display, with or without text (see showLabel option). By default, the icon is
+	 * displayed on the left of the label text. The positioning can be controlled using the
+	 * iconPosition option.
 	 * 
-	 * @param primary
-	 *            The primary icon (should be non-null)
-	 * @param secondary
-	 *            The secondary icon (might be null).
+	 * The value for this option must match an icon class name, e.g., "ui-icon-gear".
+	 * 
+	 * When using an input of type button, submit or reset, icons are not supported.
+	 * 
+	 * @param icon
 	 * @return the button
 	 */
-	public DialogButton setIcons(UiIcon primary, UiIcon secondary)
+	public DialogButton setIcon(UiIcon icon)
 	{
-		options.put("icons", new ButtonIcon(primary, secondary));
+		options.putLiteral("icon", icon.getCssClass());
 		return this;
 	}
 
 	/**
-	 * @return the icons value option
+	 * @return the iconPosition value option
 	 */
-	public ButtonIcon getIcons()
+	public String getIconPosition()
 	{
-		return (ButtonIcon) options.getComplexOption("icons");
+		return options.get("iconPosition");
+	}
+
+	/**
+	 * Where to display the icon: Valid values are "beginning", "end", "top" and "bottom". In a
+	 * left-to-right (LTR) display, "beginning" refers to the left, in a right-to-left (RTL, e.g. in
+	 * Hebrew or Arabic), it refers to the right.
+	 * 
+	 * @param icon
+	 * @return the button
+	 */
+	public DialogButton setIconPosition(String iconPosition)
+	{
+		options.putLiteral("iconPosition", iconPosition);
+		return this;
+	}
+
+	/**
+	 * @return the label value option
+	 */
+	public String getLabel()
+	{
+		return options.getLiteral("label");
+	}
+
+	/**
+	 * Text to show on the button. When not specified (null), the element's html content is used, or
+	 * its value attribute when it's an input element of type submit or reset; or the html content
+	 * of the associated label element if its an input of type radio or checkbox
+	 * 
+	 * @param label
+	 * @return the button
+	 */
+	public DialogButton setLabel(String label)
+	{
+		options.putLiteral("label", label);
+		return this;
+	}
+
+	/**
+	 * Text to show on the button. When not specified (null), the element's html content is used, or
+	 * its value attribute when it's an input element of type submit or reset; or the html content
+	 * of the associated label element if its an input of type radio or checkbox
+	 * 
+	 * @param label
+	 * @return the button
+	 */
+	public DialogButton setLabel(IModel<String> label)
+	{
+		options.putLiteral("label", label);
+		return this;
+	}
+
+	/*---- Events section ---*/
+
+	public DialogButton setCreateEvent(JsScopeUiEvent create)
+	{
+		this.options.put("create", create);
+		return this;
 	}
 
 	/**
@@ -216,14 +270,15 @@ public class DialogButton extends Object implements IListItemOption
 	{
 		return options.getJsScope("click");
 	}
-	
+
 	/**
 	 * Method setting the click option of the button as a callback (AJAX).
 	 * 
 	 * @param callback
 	 * @return the button
 	 */
-	public DialogButton setCallback(IComplexOption callback) {
+	public DialogButton setCallback(IComplexOption callback)
+	{
 		options.put("click", callback);
 		this.callback = callback;
 		return this;
@@ -232,31 +287,8 @@ public class DialogButton extends Object implements IListItemOption
 	/**
 	 * @return the callback property
 	 */
-	public IComplexOption getCallback() {
+	public IComplexOption getCallback()
+	{
 		return callback;
-	}
-
-
-	/**
-	 * Disable the button.
-	 *
-	 *
-	 * @param disabled
-	 *              set to true to disable the button
-	 * @return the button
-	 */
-	public DialogButton setDisabled(boolean disabled) {
-		options.put("disabled", disabled);
-		return this;
-	}
-
-	/**
-	 * @return the disabled value option
-	 */
-	public boolean getDisabled() {
-		if (options.containsKey("disabled")) {
-			return options.getBoolean("disabled");
-		}
-		return false;
 	}
 }

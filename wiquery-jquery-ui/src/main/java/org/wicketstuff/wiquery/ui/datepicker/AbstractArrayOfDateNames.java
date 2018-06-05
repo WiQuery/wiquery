@@ -52,7 +52,7 @@ public abstract class AbstractArrayOfDateNames extends Object implements IComple
 	public AbstractArrayOfDateNames(String... names)
 	{
 		super();
-		itemOptions = new ArrayItemOptions<LiteralOption>();
+		itemOptions = new ArrayItemOptions<>();
 
 		for (String str : names)
 		{
@@ -69,8 +69,8 @@ public abstract class AbstractArrayOfDateNames extends Object implements IComple
 		}
 		else if (!getNumberOfName().equals(itemOptions.size()))
 		{
-			throw new IllegalArgumentException(String.format("The list must have %d names",
-				getNumberOfName()));
+			throw new IllegalArgumentException(
+				String.format("The list must have %d names", getNumberOfName()));
 		}
 
 		return itemOptions.getJavascriptOption();

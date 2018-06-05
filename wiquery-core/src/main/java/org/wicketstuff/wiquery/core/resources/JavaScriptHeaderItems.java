@@ -18,17 +18,15 @@ public abstract class JavaScriptHeaderItems extends JavaScriptHeaderItem
 	}
 
 	/**
-	 * @return a list of {@link JavaScriptReferenceHeaderItem}s in the order of and
-	 *         containing the given references
+	 * @return a list of {@link JavaScriptReferenceHeaderItem}s in the order of and containing the
+	 *         given references
 	 */
-	public static List<HeaderItem> forReferences(
-			ResourceReference... references)
+	public static List<HeaderItem> forReferences(ResourceReference... references)
 	{
 		if (references == null || references.length == 0)
-			return new ArrayList<HeaderItem>(0);
+			return new ArrayList<>(0);
 
-		List<HeaderItem> list =
-			new ArrayList<HeaderItem>(references.length);
+		List<HeaderItem> list = new ArrayList<>(references.length);
 
 		for (ResourceReference reference : references)
 			list.add(forReference(reference));

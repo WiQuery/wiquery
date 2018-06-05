@@ -70,9 +70,9 @@ public final class JsUtils
 	 */
 	public static String doubleQuotes(CharSequence stringToDoubleQuote, boolean escapeDoubleQuote)
 	{
-		return "\""
-			+ (escapeDoubleQuote ? escapeDoubleQuote(stringToDoubleQuote) : stringToDoubleQuote)
-			+ "\"";
+		return "\"" +
+			(escapeDoubleQuote ? escapeDoubleQuote(stringToDoubleQuote) : stringToDoubleQuote) +
+			"\"";
 	}
 
 	/**
@@ -80,8 +80,8 @@ public final class JsUtils
 	 */
 	public static String escapeDoubleQuote(CharSequence stringToDoubleQuote)
 	{
-		return stringToDoubleQuote == null ? null : stringToDoubleQuote.toString().replace("\"",
-			"\\\"");
+		return stringToDoubleQuote == null ? null
+			: stringToDoubleQuote.toString().replace("\"", "\\\"");
 	}
 
 	/**
@@ -135,7 +135,7 @@ public final class JsUtils
 	{
 		return String.valueOf(value);
 	}
-	
+
 	private JsUtils()
 	{
 	}

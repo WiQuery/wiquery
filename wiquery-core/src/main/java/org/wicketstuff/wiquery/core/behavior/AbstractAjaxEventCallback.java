@@ -62,8 +62,8 @@ public abstract class AbstractAjaxEventCallback implements IComplexOption
 	public CharSequence getJavascriptOption()
 	{
 		List<CallbackParameter> extraParameters = getExtraParameters();
-		return behavior.getCallbackFunction(extraParameters
-			.toArray(new CallbackParameter[extraParameters.size()]));
+		return behavior.getCallbackFunction(
+			extraParameters.toArray(new CallbackParameter[extraParameters.size()]));
 	}
 
 	protected Component findComponentById(String id)
@@ -78,7 +78,7 @@ public abstract class AbstractAjaxEventCallback implements IComplexOption
 
 	protected List<CallbackParameter> getExtraParameters()
 	{
-		List<CallbackParameter> ret = new ArrayList<CallbackParameter>();
+		List<CallbackParameter> ret = new ArrayList<>();
 		ret.add(CallbackParameter.context("event"));
 		ret.add(CallbackParameter.context("ui"));
 		ret.add(CallbackParameter.resolved("eventName", "'" + event + "'"));

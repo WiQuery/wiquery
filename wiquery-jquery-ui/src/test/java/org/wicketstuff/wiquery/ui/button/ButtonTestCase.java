@@ -35,8 +35,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
 import org.wicketstuff.wiquery.ui.InputTestPanel;
-import org.wicketstuff.wiquery.ui.button.ButtonBehavior;
-import org.wicketstuff.wiquery.ui.button.ButtonIcon;
 import org.wicketstuff.wiquery.ui.themes.UiIcon;
 
 /**
@@ -94,16 +92,9 @@ public class ButtonTestCase extends WiQueryTestCase
 	@Test
 	public void testGetIcons()
 	{
-		assertNull(buttonBehavior.getIcons());
-		buttonBehavior.setIcons(new ButtonIcon("ui-icon-gear", "ui-icon-triangle-1-s"));
-		assertNotNull(buttonBehavior.getIcons());
-		assertEquals(buttonBehavior.getIcons().getJavascriptOption().toString(),
-			"{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}");
-
-		buttonBehavior.setIcons(UiIcon.GEAR, UiIcon.TRIANGLE_1_SOUTH);
-		assertNotNull(buttonBehavior.getIcons());
-		assertEquals(buttonBehavior.getIcons().getJavascriptOption().toString(),
-			"{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}");
+		assertNull(buttonBehavior.getIcon());
+		buttonBehavior.setIcon(UiIcon.GEAR);
+		assertEquals(buttonBehavior.getIcon(), UiIcon.GEAR);
 	}
 
 	/**
@@ -162,13 +153,13 @@ public class ButtonTestCase extends WiQueryTestCase
 	 * Test method for {@link ButtonBehavior#isText()}.
 	 */
 	@Test
-	public void testIsText()
+	public void testIsShowLabel()
 	{
-		assertTrue(buttonBehavior.isText());
-		buttonBehavior.setText(false);
-		assertFalse(buttonBehavior.isText());
+		assertTrue(buttonBehavior.isShowLabel());
+		buttonBehavior.setShowLabel(false);
+		assertFalse(buttonBehavior.isShowLabel());
 	}
-	
+
 	/**
 	 * Test method for {@link ButtonBehavior#destroy()}.
 	 */
@@ -198,7 +189,7 @@ public class ButtonTestCase extends WiQueryTestCase
 		assertNotNull(buttonBehavior.enable());
 		assertEquals(buttonBehavior.enable().render().toString(), "$('#anId').button('enable');");
 	}
-	
+
 	/**
 	 * Test method for {@link ButtonBehavior#refresh()}.
 	 */

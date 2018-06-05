@@ -62,8 +62,7 @@ public class DroppableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#destroy()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#destroy()} .
 	 */
 	@Test
 	public void testDestroy()
@@ -74,8 +73,7 @@ public class DroppableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#disable()}
-	 * .
+	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#disable()} .
 	 */
 	@Test
 	public void testDisable()
@@ -97,8 +95,7 @@ public class DroppableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#getAccept()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#getAccept()}.
 	 */
 	@Test
 	public void testGetAccept()
@@ -136,8 +133,7 @@ public class DroppableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#getOptions()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions()
@@ -150,8 +146,7 @@ public class DroppableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#getScope()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#getScope()}.
 	 */
 	@Test
 	public void testGetScope()
@@ -186,8 +181,7 @@ public class DroppableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#isDisabled()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled()
@@ -198,8 +192,7 @@ public class DroppableBehaviorTestCase extends WiQueryTestCase
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#isGreedy()}.
+	 * Test method for {@link org.wicketstuff.wiquery.ui.droppable.DroppableBehavior#isGreedy()}.
 	 */
 	@Test
 	public void testIsGreedy()

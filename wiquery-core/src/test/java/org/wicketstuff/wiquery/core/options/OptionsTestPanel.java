@@ -4,7 +4,6 @@
 package org.wicketstuff.wiquery.core.options;
 
 import org.apache.wicket.markup.html.panel.Panel;
-import org.wicketstuff.wiquery.core.options.Options;
 
 /**
  * @author Ernesto Reinaldo Barreiro

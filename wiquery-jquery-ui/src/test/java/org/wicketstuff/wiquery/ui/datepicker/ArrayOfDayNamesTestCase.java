@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
-import org.wicketstuff.wiquery.ui.datepicker.ArrayOfDayNames;
 
 public class ArrayOfDayNamesTestCase extends WiQueryTestCase
 {
@@ -15,13 +14,12 @@ public class ArrayOfDayNamesTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOption()
 	{
-		ArrayOfDayNames arrays =
-			new ArrayOfDayNames("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi",
-				"Samedi");
+		ArrayOfDayNames arrays = new ArrayOfDayNames("Dimanche", "Lundi", "Mardi", "Mercredi",
+			"Jeudi", "Vendredi", "Samedi");
 
 		// Names param
-		String expectedJavascript =
-			"['Dimanche','Lundi','Mardi','Mercredi'" + ",'Jeudi','Vendredi','Samedi']";
+		String expectedJavascript = "['Dimanche','Lundi','Mardi','Mercredi'" +
+			",'Jeudi','Vendredi','Samedi']";
 		String generatedJavascript = arrays.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);

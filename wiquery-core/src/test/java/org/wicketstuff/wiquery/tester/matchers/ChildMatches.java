@@ -6,8 +6,7 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
 /**
- * Matcher die controleert of een kind van het huidige component voldoet aan de opgegeven
- * matcher.
+ * Matcher die controleert of een kind van het huidige component voldoet aan de opgegeven matcher.
  */
 public class ChildMatches implements ComponentMatcher
 {
@@ -25,7 +24,7 @@ public class ChildMatches implements ComponentMatcher
 		// alleen markupcontainers hebben kinderen
 		if (component instanceof MarkupContainer)
 		{
-			MarkupContainer container = (MarkupContainer) component;
+			MarkupContainer container = (MarkupContainer)component;
 			ChildMatchingVisitor visitor = new ChildMatchingVisitor();
 			container.visitChildren(visitor);
 			return visitor.matches;

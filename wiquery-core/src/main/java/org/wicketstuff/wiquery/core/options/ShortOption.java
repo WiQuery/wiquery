@@ -34,7 +34,8 @@ import org.apache.wicket.model.IModel;
  * <p>
  * The {@link Short} <code>1</code> should be rendered as <code>1</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
  * @author Ernesto Reinaldo Barreiro
@@ -76,9 +77,9 @@ public class ShortOption extends AbstractOption<Short>
 	@Override
 	public IModelOption<Short> wrapOnAssignment(Component component)
 	{
-		if (getModel() instanceof IComponentAssignedModel< ? >)
+		if (getModel() instanceof IComponentAssignedModel<?>)
 			return new ShortOption(
-				((IComponentAssignedModel<Short>) getModel()).wrapOnAssignment(component));
+				((IComponentAssignedModel<Short>)getModel()).wrapOnAssignment(component));
 		return this;
 	}
 }

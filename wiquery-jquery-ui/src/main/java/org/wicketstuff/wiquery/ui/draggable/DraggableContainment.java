@@ -62,11 +62,9 @@ public class DraggableContainment implements IComplexOption
 	 * @author Julien
 	 * 
 	 */
-	public enum ContainmentEnum
-	{
-		PARENT(new LiteralOption("parent")),
-		DOCUMENT(new LiteralOption("document")),
-		WINDOW(new LiteralOption("window"));
+	public enum ContainmentEnum {
+		PARENT(new LiteralOption("parent")), DOCUMENT(new LiteralOption("document")), WINDOW(
+			new LiteralOption("window"));
 
 		// Properties
 		private LiteralOption literalParam;
@@ -121,8 +119,7 @@ public class DraggableContainment implements IComplexOption
 	 */
 	public DraggableContainment(Integer x1, Integer y1, Integer x2, Integer y2)
 	{
-		ArrayItemOptions<IntegerItemOptions> tempArrayParam =
-			new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> tempArrayParam = new ArrayItemOptions<>();
 		tempArrayParam.add(new IntegerItemOptions(x1));
 		tempArrayParam.add(new IntegerItemOptions(y1));
 		tempArrayParam.add(new IntegerItemOptions(x2));
@@ -166,7 +163,7 @@ public class DraggableContainment implements IComplexOption
 	 *            Selector
 	 */
 	private DraggableContainment(ArrayItemOptions<IntegerItemOptions> arrayParam,
-			ContainmentEnum containmentEnumParam, String stringParam, LiteralOption selector)
+		ContainmentEnum containmentEnumParam, String stringParam, LiteralOption selector)
 	{
 		super();
 		setParam(arrayParam, containmentEnumParam, stringParam, selector);
@@ -207,8 +204,8 @@ public class DraggableContainment implements IComplexOption
 	@Override
 	public CharSequence getJavascriptOption()
 	{
-		if (containmentEnumParam == null && arrayParam == null && stringParam == null
-			&& selector == null)
+		if (containmentEnumParam == null && arrayParam == null && stringParam == null &&
+			selector == null)
 		{
 			throw new IllegalArgumentException(
 				"The DraggableContainment must have one not null parameter");
@@ -255,8 +252,7 @@ public class DraggableContainment implements IComplexOption
 	 */
 	public void setArrayParam(Integer x1, Integer y1, Integer x2, Integer y2)
 	{
-		ArrayItemOptions<IntegerItemOptions> tempArrayParam =
-			new ArrayItemOptions<IntegerItemOptions>();
+		ArrayItemOptions<IntegerItemOptions> tempArrayParam = new ArrayItemOptions<>();
 		tempArrayParam.add(new IntegerItemOptions(x1));
 		tempArrayParam.add(new IntegerItemOptions(y1));
 		tempArrayParam.add(new IntegerItemOptions(x2));
@@ -311,7 +307,7 @@ public class DraggableContainment implements IComplexOption
 	 *            Selector
 	 */
 	private void setParam(ArrayItemOptions<IntegerItemOptions> arrayParam,
-			ContainmentEnum containmentEnumParam, String stringParam, LiteralOption selector)
+		ContainmentEnum containmentEnumParam, String stringParam, LiteralOption selector)
 	{
 		this.arrayParam = arrayParam;
 		this.containmentEnumParam = containmentEnumParam;
