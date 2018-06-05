@@ -26,9 +26,9 @@ public class DialogButtonTestCase extends WiQueryTestCase
 
 		button.setIcon(UiIcon.ARROW_1_EAST);
 		button.setIconPosition("bottom");
-		button.setShowLabel(false);
-		expectedJavascript = "{label: 'Ok', click: function() {\n\talert('test');\n}, icon: " +
-			"'ui-icon-arrow-1-e', showLabel: false}";
+		button.setShowText(false);
+		expectedJavascript = "{text: 'Ok', click: function() {\n\talert('test');\n}, icon: " +
+			"'ui-icon-arrow-1-e', iconPosition: 'bottom', showText: false}";
 		generatedJavascript = button.getJavascriptOption().toString();
 
 		log.info(expectedJavascript);

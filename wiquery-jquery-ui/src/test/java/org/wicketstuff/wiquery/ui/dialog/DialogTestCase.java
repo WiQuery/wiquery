@@ -86,7 +86,7 @@ public class DialogTestCase extends WiQueryTestCase
 		dialog.setButtons(array);
 		assertNotNull(dialog.getButtons());
 		assertEquals(dialog.getButtons().getJavascriptOption().toString(),
-			"[{label: 'a title', click: function() {\n\talert('a test');\n}}]");
+			"[{text: 'a title', click: function() {\n\talert('a test');\n}}]");
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class DialogTestCase extends WiQueryTestCase
 	{
 		AjaxDialogTestPage page = tester.startPage(AjaxDialogTestPage.class);
 		String realValue = page.getOk().getJavascriptOption().toString();
-		String expectedOk = "{label: 'Ok', click: function (event,ui) {\n" +
+		String expectedOk = "{text: 'Ok', click: function (event,ui) {\n" +
 			"var attrs = {\"u\":\"./wicket/bookmarkable/org.wicketstuff.wiquery.ui.dialog.AjaxDialogTestPage?1-1.0-dialog\",\"c\":\"dialog1\"};\n" +
 			"var params = [{\"name\":\"eventName\",\"value\":'Ok'}];\n" +
 			"attrs.ep = params.concat(attrs.ep || []);\n" + "Wicket.Ajax.ajax(attrs);\n" + "}\n" +

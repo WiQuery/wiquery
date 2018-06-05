@@ -70,7 +70,7 @@ public class DialogButton extends Object implements IListItemOption
 	{
 		super();
 		options = new Options();
-		setLabel(text);
+		setText(text);
 		setClick(jsScope);
 	}
 
@@ -135,13 +135,13 @@ public class DialogButton extends Object implements IListItemOption
 	}
 
 	/**
-	 * @return the showLabel option value
+	 * @return the showText option value
 	 */
-	public boolean isShowLabel()
+	public boolean isShowText()
 	{
-		if (options.containsKey("showLabel"))
+		if (options.containsKey("showText"))
 		{
-			return options.getBoolean("showLabel");
+			return options.getBoolean("showText");
 		}
 		return true;
 	}
@@ -153,9 +153,9 @@ public class DialogButton extends Object implements IListItemOption
 	 * @param text
 	 * @return the Button
 	 */
-	public DialogButton setShowLabel(boolean showLabel)
+	public DialogButton setShowText(boolean showText)
 	{
-		options.put("showLabel", showLabel);
+		options.put("showText", showText);
 		return this;
 	}
 
@@ -208,11 +208,11 @@ public class DialogButton extends Object implements IListItemOption
 	}
 
 	/**
-	 * @return the label value option
+	 * @return the text value option
 	 */
-	public String getLabel()
+	public String getText()
 	{
-		return options.getLiteral("label");
+		return options.getLiteral("text");
 	}
 
 	/**
@@ -223,9 +223,9 @@ public class DialogButton extends Object implements IListItemOption
 	 * @param label
 	 * @return the button
 	 */
-	public DialogButton setLabel(String label)
+	public DialogButton setText(String text)
 	{
-		options.putLiteral("label", label);
+		options.putLiteral("text", text);
 		return this;
 	}
 
@@ -237,9 +237,9 @@ public class DialogButton extends Object implements IListItemOption
 	 * @param label
 	 * @return the button
 	 */
-	public DialogButton setLabel(IModel<String> label)
+	public DialogButton setText(IModel<String> text)
 	{
-		options.putLiteral("label", label);
+		options.putLiteral("text", text);
 		return this;
 	}
 

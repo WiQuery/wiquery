@@ -21,7 +21,7 @@ public abstract class AjaxDialogButton extends DialogButton
 
 		public AjaxDialogButtonCallback()
 		{
-			super(getLabel());
+			super(getText());
 		}
 
 		@Override

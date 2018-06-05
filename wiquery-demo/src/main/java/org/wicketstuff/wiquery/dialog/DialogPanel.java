@@ -41,7 +41,8 @@ public class DialogPanel extends Panel
 		dialog.setShow(new DialogAnimateOption("fold"));
 		dialog.setHide(new DialogAnimateOption(100));
 		dialog.setButtons(
-			new DialogButton("Close", JsScope.quickScope(dialog.close())).setIcon(UiIcon.CLOSE));
+			new DialogButton("Close", JsScope.quickScope(dialog.close())).setShowText(true)
+				.setIcon(UiIcon.CLOSE));
 		dialogContainer.add(dialog);
 
 		final AjaxLink<Void> openDialog = new AjaxLink<Void>("openDialog")
