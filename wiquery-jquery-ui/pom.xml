@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.wicketstuff.wiquery</groupId>
 		<artifactId>wiquery-parent</artifactId>
-		<version>8.0</version>
+		<version>8.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>wiquery-jquery-ui</artifactId>
