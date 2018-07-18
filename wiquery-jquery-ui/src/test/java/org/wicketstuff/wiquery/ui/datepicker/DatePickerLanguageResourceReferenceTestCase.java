@@ -1,6 +1,7 @@
 package org.wicketstuff.wiquery.ui.datepicker;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -74,6 +75,30 @@ public class DatePickerLanguageResourceReferenceTestCase extends WiQueryTestCase
 
 		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.SERBIA).toString(),
 			"i18n/datepicker-sr-SR.js");
+	}
+	
+	@Test
+	public void testRenamedLocales() {
+		assertEquals(DatePickerLanguages.INDONESIAN,
+			DatePickerLanguages.getDatePickerLanguages(new Locale("id")));
+		assertEquals(DatePickerLanguages.INDONESIAN,
+			DatePickerLanguages.getDatePickerLanguages(new Locale("in")));
+		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.INDONESIAN).toString(),
+			"i18n/datepicker-in.js");
+		
+		assertEquals(DatePickerLanguages.HEBREW,
+			DatePickerLanguages.getDatePickerLanguages(new Locale("he")));
+		assertEquals(DatePickerLanguages.HEBREW,
+			DatePickerLanguages.getDatePickerLanguages(new Locale("iw")));
+		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.HEBREW).toString(),
+			"i18n/datepicker-iw.js");
+		
+		// Yiddish does not (yet) have i18n
+		assertNull(DatePickerLanguages.getDatePickerLanguages(new Locale("ji")));
+		assertNull(DatePickerLanguages.getDatePickerLanguages(new Locale("yi")));
+		
+		// kz does not exist
+		assertNotEquals(new Locale("kk"), new Locale("kz"));
 	}
 
 	@Override
