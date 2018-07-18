@@ -14,7 +14,7 @@
 	<groupId>org.wicketstuff.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>8.1-SNAPSHOT</version>
+	<version>8.1</version>
 	<name>WiQuery Parent</name>
 
 	<licenses>
@@ -29,7 +29,7 @@
 		<url>git://github.com/wicketstuff/wiquery.git</url>
 		<connection>scm:git:git://github.com/wicketstuff/wiquery.git</connection>
 		<developerConnection>scm:git:git@github.com:wicketstuff/wiquery.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>wiquery-8.1</tag>
   </scm>
 
 	<profiles>
