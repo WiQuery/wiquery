@@ -14,7 +14,7 @@
 	<groupId>org.wicketstuff.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>8.2-SNAPSHOT</version>
+	<version>8.1.1-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
 
 	<licenses>
