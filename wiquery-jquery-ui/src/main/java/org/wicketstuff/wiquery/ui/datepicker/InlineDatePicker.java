@@ -87,6 +87,11 @@ public class InlineDatePicker<T> extends WebMarkupContainer
 		response
 			.render(JavaScriptHeaderItem.forReference(JQueryUIJavaScriptResourceReference.get()));
 
+		DatePickerLanguageResourceReference dpl =
+			DatePickerLanguageResourceReference.get(getLocale());
+		if (dpl != null)
+			response.render(JavaScriptHeaderItem.forReference(dpl));
+
 		response.render(OnDomReadyHeaderItem.forScript(new JsQuery(this).$()
 			.chain("datepicker", options.getOptions().getJavaScriptOptions())
 			.render()
