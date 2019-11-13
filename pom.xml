@@ -58,7 +58,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<wicket.version>7.0.0</wicket.version>
-		<jackson.version>2.3.0</jackson.version>
+		<jackson.version>2.9.10.1</jackson.version>
 		<slf4j.version>[1.7,1.7.5]</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<servlet-api.version>3.0.1</servlet-api.version>
