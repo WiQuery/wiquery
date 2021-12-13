@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>wiquery-parent</artifactId>
 		<groupId>org.wicketstuff.wiquery</groupId>
-		<version>8.1.2-SNAPSHOT</version>
+		<version>9.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>wiquery-demo</artifactId>
@@ -25,9 +25,16 @@
 
 		<!-- Test dependencies -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

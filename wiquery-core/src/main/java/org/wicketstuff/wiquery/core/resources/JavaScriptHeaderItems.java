@@ -12,9 +12,9 @@ public abstract class JavaScriptHeaderItems extends JavaScriptHeaderItem
 {
 	private static final long serialVersionUID = 1L;
 
-	protected JavaScriptHeaderItems(String condition)
+	protected JavaScriptHeaderItems()
 	{
-		super(condition);
+		super();
 	}
 
 	/**
