@@ -26,8 +26,10 @@
 	
 	/**
 	 * Method setting the Wicket model id into the hidden field, on the close event
+	 * @param event the JS event
 	 * @param ui UI object
 	 * @param hiddenId Identifiant of the hidden field
+	 * @param updateUrl A flag indicating whether to update the url
 	 */
 	$.ui.autocomplete.wiquery.changeEvent = function(event, ui, hiddenId, updateUrl) {
 		if(ui.item){
@@ -36,35 +38,34 @@
 		}
 		else{
 			var val = $(event.target).val();
-			var data;
+			var data = null;
 	
-			if(val == undefined || val.length <= 0){
-				data = null;
-	
-			} else {
-			  	var find = null;
+			if (val && val.length) {
+				var find = null;
 			  	var source = $(event.target).autocomplete('option', 'source');
 			  	
 			  	var matcher = new RegExp( "^" + val + "$", "i" );
-	
-			  	$.each(source, function(index, value) {
-			  		if(value && value.label && value.label.match( matcher )){
-			  			find = value;
-			  			$(event.target).val(value.label);
-			  			return false;
-			  		}
-			  	});
-	
-			  	data = find;
+
+				if ($.isArray(source)) {
+					$.each(source, function(index, value) {
+						if(value && value.label && value.label.match( matcher )){
+							find = value;
+							$(event.target).val(value.label);
+							return false;
+						}
+					});
+				}
+
+				data = find;
 			}
-			$('#' + hiddenId).val(data == undefined ? '' : data.valueId);
+			$('#' + hiddenId).val(data === null ? '' : data.valueId);
 		}
 		if(updateUrl){
 			var attrs = { u: updateUrl };
 			attrs.ep = {};
 			attrs.ep[$('#'+hiddenId).attr('name')] = $('#'+hiddenId).val();
 			attrs.ep[$(event.target).attr('name')] = $(event.target).val();
-			var wcall = Wicket.Ajax.post(attrs);
+			Wicket.Ajax.post(attrs);
 		}
 	};
 })(jQuery);
