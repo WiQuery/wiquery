@@ -61,7 +61,7 @@
 		<maven.compiler.source>11</maven.compiler.source>
 
 		<wicket.version>9.7.0</wicket.version>
-		<jackson.version>2.12.5</jackson.version>
+		<jackson.version>2.12.7.1</jackson.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<junit.version>5.10.2</junit.version>
 		<servlet-api.version>4.0.1</servlet-api.version>
