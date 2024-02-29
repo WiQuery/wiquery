@@ -60,7 +60,7 @@
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.compiler.source>11</maven.compiler.source>
 
-		<wicket.version>9.7.0</wicket.version>
+		<wicket.version>9.16.0</wicket.version>
 		<jackson.version>2.12.7.1</jackson.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<junit.version>5.10.2</junit.version>
