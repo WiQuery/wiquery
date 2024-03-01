@@ -30,17 +30,24 @@ public class DatePickerLanguageResourceReferenceTestCase extends WiQueryTestCase
 		.getLogger(DatePickerLanguageResourceReferenceTestCase.class);
 
 	@Test
-	public void testGetDatePickerLanguages()
+	public void testGetDatePickerLanguagesUnavailable()
 	{
 		Locale nonavailableLocale = new Locale("wiquery");
-		Locale availableLocale = DatePickerLanguages.ARMENIAN.getLocale();
 
 		assertNull(DatePickerLanguages.getDatePickerLanguages(nonavailableLocale));
 		assertNull(DatePickerLanguageResourceReference.get(nonavailableLocale));
+	}
+
+	@Test
+	public void testGetDatePickerLanguagesAvailable() {
+		Locale availableLocale = DatePickerLanguages.ARMENIAN.getLocale();
 
 		assertNotNull(DatePickerLanguages.getDatePickerLanguages(availableLocale));
 		assertNotNull(DatePickerLanguageResourceReference.get(availableLocale));
+	}
 
+	@Test
+	public void testGetDatePickerLanguages() {
 		for (DatePickerLanguages language : DatePickerLanguages.values())
 		{
 			// assert if the language getter is implemented correctly to return
