@@ -10,5 +10,7 @@ org.eclipse.jdt.apt.core.prefs
 org.eclipse.m2e.core.prefs
 org.eclipse.pde.core.prefs
 
+.idea
+
 wiquery-*.i*
 rebel.xml
