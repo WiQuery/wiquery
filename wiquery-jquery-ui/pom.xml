@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.wicketstuff.wiquery</groupId>
 		<artifactId>wiquery-parent</artifactId>
-		<version>9.0.0-SNAPSHOT</version>
+		<version>9.1.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>wiquery-jquery-ui</artifactId>
@@ -25,6 +25,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mozilla</groupId>
+			<artifactId>rhino</artifactId>
+			<version>1.7.14</version>
+		</dependency>
+
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -40,21 +46,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<scope>test</scope>
+			<artifactId>slf4j-reload4j</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- New Dependencies -->
-		<dependency>
-			<groupId>ro.isdc.wro4j</groupId>
-			<artifactId>rhino</artifactId>
-			<version>1.7R5-20130223-1</version>
-			<scope>test</scope>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 	</dependencies>
 </project>
