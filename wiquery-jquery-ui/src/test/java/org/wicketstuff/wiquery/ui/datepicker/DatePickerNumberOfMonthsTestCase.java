@@ -16,7 +16,7 @@ public class DatePickerNumberOfMonthsTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOption()
 	{
-		DatePickerDuration duration = new DatePickerDuration(new Short("5"));
+		DatePickerDuration duration = new DatePickerDuration(Short.parseShort("5"));
 
 		// Short param
 		String expectedJavascript = "5";

@@ -17,7 +17,7 @@ public class DateOptionTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOption()
 	{
-		DateOption dateOption = new DateOption(new Short("5"));
+		DateOption dateOption = new DateOption(Short.parseShort("5"));
 
 		// Short param
 		String expectedJavascript = "5";

@@ -18,7 +18,7 @@ public class DatePickerShortYearCutOffTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOption()
 	{
-		DatePickerNumberOfMonths numberOfMonths = new DatePickerNumberOfMonths(new Short("5"));
+		DatePickerNumberOfMonths numberOfMonths = new DatePickerNumberOfMonths(Short.parseShort("5"));
 
 		// Short param
 		String expectedJavascript = "5";
