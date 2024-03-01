@@ -77,28 +77,29 @@ public class DatePickerLanguageResourceReferenceTestCase extends WiQueryTestCase
 	{
 		assertNull(DatePickerLanguages.getJsFileName(null));
 
-		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.FRENCH).toString(),
+		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.FRENCH),
 			"i18n/datepicker-fr.js");
 
-		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.SERBIA).toString(),
+		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.SERBIA),
 			"i18n/datepicker-sr-SR.js");
 	}
 	
 	@Test
-	public void testRenamedLocales() {
-		assertEquals(DatePickerLanguages.INDONESIAN,
-			DatePickerLanguages.getDatePickerLanguages(new Locale("id")));
+	public void testRenamedLocales()
+	{
 		assertEquals(DatePickerLanguages.INDONESIAN,
 			DatePickerLanguages.getDatePickerLanguages(new Locale("in")));
-		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.INDONESIAN).toString(),
-			"i18n/datepicker-in.js");
+		assertEquals(DatePickerLanguages.INDONESIAN,
+			DatePickerLanguages.getDatePickerLanguages(new Locale("id")));
+		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.INDONESIAN),
+			"i18n/datepicker-id.js");
 		
 		assertEquals(DatePickerLanguages.HEBREW,
 			DatePickerLanguages.getDatePickerLanguages(new Locale("he")));
 		assertEquals(DatePickerLanguages.HEBREW,
 			DatePickerLanguages.getDatePickerLanguages(new Locale("iw")));
-		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.HEBREW).toString(),
-			"i18n/datepicker-iw.js");
+		assertEquals(DatePickerLanguages.getJsFileName(DatePickerLanguages.HEBREW),
+			"i18n/datepicker-he.js");
 		
 		// Yiddish does not (yet) have i18n
 		assertNull(DatePickerLanguages.getDatePickerLanguages(new Locale("ji")));
