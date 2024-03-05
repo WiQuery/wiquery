@@ -301,7 +301,7 @@ public class DatePickerOptions extends Options
 			return (DatePickerYearRange)yearRange;
 		}
 
-		return new DatePickerYearRange(new Short("-10"), new Short("10"), false);
+		return new DatePickerYearRange(Short.parseShort("-10"), Short.parseShort("10"), false);
 	}
 
 	/**
@@ -698,7 +698,7 @@ public class DatePickerOptions extends Options
 			return (DatePickerNumberOfMonths)numberOfMonths;
 		}
 
-		return new DatePickerNumberOfMonths(new Short("1"));
+		return new DatePickerNumberOfMonths(Short.parseShort("1"));
 	}
 
 	/**

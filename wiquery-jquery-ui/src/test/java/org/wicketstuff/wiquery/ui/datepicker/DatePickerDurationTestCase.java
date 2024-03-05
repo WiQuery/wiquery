@@ -15,7 +15,7 @@ public class DatePickerDurationTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOption()
 	{
-		DatePickerShortYearCutOff shortYearCutOff = new DatePickerShortYearCutOff(new Short("5"));
+		DatePickerShortYearCutOff shortYearCutOff = new DatePickerShortYearCutOff(Short.parseShort("5"));
 
 		// Short param
 		String expectedJavascript = "5";

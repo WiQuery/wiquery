@@ -1,12 +1,11 @@
 package org.wicketstuff.wiquery.ui.datepicker;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
+
+import static org.junit.Assert.*;
 
 public class DatePickerNumberOfMonthsTestCase extends WiQueryTestCase
 {
@@ -16,7 +15,7 @@ public class DatePickerNumberOfMonthsTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOption()
 	{
-		DatePickerDuration duration = new DatePickerDuration(new Short("5"));
+		DatePickerDuration duration = new DatePickerDuration(Short.parseShort("5"));
 
 		// Short param
 		String expectedJavascript = "5";
@@ -40,7 +39,7 @@ public class DatePickerNumberOfMonthsTestCase extends WiQueryTestCase
 		try
 		{
 			generatedJavascript = duration.getJavascriptOption().toString();
-			assertTrue(false);
+			fail();
 		}
 		catch (Exception e)
 		{

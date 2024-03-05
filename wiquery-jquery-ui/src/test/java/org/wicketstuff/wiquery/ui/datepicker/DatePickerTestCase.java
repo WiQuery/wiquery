@@ -264,7 +264,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	public void testGetFirstDay()
 	{
 		assertEquals(datePicker.getFirstDay(), 0);
-		datePicker.setFirstDay(new Short("1"));
+		datePicker.setFirstDay(Short.parseShort("1"));
 		assertEquals(datePicker.getFirstDay(), 1);
 	}
 
@@ -344,7 +344,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	{
 		assertNotNull(datePicker.getNumberOfMonths());
 		assertEquals(datePicker.getNumberOfMonths().getJavascriptOption().toString(), "1");
-		datePicker.setNumberOfMonths(new DatePickerNumberOfMonths(new Short("2")));
+		datePicker.setNumberOfMonths(new DatePickerNumberOfMonths(Short.parseShort("2")));
 		assertEquals(datePicker.getNumberOfMonths().getJavascriptOption().toString(), "2");
 	}
 
@@ -404,7 +404,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	public void testGetShowCurrentAtPos()
 	{
 		assertEquals(datePicker.getShowCurrentAtPos(), 0);
-		datePicker.setShowCurrentAtPos(new Short("1"));
+		datePicker.setShowCurrentAtPos(Short.parseShort("1"));
 		assertEquals(datePicker.getShowCurrentAtPos(), 1);
 	}
 
@@ -435,7 +435,7 @@ public class DatePickerTestCase extends WiQueryTestCase
 	public void testGetStepMonths()
 	{
 		assertEquals(datePicker.getStepMonths(), 1);
-		datePicker.setStepMonths(new Short("5"));
+		datePicker.setStepMonths(Short.parseShort("5"));
 		assertEquals(datePicker.getStepMonths(), 5);
 	}
 
@@ -458,10 +458,10 @@ public class DatePickerTestCase extends WiQueryTestCase
 	{
 		assertNotNull(datePicker.getYearRange());
 		assertEquals(datePicker.getYearRange().getJavascriptOption().toString(), "'c-10:c+10'");
-		datePicker.setYearRange(new DatePickerYearRange(new Short("-10"), new Short("10")));
+		datePicker.setYearRange(new DatePickerYearRange(Short.parseShort("-10"), Short.parseShort("10")));
 		assertNotNull(datePicker.getYearRange());
 		assertEquals(datePicker.getYearRange().getJavascriptOption().toString(), "'-10:10'");
-		datePicker.setYearRange(new DatePickerYearRange(new Short("-20"), new Short("20")));
+		datePicker.setYearRange(new DatePickerYearRange(Short.parseShort("-20"), Short.parseShort("20")));
 		assertEquals(datePicker.getYearRange().getJavascriptOption().toString(), "'-20:20'");
 	}
 
@@ -492,8 +492,8 @@ public class DatePickerTestCase extends WiQueryTestCase
 	@Test
 	public void testHideShort()
 	{
-		assertNotNull(datePicker.hide(new Short("5")));
-		assertEquals(datePicker.hide(new Short("5")).render().toString(),
+		assertNotNull(datePicker.hide(Short.parseShort("5")));
+		assertEquals(datePicker.hide(Short.parseShort("5")).render().toString(),
 			"$('#anId').datepicker('hide', 5);");
 	}
 

@@ -68,7 +68,7 @@ public class DatePickerPanel extends Panel
 		withDropDownDatePicker.setChangeMonth(true);
 		withDropDownDatePicker.setChangeYear(true);
 		withDropDownDatePicker
-			.setYearRange(new DatePickerYearRange(new Short("-20"), new Short("20"), true));
+			.setYearRange(new DatePickerYearRange(Short.parseShort("-20"), Short.parseShort("20"), true));
 
 		// Label
 		withDropDownDatePicker.setLabel(Model.of("Year/month dropdown"));

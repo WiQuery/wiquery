@@ -1,14 +1,13 @@
 package org.wicketstuff.wiquery.ui.datepicker;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.GregorianCalendar;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.tester.WiQueryTestCase;
+
+import static org.junit.Assert.*;
 
 public class DateOptionTestCase extends WiQueryTestCase
 {
@@ -17,7 +16,7 @@ public class DateOptionTestCase extends WiQueryTestCase
 	@Test
 	public void testGetJavaScriptOption()
 	{
-		DateOption dateOption = new DateOption(new Short("5"));
+		DateOption dateOption = new DateOption(Short.parseShort("5"));
 
 		// Short param
 		String expectedJavascript = "5";
@@ -60,7 +59,7 @@ public class DateOptionTestCase extends WiQueryTestCase
 		try
 		{
 			generatedJavascript = dateOption.getJavascriptOption().toString();
-			assertTrue(false);
+			fail();
 		}
 		catch (Exception e)
 		{
