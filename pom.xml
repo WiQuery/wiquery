@@ -14,7 +14,7 @@
 	<groupId>org.wicketstuff.wiquery</groupId>
 	<artifactId>wiquery-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>9.1.0-SNAPSHOT</version>
+	<version>10.0.0-M2-SNAPSHOT</version>
 	<name>WiQuery Parent</name>
 
 	<licenses>
@@ -60,12 +60,12 @@
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.compiler.source>11</maven.compiler.source>
 
-		<wicket.version>9.16.0</wicket.version>
+		<wicket.version>10.0.0-M2</wicket.version>
 		<jackson.version>2.16.1</jackson.version>
 		<slf4j.version>2.0.12</slf4j.version>
 		<junit.version>5.10.2</junit.version>
-		<servlet-api.version>4.0.4</servlet-api.version>
-		<jetty.version>9.4.54.v20240208</jetty.version>
+		<servlet-api.version>6.0.0</servlet-api.version>
+		<jetty.version>11.0.20</jetty.version>
 		<rhino.version>1.7.14</rhino.version>
 	</properties>
 
@@ -303,7 +303,6 @@
 					<version>3.6.3</version>
 					<configuration>
 						<encoding>UTF-8</encoding>
-						<additionalparam>-Xdoclint:none</additionalparam>
 					</configuration>
 				</plugin>
 				<plugin>

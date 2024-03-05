@@ -52,7 +52,7 @@ public final class WiQueryUtil
 		}
 		else
 		{
-			reference = JQueryResourceReference.getV1();
+			reference = JQueryResourceReference.getV3();
 		}
 		return reference;
 	}
