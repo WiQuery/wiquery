@@ -68,9 +68,9 @@ public class DatePickerLanguageResourceReferenceTestCase
 			String absolutePath =
 				Packages.absolutePath(DatePickerLanguageResourceReference.class,
 					DatePickerLanguages.getJsFileName(language));
-//			assertNotNull("Resource " + DatePickerLanguages.getJsFileName(language)
-//				+ " for locale " + language.getLocale() + " does not exist!",
-//				locator.locate(DatePickerLanguageResourceReference.class, absolutePath));
+			assertNotNull(locator.locate(DatePickerLanguageResourceReference.class, absolutePath),
+				"Resource " + DatePickerLanguages.getJsFileName(language) +
+					" for locale " + language.getLocale() + " does not exist!");
 		}
 	}
 
